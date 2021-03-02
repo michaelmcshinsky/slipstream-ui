@@ -1,0 +1,88 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "config.js"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css && tailwindcss build src/assets/css/tailwind.css -o .storybook/public/styles.css",
+    "tailwind:build": "cross-env NODE_ENV=production postcss src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
+    "prestart": "npm run tailwind:dev",
+    "start": "tsdx watch",
+    "prebuild": "npm run tailwind:build",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "npm run tailwind:dev && start-storybook -s ./.storybook/public -p 6006",
+    "build-storybook": "npm run tailwind:dev && build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@magitek/react-ui",
+  "author": "Michael McShinsky",
+  "module": "dist/@magitek/react-ui.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/@magitek/react-ui.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/@magitek/react-ui.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "@storybook/addon-actions": "^6.1.20",
+    "@storybook/addon-essentials": "^6.1.20",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.1.20",
+    "@storybook/addons": "^6.1.20",
+    "@storybook/react": "^6.1.20",
+    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "@types/classnames": "^2.2.11",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "autoprefixer": "^9",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "husky": "^5.1.2",
+    "postcss": "8",
+    "postcss-cli": "^8.3.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-is": "^17.0.1",
+    "size-limit": "^4.9.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.2"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.2.1",
+    "classnames": "^2.2.6"
+  }
+}
