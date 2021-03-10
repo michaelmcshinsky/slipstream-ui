@@ -1,39 +1,54 @@
-import React from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 import classNames from 'classnames';
+import theme from '../theme/default';
 
-export interface InputProps {
+export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   className?: string;
   placeholder?: string;
   disabled?: boolean;
   invalid?: boolean;
   success?: boolean;
-  size?: string;
+  size?: 'sm' | 'md' | 'lg';
   type?: string;
-};
+}
 
-export function Input(props: InputProps) {
-  const { className, placeholder, disabled, invalid, success, size, type, ...attrs } = props;
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  const {
+    className,
+    placeholder,
+    disabled,
+    invalid,
+    success,
+    size,
+    type,
+    ...attrs
+  } = props;
 
   const classes = classNames(
-    'border border-solid rounded focus:border-black transition-colors duration-500',
-    'active:border-blue-500 outline-none focus:outline-none focus:border-blue-500',
-    'w-full leading-tight',
-    invalid ? 'border-red-400' : success ? 'border-green-500' : 'border-gray-300',
-    { 'text-xs py-1 px-2': size === 'sm' },
-    { 'text-sm p-2': size === 'md' || !size },
-    { 'text-base py-2 px-3': size === 'lg' },
-    { 'opacity-50 bg-gray-100 cursor-not-allowed' : disabled },
+    'w-full',
+    theme.form.base,
+    invalid
+      ? theme.form.invalid
+      : success
+      ? theme.form.success
+      : theme.form.default,
+    { [theme.form.size.sm]: size === 'sm' },
+    { [theme.form.size.md]: size === 'md' || !size },
+    { [theme.form.size.lg]: size === 'lg' },
+    disabled && theme.disabled,
     className
   );
 
   return (
     <input
+      ref={ref}
       className={classes}
+      disabled={disabled}
       placeholder={placeholder}
       type={type}
       {...attrs}
     />
   );
-}
+});
 
 export default Input;
