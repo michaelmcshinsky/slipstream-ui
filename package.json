@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "npm run tailwind:dev && start-storybook -s ./.storybook/public -p 6006",
-    "build-storybook": "npm run tailwind:dev && build-storybook"
+    "build-storybook": "npm run tailwind:dev && build-storybook && cp src/assets/css/tailwind.output.css storybook-static/styles.css"
   },
   "peerDependencies": {
     "react": ">=16"
