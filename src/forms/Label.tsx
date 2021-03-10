@@ -1,26 +1,28 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface LabelProps {
+  htmlFor?: any;
   className?: string;
-  size?: string;
+  size?: 'sm' | 'md' | 'lg';
   children?: ReactNode;
 }
 
-export function Label(props: LabelProps) {
-  const { className, size, children } = props;
+export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
+  const { className, htmlFor, size = 'md', children, ...attributes } = props;
   const classes = classnames(
-    'inline-block mb-2 text-gray-700', 
-  { 'text-xs': size === 'sm' },
-  { 'text-sm': size === 'md' || !size },
-  { 'text-base': size === 'lg' },
-  className)
+    'inline-block mb-2 text-gray-700',
+    { 'text-xs': size === 'sm' },
+    { 'text-sm': size === 'md' || !size },
+    { 'text-base': size === 'lg' },
+    className
+  );
 
   return (
-    <label className={classes}>
+    <label ref={ref} htmlFor={htmlFor} className={classes} {...attributes}>
       {children}
     </label>
-  )
-}
+  );
+});
 
-export default Label
+export default Label;

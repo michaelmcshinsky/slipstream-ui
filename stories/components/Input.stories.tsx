@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Input, InputProps } from '../src/forms/Input';
-import { Label } from '../src/forms/Label';
+import { Input, InputProps } from '../../src/forms/Input';
 
 export default {
   title: 'Components/Forms/Input',
@@ -12,39 +11,35 @@ export default {
       control: {
         type: 'select',
         options: [
-          "button",
-          "checkbox",
-          "color",
-          "date",
-          "datetime-local",
-          "email",
-          "file",
-          "hidden",
-          "image",
-          "month",
-          "number",
-          "password",
-          "radio",
-          "range",
-          "reset",
-          "search",
-          "submit",
-          "tel",
-          "text",
-          "time",
-          "url",
-          "week",
+          'button',
+          'checkbox',
+          'color',
+          'date',
+          'datetime-local',
+          'email',
+          'file',
+          'hidden',
+          'image',
+          'month',
+          'number',
+          'password',
+          'radio',
+          'range',
+          'reset',
+          'search',
+          'submit',
+          'tel',
+          'text',
+          'time',
+          'url',
+          'week',
         ],
       },
     },
     size: {
       control: {
         type: 'select',
-        options: [
-          "sm",
-          "md",
-          "lg",
-        ],
+        options: ['sm', 'md', 'lg'],
       },
     },
   },
@@ -53,12 +48,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<InputProps> = args => (
-  <>
-  <Label>Label</Label>
-  <Input {...args} />
-  </>
-);
+const Template: Story<InputProps> = args => <Input {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
