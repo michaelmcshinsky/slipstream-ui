@@ -8,7 +8,7 @@ function arrayMergeFn (destinationArray, sourceArray) {
   }, []);
 }
 
-const magitekConfig = {
+const slipstreamConfig = {
   purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -44,7 +44,7 @@ function wrapper (tailwindConfig) {
   } else {
     purge = tailwindConfig.purge;
   }
-  return deepMerge({ ...tailwindConfig, purge }, magitekConfig, { arrayMerge: arrayMergeFn });
+  return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, { arrayMerge: arrayMergeFn });
 }
 
 module.exports = wrapper;
