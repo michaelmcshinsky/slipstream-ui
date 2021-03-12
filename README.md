@@ -1,13 +1,13 @@
 <p align="center">
-  <a href="slipstream-ui.netlify.app">
+  <a href="https://slipstream-ui.netlify.app">
     <img src="slipstream.svg" height="75">
   </a>
 </p>
 <h3 align="center">
-  <b>SlipStream UI</b>
+  <b>Slipstream UI</b>
 </h3>
 <p align="center">
-  A component library combining React with Tailwindcss.
+  A component library combining React with Tailwindcss built with TypeScript.
 </p>
 <hr/>
 
