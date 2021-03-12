@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -12,19 +12,20 @@
     "node": ">=10"
   },
   "scripts": {
-    "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css && tailwindcss build src/assets/css/tailwind.css -o .storybook/public/styles.css",
-    "tailwind:build": "cross-env NODE_ENV=production postcss src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
-    "prestart": "npm run tailwind:dev",
+    "tailwind": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css && npm run tailwind:storybook && npm run tailwind:docs",
+    "tailwind:storybook": "cp src/assets/css/tailwind.output.css .storybook/public/styles.css",
+    "tailwind:docs": "cp src/assets/css/tailwind.output.css docs/styles.css",
+    "prestart": "npm run tailwind",
     "start": "tsdx watch",
-    "prebuild": "npm run tailwind:build",
+    "prebuild": "npm run tailwind",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "storybook": "npm run tailwind:dev && start-storybook -s ./.storybook/public -p 6006",
-    "build-storybook": "npm run tailwind:dev && build-storybook && cp src/assets/css/tailwind.output.css storybook-static/styles.css"
+    "storybook": "npm run tailwind && start-storybook -s ./.storybook/public -p 6006",
+    "build-storybook": "npm run tailwind && build-storybook && cp src/assets/css/tailwind.output.css storybook-static/styles.css"
   },
   "peerDependencies": {
     "react": ">=16"
