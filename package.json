@@ -12,7 +12,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "tailwind": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css && npm run tailwind:storybook && npm run tailwind:docs",
+    "tailwind": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css && npm run tailwind:storybook",
     "tailwind:storybook": "cp src/assets/css/tailwind.output.css .storybook/public/styles.css",
     "tailwind:docs": "cp src/assets/css/tailwind.output.css docs/styles.css",
     "prestart": "npm run tailwind",
