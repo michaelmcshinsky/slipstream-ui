@@ -50,3 +50,9 @@ function Example () {
   )
 }
 ```
+
+## Development
+
+Want to contribute? Check out the project roadmap! To get started, clone down the repo and start working on a given component. Make a pull request with detailed information about the component created, and options that exist. Ideally, add it to the Storybook stories as well.
+
+Storybook makes it easy to see your component in action as your develop it. To use Storybook, run `yarn storybook` to spin up the local server. Add a story matching your component to see a live demo of the component and you are good to go!.
