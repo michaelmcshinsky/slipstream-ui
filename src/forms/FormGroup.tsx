@@ -6,18 +6,17 @@ export interface FormGroupProps {
   children?: ReactNode;
 }
 
-export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>((props, ref) => {
-  const { className, children, ...attributes } = props;
-  const classes = classnames(
-    'mb-4',
-    className
-  );
+export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
+  (props, ref) => {
+    const { className, children, ...attributes } = props;
+    const classes = classnames('mb-4', className);
 
-  return (
-    <div ref={ref} className={classes} {...attributes}>
-      {children}
-    </div>
-  );
-});
+    return (
+      <div ref={ref} className={classes} {...attributes}>
+        {children}
+      </div>
+    );
+  }
+);
 
 export default FormGroup;

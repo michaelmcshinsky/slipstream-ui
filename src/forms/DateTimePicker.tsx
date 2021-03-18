@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function DateTimePicker() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default DateTimePicker
+export default DateTimePicker;

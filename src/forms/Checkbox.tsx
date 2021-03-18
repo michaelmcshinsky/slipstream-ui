@@ -47,7 +47,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       'inline-block align-middle form-checkbox border-1 rounded select-none appearance-none flex-shrink-0',
       { 'w-4 h-4': size === 'md' || !size },
       { 'w-6 h-6': size === 'lg' },
-      color && theme.checkbox.color[color],
+      color && theme.checkbox.color[color]
     );
 
     const labelClasses = classNames(

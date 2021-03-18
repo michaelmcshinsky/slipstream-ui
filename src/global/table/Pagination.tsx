@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function Pagination() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default Pagination
+export default Pagination;

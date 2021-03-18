@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function TimePicker() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default TimePicker
+export default TimePicker;
