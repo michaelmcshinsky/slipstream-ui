@@ -24,7 +24,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
     if (label) {
       return label;
     } else if (src) {
-      return <img src={src} alt="avatar" className="max-w-full max-h-full"/>;
+      return <img src={src} alt="avatar" className="max-w-full max-h-full" />;
     } else {
       return null;
     }

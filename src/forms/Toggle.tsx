@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function Toggle() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default Toggle
+export default Toggle;

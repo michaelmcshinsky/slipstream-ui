@@ -18,7 +18,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     children,
     ...attributes
   } = props;
-  
+
   const classes = classnames(
     'inline-block mb-2 text-gray-700',
     { 'text-xs': size === 'sm' },

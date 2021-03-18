@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function ListGroupItem() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default ListGroupItem
+export default ListGroupItem;

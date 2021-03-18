@@ -39,12 +39,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     );
 
     return (
-      <select
-        ref={ref}
-        className={classes}
-        disabled={disabled}
-        {...attrs}
-      >
+      <select ref={ref} className={classes} disabled={disabled} {...attrs}>
         {children}
       </select>
     );
