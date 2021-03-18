@@ -9,6 +9,9 @@
 <p align="center">
   A component library combining React with Tailwindcss built with TypeScript.
 </p>
+<p align="center">
+  <a href="https://slipstream-ui.netlify.app">Storybook</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1">Roadmap</a>
+</p>
 <hr/>
 
 ## Installation
@@ -21,7 +24,7 @@ yarn add slipstream-ui
 
 ## Usage
 
-Slipstream UI is a wrapper for tailwind as well as a component library used in react. You will first need to add the wrapper to your tailwind.config.js file.
+Slipstream UI is a wrapper for Tailwindcss as well as a component library built using React. You will first need to add the wrapper to your tailwind.config.js file.
 
 ```
 const slipstream = require('slipstream-ui/config')
@@ -37,7 +40,7 @@ module.exports = slipstream({
 })
 ```
 
-You know have access to all `Slipstream` components inside your React app.
+You now have access to all `Slipstream` components inside your React app.
 
 ### Example
 
@@ -53,6 +56,13 @@ function Example () {
 
 ## Development
 
-Want to contribute? Check out the project roadmap! To get started, clone down the repo and start working on a given component. Make a pull request with detailed information about the component created, and options that exist. Ideally, add it to the Storybook stories as well.
+Want to contribute? Check out the <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1">project roadmap</a>! To make a contribution, follow these general steps:
 
-Storybook makes it easy to see your component in action as your develop it. To use Storybook, run `yarn storybook` to spin up the local server. Add a story matching your component to see a live demo of the component and you are good to go!.
+1. Pull <small>(contributors)</small> or Fork <small>(guests)</small> repository.
+2. Create component(s) in `src` folder structure with proper exports.
+3. Create Storybook story with examples.
+4. Submit pull request detailing out component implementation and usage.
+
+Bonus points:
+* Tests added for component.
+* RTL and TTB features for language support if appropriate.
