@@ -15,6 +15,15 @@ export default {
       lg: 'text-base py-2 px-3',
     },
   },
+  checkbox: {
+    color: {
+      danger: 'text-red-500 checked:border-red-500',
+      default: 'text-blue-500 checked:border-blue-500',
+      primary: 'text-blue-500 checked:border-blue-500',
+      success: 'text-green-500 checked:border-green-500',
+      warning: 'text-yellow-500 checked:border-yellow-500',
+    }
+  },
   disabled: 'opacity-50 bg-gray-100 cursor-not-allowed',
   form: {
     base:

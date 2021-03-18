@@ -1,6 +1,6 @@
 export { Button, ButtonProps } from './Button';
 // export { ButtonGroup } from './ButtonGroup';
-// export { Checkbox } from './Checkbox';
+export { Checkbox } from './Checkbox';
 // export { Datalist } from './Datalist';
 // export { DatalistOption } from './DatalistOption';
 // export { DatePicker } from './DatePicker';
