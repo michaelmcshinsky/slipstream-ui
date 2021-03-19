@@ -8,22 +8,24 @@ export interface CardBodyProps {
   children?: ReactNode;
 }
 
-export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>((props, ref) => {
-  const { className, size, dark, children, ...attributes } = props;
-  const classes = classnames(
-    { 'px-3 p-2': size === 'sm' },
-    { 'p-3': size === 'md' || !size },
-    { 'p-4': size === 'lg' },
-    { 'text-gray-700': !dark },
-    { 'text-gray-200': dark },
-    className
-  );
+export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
+  (props, ref) => {
+    const { className, size, dark, children, ...attributes } = props;
+    const classes = classnames(
+      { 'px-3 p-2': size === 'sm' },
+      { 'p-3': size === 'md' || !size },
+      { 'p-4': size === 'lg' },
+      { 'text-gray-700': !dark },
+      { 'text-gray-200': dark },
+      className
+    );
 
-  return (
-    <div ref={ref} className={classes} {...attributes}>
-      {children}
-    </div>
-  );
-});
+    return (
+      <div ref={ref} className={classes} {...attributes}>
+        {children}
+      </div>
+    );
+  }
+);
 
 export default CardBody;

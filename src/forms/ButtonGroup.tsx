@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function ButtonGroup() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default ButtonGroup
+export default ButtonGroup;
