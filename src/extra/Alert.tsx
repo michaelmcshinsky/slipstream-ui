@@ -22,9 +22,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   } = props;
 
   const colorTheme = dark ? '500' : '100';
-  const bgTheme = color
-    ? `bg-${color}-${colorTheme}`
-    : `bg-blue-${colorTheme}`;
+  const bgTheme = color ? `bg-${color}-${colorTheme}` : `bg-blue-${colorTheme}`;
 
   const classes = classnames(
     'rounded-md flex flex-wrap items-center relative pr-10',

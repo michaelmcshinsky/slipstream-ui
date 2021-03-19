@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function Switch() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default Switch
+export default Switch;

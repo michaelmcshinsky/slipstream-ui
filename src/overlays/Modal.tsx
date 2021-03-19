@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 export function Modal() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default Modal
+export default Modal;
