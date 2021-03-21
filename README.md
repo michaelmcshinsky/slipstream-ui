@@ -1,13 +1,10 @@
 <p align="center">
   <a href="https://slipstream-ui.netlify.app">
-    <img src="slipstream.svg" height="75">
+    <img src="slipstream-banner.png">
   </a>
 </p>
-<h3 align="center">
-  <b>Slipstream UI</b>
-</h3>
 <p align="center">
-  A component library combining React with Tailwindcss built with TypeScript.
+  Component library combining React and Tailwindcss, built with TypeScript
 </p>
 <p align="center">
   <a href="https://slipstream-ui.netlify.app">Storybook</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1">Roadmap</a>
