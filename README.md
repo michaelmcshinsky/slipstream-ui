@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://slipstream-ui.netlify.app">
-    <img src="slipstream-banner.png" alt="Slipstream UI>
+    <img src="slipstream-banner.png" alt="Slipstream UI">
   </a>
 </p>
 <p align="center">
