@@ -44,6 +44,7 @@
   },
   "name": "slipstream-ui",
   "author": "Michael McShinsky",
+  "description": "Component library combining React and Tailwindcss, built with TypeScript",
   "module": "dist/slipstream-ui.esm.js",
   "size-limit": [
     {
