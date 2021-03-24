@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardBody, CardBodyProps } from '../../src/global';
+import { CardBody, CardBodyProps } from '../../src';
 
 export default {
   title: 'Components/Global/CardBody',

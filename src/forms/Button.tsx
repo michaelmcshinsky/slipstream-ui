@@ -11,13 +11,19 @@ enum ButtonEnum {
   warning,
 }
 
+enum Type {
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset',
+}
+
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   tag?: any;
   href?: string;
   className?: string;
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  type?: 'button' | 'submit' | 'reset';
+  type?: Type;
   children?: ReactNode;
   color?: keyof typeof ButtonEnum;
 }
@@ -50,12 +56,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       Tag = 'a';
     }
 
+    let defaultType: Type = Type.Button;
+
     return (
       <Tag
         ref={ref}
         href={href}
         className={classes}
         disabled={disabled}
+        type={defaultType}
         {...attrs}
       >
         {children}

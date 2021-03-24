@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormFeedback, FormFeedbackProps } from '../../src/forms/FormFeedback';
+import { FormFeedback, FormFeedbackProps } from '../../src';
 
 export default {
   title: 'Components/Forms/FormFeedback',
