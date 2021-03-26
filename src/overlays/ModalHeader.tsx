@@ -1,3 +1,4 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import React, { forwardRef, HTMLAttributes } from 'react';
 import classnames from 'classnames';
 
@@ -23,7 +24,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
     const headerClasses = classnames(
       'bg-white p-3 rounded-t border-b border-solid border-gray-300 relative',
       'flex items-center justify-between',
-      rtl ? 'flex-row-reverse pl-10': 'pr-10',
+      rtl ? 'flex-row-reverse pl-10' : 'pr-10',
       className
     );
 
@@ -37,7 +38,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
         <span className="text-xl text-gray-900">{title}</span>
         {onClose && (
           <button className={closeClasses} type="button" onClick={_onClose}>
-            <Close className="w-4"/>
+            <Close className="w-4" />
           </button>
         )}
       </div>
