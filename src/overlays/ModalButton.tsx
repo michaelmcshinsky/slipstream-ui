@@ -8,7 +8,10 @@ interface Callback {
 export interface ModalButtonProps extends ButtonProps {
   children?: ReactNode;
   close?: boolean;
-  onClick?: (e: React.MouseEventHandler<HTMLButtonElement>, callback: Callback) => void;
+  onClick?: (
+    e: React.MouseEventHandler<HTMLButtonElement>,
+    callback: Callback
+  ) => void;
   onClose?: Callback;
 }
 
@@ -21,7 +24,7 @@ export const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
         onClose();
       } else if (onClick) {
         onClick(e, () => {
-          if(onClose) {
+          if (onClose) {
             onClose();
           }
         });
