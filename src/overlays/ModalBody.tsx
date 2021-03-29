@@ -14,9 +14,7 @@ export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
-  (props, ref) => {
-    const { className, children, rtl, ...attrs } = props;
-
+  ({ className, children, rtl, ...attrs }, ref) => {
     const classes = classnames('p-3 overflow-y-auto', className);
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
@@ -33,5 +31,7 @@ export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
     );
   }
 );
+
+ModalBody.displayName = 'ModalBody';
 
 export default ModalBody;

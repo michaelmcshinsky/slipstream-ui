@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, HTMLAttributes } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import theme from '../theme/default';
 
@@ -11,18 +11,23 @@ enum ButtonEnum {
   warning,
 }
 
-enum Type {
-  Button = 'button',
-  Submit = 'submit',
-  Reset = 'reset',
+interface Callback {
+  (): void;
 }
 
-export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+enum Type {
+  Button = 'button',
+  Reset = 'reset',
+  Submit = 'submit',
+}
+
+export interface ButtonProps {
   children?: ReactNode;
   className?: string;
   color?: keyof typeof ButtonEnum;
   disabled?: boolean;
   href?: string;
+  onClick?: (e: React.MouseEventHandler<HTMLButtonElement>, callback: Callback) => void;
   size?: 'sm' | 'md' | 'lg';
   tag?: any;
   type?: Type;
@@ -39,17 +44,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       href,
       size = 'md',
       type = 'button',
+      onClick,
       ...attrs
     } = props;
 
     const classes = classNames(
-      theme.button.base,
-      color && theme.button.color[color],
-      { [theme.button.size.sm]: size === 'sm' },
-      { [theme.button.size.md]: size === 'md' || !size },
       { [theme.button.size.lg]: size === 'lg' },
+      { [theme.button.size.md]: size === 'md' || !size },
+      { [theme.button.size.sm]: size === 'sm' },
+      color && theme.button.color[color],
       disabled && theme.disabled,
-      className
+      theme.button.base,
+      className,
     );
 
     if (href && Tag === 'button') {
@@ -61,6 +67,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={classes}
         disabled={disabled}
         href={href}
+        onClick={onClick}
         ref={ref}
         type={type}
         {...attrs}

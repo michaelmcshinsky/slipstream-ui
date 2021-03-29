@@ -8,6 +8,10 @@ import React, {
 } from 'react';
 import { default as ReactModal, Styles } from 'react-modal';
 import classnames from 'classnames';
+import { ModalBody, ModalBodyProps } from './ModalBody';
+import { ModalButton, ModalButtonProps } from './ModalButton';
+import { ModalFooter, ModalFooterProps } from './ModalFooter';
+import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 
 export interface ModalProps {
   className?: string;
@@ -20,6 +24,13 @@ export interface ModalProps {
   children?: ReactNode | ReactElement<any> | ReactText;
   rtl?: boolean;
   style?: Styles;
+}
+
+interface ModalComponent extends React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>> {
+  Body: React.ForwardRefExoticComponent<ModalBodyProps & React.RefAttributes<HTMLDivElement>>;
+  Button: React.ForwardRefExoticComponent<ModalButtonProps & React.RefAttributes<HTMLButtonElement>>;
+  Footer: React.ForwardRefExoticComponent<ModalFooterProps & React.RefAttributes<HTMLDivElement>>;
+  Header: React.ForwardRefExoticComponent<ModalHeaderProps & React.RefAttributes<HTMLDivElement>>;
 }
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
@@ -133,6 +144,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
       </ReactModal>
     </>
   );
-});
+}) as ModalComponent;
+
+Modal.Body = ModalBody;
+Modal.Button = ModalButton;
+Modal.Footer = ModalFooter;
+Modal.Header = ModalHeader;
 
 export default Modal;
