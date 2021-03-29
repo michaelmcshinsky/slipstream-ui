@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormFeedback, FormFeedbackProps } from '../../src';
+import { FormFeedback as FormFeedbackComponent, FormFeedbackProps } from '../../src';
 
 export default {
-  title: 'Components/Forms/FormFeedback',
-  component: FormFeedback,
+  title: 'Components/Forms',
+  component: FormFeedbackComponent,
   argTypes: {
     text: { control: 'text' },
   },
@@ -14,14 +14,14 @@ export default {
 } as Meta;
 
 const Template: Story<FormFeedbackProps> = ({ text, ...args }) => (
-  <FormFeedback {...args}>{text}</FormFeedback>
+  <FormFeedbackComponent {...args}>{text}</FormFeedbackComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const FormFeedback = Template.bind({});
 
-Default.args = {
+FormFeedback.args = {
   text: 'First name is required.',
   invalid: true,
 };
