@@ -27,7 +27,10 @@ export interface ButtonProps {
   color?: keyof typeof ButtonEnum;
   disabled?: boolean;
   href?: string;
-  onClick?: (e: React.MouseEventHandler<HTMLButtonElement>, callback: Callback) => void;
+  onClick?: (
+    e: React.MouseEventHandler<HTMLButtonElement>,
+    callback: Callback
+  ) => void;
   size?: 'sm' | 'md' | 'lg';
   tag?: any;
   type?: Type;
@@ -55,7 +58,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color && theme.button.color[color],
       disabled && theme.disabled,
       theme.button.base,
-      className,
+      className
     );
 
     if (href && Tag === 'button') {

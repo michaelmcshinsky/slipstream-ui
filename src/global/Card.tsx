@@ -12,11 +12,22 @@ export interface CardProps {
   children?: ReactNode | ReactElement<any> | ReactText;
 }
 
-interface CardComponent extends React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> {
-  Body: React.ForwardRefExoticComponent<CardBodyProps & React.RefAttributes<HTMLDivElement>>;
-  Footer: React.ForwardRefExoticComponent<CardFooterProps & React.RefAttributes<HTMLDivElement>>;
-  Header: React.ForwardRefExoticComponent<CardHeaderProps & React.RefAttributes<HTMLDivElement>>;
-  Title: React.ForwardRefExoticComponent<CardTitleProps & React.RefAttributes<HTMLDivElement>>;
+interface CardComponent
+  extends React.ForwardRefExoticComponent<
+    CardProps & React.RefAttributes<HTMLDivElement>
+  > {
+  Body: React.ForwardRefExoticComponent<
+    CardBodyProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Footer: React.ForwardRefExoticComponent<
+    CardFooterProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Header: React.ForwardRefExoticComponent<
+    CardHeaderProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Title: React.ForwardRefExoticComponent<
+    CardTitleProps & React.RefAttributes<HTMLDivElement>
+  >;
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {

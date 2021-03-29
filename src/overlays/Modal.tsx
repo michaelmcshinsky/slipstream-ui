@@ -26,11 +26,22 @@ export interface ModalProps {
   style?: Styles;
 }
 
-interface ModalComponent extends React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>> {
-  Body: React.ForwardRefExoticComponent<ModalBodyProps & React.RefAttributes<HTMLDivElement>>;
-  Button: React.ForwardRefExoticComponent<ModalButtonProps & React.RefAttributes<HTMLButtonElement>>;
-  Footer: React.ForwardRefExoticComponent<ModalFooterProps & React.RefAttributes<HTMLDivElement>>;
-  Header: React.ForwardRefExoticComponent<ModalHeaderProps & React.RefAttributes<HTMLDivElement>>;
+interface ModalComponent
+  extends React.ForwardRefExoticComponent<
+    ModalProps & React.RefAttributes<HTMLDivElement>
+  > {
+  Body: React.ForwardRefExoticComponent<
+    ModalBodyProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Button: React.ForwardRefExoticComponent<
+    ModalButtonProps & React.RefAttributes<HTMLButtonElement>
+  >;
+  Footer: React.ForwardRefExoticComponent<
+    ModalFooterProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Header: React.ForwardRefExoticComponent<
+    ModalHeaderProps & React.RefAttributes<HTMLDivElement>
+  >;
 }
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
