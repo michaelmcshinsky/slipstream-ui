@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Checkbox, CheckboxProps } from '../../src/forms/Checkbox';
+import { Checkbox as CheckboxComponent, CheckboxProps } from '../../src';
 
 export default {
-  title: 'Components/Forms/Checkbox',
-  component: Checkbox,
+  title: 'Components/Forms',
+  component: CheckboxComponent,
   argTypes: {
     size: {
       control: {
@@ -38,17 +38,17 @@ const Template: Story<CheckboxProps> = ({ checked, ...args }) => {
   }
 
   return (
-    <Checkbox checked={isChecked} {...args} onChange={_handleCheck}>
+    <CheckboxComponent checked={isChecked} {...args} onChange={_handleCheck}>
       I am a checkbox
-    </Checkbox>
+    </CheckboxComponent>
   );
 };
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const Checkbox = Template.bind({});
 
-Default.args = {
+Checkbox.args = {
   size: 'md',
   checked: false,
   color: 'primary',

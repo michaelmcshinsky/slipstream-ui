@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardTitle, CardTitleProps } from '../../src/global/CardTitle';
+import { CardTitle as CardTitleComponent, CardTitleProps } from '../../src';
 
 export default {
-  title: 'Components/Global/CardTitle',
-  component: CardTitle,
+  title: 'Components/Global/Card',
+  component: CardTitleComponent,
   argTypes: {
     text: { control: 'text' },
     size: {
@@ -20,13 +20,13 @@ export default {
 } as Meta;
 
 const Template: Story<CardTitleProps> = ({ text, ...args }) => (
-  <CardTitle {...args}>{text}</CardTitle>
+  <CardTitleComponent {...args}>{text}</CardTitleComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const CardTitle = Template.bind({});
 
-Default.args = {
+CardTitle.args = {
   text: 'Card Title',
 };

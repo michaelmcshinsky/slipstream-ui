@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, HTMLAttributes } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import theme from '../theme/default';
 
@@ -11,38 +11,53 @@ enum ButtonEnum {
   warning,
 }
 
-export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  tag?: any;
-  href?: string;
-  className?: string;
-  disabled?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  type?: 'button' | 'submit' | 'reset';
+interface Callback {
+  (): void;
+}
+
+enum Type {
+  Button = 'button',
+  Reset = 'reset',
+  Submit = 'submit',
+}
+
+export interface ButtonProps {
   children?: ReactNode;
+  className?: string;
   color?: keyof typeof ButtonEnum;
+  disabled?: boolean;
+  href?: string;
+  onClick?: (
+    e: React.MouseEventHandler<HTMLButtonElement>,
+    callback: Callback
+  ) => void;
+  size?: 'sm' | 'md' | 'lg';
+  tag?: any;
+  type?: Type;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     let { tag: Tag = 'button' } = props;
     const {
-      href,
+      children,
       className,
+      color = 'primary',
       disabled = false,
+      href,
       size = 'md',
       type = 'button',
-      children,
-      color = 'primary',
+      onClick,
       ...attrs
     } = props;
 
     const classes = classNames(
-      theme.button.base,
-      color && theme.button.color[color],
-      { [theme.button.size.sm]: size === 'sm' },
-      { [theme.button.size.md]: size === 'md' || !size },
       { [theme.button.size.lg]: size === 'lg' },
+      { [theme.button.size.md]: size === 'md' || !size },
+      { [theme.button.size.sm]: size === 'sm' },
+      color && theme.button.color[color],
       disabled && theme.disabled,
+      theme.button.base,
       className
     );
 
@@ -52,10 +67,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Tag
-        ref={ref}
-        href={href}
         className={classes}
         disabled={disabled}
+        href={href}
+        onClick={onClick}
+        ref={ref}
+        type={type}
         {...attrs}
       >
         {children}
