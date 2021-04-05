@@ -1,11 +1,33 @@
 import React, { forwardRef, ReactNode, ReactElement, ReactText } from 'react';
 import classnames from 'classnames';
+import { CardBody, CardBodyProps } from './CardBody';
+import { CardFooter, CardFooterProps } from './CardFooter';
+import { CardHeader, CardHeaderProps } from './CardHeader';
+import { CardTitle, CardTitleProps } from './CardTitle';
 
 export interface CardProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
   children?: ReactNode | ReactElement<any> | ReactText;
+}
+
+interface CardComponent
+  extends React.ForwardRefExoticComponent<
+    CardProps & React.RefAttributes<HTMLDivElement>
+  > {
+  Body: React.ForwardRefExoticComponent<
+    CardBodyProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Footer: React.ForwardRefExoticComponent<
+    CardFooterProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Header: React.ForwardRefExoticComponent<
+    CardHeaderProps & React.RefAttributes<HTMLDivElement>
+  >;
+  Title: React.ForwardRefExoticComponent<
+    CardTitleProps & React.RefAttributes<HTMLDivElement>
+  >;
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
@@ -30,6 +52,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {renderedChildren}
     </div>
   );
-});
+}) as CardComponent;
+
+Card.Body = CardBody;
+Card.Footer = CardFooter;
+Card.Header = CardHeader;
+Card.Title = CardTitle;
 
 export default Card;

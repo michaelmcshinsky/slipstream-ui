@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Container, Form, FormGroup, Label, Input, FormFeedback, Button, Alert } from '../../src';
 
 export default {
-  title: 'Components/Forms/KitchenSink',
+  title: 'Components/Forms',
   component: FormFeedback,
   argTypes: {
   },
@@ -48,7 +48,7 @@ const Template: Story = ({ ...args }) => {
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const _KitchenSink = Template.bind({});
 
-Default.args = {
+_KitchenSink.args = {
 };

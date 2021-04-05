@@ -8,7 +8,7 @@ export default {
       default:
         'bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 focus:bg-blue-600 focus:border-blue-600 active:bg-blue-600 active:border-blue-600 text-white',
       link:
-        'bg-white border-transparent hover:bg-gray-200 hover:border-gray-200 focus:bg-gray-200 focus:border-gray-200 active:bg-gray-200 active:border-gray-200 text-black',
+        'bg-white border-transparent hover:bg-gray-300 hover:border-gray-200 focus:bg-gray-200 focus:border-gray-200 active:bg-gray-200 active:border-gray-200 text-black',
       primary:
         'bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 focus:bg-blue-600 focus:border-blue-600 active:bg-blue-600 active:border-blue-600 text-white',
       success:

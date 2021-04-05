@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Label, LabelProps } from '../../src/forms/Label';
+import { Label as LabelComponent, LabelProps } from '../../src';
 
 export default {
-  title: 'Components/Forms/Label',
-  component: Label,
+  title: 'Components/Forms',
+  component: LabelComponent,
   argTypes: {
     text: { control: 'text' },
     size: {
@@ -20,14 +20,14 @@ export default {
 } as Meta;
 
 const Template: Story<LabelProps> = ({ text, ...args }) => (
-  <Label {...args}>{text}</Label>
+  <LabelComponent {...args}>{text}</LabelComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const Label = Template.bind({});
 
-Default.args = {
+Label.args = {
   text: 'Label',
   size: 'md',
 };
