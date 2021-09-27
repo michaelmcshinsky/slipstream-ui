@@ -1,7 +1,7 @@
 export default {
   button: {
     base:
-      'rounded leading-tight border border-solid transition ease-in-out outline-none focus:outline-none',
+      'leading-tight border border-solid transition ease-in-out outline-none focus:outline-none',
     color: {
       danger:
         'bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 active:bg-red-600 active:border-red-600 text-white',

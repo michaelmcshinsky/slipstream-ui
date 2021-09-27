@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Container, Form, FormGroup, Label, Input, FormFeedback, Button, Alert } from '../../src';
+import { Container, Form as FormComponent, FormGroup, Label, Input, Button, Alert } from '../../../src';
 
 export default {
   title: 'Components/Forms',
-  component: FormFeedback,
+  component: FormComponent,
   argTypes: {
   },
   parameters: {
@@ -20,7 +20,7 @@ const Template: Story = ({ ...args }) => {
 
   return (
     <Container size='xl'>
-      <Form {...args} onSubmit={_handleSubmit}>
+      <FormComponent {...args} onSubmit={_handleSubmit}>
         <FormGroup>
           <Label htmlFor="form-firstName">First Name</Label>
           <Input
@@ -41,14 +41,14 @@ const Template: Story = ({ ...args }) => {
           <Button>Submit</Button>
         </FormGroup>
         <Alert color="yellow">Something must have gone wrong... apparently...</Alert>
-      </Form>
+      </FormComponent>
     </Container>
   )
 }
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const _KitchenSink = Template.bind({});
+export const Form = Template.bind({});
 
-_KitchenSink.args = {
+Form.args = {
 };

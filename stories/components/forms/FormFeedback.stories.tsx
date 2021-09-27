@@ -1,20 +1,20 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormFeedback as FormFeedbackComponent, FormFeedbackProps } from '../../src';
+import { FormFeedback as FormFeedbackComponent, FormFeedbackProps } from '../../../src';
 
 export default {
   title: 'Components/Forms',
   component: FormFeedbackComponent,
   argTypes: {
-    text: { control: 'text' },
+    children: { control: 'text' },
   },
   parameters: {
     controls: { expanded: true },
   },
 } as Meta;
 
-const Template: Story<FormFeedbackProps> = ({ text, ...args }) => (
-  <FormFeedbackComponent {...args}>{text}</FormFeedbackComponent>
+const Template: Story<FormFeedbackProps> = ({ children, ...args }) => (
+  <FormFeedbackComponent {...args}>{children}</FormFeedbackComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
@@ -22,6 +22,6 @@ const Template: Story<FormFeedbackProps> = ({ text, ...args }) => (
 export const FormFeedback = Template.bind({});
 
 FormFeedback.args = {
-  text: 'First name is required.',
+  children: 'First name is required.',
   invalid: true,
 };

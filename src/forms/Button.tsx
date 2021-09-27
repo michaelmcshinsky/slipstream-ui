@@ -34,6 +34,7 @@ export interface ButtonProps {
   size?: 'sm' | 'md' | 'lg';
   tag?: any;
   type?: Type;
+  flush?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -47,11 +48,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       href,
       size = 'md',
       type = 'button',
+      flush,
       onClick,
       ...attrs
     } = props;
 
     const classes = classNames(
+      flush ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r' : 'rounded',
       { [theme.button.size.lg]: size === 'lg' },
       { [theme.button.size.md]: size === 'md' || !size },
       { [theme.button.size.sm]: size === 'sm' },
@@ -80,5 +83,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
+Button.displayName = 'Button';
 
 export default Button;

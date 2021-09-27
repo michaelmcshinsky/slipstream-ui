@@ -15,6 +15,9 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   value?: any;
   size?: 'sm' | 'md' | 'lg';
   type?: string;
+  name?: string;
+  autoComplete?: string;
+  list?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {

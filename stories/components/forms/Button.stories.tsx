@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Button, ButtonProps } from '../../src';
+import { Button, ButtonProps } from '../../../src';
 
 export default {
   title: 'Components/Forms/Button',
@@ -28,9 +28,9 @@ const Template: Story<ButtonProps> = args => <Button {...args}>Submit</Button>;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const KitchenSink = Template.bind({});
 
-Default.args = {
+KitchenSink.args = {
   size: 'md',
   type: 'button',
 };
@@ -38,7 +38,5 @@ Default.args = {
 export const Disabled = Template.bind({});
 
 Disabled.args = {
-  size: 'md',
-  type: 'button',
   disabled: true
 };

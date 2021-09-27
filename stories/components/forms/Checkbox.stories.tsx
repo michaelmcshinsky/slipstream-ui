@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Checkbox as CheckboxComponent, CheckboxProps } from '../../src';
+import { Checkbox as CheckboxComponent, CheckboxProps } from '../../../src';
 
 export default {
   title: 'Components/Forms',

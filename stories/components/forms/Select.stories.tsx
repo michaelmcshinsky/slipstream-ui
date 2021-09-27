@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Select as SelectComponent, SelectProps } from '../../src/forms/Select';
+import { Select as SelectComponent, SelectProps } from '../../../src/forms/Select';
 
 export default {
   title: 'Components/Forms',

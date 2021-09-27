@@ -40,7 +40,7 @@ const Template: Story<AlertProps> = ({
   color,
   ...args
 }) => (
-  <Alert size={size} color={color} {...args}>
+  <Alert {...args} size={size} color={color}>
     {text}
   </Alert>
 );
