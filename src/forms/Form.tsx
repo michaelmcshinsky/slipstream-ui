@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 export interface FormProps extends HTMLAttributes<HTMLFormElement> {
   className?: string;
-  onSubmit?: () => void;
   children?: ReactNode;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {

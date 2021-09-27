@@ -21,6 +21,7 @@ const slipstreamConfig = {
     extend: {
       backgroundColor: ['active', 'checked', 'even'],
       borderColor: ['active', 'checked'],
+      borderRadius: ['first', 'last'],
       gridAutoColumns: ['hover', 'focus'],
       outline: ['hover', 'active'],
     },

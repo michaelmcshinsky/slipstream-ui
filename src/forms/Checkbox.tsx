@@ -23,6 +23,7 @@ export interface CheckboxProps {
   required?: boolean;
   rtl?: boolean;
   size?: 'md' | 'lg';
+  type?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
@@ -40,14 +41,16 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       required = false,
       rtl,
       size = 'md',
+      type,
       ...attrs
     } = props;
 
     const inputClasses = classNames(
-      'inline-block align-middle form-checkbox border-1 rounded select-none appearance-none flex-shrink-0',
+      'inline-block align-middle border-1 select-none appearance-none flex-shrink-0',
       { 'w-4 h-4': size === 'md' || !size },
       { 'w-6 h-6': size === 'lg' },
-      color && theme.checkbox.color[color]
+      color && theme.checkbox.color[color],
+      type === 'radio' ? 'form-radio rounded-full' : 'form-checkbox rounded'
     );
 
     const labelClasses = classNames(
@@ -75,7 +78,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           invalid={invalid}
           onChange={onChange}
           required={required}
-          type="checkbox"
+          type={type || 'checkbox'}
           {...attrs}
         />
         <span className={labelClasses}>{children}</span>
