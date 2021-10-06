@@ -15,6 +15,7 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   value?: any;
   size?: 'sm' | 'md' | 'lg';
   type?: string;
+  rounded?: boolean;
   name?: string;
   autoComplete?: string;
   list?: string;
@@ -34,6 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     success,
     size,
     type,
+    rounded,
     ...attrs
   } = props;
 
@@ -49,6 +51,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     { [theme.form.size.md]: size === 'md' || !size },
     { [theme.form.size.lg]: size === 'lg' },
     disabled && theme.disabled,
+    rounded ? 'rounded-full' : 'rounded',
     className
   );
 
