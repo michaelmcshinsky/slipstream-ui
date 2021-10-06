@@ -13,7 +13,7 @@
   },
   "scripts": {
     "analyze": "size-limit --why",
-    "build-storybook": "npm run tailwind && build-storybook && cp src/assets/css/tailwind.output.css storybook-static/styles.css",
+    "build-storybook": "npm run tailwind && build-storybook -s public && cp src/assets/css/tailwind.output.css storybook-static/styles.css",
     "build": "tsdx build",
     "lint:fix": "tsdx lint --fix",
     "lint": "tsdx lint",
