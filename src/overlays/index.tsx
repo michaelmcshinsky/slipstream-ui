@@ -1,3 +1,4 @@
+export { Dropdown, DropdownProps } from './Dropdown';
 export { Modal } from './Modal';
 export { ModalBody, ModalBodyProps } from './ModalBody';
 export { ModalButton, ModalButtonProps } from './ModalButton';
