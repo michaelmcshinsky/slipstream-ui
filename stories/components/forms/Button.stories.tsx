@@ -18,6 +18,12 @@ export default {
         options: ['button', 'submit', 'reset'],
       },
     },
+    color: {
+      control: {
+        type: 'select',
+        options: ['primary', 'default', 'link', 'success', 'warning', 'danger'],
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -33,6 +39,7 @@ export const KitchenSink = Template.bind({});
 KitchenSink.args = {
   size: 'md',
   type: 'button',
+  color: 'primary'
 };
 
 export const Disabled = Template.bind({});
