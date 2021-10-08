@@ -1,33 +1,41 @@
 import React, { ReactNode } from 'react';
 
 export interface DropdownMenuProps {
-  outsideRef: boolean | React.MutableRefObject<undefined>;
-  setPopperElement: Function;
+  outsideRef?: any;
+  setPopperElement?: any;
   children?: ReactNode;
-  styles: {
-    [key: string]: React.CSSProperties;
-  };
-  attributes: {
-    [key: string]:
-      | {
-          [key: string]: string;
-        }
-      | undefined;
-  };
+  styles?: any;
+  attributes?: any;
+  isOpen?: boolean;
 }
 
-export function DropdownMenu(props: DropdownMenuProps) {
+export function DropdownMenu({
+  outsideRef,
+  setPopperElement,
+  children,
+  styles,
+  attributes,
+  isOpen,
+  ...props
+}: DropdownMenuProps) {
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <div
-      ref={mergeRefs(props.outsideRef, props.setPopperElement)}
-      style={props.styles.popper}
-      className="border border-solid border-gray-300 rounded bg-white py-1 my-1"
-      {...props.attributes.popper}
+      ref={mergeRefs(outsideRef, setPopperElement)}
+      style={styles.popper}
+      className="border border-solid border-gray-300 rounded bg-white py-1"
+      {...attributes.popper}
+      {...props}
     >
-      {props.children}
+      {children}
     </div>
   );
 }
+
+DropdownMenu.displayName = 'DropdownMenu';
 
 const mergeRefs = (...refs: any[]) => {
   const filteredRefs = refs.filter(Boolean);

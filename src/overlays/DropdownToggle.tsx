@@ -8,7 +8,6 @@ export interface DropdownToggleProps {
 
 export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
   ({ children, tag: Tag, ...props }, ref) => {
-
     return (
       <Tag ref={ref} {...props}>
         {children}
@@ -16,6 +15,8 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
     );
   }
 );
+
+DropdownToggle.displayName = 'DropdownToggle';
 
 DropdownToggle.defaultProps = {
   tag: 'div',
