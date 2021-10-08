@@ -4,6 +4,9 @@ import {
   Dropdown,
   DropdownProps,
   DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Button,
 } from '../../../src';
 
 export default {
@@ -23,10 +26,13 @@ export default {
 } as Meta;
 
 const Template: Story<DropdownProps> = ({ ...args }) => (
-  <Dropdown>
-    <DropdownItem>Profile</DropdownItem>
-    <DropdownItem>Login</DropdownItem>
-    <DropdownItem>Logout</DropdownItem>
+  <Dropdown {...args} className="m-32">
+    <DropdownToggle tag={Button}>Click Me</DropdownToggle>
+    <DropdownMenu>
+      <DropdownItem>Profile</DropdownItem>
+      <DropdownItem>Login</DropdownItem>
+      <DropdownItem>Logout</DropdownItem>
+    </DropdownMenu>
   </Dropdown>
 );
 
@@ -35,5 +41,5 @@ const Template: Story<DropdownProps> = ({ ...args }) => (
 export const _KitchenSink = Template.bind({});
 
 _KitchenSink.args = {
-  size: 'md'
+  size: 'md',
 };
