@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import {
   Dropdown,
   DropdownProps,
+  DropdownItem,
 } from '../../../src';
 
 export default {
@@ -22,7 +23,11 @@ export default {
 } as Meta;
 
 const Template: Story<DropdownProps> = ({ ...args }) => (
-  <Dropdown/>
+  <Dropdown>
+    <DropdownItem>Profile</DropdownItem>
+    <DropdownItem>Login</DropdownItem>
+    <DropdownItem>Logout</DropdownItem>
+  </Dropdown>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

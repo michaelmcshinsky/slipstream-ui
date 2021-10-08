@@ -1,74 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import classNames from 'classnames';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { usePopper } from 'react-popper';
-import { Button } from '../index';
-import { useClickOutside } from '../utils'
+import { useClickOutside } from '../utils';
+import { DropdownProvider, useDropdown } from './DropdownContext';
+import { DropdownMenu } from './DropdownMenu';
 
 export interface DropdownProps {
   className?: string;
   isOpen: boolean;
-  onClick?: (
-    e: React.MouseEventHandler<HTMLButtonElement>
-  ) => void;
+  children: ReactNode;
+  onClick?: (e: React.MouseEventHandler<HTMLButtonElement>) => void;
+  tag?: any;
 }
 
 export function Dropdown(props: DropdownProps) {
   const [state, setState] = useState({
-    isOpen: false
-  })
-  const { className, isOpen, onClick } = props;
+    isOpen: false,
+  });
+  const { className, children, tag: Tag } = props;
+  const { context, setContext } = useDropdown();
+  console.log('context', context);
 
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
-  const { state: popperState, update, styles, attributes } = usePopper(referenceElement, popperElement, { placement: 'bottom'});
-  const [outsideRef, hasClickedOutside] = useClickOutside()
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    strategy: 'absolute',
+    placement: 'bottom-start',
+  });
+  const [outsideRef, hasClickedOutside] = useClickOutside();
 
   useEffect(() => {
-    console.log('hasClickedOutside', hasClickedOutside)
-  },[hasClickedOutside])
+    if (hasClickedOutside) {
+      setState({ ...state, isOpen: false });
+    }
+  }, [hasClickedOutside]);
 
-  function _handleToggle () {
-    setState({...state, isOpen: !state.isOpen})
+  function _handleToggle(e?: Event) {
+    e?.preventDefault?.();
+    setState((prev) => ({ ...prev, isOpen: !state.isOpen }));
   }
 
-  const classes = classNames('', className);
+  console.log('state.isOpen', state.isOpen);
 
   return (
-    <>
-        <button
-          color="default"
-          type="button"
-          ref={setReferenceElement}
-          className={classes}
-          onClick={_handleToggle}
-        >
+    <DropdownProvider>
+      <div className="sui-dropdown relative inline-block">
+        <Tag ref={setReferenceElement} onClick={_handleToggle}>
           Reference element
-        </button>
+        </Tag>
         {state.isOpen && (
-        <div ref={mergeRefs(outsideRef, setPopperElement)} style={styles.popper} className="shadow p-2" {...attributes.popper}>
-          Popper element
-        </div>
-
+          <DropdownMenu
+            outsideRef={outsideRef}
+            setPopperElement={setPopperElement}
+            styles={styles}
+            attributes={attributes}
+          >
+            {children}
+          </DropdownMenu>
         )}
-    </>
+      </div>
+    </DropdownProvider>
   );
 }
 
 Dropdown.defaultProps = {
   isOpen: false,
-};
-
-const mergeRefs = (...refs) => {
-  const filteredRefs = refs.filter(Boolean);
-  if (!filteredRefs.length) return null;
-  if (filteredRefs.length === 0) return filteredRefs[0];
-  return inst => {
-    for (const ref of filteredRefs) {
-      if (typeof ref === 'function') {
-        ref(inst);
-      } else if (ref) {
-        ref.current = inst;
-      }
-    }
-  };
+  tag: 'button',
 };
