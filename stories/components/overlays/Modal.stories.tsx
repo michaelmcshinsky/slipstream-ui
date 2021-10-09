@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import {
-  Modal,
-  ModalProps,
-  Button,
-} from '../../src';
+import { Modal, ModalProps, Button } from '../../../src';
 
 export default {
   title: 'Components/Overlays',
@@ -33,7 +29,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ModalProps> = args => {
+const Template: Story<ModalProps> = (args) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function _toggle() {

@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-export function SelectOption() {
-  return <div></div>;
+export interface SelectOptionProps {
+  children?: ReactNode;
+  value: string;
 }
+
+export function SelectOption({ children, ...props }: SelectOptionProps) {
+  return <option {...props}>{children}</option>;
+}
+
+SelectOption.displayName = 'SelectOption'
 
 export default SelectOption;

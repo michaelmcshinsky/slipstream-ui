@@ -46,6 +46,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     } = props;
 
     const inputClasses = classNames(
+      'sui--checkbox',
       'inline-block align-middle border-1 select-none appearance-none flex-shrink-0',
       { 'w-4 h-4': size === 'md' || !size },
       { 'w-6 h-6': size === 'lg' },

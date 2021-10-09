@@ -40,6 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   } = props;
 
   const classes = classNames(
+    'sui--input',
     { 'w-full': !inline },
     theme.form.base,
     invalid
@@ -70,5 +71,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     />
   );
 });
+
+Input.displayName = 'Input'
 
 export default Input;

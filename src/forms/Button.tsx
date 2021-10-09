@@ -54,6 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     } = props;
 
     const classes = classNames(
+      'sui--button',
       flush ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r' : 'rounded',
       { [theme.button.size.lg]: size === 'lg' },
       { [theme.button.size.md]: size === 'md' || !size },

@@ -2,14 +2,14 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface HeadingProps {
-  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   className?: string;
   custom?: boolean;
   children: ReactNode;
 }
 
 export function Heading(props: HeadingProps) {
-  const { tag: Tag, custom, className, children, ...attrs } = props;
+  const { level: Tag, custom, className, children, ...attrs } = props;
   const classes = classNames(
     !custom && Tag === 'h1' && 'text-3xl',
     !custom && Tag === 'h2' && 'text-2xl',
@@ -27,7 +27,7 @@ export function Heading(props: HeadingProps) {
 }
 
 Heading.defaultProps = {
-  tag: 'h2',
+  level: 'h2',
   custom: false,
 };
 

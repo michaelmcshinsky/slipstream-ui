@@ -3,11 +3,15 @@ import classNames from 'classnames';
 
 interface FieldSetLegendProps {
   className?: string;
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export function FieldSetLegend({ className, children }: FieldSetLegendProps) {
-  const classes = classNames('block px-1 text-sm -mx-0.5', className);
+  const classes = classNames(
+    'sui--fieldset-legend',
+    'block px-1 text-sm -mx-0.5',
+    className
+  );
   return <legend className={classes}>{children}</legend>;
 }
 
