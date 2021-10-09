@@ -2,20 +2,19 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface TabSetProps {
-  animated?: boolean;
   vertical?: boolean;
   children?: ReactNode;
   className?: string;
   rtl?: boolean;
   tag: 'nav' | 'ul' | 'div';
-  tags?: string[];
+  tabs?: string[];
 }
 
 export function TabSet({
-  animated,
   children,
   className,
   rtl,
+  tabs,
   tag: Tag,
   vertical,
   ...props
@@ -29,10 +28,8 @@ export function TabSet({
   const renderedChildren = React.Children.toArray(children)
     .filter(Boolean)
     .map((child: any) => {
-      if (child.type?.displayName?.includes('TabItem')) {
-        return React.cloneElement(child, {
-          animated,
-        });
+      if (child?.type?.displayName?.includes('TabItem')) {
+        return React.cloneElement(child);
       }
       return React.cloneElement(child);
     });
@@ -44,8 +41,8 @@ export function TabSet({
   );
 }
 
+TabSet.displayName = 'TabSet';
 TabSet.defaultProps = {
   tag: 'nav',
   rtl: false,
-  animated: false,
 };

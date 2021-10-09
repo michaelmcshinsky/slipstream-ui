@@ -27,12 +27,12 @@ export default {
 
 const Template: Story<DropdownProps> = ({ ...args }) => (
   <Dropdown {...args} className="m-32">
-    <DropdownToggle tag={Button}>Click Me</DropdownToggle>
-    <DropdownMenu>
-      <DropdownItem>Profile</DropdownItem>
-      <DropdownItem>Login</DropdownItem>
-      <DropdownItem>Logout</DropdownItem>
-    </DropdownMenu>
+    <Dropdown.Toggle tag={Button}>Click Me</Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item>Profile</Dropdown.Item>
+      <Dropdown.Item>Login</Dropdown.Item>
+      <Dropdown.Item>Logout</Dropdown.Item>
+    </Dropdown.Menu>
   </Dropdown>
 );
 

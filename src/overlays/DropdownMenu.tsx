@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 
 export interface DropdownMenuProps {
   outsideRef?: any;
@@ -9,31 +9,36 @@ export interface DropdownMenuProps {
   isOpen?: boolean;
 }
 
-export function DropdownMenu({
-  outsideRef,
-  setPopperElement,
-  children,
-  styles,
-  attributes,
-  isOpen,
-  ...props
-}: DropdownMenuProps) {
-  if (!isOpen) {
-    return null;
-  }
+export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
+  (
+    {
+      outsideRef,
+      setPopperElement,
+      children,
+      styles,
+      attributes,
+      isOpen,
+      ...props
+    },
+    ref
+  ) => {
+    if (!isOpen) {
+      return null;
+    }
 
-  return (
-    <div
-      ref={mergeRefs(outsideRef, setPopperElement)}
-      style={styles.popper}
-      className="border border-solid border-gray-300 rounded bg-white py-1"
-      {...attributes.popper}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
+    return (
+      <div
+        ref={mergeRefs(ref, outsideRef, setPopperElement)}
+        style={styles.popper}
+        className="border border-solid border-gray-300 rounded bg-white py-1"
+        {...attributes.popper}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 DropdownMenu.displayName = 'DropdownMenu';
 
@@ -51,3 +56,5 @@ const mergeRefs = (...refs: any[]) => {
     }
   };
 };
+
+export default DropdownMenu;
