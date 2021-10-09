@@ -101,7 +101,7 @@ export function Dropdown(props: DropdownProps) {
       return React.cloneElement(child);
     });
 
-  const classes = classNames('sui-dropdown relative inline-block', className);
+  const classes = classNames('sui--dropdown relative inline-block', className);
 
   return <div className={classes}>{renderedChildren}</div>;
 }

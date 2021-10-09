@@ -20,6 +20,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   } = props;
 
   const classes = classnames(
+    'sui--label',
     'inline-block mb-2 text-gray-700',
     { 'text-xs': size === 'sm' },
     { 'text-sm': size === 'md' || !size },

@@ -10,7 +10,7 @@ export interface FormProps extends HTMLAttributes<HTMLFormElement> {
 export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const { className, children, onSubmit, ...attrs } = props;
 
-  const classes = classNames(className);
+  const classes = classNames('sui--form', className);
 
   return (
     <form ref={ref} className={classes} onSubmit={onSubmit} {...attrs}>

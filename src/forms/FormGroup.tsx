@@ -9,7 +9,11 @@ export interface FormGroupProps {
 export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
   (props, ref) => {
     const { className, children, ...attributes } = props;
-    const classes = classnames('mb-4 flex flex-col', className);
+    const classes = classnames(
+      'sui--formgroup',
+      'mb-4 flex flex-col',
+      className
+    );
 
     return (
       <div ref={ref} className={classes} {...attributes}>

@@ -8,6 +8,7 @@ export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
   invalid?: boolean;
   success?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  rounded?: boolean;
   children?: ReactNode;
 }
 
@@ -20,11 +21,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       success,
       size = 'md',
       children,
+      rounded,
       ...attrs
     } = props;
 
     const classes = classNames(
-      'w-full',
+      'sui-select w-full',
       theme.form.base,
       invalid
         ? theme.form.invalid
@@ -35,15 +37,23 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       { [theme.form.size.md]: size === 'md' || !size },
       { [theme.form.size.lg]: size === 'lg' },
       disabled && theme.disabled,
+      rounded ? 'rounded-full' : 'rounded',
       className
     );
 
     return (
-      <select ref={ref} className={classes} disabled={disabled} {...attrs}>
+      <select
+        ref={ref}
+        className={classes}
+        disabled={disabled}
+        {...attrs}
+      >
         {children}
       </select>
     );
   }
 );
+
+Select.displayName = 'Select';
 
 export default Select;

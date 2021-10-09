@@ -1,10 +1,12 @@
 import React, { forwardRef } from 'react';
+import classNames from 'classnames';
 import { Input, InputProps } from './Input';
 
 export interface DatalistProps extends InputProps {
   id: string;
   list: string;
   options?: DatalistOption[];
+  className?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
@@ -14,10 +16,12 @@ export interface DatalistOption {
 }
 
 export const Datalist = forwardRef<HTMLInputElement, DatalistProps>(
-  ({ id, options, ...props }, ref) => {
+  ({ id, options, className, ...props }, ref) => {
+    const classes = classNames('sui--datalist', className);
+
     return (
       <>
-        <Input ref={ref} {...props} />
+        <Input ref={ref} className={classes} {...props} />
         <datalist id={id}>
           {options?.map((option) => (
             <option key={option.value} value={option.value}>

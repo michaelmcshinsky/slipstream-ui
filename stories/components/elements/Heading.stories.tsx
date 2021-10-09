@@ -1,12 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Heading as HeadingComponent, HeadingProps } from '../../src';
+import { Heading as HeadingComponent, HeadingProps } from '../../../src';
 
 export default {
   title: 'Components/Elements',
   component: HeadingComponent,
   argTypes: {
-    tag: {
+    level: {
       control: {
         type: 'select',
         options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
@@ -20,7 +20,7 @@ export default {
 
 const Template: Story<HeadingProps> = ({ ...args }) => (
   <HeadingComponent {...args}>
-    Heading: {args.tag.toUpperCase()}
+    Heading: {args.level.toUpperCase()}
   </HeadingComponent>
 );
 
@@ -29,5 +29,5 @@ const Template: Story<HeadingProps> = ({ ...args }) => (
 export const Heading = Template.bind({});
 
 Heading.args = {
-  tag: 'h1',
+  level: 'h1',
 };

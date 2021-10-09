@@ -13,9 +13,9 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
 export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const {
     className,
-    color = 'blue',
-    dark = false,
-    size = 'md',
+    color,
+    dark,
+    size,
     onClick,
     children,
     ...attrs
@@ -69,5 +69,11 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     </div>
   );
 });
+
+Alert.defaultProps = {
+  color: 'primary',
+  dark: false,
+  size: 'sm'
+}
 
 export default Alert;

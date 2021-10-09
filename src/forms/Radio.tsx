@@ -1,4 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react';
+import classNames from 'classnames';
 import { Checkbox } from './Checkbox';
 
 enum RadioEnum {
@@ -23,16 +24,12 @@ export interface RadioProps {
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-export const Radio = forwardRef<HTMLLabelElement, RadioProps>(
-  (props, ref) => {
-    const {
-      ...attrs
-    } = props;
+export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
+  const { className, ...attrs } = props;
 
-    return (
-      <Checkbox ref={ref} {...attrs} type="radio"/>
-    );
-  }
-);
+  const classes = classNames('sui-radio', className);
+
+  return <Checkbox ref={ref} className={classes} {...attrs} type="radio" />;
+});
 
 export default Radio;
