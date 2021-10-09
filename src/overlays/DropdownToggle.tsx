@@ -21,3 +21,5 @@ DropdownToggle.displayName = 'DropdownToggle';
 DropdownToggle.defaultProps = {
   tag: 'div',
 };
+
+export default DropdownToggle;

@@ -1,14 +1,23 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 
 export interface DropdownItemProps {
   children?: ReactNode;
   tag?: any;
 }
 
-export function DropdownItem({ children, tag: Tag }: DropdownItemProps) {
-  return <Tag className="px-2 py-1 leading-tight">{children}</Tag>;
-}
+export const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
+  ({ children, tag: Tag, ...props }, ref) => {
+    return (
+      <Tag ref={ref} className="px-2 py-1 leading-tight" {...props}>
+        {children}
+      </Tag>
+    );
+  }
+);
 
+DropdownItem.displayName = 'DropdownItem';
 DropdownItem.defaultProps = {
   tag: 'div',
 };
+
+export default DropdownItem;
