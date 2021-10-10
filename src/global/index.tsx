@@ -4,5 +4,5 @@ export { CardFooter, CardFooterProps } from './CardFooter';
 export { CardHeader, CardHeaderProps } from './CardHeader';
 // export { CardImage, CardImageProps } from './CardImage'
 export { CardTitle, CardTitleProps } from './CardTitle';
-export { Container, ContainerProps } from './Container';
+export { Center, CenterProps } from './Center';
 export * from './table';

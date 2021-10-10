@@ -32,7 +32,7 @@ const slipstreamConfig = {
 };
 
 /**
- * Merge @redlist/react-ui and Tailwind CSS configurations
+ * Merge slipstream-ui and Tailwind CSS configurations
  * @param {object} tailwindConfig - Tailwind config object
  * @return {object} new config object
  */
