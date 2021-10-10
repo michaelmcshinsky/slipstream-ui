@@ -7,6 +7,7 @@ export interface LabelProps {
   disabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
   children?: ReactNode;
+  noMargin?: boolean;
 }
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
@@ -16,12 +17,14 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     disabled,
     size = 'md',
     children,
+    noMargin,
     ...attributes
   } = props;
 
   const classes = classnames(
     'sui--label',
-    'inline-block mb-2 text-gray-700',
+    'inline-block text-gray-700',
+    { 'mb-2': !noMargin },
     { 'text-xs': size === 'sm' },
     { 'text-sm': size === 'md' || !size },
     { 'text-base': size === 'lg' },
@@ -35,5 +38,9 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     </label>
   );
 });
+
+Label.defaultProps = {
+  noMargin: false,
+};
 
 export default Label;

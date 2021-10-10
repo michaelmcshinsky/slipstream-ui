@@ -69,6 +69,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         disabled={disabled}
         htmlFor={id}
         ref={ref}
+        noMargin
       >
         <Input
           checked={checked}
