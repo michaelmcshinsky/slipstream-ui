@@ -1,6 +1,7 @@
 declare module '*.svg' {
-  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
-  export default content;
+	import { HTMLAttributes } from 'react'
+	const value: React.ComponentType<HTMLAttributes<SVGElement>>
+	export default value
 }
 
 declare module '@tailwindcss/forms'
