@@ -1,7 +1,7 @@
-const deepMerge = require('deepmerge');
-const customFormsPlugin = require('@tailwindcss/forms');
+import deepMerge from 'deepmerge';
+import customFormsPlugin from '@tailwindcss/forms';
 
-function arrayMergeFn (destinationArray, sourceArray) {
+function arrayMergeFn(destinationArray: any[], sourceArray: any[]) {
   return destinationArray.concat(sourceArray).reduce((acc, cur) => {
     if (acc.includes(cur)) return acc;
     return [...acc, cur];
@@ -13,8 +13,7 @@ const slipstreamConfig = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors: {
-      },
+      colors: {},
     },
   },
   variants: {
@@ -26,9 +25,7 @@ const slipstreamConfig = {
       outline: ['hover', 'active'],
     },
   },
-  plugins: [
-    customFormsPlugin,
-  ],
+  plugins: [customFormsPlugin],
 };
 
 /**
@@ -36,7 +33,7 @@ const slipstreamConfig = {
  * @param {object} tailwindConfig - Tailwind config object
  * @return {object} new config object
  */
-function wrapper (tailwindConfig) {
+export function wrapper(tailwindConfig: any) {
   let purge;
   if (Array.isArray(tailwindConfig.purge)) {
     purge = {
@@ -45,7 +42,7 @@ function wrapper (tailwindConfig) {
   } else {
     purge = tailwindConfig.purge;
   }
-  return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, { arrayMerge: arrayMergeFn });
+  return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
+    arrayMerge: arrayMergeFn,
+  });
 }
-
-module.exports = wrapper;

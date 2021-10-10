@@ -2,7 +2,7 @@
   "name": "slipstream-ui",
   "author": "Michael McShinsky",
   "description": "Component library combining React and Tailwindcss, built with TypeScript",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -17,7 +17,8 @@
   "scripts": {
     "analyze": "size-limit --why",
     "build-storybook": "npm run tailwind && build-storybook -s ./.storybook/public && cp src/assets/css/tailwind.output.css storybook-static/styles.css",
-    "build": "tsdx build",
+    "build": "tsdx build && npm run copy-assets",
+    "copy-assets": "cp -r src/assets dist/assets",
     "lint:fix": "tsdx lint --fix",
     "lint": "tsdx lint",
     "prebuild": "npm run tailwind",
@@ -82,7 +83,7 @@
     "size-limit": "^4.9.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "tsdx": "^0.14.1",
-    "tslib": "^2.1.0",
+    "tslib": "^2.3.1",
     "typescript": "^4.2.2"
   },
   "dependencies": {
