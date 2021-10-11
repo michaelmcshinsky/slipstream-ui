@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Avatar, AvatarProps } from '../../src';
+import { Avatar, AvatarProps } from '../../../src';
 
 export default {
-  title: 'Components/Extra/Avatar',
+  title: 'Components/General/Avatar',
   component: Avatar,
   argTypes: {
     label: { control: 'text' },
@@ -21,12 +21,6 @@ export default {
           'purple',
           'pink',
         ],
-      },
-    },
-    size: {
-      control: {
-        type: 'select',
-        options: ['sm', 'md', 'lg'],
       },
     },
   },

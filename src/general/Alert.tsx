@@ -1,11 +1,12 @@
-import React, { forwardRef, HTMLAttributes } from 'react';
+import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
   className?: string;
-  icon?: boolean;
   color?: string;
   dark?: boolean;
+  icon?: boolean;
   size?: string;
   onClick?: () => void;
 }
@@ -25,12 +26,14 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const bgTheme = color ? `bg-${color}-${colorTheme}` : `bg-blue-${colorTheme}`;
 
   const classes = classnames(
+    'sui--alert',
     'rounded-md flex flex-wrap items-center relative pr-10',
     dark ? 'text-gray-100' : `text-${color || 'gray'}-900`,
     { 'text-sm px-3 py-2': size === 'sm' },
     { 'text-base px-4 py-3': size === 'md' || !size },
     { 'text-lg px-5 py-4': size === 'lg' },
-    bgTheme
+    bgTheme,
+    className
   );
 
   const btnClasses = classnames(
@@ -71,7 +74,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 });
 
 Alert.defaultProps = {
-  color: 'primary',
+  color: 'blue',
   dark: false,
   size: 'sm'
 }

@@ -30,7 +30,7 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
       <div
         ref={mergeRefs(ref, outsideRef, setPopperElement)}
         style={styles.popper}
-        className="border border-solid border-gray-300 rounded bg-white py-1"
+        className="sui--dropdown-menu border border-solid border-gray-300 rounded bg-white py-1"
         {...attributes.popper}
         {...props}
       >

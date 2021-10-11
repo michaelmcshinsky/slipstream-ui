@@ -1,12 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardBody as CardBodyComponent, CardBodyProps } from '../../src';
+import { CardBody as CardBodyComponent, CardBodyProps } from '../../../src';
 
 export default {
-  title: 'Components/Global/Card',
+  title: 'Components/General/Card',
   component: CardBodyComponent,
-  argTypes: {
-  },
+  argTypes: {},
   parameters: {
     controls: { expanded: true },
   },
@@ -26,5 +25,4 @@ const Template: Story<CardBodyProps> = ({ ...args }) => (
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const CardBody = Template.bind({});
 
-CardBody.args = {
-};
+CardBody.args = {};

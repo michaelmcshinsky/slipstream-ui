@@ -1,5 +1,5 @@
 export * from './elements';
-export * from './extra';
+export * from './general';
 export * from './forms';
 export * from './global';
 export * from './layout';

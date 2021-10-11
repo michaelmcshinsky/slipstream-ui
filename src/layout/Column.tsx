@@ -1,15 +1,15 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
-import { SizeType, OrderType } from '../utils';
+import { SizeListFull, OrderType } from '../utils';
 
 export interface ColProps {
   children?: ReactNode;
   className?: string;
-  xs?: SizeType;
-  sm?: SizeType;
-  md?: SizeType;
-  lg?: SizeType;
-  xl?: SizeType;
+  xs?: SizeListFull;
+  sm?: SizeListFull;
+  md?: SizeListFull;
+  lg?: SizeListFull;
+  xl?: SizeListFull;
   order?: OrderType;
 }
 

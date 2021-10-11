@@ -1,11 +1,11 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
-import { SizeType } from '../utils';
+import { SizeListFull } from '../utils';
 
 export interface ContainerProps {
   htmlFor?: any;
   className?: string;
-  size?: SizeType;
+  size?: SizeListFull;
   fluid?: boolean;
   children?: ReactNode;
 }

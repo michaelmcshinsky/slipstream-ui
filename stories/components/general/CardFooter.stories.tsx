@@ -1,10 +1,14 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardHeader as CardHeaderComponent, CardHeaderProps, CardTitle } from '../../src';
+import {
+  CardFooter as CardFooterComponent,
+  CardFooterProps,
+  Button,
+} from '../../../src';
 
 export default {
-  title: 'Components/Global/Card',
-  component: CardHeaderComponent,
+  title: 'Components/General/Card',
+  component: CardFooterComponent,
   argTypes: {
     size: {
       control: {
@@ -18,14 +22,15 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardHeaderProps> = ({ text, ...args }) => (
-  <CardHeaderComponent {...args}><CardTitle>{text}</CardTitle></CardHeaderComponent>
+const Template: Story<CardFooterProps> = ({ ...args }) => (
+  <CardFooterComponent className="justify-between" {...args}>
+    <Button color="danger">Delete</Button>
+    <Button>Submit</Button>
+  </CardFooterComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
-export const CardHeader = Template.bind({});
+export const CardFooter = Template.bind({});
 
-CardHeader.args = {
-  text: 'Card Header with Title'
-};
+CardFooter.args = {};
