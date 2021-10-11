@@ -6,8 +6,8 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   color?: string;
   dark?: boolean;
-  icon?: boolean;
-  size?: string;
+  size?: 'sm' | 'md' | 'lg';
+  shade?: string;
   onClick?: () => void;
 }
 
@@ -19,11 +19,19 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     size,
     onClick,
     children,
+    shade,
     ...attrs
   } = props;
 
-  const colorTheme = dark ? '500' : '100';
-  const bgTheme = color ? `bg-${color}-${colorTheme}` : `bg-blue-${colorTheme}`;
+  const colorTheme =
+    (color && color === 'black') || color === 'white'
+      ? ''
+      : shade
+      ? `-${shade}`
+      : dark
+      ? '-500'
+      : '-100';
+  const bgTheme = color ? `bg-${color}${colorTheme}` : `bg-blue${colorTheme}`;
 
   const classes = classnames(
     'sui--alert',
@@ -76,7 +84,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 Alert.defaultProps = {
   color: 'blue',
   dark: false,
-  size: 'sm'
-}
+  size: 'sm',
+};
 
 export default Alert;

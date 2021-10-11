@@ -19,6 +19,8 @@ export default {
           'indigo',
           'purple',
           'pink',
+          'black',
+          'white'
         ],
       },
     },
