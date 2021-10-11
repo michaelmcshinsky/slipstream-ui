@@ -1,4 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react';
+import classNames from 'classnames';
 
 export interface DropdownToggleProps {
   children?: ReactNode;
@@ -7,9 +8,11 @@ export interface DropdownToggleProps {
 }
 
 export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
-  ({ children, tag: Tag, ...props }, ref) => {
+  ({ children, className, tag: Tag, ...props }, ref) => {
+    const classes = classNames('sui--dropdown-toggle', className);
+
     return (
-      <Tag ref={ref} {...props}>
+      <Tag ref={ref} className={classes} {...props}>
         {children}
       </Tag>
     );

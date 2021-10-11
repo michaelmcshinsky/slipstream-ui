@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Alert, AlertProps } from '../../src/extra/Alert';
+import { Alert, AlertProps } from '../../../src';
 
 export default {
-  title: 'Components/Extra/Alert',
+  title: 'Components/General/Alert',
   component: Alert,
   argTypes: {
     text: { control: 'text' },
@@ -35,27 +35,26 @@ export default {
 } as Meta;
 
 const Template: Story<AlertProps> = ({
-  text,
+  children,
   size,
   color,
   ...args
 }) => (
   <Alert {...args} size={size} color={color}>
-    {text}
+    {children}
   </Alert>
 );
 
 export const Default = Template.bind({});
 
 Default.args = {
-  text: 'First name is required...',
+  children: 'First name is required...',
 };
 
 export const WithButton = Template.bind({});
 
 WithButton.args = {
-  text: 'Button, button, who has the button...',
+  children: 'Button, button, who has the button...',
   color: 'yellow',
-  size: 'md',
   onClick: () => {},
 };

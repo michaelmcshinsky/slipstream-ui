@@ -4,10 +4,10 @@ import {
   Card,
   CardProps,
   Button,
-} from '../../src';
+} from '../../../src';
 
 export default {
-  title: 'Components/Global/Card',
+  title: 'Components/General/Card',
   component: Card,
   argTypes: {
     size: {
