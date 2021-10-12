@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { usePopper } from 'react-popper';
 import { useClickOutside } from '../utils';
 import { ComputedPlacement } from '@popperjs/core/lib/enums';
-import DropdownMenu, { DropdownMenuProps } from './DropdownMenu'
-import DropdownItem, { DropdownItemProps } from './DropdownItem'
-import DropdownToggle, { DropdownToggleProps } from './DropdownToggle'
+import DropdownMenu, { DropdownMenuProps } from './DropdownMenu';
+import DropdownItem, { DropdownItemProps } from './DropdownItem';
+import DropdownToggle, { DropdownToggleProps } from './DropdownToggle';
 
 export interface DropdownProps {
   className?: string;
@@ -72,11 +72,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       direction && right ? `${direction}-${right}` : 'bottom-start';
     const computedPlacement: ComputedPlacement = placement as ComputedPlacement;
 
-    const [outsideRef, hasClickedOutside] = useClickOutside();
+    const [outsideRef, hasClickedOutside, setOutside] = useClickOutside();
     const [popperElement, setPopperElement] = useState(null);
     const [referenceElement, setReferenceElement] = useState(null);
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
-      strategy: 'absolute',
+      strategy: 'fixed',
       placement: computedPlacement,
       modifiers: [offsetModifier],
     });
@@ -85,8 +85,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       if (onClick) {
         onClick(state);
       }
-      if (hasClickedOutside && disableOutsideClick === false) {
+      if (
+        hasClickedOutside &&
+        (disableOutsideClick === false || !disableOutsideClick)
+      ) {
         setState({ ...state, isOpen: false });
+        setOutside(false);
       }
     }, [hasClickedOutside]);
 
@@ -124,6 +128,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     const classes = classNames(
       'sui--dropdown relative inline-block',
+      { 'z-10': !className?.includes('z-') },
       className
     );
 
@@ -147,6 +152,6 @@ Dropdown.defaultProps = {
   offset: 4,
 };
 
-console.log('Dropdown', Dropdown)
+console.log('Dropdown', Dropdown);
 
 export default Dropdown;
