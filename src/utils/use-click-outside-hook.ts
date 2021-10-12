@@ -2,23 +2,20 @@ import { useState, useRef, useEffect } from 'react';
 
 export function useClickOutside() {
   const ref = useRef<HTMLElement>();
-  const [state, setState] = useState({
-    hasClickedOutside: false,
-  });
+  const [isOutside, setOutside] = useState(false);
 
   function handleEvent(e?: any) {
     if (ref && ref.current) {
       if (ref.current.contains(e?.target)) {
-        setState({ ...state, hasClickedOutside: false });
+        setOutside(false);
       } else {
-        if(e?.target) {
+        if (e?.target) {
           const isMenuToggle = e.target.getAttribute('data-dropdown');
-          
           if (isMenuToggle === 'menu-toggle') {
             return;
           }
         }
-        setState({ ...state, hasClickedOutside: true });
+        setOutside(true);
       }
     }
   }
@@ -41,5 +38,5 @@ export function useClickOutside() {
     };
   }, []);
 
-  return [ref, state.hasClickedOutside];
+  return [ref, isOutside, setOutside] as const;
 }

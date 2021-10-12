@@ -38,9 +38,7 @@ export function AvatarGroup({
         const classes = classNames(
           'border-solid border-white',
           { ['border']: size === 'sm' },
-          { 'border-2': size === 'md' },
-          { 'border-4': size === 'lg' },
-          { 'border-4': size === 'xl' }
+          { 'border-2': size !== 'sm' }
         );
 
         return React.cloneElement(child, {
