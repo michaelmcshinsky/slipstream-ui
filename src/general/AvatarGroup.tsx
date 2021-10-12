@@ -40,13 +40,13 @@ export function AvatarGroup({
           { ['border']: size === 'sm' },
           { 'border-2': size === 'md' },
           { 'border-4': size === 'lg' },
-          { 'border-4': size === 'xl' },
-          textSize,
-          size
+          { 'border-4': size === 'xl' }
         );
 
         return React.cloneElement(child, {
           className: classes,
+          textSize,
+          rounded,
           size,
         });
       }
