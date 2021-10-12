@@ -4,13 +4,17 @@ import classNames from 'classnames';
 export interface AvatarGroupProps {
   children?: ReactNode;
   className?: string;
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  textSize?: string;
 }
 
 export function AvatarGroup({
   children,
   className,
   size,
+  rounded,
+  textSize,
   ...props
 }: AvatarGroupProps) {
   const classes = classNames(
@@ -36,7 +40,9 @@ export function AvatarGroup({
           { ['border']: size === 'sm' },
           { 'border-2': size === 'md' },
           { 'border-4': size === 'lg' },
-          { 'border-4': size === 'xl' }
+          { 'border-4': size === 'xl' },
+          textSize,
+          size
         );
 
         return React.cloneElement(child, {
@@ -57,6 +63,7 @@ export function AvatarGroup({
 AvatarGroup.displayName = 'AvatarGroup';
 AvatarGroup.defaultProps = {
   size: 'md',
+  rounded: 'full',
 };
 
 export default AvatarGroup;
