@@ -17,8 +17,12 @@ export default {
 
 export const AvatarGroup = (args: AvatarGroupProps) => (
   <AvatarGroupComponent {...args}>
-    <Avatar rounded="full" src={'/avatar.png'} />
-    <Avatar rounded="full" src={'/avatar.png'} />
-    <Avatar rounded="full" src={'/avatar.png'} />
+    <Avatar src="/avatar.png" />
+    <Avatar src="/avatar.png" />
+    <Avatar src="/avatar.png" />
   </AvatarGroupComponent>
 );
+
+AvatarGroup.defaultProps = {
+
+}
