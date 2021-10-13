@@ -152,6 +152,4 @@ Dropdown.defaultProps = {
   offset: 4,
 };
 
-console.log('Dropdown', Dropdown);
-
 export default Dropdown;
