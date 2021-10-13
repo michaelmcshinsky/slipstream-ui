@@ -11,7 +11,7 @@ export function FormFeedback(props: FormFeedbackProps) {
   const { className, valid, children, ...attrs } = props;
 
   const classes = classNames(
-    'sui--formfeedback text-sm',
+    'sui--form-feedback text-sm',
     valid ? 'text-green-500' : 'text-red-500',
     className
   );
@@ -23,8 +23,6 @@ export function FormFeedback(props: FormFeedbackProps) {
   );
 }
 
-FormFeedback.defaultProps = {
-  invalid: true,
-};
+FormFeedback.displayName = 'FormFeedback';
 
 export default FormFeedback;
