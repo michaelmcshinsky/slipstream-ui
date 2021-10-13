@@ -2,28 +2,30 @@ import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface LabelProps {
-  htmlFor?: any;
+  children?: ReactNode;
   className?: string;
   disabled?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  children?: ReactNode;
+  htmlFor?: any;
   noMargin?: boolean;
+  required?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   const {
-    className,
-    htmlFor,
-    disabled,
-    size = 'md',
     children,
+    className,
+    disabled,
+    htmlFor,
     noMargin,
+    required,
+    size = 'md',
     ...attrs
   } = props;
 
   const classes = classnames(
     'sui--label',
-    'inline-block text-gray-700',
+    'flex inline-block text-gray-700',
     { 'mb-2': !noMargin },
     { 'text-xs': size === 'sm' },
     { 'text-sm': size === 'md' || !size },
@@ -35,6 +37,9 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   return (
     <label ref={ref} htmlFor={htmlFor} className={classes} {...attrs}>
       {children}
+      {required && (
+        <span className="text-red-500 pl-1">*</span>
+      )}
     </label>
   );
 });

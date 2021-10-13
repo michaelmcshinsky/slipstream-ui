@@ -4,14 +4,17 @@ import classnames from 'classnames';
 export interface FormGroupProps {
   className?: string;
   children?: ReactNode;
+  margin?: string;
 }
 
 export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
   (props, ref) => {
-    const { className, children, ...attributes } = props;
+    const { className, children, margin, ...attributes } = props;
     const classes = classnames(
-      'sui--formgroup',
-      'mb-4 flex flex-col',
+      'sui--form-group',
+      'flex flex-col',
+      { 'mb-4': !margin },
+      margin,
       className
     );
 
@@ -22,5 +25,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     );
   }
 );
+
+FormGroup.displayName = 'FormGroup';
 
 export default FormGroup;
