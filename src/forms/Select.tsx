@@ -10,6 +10,7 @@ export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
   size?: 'sm' | 'md' | 'lg';
   rounded?: boolean;
   children?: ReactNode;
+  rtl?: boolean;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -22,6 +23,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       size = 'md',
       children,
       rounded,
+      rtl,
       ...attrs
     } = props;
 
@@ -46,6 +48,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         ref={ref}
         className={classes}
         disabled={disabled}
+        dir={rtl ? 'rtl' : 'auto'}
         {...attrs}
       >
         {children}
