@@ -19,6 +19,7 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   name?: string;
   autoComplete?: string;
   list?: string;
+  rtl?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -36,6 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     size,
     type,
     rounded,
+    rtl,
     ...attrs
   } = props;
 
@@ -67,11 +69,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       value={value}
       placeholder={placeholder}
       type={type}
+      dir={rtl ? 'rtl' : 'auto'}
       {...attrs}
     />
   );
 });
 
-Input.displayName = 'Input'
+Input.displayName = 'Input';
+Input.defaultProps = {
+  size: 'md',
+};
 
 export default Input;
