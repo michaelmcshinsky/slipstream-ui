@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import { SizeListFull } from '../utils';
 
 export interface ContainerProps {
-  htmlFor?: any;
   className?: string;
   size?: SizeListFull;
   fluid?: boolean;
@@ -12,7 +11,7 @@ export interface ContainerProps {
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   (props, ref) => {
-    const { className, htmlFor, size, fluid, children, ...attributes } = props;
+    const { className, size, fluid, children, ...attributes } = props;
 
     const maxWidth = size && `max-w-${size}`;
 
