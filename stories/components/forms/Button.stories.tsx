@@ -30,7 +30,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ButtonProps> = args => <Button {...args}>Submit</Button>;
+const Template: Story<ButtonProps> = args => <Button href="/" {...args}>Submit</Button>;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
@@ -39,7 +39,8 @@ export const KitchenSink = Template.bind({});
 KitchenSink.args = {
   size: 'md',
   type: 'button',
-  color: 'primary'
+  color: 'primary',
+  tag: 'a'
 };
 
 export const Disabled = Template.bind({});
