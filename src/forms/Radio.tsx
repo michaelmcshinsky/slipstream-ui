@@ -1,28 +1,8 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { Checkbox } from './Checkbox';
+import { Checkbox, CheckboxProps } from './Checkbox';
 
-enum RadioEnum {
-  danger,
-  default,
-  primary,
-  success,
-  warning,
-}
-
-export interface RadioProps {
-  checked?: boolean;
-  children?: ReactNode;
-  className?: string;
-  color?: keyof typeof RadioEnum;
-  disabled?: boolean;
-  invalid?: boolean;
-  id?: string;
-  required?: boolean;
-  rtl?: boolean;
-  size?: 'md' | 'lg';
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
-}
+export interface RadioProps extends CheckboxProps {}
 
 export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
   const { className, ...attrs } = props;
