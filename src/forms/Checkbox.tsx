@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
-import Label from './Label';
+import { Label, LabelProps } from './Label';
 import Input from './Input';
 import theme from '../theme/default';
 
@@ -13,7 +13,6 @@ enum CheckboxEnum {
 }
 
 export interface CheckboxProps {
-  checked?: boolean;
   children?: ReactNode;
   className?: string;
   color?: keyof typeof CheckboxEnum;
@@ -25,23 +24,24 @@ export interface CheckboxProps {
   size?: 'md' | 'lg';
   type?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  labelProps?: LabelProps;
 }
 
 export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
   (props, ref) => {
     const {
-      checked = false,
       children,
       className,
-      color = 'primary',
-      disabled = false,
+      color,
+      disabled,
       id,
       invalid,
       onChange,
-      required = false,
+      required,
       rtl,
-      size = 'md',
+      size,
       type,
+      labelProps,
       ...attrs
     } = props;
 
@@ -69,10 +69,11 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         disabled={disabled}
         htmlFor={id}
         ref={ref}
+        required={required}
+        {...labelProps}
         noMargin
       >
         <Input
-          checked={checked}
           className={inputClasses}
           disabled={disabled}
           id={id}
@@ -88,5 +89,13 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     );
   }
 );
+
+Checkbox.displayName = 'Checkbox';
+Checkbox.defaultProps = {
+  disabled: false,
+  required: false,
+  color: 'primary',
+  size: 'md',
+};
 
 export default Checkbox;
