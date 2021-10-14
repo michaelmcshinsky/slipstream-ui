@@ -35,6 +35,7 @@ export interface ButtonProps {
   tag?: any;
   type?: Type;
   flush?: boolean;
+  block?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -49,13 +50,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'md',
       type = 'button',
       flush,
+      block,
       onClick,
       ...attrs
     } = props;
 
     const classes = classNames(
       'sui--button',
-      flush ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r' : 'rounded',
+      flush
+        ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r'
+        : 'rounded',
+      'no-underline cursor-pointer',
+      { 'w-full': block },
       { [theme.button.size.lg]: size === 'lg' },
       { [theme.button.size.md]: size === 'md' || !size },
       { [theme.button.size.sm]: size === 'sm' },

@@ -4,17 +4,17 @@ export default {
       'leading-tight border border-solid transition ease-in-out outline-none focus:outline-none',
     color: {
       danger:
-        'bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 active:bg-red-600 active:border-red-600 text-white',
+        'bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 active:bg-red-600 active:border-red-600 text-white hover:text-white active:text-white focus:text-white',
       default:
         'bg-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:border-gray-600 active:bg-gray-600 active:border-gray-600 text-black hover:text-white active:text-white focus:text-white',
       link:
         'bg-white border-transparent hover:bg-gray-300 hover:border-gray-200 focus:bg-gray-200 focus:border-gray-200 active:bg-gray-200 active:border-gray-200 text-black',
       primary:
-        'bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 focus:bg-blue-600 focus:border-blue-600 active:bg-blue-600 active:border-blue-600 text-white',
+        'bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 focus:bg-blue-600 focus:border-blue-600 active:bg-blue-600 active:border-blue-600 text-white hover:text-white active:text-white focus:text-white',
       success:
-        'bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 active:bg-green-600 active:border-green-600 text-white',
+        'bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 active:bg-green-600 active:border-green-600 text-white hover:text-white active:text-white focus:text-white',
       warning:
-        'bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 active:bg-yellow-600 active:border-yellow-600 text-white',
+        'bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 active:bg-yellow-600 active:border-yellow-600 text-white hover:text-white active:text-white focus:text-white',
     },
     size: {
       sm: 'text-xs py-1 px-2',
