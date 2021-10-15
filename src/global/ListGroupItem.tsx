@@ -35,10 +35,10 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
       'border border-solid flex',
       { 'first:rounded-t last:rounded-b': !flush },
       active
-        ? 'bg-primary text-white border-primary cursor-pointer'
+        ? 'bg-blue-500 text-white border-blue-500 cursor-pointer'
         : 'bg-white border-gray-300',
       { 'hover:bg-gray-200 cursor-pointer': hover && !active && !disabled },
-      { 'text-gray-500 cursor-not-allowed': disabled },
+      { 'text-gray-400 cursor-not-allowed': disabled },
       { 'border-r-0 border-l-0 first:border-t-0 last:border-b-0': flush },
       { 'text-left': Tag === 'button' },
       { 'align-start numbered': numbered },

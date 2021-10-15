@@ -34224,7 +34224,6 @@ select {
 ul .numbered:before {
   content: counters(section, '.') '. ';
   counter-increment: section;
-  padding: 0 .5rem;
 }
 
 @media (min-width: 640px) {
