@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-export function useClickOutside(menuToggle) {
+export function useClickOutside(menuToggle: string) {
   const ref = useRef<HTMLElement>();
   const [isOutside, setOutside] = useState(false);
 
