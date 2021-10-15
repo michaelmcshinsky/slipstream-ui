@@ -7,12 +7,16 @@ export interface DropdownToggleProps {
   children?: ReactNode;
   className?: string;
   tag?: any;
+  dataDropdown?: string;
   icon?: boolean;
   rtl?: boolean;
 }
 
 export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
-  ({ children, className, tag: Tag, icon, rtl, ...props }, ref) => {
+  (
+    { children, className, tag: Tag, dataDropdown, icon, rtl, ...props },
+    ref
+  ) => {
     const classes = classNames(
       'sui--dropdown-toggle flex items-center',
       { 'flex-row-reverse': rtl },
@@ -28,7 +32,7 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
           <ChevronDown
             className={iconClasses}
             fill="#fff"
-            data-dropdown="menu-toggle"
+            data-dropdown={dataDropdown || props['data-dropdown'] || undefined}
           />
         )}
       </Tag>

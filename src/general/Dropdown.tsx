@@ -42,6 +42,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (props, ref) => {
     const [state, setState] = useState({
       isOpen: false,
+      toggleID: Math.random().toString()
     });
     const {
       className,
@@ -76,7 +77,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       direction && right ? `${direction}-${right}` : 'bottom-start';
     const computedPlacement: ComputedPlacement = placement as ComputedPlacement;
 
-    const [outsideRef, hasClickedOutside, setOutside] = useClickOutside();
+    const [outsideRef, hasClickedOutside, setOutside] = useClickOutside(state.toggleID);
     const [popperElement, setPopperElement] = useState(null);
     const [referenceElement, setReferenceElement] = useState(null);
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -115,7 +116,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           return React.cloneElement(child, {
             ref: setReferenceElement,
             onClick: _handleToggle,
-            ['data-dropdown']: 'menu-toggle',
+            ['data-dropdown']: state.toggleID,
+            dataDropdown: state.toggleID,
             icon: icon,
             rtl: rtl,
           });
