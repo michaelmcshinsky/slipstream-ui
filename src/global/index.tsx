@@ -5,4 +5,6 @@ export { CardHeader, CardHeaderProps } from './CardHeader';
 // export { CardImage, CardImageProps } from './CardImage'
 export { CardTitle, CardTitleProps } from './CardTitle';
 export { Center, CenterProps } from './Center';
+export { ListGroup, ListGroupProps } from './ListGroup';
+export { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
 export * from './table';
