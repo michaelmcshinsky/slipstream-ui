@@ -19,11 +19,13 @@ const slipstreamConfig = {
   },
   variants: {
     extend: {
-      backgroundColor: ['active', 'checked', 'even'],
-      borderColor: ['active', 'checked'],
-      borderRadius: ['first', 'last'],
+      backgroundColor: ['active', 'checked', 'even', 'odd'],
+      borderColor: ['active', 'checked', 'last', 'focus'],
+      borderWidth: ['first', 'last', 'active', 'hover', 'focus'],
+      borderWidth: ['first', 'last'],
       gridAutoColumns: ['hover', 'focus'],
-      outline: ['hover', 'active'],
+      outline: ['hover', 'active', 'focus'],
+      zIndex: ['hover', 'active', 'focus'],
     },
   },
   plugins: [

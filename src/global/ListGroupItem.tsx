@@ -35,7 +35,7 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
       'border border-solid flex',
       { 'first:rounded-t last:rounded-b': !flush },
       active
-        ? 'bg-blue-500 text-white border-blue-500 cursor-pointer'
+        ? 'active bg-blue-500 text-white border-blue-500 cursor-pointer'
         : 'bg-white border-gray-300',
       { 'hover:bg-gray-200 cursor-pointer': hover && !active && !disabled },
       { 'text-gray-400 cursor-not-allowed': disabled },
