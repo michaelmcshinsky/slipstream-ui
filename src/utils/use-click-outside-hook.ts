@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-export function useClickOutside() {
+export function useClickOutside(menuToggle) {
   const ref = useRef<HTMLElement>();
   const [isOutside, setOutside] = useState(false);
 
@@ -11,7 +11,7 @@ export function useClickOutside() {
       } else {
         if (e?.target) {
           const isMenuToggle = e.target.getAttribute('data-dropdown');
-          if (isMenuToggle === 'menu-toggle') {
+          if (isMenuToggle === menuToggle) {
             return;
           }
         }
