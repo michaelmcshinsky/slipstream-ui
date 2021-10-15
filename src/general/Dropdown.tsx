@@ -16,6 +16,8 @@ export interface DropdownProps {
   direction?: DirectionTypes;
   right?: RightTypes;
   offset?: number;
+  icon?: boolean;
+  rtl?: boolean;
 }
 
 interface DropdownComponent
@@ -50,6 +52,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       direction,
       right,
       offset,
+      icon,
+      rtl,
       ...attrs
     } = props;
 
@@ -112,6 +116,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             ref: setReferenceElement,
             onClick: _handleToggle,
             ['data-dropdown']: 'menu-toggle',
+            icon,
+            rtl,
           });
         }
         if (child?.type?.displayName?.includes?.('DropdownMenu')) {
