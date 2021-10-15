@@ -24,7 +24,13 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
     return (
       <Tag ref={ref} className={classes} {...props}>
         {children}
-        {icon && <ChevronDown className={iconClasses} fill="#fff" />}
+        {icon && (
+          <ChevronDown
+            className={iconClasses}
+            fill="#fff"
+            data-dropdown="menu-toggle"
+          />
+        )}
       </Tag>
     );
   }
