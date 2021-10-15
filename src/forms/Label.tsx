@@ -9,6 +9,7 @@ export interface LabelProps {
   noMargin?: boolean;
   required?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  inline?: boolean;
 }
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
@@ -19,14 +20,15 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     htmlFor,
     noMargin,
     required,
-    size = 'md',
+    size,
+    inline,
     ...attrs
   } = props;
 
   const classes = classnames(
     'sui--label',
     'flex inline-block text-gray-700',
-    { 'mb-2': !noMargin },
+    { 'mb-2': !noMargin && !inline },
     { 'text-xs': size === 'sm' },
     { 'text-sm': size === 'md' || !size },
     { 'text-base': size === 'lg' },
@@ -37,14 +39,13 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   return (
     <label ref={ref} htmlFor={htmlFor} className={classes} {...attrs}>
       {children}
-      {required && (
-        <span className="text-red-500 pl-1">*</span>
-      )}
+      {required && <span className="text-red-500 pl-1">*</span>}
     </label>
   );
 });
 
 Label.defaultProps = {
+  size: 'md',
   noMargin: false,
 };
 
