@@ -116,8 +116,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             ref: setReferenceElement,
             onClick: _handleToggle,
             ['data-dropdown']: 'menu-toggle',
-            icon,
-            rtl,
+            icon: icon,
+            rtl: rtl,
           });
         }
         if (child?.type?.displayName?.includes?.('DropdownMenu')) {
