@@ -5,3 +5,8 @@
 .inline-flex: {
   display: inline-flex;
 }
+
+ul .numbered:before {
+  content: counters(section, '.') '. ';
+  counter-increment: section;
+}
