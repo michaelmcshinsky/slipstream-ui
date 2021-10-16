@@ -50,6 +50,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       : success
       ? theme.form.success
       : theme.form.default,
+    { 'h-7': type !== 'radio' && type !== 'checkbox' && size === 'sm' },
+    { 'h-8': type !== 'radio' && type !== 'checkbox' && size === 'md' || !size },
+    { 'h-10': type !== 'radio' && type !== 'checkbox' && size === 'lg' },
     { [theme.form.size.sm]: size === 'sm' },
     { [theme.form.size.md]: size === 'md' || !size },
     { [theme.form.size.lg]: size === 'lg' },
