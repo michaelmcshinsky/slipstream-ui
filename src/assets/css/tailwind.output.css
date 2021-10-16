@@ -749,6 +749,15 @@ select {
   }
 }
 
+.inline-flex {
+  display: inline-flex;
+}
+
+.numbered:before {
+  content: counters(section, '.') '. ';
+  counter-increment: section;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
@@ -34589,14 +34598,14 @@ select {
           animation: bounce 1s infinite;
 }
 
-.inline-flex: {
+/* .inline-flex: {
   display: inline-flex;
 }
 
 ul .numbered:before {
   content: counters(section, '.') '. ';
   counter-increment: section;
-}
+} */
 
 @media (min-width: 640px) {
   .sm\:container {

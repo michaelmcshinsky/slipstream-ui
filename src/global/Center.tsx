@@ -8,7 +8,7 @@ export interface CenterProps {
 
 export const Center = forwardRef<HTMLDivElement, CenterProps>(
   ({ children, className, ...props }, ref) => {
-    const classes = classNames('sui-center flex items-center justify-center', className);
+    const classes = classNames('sui--center flex items-center justify-center', className);
 
     return (
       <div ref={ref} className={classes} {...props}>

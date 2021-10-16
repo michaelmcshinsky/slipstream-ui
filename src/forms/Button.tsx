@@ -57,6 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const classes = classNames(
       'sui--button',
+      `sui--button-color_${color}`,
       flush
         ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r'
         : 'rounded',

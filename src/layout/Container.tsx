@@ -16,7 +16,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     const maxWidth = size && `max-w-${size}`;
 
     const classes = classnames(
-      'sui-container px-4 w-full',
+      'sui--container px-4 w-full',
       { maxWidth: size && !fluid },
       { 'max-w-6xl': !size && !fluid },
       { 'mx-auto': !fluid },

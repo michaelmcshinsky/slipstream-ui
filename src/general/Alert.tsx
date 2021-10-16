@@ -35,6 +35,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 
   const classes = classnames(
     'sui--alert',
+    `sui--alert-color_${color}`,
     'rounded-md flex flex-wrap items-center relative pr-10',
     dark ? 'text-gray-100' : `text-${color || 'gray'}-900`,
     { 'text-sm px-3 py-2': size === 'sm' },
