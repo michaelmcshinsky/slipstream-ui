@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import { TabItem, TabItemProps } from './TabItem';
 
 export interface TabSetProps {
-  vertical?: boolean;
+  background?: boolean;
+  border?: boolean;
   children?: ReactNode;
   className?: string;
   rtl?: boolean;
+  tabs?: TabItemMappedProps[];
   tag: 'nav' | 'ul' | 'div';
-  tabs?: TabItem[];
-  border?: boolean;
-  background?: boolean;
+  vertical?: boolean;
 }
 
 interface TabItemMappedProps extends TabItemProps {
@@ -18,14 +18,14 @@ interface TabItemMappedProps extends TabItemProps {
 }
 
 export function TabSet({
+  background,
+  border,
   children,
   className,
   rtl,
   tabs,
   tag: Tag,
   vertical,
-  border,
-  background,
   ...props
 }: TabSetProps) {
   const classes = classNames(
