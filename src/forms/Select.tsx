@@ -35,6 +35,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         : success
         ? theme.form.success
         : theme.form.default,
+        { 'h-7': size === 'sm' },
+        { 'h-8': size === 'md' || !size },
+        { 'h-10': size === 'lg' },
       { [theme.form.size.sm]: size === 'sm' },
       { [theme.form.size.md]: size === 'md' || !size },
       { [theme.form.size.lg]: size === 'lg' },

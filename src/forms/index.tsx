@@ -16,7 +16,7 @@ export { Radio, RadioProps } from './Radio';
 export { Select, SelectProps } from './Select';
 export { SelectOption, SelectOptionProps } from './SelectOption';
 export { SelectOptionGroup, SelectOptionGroupProps } from './SelectOptionGroup';
-// export { Switch } from './Switch';
+export { Switch, SwitchProps } from './Switch';
 // export { Tag } from './Tag';
 // export { Textarea } from './Textarea';
 // export { TimePicker } from './TimePicker';

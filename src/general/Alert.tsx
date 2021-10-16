@@ -37,7 +37,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     'sui--alert',
     `sui--alert-color_${color}`,
     'rounded-md flex flex-wrap items-center relative pr-10',
-    dark ? 'text-gray-100' : `text-${color || 'gray'}-900`,
+    dark ? 'text-gray-100' : `text-${color || 'gray'}-700`,
     { 'text-sm px-3 py-2': size === 'sm' },
     { 'text-base px-4 py-3': size === 'md' || !size },
     { 'text-lg px-5 py-4': size === 'lg' },
@@ -85,7 +85,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 Alert.defaultProps = {
   color: 'blue',
   dark: false,
-  size: 'sm',
+  size: 'md',
 };
 
 export default Alert;
