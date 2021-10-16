@@ -17,7 +17,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
     className,
     label,
     src,
-    color = 'gray',
+    color,
     colorCustom,
     rounded,
     size,
@@ -50,6 +50,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
 
   const classes = classNames(
     'sui--avatar',
+    `sui--avatar-color_${color}`,
     'relative flex items-center justify-center overflow-hidden leading-none',
     { 'w-6 h-6': size === 'sm' },
     { 'text-xs': size === 'sm' && !textSize },

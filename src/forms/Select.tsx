@@ -28,7 +28,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     } = props;
 
     const classes = classNames(
-      'sui-select w-full',
+      'sui--select w-full',
       theme.form.base,
       invalid
         ? theme.form.invalid

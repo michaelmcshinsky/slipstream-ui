@@ -16,7 +16,7 @@ export interface ColProps {
 export const Col = forwardRef<HTMLDivElement, ColProps>(
   ({ children, className, xs, sm, md, lg, xl, order, ...props }, ref) => {
     const classes = classNames(
-      'sui-column',
+      'sui--column',
       'w-full px-2',
       xs && `xs:w-${xs}`,
       sm && `sm:w-${sm}`,

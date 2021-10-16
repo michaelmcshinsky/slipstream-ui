@@ -7,7 +7,11 @@ export interface RadioProps extends CheckboxProps {}
 export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
   const { className, ...attrs } = props;
 
-  const classes = classNames('sui-radio', className);
+  const classes = classNames(
+    'sui--radio',
+    `sui--radio-color_${attrs.color}`,
+    className
+  );
 
   return <Checkbox ref={ref} className={classes} {...attrs} type="radio" />;
 });
