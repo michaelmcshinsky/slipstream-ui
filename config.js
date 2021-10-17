@@ -61,9 +61,37 @@ const slipstreamConfig = {
         },
         '.after\\:w-6::after': { content: '""', width: '1.5rem' },
         '.after\\:h-6::after': { content: '""', height: '1.5rem' },
+        '.peer:checked ~ .peer-checked\\:bg-gray-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(107, 114, 128, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-red-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(239, 68, 68, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-yellow-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(245, 158, 11, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-green-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(16, 185, 129, var(--tw-bg-opacity))',
+        },
         '.peer:checked ~ .peer-checked\\:bg-blue-500': {
           '--tw-bg-opacity': '1',
           backgroundColor: 'rgba(59, 130, 246, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-indigo-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(99, 102, 241, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-purple-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(139, 92, 246, var(--tw-bg-opacity))',
+        },
+        '.peer:checked ~ .peer-checked\\:bg-pink-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgba(236, 72, 153, var(--tw-bg-opacity))',
         },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-6::after': {
           content: '""',
