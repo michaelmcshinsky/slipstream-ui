@@ -2,14 +2,13 @@
   "name": "slipstream-ui",
   "author": "Michael McShinsky",
   "description": "Component library combining React and Tailwindcss, built with TypeScript",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src",
-    "config-plugin.js",
     "config.js"
   ],
   "engines": {

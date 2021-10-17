@@ -24,6 +24,13 @@ export function Switch({
   size,
   ...props
 }: SwitchProps) {
+  const labelClasses = classNames(
+    'sui--switch',
+    'relative inline-flex items-center cursor-pointer',
+    { 'opacity-50 cursor-not-allowed': disabled },
+    className
+  );
+
   const spanClasses = classNames(
     'flex flex-shrink-0 items-center p-1',
     'duration-300 ease-in-out bg-gray-300 rounded-full',
@@ -44,12 +51,6 @@ export function Switch({
     }
   );
 
-  const labelClasses = classNames(
-    'relative inline-flex items-center justify-between cursor-pointer',
-    { 'opacity-50 cursor-not-allowed': disabled },
-    className
-  );
-
   const labelInnnerClasses = classNames(
     'text-gray-700',
     { 'text-sm': size === 'sm' },
@@ -60,7 +61,9 @@ export function Switch({
 
   return (
     <label className={labelClasses} {...props}>
-      {!right && <span className={labelInnnerClasses}>{children}</span>}
+      {!right && children ? (
+        <span className={labelInnnerClasses}>{children}</span>
+      ) : null}
       <input
         type="checkbox"
         className="absolute hidden w-full h-full -translate-x-1/2 rounded-md appearance-none left-1/2 peer"
@@ -71,7 +74,9 @@ export function Switch({
         {...inputsProps}
       />
       <span className={spanClasses}></span>
-      {right && <span className={labelInnnerClasses}>{children}</span>}
+      {right && children ? (
+        <span className={labelInnnerClasses}>{children}</span>
+      ) : null}
     </label>
   );
 }
