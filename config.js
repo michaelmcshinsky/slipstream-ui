@@ -59,8 +59,12 @@ const slipstreamConfig = {
           content: '""',
           borderRadius: '9999px',
         },
+        '.after\\:w-5::after': { content: '""', width: '1.25rem' },
+        '.after\\:h-5::after': { content: '""', height: '1.25rem' },
         '.after\\:w-6::after': { content: '""', width: '1.5rem' },
         '.after\\:h-6::after': { content: '""', height: '1.5rem' },
+        '.after\\:w-8::after': { content: '""', width: '2rem' },
+        '.after\\:h-8::after': { content: '""', height: '2rem' },
         '.peer:checked ~ .peer-checked\\:bg-gray-500': {
           '--tw-bg-opacity': '1',
           backgroundColor: 'rgba(107, 114, 128, var(--tw-bg-opacity))',
