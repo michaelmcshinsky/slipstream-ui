@@ -97,6 +97,11 @@ const slipstreamConfig = {
           '--tw-bg-opacity': '1',
           backgroundColor: 'rgba(236, 72, 153, var(--tw-bg-opacity))',
         },
+        '.peer:checked ~ .peer-checked\\:after\\:translate-x-4::after': {
+          content: '""',
+          '--tw-translate-x': '1rem',
+          transform: 'var(--tw-transform)',
+        },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-6::after': {
           content: '""',
           '--tw-translate-x': '1.5rem',
