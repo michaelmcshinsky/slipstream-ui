@@ -1,7 +1,6 @@
-const magitekConfig = require('./config');
+const slipstreamConfig = require('./config');
 
-module.exports = magitekConfig({
-  purge: [],
+module.exports = slipstreamConfig({
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
