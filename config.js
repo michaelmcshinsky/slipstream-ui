@@ -100,7 +100,7 @@ const slipstreamConfig = {
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-4::after': {
           content: '""',
           '--tw-translate-x': '1rem',
-          transform: 'var(--tw-transform)',
+          transform: 'matrix(1, 0, 0, 1, 16, 0)',
         },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-6::after': {
           content: '""',
