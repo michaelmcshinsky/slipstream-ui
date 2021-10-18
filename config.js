@@ -106,9 +106,6 @@ const slipstreamConfig = {
           content: '""',
           '--tw-translate-x': '1.5rem',
           transform: 'matrix(1, 0, 0, 1, 24, 0)',
-        },
-        '.hidden': {
-          display: 'none'
         }
       });
     }),
