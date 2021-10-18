@@ -71,6 +71,7 @@ export function Switch({
         onChange={onChange}
         disabled={disabled}
         required={required}
+        style={{display: 'none'}}
         {...inputsProps}
       />
       <span className={spanClasses}></span>
