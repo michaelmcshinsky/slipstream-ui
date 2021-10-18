@@ -9,6 +9,9 @@
 <p align="center">
   <a href="https://slipstream-ui.netlify.app">Storybook</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1">Roadmap</a>
 </p>
+<p align="center">
+  <img src="https://img.shields.io/npm/v/slipstream-ui?style=flat-square"/>
+</p>
 <hr/>
 
 ## Installation
@@ -23,8 +26,9 @@ yarn add slipstream-ui
 
 Slipstream UI is a wrapper for Tailwindcss as well as a component library built using React. You will first need to add the wrapper to your tailwind.config.js file.
 
-```
+```javascript
 const slipstream = require('slipstream-ui/config')
+
 module.exports = slipstream({
   purge: [],
   theme: {
