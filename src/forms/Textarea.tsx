@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
+import { Input, InputProps } from './Input';
 
-export function Textarea() {
-  return <div></div>;
+export interface TextareaProps extends InputProps {
+  rows?: string | number;
 }
+
+export const Textarea = forwardRef<HTMLInputElement, TextareaProps>(
+  (props, ref) => {
+    return <Input ref={ref} {...props} tag="textarea" />;
+  }
+);
+
+Textarea.displayName = 'Textarea';
+Textarea.defaultProps = {
+  rows: 3,
+};
 
 export default Textarea;

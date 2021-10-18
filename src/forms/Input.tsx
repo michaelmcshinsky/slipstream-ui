@@ -20,6 +20,7 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   autoComplete?: string;
   list?: string;
   rtl?: boolean;
+  tag?: any;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -38,6 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     type,
     rounded,
     rtl,
+    tag: Tag,
     ...attrs
   } = props;
 
@@ -50,9 +52,25 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       : success
       ? theme.form.success
       : theme.form.default,
-    { 'h-7': type !== 'radio' && type !== 'checkbox' && size === 'sm' },
-    { 'h-8': type !== 'radio' && type !== 'checkbox' && size === 'md' || !size },
-    { 'h-10': type !== 'radio' && type !== 'checkbox' && size === 'lg' },
+    {
+      'h-7':
+        type !== 'radio' &&
+        type !== 'checkbox' &&
+        size === 'sm' &&
+        Tag !== 'textarea',
+    },
+    {
+      'h-8':
+        ((type !== 'radio' && type !== 'checkbox' && size === 'md') || !size) &&
+        Tag !== 'textarea',
+    },
+    {
+      'h-10':
+        type !== 'radio' &&
+        type !== 'checkbox' &&
+        size === 'lg' &&
+        Tag !== 'textarea',
+    },
     { [theme.form.size.sm]: size === 'sm' },
     { [theme.form.size.md]: size === 'md' || !size },
     { [theme.form.size.lg]: size === 'lg' },
@@ -62,7 +80,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   );
 
   return (
-    <input
+    <Tag
       ref={ref}
       id={id}
       className={classes}
@@ -81,6 +99,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 Input.displayName = 'Input';
 Input.defaultProps = {
   size: 'md',
+  tag: 'input',
 };
 
 export default Input;

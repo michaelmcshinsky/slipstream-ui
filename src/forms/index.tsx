@@ -18,6 +18,6 @@ export { SelectOption, SelectOptionProps } from './SelectOption';
 export { SelectOptionGroup, SelectOptionGroupProps } from './SelectOptionGroup';
 export { Switch, SwitchProps } from './Switch';
 // export { Tag } from './Tag';
-// export { Textarea } from './Textarea';
+export { Textarea, TextareaProps } from './Textarea';
 // export { TimePicker } from './TimePicker';
 // export { Toggle } from './Toggle';
