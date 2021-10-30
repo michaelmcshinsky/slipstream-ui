@@ -8,7 +8,7 @@ export interface TagProps {
   color?: string;
   shade?: string | number;
   size?: 'sm' | 'md' | 'lg';
-  rounded?: boolean;
+  rounded?: string;
   block?: boolean;
 }
 
@@ -20,7 +20,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
     const classes = classNames(
       'leading-tight',
       block ? 'block' : 'inline',
-      { 'rounded-sm': rounded },
+      rounded ? `rounded-${rounded}` : 'rounded-sm',
       color && color === 'white'
         ? 'text-white'
         : color === 'black'
@@ -42,6 +42,8 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
 );
 
 Tag.displayName = 'Tag';
-Tag.defaultProps = {};
+Tag.defaultProps = {
+  size: 'sm',
+};
 
 export default Tag;
