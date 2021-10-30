@@ -19,9 +19,9 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
     const classes = classNames(
       'w-full bg-gray-200',
       { 'rounded-full': rounded },
-      { 'h-1.5': size === 'sm' || !size },
+      { 'h-1.5': size === 'sm' },
       { 'h-2.5': size === 'md' || !size },
-      { 'h-4': size === 'lg' || !size },
+      { 'h-4': size === 'lg' },
       className
     );
 
