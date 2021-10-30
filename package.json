@@ -9,6 +9,7 @@
   "files": [
     "dist",
     "src",
+    "slipstream-banner.png",
     "config.js"
   ],
   "engines": {
