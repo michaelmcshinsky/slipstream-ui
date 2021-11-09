@@ -106,7 +106,15 @@ const slipstreamConfig = {
           content: '""',
           '--tw-translate-x': '1.5rem',
           transform: 'matrix(1, 0, 0, 1, 24, 0)',
-        }
+        },
+        '.sui--input-group_prepend + .sui--input': {
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0
+        },
+        '.sui--input-group .sui--input:not(:last-child)': {
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0
+        },
       });
     }),
   ],
