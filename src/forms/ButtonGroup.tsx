@@ -15,7 +15,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
       .map((child: any) => {
-        if (child.type?.displayName?.includes('Button')) {
+        if (child?.type?.displayName?.includes('Button')) {
           return React.cloneElement(child, {
             flush,
           });

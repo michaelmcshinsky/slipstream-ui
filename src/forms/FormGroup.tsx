@@ -23,8 +23,8 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
       .filter(Boolean)
       .map((child: any) => {
         if (
-          child.type?.displayName === 'Label' ||
-          child.type?.displayName === 'Input'
+          child?.type?.displayName === 'Label' ||
+          child?.type?.displayName === 'Input'
         ) {
           return React.cloneElement(child, {
             inline,

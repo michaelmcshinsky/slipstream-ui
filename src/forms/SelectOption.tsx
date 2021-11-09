@@ -1,14 +1,16 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 export interface SelectOptionProps {
   children?: ReactNode;
   value: string;
 }
 
-export function SelectOption({ children, ...props }: SelectOptionProps) {
-  return <option {...props}>{children}</option>;
-}
+export const SelectOption = forwardRef<HTMLOptionElement, SelectOptionProps>(
+  ({ children, ...props }) => {
+    return <option {...props}>{children}</option>;
+  }
+);
 
-SelectOption.displayName = 'SelectOption'
+SelectOption.displayName = 'SelectOption';
 
 export default SelectOption;
