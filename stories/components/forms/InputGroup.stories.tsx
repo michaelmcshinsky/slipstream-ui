@@ -4,8 +4,6 @@ import {
   InputGroup as InputGroupComponent,
   InputGroupProps,
   Input,
-  InputGroupPrepend,
-  InputGroupAppend,
 } from '../../../src';
 
 export default {
@@ -19,14 +17,12 @@ export default {
 
 const Template: Story<InputGroupProps> = (args) => (
   <InputGroupComponent {...args} inputProps={{size:'lg'}}>
-    <InputGroupPrepend>%</InputGroupPrepend>
+    <InputGroupComponent.Prepend>%</InputGroupComponent.Prepend>
     <Input />
-    <InputGroupAppend>%</InputGroupAppend>
+    <InputGroupComponent.Append>%</InputGroupComponent.Append>
   </InputGroupComponent>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const InputGroup = Template.bind({});
-
-InputGroup.args = {};

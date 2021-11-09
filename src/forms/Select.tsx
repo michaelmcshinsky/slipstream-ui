@@ -1,6 +1,8 @@
 import React, { forwardRef, ReactNode, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import theme from '../theme/default';
+import SelectOption, { SelectOptionProps } from './SelectOption';
+import SelectOptionGroup, { SelectOptionGroupProps } from './SelectOptionGroup';
 
 export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
   className?: string;
@@ -11,6 +13,18 @@ export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
   rounded?: boolean;
   children?: ReactNode;
   rtl?: boolean;
+}
+
+interface SelectComponent
+  extends React.ForwardRefExoticComponent<
+    SelectProps & React.RefAttributes<HTMLSelectElement>
+  > {
+  Option: React.ForwardRefExoticComponent<
+    SelectOptionProps & React.RefAttributes<HTMLOptionElement>
+  >;
+  OptionGroup: React.ForwardRefExoticComponent<
+    SelectOptionGroupProps & React.RefAttributes<HTMLOptionsCollection>
+  >;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -35,9 +49,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         : success
         ? theme.form.success
         : theme.form.default,
-        { 'h-7': size === 'sm' },
-        { 'h-8': size === 'md' || !size },
-        { 'h-10': size === 'lg' },
+      { 'h-7': size === 'sm' },
+      { 'h-8': size === 'md' || !size },
+      { 'h-10': size === 'lg' },
       { [theme.form.size.sm]: size === 'sm' },
       { [theme.form.size.md]: size === 'md' || !size },
       { [theme.form.size.lg]: size === 'lg' },
@@ -58,8 +72,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       </select>
     );
   }
-);
+) as SelectComponent;
 
 Select.displayName = 'Select';
+Select.Option = SelectOption;
+Select.OptionGroup = SelectOptionGroup;
 
 export default Select;

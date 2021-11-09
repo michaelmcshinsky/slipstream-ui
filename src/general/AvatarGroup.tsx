@@ -34,7 +34,7 @@ export function AvatarGroup({
   const renderedChildren = React.Children.toArray(children)
     .filter(Boolean)
     .map((child: any) => {
-      if (child.type?.displayName?.includes('Avatar')) {
+      if (child?.type?.displayName?.includes('Avatar')) {
         const classes = classNames(
           'border-solid border-white',
           { ['border']: size === 'sm' },

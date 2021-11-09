@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Select as SelectComponent, SelectOption, SelectOptionGroup, SelectProps } from '../../../src';
+import { Select as SelectComponent, SelectProps } from '../../../src';
 
 export default {
   title: 'Components/Forms',
@@ -19,14 +19,14 @@ export default {
 } as Meta;
 
 const Template: Story<SelectProps> = args => <SelectComponent {...args} >
-  <SelectOptionGroup label="Military Alphabet">
-    <SelectOption value="alpha">Alpha</SelectOption>
-    <SelectOption value="bravo">Bravo</SelectOption>
-    <SelectOption value="charlie">Charlie</SelectOption>
-    <SelectOption value="delta">Delta</SelectOption>
-    <SelectOption value="echo">Echo</SelectOption>
-    <SelectOption value="foxtrot">Foxtrot</SelectOption>
-  </SelectOptionGroup>
+  <SelectComponent.OptionGroup label="Military Alphabet">
+    <SelectComponent.Option value="alpha">Alpha</SelectComponent.Option>
+    <SelectComponent.Option value="bravo">Bravo</SelectComponent.Option>
+    <SelectComponent.Option value="charlie">Charlie</SelectComponent.Option>
+    <SelectComponent.Option value="delta">Delta</SelectComponent.Option>
+    <SelectComponent.Option value="echo">Echo</SelectComponent.Option>
+    <SelectComponent.Option value="foxtrot">Foxtrot</SelectComponent.Option>
+  </SelectComponent.OptionGroup>
 </SelectComponent>;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
