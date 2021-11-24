@@ -12,7 +12,7 @@ export const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 DropdownItem.displayName = 'DropdownItem';

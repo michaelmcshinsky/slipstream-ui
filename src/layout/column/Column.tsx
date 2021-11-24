@@ -25,7 +25,7 @@ export const Col = forwardRef<HTMLDivElement, ColProps>(
       xl && `xl:w-${xl}`,
       { 'flex-1 max-w-full': !xs && !sm && !md && !lg && !xl },
       order && `order-${order}`,
-      className
+      className,
     );
 
     return (
@@ -33,5 +33,5 @@ export const Col = forwardRef<HTMLDivElement, ColProps>(
         {children}
       </div>
     );
-  }
+  },
 );

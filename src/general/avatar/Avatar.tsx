@@ -63,11 +63,8 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
     { [`text-${textSize}`]: textSize },
     radius,
     bgTheme,
-    className
+    className,
   );
-
-  if (label) {
-  }
 
   return (
     <div className={classes} ref={ref} {...attrs}>

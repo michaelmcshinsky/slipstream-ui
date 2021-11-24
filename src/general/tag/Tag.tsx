@@ -15,7 +15,7 @@ export interface TagProps {
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     { children, className, color, shade, size, block, rounded, bg, ...props },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'leading-tight',
@@ -30,7 +30,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       { 'text-xs px-1.5 py-1': size === 'sm' },
       { 'text-sm px-2 py-1': size === 'md' || !size },
       { 'text-base px-2.5 py-1.5': size === 'lg' },
-      className
+      className,
     );
 
     return (
@@ -38,7 +38,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 Tag.displayName = 'Tag';

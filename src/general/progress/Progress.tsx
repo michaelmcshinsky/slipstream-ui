@@ -14,7 +14,7 @@ export interface ProgressProps {
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
   (
     { className, rounded, percent, animate, size, color, shade, ...props },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'w-full bg-gray-200',
@@ -22,14 +22,14 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
       { 'h-1.5': size === 'sm' },
       { 'h-2.5': size === 'md' || !size },
       { 'h-4': size === 'lg' },
-      className
+      className,
     );
 
     const innerClasses = classNames(
       'w-full h-full ease-in-out duration-700',
       color ? `bg-${color}-${shade || '500'}` : 'bg-blue-500',
       { 'animate-pulse': animate },
-      { 'rounded-full': rounded }
+      { 'rounded-full': rounded },
     );
     const maxWidth = percent ? `${percent}%` : 0;
     const styles = { maxWidth };
@@ -39,7 +39,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         <div className={innerClasses} style={styles}></div>
       </div>
     );
-  }
+  },
 );
 
 Progress.displayName = 'Progress';

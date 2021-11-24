@@ -18,5 +18,5 @@ const Template: Story<TagProps> = ({ ...args }) => <Tag {...args} />;
 export const _KitchenSink = Template.bind({});
 
 _KitchenSink.args = {
-  children: 'Tag Text'
+  children: 'Tag Text',
 };

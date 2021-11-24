@@ -8,7 +8,7 @@ export interface TextareaProps extends InputProps {
 export const Textarea = forwardRef<HTMLInputElement, TextareaProps>(
   (props, ref) => {
     return <Input ref={ref} {...props} tag="textarea" />;
-  }
+  },
 );
 
 Textarea.displayName = 'Textarea';

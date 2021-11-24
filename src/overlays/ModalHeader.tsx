@@ -24,12 +24,12 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
       'bg-white p-3 rounded-t border-b border-solid border-gray-300 relative',
       'flex items-center justify-between',
       rtl ? 'flex-row-reverse pl-10' : 'pr-10',
-      className
+      className,
     );
 
     const closeClasses = classnames(
       'text-gray-700 bg-transparent p-2 border-none cursor-pointer rounded hover:bg-gray-200 select-none absolute',
-      rtl ? 'left-0 ml-2' : 'right-0 mr-2'
+      rtl ? 'left-0 ml-2' : 'right-0 mr-2',
     );
 
     return (
@@ -42,7 +42,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 export default ModalHeader;

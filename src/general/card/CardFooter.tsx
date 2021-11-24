@@ -19,7 +19,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
       { 'p-4': size === 'lg' },
       { 'text-gray-700 border-gray-300': !dark },
       { 'text-gray-200 bg-gray-900 border-gray-500': dark },
-      className
+      className,
     );
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
@@ -35,7 +35,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 export default CardFooter;

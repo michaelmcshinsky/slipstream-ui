@@ -1,10 +1,10 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import {
   AvatarGroup as AvatarGroupComponent,
   AvatarGroupProps,
 } from './AvatarGroup';
-import { Avatar } from '../avatar'
+import { Avatar } from '../avatar';
 
 export default {
   title: 'Components/General/Avatar Group',
@@ -25,4 +25,4 @@ export const AvatarGroup = (args: AvatarGroupProps) => (
 
 AvatarGroup.defaultProps = {
 
-}
+};

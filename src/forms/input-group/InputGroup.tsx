@@ -25,7 +25,7 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
   ({ children, inputProps, ...props }, ref) => {
     const classes = classNames(
       'sui--input-group',
-      'relative flex items-stretch w-full'
+      'relative flex items-stretch w-full',
     );
 
     const renderedChildren = React.Children.toArray(children)
@@ -60,7 +60,7 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 ) as InputGroupComponent;
 
 InputGroup.displayName = 'InputGroup';

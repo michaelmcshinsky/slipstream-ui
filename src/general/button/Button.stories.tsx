@@ -40,7 +40,7 @@ KitchenSink.args = {
   size: 'md',
   type: 'button',
   color: 'primary',
-  tag: 'a'
+  tag: 'a',
 };
 
 export const Disabled = Template.bind({});

@@ -19,7 +19,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
       { 'p-4': size === 'lg' },
       { 'border-gray-300': !dark },
       { 'bg-gray-900 border-gray-500': dark },
-      className
+      className,
     );
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
@@ -35,7 +35,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 export default CardHeader;

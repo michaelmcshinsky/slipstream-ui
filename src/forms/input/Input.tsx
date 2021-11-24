@@ -76,7 +76,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     { [theme.form.size.lg]: size === 'lg' },
     disabled && theme.disabled,
     rounded ? 'rounded-full' : 'rounded',
-    className
+    className,
   );
 
   return (

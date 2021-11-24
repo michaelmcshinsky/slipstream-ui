@@ -4,7 +4,7 @@ import {
   Datalist as DatalistComponent,
   DatalistProps,
 } from './Datalist';
-import { FormGroup} from '../form-group';
+import { FormGroup } from '../form-group';
 
 export default {
   title: 'Components/Forms',

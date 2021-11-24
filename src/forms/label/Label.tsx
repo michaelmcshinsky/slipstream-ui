@@ -33,7 +33,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     { 'text-sm': size === 'md' || !size },
     { 'text-base': size === 'lg' },
     { 'opacity-50 cursor-not-allowed': disabled },
-    className
+    className,
   );
 
   return (

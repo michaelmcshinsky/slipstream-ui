@@ -21,7 +21,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
     const classes = classnames(
       'bg-white border-t border-solid border-gray-300 p-3 rounded-b flex items-center',
       { 'flex-row-reverse': rtl },
-      className
+      className,
     );
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
@@ -36,7 +36,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 export default ModalFooter;

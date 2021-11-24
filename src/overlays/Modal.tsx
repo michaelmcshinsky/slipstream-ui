@@ -112,18 +112,18 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     { 'max-w-4xl': size === '4xl' },
     { 'max-w-5xl': size === '5xl' },
     { ' px-4': size !== 'full' },
-    className
+    className,
   );
 
   const overlayClasses = classnames(
     'fixed top-0 left-0 w-full h-full outline-none focus:outline-none overflow-x-hidden',
     'w-full duration ease-in-out duration-500 bg-black overflow-y-hidden',
-    mounted ? 'bg-opacity-50' : 'bg-opacity-0'
+    mounted ? 'bg-opacity-50' : 'bg-opacity-0',
   );
 
   const bodyClasses = classnames(
     'w-full bg-white border border-solid border-gray-300 rounded flex flex-col',
-    'overflow-hidden max-h-full'
+    'overflow-hidden max-h-full',
   );
 
   const filteredChildren = React.Children.toArray(children).filter(Boolean);

@@ -31,7 +31,7 @@ export const Datalist = forwardRef<HTMLInputElement, DatalistProps>(
         </datalist>
       </>
     );
-  }
+  },
 );
 
 Datalist.displayName = 'Datalist';

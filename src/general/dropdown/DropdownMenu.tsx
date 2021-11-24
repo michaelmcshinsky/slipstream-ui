@@ -20,7 +20,7 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
       isOpen,
       ...props
     },
-    ref
+    ref,
   ) => {
     if (!isOpen) {
       return null;
@@ -37,7 +37,7 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 DropdownMenu.displayName = 'DropdownMenu';

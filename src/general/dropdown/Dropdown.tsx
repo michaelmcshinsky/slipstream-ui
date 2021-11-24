@@ -42,7 +42,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (props, ref) => {
     const [state, setState] = useState({
       isOpen: false,
-      toggleID: Math.random().toString()
+      toggleID: Math.random().toString(),
     });
     const {
       className,
@@ -116,7 +116,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           return React.cloneElement(child, {
             ref: setReferenceElement,
             onClick: _handleToggle,
-            ['data-dropdown']: state.toggleID,
+            'data-dropdown': state.toggleID,
             dataDropdown: state.toggleID,
             icon: icon,
             rtl: rtl,
@@ -137,7 +137,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const classes = classNames(
       'sui--dropdown relative inline-block',
       { 'z-10': !className?.includes('z-') },
-      className
+      className,
     );
 
     return (
@@ -145,7 +145,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 ) as DropdownComponent;
 
 Dropdown.Item = DropdownItem;

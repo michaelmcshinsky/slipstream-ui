@@ -69,7 +69,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color && theme.button.color[color],
       disabled && theme.disabled,
       theme.button.base,
-      className
+      className,
     );
 
     if (href && Tag === 'button') {
@@ -89,7 +89,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

@@ -36,7 +36,7 @@ export const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
         {children}
       </Button>
     );
-  }
+  },
 );
 
 export default ModalButton;

@@ -4,7 +4,7 @@ import {
   InputGroup as InputGroupComponent,
   InputGroupProps,
 } from './InputGroup';
-import { Input } from '../input'
+import { Input } from '../input';
 
 export default {
   title: 'Components/Forms',
@@ -16,7 +16,7 @@ export default {
 } as Meta;
 
 const Template: Story<InputGroupProps> = (args) => (
-  <InputGroupComponent {...args} inputProps={{size:'lg'}}>
+  <InputGroupComponent {...args} inputProps={{ size:'lg' }}>
     <InputGroupComponent.Prepend>%</InputGroupComponent.Prepend>
     <Input />
     <InputGroupComponent.Append>%</InputGroupComponent.Append>

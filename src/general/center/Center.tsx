@@ -15,5 +15,5 @@ export const Center = forwardRef<HTMLDivElement, CenterProps>(
         {children}
       </div>
     );
-  }
+  },
 );

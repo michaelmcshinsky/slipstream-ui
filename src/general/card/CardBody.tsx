@@ -17,7 +17,7 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
       { 'p-4': size === 'lg' },
       { 'text-gray-700': !dark },
       { 'text-gray-200': dark },
-      className
+      className,
     );
 
     return (
@@ -25,7 +25,7 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 export default CardBody;

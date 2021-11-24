@@ -9,9 +9,9 @@ export default {
   argTypes: {
     flush: {
       control: {
-        type: 'boolean'
-      }
-    }
+        type: 'boolean',
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },

@@ -17,7 +17,7 @@ export function Heading(props: HeadingProps) {
     !custom && Tag === 'h4' && 'text-lg',
     !custom && Tag === 'h5' && 'text-base',
     !custom && Tag === 'h6' && 'text-sm',
-    className
+    className,
   );
   return (
     <Tag {...attrs} className={classes}>
