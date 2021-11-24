@@ -1,1 +1,2 @@
-export { Heading, HeadingProps } from './Heading';
+export { Heading, HeadingProps } from './heading';
+export { Text, TextProps } from './text';
