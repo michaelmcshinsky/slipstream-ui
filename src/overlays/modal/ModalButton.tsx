@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react';
-import { Button, ButtonProps } from '../';
+import { Button, ButtonProps } from '../..';
 
 interface Callback {
   (): void;

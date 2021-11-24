@@ -1,7 +1,7 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import React, { forwardRef, HTMLAttributes } from 'react';
 import classnames from 'classnames';
-import { Close } from '../assets/icons';
+import { Close } from '../../assets/icons';
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;

@@ -18,7 +18,7 @@ export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
       { 'text-xl': size === 'lg' },
       { 'text-gray-700': !dark },
       { 'text-gray-200': dark },
-      className
+      className,
     );
 
     return (
@@ -26,7 +26,7 @@ export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
         {children}
       </h3>
     );
-  }
+  },
 );
 
 export default CardTitle;

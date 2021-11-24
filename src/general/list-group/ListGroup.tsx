@@ -25,12 +25,12 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--listgroup',
       'flex flex-col list-none p-0',
-      className
+      className,
     );
 
     const styles = { ...style, counterReset: 'section' };
@@ -50,7 +50,7 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 );
 
 ListGroup.displayName = 'ListGroup';

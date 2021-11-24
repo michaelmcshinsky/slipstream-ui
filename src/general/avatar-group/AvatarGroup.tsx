@@ -20,7 +20,7 @@ export function AvatarGroup({
   const classes = classNames(
     'sui--avatar-group',
     'flex items-center space-x-8',
-    classNames
+    classNames,
   );
 
   const innerClasses = classNames(
@@ -28,7 +28,7 @@ export function AvatarGroup({
     { '-space-x-2': size === 'sm' },
     { '-space-x-5': size === 'md' },
     { '-space-x-8': size === 'lg' },
-    { '-space-x-10': size === 'xl' }
+    { '-space-x-10': size === 'xl' },
   );
 
   const renderedChildren = React.Children.toArray(children)
@@ -37,8 +37,8 @@ export function AvatarGroup({
       if (child?.type?.displayName?.includes('Avatar')) {
         const classes = classNames(
           'border-solid border-white',
-          { ['border']: size === 'sm' },
-          { 'border-2': size !== 'sm' }
+          { 'border': size === 'sm' },
+          { 'border-2': size !== 'sm' },
         );
 
         return React.cloneElement(child, {

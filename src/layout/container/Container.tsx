@@ -21,7 +21,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       { 'max-w-6xl': !size && !fluid },
       { 'mx-auto': !fluid },
       maxWidth,
-      className
+      className,
     );
 
     return (
@@ -29,7 +29,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 export default Container;

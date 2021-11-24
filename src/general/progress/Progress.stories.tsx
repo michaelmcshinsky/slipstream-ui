@@ -18,5 +18,5 @@ const Template: Story<ProgressProps> = ({ ...args }) => <Progress {...args} />;
 export const _KitchenSink = Template.bind({});
 
 _KitchenSink.args = {
-  percent: 50
+  percent: 50,
 };

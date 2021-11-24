@@ -6,7 +6,7 @@ import {
   Row,
   Col,
 } from './index';
-import { Center } from '../general'
+import { Center } from '../general';
 
 export default {
   title: 'Components/Layout',

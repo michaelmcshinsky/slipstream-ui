@@ -36,7 +36,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     'border border-solid rounded w-full',
     { 'border-gray-300': !dark },
     { 'bg-gray-900 border-gray-500': dark },
-    className
+    className,
   );
 
   const filteredChildren = React.Children.toArray(children).filter(Boolean);

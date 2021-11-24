@@ -27,7 +27,7 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
       rtl,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--listgroup-item',
@@ -43,7 +43,7 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
       { 'text-left': Tag === 'button' },
       { 'align-start numbered': numbered },
       { 'flex-row-reverse': rtl },
-      className
+      className,
     );
 
     return (
@@ -51,7 +51,7 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 ListGroupItem.displayName = 'ListGroupItem';

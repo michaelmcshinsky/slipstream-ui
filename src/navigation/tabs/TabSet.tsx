@@ -32,7 +32,7 @@ export function TabSet({
     'sui--tab-set',
     'flex flex-wrap list-none',
     rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),
-    vertical && 'flex-col'
+    vertical && 'flex-col',
   );
 
   const renderedChildren = React.Children.toArray(children)

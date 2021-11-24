@@ -20,7 +20,7 @@ export default {
           'purple',
           'pink',
           'black',
-          'white'
+          'white',
         ],
       },
     },
@@ -58,5 +58,7 @@ export const WithButton = Template.bind({});
 WithButton.args = {
   children: 'Button, button, who has the button...',
   color: 'yellow',
-  onClick: () => {},
+  onClick: () => {
+    console.log('test');
+  },
 };

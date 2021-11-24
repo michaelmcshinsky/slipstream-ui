@@ -57,7 +57,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       { [theme.form.size.lg]: size === 'lg' },
       disabled && theme.disabled,
       rounded ? 'rounded-full' : 'rounded',
-      className
+      className,
     );
 
     return (
@@ -71,7 +71,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {children}
       </select>
     );
-  }
+  },
 ) as SelectComponent;
 
 Select.displayName = 'Select';

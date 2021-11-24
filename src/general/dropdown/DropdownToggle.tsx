@@ -17,7 +17,7 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
     const classes = classNames(
       'sui--dropdown-toggle flex items-center',
       { 'flex-row-reverse': rtl },
-      className
+      className,
     );
 
     const iconClasses = classNames(rtl ? 'pr-2' : 'pl-2');
@@ -34,7 +34,7 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
         )}
       </Tag>
     );
-  }
+  },
 );
 
 DropdownToggle.displayName = 'DropdownToggle';

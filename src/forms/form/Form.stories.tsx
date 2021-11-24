@@ -15,7 +15,7 @@ export default {
 const Template: Story = ({ ...args }) => {
   function _handleSubmit(e) {
     e.preventDefault();
-    alert('Form submitted!')
+    alert('Form submitted!');
   }
 
   return (
@@ -43,8 +43,8 @@ const Template: Story = ({ ...args }) => {
         <Alert color="yellow">Something must have gone wrong... apparently...</Alert>
       </FormComponent>
     </Container>
-  )
-}
+  );
+};
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

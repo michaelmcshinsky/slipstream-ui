@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { Checkbox, CheckboxProps } from '../checkbox';
 
-export interface RadioProps extends CheckboxProps {}
+export type RadioProps = CheckboxProps
 
 export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
   const { className, ...attrs } = props;
@@ -10,7 +10,7 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
   const classes = classNames(
     'sui--radio',
     `sui--radio-color_${attrs.color}`,
-    className
+    className,
   );
 
   return <Checkbox ref={ref} className={classes} {...attrs} type="radio" />;

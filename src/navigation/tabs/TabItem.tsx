@@ -36,7 +36,7 @@ export function TabItem({
     active ? 'active border-blue-500 text-blue-500' : 'border-transparent',
     background ? 'p-3 rounded-md' : 'mx-2 py-3',
     { 'rounded-b-none': background && border },
-    className
+    className,
   );
 
   const Tag = tag;

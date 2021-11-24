@@ -1,2 +1,2 @@
-export { TabSet, TabSetProps } from './TabSet'
-export { TabItem, TabItemProps } from './TabItem'
+export { TabSet, TabSetProps } from './TabSet';
+export { TabItem, TabItemProps } from './TabItem';

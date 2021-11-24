@@ -10,7 +10,7 @@ export interface ButtonGroupProps {
 export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
   (props, ref) => {
     const { className, flush, children, ...attributes } = props;
-    const classes = classNames('sui--button-group', {'space-x-2': !flush}, className);
+    const classes = classNames('sui--button-group', { 'space-x-2': !flush }, className);
 
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -28,7 +28,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 ButtonGroup.displayName = 'ButtonGroup';

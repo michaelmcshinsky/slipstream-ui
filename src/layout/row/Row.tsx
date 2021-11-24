@@ -15,5 +15,5 @@ export const Row = forwardRef<HTMLDivElement, RowProps>(
         {children}
       </div>
     );
-  }
+  },
 );

@@ -15,5 +15,5 @@ export const Breadcrumb = forwardRef<HTMLUListElement, BreadcrumbProps>(
         {children}
       </ul>
     );
-  }
+  },
 );

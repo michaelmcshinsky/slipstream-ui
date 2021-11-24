@@ -52,7 +52,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       { 'w-4 h-4': size === 'md' || !size },
       { 'w-6 h-6': size === 'lg' },
       color && theme.checkbox.color[color],
-      type === 'radio' ? 'form-radio rounded-full' : 'form-checkbox rounded'
+      type === 'radio' ? 'form-radio rounded-full' : 'form-checkbox rounded',
     );
 
     const labelClasses = classNames(
@@ -61,7 +61,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       { 'text-base': size === 'lg' },
       { 'text-red-500': invalid },
       { 'text-sm': size === 'md' || !size },
-      rtl ? 'order-first mr-2' : 'ml-2'
+      rtl ? 'order-first mr-2' : 'ml-2',
     );
 
     return (
@@ -88,7 +88,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         <span className={labelClasses}>{children}</span>
       </Label>
     );
-  }
+  },
 );
 
 Checkbox.displayName = 'Checkbox';

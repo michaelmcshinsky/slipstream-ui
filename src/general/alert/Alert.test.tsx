@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 import { Alert } from './Alert';
 
@@ -9,5 +9,5 @@ describe('Alert', () => {
     const { getByText } = render(<Alert>Hello World</Alert>);
 
     expect(getByText('Hello World')).toBeInTheDocument();
-  })
-})
+  });
+});

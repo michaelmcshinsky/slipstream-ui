@@ -8,7 +8,7 @@ export interface SelectOptionProps {
 export const SelectOption = forwardRef<HTMLOptionElement, SelectOptionProps>(
   ({ children, ...props }) => {
     return <option {...props}>{children}</option>;
-  }
+  },
 );
 
 SelectOption.displayName = 'SelectOption';

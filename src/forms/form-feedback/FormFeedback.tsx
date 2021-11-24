@@ -13,7 +13,7 @@ export function FormFeedback(props: FormFeedbackProps) {
   const classes = classNames(
     'sui--form-feedback text-sm',
     valid ? 'text-green-500' : 'text-red-500',
-    className
+    className,
   );
 
   return (

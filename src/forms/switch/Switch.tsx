@@ -28,7 +28,7 @@ export function Switch({
     'sui--switch',
     'relative inline-flex items-center cursor-pointer',
     { 'opacity-50 cursor-not-allowed': disabled },
-    className
+    className,
   );
 
   const spanClasses = classNames(
@@ -48,7 +48,7 @@ export function Switch({
     {
       'w-16 h-10 after:w-8 after:h-8 peer-checked:after:translate-x-6':
         size === 'lg',
-    }
+    },
   );
 
   const labelInnnerClasses = classNames(
@@ -56,7 +56,7 @@ export function Switch({
     { 'text-sm': size === 'sm' },
     { 'text-base': size === 'md' },
     { 'text-lg': size === 'lg' },
-    right ? 'pl-2' : 'pr-2'
+    right ? 'pl-2' : 'pr-2',
   );
 
   return (
@@ -71,7 +71,7 @@ export function Switch({
         onChange={onChange}
         disabled={disabled}
         required={required}
-        style={{display: 'none'}}
+        style={{ display: 'none' }}
         {...inputsProps}
       />
       <span className={spanClasses}></span>

@@ -16,7 +16,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
       inline ? 'flex-row items-center' : 'flex-col items-start',
       { 'mb-4': !margin },
       margin,
-      className
+      className,
     );
 
     const renderedChildren = React.Children.toArray(children)
@@ -38,7 +38,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 FormGroup.displayName = 'FormGroup';
