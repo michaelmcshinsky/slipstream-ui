@@ -7,7 +7,7 @@
   Component library combining React and Tailwindcss, built with TypeScript
 </p>
 <p align="center">
-  <a href="https://slipstream-docs.netlify.app" target="_blank">Documentation</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui" target="_blank">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1" target="_blank">Roadmap</a>
+  <a href="https://slipstream-docs.netlify.app" target="_blank">Documentation</a> | <a href="https://www.npmjs.com/package/slipstream-ui" target="_blank">NPM</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui" target="_blank">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1" target="_blank">Roadmap</a>
 </p>
 <p align="center">
   <a href="https://www.npmjs.com/package/slipstream-ui" target="_blank">
