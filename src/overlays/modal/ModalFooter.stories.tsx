@@ -7,7 +7,7 @@ import {
 } from '../..';
 
 export default {
-  title: 'Components/Overlays',
+  title: 'Components/Overlays/Modal',
   component: Footer,
   argTypes: {},
   parameters: {
