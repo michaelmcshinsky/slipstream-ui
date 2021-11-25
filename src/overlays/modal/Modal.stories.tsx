@@ -4,7 +4,7 @@ import { Modal, ModalProps } from './Modal';
 import { Button } from '../..';
 
 export default {
-  title: 'Components/Overlays',
+  title: 'Components/Overlays/Modal',
   component: Modal,
   argTypes: {
     size: {
