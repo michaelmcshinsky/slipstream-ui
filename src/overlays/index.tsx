@@ -1,5 +1,11 @@
-export { Modal } from './Modal';
-export { ModalBody, ModalBodyProps } from './ModalBody';
-export { ModalButton, ModalButtonProps } from './ModalButton';
-export { ModalFooter, ModalFooterProps } from './ModalFooter';
-export { ModalHeader, ModalHeaderProps } from './ModalHeader';
+export {
+  Modal,
+  ModalBody,
+  ModalBodyProps,
+  ModalButton,
+  ModalButtonProps,
+  ModalFooter,
+  ModalFooterProps,
+  ModalHeader,
+  ModalHeaderProps,
+} from './modal';
