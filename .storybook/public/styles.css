@@ -1029,6 +1029,69 @@ select {
   position: sticky;
 }
 
+.hover\:static:hover {
+  position: static;
+}
+
+.hover\:fixed:hover {
+  position: fixed;
+}
+
+.hover\:absolute:hover {
+  position: absolute;
+}
+
+.hover\:relative:hover {
+  position: relative;
+}
+
+.hover\:sticky:hover {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.focus\:static:focus {
+  position: static;
+}
+
+.focus\:fixed:focus {
+  position: fixed;
+}
+
+.focus\:absolute:focus {
+  position: absolute;
+}
+
+.focus\:relative:focus {
+  position: relative;
+}
+
+.focus\:sticky:focus {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.active\:static:active {
+  position: static;
+}
+
+.active\:fixed:active {
+  position: fixed;
+}
+
+.active\:absolute:active {
+  position: absolute;
+}
+
+.active\:relative:active {
+  position: relative;
+}
+
+.active\:sticky:active {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
 .inset-0 {
   top: 0px;
   right: 0px;
@@ -36233,6 +36296,69 @@ ul .numbered:before {
     position: sticky;
   }
 
+  .sm\:hover\:static:hover {
+    position: static;
+  }
+
+  .sm\:hover\:fixed:hover {
+    position: fixed;
+  }
+
+  .sm\:hover\:absolute:hover {
+    position: absolute;
+  }
+
+  .sm\:hover\:relative:hover {
+    position: relative;
+  }
+
+  .sm\:hover\:sticky:hover {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .sm\:focus\:static:focus {
+    position: static;
+  }
+
+  .sm\:focus\:fixed:focus {
+    position: fixed;
+  }
+
+  .sm\:focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .sm\:focus\:relative:focus {
+    position: relative;
+  }
+
+  .sm\:focus\:sticky:focus {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .sm\:active\:static:active {
+    position: static;
+  }
+
+  .sm\:active\:fixed:active {
+    position: fixed;
+  }
+
+  .sm\:active\:absolute:active {
+    position: absolute;
+  }
+
+  .sm\:active\:relative:active {
+    position: relative;
+  }
+
+  .sm\:active\:sticky:active {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .sm\:inset-0 {
     top: 0px;
     right: 0px;
@@ -71006,6 +71132,69 @@ ul .numbered:before {
   }
 
   .md\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .md\:hover\:static:hover {
+    position: static;
+  }
+
+  .md\:hover\:fixed:hover {
+    position: fixed;
+  }
+
+  .md\:hover\:absolute:hover {
+    position: absolute;
+  }
+
+  .md\:hover\:relative:hover {
+    position: relative;
+  }
+
+  .md\:hover\:sticky:hover {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .md\:focus\:static:focus {
+    position: static;
+  }
+
+  .md\:focus\:fixed:focus {
+    position: fixed;
+  }
+
+  .md\:focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .md\:focus\:relative:focus {
+    position: relative;
+  }
+
+  .md\:focus\:sticky:focus {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .md\:active\:static:active {
+    position: static;
+  }
+
+  .md\:active\:fixed:active {
+    position: fixed;
+  }
+
+  .md\:active\:absolute:active {
+    position: absolute;
+  }
+
+  .md\:active\:relative:active {
+    position: relative;
+  }
+
+  .md\:active\:sticky:active {
     position: -webkit-sticky;
     position: sticky;
   }
@@ -105787,6 +105976,69 @@ ul .numbered:before {
     position: sticky;
   }
 
+  .lg\:hover\:static:hover {
+    position: static;
+  }
+
+  .lg\:hover\:fixed:hover {
+    position: fixed;
+  }
+
+  .lg\:hover\:absolute:hover {
+    position: absolute;
+  }
+
+  .lg\:hover\:relative:hover {
+    position: relative;
+  }
+
+  .lg\:hover\:sticky:hover {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .lg\:focus\:static:focus {
+    position: static;
+  }
+
+  .lg\:focus\:fixed:focus {
+    position: fixed;
+  }
+
+  .lg\:focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .lg\:focus\:relative:focus {
+    position: relative;
+  }
+
+  .lg\:focus\:sticky:focus {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .lg\:active\:static:active {
+    position: static;
+  }
+
+  .lg\:active\:fixed:active {
+    position: fixed;
+  }
+
+  .lg\:active\:absolute:active {
+    position: absolute;
+  }
+
+  .lg\:active\:relative:active {
+    position: relative;
+  }
+
+  .lg\:active\:sticky:active {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .lg\:inset-0 {
     top: 0px;
     right: 0px;
@@ -140564,6 +140816,69 @@ ul .numbered:before {
     position: sticky;
   }
 
+  .xl\:hover\:static:hover {
+    position: static;
+  }
+
+  .xl\:hover\:fixed:hover {
+    position: fixed;
+  }
+
+  .xl\:hover\:absolute:hover {
+    position: absolute;
+  }
+
+  .xl\:hover\:relative:hover {
+    position: relative;
+  }
+
+  .xl\:hover\:sticky:hover {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .xl\:focus\:static:focus {
+    position: static;
+  }
+
+  .xl\:focus\:fixed:focus {
+    position: fixed;
+  }
+
+  .xl\:focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .xl\:focus\:relative:focus {
+    position: relative;
+  }
+
+  .xl\:focus\:sticky:focus {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .xl\:active\:static:active {
+    position: static;
+  }
+
+  .xl\:active\:fixed:active {
+    position: fixed;
+  }
+
+  .xl\:active\:absolute:active {
+    position: absolute;
+  }
+
+  .xl\:active\:relative:active {
+    position: relative;
+  }
+
+  .xl\:active\:sticky:active {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   .xl\:inset-0 {
     top: 0px;
     right: 0px;
@@ -175337,6 +175652,69 @@ ul .numbered:before {
   }
 
   .\32xl\:sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .\32xl\:hover\:static:hover {
+    position: static;
+  }
+
+  .\32xl\:hover\:fixed:hover {
+    position: fixed;
+  }
+
+  .\32xl\:hover\:absolute:hover {
+    position: absolute;
+  }
+
+  .\32xl\:hover\:relative:hover {
+    position: relative;
+  }
+
+  .\32xl\:hover\:sticky:hover {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .\32xl\:focus\:static:focus {
+    position: static;
+  }
+
+  .\32xl\:focus\:fixed:focus {
+    position: fixed;
+  }
+
+  .\32xl\:focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .\32xl\:focus\:relative:focus {
+    position: relative;
+  }
+
+  .\32xl\:focus\:sticky:focus {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .\32xl\:active\:static:active {
+    position: static;
+  }
+
+  .\32xl\:active\:fixed:active {
+    position: fixed;
+  }
+
+  .\32xl\:active\:absolute:active {
+    position: absolute;
+  }
+
+  .\32xl\:active\:relative:active {
+    position: relative;
+  }
+
+  .\32xl\:active\:sticky:active {
     position: -webkit-sticky;
     position: sticky;
   }
