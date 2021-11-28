@@ -20,10 +20,10 @@ export default {
 
 const Template: Story<ButtonGroupProps> = ({ ...args }) => (
   <ButtonGroupComponent {...args}>
-    <Button color="primary">Primary</Button>
-    <Button color="success">Secondary</Button>
-    <Button color="warning">Warning</Button>
-    <Button color="danger">Danger</Button>
+    <Button color="default">Primary</Button>
+    <Button color="default">Secondary</Button>
+    <Button color="default">Warning</Button>
+    <Button color="default">Danger</Button>
   </ButtonGroupComponent>
 );
 
