@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="2.08333in" height="2.08333in"
-     viewBox="0 0 150 150">
-  <path id="slipstream-svg"
-        fill="#2D8EFF" stroke="#2D8EFF" stroke-width="1"
-        d="M 69.02,8.34
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="150px" height="150px" viewBox="0 0 150 150">
+	<path id="slipstream-svg" fill="#2D8EFF" stroke="#2D8EFF" stroke-width="1" d="M 69.02,8.34
            C 74.82,4.64 81.00,7.36 74.45,15.18
              69.13,21.88 56.98,30.99 62.82,43.55
              69.94,54.69 96.96,65.27 109.00,72.45
