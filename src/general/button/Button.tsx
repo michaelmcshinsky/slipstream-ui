@@ -59,7 +59,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'sui--button',
       `sui--button-color_${color}`,
       flush
-        ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r'
+        ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r hover:relative active:relative focus:relative'
         : 'rounded',
       'no-underline cursor-pointer',
       { 'w-full': block },
