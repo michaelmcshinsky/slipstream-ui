@@ -39,9 +39,9 @@ export default {
     success: 'border-green-500',
     invalid: 'border-red-400',
     size: {
-      sm: 'text-xs py-1 px-2',
-      md: 'text-sm p-2',
-      lg: 'text-base py-2 px-3',
+      sm: 'text-xs px-2',
+      md: 'text-sm px-2',
+      lg: 'text-base px-3',
     },
   },
 };
