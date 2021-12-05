@@ -16,9 +16,9 @@ interface Callback {
 }
 
 enum Type {
-  Button = 'button',
-  Reset = 'reset',
-  Submit = 'submit',
+  button = 'button',
+  reset = 'reset',
+  submit = 'submit',
 }
 
 export interface ButtonProps {
@@ -33,7 +33,7 @@ export interface ButtonProps {
   ) => void;
   size?: 'sm' | 'md' | 'lg';
   tag?: any;
-  type?: Type;
+  type?: keyof typeof Type;
   flush?: boolean;
   block?: boolean;
 }

@@ -16,7 +16,6 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   const {
     children,
     className,
-    disabled,
     htmlFor,
     noMargin,
     required,
@@ -32,7 +31,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
     { 'text-xs': size === 'sm' },
     { 'text-sm': size === 'md' || !size },
     { 'text-base': size === 'lg' },
-    { 'opacity-50 cursor-not-allowed': disabled },
+    { 'opacity-50 cursor-not-allowed': attrs.disabled },
     className,
   );
 

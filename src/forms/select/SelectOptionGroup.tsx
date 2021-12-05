@@ -1,15 +1,21 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 export interface SelectOptionGroupProps {
-  label: string;
+  label?: string;
+  disabled?: boolean;
   children?: ReactNode;
 }
 
-export const SelectOptionGroup = ({ label, children, ...props }: SelectOptionGroupProps) => (
-  <optgroup label={label} {...props}>
-  {children}
-</optgroup>
-)
+export const SelectOptionGroup = forwardRef<
+  HTMLOptGroupElement,
+  SelectOptionGroupProps
+>(({ children, label, ...props }, ref) => {
+  return (
+    <optgroup ref={ref} label={label} {...props}>
+      {children}
+    </optgroup>
+  );
+});
 
 SelectOptionGroup.displayName = 'SelectOptionGroup';
 

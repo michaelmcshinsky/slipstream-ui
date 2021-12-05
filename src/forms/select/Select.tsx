@@ -23,7 +23,7 @@ interface SelectComponent
     SelectOptionProps & React.RefAttributes<HTMLOptionElement>
   >;
   OptionGroup: React.ForwardRefExoticComponent<
-    SelectOptionGroupProps & React.RefAttributes<HTMLOptionsCollection>
+    SelectOptionGroupProps & React.RefAttributes<HTMLOptGroupElement>
   >;
 }
 
