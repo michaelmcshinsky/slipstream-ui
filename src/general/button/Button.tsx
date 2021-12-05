@@ -39,19 +39,15 @@ export interface ButtonProps {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
+  (props: ButtonProps, ref: any) => {
     let { tag: Tag = 'button' } = props;
     const {
       children,
       className,
-      color = 'primary',
-      disabled = false,
-      href,
-      size = 'md',
-      type = 'button',
+      color,
+      size,
       flush,
       block,
-      onClick,
       ...attrs
     } = props;
 
@@ -67,31 +63,32 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       { [theme.button.size.md]: size === 'md' || !size },
       { [theme.button.size.sm]: size === 'sm' },
       color && theme.button.color[color],
-      disabled && theme.disabled,
+      attrs.disabled && theme.disabled,
       theme.button.base,
-      className,
+      className
     );
 
-    if (href && Tag === 'button') {
+    if (attrs.href && Tag === 'button') {
       Tag = 'a';
     }
 
     return (
       <Tag
-        className={classes}
-        disabled={disabled}
-        href={href}
-        onClick={onClick}
         ref={ref}
-        type={type}
+        className={classes}
         {...attrs}
       >
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 Button.displayName = 'Button';
+Button.defaultProps = {
+  color: 'primary',
+  type: 'button',
+  size: 'md'
+};
 
 export default Button;
