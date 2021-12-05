@@ -26,7 +26,7 @@ export interface ButtonProps {
   className?: string;
   color?: keyof typeof ButtonEnum;
   disabled?: boolean;
-  href?: string;
+  href?: string | undefined;
   onClick?: (
     e: React.MouseEventHandler<HTMLButtonElement>,
     callback: Callback
@@ -40,7 +40,7 @@ export interface ButtonProps {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props: ButtonProps, ref: any) => {
-    let { tag: Tag = 'button' } = props;
+    let { tag: Tag } = props;
     const {
       children,
       className,
@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'sui--button',
       `sui--button-color_${color}`,
       flush
-        ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r'
+        ? 'rounded-none first:rounded-l first:ml-0 -ml-px last:rounded-r hover:relative active:relative focus:relative'
         : 'rounded',
       'no-underline cursor-pointer',
       { 'w-full': block },
@@ -86,6 +86,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button';
 Button.defaultProps = {
+  tag: 'button',
   color: 'primary',
   type: 'button',
   size: 'md'

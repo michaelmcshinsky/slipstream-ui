@@ -23,6 +23,7 @@ const slipstreamConfig = {
       borderWidth: ['first', 'last', 'active', 'hover', 'focus'],
       gridAutoColumns: ['hover', 'focus'],
       outline: ['hover', 'active', 'focus'],
+      position: ['hover', 'active', 'focus'],
       zIndex: ['hover', 'active', 'focus'],
     },
   },
