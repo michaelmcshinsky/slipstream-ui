@@ -25,18 +25,11 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
-    id,
     className,
-    placeholder,
-    required,
-    disabled,
-    checked,
     inline,
-    value,
     invalid,
     success,
     size,
-    type,
     rounded,
     rtl,
     tag: Tag,
@@ -54,45 +47,36 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       : theme.form.default,
     {
       'h-7':
-        type !== 'radio' &&
-        type !== 'checkbox' &&
+        attrs.type !== 'radio' &&
+        attrs.type !== 'checkbox' &&
         size === 'sm' &&
         Tag !== 'textarea',
     },
     {
       'h-8':
-        ((type !== 'radio' && type !== 'checkbox' && size === 'md') || !size) &&
+        ((attrs.type !== 'radio' &&
+          attrs.type !== 'checkbox' &&
+          size === 'md') ||
+          !size) &&
         Tag !== 'textarea',
     },
     {
       'h-10':
-        type !== 'radio' &&
-        type !== 'checkbox' &&
+        attrs.type !== 'radio' &&
+        attrs.type !== 'checkbox' &&
         size === 'lg' &&
         Tag !== 'textarea',
     },
     { [theme.form.size.sm]: size === 'sm' },
     { [theme.form.size.md]: size === 'md' || !size },
     { [theme.form.size.lg]: size === 'lg' },
-    disabled && theme.disabled,
+    attrs.disabled && theme.disabled,
     rounded ? 'rounded-full' : 'rounded',
-    className,
+    className
   );
 
   return (
-    <Tag
-      ref={ref}
-      id={id}
-      className={classes}
-      required={required}
-      disabled={disabled}
-      checked={checked}
-      value={value}
-      placeholder={placeholder}
-      type={type}
-      dir={rtl ? 'rtl' : 'auto'}
-      {...attrs}
-    />
+    <Tag ref={ref} className={classes} dir={rtl ? 'rtl' : 'auto'} {...attrs} />
   );
 });
 

@@ -66,10 +66,10 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
     return (
       <Label
+        ref={ref}
         className="inline-flex items-center"
         disabled={disabled}
         htmlFor={id}
-        ref={ref}
         required={required}
         {...labelProps}
         noMargin
