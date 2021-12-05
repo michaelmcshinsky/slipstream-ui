@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { ModalHeader as Header, ModalHeaderProps } from './ModalHeader';
 
 export default {
-  title: 'Components/Overlays',
+  title: 'Components/Overlays/Modal',
   component: Header,
   argTypes: {},
   parameters: {
