@@ -42,19 +42,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     } = props;
 
     const classes = classNames(
-      'sui--select w-full appearance-none',
+      'sui--select w-full appearance-none py-0 px-2',
       theme.form.base,
       invalid
         ? theme.form.invalid
         : success
         ? theme.form.success
         : theme.form.default,
-      { 'h-7': size === 'sm' },
-      { 'h-8': size === 'md' || !size },
-      { 'h-10': size === 'lg' },
-      { [theme.form.size.sm]: size === 'sm' },
-      { [theme.form.size.md]: size === 'md' || !size },
-      { [theme.form.size.lg]: size === 'lg' },
+      { 'h-7 text-xs': size === 'sm' },
+      { 'h-8 text-sm': size === 'md' || !size },
+      { 'h-10 text-base': size === 'lg' },
       disabled && theme.disabled,
       rounded ? 'rounded-full' : 'rounded',
       className,
