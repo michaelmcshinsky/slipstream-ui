@@ -37,7 +37,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   } = props;
 
   const classes = classNames(
-    'sui--input relative',
+    { 'sui--input': Tag === 'input' },
+    'relative',
     { 'w-full': !inline },
     theme.form.base,
     invalid
@@ -67,9 +68,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         size === 'lg' &&
         Tag !== 'textarea',
     },
-    { [theme.form.size.sm]: size === 'sm' },
-    { [theme.form.size.md]: size === 'md' || !size },
-    { [theme.form.size.lg]: size === 'lg' },
+    { 'text-xs': size === 'sm' },
+    { 'text-sm': size === 'md' || !size },
+    { 'text-base': size === 'lg' },
+    attrs.type === 'checkbox' || attrs.type === 'radio' ? 'p-0' : 'px-2',
     attrs.disabled && theme.disabled,
     rounded ? 'rounded-full' : 'rounded',
     className
@@ -84,6 +86,7 @@ Input.displayName = 'Input';
 Input.defaultProps = {
   size: 'md',
   tag: 'input',
+  type: 'text',
 };
 
 export default Input;

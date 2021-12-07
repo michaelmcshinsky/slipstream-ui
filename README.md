@@ -56,16 +56,3 @@ function Example () {
   )
 }
 ```
-
-## Development
-
-Want to contribute? Check out the <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1">project roadmap</a>! To make a contribution, follow these general steps:
-
-1. Pull <small>(contributors)</small> or Fork <small>(guests)</small> repository.
-2. Create component(s) in `src` folder structure with proper exports.
-3. Create Storybook story with examples.
-4. Submit pull request detailing out component implementation and usage.
-
-Bonus points:
-* Tests added for component.
-* RTL and TTB features for language support if appropriate.

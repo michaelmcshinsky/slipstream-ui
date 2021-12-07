@@ -7,6 +7,7 @@ import InputGroupPrepend, { InputGroupPrependProps } from './InputGroupPrepend';
 export interface InputGroupProps {
   children?: ReactNode;
   inputProps?: InputProps;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 interface InputGroupComponent
@@ -22,11 +23,16 @@ interface InputGroupComponent
 }
 
 export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
-  ({ children, inputProps, ...props }, ref) => {
+  ({ children, inputProps, size, ...props }, ref) => {
     const classes = classNames(
       'sui--input-group',
       'relative flex items-stretch w-full',
     );
+
+    const elSize = size || inputProps?.size || 'sm';
+    if(inputProps) {
+      inputProps.size = elSize;
+    }
 
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -35,18 +41,18 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
           const { displayName } = child?.type;
           if (displayName === 'Input') {
             return React.cloneElement(child, {
-              className: 'self-stretch h-auto',
               ...inputProps,
+              size: elSize,
             });
           } else if (displayName === 'InputGroupPrepend') {
             return React.cloneElement(child, {
               className: 'rounded-l-sm',
-              size: inputProps?.size,
+              size: elSize,
             });
           } else if (displayName === 'InputGroupAppend') {
             return React.cloneElement(child, {
               className: 'rounded-r-sm',
-              size: inputProps?.size,
+              size: elSize,
             });
           } else {
             return child;
@@ -64,6 +70,9 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
 ) as InputGroupComponent;
 
 InputGroup.displayName = 'InputGroup';
+InputGroup.defaultProps = {
+  size: 'md'
+}
 InputGroup.Append = InputGroupAppend;
 InputGroup.Prepend = InputGroupPrepend;
 

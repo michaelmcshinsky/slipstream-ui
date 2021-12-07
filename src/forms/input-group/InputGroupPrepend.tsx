@@ -13,12 +13,12 @@ export const InputGroupPrepend = forwardRef<
 >(({ className, children, size, ...props }, ref) => {
   const classes = classNames(
     'sui--input-group_prepend',
-    'flex items-center bg-gray-200',
-    'text-base leading-tight text-center whitespace-nowrap',
+    'flex self-stretch items-center bg-gray-200',
+    'leading-tight text-center whitespace-nowrap',
     'border border-solid border-gray-300 -mr-px',
-    { 'px-2': size === 'sm' },
-    { 'px-3': size === 'md' || !size },
-    { 'px-4': size === 'lg' },
+    { 'text-xs px-2': size === 'sm' },
+    { 'text-sm px-3': size === 'md' || !size },
+    { 'text-base px-4': size === 'lg' },
     className,
   );
 
