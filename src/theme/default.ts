@@ -31,7 +31,7 @@ export default {
       warning: 'text-yellow-500 checked:border-yellow-500',
     },
   },
-  disabled: 'opacity-50 bg-gray-100 cursor-not-allowed',
+  disabled: 'opacity-50 cursor-not-allowed',
   form: {
     base:
       'border border-solid focus:border-black transition-colors duration-500 active:border-blue-500 outline-none focus:outline-none focus:border-blue-500 leading-tight',
