@@ -21,6 +21,7 @@ export interface InputProps extends HTMLAttributes<HTMLInputElement> {
   list?: string;
   rtl?: boolean;
   tag?: any;
+  custom?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -33,6 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     rounded,
     rtl,
     tag: Tag,
+    custom,
     ...attrs
   } = props;
 
@@ -40,40 +42,42 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     { 'sui--input': Tag === 'input' },
     'relative',
     { 'w-full': !inline },
-    theme.form.base,
-    invalid
-      ? theme.form.invalid
-      : success
-      ? theme.form.success
-      : theme.form.default,
-    {
-      'h-7':
-        attrs.type !== 'radio' &&
-        attrs.type !== 'checkbox' &&
-        size === 'sm' &&
-        Tag !== 'textarea',
-    },
-    {
-      'h-8':
-        ((attrs.type !== 'radio' &&
+    !custom && [
+      theme.form.base,
+      invalid
+        ? theme.form.invalid
+        : success
+        ? theme.form.success
+        : theme.form.default,
+      {
+        'h-7':
+          attrs.type !== 'radio' &&
           attrs.type !== 'checkbox' &&
-          size === 'md') ||
-          !size) &&
-        Tag !== 'textarea',
-    },
-    {
-      'h-10':
-        attrs.type !== 'radio' &&
-        attrs.type !== 'checkbox' &&
-        size === 'lg' &&
-        Tag !== 'textarea',
-    },
-    { 'text-xs': size === 'sm' },
-    { 'text-sm': size === 'md' || !size },
-    { 'text-base': size === 'lg' },
-    attrs.type === 'checkbox' || attrs.type === 'radio' ? 'p-0' : 'px-2',
-    attrs.disabled && theme.disabled,
-    rounded ? 'rounded-full' : 'rounded',
+          size === 'sm' &&
+          Tag !== 'textarea',
+      },
+      {
+        'h-8':
+          ((attrs.type !== 'radio' &&
+            attrs.type !== 'checkbox' &&
+            size === 'md') ||
+            !size) &&
+          Tag !== 'textarea',
+      },
+      {
+        'h-10':
+          attrs.type !== 'radio' &&
+          attrs.type !== 'checkbox' &&
+          size === 'lg' &&
+          Tag !== 'textarea',
+      },
+      { 'text-xs': size === 'sm' },
+      { 'text-sm': size === 'md' || !size },
+      { 'text-base': size === 'lg' },
+      attrs.type === 'checkbox' || attrs.type === 'radio' ? 'p-0' : 'px-2',
+      attrs.disabled && theme.disabled,
+      rounded ? 'rounded-full' : 'rounded',
+    ],
     className
   );
 

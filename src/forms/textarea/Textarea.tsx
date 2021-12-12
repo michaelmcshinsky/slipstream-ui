@@ -8,10 +8,10 @@ export interface TextareaProps extends InputProps {
 }
 
 export const Textarea = forwardRef<HTMLInputElement, TextareaProps>(
-  ({className, ...props}, ref) => {
-    const classes = classNames('sui--textarea', className)
+  ({ className, ...props }, ref) => {
+    const classes = classNames('sui--textarea', className);
     return <Input ref={ref} className={classes} {...props} tag="textarea" />;
-  },
+  }
 );
 
 Textarea.displayName = 'Textarea';

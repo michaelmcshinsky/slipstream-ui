@@ -33,4 +33,18 @@ export {
   ListGroupItemProps,
 } from './list-group';
 export { Progress, ProgressProps } from './progress';
+export {
+  Table,
+  TableProps,
+  TableBody,
+  TableBodyProps,
+  TableCell,
+  TableCellProps,
+  TableHead,
+  TableHeadProps,
+  TableHeader,
+  TableHeaderProps,
+  TableRow,
+  TableRowProps,
+} from './table';
 export { Tag, TagProps } from './tag';
