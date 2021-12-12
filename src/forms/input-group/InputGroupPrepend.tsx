@@ -5,21 +5,27 @@ export interface InputGroupPrependProps {
   className?: string;
   children?: ReactNode;
   size?: string;
+  custom?: boolean;
 }
 
 export const InputGroupPrepend = forwardRef<
   HTMLDivElement,
   InputGroupPrependProps
->(({ className, children, size, ...props }, ref) => {
+>(({ className, children, size, custom, ...props }, ref) => {
   const classes = classNames(
     'sui--input-group_prepend',
     'flex self-stretch items-center bg-gray-200',
     'leading-tight text-center whitespace-nowrap',
     'border border-solid border-gray-300 -mr-px',
-    { 'text-xs px-2': size === 'sm' },
-    { 'text-sm px-3': size === 'md' || !size },
-    { 'text-base px-4': size === 'lg' },
-    className,
+    !custom && [
+      { 'text-xs': size === 'sm' },
+      { 'text-sm': size === 'md' || !size },
+      { 'text-base': size === 'lg' },
+    ],
+    { 'px-2': size === 'sm' },
+    { 'px-3': size === 'md' || !size },
+    { 'px-4': size === 'lg' },
+    className
   );
 
   return (

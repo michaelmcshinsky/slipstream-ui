@@ -10,3 +10,9 @@ ul .numbered:before {
   content: counters(section, '.') '. ';
   counter-increment: section;
 } */
+
+@layer components {
+  .sui--table {
+    @apply table;
+  }
+}
