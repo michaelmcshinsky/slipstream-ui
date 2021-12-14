@@ -12,12 +12,12 @@ export default {
 } as Meta;
 
 const Template: Story<TableProps> = ({ ...args }) => (
-  <Table {...args}>
-    <Table.Caption>Caption</Table.Caption>
+  <Table {...args} hover>
+    {/* <Table.Caption>Caption</Table.Caption>
     <Table.ColGroup>
       <Table.Col className="bg-blue-300" span={2}/>
       <Table.Col className="bg-green-300" span={2}/>
-    </Table.ColGroup>
+    </Table.ColGroup> */}
     <Table.Head>      
       <Table.Row>
         <Table.Header>Header 1</Table.Header>
