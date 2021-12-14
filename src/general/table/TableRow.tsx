@@ -52,8 +52,8 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
 
     const classes = classNames(
       'sui--table-tr',
-      'table-row',
       !custom && [
+        'table-row',
         striped && striped !== 'odd' && 'even:bg-gray-100',
         striped && striped === 'odd' && 'odd:bg-gray-100',
         active && 'active bg-gray-200',
@@ -74,7 +74,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
 
 TableRow.defaultProps = {
   tag: 'tr',
-  size: 'lg',
+  size: 'md',
 };
 
 export default TableRow;

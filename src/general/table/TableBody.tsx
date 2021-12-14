@@ -65,7 +65,7 @@ export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
 
 TableBody.defaultProps = {
   tag: 'tbody',
-  size: 'lg',
+  size: 'md',
 };
 
 export default TableBody;

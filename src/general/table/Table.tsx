@@ -4,7 +4,11 @@ import TableHead, { TableHeadProps } from './TableHead';
 import TableHeader, { TableHeaderProps } from './TableHeader';
 import TableBody, { TableBodyProps } from './TableBody';
 import TableRow, { TableRowProps } from './TableRow';
+import TableCaption, { TableCaptionProps } from './TableCaption';
 import TableCell, { TableCellProps } from './TableCell';
+import TableCol, { TableColProps } from './TableCol';
+import TableColGroup, { TableColGroupProps } from './TableColGroup';
+import TableFooter, { TableFooterProps } from './TableFooter';
 
 export interface TableProps {
   className?: string;
@@ -37,6 +41,18 @@ interface TableComponent
   >;
   Cell: React.ForwardRefExoticComponent<
     TableCellProps & React.RefAttributes<HTMLElement>
+  >;
+  Footer: React.ForwardRefExoticComponent<
+    TableFooterProps & React.RefAttributes<HTMLElement>
+  >;
+  Caption: React.ForwardRefExoticComponent<
+    TableCaptionProps & React.RefAttributes<HTMLTableCaptionElement>
+  >;
+  Col: React.ForwardRefExoticComponent<
+    TableColProps & React.RefAttributes<HTMLTableColElement>
+  >;
+  ColGroup: React.ForwardRefExoticComponent<
+    TableColGroupProps & React.RefAttributes<HTMLTableColElement>
   >;
 }
 
@@ -95,17 +111,21 @@ export const Table = forwardRef<HTMLElement, TableProps>(
   }
 ) as TableComponent;
 
+Table.Body = TableBody;
 Table.Head = TableHead;
 Table.Header = TableHeader;
-Table.Body = TableBody;
-Table.Row = TableRow;
+Table.Caption = TableCaption;
 Table.Cell = TableCell;
+Table.Col = TableCol;
+Table.ColGroup = TableColGroup;
+Table.Footer = TableFooter;
+Table.Row = TableRow;
 
 Table.displayName = 'Table';
 Table.defaultProps = {
   tag: 'table',
   align: 'top',
-  size: 'lg',
+  size: 'md',
 };
 
 export default Table;

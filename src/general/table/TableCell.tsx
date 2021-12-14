@@ -53,7 +53,7 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
 
 TableCell.defaultProps = {
   tag: 'td',
-  size: 'lg',
+  size: 'md',
 };
 
 export default TableCell;

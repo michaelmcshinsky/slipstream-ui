@@ -923,6 +923,10 @@ select {
   border-bottom-right-radius: 0;
 }
 
+.sui--table {
+  display: table;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

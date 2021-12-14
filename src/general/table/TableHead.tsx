@@ -30,7 +30,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
 
     const classes = classNames(
       'sui--table-thead',
-      'table-head-group',
+      !custom && 'table-head-group',
       className
     );
 
@@ -44,7 +44,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
 
 TableHead.defaultProps = {
   tag: 'thead',
-  size: 'lg',
+  size: 'md',
 };
 
 export default TableHead;
