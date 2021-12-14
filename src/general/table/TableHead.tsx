@@ -42,6 +42,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
   }
 );
 
+TableHead.displayName = 'TableHead';
 TableHead.defaultProps = {
   tag: 'thead',
   size: 'md',
