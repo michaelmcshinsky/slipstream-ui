@@ -5,20 +5,28 @@ export interface FieldSetProps {
   styles?: object;
   className?: string;
   children?: ReactNode;
+  custom?: boolean;
 }
 
-export function FieldSet({ className, styles, children }: FieldSetProps) {
+export function FieldSet({
+  className,
+  styles,
+  children,
+  custom,
+}: FieldSetProps) {
   const classes = classNames(
     'sui--fieldset',
-    'block py-2 px-3 border border-solid border-gray-300',
-    className,
+    !custom && 'block py-2 px-3 border border-solid border-gray-300',
+    className
   );
 
-  const fieldsetStyles = {
-    marginInlineStart: '2px',
-    marginInlineEnd: '2px',
-    ...styles,
-  };
+  const fieldsetStyles = !custom
+    ? {
+        marginInlineStart: '2px',
+        marginInlineEnd: '2px',
+        ...styles,
+      }
+    : { ...styles };
 
   return (
     <fieldset style={fieldsetStyles} className={classes}>
