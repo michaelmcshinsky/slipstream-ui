@@ -63,6 +63,7 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
   }
 );
 
+TableFooter.displayName = 'TableFooter';
 TableFooter.defaultProps = {
   tag: 'tfoot',
   size: 'md',

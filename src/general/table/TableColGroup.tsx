@@ -31,4 +31,7 @@ export const TableColGroup = forwardRef<HTMLTableColElement, TableColGroupProps>
     );
   }
 );
+
+TableColGroup.displayName = 'TableColGroup';
+
 export default TableColGroup;

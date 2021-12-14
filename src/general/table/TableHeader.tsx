@@ -35,6 +35,7 @@ export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
   }
 );
 
+TableHeader.displayName = 'TableHeader';
 TableHeader.defaultProps = {
   tag: 'th',
   size: 'md',

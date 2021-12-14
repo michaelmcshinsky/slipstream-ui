@@ -29,4 +29,6 @@ export const TableCol = forwardRef<HTMLTableColElement, TableColProps>(
   }
 );
 
+TableCol.displayName = 'TableCol';
+
 export default TableCol;

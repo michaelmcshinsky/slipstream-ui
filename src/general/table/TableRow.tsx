@@ -72,6 +72,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
   }
 );
 
+TableRow.displayName = 'TableRow';
 TableRow.defaultProps = {
   tag: 'tr',
   size: 'md',
