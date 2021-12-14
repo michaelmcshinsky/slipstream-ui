@@ -4,13 +4,18 @@ import classNames from 'classnames';
 export interface FieldSetLegendProps {
   className?: string;
   children?: ReactNode;
+  custom?: boolean;
 }
 
-export function FieldSetLegend({ className, children }: FieldSetLegendProps) {
+export function FieldSetLegend({
+  className,
+  children,
+  custom,
+}: FieldSetLegendProps) {
   const classes = classNames(
     'sui--fieldset-legend',
-    'block px-1 text-sm -mx-0.5',
-    className,
+    !custom && 'block px-1 text-sm -mx-0.5',
+    className
   );
   return <legend className={classes}>{children}</legend>;
 }

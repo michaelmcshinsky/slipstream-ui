@@ -11,6 +11,7 @@ export interface TabSetProps {
   tabs?: TabItemMappedProps[];
   tag: 'nav' | 'ul' | 'div';
   vertical?: boolean;
+  custom?: boolean;
 }
 
 interface TabItemMappedProps extends TabItemProps {
@@ -26,20 +27,21 @@ export function TabSet({
   tabs,
   tag: Tag,
   vertical,
+  custom,
   ...props
 }: TabSetProps) {
   const classes = classNames(
     'sui--tab-set',
     'flex flex-wrap list-none',
     rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),
-    vertical && 'flex-col',
+    vertical && 'flex-col'
   );
 
   const renderedChildren = React.Children.toArray(children)
     .filter(Boolean)
     .map((child: any) => {
       if (child?.type?.displayName?.includes('TabItem')) {
-        return React.cloneElement(child, { border, background });
+        return React.cloneElement(child, { border, background, custom });
       }
       return React.cloneElement(child);
     });

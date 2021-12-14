@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import { Input, InputProps } from '../input/Input';
 
 export interface DatalistProps extends InputProps {
+  className?: string;
+  custom?: boolean;
   id: string;
   list: string;
   options?: DatalistOption[];
-  className?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 

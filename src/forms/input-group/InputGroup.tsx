@@ -8,6 +8,7 @@ export interface InputGroupProps {
   children?: ReactNode;
   inputProps?: InputProps;
   size?: 'sm' | 'md' | 'lg';
+  custom?: boolean;
 }
 
 interface InputGroupComponent
@@ -23,7 +24,7 @@ interface InputGroupComponent
 }
 
 export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
-  ({ children, inputProps, size, ...props }, ref) => {
+  ({ children, inputProps, size, custom, ...props }, ref) => {
     const classes = classNames(
       'sui--input-group',
       'relative flex items-stretch w-full',
@@ -42,16 +43,19 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
           if (displayName === 'Input') {
             return React.cloneElement(child, {
               ...inputProps,
+              custom,
               size: elSize,
             });
           } else if (displayName === 'InputGroupPrepend') {
             return React.cloneElement(child, {
               className: 'rounded-l-sm',
+              custom,
               size: elSize,
             });
           } else if (displayName === 'InputGroupAppend') {
             return React.cloneElement(child, {
               className: 'rounded-r-sm',
+              custom,
               size: elSize,
             });
           } else {

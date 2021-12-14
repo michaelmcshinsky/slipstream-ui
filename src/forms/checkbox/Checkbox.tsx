@@ -16,15 +16,16 @@ export interface CheckboxProps {
   children?: ReactNode;
   className?: string;
   color?: keyof typeof CheckboxEnum;
+  custom?: boolean;
   disabled?: boolean;
-  invalid?: boolean;
   id?: string;
+  invalid?: boolean;
+  labelProps?: LabelProps;
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
   required?: boolean;
   rtl?: boolean;
   size?: 'md' | 'lg';
   type?: string;
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
-  labelProps?: LabelProps;
 }
 
 export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
@@ -33,34 +34,39 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       children,
       className,
       color,
+      custom,
       disabled,
       id,
       invalid,
+      labelProps,
       onChange,
       required,
       rtl,
       size,
       type,
-      labelProps,
       ...attrs
     } = props;
 
     const inputClasses = classNames(
       'sui--checkbox',
       `sui--checkbox-color_${color}`,
-      'inline-block align-middle border-1 select-none appearance-none flex-shrink-0',
-      { 'w-4 h-4': size === 'md' || !size },
-      { 'w-6 h-6': size === 'lg' },
-      color && theme.checkbox.color[color],
-      type === 'radio' ? 'form-radio rounded-full' : 'form-checkbox rounded',
+      !custom && [
+        'inline-block align-middle border-1 select-none appearance-none flex-shrink-0',
+        { 'w-4 h-4': size === 'md' || !size },
+        { 'w-6 h-6': size === 'lg' },
+        color && theme.checkbox.color[color],
+        type === 'radio' ? 'form-radio rounded-full' : 'form-checkbox rounded',
+      ],
     );
 
     const labelClasses = classNames(
       'select-none',
-      { 'cursor-not-allowed': disabled },
-      { 'text-base': size === 'lg' },
-      { 'text-red-500': invalid },
-      { 'text-sm': size === 'md' || !size },
+      !custom && [
+        { 'cursor-not-allowed': disabled },
+        { 'text-base': size === 'lg' },
+        { 'text-red-500': invalid },
+        { 'text-sm': size === 'md' || !size },
+      ],
       rtl ? 'order-first mr-2' : 'ml-2',
     );
 
