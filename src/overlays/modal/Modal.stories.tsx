@@ -60,30 +60,12 @@ const Template: Story<ModalProps> = (args: any) => {
             quis fringilla nunc urna vehicula enim. Etiam condimentum accumsan
             condimentum.
           </p>
-          <p>
-            Nulla at risus laoreet, ultricies urna eget, tempor mauris. Quisque
-            sit amet viverra metus. Duis dui dui, vestibulum nec feugiat ut,
-            congue tempus elit. Aenean sit amet sem a eros sodales semper
-            molestie a orci. Donec venenatis nisl a libero ultricies consequat.
-            Donec porttitor lacus a iaculis elementum. Nam mi elit, hendrerit
-            gravida dolor ac, hendrerit ultrices turpis. Nullam vitae orci
-            euismod, efficitur felis ac, faucibus urna. Interdum et malesuada
-            fames ac ante ipsum primis in faucibus. Suspendisse convallis tortor
-            mauris. Pellentesque porttitor eget ipsum id euismod. Praesent
-            gravida mi et feugiat venenatis. Nullam ultricies ante a arcu
-            ornare, in aliquam lacus venenatis. Fusce suscipit est eleifend nisi
-            tincidunt facilisis. Maecenas ut vulputate ante. Ut sed lacus ac
-            risus luctus egestas.
-          </p>
         </Modal.Body>
-        <Modal.Footer className="justify-between">
-          <div className="flex-1">
-            <Modal.Button color="danger">Delete</Modal.Button>
-          </div>
-          <Modal.Button className="mr-2" color="link" close>
+        <Modal.Footer className="justify-end">
+          <Modal.Button type="button" className="mr-2" color="link" close>
             Cancel
           </Modal.Button>
-          <Modal.Button onClick={_handleSave}>Create</Modal.Button>
+          <Modal.Button type="button" onClick={_handleSave}>Create</Modal.Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -12,31 +12,33 @@ export interface ModalButtonProps extends ButtonProps {
     e: React.MouseEventHandler<HTMLButtonElement>,
     callback: Callback
   ) => void;
-  onClose?: Callback;
+  toggle?: Callback;
 }
 
 export const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
   (props, ref) => {
-    const { children, close, onClick, onClose, type, ...attrs } = props;
+    const { children, close, onClick, toggle, type, ...attrs } = props;
 
-    function _onClose(e: React.MouseEventHandler<HTMLButtonElement>) {
-      if (onClose && close) {
-        onClose();
+    function _toggle(e: React.MouseEventHandler<HTMLButtonElement>) {
+      if (toggle && close) {
+        toggle();
       } else if (onClick) {
         onClick(e, () => {
-          if (onClose) {
-            onClose();
+          if (toggle) {
+            toggle();
           }
         });
       }
     }
 
     return (
-      <Button ref={ref} onClick={_onClose} {...attrs}>
+      <Button ref={ref} onClick={_toggle} {...attrs}>
         {children}
       </Button>
     );
   },
 );
+
+ModalButton.displayName = 'ModalButton';
 
 export default ModalButton;

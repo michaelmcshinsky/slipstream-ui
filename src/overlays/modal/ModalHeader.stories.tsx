@@ -12,12 +12,12 @@ export default {
 } as Meta;
 
 const Template: Story<ModalHeaderProps> = (args) => {
-  function _onClose(e) {
+  function _toggle(e) {
     console.log('e', e);
     alert('Closing Modal!');
   }
 
-  return <Header onClose={_onClose} {...args} />;
+  return <Header toggle={_toggle} {...args} />;
 };
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

@@ -8,17 +8,18 @@ import React, {
 import classnames from 'classnames';
 
 export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode | ReactElement<any> | ReactText;
   className?: string;
   rtl?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  toggle?: boolean;
 }
 
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
-  ({ className, children, rtl, ...attrs }, ref) => {
-    const classes = classnames('p-3 overflow-y-auto', className);
+  ({ className, children, rtl, toggle, ...attrs }, ref) => {
+    const classes = classnames('p-3', className);
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
-    const renderedChildren = filteredChildren.map(child => {
+    const renderedChildren = filteredChildren.map((child) => {
       return React.cloneElement(child as ReactElement<any>, {
         rtl,
       });
@@ -29,7 +30,7 @@ export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
         {renderedChildren}
       </div>
     );
-  },
+  }
 );
 
 ModalBody.displayName = 'ModalBody';

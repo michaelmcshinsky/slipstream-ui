@@ -17,7 +17,7 @@ export default {
 
 const Template: Story<ModalFooterProps> = (args) => {
   return (
-    <Footer className="justify-between">
+    <Footer className="justify-between" {...args}>
       <ModalButton color="danger">Delete</ModalButton>
       <span>
         <ModalButton color="link" className="mr-2">
