@@ -14,16 +14,18 @@ import { ModalFooter, ModalFooterProps } from './ModalFooter';
 import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 
 export interface ModalProps {
-  className?: string;
-  size?: string;
-  contentLabel?: string;
-  isStatic?: boolean;
-  isOpen: boolean;
-  toggle?: () => void;
-  onOpened?: () => void;
+  bordered?: boolean;
   children?: ReactNode | ReactElement<any> | ReactText;
+  className?: string;
+  contentLabel?: string;
+  isOpen: boolean;
+  isStatic?: boolean;
+  onOpened?: () => void;
+  overlayClassName?: string;
   rtl?: boolean;
+  size?: string;
   style?: Styles;
+  toggle?: () => void;
 }
 
 interface ModalComponent
@@ -46,20 +48,22 @@ interface ModalComponent
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const {
+    bordered,
     children,
-    size,
-    contentLabel,
-    isStatic,
     className,
+    contentLabel,
     isOpen,
-    toggle,
+    isStatic,
     onOpened,
-    style,
+    overlayClassName,
     rtl,
+    size,
+    style,
+    toggle,
     ...attrs
   } = props;
 
-  const [mounted, setMounted] = useState(false);
+  const [, setMounted] = useState(false);
 
   useEffect(() => {
     document.addEventListener('keydown', (e: any) => handleEsc(e), {
@@ -71,21 +75,21 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   });
 
   function _setMounted() {
+    setMounted(true);
     if (onOpened) {
-      setMounted(true);
       setTimeout(() => {
         onOpened();
       });
     }
   }
 
-  function onClose() {
+  function _toggle() {
     setMounted(false);
     setTimeout(() => {
       if (toggle) {
         toggle();
       }
-    }, 500);
+    });
   }
 
   function handleEsc(ev: React.KeyboardEvent<HTMLDocument>) {
@@ -93,15 +97,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
       return;
     }
     if (ev.key === 'Esc' || ev.key === 'Escape') {
-      onClose();
+      _toggle();
     }
   }
 
   const classes = classnames(
-    'relative outline-none focus:outline-none w-full',
-    'transform ease-in-out duration-500 mx-auto',
-    'flex items-center max-h-full h-full',
-    mounted ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
+    'mx-auto my-auto',
     { 'max-w-xs': size === 'xs' },
     { 'max-w-sm': size === 'sm' },
     { 'max-w-md': size === 'md' },
@@ -111,39 +112,52 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     { 'max-w-3xl': size === '3xl' },
     { 'max-w-4xl': size === '4xl' },
     { 'max-w-5xl': size === '5xl' },
-    { ' px-4': size !== 'full' },
-    className,
+    { 'px-4': size !== 'full' },
+    className
   );
 
   const overlayClasses = classnames(
-    'fixed top-0 left-0 w-full h-full outline-none focus:outline-none overflow-x-hidden',
-    'w-full duration ease-in-out duration-500 bg-black overflow-y-hidden',
-    mounted ? 'bg-opacity-50' : 'bg-opacity-0',
+    'fixed inset-0 flex overflow-y-auto',
+    'bg-black bg-opacity-50',
+    overlayClassName
   );
 
   const bodyClasses = classnames(
-    'w-full bg-white border border-solid border-gray-300 rounded flex flex-col',
-    'overflow-hidden max-h-full',
+    'bg-white border border-solid border-gray-300 rounded'
   );
 
-  const filteredChildren = React.Children.toArray(children).filter(Boolean);
-  const renderedChildren = filteredChildren.map(child => {
-    return React.cloneElement(child as ReactElement<any>, {
-      onClose,
-      rtl,
+  const renderedChildren = React.Children.toArray(children)
+    .filter(Boolean)
+    .map((child: any) => {
+      if (
+        child?.type?.displayName === 'ModalHeader' ||
+        child?.type?.displayName === 'ModalFooter'
+      ) {
+        return React.cloneElement(child, {
+          bordered,
+          toggle: _toggle,
+          rtl,
+        });
+      } else if (child?.type?.displayName.includes('Modal')) {
+        return React.cloneElement(child, {
+          toggle: _toggle,
+          rtl,
+        });
+      }
+      return React.cloneElement(child);
     });
-  });
 
   return (
     <>
       <ReactModal
         isOpen={isOpen}
-        onRequestClose={onClose}
+        onRequestClose={_toggle}
         contentLabel={contentLabel}
         onAfterOpen={_setMounted}
         className={classes}
         overlayClassName={overlayClasses}
         shouldCloseOnOverlayClick={!isStatic}
+        ariaHideApp={false}
         style={style}
         {...attrs}
       >
@@ -157,6 +171,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   );
 }) as ModalComponent;
 
+Modal.displayName = 'Modal';
 Modal.Body = ModalBody;
 Modal.Button = ModalButton;
 Modal.Footer = ModalFooter;
