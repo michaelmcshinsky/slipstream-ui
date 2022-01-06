@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Table, TableProps } from './Table';
-console.log('Table', Table);
+
 export default {
   title: 'Components/General/Table',
   component: Table,

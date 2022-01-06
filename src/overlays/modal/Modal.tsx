@@ -14,6 +14,7 @@ import { ModalFooter, ModalFooterProps } from './ModalFooter';
 import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 
 export interface ModalProps {
+  bodyClassName?: string;
   bordered?: boolean;
   children?: ReactNode | ReactElement<any> | ReactText;
   className?: string;
@@ -48,6 +49,7 @@ interface ModalComponent
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const {
+    bodyClassName,
     bordered,
     children,
     className,
@@ -123,7 +125,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   );
 
   const bodyClasses = classnames(
-    'bg-white border border-solid border-gray-300 rounded'
+    'bg-white border border-solid border-gray-300 rounded',
+    bodyClassName
   );
 
   const renderedChildren = React.Children.toArray(children)

@@ -34,7 +34,6 @@ const Template: Story<ModalProps> = (args: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function _toggle() {
-    console.log('isOpen', isOpen);
     setIsOpen(!isOpen);
   }
 
