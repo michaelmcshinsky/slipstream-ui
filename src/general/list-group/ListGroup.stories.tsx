@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ListGroup, ListGroupProps } from './ListGroup';
-import { ListGroupItem } from './ListGroupItem';
 
 export default {
   title: 'Components/General/ListGroup',
@@ -14,11 +13,11 @@ export default {
 
 const Template: Story<ListGroupProps> = ({ ...args }) => (
   <ListGroup {...args}>
-    <ListGroupItem>List Item One</ListGroupItem>
-    <ListGroupItem>List Item Two</ListGroupItem>
-    <ListGroupItem>List Item Three</ListGroupItem>
-    <ListGroupItem>List Item Four</ListGroupItem>
-    <ListGroupItem>List Item Five</ListGroupItem>
+    <ListGroup.Item>List Item One</ListGroup.Item>
+    <ListGroup.Item>List Item Two</ListGroup.Item>
+    <ListGroup.Item>List Item Three</ListGroup.Item>
+    <ListGroup.Item>List Item Four</ListGroup.Item>
+    <ListGroup.Item>List Item Five</ListGroup.Item>
   </ListGroup>
 );
 

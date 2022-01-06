@@ -56,3 +56,4 @@ export {
   TableRowProps,
 } from './table';
 export { Tag, TagProps } from './tag';
+export { Tag as Chip, TagProps as ChipProps } from './tag';

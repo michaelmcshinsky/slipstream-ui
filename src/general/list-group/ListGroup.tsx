@@ -1,5 +1,6 @@
 import React, { forwardRef, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
+import { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
 
 export interface ListGroupProps {
   children?: ReactNode;
@@ -10,6 +11,15 @@ export interface ListGroupProps {
   rtl?: boolean;
   style?: object;
   tag?: any;
+}
+
+interface ListGroupComponent
+  extends React.ForwardRefExoticComponent<
+    ListGroupProps & React.RefAttributes<HTMLElement>
+  > {
+  Item: React.ForwardRefExoticComponent<
+    ListGroupItemProps & React.RefAttributes<HTMLElement>
+  >;
 }
 
 export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
@@ -51,9 +61,10 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
       </Tag>
     );
   },
-);
+) as ListGroupComponent;
 
 ListGroup.displayName = 'ListGroup';
+ListGroup.Item = ListGroupItem;
 ListGroup.defaultProps = {
   style: {},
   tag: 'ul',
