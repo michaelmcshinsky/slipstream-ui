@@ -17,7 +17,7 @@ export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
   ({ className, children, rtl, toggle, ...attrs }, ref) => {
     const classes = classnames('p-3', className);
-
+    
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
     const renderedChildren = filteredChildren.map((child) => {
       return React.cloneElement(child as ReactElement<any>, {
