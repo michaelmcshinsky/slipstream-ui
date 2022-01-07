@@ -5,7 +5,37 @@ import { Switch as SwitchComponent, SwitchProps } from './Switch';
 export default {
   title: 'Components/Forms',
   component: SwitchComponent,
-  argTypes: {},
+  argTypes: {
+    color: {
+      control: {
+        type: 'select',
+        options: [
+          'slate',
+          'gray',
+          'zinc',
+          'neutral',
+          'stone',
+          'red',
+          'orange',
+          'amber',
+          'yellow',
+          'lime',
+          'green',
+          'emerald',
+          'teal',
+          'cyan',
+          'sky',
+          'blue',
+          'indigo',
+          'violet',
+          'purple',
+          'fuchsia',
+          'pink',
+          'rose',
+        ],
+      },
+    },
+  },
   parameters: {
     controls: { expanded: true },
   },

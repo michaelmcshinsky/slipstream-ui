@@ -25,7 +25,7 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -52,7 +52,7 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
     const classes = classNames(
       'sui--table-tfoot',
       !custom && 'table-row-group',
-      className
+      className,
     );
 
     return (
@@ -60,7 +60,7 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 );
 
 TableFooter.displayName = 'TableFooter';

@@ -12,7 +12,7 @@ export const SelectOption = forwardRef<HTMLOptionElement, SelectOptionProps>(
         {children}
       </option>
     );
-  }
+  },
 );
 
 SelectOption.displayName = 'SelectOption';

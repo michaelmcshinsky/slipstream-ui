@@ -15,9 +15,11 @@ export function FieldSetLegend({
   const classes = classNames(
     'sui--fieldset-legend',
     !custom && 'block px-1 text-sm -mx-0.5',
-    className
+    className,
   );
   return <legend className={classes}>{children}</legend>;
 }
+
+FieldSetLegend.displayName = 'FieldSetLegend';
 
 export default FieldSetLegend;

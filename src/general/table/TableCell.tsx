@@ -25,7 +25,7 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--table-td',
@@ -40,7 +40,7 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
           hover !== 'row' &&
           'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
       ],
-      className
+      className,
     );
 
     return (
@@ -48,7 +48,7 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 TableCell.displayName = 'TableCell';

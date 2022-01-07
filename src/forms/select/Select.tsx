@@ -59,7 +59,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         disabled && theme.disabled,
         rounded ? 'rounded-full' : 'rounded',
       ],
-      className
+      className,
     );
 
     return (
@@ -73,7 +73,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {children}
       </select>
     );
-  }
+  },
 ) as SelectComponent;
 
 Select.displayName = 'Select';

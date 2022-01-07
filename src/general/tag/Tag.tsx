@@ -6,7 +6,19 @@ export interface TagProps {
   children?: ReactNode;
   bg?: string;
   color?: string;
-  shade?: string | number;
+  shade?:
+    | '50'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | string
+    | number;
   size?: 'sm' | 'md' | 'lg';
   rounded?: string;
   block?: boolean;
@@ -15,7 +27,7 @@ export interface TagProps {
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     { children, className, color, shade, size, block, rounded, bg, ...props },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'leading-tight',
@@ -26,11 +38,11 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         : color === 'black'
         ? 'text-black'
         : `text-${color}-900`,
-      bg ? `bg-${bg}-${shade || '200'}` : 'bg-gray-200',
+      `bg-${bg}${bg === 'black' || bg === 'white' ? '' : `-${shade}`}`,
       { 'text-xs px-1.5 py-1': size === 'sm' },
       { 'text-sm px-2 py-1': size === 'md' || !size },
       { 'text-base px-2.5 py-1.5': size === 'lg' },
-      className
+      className,
     );
 
     return (
@@ -38,12 +50,15 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 
 Tag.displayName = 'Tag';
 Tag.defaultProps = {
+  color: 'gray',
+  bg: 'gray',
   size: 'sm',
+  shade: '200',
 };
 
 export default Tag;

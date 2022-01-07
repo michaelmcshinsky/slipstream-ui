@@ -17,3 +17,7 @@ export const Row = forwardRef<HTMLDivElement, RowProps>(
     );
   },
 );
+
+Row.displayName = 'Row';
+
+export default Row;

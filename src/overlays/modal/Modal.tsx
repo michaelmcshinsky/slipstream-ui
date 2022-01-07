@@ -115,18 +115,18 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     { 'max-w-4xl': size === '4xl' },
     { 'max-w-5xl': size === '5xl' },
     { 'px-4': size !== 'full' },
-    className
+    className,
   );
 
   const overlayClasses = classnames(
     'fixed inset-0 flex overflow-y-auto',
     'bg-black bg-opacity-50',
-    overlayClassName
+    overlayClassName,
   );
 
   const bodyClasses = classnames(
     'bg-white border border-solid border-gray-300 rounded',
-    bodyClassName
+    bodyClassName,
   );
 
   const renderedChildren = React.Children.toArray(children)
@@ -141,7 +141,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
           toggle: _toggle,
           rtl,
         });
-      } else if (child?.type?.displayName.includes('Modal')) {
+      } else if (child?.type?.displayName?.includes?.('Modal')) {
         return React.cloneElement(child, {
           toggle: _toggle,
           rtl,

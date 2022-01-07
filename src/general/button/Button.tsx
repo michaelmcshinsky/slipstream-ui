@@ -65,7 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color && theme.button.color[color],
       attrs.disabled && theme.disabled,
       theme.button.base,
-      className
+      className,
     );
 
     if (attrs.href && Tag === 'button') {
@@ -81,7 +81,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';
@@ -89,7 +89,7 @@ Button.defaultProps = {
   tag: 'button',
   color: 'primary',
   type: 'button',
-  size: 'md'
+  size: 'md',
 };
 
 export default Button;

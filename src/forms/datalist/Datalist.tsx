@@ -36,7 +36,6 @@ export const Datalist = forwardRef<HTMLInputElement, DatalistProps>(
 );
 
 Datalist.displayName = 'Datalist';
-
 Datalist.defaultProps = {
   autoComplete: 'on',
 };

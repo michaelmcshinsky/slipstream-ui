@@ -38,7 +38,6 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
 );
 
 DropdownToggle.displayName = 'DropdownToggle';
-
 DropdownToggle.defaultProps = {
   tag: 'div',
 };

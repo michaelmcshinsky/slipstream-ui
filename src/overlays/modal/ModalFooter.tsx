@@ -23,12 +23,12 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
       'bg-white p-3 rounded-b flex items-center',
       { 'border-t border-solid border-gray-300': bordered },
       { 'flex-row-reverse': rtl },
-      className
+      className,
     );
 
     const filteredChildren = React.Children.toArray(children).filter(Boolean);
     const renderedChildren = filteredChildren.map((child: any) => {
-      if (child?.type?.displayName.includes('Modal')) {
+      if (child?.type?.displayName?.includes?.('Modal')) {
         return React.cloneElement(child, {
           toggle,
         });
@@ -41,7 +41,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
         {renderedChildren}
       </div>
     );
-  }
+  },
 );
 
 ModalFooter.displayName = 'ModalFooter';
