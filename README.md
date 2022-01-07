@@ -50,7 +50,9 @@ module.exports = slipstream({
 // Tailwind 3.x
 
 module.exports = slipstream({
-  content: [],
+  content: [
+    "./node_modules/slipstream-ui/**/*"
+  ],
   theme: {
     extend: {},
   },
