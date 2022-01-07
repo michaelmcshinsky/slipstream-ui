@@ -57,7 +57,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
 
     const classes = classNames(
       'sui--backdrop',
-      'fixed flex item-center justify-center inset-0',
+      'fixed flex items-center justify-center inset-0',
       'bg-black bg-opacity-50',
       'transition-opacity transform ease-in-out',
       `duration-${duration}`,
