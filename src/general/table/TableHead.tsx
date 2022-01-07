@@ -13,7 +13,7 @@ export interface TableHeadProps {
 export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
   (
     { className, children, tag: Tag, size, borderless, custom, ...props },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -31,7 +31,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
     const classes = classNames(
       'sui--table-thead',
       !custom && 'table-head-group',
-      className
+      className,
     );
 
     return (
@@ -39,7 +39,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 );
 
 TableHead.displayName = 'TableHead';

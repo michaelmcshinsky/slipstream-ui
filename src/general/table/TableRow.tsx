@@ -27,7 +27,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -61,7 +61,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
           hover !== 'cell' &&
           'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
       ],
-      className
+      className,
     );
 
     return (
@@ -69,7 +69,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 );
 
 TableRow.displayName = 'TableRow';

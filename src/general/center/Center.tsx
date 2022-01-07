@@ -17,3 +17,7 @@ export const Center = forwardRef<HTMLDivElement, CenterProps>(
     );
   },
 );
+
+Center.displayName = 'Center';
+
+export default Center;

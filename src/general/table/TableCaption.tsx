@@ -14,7 +14,7 @@ export const TableCaption = forwardRef<
   const classes = classNames(
     'sui--table-caption',
     !custom && 'table-caption',
-    className
+    className,
   );
 
   return (

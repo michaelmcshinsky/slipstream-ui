@@ -28,4 +28,6 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   },
 );
 
+CardBody.displayName = 'CardBody';
+
 export default CardBody;

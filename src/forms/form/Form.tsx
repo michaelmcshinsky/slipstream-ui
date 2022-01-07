@@ -19,4 +19,6 @@ export const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   );
 });
 
+Form.displayName = 'Form';
+
 export default Form;

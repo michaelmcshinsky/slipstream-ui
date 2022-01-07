@@ -35,3 +35,7 @@ export const Col = forwardRef<HTMLDivElement, ColProps>(
     );
   },
 );
+
+Col.displayName = 'Col';
+
+export default Col;

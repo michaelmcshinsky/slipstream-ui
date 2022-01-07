@@ -17,7 +17,7 @@ export function FieldSet({
   const classes = classNames(
     'sui--fieldset',
     !custom && 'block py-2 px-3 border border-solid border-gray-300',
-    className
+    className,
   );
 
   const fieldsetStyles = !custom
@@ -34,5 +34,7 @@ export function FieldSet({
     </fieldset>
   );
 }
+
+FieldSet.displayName = 'FieldSet';
 
 export default FieldSet;

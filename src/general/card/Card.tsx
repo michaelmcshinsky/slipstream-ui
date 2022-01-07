@@ -54,6 +54,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   );
 }) as CardComponent;
 
+Card.displayName = 'Card';
 Card.Body = CardBody;
 Card.Footer = CardFooter;
 Card.Header = CardHeader;

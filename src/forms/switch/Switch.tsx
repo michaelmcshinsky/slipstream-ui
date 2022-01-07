@@ -9,18 +9,32 @@ export interface SwitchProps extends LabelProps {
   inputsProps?: any;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
   right?: boolean;
+  shade?:
+    | '50'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | string
+    | number;
 }
 
 export function Switch({
   checked,
-  className,
   children,
+  className,
   color,
   disabled,
   inputsProps,
   onChange,
   required,
   right,
+  shade,
   size,
   ...props
 }: SwitchProps) {
@@ -34,7 +48,7 @@ export function Switch({
   const spanClasses = classNames(
     'flex flex-shrink-0 items-center p-1',
     'duration-300 ease-in-out bg-gray-300 rounded-full',
-    `peer-checked:bg-${color}-500`,
+    `peer-checked:bg-${color}${color === 'black' || color === 'white' ? '' : `-${shade}`}`,
     'after:bg-white after:rounded-full',
     'after:shadow-md after:duration-300',
     {
@@ -86,6 +100,7 @@ Switch.displayName = 'Switch';
 Switch.defaultProps = {
   color: 'blue',
   size: 'md',
+  shade: '500',
 };
 
 export default Switch;

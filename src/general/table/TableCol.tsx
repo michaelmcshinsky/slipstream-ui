@@ -16,17 +16,17 @@ export const TableCol = forwardRef<HTMLTableColElement, TableColProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--table-colgroup_col',
-      className
+      className,
     );
 
     return (
       <col ref={ref} className={classes} {...props} />
     );
-  }
+  },
 );
 
 TableCol.displayName = 'TableCol';

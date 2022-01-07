@@ -76,9 +76,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       { 'text-base': size === 'lg' },
       attrs.type === 'checkbox' || attrs.type === 'radio' ? 'p-0' : 'px-2',
       attrs.disabled && theme.disabled,
-      rounded ? 'rounded-full' : 'rounded',
+      rounded || attrs?.type === 'radio' ? 'rounded-full' : 'rounded',
     ],
-    className
+    className,
   );
 
   return (

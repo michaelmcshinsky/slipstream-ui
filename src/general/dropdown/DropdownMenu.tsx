@@ -1,4 +1,5 @@
 import React, { ReactNode, forwardRef } from 'react';
+import { mergeRefs } from '../../utils';
 
 export interface DropdownMenuProps {
   outsideRef?: any;
@@ -30,7 +31,7 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
       <div
         ref={mergeRefs(ref, outsideRef, setPopperElement)}
         style={styles.popper}
-        className="sui--dropdown-menu border border-solid border-gray-300 rounded bg-white py-1"
+        className="py-1 bg-white border border-gray-300 border-solid rounded sui--dropdown-menu"
         {...attributes.popper}
         {...props}
       >
@@ -41,20 +42,5 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
 );
 
 DropdownMenu.displayName = 'DropdownMenu';
-
-const mergeRefs = (...refs: any[]) => {
-  const filteredRefs = refs.filter(Boolean);
-  if (!filteredRefs.length) return null;
-  if (filteredRefs.length === 0) return filteredRefs[0];
-  return (inst: any) => {
-    for (const ref of filteredRefs) {
-      if (typeof ref === 'function') {
-        ref(inst);
-      } else if (ref) {
-        ref.current = inst;
-      }
-    }
-  };
-};
 
 export default DropdownMenu;

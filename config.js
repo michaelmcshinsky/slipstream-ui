@@ -1,6 +1,5 @@
 const deepMerge = require('deepmerge');
 const plugin = require('tailwindcss/plugin');
-const customFormsPlugin = require('@tailwindcss/forms');
 
 function arrayMergeFn(destinationArray, sourceArray) {
   return destinationArray.concat(sourceArray).reduce((acc, cur) => {
@@ -10,12 +9,58 @@ function arrayMergeFn(destinationArray, sourceArray) {
 }
 
 const slipstreamConfig = {
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {
-      colors: {},
+  safelist: [
+    {
+      // pattern: /bg-(red|green|blue)-(100|200|300)/,
+      pattern: /w-/,
+      variants: [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+        '3xl',
+        '4xl',
+        '5xl',
+        'full',
+        'none',
+        '0',
+        'min',
+        'max',
+        '6xl',
+        '7xl',
+        'prose',
+        'screen-sm',
+        'screen-md',
+        'screen-lg',
+        'screen-xl',
+        'screen-2xl',
+      ],
     },
-  },
+    {
+      pattern: /max-w-/,
+    },
+    {
+      pattern: /bg-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
+      variants: ['peer-checked'],
+    },
+    {
+      pattern: /text-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
+    },
+    {
+      pattern: /rounded/,
+    },
+    {
+      pattern: /align-/,
+    },
+    {
+      pattern: /order-/,
+    },
+    {
+      pattern: /duration-/,
+    },
+  ],
   variants: {
     extend: {
       backgroundColor: ['active', 'checked', 'even', 'odd'],
@@ -28,7 +73,7 @@ const slipstreamConfig = {
     },
   },
   plugins: [
-    customFormsPlugin,
+    require('@tailwindcss/forms'),
     plugin(function ({ addComponents }) {
       addComponents({
         '.inline-flex': {
@@ -110,11 +155,11 @@ const slipstreamConfig = {
         },
         '.sui--input-group_prepend + .sui--input': {
           borderTopLeftRadius: 0,
-          borderBottomLeftRadius: 0
+          borderBottomLeftRadius: 0,
         },
         '.sui--input-group .sui--input:not(:last-child)': {
           borderTopRightRadius: 0,
-          borderBottomRightRadius: 0
+          borderBottomRightRadius: 0,
         },
       });
     }),

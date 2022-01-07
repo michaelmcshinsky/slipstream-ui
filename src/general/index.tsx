@@ -1,3 +1,7 @@
+import { Tag as Chip, TagProps as ChipProps } from './tag';
+
+Chip.displayName = 'Chip';
+
 export { Alert, AlertProps } from './alert';
 export { Avatar, AvatarProps } from './avatar';
 export { AvatarGroup, AvatarGroupProps } from './avatar-group';
@@ -56,4 +60,4 @@ export {
   TableRowProps,
 } from './table';
 export { Tag, TagProps } from './tag';
-export { Tag as Chip, TagProps as ChipProps } from './tag';
+export { Chip, ChipProps };

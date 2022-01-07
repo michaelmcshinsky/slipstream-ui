@@ -16,12 +16,12 @@ export const TableColGroup = forwardRef<HTMLTableColElement, TableColGroupProps>
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--table-colgroup',
       !custom && 'table-colgroup',
-      className
+      className,
     );
 
     return (
@@ -29,7 +29,7 @@ export const TableColGroup = forwardRef<HTMLTableColElement, TableColGroupProps>
         {children}
       </colgroup>
     );
-  }
+  },
 );
 
 TableColGroup.displayName = 'TableColGroup';

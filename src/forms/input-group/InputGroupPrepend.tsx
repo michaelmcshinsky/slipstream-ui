@@ -25,7 +25,7 @@ export const InputGroupPrepend = forwardRef<
     { 'px-2': size === 'sm' },
     { 'px-3': size === 'md' || !size },
     { 'px-4': size === 'lg' },
-    className
+    className,
   );
 
   return (

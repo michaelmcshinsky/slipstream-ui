@@ -75,8 +75,8 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
 
 InputGroup.displayName = 'InputGroup';
 InputGroup.defaultProps = {
-  size: 'md'
-}
+  size: 'md',
+};
 InputGroup.Append = InputGroupAppend;
 InputGroup.Prepend = InputGroupPrepend;
 

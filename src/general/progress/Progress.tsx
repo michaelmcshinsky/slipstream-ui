@@ -8,7 +8,19 @@ export interface ProgressProps {
   animate?: boolean;
   size?: 'sm' | 'md' | 'lg';
   color?: string;
-  shade?: string | number;
+  shade?:
+    | '50'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | string
+    | number;
 }
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
@@ -27,7 +39,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 
     const innerClasses = classNames(
       'w-full h-full ease-in-out duration-700',
-      color ? `bg-${color}-${shade || '500'}` : 'bg-blue-500',
+      color ? `bg-${color}${color === 'black' || color === 'white' ? '' : `-${shade}`}` : 'bg-blue-500',
       { 'animate-pulse': animate },
       { 'rounded-full': rounded },
     );
@@ -45,6 +57,8 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 Progress.displayName = 'Progress';
 Progress.defaultProps = {
   rounded: true,
+  color: 'blue',
+  shade: '500',
 };
 
 export default Progress;

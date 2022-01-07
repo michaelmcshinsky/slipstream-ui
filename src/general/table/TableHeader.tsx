@@ -13,7 +13,7 @@ export interface TableHeaderProps {
 export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
   (
     { className, children, tag: Tag, size, borderless, custom, ...props },
-    ref
+    ref,
   ) => {
     const classes = classNames(
       'sui--table-th',
@@ -24,7 +24,7 @@ export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
         (size === 'md' || !size) && 'p-3 text-sm',
         size === 'lg' && 'p-4 text-base',
       ],
-      className
+      className,
     );
 
     return (
@@ -32,7 +32,7 @@ export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 TableHeader.displayName = 'TableHeader';

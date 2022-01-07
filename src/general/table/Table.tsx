@@ -71,7 +71,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -100,7 +100,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
       'w-full border-collapse table-auto',
       !custom && bordered && 'border border-gray-200',
       !custom && (align ? `align-${align}` : 'align-top'),
-      className
+      className,
     );
 
     return (
@@ -108,7 +108,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 ) as TableComponent;
 
 Table.Body = TableBody;

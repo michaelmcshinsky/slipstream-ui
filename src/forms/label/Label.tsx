@@ -39,12 +39,12 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
       { 'opacity-50 cursor-not-allowed': attrs.disabled },
     ],
     rtl && 'flex flex-row-reverse',
-    className
+    className,
   );
 
   const requirdClasses = classNames(
     'sui--label-required text-red-500',
-    rtl ? 'flex order-1 pr-1' : 'pl-1'
+    rtl ? 'flex order-1 pr-1' : 'pl-1',
   );
 
   return (
@@ -55,6 +55,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   );
 });
 
+Label.displayName = 'Label';
 Label.defaultProps = {
   size: 'md',
   noMargin: false,

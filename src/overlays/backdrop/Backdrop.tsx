@@ -16,7 +16,9 @@ export interface BackdropProps {
     | '700'
     | '800'
     | '900'
-    | '1000';
+    | '1000'
+    | string
+    | number;
 }
 
 export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
@@ -36,25 +38,19 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
       }
     }, [isOpen]);
 
-    function _toggle() {
-      if (toggle) {
-        toggle();
-      }
-    }
-
     const classes = classNames(
       'sui--backdrop',
       'fixed flex item-center justify-center inset-0',
       'bg-black bg-opacity-50',
       'transition-opacity transform ease-in-out',
-      duration ? `duration-${duration}` : 'duration-500',
+      `duration-${duration}`,
       isOpen ? 'opacity-1' : 'opacity-0',
       { invisible: hidden && !isOpen },
       className
     );
 
     return (
-      <div ref={ref} className={classes} onClick={_toggle} {...props}>
+      <div ref={ref} className={classes} onClick={toggle} {...props}>
         {children}
       </div>
     );
@@ -62,5 +58,8 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
 );
 
 Backdrop.displayName = 'Backdrop';
+Backdrop.defaultProps = {
+  duration: '500',
+};
 
 export default Backdrop;

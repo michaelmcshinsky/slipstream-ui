@@ -25,7 +25,7 @@ export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
       custom,
       ...props
     },
-    ref
+    ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -52,7 +52,7 @@ export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
     const classes = classNames(
       'sui--table-tbody',
       'table-row-group',
-      className
+      className,
     );
 
     return (
@@ -60,7 +60,7 @@ export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
         {renderedChildren}
       </Tag>
     );
-  }
+  },
 );
 
 TableBody.displayName = 'TableBody';

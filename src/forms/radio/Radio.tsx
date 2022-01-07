@@ -16,4 +16,6 @@ export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
   return <Checkbox ref={ref} className={classes} {...attrs} type="radio" />;
 });
 
+Radio.displayName = 'Radio';
+
 export default Radio;

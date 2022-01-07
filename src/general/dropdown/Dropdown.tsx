@@ -148,6 +148,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   },
 ) as DropdownComponent;
 
+Dropdown.displayName = 'Dropdown';
 Dropdown.Item = DropdownItem;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Toggle = DropdownToggle;
