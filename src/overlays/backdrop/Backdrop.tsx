@@ -1,13 +1,15 @@
 import React, { useState, useEffect, forwardRef, ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 export interface BackdropProps {
   children?: ReactNode;
   className?: string;
   isOpen: boolean;
-  toggle?: () => void;
-  zIndex?: number;
   styles?: object;
+  toggle?: () => void;
+  usePortal?: boolean;
+  zIndex?: number;
   duration?:
     | '100'
     | '200'
@@ -25,7 +27,17 @@ export interface BackdropProps {
 
 export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
   (
-    { children, className, isOpen, toggle, zIndex, styles, duration, ...props },
+    {
+      children,
+      className,
+      duration,
+      isOpen,
+      styles,
+      toggle,
+      usePortal,
+      zIndex,
+      ...props
+    },
     ref
   ) => {
     const [hidden, setHidden] = useState(!isOpen);
@@ -59,6 +71,21 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
       ...styles,
     };
 
+    if (usePortal) {
+      return ReactDOM.createPortal(
+        <div
+          ref={ref}
+          className={classes}
+          onClick={toggle}
+          style={backdropStyles}
+          {...props}
+        >
+          {children}
+        </div>,
+        document.body
+      );
+    }
+
     return (
       <div
         ref={ref}
@@ -76,6 +103,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
 Backdrop.displayName = 'Backdrop';
 Backdrop.defaultProps = {
   duration: '500',
+  usePortal: false,
   zIndex: 9999,
 };
 
