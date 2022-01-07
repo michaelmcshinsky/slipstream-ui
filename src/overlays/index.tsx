@@ -1,3 +1,4 @@
+export { Backdrop, BackdropProps } from './backdrop';
 export {
   Modal,
   ModalBody,
