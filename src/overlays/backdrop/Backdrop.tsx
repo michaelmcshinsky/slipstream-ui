@@ -6,6 +6,8 @@ export interface BackdropProps {
   className?: string;
   isOpen: boolean;
   toggle?: () => void;
+  zIndex?: number;
+  styles?: object;
   duration?:
     | '100'
     | '200'
@@ -22,7 +24,10 @@ export interface BackdropProps {
 }
 
 export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
-  ({ children, className, isOpen, toggle, duration, ...props }, ref) => {
+  (
+    { children, className, isOpen, toggle, zIndex, styles, duration, ...props },
+    ref
+  ) => {
     const [hidden, setHidden] = useState(!isOpen);
 
     useEffect(() => {
@@ -49,8 +54,19 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
       className
     );
 
+    const backdropStyles = {
+      zIndex,
+      ...styles,
+    };
+
     return (
-      <div ref={ref} className={classes} onClick={toggle} {...props}>
+      <div
+        ref={ref}
+        className={classes}
+        onClick={toggle}
+        style={backdropStyles}
+        {...props}
+      >
         {children}
       </div>
     );
@@ -60,6 +76,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
 Backdrop.displayName = 'Backdrop';
 Backdrop.defaultProps = {
   duration: '500',
+  zIndex: 9999,
 };
 
 export default Backdrop;
