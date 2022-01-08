@@ -1,9 +1,7 @@
 import React, {
   forwardRef,
   HTMLAttributes,
-  ReactElement,
   ReactNode,
-  ReactText,
 } from 'react';
 import classnames from 'classnames';
 
@@ -27,8 +25,9 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
       className,
     );
 
-    const filteredChildren = React.Children.toArray(children).filter(Boolean);
-    const renderedChildren = filteredChildren.map((child: any) => {
+    const renderedChildren = React.Children.toArray(children)
+    .filter(Boolean)
+    .map((child: any) => {
       if (child?.type?.displayName?.includes?.('Modal')) {
         return React.cloneElement(child, {
           toggle,

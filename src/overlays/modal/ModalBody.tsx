@@ -1,10 +1,4 @@
-import React, {
-  forwardRef,
-  HTMLAttributes,
-  ReactElement,
-  ReactNode,
-  ReactText,
-} from 'react';
+import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
@@ -17,20 +11,21 @@ export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
   ({ className, children, rtl, toggle, ...attrs }, ref) => {
     const classes = classnames('sui--modal-body p-3', className);
-    
-    const filteredChildren = React.Children.toArray(children).filter(Boolean);
-    const renderedChildren = filteredChildren.map((child) => {
-      return React.cloneElement(child as ReactElement<any>, {
-        rtl,
+
+    const renderedChildren = React.Children.toArray(children)
+      .filter(Boolean)
+      .map((child: any) => {
+        return React.cloneElement(child, {
+          rtl,
+        });
       });
-    });
 
     return (
       <div className={classes} ref={ref} {...attrs}>
         {renderedChildren}
       </div>
     );
-  },
+  }
 );
 
 ModalBody.displayName = 'ModalBody';

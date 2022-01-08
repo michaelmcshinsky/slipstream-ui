@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, ReactNode, ReactText } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface CardFooterProps {
@@ -22,9 +22,10 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
       className,
     );
 
-    const filteredChildren = React.Children.toArray(children).filter(Boolean);
-    const renderedChildren = filteredChildren.map(child => {
-      return React.cloneElement(child as ReactElement<any>, {
+    const renderedChildren = React.Children.toArray(children)
+    .filter(Boolean)
+    .map((child: any) => {
+      return React.cloneElement(child, {
         size,
         dark,
       });
