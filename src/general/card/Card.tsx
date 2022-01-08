@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode, ReactElement, ReactText } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
 import { CardBody, CardBodyProps } from './CardBody';
 import { CardFooter, CardFooterProps } from './CardFooter';

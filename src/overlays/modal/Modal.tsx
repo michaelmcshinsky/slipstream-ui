@@ -2,9 +2,7 @@ import React, {
   useState,
   useEffect,
   forwardRef,
-  ReactElement,
   ReactNode,
-  ReactText,
 } from 'react';
 import { default as ReactModal, Styles } from 'react-modal';
 import classnames from 'classnames';

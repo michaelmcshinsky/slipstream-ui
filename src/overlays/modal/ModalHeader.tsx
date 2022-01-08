@@ -2,9 +2,7 @@
 import React, {
   forwardRef,
   HTMLAttributes,
-  ReactElement,
   ReactNode,
-  ReactText,
 } from 'react';
 import classnames from 'classnames';
 import { Close } from '../../assets/icons';
