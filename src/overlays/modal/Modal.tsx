@@ -19,6 +19,7 @@ export interface ModalProps {
   children?: ReactNode | ReactElement<any> | ReactText;
   className?: string;
   contentLabel?: string;
+  duration?: number;
   isOpen: boolean;
   isStatic?: boolean;
   onOpened?: () => void;
@@ -54,6 +55,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     children,
     className,
     contentLabel,
+    duration,
     isOpen,
     isStatic,
     onOpened,
@@ -65,7 +67,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     ...attrs
   } = props;
 
-  const [, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(isOpen);
 
   useEffect(() => {
     document.addEventListener('keydown', (e: any) => handleEsc(e), {
@@ -74,36 +77,37 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     return () => {
       document.removeEventListener('keydown', (e: any) => handleEsc(e));
     };
-  });
+  }, []);
 
-  function _setMounted() {
-    setMounted(true);
-    if (onOpened) {
-      setTimeout(() => {
-        onOpened();
-      });
-    }
+  function _onAfterOpen() {
+    setIsMounted(true);
+  }
+  
+  function _onAfterClose() {
+    setIsMounted(false);
   }
 
-  function _toggle() {
-    setMounted(false);
+  function _onRequestClose() {
+    setIsClosing(true);
     setTimeout(() => {
       if (toggle) {
         toggle();
       }
-    });
+      setIsClosing(false);
+    }, duration)
   }
-
+  
   function handleEsc(ev: React.KeyboardEvent<HTMLDocument>) {
     if (isStatic) {
       return;
     }
     if (ev.key === 'Esc' || ev.key === 'Escape') {
-      _toggle();
+      _onRequestClose()
     }
   }
 
   const classes = classnames(
+    'sui--modal',
     'mx-auto my-auto',
     { 'max-w-xs': size === 'xs' },
     { 'max-w-sm': size === 'sm' },
@@ -121,6 +125,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const overlayClasses = classnames(
     'fixed inset-0 flex overflow-y-auto',
     'bg-black bg-opacity-50',
+    { 'opacity-0': isClosing },
+    `duration-${duration} transition-opacity transform ease-in-out`,
     overlayClassName,
   );
 
@@ -138,12 +144,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
       ) {
         return React.cloneElement(child, {
           bordered,
-          toggle: _toggle,
+          toggle: _onRequestClose,
           rtl,
         });
       } else if (child?.type?.displayName?.includes?.('Modal')) {
         return React.cloneElement(child, {
-          toggle: _toggle,
+          toggle: _onRequestClose,
           rtl,
         });
       }
@@ -154,9 +160,10 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     <>
       <ReactModal
         isOpen={isOpen}
-        onRequestClose={_toggle}
+        onRequestClose={_onRequestClose}
         contentLabel={contentLabel}
-        onAfterOpen={_setMounted}
+        onAfterOpen={_onAfterOpen}
+        onAfterClose={_onAfterClose}
         className={classes}
         overlayClassName={overlayClasses}
         shouldCloseOnOverlayClick={!isStatic}
@@ -164,17 +171,19 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
         style={style}
         {...attrs}
       >
-        <>
-          <div className={bodyClasses} ref={ref}>
-            {isOpen && renderedChildren}
-          </div>
-        </>
+        <div className={bodyClasses} ref={ref}>
+          {isMounted && renderedChildren}
+        </div>
       </ReactModal>
     </>
   );
 }) as ModalComponent;
 
 Modal.displayName = 'Modal';
+Modal.defaultProps = {
+  duration: 500,
+}
+
 Modal.Body = ModalBody;
 Modal.Button = ModalButton;
 Modal.Footer = ModalFooter;

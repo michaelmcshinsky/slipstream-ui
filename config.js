@@ -161,6 +161,15 @@ const slipstreamConfig = {
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
         },
+        '.ReactModal__Overlay': {
+          opacity: 0          
+        },
+        '.ReactModal__Overlay--after-open': {
+          opacity: 1
+        },
+        '.ReactModal__Overlay--before-close': {
+          opacity: 0
+        }
       });
     }),
   ],
@@ -172,6 +181,7 @@ const slipstreamConfig = {
  * @return {object} new config object
  */
 function wrapper(tailwindConfig) {
+  console.log('tailwindConfig', tailwindConfig)
   let purge;
   if (Array.isArray(tailwindConfig.purge)) {
     purge = {
@@ -180,6 +190,9 @@ function wrapper(tailwindConfig) {
   } else {
     purge = tailwindConfig.purge;
   }
+  console.log(deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
+    arrayMerge: arrayMergeFn,
+  }))
   return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
     arrayMerge: arrayMergeFn,
   });

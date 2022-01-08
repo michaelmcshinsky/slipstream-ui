@@ -37,6 +37,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
     }
 
     const headerClasses = classnames(
+      'sui--modal-header',
       'bg-white p-3 rounded-t relative',
       'flex items-center justify-between',
       { 'border-b border-solid border-gray-300': bordered },
