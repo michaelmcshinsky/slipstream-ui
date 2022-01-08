@@ -5,7 +5,7 @@ export interface CardHeaderProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
 }
 
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(

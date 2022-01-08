@@ -5,7 +5,7 @@ export interface CardFooterProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
 }
 
 export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(

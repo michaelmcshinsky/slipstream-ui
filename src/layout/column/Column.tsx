@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Width, OrderType } from '../../utils';
 
 export interface ColProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   xs?: Width;
   sm?: Width;

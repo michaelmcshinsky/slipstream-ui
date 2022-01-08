@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
 
 export interface SelectOptionProps {
-  children?: ReactNode;
+  children: ReactNode;
   value: string;
 }
 

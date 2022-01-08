@@ -11,7 +11,7 @@ import { Close } from '../../assets/icons';
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
   bordered?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
   className?: string;
   title?: string;
   rtl?: boolean;

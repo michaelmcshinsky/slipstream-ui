@@ -721,6 +721,18 @@ select {
   border-bottom-right-radius: 0;
 }
 
+.ReactModal__Overlay {
+  opacity: 0;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
 .sui--table {
   display: table;
 }
@@ -15018,6 +15030,10 @@ select {
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.outline {
+  outline-style: solid;
 }
 
 .outline-yellow-50 {

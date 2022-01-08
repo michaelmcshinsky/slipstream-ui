@@ -1,7 +1,7 @@
 import React, { ReactNode, forwardRef } from 'react';
 
 export interface DropdownItemProps {
-  children?: ReactNode;
+  children: ReactNode;
   tag?: any;
 }
 

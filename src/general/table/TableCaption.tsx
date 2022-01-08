@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TableCaptionProps {
   className?: string;
-  children?: ReactNode;
+  children: ReactNode;
   custom?: boolean;
 }
 

@@ -8,7 +8,7 @@ import React, {
 import classnames from 'classnames';
 
 export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
   className?: string;
   rtl?: boolean;
   toggle?: boolean;

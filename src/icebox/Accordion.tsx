@@ -1,5 +1,9 @@
 import React from 'react';
 
-export default function Accordion() {
+export function Accordion() {
   return <div></div>;
 }
+
+Accordion.displayName = 'Accordion';
+
+export default Accordion;

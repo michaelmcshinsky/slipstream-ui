@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface InputGroupAppendProps {
   className?: string;
-  children?: ReactNode;
+  children: ReactNode;
   size?: string;
   custom?: boolean;
 }

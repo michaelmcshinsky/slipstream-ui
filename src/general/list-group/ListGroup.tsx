@@ -1,9 +1,9 @@
-import React, { forwardRef, ReactElement, ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
 
 export interface ListGroupProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   flush?: boolean;
   hover?: boolean;
@@ -35,32 +35,36 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
       style,
       ...props
     },
-    ref,
+    ref
   ) => {
     const classes = classNames(
       'sui--listgroup',
       'flex flex-col list-none p-0',
-      className,
+      className
     );
 
     const styles = { ...style, counterReset: 'section' };
 
-    const filteredChildren = React.Children.toArray(children).filter(Boolean);
-    const renderedChildren = filteredChildren.map((child) => {
-      return React.cloneElement(child as ReactElement<any>, {
-        hover,
-        flush,
-        numbered,
-        rtl,
+    const renderedChildren = React.Children.toArray(children)
+      .filter(Boolean)
+      .map((child: any) => {
+        if (child?.type?.displayName?.includes?.('ListGroup')) {
+          return React.cloneElement(child, {
+            hover,
+            flush,
+            numbered,
+            rtl,
+          });
+        }
+        return child;
       });
-    });
 
     return (
       <Tag ref={ref} className={classes} style={styles} {...props}>
         {renderedChildren}
       </Tag>
     );
-  },
+  }
 ) as ListGroupComponent;
 
 ListGroup.displayName = 'ListGroup';

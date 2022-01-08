@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export interface FormFeedbackProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   valid?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export function FormFeedback(props: FormFeedbackProps) {

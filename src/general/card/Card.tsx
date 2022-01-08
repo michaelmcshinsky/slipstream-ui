@@ -9,7 +9,7 @@ export interface CardProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
 }
 
 interface CardComponent
@@ -39,12 +39,16 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     className,
   );
 
-  const filteredChildren = React.Children.toArray(children).filter(Boolean);
-  const renderedChildren = filteredChildren.map(child => {
-    return React.cloneElement(child as ReactElement<any>, {
-      size,
-      dark,
-    });
+  const renderedChildren = React.Children.toArray(children)
+  .filter(Boolean)
+  .map((child: any) => {
+    if (child?.type?.displayName?.includes?.('Card')) {
+      return React.cloneElement(child, {
+        size,
+        dark,
+      });
+    }
+    return child;
   });
 
   return (

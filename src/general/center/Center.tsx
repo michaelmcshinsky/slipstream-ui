@@ -2,7 +2,7 @@ import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface CenterProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
