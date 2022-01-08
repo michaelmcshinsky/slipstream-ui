@@ -16,7 +16,7 @@ import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 export interface ModalProps {
   bodyClassName?: string;
   bordered?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
   className?: string;
   contentLabel?: string;
   duration?: number;
@@ -153,7 +153,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
           rtl,
         });
       }
-      return React.cloneElement(child);
+      return child;
     });
 
   return (

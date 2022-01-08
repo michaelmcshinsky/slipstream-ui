@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ChevronDown } from '../../assets/icons';
 
 export interface DropdownToggleProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   tag?: any;
   dataDropdown?: string;

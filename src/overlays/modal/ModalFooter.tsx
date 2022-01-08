@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   bordered?: boolean;
-  children?: ReactNode | ReactElement<any> | ReactText;
+  children: ReactNode;
   className?: string;
   toggle?: (e: any) => void;
   rtl?: boolean;
@@ -34,7 +34,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
           toggle,
         });
       }
-      return React.cloneElement(child);
+      return child;
     });
 
     return (

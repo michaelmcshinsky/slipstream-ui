@@ -5,7 +5,7 @@ import { TabItem, TabItemProps } from './TabItem';
 export interface TabSetProps {
   background?: boolean;
   border?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   rtl?: boolean;
   tabs?: TabItemMappedProps[];
@@ -34,7 +34,7 @@ export function TabSet({
     'sui--tab-set',
     'flex flex-wrap list-none',
     rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),
-    vertical && 'flex-col',
+    vertical && 'flex-col'
   );
 
   const renderedChildren = React.Children.toArray(children)
@@ -43,7 +43,7 @@ export function TabSet({
       if (child?.type?.displayName?.includes('TabItem')) {
         return React.cloneElement(child, { border, background, custom });
       }
-      return React.cloneElement(child);
+      return child;
     });
 
   return (

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 export interface BackdropProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   isOpen: boolean;
   styles?: object;

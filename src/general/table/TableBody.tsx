@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TableBodyProps {
   className?: string;
-  children?: ReactNode;
+  children: ReactNode;
   tag?: any;
   size?: 'sm' | 'md' | 'lg';
   striped?: boolean | 'odd' | 'even';

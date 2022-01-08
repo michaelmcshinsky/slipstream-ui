@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export interface ButtonGroupProps {
   className?: string;
   flush?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
@@ -20,7 +20,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
             flush,
           });
         }
-        return React.cloneElement(child);
+        return child;
       });
 
     return (

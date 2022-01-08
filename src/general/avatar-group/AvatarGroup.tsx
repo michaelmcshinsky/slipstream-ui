@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface AvatarGroupProps {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -48,7 +48,7 @@ export function AvatarGroup({
           size,
         });
       }
-      return React.cloneElement(child);
+      return child;
     });
 
   return (

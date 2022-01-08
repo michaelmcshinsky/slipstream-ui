@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export interface FieldSetProps {
   styles?: object;
   className?: string;
-  children?: ReactNode;
+  children: ReactNode;
   custom?: boolean;
 }
 

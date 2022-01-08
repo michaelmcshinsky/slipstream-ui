@@ -5,7 +5,7 @@ import SelectOption, { SelectOptionProps } from './SelectOption';
 import SelectOptionGroup, { SelectOptionGroupProps } from './SelectOptionGroup';
 
 export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   custom?: boolean;
   disabled?: boolean;

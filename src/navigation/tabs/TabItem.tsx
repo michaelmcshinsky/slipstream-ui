@@ -5,7 +5,7 @@ export interface TabItemProps {
   active?: boolean;
   background?: boolean;
   border?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
   custom?: boolean;
   tag: 'li' | 'a' | 'div' | 'input';

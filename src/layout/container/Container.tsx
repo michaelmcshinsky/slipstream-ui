@@ -6,7 +6,7 @@ export interface ContainerProps {
   className?: string;
   size?: SizeListFull;
   fluid?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(

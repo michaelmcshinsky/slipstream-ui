@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 export interface FormGroupProps {
   className?: string;
-  children?: ReactNode;
+  children: ReactNode;
   margin?: string;
   inline?: boolean;
 }
@@ -30,7 +30,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
             inline,
           });
         }
-        return React.cloneElement(child);
+        return child;
       });
 
     return (

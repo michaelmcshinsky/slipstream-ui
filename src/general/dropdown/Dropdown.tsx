@@ -8,15 +8,15 @@ import DropdownItem, { DropdownItemProps } from './DropdownItem';
 import DropdownToggle, { DropdownToggleProps } from './DropdownToggle';
 
 export interface DropdownProps {
-  className?: string;
-  isOpen: boolean;
   children: ReactNode;
-  onClick?: (state: object) => void;
-  disableOutsideClick?: boolean;
+  className?: string;
   direction?: DirectionTypes;
-  right?: RightTypes;
-  offset?: number;
+  disableOutsideClick?: boolean;
   icon?: boolean;
+  isOpen: boolean;
+  offset?: number;
+  onClick?: (state: object) => void;
+  right?: RightTypes;
   rtl?: boolean;
 }
 
@@ -131,7 +131,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             isOpen: state.isOpen,
           });
         }
-        return React.cloneElement(child);
+        return child;
       });
 
     const classes = classNames(
