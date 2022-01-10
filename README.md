@@ -51,7 +51,7 @@ module.exports = slipstream({
 
 module.exports = slipstream({
   content: [
-    "./node_modules/slipstream-ui/**/*"
+    "./node_modules/slipstream-ui/dist/**/*"
   ],
   theme: {
     extend: {},
