@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import { Close } from '../../assets/icons';
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  bordered?: boolean;
+  border?: boolean;
   children: ReactNode;
   className?: string;
   title?: string;
@@ -19,7 +19,7 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
 export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
   (props, ref) => {
     const {
-      bordered,
+      border,
       children,
       className,
       title,
@@ -38,7 +38,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
       'sui--modal-header',
       'bg-white p-3 rounded-t relative',
       'flex items-center justify-between',
-      { 'border-b border-solid border-gray-300': bordered },
+      { 'border-b border-solid border-gray-300': border },
       rtl ? 'flex-row-reverse pl-10' : 'pr-10',
       className,
     );

@@ -12,12 +12,13 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   (props, ref) => {
     const { className, size, dark, children, ...attributes } = props;
     const classes = classnames(
+      'sui--card-body',
       { 'px-3 p-2': size === 'sm' },
       { 'p-3': size === 'md' || !size },
       { 'p-4': size === 'lg' },
       { 'text-gray-700': !dark },
       { 'text-gray-200': dark },
-      className,
+      className
     );
 
     return (
@@ -25,7 +26,7 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
         {children}
       </div>
     );
-  },
+  }
 );
 
 CardBody.displayName = 'CardBody';

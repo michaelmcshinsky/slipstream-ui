@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface FieldSetProps {
@@ -8,32 +8,29 @@ export interface FieldSetProps {
   custom?: boolean;
 }
 
-export function FieldSet({
-  className,
-  styles,
-  children,
-  custom,
-}: FieldSetProps) {
-  const classes = classNames(
-    'sui--fieldset',
-    !custom && 'block py-2 px-3 border border-solid border-gray-300',
-    className,
-  );
+export const FieldSet = forwardRef<HTMLFieldSetElement, FieldSetProps>(
+  ({ className, styles, children, custom, ...props }, ref) => {
+    const classes = classNames(
+      'sui--fieldset',
+      !custom && 'block py-2 px-3 border border-solid border-gray-300',
+      className
+    );
 
-  const fieldsetStyles = !custom
-    ? {
-        marginInlineStart: '2px',
-        marginInlineEnd: '2px',
-        ...styles,
-      }
-    : { ...styles };
+    const fieldsetStyles = !custom
+      ? {
+          marginInlineStart: '2px',
+          marginInlineEnd: '2px',
+          ...styles,
+        }
+      : { ...styles };
 
-  return (
-    <fieldset style={fieldsetStyles} className={classes}>
-      {children}
-    </fieldset>
-  );
-}
+    return (
+      <fieldset ref={ref} style={fieldsetStyles} className={classes} {...props}>
+        {children}
+      </fieldset>
+    );
+  }
+);
 
 FieldSet.displayName = 'FieldSet';
 

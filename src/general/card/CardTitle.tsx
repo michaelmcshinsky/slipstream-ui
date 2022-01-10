@@ -12,7 +12,7 @@ export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
   (props, ref) => {
     const { className, size, dark, children, ...attributes } = props;
     const classes = classnames(
-      'leading-tight',
+      'sui--card-title leading-tight',
       { 'text-base': size === 'sm' },
       { 'text-lg': size === 'md' || !size },
       { 'text-xl': size === 'lg' },
