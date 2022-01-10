@@ -13,7 +13,7 @@ import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 
 export interface ModalProps {
   bodyClassName?: string;
-  bordered?: boolean;
+  border?: boolean;
   children: ReactNode;
   className?: string;
   contentLabel?: string;
@@ -49,7 +49,7 @@ interface ModalComponent
 export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const {
     bodyClassName,
-    bordered,
+    border,
     children,
     className,
     contentLabel,
@@ -141,7 +141,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
         child?.type?.displayName === 'ModalFooter'
       ) {
         return React.cloneElement(child, {
-          bordered,
+          border,
           toggle: _onRequestClose,
           rtl,
         });

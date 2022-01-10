@@ -16,7 +16,7 @@ export interface TableProps {
   tag?: any;
   align?: string;
   size?: 'sm' | 'md' | 'lg';
-  bordered?: boolean;
+  border?: boolean;
   striped?: boolean | 'odd' | 'even';
   hover?: boolean | 'row' | 'cell';
   borderless?: boolean;
@@ -63,7 +63,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
       children,
       tag: Tag,
       align,
-      bordered,
+      border,
       striped,
       size,
       hover,
@@ -98,7 +98,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
     const classes = classNames(
       'sui--table table',
       'w-full border-collapse table-auto',
-      !custom && bordered && 'border border-gray-200',
+      !custom && border && 'border border-gray-200',
       !custom && (align ? `align-${align}` : 'align-top'),
       className,
     );

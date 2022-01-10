@@ -5,6 +5,7 @@ import classNames from 'classnames';
 export interface BackdropProps {
   children: ReactNode;
   className?: string;
+  custom?: boolean;
   isOpen: boolean;
   styles?: object;
   toggle?: () => void;
@@ -30,6 +31,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
     {
       children,
       className,
+      custom,
       duration,
       isOpen,
       styles,
@@ -57,12 +59,12 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
 
     const classes = classNames(
       'sui--backdrop',
-      'fixed flex items-center justify-center inset-0',
-      'bg-black bg-opacity-50',
+      'fixed bg-black bg-opacity-50',
       'transition-opacity transform ease-in-out',
       `duration-${duration}`,
       isOpen ? 'opacity-1' : 'opacity-0',
       { invisible: hidden && !isOpen },
+      { 'flex items-center justify-center inset-0' : !custom },
       className
     );
 

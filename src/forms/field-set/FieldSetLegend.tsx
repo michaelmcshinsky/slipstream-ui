@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface FieldSetLegendProps {
@@ -7,18 +7,22 @@ export interface FieldSetLegendProps {
   custom?: boolean;
 }
 
-export function FieldSetLegend({
-  className,
-  children,
-  custom,
-}: FieldSetLegendProps) {
+export const FieldSetLegend = forwardRef<
+  HTMLLegendElement,
+  FieldSetLegendProps
+>(({ className, children, custom, ...props }, ref) => {
   const classes = classNames(
     'sui--fieldset-legend',
     !custom && 'block px-1 text-sm -mx-0.5',
-    className,
+    className
   );
-  return <legend className={classes}>{children}</legend>;
-}
+
+  return (
+    <legend ref={ref} className={classes} {...props}>
+      {children}
+    </legend>
+  );
+});
 
 FieldSetLegend.displayName = 'FieldSetLegend';
 

@@ -6,10 +6,11 @@ import { CardHeader, CardHeaderProps } from './CardHeader';
 import { CardTitle, CardTitleProps } from './CardTitle';
 
 export interface CardProps {
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
-  dark?: boolean;
+  border?: boolean;
   children: ReactNode;
+  className?: string;
+  dark?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 interface CardComponent
@@ -31,25 +32,36 @@ interface CardComponent
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-  const { className, size, dark, children, ...attributes } = props;
+  const { className, size, dark, border, children, ...attributes } = props;
   const classes = classnames(
+    'sui--card',
     'border border-solid rounded w-full',
     { 'border-gray-300': !dark },
     { 'bg-gray-900 border-gray-500': dark },
-    className,
+    className
   );
 
   const renderedChildren = React.Children.toArray(children)
-  .filter(Boolean)
-  .map((child: any) => {
-    if (child?.type?.displayName?.includes?.('Card')) {
-      return React.cloneElement(child, {
-        size,
-        dark,
-      });
-    }
-    return child;
-  });
+    .filter(Boolean)
+    .map((child: any) => {
+      if (
+        child?.type?.displayName?.includes?.('CardHeader') ||
+        child?.type?.displayName?.includes?.('CardFooter')
+      ) {
+        return React.cloneElement(child, {
+          border,
+          dark,
+          size,
+        });
+      }
+      if (child?.type?.displayName?.includes?.('Card')) {
+        return React.cloneElement(child, {
+          dark,
+          size,
+        });
+      }
+      return child;
+    });
 
   return (
     <div ref={ref} className={classes} {...attributes}>
@@ -59,6 +71,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 }) as CardComponent;
 
 Card.displayName = 'Card';
+Card.defaultProps = {
+  border: true,
+};
+
 Card.Body = CardBody;
 Card.Footer = CardFooter;
 Card.Header = CardHeader;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface HeadingProps {
@@ -8,24 +8,28 @@ export interface HeadingProps {
   children: ReactNode;
 }
 
-export function Heading(props: HeadingProps) {
-  const { level: Tag, custom, className, children, ...attrs } = props;
-  const classes = classNames(
-    !custom && Tag === 'h1' && 'text-3xl',
-    !custom && Tag === 'h2' && 'text-2xl',
-    !custom && Tag === 'h3' && 'text-xl',
-    !custom && Tag === 'h4' && 'text-lg',
-    !custom && Tag === 'h5' && 'text-base',
-    !custom && Tag === 'h6' && 'text-sm',
-    className,
-  );
-  return (
-    <Tag {...attrs} className={classes}>
-      {children}
-    </Tag>
-  );
-}
+export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ level: Tag, custom, className, children, ...props }, ref) => {
+    const classes = classNames(
+      'sui--heading',
+      !custom && Tag === 'h1' && 'text-3xl',
+      !custom && Tag === 'h2' && 'text-2xl',
+      !custom && Tag === 'h3' && 'text-xl',
+      !custom && Tag === 'h4' && 'text-lg',
+      !custom && Tag === 'h5' && 'text-base',
+      !custom && Tag === 'h6' && 'text-sm',
+      className
+    );
 
+    return (
+      <Tag ref={ref} className={classes} {...props}>
+        {children}
+      </Tag>
+    );
+  }
+);
+
+Heading.displayName = 'Heading';
 Heading.defaultProps = {
   level: 'h2',
   custom: false,

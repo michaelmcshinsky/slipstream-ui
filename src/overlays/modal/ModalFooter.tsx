@@ -6,7 +6,7 @@ import React, {
 import classnames from 'classnames';
 
 export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
-  bordered?: boolean;
+  border?: boolean;
   children: ReactNode;
   className?: string;
   toggle?: (e: any) => void;
@@ -15,12 +15,12 @@ export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
 
 export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
   (props, ref) => {
-    const { bordered, className, toggle, children, rtl, ...attrs } = props;
+    const { border, className, toggle, children, rtl, ...attrs } = props;
 
     const classes = classnames(
       'sui--modal-footer',
       'bg-white p-3 rounded-b flex items-center',
-      { 'border-t border-solid border-gray-300': bordered },
+      { 'border-t border-solid border-gray-300': border },
       { 'flex-row-reverse': rtl },
       className,
     );
