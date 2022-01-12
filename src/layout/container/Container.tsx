@@ -6,7 +6,7 @@ export interface ContainerProps {
   className?: string;
   size?: SizeListFull;
   fluid?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
@@ -17,7 +17,6 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 
     const classes = classnames(
       'sui--container px-4 w-full',
-      { maxWidth: size && !fluid },
       { 'max-w-6xl': !size && !fluid },
       { 'mx-auto': !fluid },
       maxWidth,
@@ -33,5 +32,8 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 );
 
 Container.displayName = 'Container';
+Container.defaultProps = {
+  size: '6xl'
+}
 
 export default Container;

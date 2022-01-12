@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface BreadcrumbsProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Breadcrumbs = forwardRef<HTMLUListElement, BreadcrumbsProps>(

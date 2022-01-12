@@ -5,7 +5,7 @@ import InputGroupAppend, { InputGroupAppendProps } from './InputGroupAppend';
 import InputGroupPrepend, { InputGroupPrependProps } from './InputGroupPrepend';
 
 export interface InputGroupProps {
-  children: ReactNode;
+  children?: ReactNode;
   inputProps?: InputProps;
   size?: 'sm' | 'md' | 'lg';
   custom?: boolean;

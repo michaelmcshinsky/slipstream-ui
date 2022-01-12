@@ -3,7 +3,7 @@ import React, { forwardRef, ReactNode } from 'react';
 export interface SelectOptionGroupProps {
   label?: string;
   disabled?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const SelectOptionGroup = forwardRef<

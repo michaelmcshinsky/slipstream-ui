@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TableColGroupProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   span?: number;
   custom?: boolean;
 }

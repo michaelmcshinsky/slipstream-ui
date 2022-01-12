@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface ListGroupItemProps {
   active?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   disabled?: boolean;
   flush?: boolean;

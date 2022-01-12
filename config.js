@@ -11,7 +11,6 @@ function arrayMergeFn(destinationArray, sourceArray) {
 const slipstreamConfig = {
   safelist: [
     {
-      // pattern: /bg-(red|green|blue)-(100|200|300)/,
       pattern: /w-/,
       variants: [
         'xs',
@@ -59,6 +58,26 @@ const slipstreamConfig = {
     },
     {
       pattern: /duration-/,
+    },
+    {
+      pattern: /block/,
+      variants: [
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+      ],
+    },
+    {
+      pattern: /hidden/,
+      variants: [
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+      ],
     },
   ],
   variants: {
@@ -162,14 +181,14 @@ const slipstreamConfig = {
           borderBottomRightRadius: 0,
         },
         '.ReactModal__Overlay': {
-          opacity: 0          
+          opacity: 0,
         },
         '.ReactModal__Overlay--after-open': {
-          opacity: 1
+          opacity: 1,
         },
         '.ReactModal__Overlay--before-close': {
-          opacity: 0
-        }
+          opacity: 0,
+        },
       });
     }),
   ],
@@ -181,7 +200,7 @@ const slipstreamConfig = {
  * @return {object} new config object
  */
 function wrapper(tailwindConfig) {
-  console.log('tailwindConfig', tailwindConfig)
+  console.log('tailwindConfig', tailwindConfig);
   let purge;
   if (Array.isArray(tailwindConfig.purge)) {
     purge = {
@@ -190,9 +209,11 @@ function wrapper(tailwindConfig) {
   } else {
     purge = tailwindConfig.purge;
   }
-  console.log(deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
-    arrayMerge: arrayMergeFn,
-  }))
+  console.log(
+    deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
+      arrayMerge: arrayMergeFn,
+    })
+  );
   return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
     arrayMerge: arrayMergeFn,
   });

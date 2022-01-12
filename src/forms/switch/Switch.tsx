@@ -4,7 +4,7 @@ import { LabelProps } from '../label';
 
 export interface SwitchProps extends LabelProps {
   checked?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   color?: string;
   inputRef?: React.Ref<HTMLInputElement>;
   inputsProps?: any;

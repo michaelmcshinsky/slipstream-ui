@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface FieldSetLegendProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   custom?: boolean;
 }
 

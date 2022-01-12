@@ -5,7 +5,7 @@ export interface CardBodyProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(

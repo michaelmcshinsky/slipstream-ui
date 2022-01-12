@@ -22,7 +22,7 @@ enum Type {
 }
 
 export interface ButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   color?: keyof typeof ButtonEnum;
   disabled?: boolean;

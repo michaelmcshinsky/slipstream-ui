@@ -4,7 +4,7 @@ import { mergeRefs } from '../../utils';
 export interface DropdownMenuProps {
   outsideRef?: any;
   setPopperElement?: any;
-  children: ReactNode;
+  children?: ReactNode;
   styles?: any;
   attributes?: any;
   isOpen?: boolean;

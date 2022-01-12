@@ -13,7 +13,7 @@ enum CheckboxEnum {
 }
 
 export interface CheckboxProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   color?: keyof typeof CheckboxEnum;
   custom?: boolean;

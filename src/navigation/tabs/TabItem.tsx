@@ -5,21 +5,51 @@ export interface TabItemProps {
   active?: boolean;
   background?: boolean;
   border?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   custom?: boolean;
-  tag: 'li' | 'a' | 'div' | 'input' | any;
+  tag?: 'li' | 'a' | 'div' | 'input' | any;
+  color?: string;
+  shade?:
+    | '50'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | string
+    | number;
 }
 
 export const TabItem = forwardRef<HTMLElement, TabItemProps>(
   (
-    { active, background, border, children, className, custom, tag, ...props },
+    {
+      active,
+      background,
+      border,
+      children,
+      className,
+      color,
+      custom,
+      shade,
+      tag,
+      ...props
+    },
     ref
   ) => {
     const classes = classNames(
       'sui--tab-item',
       !custom && [
-        'block cursor-pointer leading-none outline-none text-gray-500',
+        color
+          ? `text-${color}${
+              color === 'black' || color === 'white' ? '' : `-${shade}`
+            }`
+          : 'text-gray-500',
+        'block cursor-pointer leading-none outline-none',
         border && 'border-b-2 border-solid',
         {
           'hover:text-black active:text-black focus:text-black': !active,

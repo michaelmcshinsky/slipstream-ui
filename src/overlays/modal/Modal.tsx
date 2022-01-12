@@ -14,7 +14,7 @@ import { ModalHeader, ModalHeaderProps } from './ModalHeader';
 export interface ModalProps {
   bodyClassName?: string;
   border?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   contentLabel?: string;
   duration?: number;

@@ -7,7 +7,7 @@ import classnames from 'classnames';
 
 export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   border?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   toggle?: (e: any) => void;
   rtl?: boolean;
