@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
 
 export interface ListGroupProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   flush?: boolean;
   hover?: boolean;

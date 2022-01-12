@@ -7,7 +7,7 @@ import { CardTitle, CardTitleProps } from './CardTitle';
 
 export interface CardProps {
   border?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   dark?: boolean;
   size?: 'sm' | 'md' | 'lg';

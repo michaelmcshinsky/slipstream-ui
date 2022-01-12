@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { TabSet as TabSetComponent, TabSetProps, TabItem } from '../..';
+import { TabSet as TabSetComponent, TabSetProps, TabItem } from '../';
 
 export default {
   title: 'Components/Navigation',

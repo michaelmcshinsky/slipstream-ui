@@ -8,7 +8,7 @@ import DropdownItem, { DropdownItemProps } from './DropdownItem';
 import DropdownToggle, { DropdownToggleProps } from './DropdownToggle';
 
 export interface DropdownProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   direction?: DirectionTypes;
   disableOutsideClick?: boolean;

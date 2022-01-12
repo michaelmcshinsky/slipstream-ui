@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 export interface BackdropProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   custom?: boolean;
   isOpen: boolean;
@@ -42,15 +42,15 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
     },
     ref
   ) => {
-    const [hidden, setHidden] = useState(!isOpen);
+    const [isHidden, setIsHidden] = useState(!isOpen);
 
     useEffect(() => {
       if (isOpen) {
-        setHidden(false);
+        setIsHidden(false);
       } else {
         setTimeout(
           () => {
-            setHidden(true);
+            setIsHidden(true);
           },
           duration ? Number(duration) : 500
         );
@@ -63,7 +63,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
       'transition-opacity transform ease-in-out',
       `duration-${duration}`,
       isOpen ? 'opacity-1' : 'opacity-0',
-      { invisible: hidden && !isOpen },
+      { invisible: isHidden && !isOpen },
       { 'flex items-center justify-center inset-0' : !custom },
       className
     );

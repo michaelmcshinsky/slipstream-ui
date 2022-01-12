@@ -2,9 +2,9 @@ import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export interface CenterProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
-  tag: string | any;
+  tag?: string | any;
 }
 
 export const Center = forwardRef<HTMLElement, CenterProps>(

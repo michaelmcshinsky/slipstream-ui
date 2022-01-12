@@ -2,7 +2,7 @@ import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import classnames from 'classnames';
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   color?: string;
   dark?: boolean;

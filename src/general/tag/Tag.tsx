@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TagProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   bg?: string;
   color?: string;
   shade?:

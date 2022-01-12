@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 export interface FormGroupProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   margin?: string;
   inline?: boolean;
 }

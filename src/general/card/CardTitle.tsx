@@ -5,7 +5,7 @@ export interface CardTitleProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   dark?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(

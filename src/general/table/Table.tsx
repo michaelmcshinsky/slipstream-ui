@@ -12,7 +12,7 @@ import TableFooter, { TableFooterProps } from './TableFooter';
 
 export interface TableProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   tag?: any;
   align?: string;
   size?: 'sm' | 'md' | 'lg';

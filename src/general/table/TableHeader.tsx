@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TableHeaderProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   tag?: any;
   size?: 'sm' | 'md' | 'lg';
   borderless?: boolean;

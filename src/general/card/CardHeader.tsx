@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 export interface CardHeaderProps {
   border?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   dark?: boolean;
   size?: 'sm' | 'md' | 'lg';

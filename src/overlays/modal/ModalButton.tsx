@@ -6,7 +6,7 @@ interface Callback {
 }
 
 export interface ModalButtonProps extends ButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   close?: boolean;
   onClick?: (
     e: React.MouseEventHandler<HTMLButtonElement>,

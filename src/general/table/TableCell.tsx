@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export interface TableCellProps {
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
   tag?: any;
   size?: 'sm' | 'md' | 'lg';
   hover?: boolean | 'row' | 'cell';
