@@ -10,7 +10,11 @@ export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
 
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
   ({ className, children, rtl, toggle, ...attrs }, ref) => {
-    const classes = classnames('sui--modal-body p-3', className);
+    const classes = classnames(
+      'sui--modal-body',
+      'p-3 dark:bg-gray-900 dark:text-gray-300',
+      className
+    );
 
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)

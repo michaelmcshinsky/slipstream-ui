@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Backdrop, BackdropProps } from './Backdrop';
-import { Button } from '../../';
+import { OffCanvas, OffCanvasProps } from './OffCanvas';
+import { Button } from '../..';
 
 export default {
-  title: 'Components/Overlays/Backdrop',
-  component: Backdrop,
+  title: 'Components/Overlays/OffCanvas',
+  component: OffCanvas,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
   },
 } as Meta;
 
-const Template: Story<BackdropProps> = ({ ...args }) => {
+const Template: Story<OffCanvasProps> = ({ ...args }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-center justify-center">
       <Button className="m-4" onClick={() => setIsOpen(true)}>
         Click Me
       </Button>
-      <Backdrop
-        {...args}
+      <OffCanvas
         isOpen={isOpen}
         toggle={() => setIsOpen(!isOpen)}
-      ></Backdrop>
+        className="p-3"
+        {...args}
+      >
+        <h1>Menu</h1>
+      </OffCanvas>
     </div>
   );
 };

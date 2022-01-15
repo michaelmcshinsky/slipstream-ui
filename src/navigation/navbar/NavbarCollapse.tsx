@@ -1,6 +1,5 @@
-import React, { useState, forwardRef, ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
-import { useNav } from './NavContext';
 
 export interface NavbarCollapseProps {
   children?: ReactNode;
@@ -9,13 +8,10 @@ export interface NavbarCollapseProps {
 
 export const NavbarCollapse = forwardRef<HTMLDivElement, NavbarCollapseProps>(
   ({ children, className, ...props }, ref) => {
-    const [isCollapsing, setIsCollapsing] = useState(false)
-    const nav = useNav();
 
     const classes = classNames(
       'sui--navbar-collapse',
       'basis-full grow items-center',
-      { 'transition duration-300 ease': isCollapsing },
       className
     )
 

@@ -22,7 +22,7 @@ export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
       .map((child: any) => {
         if (child?.type?.displayName?.includes?.('NavbarCollapse')) {
           return React.cloneElement(child, {
-            className: `hidden ${nav?.mobile && `${nav.mobile}:block`} ${
+            className: `hidden ${!!nav?.mobile && `${nav.mobile}:block`} ${
               child.props?.className ?? ''
             }`,
           });

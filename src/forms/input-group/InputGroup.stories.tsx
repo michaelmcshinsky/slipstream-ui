@@ -3,7 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import {
   InputGroup as InputGroupComponent,
   InputGroupProps,
-} from './InputGroup';
+  SlipstreamProvider,
+} from '../../';
 import { Input } from '../input';
 
 export default {
@@ -16,11 +17,15 @@ export default {
 } as Meta;
 
 const Template: Story<InputGroupProps> = (args) => (
-  <InputGroupComponent {...args} inputProps={{ size:'lg' }}>
-    <InputGroupComponent.Prepend>%</InputGroupComponent.Prepend>
-    <Input />
-    <InputGroupComponent.Append>%</InputGroupComponent.Append>
-  </InputGroupComponent>
+  <SlipstreamProvider dark>
+    <div className="p-4 bg-gray-900">
+      <InputGroupComponent {...args}>
+        <InputGroupComponent.Prepend>$</InputGroupComponent.Prepend>
+        <Input/>
+        <InputGroupComponent.Append>%</InputGroupComponent.Append>
+      </InputGroupComponent>
+    </div>
+  </SlipstreamProvider>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

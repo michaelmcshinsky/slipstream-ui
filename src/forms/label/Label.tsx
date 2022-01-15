@@ -31,7 +31,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>((props, ref) => {
   const classes = classNames(
     'sui--label',
     !custom && [
-      'flex inline-block text-gray-700',
+      'flex inline-block text-gray-700 dark:text-gray-300',
       { 'mb-2': !noMargin && !inline },
       { 'text-xs': size === 'sm' },
       { 'text-sm': size === 'md' || !size },

@@ -1,14 +1,13 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
-import { InputProps } from '../input/Input';
 import InputGroupAppend, { InputGroupAppendProps } from './InputGroupAppend';
 import InputGroupPrepend, { InputGroupPrependProps } from './InputGroupPrepend';
 
 export interface InputGroupProps {
   children?: ReactNode;
-  inputProps?: InputProps;
+  className?: string;
   size?: 'sm' | 'md' | 'lg';
-  custom?: boolean;
+  invalid?: boolean;
 }
 
 interface InputGroupComponent
@@ -24,42 +23,29 @@ interface InputGroupComponent
 }
 
 export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
-  ({ children, inputProps, size, custom, ...props }, ref) => {
+  ({ children, className, invalid, size, ...props }, ref) => {
     const classes = classNames(
       'sui--input-group',
-      'relative flex items-stretch w-full',
+      'flex items-center relative w-full group',
+      className
     );
 
-    const elSize = size || inputProps?.size || 'sm';
-    if(inputProps) {
-      inputProps.size = elSize;
-    }
+    const elSize = size || 'md';
 
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName) {
           const { displayName } = child?.type;
-          if (displayName === 'Input') {
+          if (
+            displayName === 'Input' ||
+            displayName === 'InputGroupPrepend' ||
+            displayName === 'InputGroupAppend'
+          ) {
             return React.cloneElement(child, {
-              ...inputProps,
-              custom,
               size: elSize,
+              invalid,
             });
-          } else if (displayName === 'InputGroupPrepend') {
-            return React.cloneElement(child, {
-              className: 'rounded-l-sm',
-              custom,
-              size: elSize,
-            });
-          } else if (displayName === 'InputGroupAppend') {
-            return React.cloneElement(child, {
-              className: 'rounded-r-sm',
-              custom,
-              size: elSize,
-            });
-          } else {
-            return child;
           }
         }
         return child;
@@ -70,7 +56,7 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
         {renderedChildren}
       </div>
     );
-  },
+  }
 ) as InputGroupComponent;
 
 InputGroup.displayName = 'InputGroup';

@@ -29,4 +29,4 @@ export {
   SelectOptionGroupProps,
 } from './select';
 export { Switch, SwitchProps } from './switch';
-export { Textarea, TextareaProps } from './textarea';
+export { Textarea, Textarea as TextArea, TextareaProps } from './textarea';

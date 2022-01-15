@@ -9,6 +9,7 @@ function arrayMergeFn(destinationArray, sourceArray) {
 }
 
 const slipstreamConfig = {
+  darkMode: 'class',
   safelist: [
     {
       pattern: /w-/,
@@ -42,10 +43,11 @@ const slipstreamConfig = {
     },
     {
       pattern: /bg-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
-      variants: ['peer-checked'],
+      variants: ['peer-checked', 'dark', 'group', 'group-hover', 'group-active', 'group-focus'],
     },
     {
       pattern: /text-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
+      variants: ['dark'],
     },
     {
       pattern: /rounded/,
@@ -61,38 +63,46 @@ const slipstreamConfig = {
     },
     {
       pattern: /block/,
-      variants: [
-        'sm',
-        'md',
-        'lg',
-        'xl',
-        '2xl',
-      ],
+      variants: ['sm', 'md', 'lg', 'xl', '2xl'],
     },
     {
       pattern: /hidden/,
-      variants: [
-        'sm',
-        'md',
-        'lg',
-        'xl',
-        '2xl',
-      ],
+      variants: ['sm', 'md', 'lg', 'xl', '2xl'],
     },
   ],
   variants: {
     extend: {
-      backgroundColor: ['active', 'checked', 'even', 'odd'],
-      borderColor: ['active', 'checked', 'last', 'focus'],
+      backgroundColor: [
+        'active',
+        'checked',
+        'even',
+        'focus',
+        'group-active',
+        'group-focus',
+        'group-hover',
+        'odd',
+      ],
+      borderColor: [
+        'active',
+        'checked',
+        'focus',
+        'group-focus',
+        'group-hover',
+        'group-hover',
+        'last',
+      ],
       borderWidth: ['first', 'last', 'active', 'hover', 'focus'],
       gridAutoColumns: ['hover', 'focus'],
       outline: ['hover', 'active', 'focus'],
+      outlineWidth: ['hover', 'active', 'focus'],
+      outlineStyle: ['hover', 'active', 'focus'],
       position: ['hover', 'active', 'focus'],
       zIndex: ['hover', 'active', 'focus'],
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('tailwindcss-dark-mode')(),
     plugin(function ({ addComponents }) {
       addComponents({
         '.inline-flex': {

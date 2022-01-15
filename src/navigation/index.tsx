@@ -15,10 +15,10 @@ export {
   NavbarLinkProps,
   NavbarSidebar,
   NavbarSidebarProps,
+  NavBarSidebarElement,
   NavbarText,
   NavbarTextProps,
   NavbarToggler,
   NavbarTogglerProps,
 } from './navbar';
-export { OffCanvasMenu, OffCanvasMenuProps } from './off-canvas-menu';
 export { TabSet, TabSetProps, TabItem, TabItemProps } from './tabs';

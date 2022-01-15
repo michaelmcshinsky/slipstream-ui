@@ -5,9 +5,20 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   className?: string;
   color?: string;
-  dark?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  shade?: '50'|'100'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'900' | string | number;
+  shade?:
+    | '50'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900'
+    | string
+    | number;
   custom?: boolean;
   onClick?: () => void;
 }
@@ -16,7 +27,6 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
   const {
     className,
     color,
-    dark,
     size,
     onClick,
     children,
@@ -30,8 +40,6 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
       ? ''
       : shade
       ? `-${shade}`
-      : dark
-      ? '-500'
       : '-100';
   const bgTheme = color ? `bg-${color}${colorTheme}` : `bg-blue${colorTheme}`;
 
@@ -40,24 +48,24 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     `sui--alert-color_${color}`,
     'rounded-md flex flex-wrap items-center relative pr-10',
     !custom && [
-      dark || color === 'black' ? 'text-gray-100' : `text-${color || 'gray'}-700`,
+      color === 'black' ? 'text-gray-300' : `text-${color || 'gray'}-700`,
       { 'text-sm px-3 py-2': size === 'sm' },
       { 'text-base px-4 py-3': size === 'md' || !size },
       { 'text-lg px-5 py-4': size === 'lg' },
       bgTheme,
     ],
-    className,
+    className
   );
 
   const btnClasses = classnames(
     'absolute top-0 right-0 bottom-0 mr-2 my-2',
-    size === 'sm' ? 'p-1' : 'py-1 px-2',
+    size === 'sm' ? 'p-1' : 'py-1 px-2'
   );
 
   const dimensions = classnames(
     { '12': size === 'sm' },
     { '16': size === 'md' || !size },
-    { '20': size === 'lg' },
+    { '20': size === 'lg' }
   );
 
   return (
@@ -89,7 +97,6 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
 Alert.displayName = 'Alert';
 Alert.defaultProps = {
   color: 'blue',
-  dark: false,
   size: 'md',
 };
 

@@ -5,23 +5,20 @@ export interface CardHeaderProps {
   border?: boolean;
   children?: ReactNode;
   className?: string;
-  dark?: boolean;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   (props, ref) => {
-    const { className, size, dark, border, children, ...attributes } = props;
+    const { className, size, border, children, ...attributes } = props;
     const classes = classnames(
       'sui--card-header p-3 rounded-t',
-      'flex items-center',
+      'flex items-center dark:bg-gray-900 dark:border-gray-500',
       { 'border-b border-solid': border },
       { 'px-3 py-2': size === 'sm' },
       { 'p-3': size === 'md' || !size },
       { 'p-4': size === 'lg' },
-      { 'border-gray-300': !dark && border },
-      { 'border-gray-500': dark && border },
-      { 'bg-gray-900 border-gray-500': dark },
+      { 'border-gray-300 dark:border-gray-500': border },
       className
     );
 
@@ -30,7 +27,6 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
       .map((child: any) => {
         return React.cloneElement(child, {
           size,
-          dark,
         });
       });
 

@@ -1,45 +1,59 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
-import { ChevronDown } from '../../assets/icons';
+import { ChevronDown } from '../../assets/icons/ChevronDown';
 
 export interface DropdownToggleProps {
   children?: ReactNode;
   className?: string;
-  tag?: any;
   dataDropdown?: string;
+  fill?: string;
   icon?: boolean;
+  iconProps?: any;
   rtl?: boolean;
+  tag?: any;
 }
 
 export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
-  ({ children, className, tag: Tag, dataDropdown, icon, rtl, ...props }, ref) => {
-    const classes = classNames(
-      'sui--dropdown-toggle flex items-center',
-      { 'flex-row-reverse': rtl },
+  (
+    {
+      children,
       className,
+      dataDropdown,
+      fill,
+      icon,
+      iconProps,
+      rtl,
+      tag: Tag,
+      ...props
+    },
+    ref
+  ) => {
+    const classes = classNames(
+      'sui--dropdown-toggle flex space-x-2 items-center',
+      { 'flex-row-reverse': rtl },
+      className
     );
-
-    const iconClasses = classNames(rtl ? 'pr-2' : 'pl-2');
 
     return (
       <Tag ref={ref} className={classes} {...props}>
-        {children}
+        {!!children && <span>{children}</span>}
         {icon && (
           <ChevronDown
-            className={iconClasses}
-            fill="#fff"
+            fill={fill}
             data-dropdown={dataDropdown || undefined}
+            {...iconProps}
           />
         )}
       </Tag>
     );
-  },
+  }
 );
 
 DropdownToggle.displayName = 'DropdownToggle';
 DropdownToggle.defaultProps = {
   tag: 'div',
+  fill: '#ffffff',
 };
 
 export default DropdownToggle;

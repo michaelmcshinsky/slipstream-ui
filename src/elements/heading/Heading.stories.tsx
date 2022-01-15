@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Heading as HeadingComponent, HeadingProps } from './Heading';
 
 export default {
-  title: 'Components/Elements',
+  title: 'Components/Elements/Heading',
   component: HeadingComponent,
   argTypes: {
     level: {

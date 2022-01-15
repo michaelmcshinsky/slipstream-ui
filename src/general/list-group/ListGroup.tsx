@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
 
 export interface ListGroupProps {
+  borderless?: boolean;
   children?: ReactNode;
   className?: string;
   flush?: boolean;
@@ -25,6 +26,7 @@ interface ListGroupComponent
 export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
   (
     {
+      borderless,
       children,
       className,
       flush,
@@ -40,6 +42,9 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
     const classes = classNames(
       'sui--listgroup',
       'flex flex-col list-none p-0',
+      ' border divide-y border:border-none after:border-none',
+      borderless ? 'divide-transparent' : 'divide-gray-300 dark:divide-gray-500',
+      flush ? 'border-t-transparent border-r-0 border-b-transparent border-l-0' : 'border-gray-300 dark:border-gray-500 rounded',
       className
     );
 
@@ -50,8 +55,8 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
       .map((child: any) => {
         if (child?.type?.displayName?.includes?.('ListGroup')) {
           return React.cloneElement(child, {
-            hover,
             flush,
+            hover,
             numbered,
             rtl,
           });
@@ -70,6 +75,7 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
 ListGroup.displayName = 'ListGroup';
 ListGroup.Item = ListGroupItem;
 ListGroup.defaultProps = {
+  borderless: false,
   style: {},
   tag: 'ul',
 };

@@ -34,7 +34,7 @@ export default {
   disabled: 'opacity-50 cursor-not-allowed',
   form: {
     base:
-      'border border-solid focus:border-black transition-colors duration-500 active:border-blue-500 outline-none focus:outline-none focus:border-blue-500 leading-tight',
+      'border border-solid transition-colors duration-500 active:border-blue-500 dark:active:border-blue-500 outline-none outline-offset-0 focus:outline-none focus:border-blue-500 dark:focus:border-blue-500 leading-tight',
     default: 'border-gray-300',
     success: 'border-green-500',
     invalid: 'border-red-400',

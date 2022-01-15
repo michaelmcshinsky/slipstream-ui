@@ -3,25 +3,25 @@ import classNames from 'classnames';
 import theme from '../../theme/default';
 
 export interface InputProps extends HTMLAttributes<HTMLInputElement> {
-  id?: string;
+  autoComplete?: string;
+  checked?: string | boolean;
   className?: string;
+  custom?: boolean;
+  disabled?: boolean;
+  id?: string;
+  inline?: boolean;
+  invalid?: boolean;
+  list?: string;
+  name?: string;
   placeholder?: string;
   required?: boolean;
-  disabled?: boolean;
-  invalid?: boolean;
-  success?: boolean;
-  checked?: boolean;
-  inline?: boolean;
-  value?: any;
-  size?: 'sm' | 'md' | 'lg';
-  type?: string;
   rounded?: boolean;
-  name?: string;
-  autoComplete?: string;
-  list?: string;
   rtl?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  success?: boolean;
   tag?: any;
-  custom?: boolean;
+  type?: string;
+  value?: any;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -44,6 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     { 'w-full': !inline },
     !custom && [
       theme.form.base,
+      { 'dark:text-gray-300 dark:bg-transparent' : !!attrs.checked !== true },
       invalid
         ? theme.form.invalid
         : success

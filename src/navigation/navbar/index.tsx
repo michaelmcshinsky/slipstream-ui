@@ -6,6 +6,6 @@ export { NavbarDivider, NavbarDividerProps } from './NavbarDivider';
 export { NavbarList, NavbarListProps } from './NavbarList';
 export { NavbarLink, NavbarLinkProps } from './NavbarLink';
 export { NavProvider, NavContextType, NavProviderProps, useNav } from './NavContext';
-export { NavbarSidebar, NavbarSidebarProps } from './NavbarSidebar';
+export { NavbarSidebar, NavbarSidebarProps, NavBarSidebarElement } from './NavbarSidebar';
 export { NavbarText, NavbarTextProps } from './NavbarText';
 export { NavbarToggler, NavbarTogglerProps } from './NavbarToggler';

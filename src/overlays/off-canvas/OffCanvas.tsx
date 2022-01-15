@@ -1,12 +1,17 @@
-import React, { useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react';
-import { Backdrop } from '../../';
+import React, {
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+  ReactNode,
+} from 'react';
+import { Backdrop } from '../..';
 import classNames from 'classnames';
 
-export interface OffCanvasMenuProps {
+export interface OffCanvasProps {
   children?: ReactNode;
   className?: string;
-  direction?: 'top' | 'right' | 'bottom' | 'left';
   custom?: boolean;
+  direction?: 'top' | 'right' | 'bottom' | 'left';
   full?: boolean;
   isOpen?: boolean;
   toggle?: () => void;
@@ -16,9 +21,18 @@ export type OffCanvasElement = {
   toggle?: () => void;
 };
 
-export const OffCanvasMenu = forwardRef<OffCanvasElement, OffCanvasMenuProps>(
+export const OffCanvas = forwardRef<OffCanvasElement, OffCanvasProps>(
   (
-    { children, className, direction, custom, full, isOpen, toggle, ...props },
+    {
+      children,
+      className,
+      custom,
+      direction,
+      full,
+      isOpen,
+      toggle,
+      ...props
+    },
     ref
   ) => {
     useEffect(() => {
@@ -29,20 +43,20 @@ export const OffCanvasMenu = forwardRef<OffCanvasElement, OffCanvasMenuProps>(
         document.removeEventListener('keydown', (e: any) => handleEsc(e));
       };
     }, []);
-    
-    useImperativeHandle(ref, ()=>({
-      toggle: _toggle
+
+    useImperativeHandle(ref, () => ({
+      toggle: _toggle,
     }));
 
     function handleEsc(ev: React.KeyboardEvent<Document>) {
       if (ev.key === 'Esc' || ev.key === 'Escape') {
-        _toggle()
+        _toggle();
       }
     }
 
     const classes = classNames(
       'sui--offcanvas--menu',
-      'fixed duration-500',
+      'fixed duration-500 dark:bg-gray-900 dark:text-gray-300',
       { 'w-full h-full': full },
       direction === 'top' && [
         isOpen ? 'translate-y-0' : '-translate-y-full',
@@ -84,9 +98,9 @@ export const OffCanvasMenu = forwardRef<OffCanvasElement, OffCanvasMenuProps>(
   }
 );
 
-OffCanvasMenu.displayName = 'OffCanvasMenu';
-OffCanvasMenu.defaultProps = {
+OffCanvas.displayName = 'OffCanvas';
+OffCanvas.defaultProps = {
   direction: 'left',
 };
 
-export default OffCanvasMenu;
+export default OffCanvas;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { Dropdown as DropdownCompnent, DropdownProps } from './Dropdown';
-import { Button } from '../button';
+import { Dropdown as DropdownCompnent, DropdownProps, Button, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/General/Dropdown',
@@ -20,7 +19,7 @@ export default {
 } as Meta;
 
 export const Dropdown = (args: DropdownProps) => (
-  <>
+  <SlipstreamProvider dark>
     <DropdownCompnent {...args} className="mt-32 ml-32">
       <DropdownCompnent.Toggle tag={Button}>Click Me</DropdownCompnent.Toggle>
       <DropdownCompnent.Menu>
@@ -32,5 +31,5 @@ export const Dropdown = (args: DropdownProps) => (
     <div className="relative flex items-center justify-center p-32 mt-8 bg-gray-200 border border-gray-400 border-solid">
       Z-index of dropdown higher than this container
     </div>
-  </>
+  </SlipstreamProvider>
 );
