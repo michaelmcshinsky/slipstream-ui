@@ -6,20 +6,20 @@ import { useNav } from './NavContext';
 export interface NavbarMenuProps extends NavbarCollapseProps {
   children?: ReactNode;
   className?: string;
-  absolute?: boolean;
+  offCanvas?: boolean;
 }
 
 export const NavbarMenu = forwardRef<HTMLDivElement, NavbarMenuProps>(
-  ({ children, className, absolute, ...props }, ref) => {
+  ({ children, className, offCanvas, ...props }, ref) => {
     const nav = useNav();
 
     const classes = classNames(
       'sui--navbar-menu',
       'py-2',
-      !nav?.custom && [!nav?.dark ? 'bg-white' : 'bg-gray-900'],
+      !nav?.custom && 'bg-white dark:bg-gray-900 dark:text-gray-300',
       nav?.size && `${nav.size}:hidden`,
       nav?.isOpen ? 'block' : 'hidden',
-      { 'absolute w-full': absolute },
+      { 'absolute w-full': offCanvas },
       className
     );
 

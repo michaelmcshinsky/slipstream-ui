@@ -13,7 +13,7 @@ export const FieldSetLegend = forwardRef<
 >(({ className, children, custom, ...props }, ref) => {
   const classes = classNames(
     'sui--fieldset-legend',
-    !custom && 'block px-1 text-sm -mx-0.5',
+    !custom && 'block px-1 text-sm -mx-0.5 dark:text-gray-300',
     className
   );
 

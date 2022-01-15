@@ -3,7 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import {
   Datalist as DatalistComponent,
   DatalistProps,
-} from './Datalist';
+  SlipstreamProvider
+} from '../../';
 import { FormGroup } from '../form-group';
 
 export default {
@@ -28,14 +29,16 @@ const Template: Story<DatalistProps> = ({ ...args }) => {
   }
 
   return (
-    <>
-      <FormGroup>
-        <DatalistComponent {...args} onChange={_handleChange} />
-      </FormGroup>
-      <pre className="p-3 text-sm bg-gray-100 border border-gray-200 border-solid">
-        State Value: {value}
-      </pre>
-    </>
+    <SlipstreamProvider dark>
+      <div className="p-4 bg-gray-900">
+        <FormGroup>
+          <DatalistComponent {...args} onChange={_handleChange} />
+        </FormGroup>
+        <pre className="p-3 text-sm bg-gray-100 border border-gray-200 border-solid">
+          State Value: {value}
+        </pre>
+      </div>
+    </SlipstreamProvider>
   );
 };
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

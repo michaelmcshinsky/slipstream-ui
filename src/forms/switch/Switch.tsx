@@ -53,7 +53,13 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
 
     const spanClasses = classNames(
       'flex flex-shrink-0 items-center p-1',
-      'duration-300 ease-in-out bg-gray-300 rounded-full',
+      'border border-solid',
+      !!checked === true
+        ? `border-${color}${
+            color === 'black' || color === 'white' ? '' : `-${shade}`
+          }`
+        : 'dark:border-gray-300',
+      'duration-300 ease-in-out bg-gray-300 dark:bg-transparent rounded-full',
       `peer-checked:bg-${color}${
         color === 'black' || color === 'white' ? '' : `-${shade}`
       }`,
@@ -74,7 +80,7 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
     );
 
     const labelInnnerClasses = classNames(
-      'text-gray-700',
+      'text-gray-700 dark:text-gray-300',
       { 'text-sm': size === 'sm' },
       { 'text-base': size === 'md' },
       { 'text-lg': size === 'lg' },

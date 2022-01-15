@@ -12,7 +12,7 @@ export const FieldSet = forwardRef<HTMLFieldSetElement, FieldSetProps>(
   ({ className, styles, children, custom, ...props }, ref) => {
     const classes = classNames(
       'sui--fieldset',
-      !custom && 'block py-2 px-3 border border-solid border-gray-300',
+      !custom && 'block py-2 px-3 border border-solid border-gray-300 dark:border-gray-300',
       className
     );
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Modal, ModalProps } from './Modal';
-import { Button } from '../..';
+import { Modal, ModalProps, Button, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/Overlays/Modal',
@@ -43,7 +42,7 @@ const Template: Story<ModalProps> = (args: any) => {
   }
 
   return (
-    <>
+    <SlipstreamProvider dark>
       <Button onClick={_toggle}>Open Modal</Button>
       <Modal isOpen={isOpen} {...args} toggle={_toggle}>
         <Modal.Header title="Modal Title" />
@@ -67,7 +66,7 @@ const Template: Story<ModalProps> = (args: any) => {
           <Modal.Button type="button" onClick={_handleSave}>Create</Modal.Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </SlipstreamProvider>
   );
 };
 

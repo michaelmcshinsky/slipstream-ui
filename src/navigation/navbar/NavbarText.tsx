@@ -1,20 +1,19 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
-import { useNav } from './NavContext';
 
 export interface NavbarTextProps {
   children?: ReactNode;
   className?: string;
+  custom?: boolean;
   tag?: any;
 }
 
 export const NavbarText = forwardRef<HTMLDivElement, NavbarTextProps>(
-  ({ children, className, tag: Tag, ...props }, ref) => {
-    const nav = useNav();
+  ({ children, className, tag: Tag, custom, ...props }, ref) => {
     const classes = classNames(
       'sui--navbar-text',
-      'p-2',
-      { 'hover:text-white active:text-white focus:text-white': nav?.dark },
+      'mx-2 p-2',
+      { 'dark:hover:text-white dark:active:text-white dark:focus:text-white': !custom },
       className
     );
 

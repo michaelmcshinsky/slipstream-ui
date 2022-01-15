@@ -27,23 +27,27 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
       rtl,
       ...props
     },
-    ref,
+    ref
   ) => {
     const classes = classNames(
       'sui--listgroup-item',
-      'relative px-4 py-3 -mb-px last:mb-0',
-      'border border-solid flex',
-      { 'first:rounded-t last:rounded-b': !flush },
+      'flex relative px-4 py-3 -mb-px last:mb-0',
+      { 'first:rounded-t-sm last:rounded-b-sm': !flush },
       active
-        ? 'active bg-blue-500 text-white border-blue-500 cursor-pointer'
-        : 'bg-white border-gray-300',
-      { 'hover:bg-gray-200 cursor-pointer': hover && !active && !disabled },
-      { 'text-gray-400 cursor-not-allowed': disabled },
-      { 'border-r-0 border-l-0 first:border-t-0 last:border-b-0': flush },
+        ? [
+            'active bg-blue-500 text-white cursor-pointer',
+            'dark:bg-blue-500 dark:text-white',
+          ]
+          : 'bg-white dark:text-gray-300 dark:bg-gray-900',
+      {
+        'hover:bg-gray-200 dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer':
+          hover && !active && !disabled,
+      },
+      { 'text-gray-400 dark:text-gray-400 cursor-not-allowed': disabled },
       { 'text-left': Tag === 'button' },
       { 'align-start numbered': numbered },
       { 'flex-row-reverse': rtl },
-      className,
+      className
     );
 
     return (
@@ -51,7 +55,7 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 ListGroupItem.displayName = 'ListGroupItem';

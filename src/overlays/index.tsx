@@ -1,6 +1,7 @@
 export { Backdrop, BackdropProps } from './backdrop';
 export {
   Modal,
+  ModalProps,
   ModalBody,
   ModalBodyProps,
   ModalButton,
@@ -10,3 +11,4 @@ export {
   ModalHeader,
   ModalHeaderProps,
 } from './modal';
+export { OffCanvas, OffCanvasProps } from './off-canvas';

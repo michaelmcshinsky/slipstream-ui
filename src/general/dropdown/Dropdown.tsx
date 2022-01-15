@@ -45,15 +45,15 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       toggleID: Math.random().toString(),
     });
     const {
-      className,
       children,
-      isOpen,
-      onClick,
-      disableOutsideClick,
+      className,
       direction,
-      right,
-      offset,
+      disableOutsideClick,
       icon,
+      isOpen,
+      offset,
+      onClick,
+      right,
       rtl,
       ...attrs
     } = props;

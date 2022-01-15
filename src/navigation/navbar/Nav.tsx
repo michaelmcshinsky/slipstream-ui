@@ -8,13 +8,19 @@ import { NavbarDivider, NavbarDividerProps } from './NavbarDivider';
 import { NavbarList, NavbarListProps } from './NavbarList';
 import { NavbarLink, NavbarLinkProps } from './NavbarLink';
 import { NavbarMenu, NavbarMenuProps } from './NavbarMenu';
-import { NavbarSidebar, NavbarSidebarProps } from './NavbarSidebar';
+import {
+  NavbarSidebar,
+  NavBarSidebarElement,
+  NavbarSidebarProps,
+} from './NavbarSidebar';
 import { NavbarText, NavbarTextProps } from './NavbarText';
 import { NavbarToggler, NavbarTogglerProps } from './NavbarToggler';
 
 export interface NavProps {
   children?: ReactNode;
   className?: string;
+  custom?: boolean;
+  disableScroll?: boolean;
   mobile?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   size?:
     | 'xs'
@@ -28,8 +34,6 @@ export interface NavProps {
     | '5xl'
     | '6xl'
     | '7xl';
-  custom?: boolean;
-  dark?: boolean;
 }
 
 interface NavbarComponent
@@ -58,7 +62,7 @@ interface NavbarComponent
     NavbarMenuProps & React.RefAttributes<HTMLDivElement>
   >;
   Sidebar: React.ForwardRefExoticComponent<
-    NavbarSidebarProps & React.RefAttributes<HTMLDivElement>
+    NavbarSidebarProps & React.RefAttributes<NavBarSidebarElement>
   >;
   Text: React.ForwardRefExoticComponent<
     NavbarTextProps & React.RefAttributes<HTMLDivElement>
@@ -69,19 +73,24 @@ interface NavbarComponent
 }
 
 export const Nav = forwardRef<HTMLElement, NavProps>(
-  ({ children, className, mobile, size, custom, dark, ...props }, ref) => {
+  (
+    { children, className, custom, disableScroll, mobile, size, ...props },
+    ref
+  ) => {
     const classes = classNames(
       'sui--nav',
       'relative',
-      !custom && [
-        !dark ? 'bg-white' : 'bg-gray-900 text-gray-100',
-        dark ? 'text-gray-300' : 'text-gray-500',
-      ],
+      !custom && ['bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-300'],
       className
     );
 
     return (
-      <NavProvider mobile={mobile} size={size} custom={custom} dark={dark}>
+      <NavProvider
+        custom={custom}
+        disableScroll={disableScroll}
+        mobile={mobile}
+        size={size}
+      >
         <nav ref={ref} className={classes} {...props}>
           {children}
         </nav>

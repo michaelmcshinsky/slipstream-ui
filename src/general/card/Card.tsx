@@ -9,7 +9,6 @@ export interface CardProps {
   border?: boolean;
   children?: ReactNode;
   className?: string;
-  dark?: boolean;
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -32,12 +31,11 @@ interface CardComponent
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-  const { className, size, dark, border, children, ...attributes } = props;
+  const { className, size, border, children, ...attributes } = props;
   const classes = classnames(
     'sui--card',
     'border border-solid rounded w-full',
-    { 'border-gray-300': !dark },
-    { 'bg-gray-900 border-gray-500': dark },
+    'border-gray-300 dark:bg-gray-900 dark:border-gray-500',
     className
   );
 
@@ -50,13 +48,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       ) {
         return React.cloneElement(child, {
           border,
-          dark,
           size,
         });
       }
       if (child?.type?.displayName?.includes?.('Card')) {
         return React.cloneElement(child, {
-          dark,
           size,
         });
       }
@@ -72,7 +68,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
 Card.displayName = 'Card';
 Card.defaultProps = {
-  border: true,
+  border: false,
 };
 
 Card.Body = CardBody;

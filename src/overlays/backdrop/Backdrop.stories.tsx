@@ -20,9 +20,9 @@ const Template: Story<BackdropProps> = ({ ...args }) => {
         Click Me
       </Button>
       <Backdrop
+        {...args}
         isOpen={isOpen}
         toggle={() => setIsOpen(!isOpen)}
-        {...args}
       ></Backdrop>
     </div>
   );

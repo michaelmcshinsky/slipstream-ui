@@ -19,6 +19,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 
     const classes = classnames(
       'sui--modal-footer',
+      'dark:bg-gray-900 dark:text-gray-300',
       'bg-white p-3 rounded-b flex items-center',
       { 'border-t border-solid border-gray-300': border },
       { 'flex-row-reverse': rtl },

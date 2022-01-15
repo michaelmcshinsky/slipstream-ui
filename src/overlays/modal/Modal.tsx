@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  forwardRef,
-  ReactNode,
-} from 'react';
+import React, { useState, useEffect, forwardRef, ReactNode } from 'react';
 import { default as ReactModal, Styles } from 'react-modal';
 import classnames from 'classnames';
 import { ModalBody, ModalBodyProps } from './ModalBody';
@@ -80,7 +75,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   function _onAfterOpen() {
     setIsMounted(true);
   }
-  
+
   function _onAfterClose() {
     setIsMounted(false);
   }
@@ -92,15 +87,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
         toggle();
       }
       setIsClosing(false);
-    }, duration)
+    }, duration);
   }
-  
+
   function handleEsc(ev: React.KeyboardEvent<HTMLDocument>) {
     if (isStatic) {
       return;
     }
     if (ev.key === 'Esc' || ev.key === 'Escape') {
-      _onRequestClose()
+      _onRequestClose();
     }
   }
 
@@ -117,7 +112,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     { 'max-w-4xl': size === '4xl' },
     { 'max-w-5xl': size === '5xl' },
     { 'px-4': size !== 'full' },
-    className,
+    className
   );
 
   const overlayClasses = classnames(
@@ -125,12 +120,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     'bg-black bg-opacity-50',
     { 'opacity-0': isClosing },
     `duration-${duration} transition-opacity transform ease-in-out`,
-    overlayClassName,
+    overlayClassName
   );
 
   const bodyClasses = classnames(
-    'bg-white border border-solid border-gray-300 rounded',
-    bodyClassName,
+    'bg-white dark:bg-gray-900 border border-solid border-gray-300 dark:border-gray-500 rounded',
+    bodyClassName
   );
 
   const renderedChildren = React.Children.toArray(children)
@@ -180,7 +175,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
 Modal.displayName = 'Modal';
 Modal.defaultProps = {
   duration: 500,
-}
+};
 
 Modal.Body = ModalBody;
 Modal.Button = ModalButton;

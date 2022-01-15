@@ -1,1 +1,0 @@
-export { OffCanvasMenu, OffCanvasMenuProps } from './OffCanvasMenu';

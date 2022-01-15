@@ -55,7 +55,12 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName?.includes('TabItem')) {
-          return React.cloneElement(child, { border, background, custom });
+          return React.cloneElement(child, {
+            border,
+            background,
+            custom,
+            vertical,
+          });
         }
         return child;
       });
@@ -78,4 +83,4 @@ TabSet.defaultProps = {
 };
 TabSet.Item = TabItem;
 
-export default TabSet
+export default TabSet;

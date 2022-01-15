@@ -23,6 +23,7 @@ export interface TabItemProps {
     | '900'
     | string
     | number;
+  vertical?: boolean;
 }
 
 export const TabItem = forwardRef<HTMLElement, TabItemProps>(
@@ -37,6 +38,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       custom,
       shade,
       tag,
+      vertical,
       ...props
     },
     ref
@@ -62,7 +64,14 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
           'bg-blue-100': active && background,
         },
         active ? 'border-blue-500 text-blue-500' : 'border-transparent',
-        background ? 'p-3 rounded-md' : 'mx-2 py-3',
+        background ? 'p-3' : 'mx-2 py-3',
+        background
+          ? vertical && border
+            ? ''
+            : vertical
+            ? 'rounded-md'
+            : 'rounded-md'
+          : '',
         { 'rounded-b-none': background && border },
       ],
       active && 'active',

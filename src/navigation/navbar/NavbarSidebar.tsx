@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
-import { OffCanvasMenu, OffCanvasMenuProps } from '../off-canvas-menu';
+import { OffCanvas, OffCanvasProps } from '../../';
 import { useNav } from './NavContext';
 import classNames from 'classnames';
 
-export interface NavbarSidebarProps extends OffCanvasMenuProps {}
+export interface NavbarSidebarProps extends OffCanvasProps {}
 
 export type NavBarSidebarElement = {
   toggle?: () => void;
@@ -16,9 +16,9 @@ export const NavbarSidebar = forwardRef<NavBarSidebarElement, NavbarSidebarProps
     const classes = classNames('sui--navbar-sidebar', className);
 
     return (
-      <OffCanvasMenu ref={ref} className={classes} {...nav} {...props}>
+      <OffCanvas ref={ref} className={classes} {...nav} {...props}>
         {children}
-      </OffCanvasMenu>
+      </OffCanvas>
     );
   }
 );

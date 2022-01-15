@@ -12,6 +12,7 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ level: Tag, custom, className, children, ...props }, ref) => {
     const classes = classNames(
       'sui--heading',
+      'dark:text-gray-300',
       !custom && Tag === 'h1' && 'text-3xl',
       !custom && Tag === 'h2' && 'text-2xl',
       !custom && Tag === 'h3' && 'text-xl',
