@@ -18,7 +18,7 @@ export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
     const classes = classNames(
       'sui--table-th',
       !custom && [
-        'table-cell text-left',
+        'table-cell text-left dark:text-gray-300',
         !borderless && 'border-b border-gray-500',
         size === 'sm' && 'p-2 text-xs',
         (size === 'md' || !size) && 'p-3 text-sm',

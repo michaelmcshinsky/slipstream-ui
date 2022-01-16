@@ -27,24 +27,25 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
       custom,
       ...props
     },
-    ref,
+    ref
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName?.includes?.('TableCell')) {
           return React.cloneElement(child, {
-            size,
-            hover,
+            active,
             borderless,
             custom,
+            hover,
+            size,
           });
         }
         if (child?.type?.displayName?.includes?.('Table')) {
           return React.cloneElement(child, {
-            size,
             borderless,
             custom,
+            size,
           });
         }
         return child;
@@ -56,12 +57,13 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
         'table-row',
         striped && striped !== 'odd' && 'even:bg-gray-100',
         striped && striped === 'odd' && 'odd:bg-gray-100',
-        active && 'active bg-gray-200',
+        active ? 'active bg-gray-200 dark:text-gray-700' : 'dark:text-gray-300',
+        hover && 'dark:hover:text-gray-700',
         hover &&
           hover !== 'cell' &&
-          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
+          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200 dark:hover:text-gray-700',
       ],
-      className,
+      className
     );
 
     return (
@@ -69,7 +71,7 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
         {renderedChildren}
       </Tag>
     );
-  },
+  }
 );
 
 TableRow.displayName = 'TableRow';

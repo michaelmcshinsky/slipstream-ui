@@ -13,7 +13,7 @@ export const TableCaption = forwardRef<
 >(({ className, children, custom, ...props }, ref) => {
   const classes = classNames(
     'sui--table-caption',
-    !custom && 'table-caption',
+    !custom && 'table-caption dark:text-gray-300',
     className,
   );
 

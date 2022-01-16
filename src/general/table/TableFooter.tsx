@@ -51,7 +51,7 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
 
     const classes = classNames(
       'sui--table-tfoot',
-      !custom && 'table-row-group',
+      !custom && 'table-row-group dark:text-gray-300',
       className,
     );
 
