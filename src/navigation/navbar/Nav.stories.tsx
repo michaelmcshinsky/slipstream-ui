@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Nav as NavComponent, NavProps, Text, SlipstreamProvider } from '../../';
+import { Nav as NavComponent, NavProps, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/Navigation/Nav',
@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 const Template: Story<NavProps> = ({ ...args }) => (
-  <SlipstreamProvider dark>
+  <SlipstreamProvider>
     <div>
       <NavComponent {...args} disableScroll>
         <NavComponent.Bar className="justify-between h-16">
@@ -68,7 +68,6 @@ const Template: Story<NavProps> = ({ ...args }) => (
           <h1>Menu</h1>
         </NavComponent.Sidebar> */}
       </NavComponent>
-      <Text>Text under the navigation</Text>
     </div>
   </SlipstreamProvider>
 );

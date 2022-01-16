@@ -9,24 +9,11 @@ export interface TableColProps {
 }
 
 export const TableCol = forwardRef<HTMLTableColElement, TableColProps>(
-  (
-    {
-      className,
-      children,
-      custom,
-      ...props
-    },
-    ref,
-  ) => {
-    const classes = classNames(
-      'sui--table-colgroup_col',
-      className,
-    );
+  ({ className, children, custom, ...props }, ref) => {
+    const classes = classNames('sui--table-colgroup_col', className);
 
-    return (
-      <col ref={ref} className={classes} {...props} />
-    );
-  },
+    return <col ref={ref} className={classes} {...props} />;
+  }
 );
 
 TableCol.displayName = 'TableCol';

@@ -30,7 +30,7 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
 
     const classes = classNames(
       'sui--table-thead',
-      !custom && 'table-head-group',
+      !custom && 'table-head-group dark:text-gray-300',
       className,
     );
 

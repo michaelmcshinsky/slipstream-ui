@@ -25,22 +25,23 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
       custom,
       ...props
     },
-    ref,
+    ref
   ) => {
     const classes = classNames(
       'sui--table-td',
       'table-cell',
       !custom && [
-        !borderless && 'border-b border-gray-200',
+        !borderless && 'border-b border-gray-200 dark:border-gray-500',
         size === 'sm' && 'p-2 text-xs',
         (size === 'md' || !size) && 'p-3 text-sm',
         size === 'lg' && 'p-4 text-base',
-        active && 'active bg-gray-200',
+        active && 'active bg-gray-200 dark:text-gray-700',
+        hover && 'dark:hover:text-gray-700',
         hover &&
           hover !== 'row' &&
-          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
+          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200 dark:hover:text-gray-700',
       ],
-      className,
+      className
     );
 
     return (
@@ -48,7 +49,7 @@ export const TableCell = forwardRef<HTMLElement, TableCellProps>(
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 TableCell.displayName = 'TableCell';
