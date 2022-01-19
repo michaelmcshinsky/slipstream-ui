@@ -20,6 +20,7 @@ export {
 } from './input-group';
 export { Label, LabelProps } from './label';
 export { Radio, RadioProps } from './radio';
+export { Search, SearchProps } from './search';
 export {
   Select,
   SelectProps,
