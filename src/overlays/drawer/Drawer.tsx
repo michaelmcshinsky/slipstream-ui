@@ -7,7 +7,7 @@ import React, {
 import { Backdrop } from '../..';
 import classNames from 'classnames';
 
-export interface OffCanvasProps {
+export interface DrawerProps {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
@@ -17,11 +17,11 @@ export interface OffCanvasProps {
   toggle?: () => void;
 }
 
-export type OffCanvasElement = {
+export type DrawerElement = {
   toggle?: () => void;
 };
 
-export const OffCanvas = forwardRef<OffCanvasElement, OffCanvasProps>(
+export const Drawer = forwardRef<DrawerElement, DrawerProps>(
   (
     {
       children,
@@ -98,9 +98,9 @@ export const OffCanvas = forwardRef<OffCanvasElement, OffCanvasProps>(
   }
 );
 
-OffCanvas.displayName = 'OffCanvas';
-OffCanvas.defaultProps = {
+Drawer.displayName = 'Drawer';
+Drawer.defaultProps = {
   direction: 'left',
 };
 
-export default OffCanvas;
+export default Drawer;

@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { OffCanvas, OffCanvasProps } from './OffCanvas';
+import { Drawer, DrawerProps } from './Drawer';
 import { Button } from '../..';
 
 export default {
-  title: 'Components/Overlays/OffCanvas',
-  component: OffCanvas,
+  title: 'Components/Overlays/Drawer',
+  component: Drawer,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
   },
 } as Meta;
 
-const Template: Story<OffCanvasProps> = ({ ...args }) => {
+const Template: Story<DrawerProps> = ({ ...args }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-center justify-center">
       <Button className="m-4" onClick={() => setIsOpen(true)}>
         Click Me
       </Button>
-      <OffCanvas
+      <Drawer
         isOpen={isOpen}
         toggle={() => setIsOpen(!isOpen)}
         className="p-3"
         {...args}
       >
         <h1>Menu</h1>
-      </OffCanvas>
+      </Drawer>
     </div>
   );
 };

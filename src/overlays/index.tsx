@@ -11,4 +11,4 @@ export {
   ModalHeader,
   ModalHeaderProps,
 } from './modal';
-export { OffCanvas, OffCanvasProps } from './off-canvas';
+export { Drawer, DrawerProps } from './drawer';
