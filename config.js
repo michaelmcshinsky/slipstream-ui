@@ -102,7 +102,6 @@ const slipstreamConfig = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('tailwindcss-dark-mode')(),
     plugin(function ({ addComponents }) {
       addComponents({
         '.inline-flex': {
