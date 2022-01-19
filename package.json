@@ -2,7 +2,7 @@
   "name": "slipstream-ui",
   "author": "Michael McShinsky",
   "description": "Component library combining React and Tailwindcss, built with TypeScript",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -99,8 +99,7 @@
     "deepmerge": "^4.2.2",
     "react-modal": "^3.12.1",
     "react-popper": "^2.2.5",
-    "svg-react-loader": "^0.4.6",
-    "tailwindcss-dark-mode": "^1.1.7"
+    "svg-react-loader": "^0.4.6"
   },
   "jest": {
     "moduleNameMapper": {
