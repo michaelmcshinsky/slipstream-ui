@@ -24,28 +24,12 @@ npm i slipstream-ui
 yarn add slipstream-ui
 ```
 
-* Tailwind Version 2.x: slipstream-ui@1.x
-* Tailwind Version 3.x: slipstream-ui@2.x
-
 ## Usage
 
 Slipstream UI is a wrapper for Tailwindcss as well as a component library built using React. You will first need to add the wrapper to your tailwind.config.js file.
 
 ```javascript
 const slipstream = require('slipstream-ui/config')
-
-// Tailwind 2.x
-
-module.exports = slipstream({
-  purge: [],
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-})
 
 // Tailwind 3.x
 

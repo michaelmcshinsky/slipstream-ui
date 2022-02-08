@@ -10,6 +10,7 @@ export interface TabItemProps {
   custom?: boolean;
   tag?: 'li' | 'a' | 'div' | 'input' | any;
   color?: string;
+  onClick?: (value: any) => void;
   shade?:
     | '50'
     | '100'
@@ -23,6 +24,7 @@ export interface TabItemProps {
     | '900'
     | string
     | number;
+  value?: any;
   vertical?: boolean;
 }
 
@@ -36,21 +38,33 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       className,
       color,
       custom,
+      onClick,
       shade,
       tag,
+      value,
       vertical,
       ...props
     },
     ref
   ) => {
+    function _handleClick(e: Event) {
+      if (onClick) {
+        onClick(value ?? e);
+      }
+    }
+
+    console.log(typeof active);
+    console.log(active);
+
     const classes = classNames(
       'sui--tab-item',
       !custom && [
-        color
-          ? `text-${color}${
-              color === 'black' || color === 'white' ? '' : `-${shade}`
-            }`
-          : 'text-gray-500',
+        !active &&
+          (color
+            ? `text-${color}${
+                color === 'black' || color === 'white' ? '' : `-${shade}`
+              }`
+            : 'text-gray-500'),
         'block cursor-pointer leading-none outline-none',
         border && 'border-b-2 border-solid',
         {
@@ -81,7 +95,13 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
     const Tag = tag;
 
     return (
-      <Tag ref={ref} className={classes} tabIndex={0} {...props}>
+      <Tag
+        ref={ref}
+        className={classes}
+        tabIndex={0}
+        onClick={_handleClick}
+        {...props}
+      >
         {children}
       </Tag>
     );
