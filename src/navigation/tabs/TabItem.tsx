@@ -53,9 +53,6 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       }
     }
 
-    console.log(typeof active);
-    console.log(active);
-
     const classes = classNames(
       'sui--tab-item',
       !custom && [
