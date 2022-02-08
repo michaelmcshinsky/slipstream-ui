@@ -3,15 +3,17 @@ import classNames from 'classnames';
 import { TabItem, TabItemProps } from './TabItem';
 
 export interface TabSetProps {
+  active?: any;
   background?: boolean;
   border?: boolean;
   children?: ReactNode;
   className?: string;
+  custom?: boolean;
+  onClick?: (value: any) => void;
   rtl?: boolean;
   tabs?: TabItemMappedProps[];
   tag?: 'nav' | 'ul' | 'div' | any;
   vertical?: boolean;
-  custom?: boolean;
 }
 
 interface TabItemMappedProps extends TabItemProps {
@@ -30,19 +32,27 @@ interface TabSetComponent
 export const TabSet = forwardRef<HTMLElement, TabSetProps>(
   (
     {
+      active,
       background,
       border,
       children,
       className,
+      custom,
+      onClick,
       rtl,
       tabs,
-      tag: Tag,
       vertical,
-      custom,
+      tag: Tag,
       ...props
     },
     ref
   ) => {
+    function _handleClick(value: any) {
+      if (onClick) {
+        onClick(value);
+      }
+    }
+
     const classes = classNames(
       'sui--tab-set',
       'flex flex-wrap list-none',
@@ -55,10 +65,20 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName?.includes('TabItem')) {
+          console.log(child.props);
+          const activeTab = child.props.active
+            ? child.props.active
+            : active !== undefined && child.props.value !== undefined
+            ? active === child.props.value
+              ? true
+              : undefined
+            : undefined;
           return React.cloneElement(child, {
+            active: activeTab,
             border,
             background,
             custom,
+            onClick: _handleClick,
             vertical,
           });
         }
