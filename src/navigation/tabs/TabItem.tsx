@@ -75,7 +75,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
           'bg-blue-100': active && background,
         },
         active ? 'border-blue-500 text-blue-500' : 'border-transparent',
-        background ? 'p-3' : 'mx-2 py-3',
+        background ? 'p-3' : 'py-3',
         background
           ? vertical && border
             ? ''
