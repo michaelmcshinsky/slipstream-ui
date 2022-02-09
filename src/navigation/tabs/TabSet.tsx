@@ -57,7 +57,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       'sui--tab-set',
       'flex flex-wrap list-none',
       rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),
-      vertical && 'flex-col',
+      vertical ? 'flex-col space-y-2' : 'space-x-4',
       className
     );
 
@@ -65,7 +65,6 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName?.includes('TabItem')) {
-          console.log(child.props);
           const activeTab = child.props.active
             ? child.props.active
             : active !== undefined && child.props.value !== undefined
