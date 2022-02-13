@@ -42,7 +42,7 @@ const Template: Story<ModalProps> = (args: any) => {
   }
 
   return (
-    <SlipstreamProvider dark>
+    <SlipstreamProvider>
       <Button onClick={_toggle}>Open Modal</Button>
       <Modal isOpen={isOpen} {...args} toggle={_toggle}>
         <Modal.Header title="Modal Title" />

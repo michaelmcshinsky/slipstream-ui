@@ -1,5 +1,6 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
+import { renderedChildren } from './utils';
 
 export interface CardHeaderProps {
   border?: boolean;
@@ -10,7 +11,7 @@ export interface CardHeaderProps {
 
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   (props, ref) => {
-    const { className, size, border, children, ...attributes } = props;
+    const { border, children, className, size, ...attributes } = props;
     const classes = classnames(
       'sui--card-header p-3 rounded-t',
       'flex items-center dark:bg-gray-900 dark:border-gray-500',
@@ -22,17 +23,9 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
       className
     );
 
-    const renderedChildren = React.Children.toArray(children)
-      .filter(Boolean)
-      .map((child: any) => {
-        return React.cloneElement(child, {
-          size,
-        });
-      });
-
     return (
       <div ref={ref} className={classes} {...attributes}>
-        {renderedChildren}
+        {renderedChildren({ border, children, size })}
       </div>
     );
   }
@@ -41,6 +34,6 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
 CardHeader.displayName = 'CardHeader';
 CardHeader.defaultProps = {
   border: true,
-}
+};
 
 export default CardHeader;

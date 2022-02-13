@@ -15,7 +15,6 @@ export interface ModalProps {
   duration?: number;
   isOpen: boolean;
   isStatic?: boolean;
-  onOpened?: () => void;
   overlayClassName?: string;
   rtl?: boolean;
   size?: string;
@@ -51,7 +50,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     duration,
     isOpen,
     isStatic,
-    onOpened,
     overlayClassName,
     rtl,
     size,
@@ -112,6 +110,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     { 'max-w-4xl': size === '4xl' },
     { 'max-w-5xl': size === '5xl' },
     { 'px-4': size !== 'full' },
+    'outline-none',
     className
   );
 
@@ -131,22 +130,24 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const renderedChildren = React.Children.toArray(children)
     .filter(Boolean)
     .map((child: any) => {
-      if (
-        child?.type?.displayName === 'ModalHeader' ||
-        child?.type?.displayName === 'ModalFooter'
-      ) {
-        return React.cloneElement(child, {
-          border,
-          toggle: _onRequestClose,
-          rtl,
-        });
-      } else if (child?.type?.displayName?.includes?.('Modal')) {
-        return React.cloneElement(child, {
-          toggle: _onRequestClose,
-          rtl,
-        });
+      switch (child?.type?.displayName) {
+        case 'ModalHeader':
+        case 'ModalFooter':
+          return React.cloneElement(child, {
+            border,
+            toggle: _onRequestClose,
+            rtl,
+          });
+        case 'ModalButton':
+          if (child.props.close) {
+            return React.cloneElement(child, {
+              toggle: _onRequestClose,
+            });
+          }
+          return child;
+        default:
+          return child;
       }
-      return child;
     });
 
   return (

@@ -4,6 +4,7 @@ import { CardBody, CardBodyProps } from './CardBody';
 import { CardFooter, CardFooterProps } from './CardFooter';
 import { CardHeader, CardHeaderProps } from './CardHeader';
 import { CardTitle, CardTitleProps } from './CardTitle';
+import { renderedChildren } from './utils';
 
 export interface CardProps {
   border?: boolean;
@@ -39,29 +40,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     className
   );
 
-  const renderedChildren = React.Children.toArray(children)
-    .filter(Boolean)
-    .map((child: any) => {
-      if (
-        child?.type?.displayName?.includes?.('CardHeader') ||
-        child?.type?.displayName?.includes?.('CardFooter')
-      ) {
-        return React.cloneElement(child, {
-          border,
-          size,
-        });
-      }
-      if (child?.type?.displayName?.includes?.('Card')) {
-        return React.cloneElement(child, {
-          size,
-        });
-      }
-      return child;
-    });
-
   return (
     <div ref={ref} className={classes} {...attributes}>
-      {renderedChildren}
+      {renderedChildren({ border, children, size })}
     </div>
   );
 }) as CardComponent;
