@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useRef,
   forwardRef,
   useImperativeHandle,
   ReactNode,
@@ -23,18 +24,11 @@ export type DrawerElement = {
 
 export const Drawer = forwardRef<DrawerElement, DrawerProps>(
   (
-    {
-      children,
-      className,
-      custom,
-      direction,
-      full,
-      isOpen,
-      toggle,
-      ...props
-    },
+    { children, className, custom, direction, full, isOpen, toggle, ...props },
     ref
   ) => {
+    const innerRef = useRef<any>(null);
+
     useEffect(() => {
       document.addEventListener('keydown', (e: any) => handleEsc(e), {
         capture: true,
@@ -44,13 +38,27 @@ export const Drawer = forwardRef<DrawerElement, DrawerProps>(
       };
     }, []);
 
-    useImperativeHandle(ref, () => ({
-      toggle: _toggle,
-    }));
+    useEffect(() => {
+      innerRef.current = {
+        isOpen,
+        toggle: _toggle,
+      };
+    }, [isOpen]);
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        toggle: _toggle,
+      }),
+      []
+    );
 
     function handleEsc(ev: React.KeyboardEvent<Document>) {
-      if (ev.key === 'Esc' || ev.key === 'Escape') {
-        _toggle();
+      if (
+        !!innerRef.current.isOpen &&
+        (ev.key === 'Esc' || ev.key === 'Escape')
+      ) {
+        innerRef.current.toggle();
       }
     }
 
@@ -78,11 +86,8 @@ export const Drawer = forwardRef<DrawerElement, DrawerProps>(
       className
     );
 
-    //escape key
-    // way for user to callback out of full screen
-
     function _toggle() {
-      if (toggle) {
+      if (!!toggle) {
         toggle();
       }
     }

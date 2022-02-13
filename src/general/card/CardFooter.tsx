@@ -1,16 +1,17 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
+import { renderedChildren } from './utils';
 
 export interface CardFooterProps {
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
   border?: boolean;
   children?: ReactNode;
+  className?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   (props, ref) => {
-    const { className, size, border, children, ...attributes } = props;
+    const { border, children, className, size, ...attributes } = props;
     const classes = classnames(
       'sui--card-footer',
       'text-gray-700 dark:text-gray-300 dark:bg-gray-900 dark:border-gray-500',
@@ -23,17 +24,9 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
       className
     );
 
-    const renderedChildren = React.Children.toArray(children)
-      .filter(Boolean)
-      .map((child: any) => {
-        return React.cloneElement(child, {
-          size,
-        });
-      });
-
     return (
       <div ref={ref} className={classes} {...attributes}>
-        {renderedChildren}
+        {renderedChildren({ border, children, size })}
       </div>
     );
   }

@@ -1,7 +1,9 @@
 import React, { forwardRef, ReactNode } from 'react';
 import classnames from 'classnames';
+import { renderedChildren } from './utils';
 
 export interface CardBodyProps {
+  border?: boolean;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   children?: ReactNode;
@@ -9,7 +11,7 @@ export interface CardBodyProps {
 
 export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   (props, ref) => {
-    const { className, size, children, ...attributes } = props;
+    const { border, className, size, children, ...attributes } = props;
     const classes = classnames(
       'sui--card-body',
       'text-gray-700 dark:text-gray-300',
@@ -21,7 +23,7 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
 
     return (
       <div ref={ref} className={classes} {...attributes}>
-        {children}
+        {renderedChildren({ border, children, size })}
       </div>
     );
   }

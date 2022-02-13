@@ -26,4 +26,5 @@ export const ModalHeader = Template.bind({});
 
 ModalHeader.args = {
   title: 'Modal Title',
+  children: <p>Children</p>
 };
