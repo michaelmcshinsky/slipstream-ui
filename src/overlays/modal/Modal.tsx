@@ -99,7 +99,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
 
   const classes = classnames(
     'sui--modal',
-    'mx-auto my-auto',
+    'mx-auto my-auto w-full',
     { 'max-w-xs': size === 'xs' },
     { 'max-w-sm': size === 'sm' },
     { 'max-w-md': size === 'md' },

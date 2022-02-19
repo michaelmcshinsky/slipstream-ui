@@ -11,6 +11,7 @@ export interface TabSetProps {
   custom?: boolean;
   onClick?: (value: any) => void;
   rtl?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   tabs?: TabItemMappedProps[];
   tag?: 'nav' | 'ul' | 'div' | any;
   vertical?: boolean;
@@ -42,6 +43,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       rtl,
       tabs,
       vertical,
+      size,
       tag: Tag,
       ...props
     },
@@ -57,7 +59,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       'sui--tab-set',
       'flex flex-wrap list-none',
       rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),
-      vertical ? 'flex-col space-y-2' : 'space-x-4',
+      { 'flex-col ': vertical },
       className
     );
 
@@ -78,6 +80,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
             background,
             custom,
             onClick: _handleClick,
+            size,
             vertical,
           });
         }
@@ -97,6 +100,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
 
 TabSet.displayName = 'TabSet';
 TabSet.defaultProps = {
+  size: 'md',
   tag: 'nav',
   rtl: false,
 };
