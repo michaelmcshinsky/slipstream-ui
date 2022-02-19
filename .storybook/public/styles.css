@@ -663,6 +663,11 @@ select {
   counter-increment: section;
 }
 
+.peer:checked ~ .peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
+
 .peer:checked ~ .peer-checked\:bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
@@ -681,11 +686,6 @@ select {
 .peer:checked ~ .peer-checked\:bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
-}
-
-.peer:checked ~ .peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
 
 .peer:checked ~ .peer-checked\:bg-indigo-500 {
@@ -711,7 +711,7 @@ select {
 
 .peer:checked ~ .peer-checked\:after\:translate-x-6::after {
   content: "";
-  --tw-translate-x: 1.5rem;
+  --tw-translate-x: 1.4rem;
   transform: matrix(1, 0, 0, 1, 24, 0);
 }
 
@@ -1962,18 +1962,6 @@ select {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -20177,6 +20165,11 @@ ul .numbered:before {
   background-color: rgb(136 19 55 / var(--tw-bg-opacity));
 }
 
+.peer:checked:checked ~ .peer-checked\:peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
 .peer:checked:checked ~ .peer-checked\:peer-checked\:bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
@@ -20195,11 +20188,6 @@ ul .numbered:before {
 .peer:checked:checked ~ .peer-checked\:peer-checked\:bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.peer:checked:checked ~ .peer-checked\:peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .peer:checked:checked ~ .peer-checked\:peer-checked\:bg-indigo-500 {
@@ -20229,6 +20217,11 @@ ul .numbered:before {
   transform: var(--tw-transform);
 }
 
+.group:hover .peer:checked ~ .group-hover\:peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
 .group:hover .peer:checked ~ .group-hover\:peer-checked\:bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
@@ -20249,11 +20242,6 @@ ul .numbered:before {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
-.group:hover .peer:checked ~ .group-hover\:peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
 .group:hover .peer:checked ~ .group-hover\:peer-checked\:bg-indigo-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
@@ -20267,6 +20255,11 @@ ul .numbered:before {
 .group:hover .peer:checked ~ .group-hover\:peer-checked\:bg-pink-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 72 153 / var(--tw-bg-opacity));
+}
+
+.group:focus .peer:checked ~ .group-focus\:peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .group:focus .peer:checked ~ .group-focus\:peer-checked\:bg-gray-500 {
@@ -20289,11 +20282,6 @@ ul .numbered:before {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
-.group:focus .peer:checked ~ .group-focus\:peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
 .group:focus .peer:checked ~ .group-focus\:peer-checked\:bg-indigo-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
@@ -20307,6 +20295,11 @@ ul .numbered:before {
 .group:focus .peer:checked ~ .group-focus\:peer-checked\:bg-pink-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 72 153 / var(--tw-bg-opacity));
+}
+
+.group:active .peer:checked ~ .group-active\:peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .group:active .peer:checked ~ .group-active\:peer-checked\:bg-gray-500 {
@@ -20327,11 +20320,6 @@ ul .numbered:before {
 .group:active .peer:checked ~ .group-active\:peer-checked\:bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.group:active .peer:checked ~ .group-active\:peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .group:active .peer:checked ~ .group-active\:peer-checked\:bg-indigo-500 {
@@ -22639,6 +22627,11 @@ ul .numbered:before {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.dark .peer:checked ~ .dark\:peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
 .dark .peer:checked ~ .dark\:peer-checked\:bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
@@ -22657,11 +22650,6 @@ ul .numbered:before {
 .dark .peer:checked ~ .dark\:peer-checked\:bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.dark .peer:checked ~ .dark\:peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .dark .peer:checked ~ .dark\:peer-checked\:bg-indigo-500 {
