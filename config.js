@@ -139,6 +139,10 @@ const slipstreamConfig = {
         '.after\\:h-6::after': { content: '""', height: '1.5rem' },
         '.after\\:w-8::after': { content: '""', width: '2rem' },
         '.after\\:h-8::after': { content: '""', height: '2rem' },
+        '.peer:checked ~ .peer-checked\\:bg-blue-500': {
+          '--tw-bg-opacity': '1',
+          backgroundColor: 'rgb(59, 130, 246, var(--tw-bg-opacity))',
+        },
         '.peer:checked ~ .peer-checked\\:bg-gray-500': {
           '--tw-bg-opacity': '1',
           backgroundColor: 'rgba(107, 114, 128, var(--tw-bg-opacity))',
@@ -173,12 +177,12 @@ const slipstreamConfig = {
         },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-4::after': {
           content: '""',
-          '--tw-translate-x': '1rem',
+          '--tw-translate-x': '.9rem',
           transform: 'matrix(1, 0, 0, 1, 16, 0)',
         },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-6::after': {
           content: '""',
-          '--tw-translate-x': '1.5rem',
+          '--tw-translate-x': '1.4rem',
           transform: 'matrix(1, 0, 0, 1, 24, 0)',
         },
         '.sui--input-group_prepend + .sui--input': {
