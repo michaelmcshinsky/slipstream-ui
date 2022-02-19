@@ -8,6 +8,7 @@ export interface TabItemProps {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   tag?: 'li' | 'a' | 'div' | 'input' | any;
   color?: string;
   onClick?: (value: any) => void;
@@ -40,6 +41,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       custom,
       onClick,
       shade,
+      size,
       tag,
       value,
       vertical,
@@ -56,6 +58,10 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
     const classes = classNames(
       'sui--tab-item',
       !custom && [
+        size === 'xs' && 'p-1 text-xs',
+        size === 'sm' && 'p-2 text-sm',
+        size === 'md' && 'p-3',
+        size === 'lg' && 'p-4 text-lg',
         !active &&
           (color
             ? `text-${color}${
@@ -75,7 +81,6 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
           'bg-blue-100': active && background,
         },
         active ? 'border-blue-500 text-blue-500' : 'border-transparent',
-        background ? 'p-3' : 'py-3',
         background
           ? vertical && border
             ? ''
@@ -107,6 +112,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
 
 TabItem.displayName = 'TabItem';
 TabItem.defaultProps = {
+  size: 'md',
   tag: 'a',
 };
 
