@@ -58,8 +58,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     ...attrs
   } = props;
 
-  const [isMounted, setIsMounted] = useState(isOpen);
-  const [isClosing, setIsClosing] = useState(isOpen);
+  const [isMounted, setIsMounted] = useState(!!isOpen);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     document.addEventListener('keydown', (e: any) => handleEsc(e), {

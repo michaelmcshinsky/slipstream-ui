@@ -705,7 +705,7 @@ select {
 
 .peer:checked ~ .peer-checked\:after\:translate-x-4::after {
   content: "";
-  --tw-translate-x: 1rem;
+  --tw-translate-x: .9rem;
   transform: matrix(1, 0, 0, 1, 16, 0);
 }
 
