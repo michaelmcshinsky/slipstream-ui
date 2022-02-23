@@ -4,7 +4,6 @@ import classNames from 'classnames';
 export interface TableBodyProps {
   className?: string;
   children?: ReactNode;
-  tag?: any;
   size?: 'sm' | 'md' | 'lg';
   striped?: boolean | 'odd' | 'even';
   hover?: boolean | 'row' | 'cell';
@@ -12,12 +11,11 @@ export interface TableBodyProps {
   custom?: boolean;
 }
 
-export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
+export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   (
     {
       className,
       children,
-      tag: Tag,
       size,
       striped,
       hover,
@@ -56,16 +54,15 @@ export const TableBody = forwardRef<HTMLElement, TableBodyProps>(
     );
 
     return (
-      <Tag ref={ref} className={classes} {...props}>
+      <tbody ref={ref} className={classes} {...props}>
         {renderedChildren}
-      </Tag>
+      </tbody>
     );
   },
 );
 
 TableBody.displayName = 'TableBody';
 TableBody.defaultProps = {
-  tag: 'tbody',
   size: 'md',
 };
 

@@ -4,15 +4,14 @@ import classNames from 'classnames';
 export interface TableHeaderProps {
   className?: string;
   children?: ReactNode;
-  tag?: any;
   size?: 'sm' | 'md' | 'lg';
   borderless?: boolean;
   custom?: boolean;
 }
 
-export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
+export const TableHeader = forwardRef<HTMLTableCellElement, TableHeaderProps>(
   (
-    { className, children, tag: Tag, size, borderless, custom, ...props },
+    { className, children, size, borderless, custom, ...props },
     ref,
   ) => {
     const classes = classNames(
@@ -28,16 +27,15 @@ export const TableHeader = forwardRef<HTMLElement, TableHeaderProps>(
     );
 
     return (
-      <Tag ref={ref} className={classes} {...props}>
+      <th ref={ref} className={classes} {...props}>
         {children}
-      </Tag>
+      </th>
     );
   },
 );
 
 TableHeader.displayName = 'TableHeader';
 TableHeader.defaultProps = {
-  tag: 'th',
   size: 'md',
 };
 

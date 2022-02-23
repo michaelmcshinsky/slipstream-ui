@@ -4,7 +4,6 @@ import classNames from 'classnames';
 export interface TableRowProps {
   className?: string;
   children?: ReactNode;
-  tag?: any;
   size?: 'sm' | 'md' | 'lg';
   striped?: boolean | 'odd' | 'even';
   hover?: boolean | 'row' | 'cell';
@@ -13,12 +12,11 @@ export interface TableRowProps {
   custom?: boolean;
 }
 
-export const TableRow = forwardRef<HTMLElement, TableRowProps>(
+export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
   (
     {
       className,
       children,
-      tag: Tag,
       size,
       striped,
       hover,
@@ -67,16 +65,15 @@ export const TableRow = forwardRef<HTMLElement, TableRowProps>(
     );
 
     return (
-      <Tag ref={ref} className={classes} {...props}>
+      <tr ref={ref} className={classes} {...props}>
         {renderedChildren}
-      </Tag>
+      </tr>
     );
   }
 );
 
 TableRow.displayName = 'TableRow';
 TableRow.defaultProps = {
-  tag: 'tr',
   size: 'md',
 };
 

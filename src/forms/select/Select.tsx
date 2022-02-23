@@ -1,10 +1,11 @@
-import React, { forwardRef, ReactNode, HTMLAttributes } from 'react';
+import React, { forwardRef, ReactNode, SelectHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import theme from '../../theme/default';
 import SelectOption, { SelectOptionProps } from './SelectOption';
 import SelectOptionGroup, { SelectOptionGroupProps } from './SelectOptionGroup';
 
-export interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
+export interface SelectProps
+  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
@@ -59,7 +60,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         disabled && theme.disabled,
         rounded ? 'rounded-full' : 'rounded',
       ],
-      className,
+      className
     );
 
     return (
@@ -73,7 +74,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {children}
       </select>
     );
-  },
+  }
 ) as SelectComponent;
 
 Select.displayName = 'Select';

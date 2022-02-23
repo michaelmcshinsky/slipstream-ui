@@ -4,7 +4,6 @@ import classNames from 'classnames';
 export interface TableFooterProps {
   className?: string;
   children?: ReactNode;
-  tag?: any;
   size?: 'sm' | 'md' | 'lg';
   striped?: boolean | 'odd' | 'even';
   hover?: boolean | 'row' | 'cell';
@@ -12,12 +11,11 @@ export interface TableFooterProps {
   custom?: boolean;
 }
 
-export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
+export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
   (
     {
       className,
       children,
-      tag: Tag,
       size,
       striped,
       hover,
@@ -56,16 +54,15 @@ export const TableFooter = forwardRef<HTMLElement, TableFooterProps>(
     );
 
     return (
-      <Tag ref={ref} className={classes} {...props}>
+      <tfoot ref={ref} className={classes} {...props}>
         {renderedChildren}
-      </Tag>
+      </tfoot>
     );
   },
 );
 
 TableFooter.displayName = 'TableFooter';
 TableFooter.defaultProps = {
-  tag: 'tfoot',
   size: 'md',
 };
 

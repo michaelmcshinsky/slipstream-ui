@@ -4,15 +4,14 @@ import classNames from 'classnames';
 export interface TableHeadProps {
   className?: string;
   children?: ReactNode;
-  tag?: any;
   size?: 'sm' | 'md' | 'lg';
   borderless?: boolean;
   custom?: boolean;
 }
 
-export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
+export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
   (
-    { className, children, tag: Tag, size, borderless, custom, ...props },
+    { className, children, size, borderless, custom, ...props },
     ref,
   ) => {
     const renderedChildren = React.Children.toArray(children)
@@ -35,16 +34,15 @@ export const TableHead = forwardRef<HTMLElement, TableHeadProps>(
     );
 
     return (
-      <Tag ref={ref} className={classes} {...props}>
+      <thead ref={ref} className={classes} {...props}>
         {renderedChildren}
-      </Tag>
+      </thead>
     );
   },
 );
 
 TableHead.displayName = 'TableHead';
 TableHead.defaultProps = {
-  tag: 'thead',
   size: 'md',
 };
 
