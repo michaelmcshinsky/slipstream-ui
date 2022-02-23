@@ -8,6 +8,7 @@ export interface TabItemProps {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
+  invalid?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg';
   tag?: 'li' | 'a' | 'div' | 'input' | any;
   color?: string;
@@ -39,6 +40,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       className,
       color,
       custom,
+      invalid,
       onClick,
       shade,
       size,
@@ -62,25 +64,29 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
         size === 'sm' && 'p-2 text-sm',
         size === 'md' && 'p-3',
         size === 'lg' && 'p-4 text-lg',
-        !active &&
-          (color
-            ? `text-${color}${
-                color === 'black' || color === 'white' ? '' : `-${shade}`
-              }`
-            : 'text-gray-500'),
+        invalid
+          ? 'text-red-500 hover:text-red-800 focus:text-red-800 active:text-red-800'
+          : !active &&
+            (color
+              ? `text-${color}${
+                  color === 'black' || color === 'white' ? '' : `-${shade}`
+                }`
+              : 'text-gray-500'),
         'block cursor-pointer leading-none outline-none',
         border && 'border-b-2 border-solid',
         {
           'hover:text-black active:text-black focus:text-black': !active,
         },
-        {
-          'hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100':
-            !active && background,
-        },
-        {
-          'bg-blue-100': active && background,
-        },
-        active ? 'border-blue-500 text-blue-500' : 'border-transparent',
+        background && [
+          { 'bg-red-100 hover:bg-red-200 active:bg-red-200 focus:bg-red-200': invalid },
+          { 'bg-blue-100 hover:bg-blue-200 active:bg-blue-200 focus:bg-blue-200': active && !invalid },
+          { 'hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100': !active && !invalid}
+        ],
+        active
+          ? invalid
+            ? 'border-red-500 text-red-500'
+            : 'border-blue-500 text-blue-500'
+          : 'border-transparent',
         background
           ? vertical && border
             ? ''
