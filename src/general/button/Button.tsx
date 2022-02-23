@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import theme from '../../theme/default';
 
@@ -21,7 +21,8 @@ enum Type {
   submit = 'submit',
 }
 
-export interface ButtonProps {
+export interface ButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
   children?: ReactNode;
   className?: string;
   color?: keyof typeof ButtonEnum;
@@ -41,15 +42,7 @@ export interface ButtonProps {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props: ButtonProps, ref: any) => {
     let { tag: Tag } = props;
-    const {
-      children,
-      className,
-      color,
-      size,
-      flush,
-      block,
-      ...attrs
-    } = props;
+    const { children, className, color, size, flush, block, ...attrs } = props;
 
     const classes = classNames(
       'sui--button',
@@ -65,7 +58,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color && theme.button.color[color],
       attrs.disabled && theme.disabled,
       theme.button.base,
-      className,
+      className
     );
 
     if (attrs.href && Tag === 'button') {
@@ -73,15 +66,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      <Tag
-        ref={ref}
-        className={classes}
-        {...attrs}
-      >
+      <Tag ref={ref} className={classes} {...attrs}>
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 Button.displayName = 'Button';
