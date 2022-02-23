@@ -28,22 +28,22 @@ interface TableComponent
     TableProps & React.RefAttributes<HTMLDivElement>
   > {
   Head: React.ForwardRefExoticComponent<
-    TableHeadProps & React.RefAttributes<HTMLElement>
+    TableHeadProps & React.RefAttributes<HTMLTableSectionElement>
   >;
   Header: React.ForwardRefExoticComponent<
-    TableHeaderProps & React.RefAttributes<HTMLElement>
+    TableHeaderProps & React.RefAttributes<HTMLTableCellElement>
   >;
   Body: React.ForwardRefExoticComponent<
-    TableBodyProps & React.RefAttributes<HTMLElement>
+    TableBodyProps & React.RefAttributes<HTMLTableSectionElement>
   >;
   Row: React.ForwardRefExoticComponent<
-    TableRowProps & React.RefAttributes<HTMLElement>
+    TableRowProps & React.RefAttributes<HTMLTableRowElement>
   >;
   Cell: React.ForwardRefExoticComponent<
-    TableCellProps & React.RefAttributes<HTMLElement>
+    TableCellProps & React.RefAttributes<HTMLTableCellElement>
   >;
   Footer: React.ForwardRefExoticComponent<
-    TableFooterProps & React.RefAttributes<HTMLElement>
+    TableFooterProps & React.RefAttributes<HTMLTableSectionElement>
   >;
   Caption: React.ForwardRefExoticComponent<
     TableCaptionProps & React.RefAttributes<HTMLTableCaptionElement>
