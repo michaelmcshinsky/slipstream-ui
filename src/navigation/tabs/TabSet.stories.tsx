@@ -33,12 +33,12 @@ const Template: Story<TabSetProps> = ({ ...args }) => {
 
   return (
     <SlipstreamProvider dark>
-      <TabSetComponent {...args} active={active} onClick={_handleChange}>
+      <TabSetComponent {...args} border active={active} onClick={_handleChange}>
         <TabSetComponent.Item value="1">
           Home
         </TabSetComponent.Item>
-        <TabSetComponent.Item value="2">About</TabSetComponent.Item>
-        <TabSetComponent.Item value="3" active>Projects</TabSetComponent.Item>
+        <TabSetComponent.Item invalid value="2">About</TabSetComponent.Item>
+        <TabSetComponent.Item invalid value="3" active>Projects</TabSetComponent.Item>
         <TabSetComponent.Item value="4">Contact</TabSetComponent.Item>
       </TabSetComponent>
     </SlipstreamProvider>

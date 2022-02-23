@@ -11,10 +11,6 @@ enum ButtonEnum {
   warning,
 }
 
-interface Callback {
-  (): void;
-}
-
 enum Type {
   button = 'button',
   reset = 'reset',
@@ -29,8 +25,8 @@ export interface ButtonProps
   disabled?: boolean;
   href?: string | undefined;
   onClick?: (
-    e: React.MouseEventHandler<HTMLButtonElement>,
-    callback: Callback
+    e: React.MouseEventHandler<HTMLElement>,
+    callback?: () => any
   ) => void;
   size?: 'sm' | 'md' | 'lg';
   tag?: any;
