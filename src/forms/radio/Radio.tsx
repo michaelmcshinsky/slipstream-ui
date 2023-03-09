@@ -1,20 +1,16 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { Checkbox, CheckboxProps } from '../checkbox';
+import clsx from 'clsx';
+import { Checkbox, TCheckbox } from '../checkbox';
 
-export type RadioProps = CheckboxProps
+export type TRadio = TCheckbox;
 
-export const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
-  const { className, ...attrs } = props;
+export const Radio = forwardRef<HTMLLabelElement, TRadio>(
+  ({ className, color, ...props }, ref) => {
+    const classes = clsx('sui--radio', `sui--radio-color_${color}`, className);
 
-  const classes = classNames(
-    'sui--radio',
-    `sui--radio-color_${attrs.color}`,
-    className,
-  );
-
-  return <Checkbox ref={ref} className={classes} {...attrs} type="radio" />;
-});
+    return <Checkbox ref={ref} className={classes} {...props} type="radio" />;
+  }
+);
 
 Radio.displayName = 'Radio';
 

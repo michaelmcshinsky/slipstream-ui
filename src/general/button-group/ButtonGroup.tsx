@@ -1,16 +1,16 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface ButtonGroupProps {
+export type TButtonGroup = {
   className?: string;
   flush?: boolean;
   children?: ReactNode;
 }
 
-export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
+export const ButtonGroup = forwardRef<HTMLDivElement, TButtonGroup>(
   (props, ref) => {
     const { className, flush, children, ...attributes } = props;
-    const classes = classNames('sui--button-group', { 'space-x-2': !flush }, className);
+    const classes = clsx('sui--button-group', { 'space-x-2': !flush }, className);
 
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)

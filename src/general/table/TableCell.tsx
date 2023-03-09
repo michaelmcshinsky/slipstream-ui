@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableCellProps {
+export type TTableCell = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -9,35 +9,25 @@ export interface TableCellProps {
   active?: boolean;
   borderless?: boolean;
   custom?: boolean;
-}
+};
 
-export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
+export const TableCell = forwardRef<HTMLTableCellElement, TTableCell>(
   (
-    {
-      className,
-      children,
-      size,
-      hover,
-      active,
-      borderless,
-      custom,
-      ...props
-    },
+    { className, children, size, hover, active, borderless, custom, ...props },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-td',
       'table-cell',
       !custom && [
-        !borderless && 'border-b border-gray-200 dark:border-gray-500',
+        !borderless && 'border-b border-gray-200',
         size === 'sm' && 'p-2 text-xs',
         (size === 'md' || !size) && 'p-3 text-sm',
         size === 'lg' && 'p-4 text-base',
-        active && 'active bg-gray-200 dark:text-gray-700',
-        hover && 'dark:hover:text-gray-700',
+        active && 'active bg-gray-200',
         hover &&
           hover !== 'row' &&
-          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200 dark:hover:text-gray-700',
+          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
       ],
       className
     );

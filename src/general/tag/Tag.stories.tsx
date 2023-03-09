@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Tag, TagProps } from './Tag';
+import { Tag, TTag } from './Tag';
 
 export default {
   title: 'Components/General/Tag',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TagProps> = ({ ...args }) => <Tag {...args} />;
+const Template: Story<TTag> = ({ ...args }) => <Tag {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface FieldSetLegendProps {
+export type TFieldSetLegend = {
   className?: string;
   children?: ReactNode;
   custom?: boolean;
@@ -9,11 +9,11 @@ export interface FieldSetLegendProps {
 
 export const FieldSetLegend = forwardRef<
   HTMLLegendElement,
-  FieldSetLegendProps
+  TFieldSetLegend
 >(({ className, children, custom, ...props }, ref) => {
-  const classes = classNames(
+  const classes = clsx(
     'sui--fieldset-legend',
-    !custom && 'block px-1 text-sm -mx-0.5 dark:text-gray-300',
+    !custom && 'block px-1 text-sm -mx-0.5',
     className
   );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Table, TableProps, SlipstreamProvider } from '../../';
+import { Table, TTable, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/General/Table',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TableProps> = ({ ...args }) => (
+const Template: Story<TTable> = ({ ...args }) => (
   <SlipstreamProvider >
     <div className="">
       <Table {...args} hover>

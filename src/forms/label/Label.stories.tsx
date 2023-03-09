@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Label as LabelComponent, LabelProps } from './Label';
+import { Label as LabelComponent, TLabel } from './Label';
 
 export default {
   title: 'Components/Forms',
@@ -19,7 +19,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<LabelProps> = ({ text, ...args }) => (
+const Template: Story<TLabel> = ({ text, ...args }) => (
   <LabelComponent {...args}>{text}</LabelComponent>
 );
 

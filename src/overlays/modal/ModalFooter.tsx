@@ -3,9 +3,9 @@ import React, {
   HTMLAttributes,
   ReactNode,
 } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
-export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
+export type TModalFooter = HTMLAttributes<HTMLDivElement> & {
   border?: boolean;
   children?: ReactNode;
   className?: string;
@@ -13,13 +13,12 @@ export interface ModalFooterProps extends HTMLAttributes<HTMLDivElement> {
   rtl?: boolean;
 }
 
-export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
+export const ModalFooter = forwardRef<HTMLDivElement, TModalFooter>(
   (props, ref) => {
     const { border, className, toggle, children, rtl, ...attrs } = props;
 
-    const classes = classnames(
+    const classes = clsx(
       'sui--modal-footer',
-      'dark:bg-gray-900 dark:text-gray-300',
       'bg-white p-3 rounded-b flex items-center',
       { 'border-t border-solid border-gray-300': border },
       { 'flex-row-reverse': rtl },

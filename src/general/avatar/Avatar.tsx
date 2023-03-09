@@ -1,7 +1,7 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
+export type TAvatar = HTMLAttributes<HTMLDivElement> & {
   className?: string;
   label?: string;
   src?: string;
@@ -12,7 +12,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   textSize?: string;
 }
 
-export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
+export const Avatar = forwardRef<HTMLDivElement, TAvatar>((props, ref) => {
   const {
     className,
     label,
@@ -48,7 +48,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
       : `rounded-${rounded}`
     : '';
 
-  const classes = classNames(
+  const classes = clsx(
     'sui--avatar',
     `sui--avatar-color_${color}`,
     'relative flex items-center justify-center overflow-hidden leading-none',

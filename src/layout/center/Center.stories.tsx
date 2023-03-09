@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Center as CenterComponent, CenterProps, Text } from '../..';
+import { Center as CenterComponent, TCenter, Text } from '../..';
 
 export default {
   title: 'Components/Layout/Center',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CenterProps> = ({ ...args }) => (
+const Template: Story<TCenter> = ({ ...args }) => (
   <CenterComponent className="p-4 bg-green-200" {...args}>
     <Text>Centered Item</Text>
   </CenterComponent>

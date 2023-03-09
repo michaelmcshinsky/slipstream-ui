@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ListGroup, ListGroupProps, SlipstreamProvider } from '../../';
+import { ListGroup, TListGroup, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/General/ListGroup',
@@ -11,8 +11,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ListGroupProps> = ({ ...args }) => (
-  <SlipstreamProvider dark>
+const Template: Story<TListGroup> = ({ ...args }) => (
+  <SlipstreamProvider>
     <ListGroup {...args}>
       <ListGroup.Item>List Item One</ListGroup.Item>
       <ListGroup.Item active>List Item Two</ListGroup.Item>

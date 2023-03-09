@@ -1,21 +1,16 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface NavbarTextProps {
+export type TNavbarText = {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
   tag?: any;
-}
+};
 
-export const NavbarText = forwardRef<HTMLDivElement, NavbarTextProps>(
+export const NavbarText = forwardRef<HTMLDivElement, TNavbarText>(
   ({ children, className, tag: Tag, custom, ...props }, ref) => {
-    const classes = classNames(
-      'sui--navbar-text',
-      'mx-2 p-2',
-      { 'dark:hover:text-white dark:active:text-white dark:focus:text-white': !custom },
-      className
-    );
+    const classes = clsx('sui--navbar-text', 'mx-2 p-2', className);
 
     return (
       <Tag ref={ref} className={classes} {...props}>

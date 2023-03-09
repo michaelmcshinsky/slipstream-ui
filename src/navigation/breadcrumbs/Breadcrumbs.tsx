@@ -1,19 +1,19 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface BreadcrumbsProps {
+export type TBreadcrumbs = {
   className?: string;
   children?: ReactNode;
-}
+};
 
-export const Breadcrumbs = forwardRef<HTMLUListElement, BreadcrumbsProps>(
+export const Breadcrumbs = forwardRef<HTMLUListElement, TBreadcrumbs>(
   ({ className, children, ...props }, ref) => {
-    const classes = classNames('sui--breadcrumbs', 'flex flex-wrap', className);
+    const classes = clsx('sui--breadcrumbs', 'flex flex-wrap', className);
 
     return (
       <ul ref={ref} className={classes} {...props}>
         {children}
       </ul>
     );
-  },
+  }
 );

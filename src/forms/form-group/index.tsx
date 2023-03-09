@@ -1,1 +1,1 @@
-export { FormGroup, FormGroupProps } from './FormGroup';
+export * from './FormGroup';

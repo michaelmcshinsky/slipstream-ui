@@ -1,1 +1,1 @@
-export { Progress, ProgressProps } from './Progress';
+export * from './Progress';

@@ -1,20 +1,20 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { renderedChildren } from './utils';
 
-export interface CardTitleProps {
+export type TCardTitle = {
   border?: boolean;
   children?: ReactNode;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-export const CardTitle = forwardRef<HTMLDivElement, CardTitleProps>(
+export const CardTitle = forwardRef<HTMLDivElement, TCardTitle>(
   (props, ref) => {
     const { border, className, size, children, ...attributes } = props;
-    const classes = classnames(
+    const classes = clsx(
       'sui--card-title',
-      'leading-tight text-gray-700 dark:text-gray-300',
+      'leading-tight text-gray-700',
       { 'text-base': size === 'sm' },
       { 'text-lg': size === 'md' || !size },
       { 'text-xl': size === 'lg' },

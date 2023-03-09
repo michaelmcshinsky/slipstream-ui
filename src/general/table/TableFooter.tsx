@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableFooterProps {
+export type TTableFooter = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -11,7 +11,7 @@ export interface TableFooterProps {
   custom?: boolean;
 }
 
-export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
+export const TableFooter = forwardRef<HTMLTableSectionElement, TTableFooter>(
   (
     {
       className,
@@ -47,9 +47,9 @@ export const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>
         return child;
       });
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-tfoot',
-      !custom && 'table-row-group dark:text-gray-300',
+      !custom && 'table-row-group',
       className,
     );
 

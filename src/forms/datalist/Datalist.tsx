@@ -1,29 +1,30 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { Input, InputProps } from '../input/Input';
+import clsx from 'clsx';
+import { Input, TInput } from '../input/Input';
 
-export interface DatalistProps extends InputProps {
+export type DatalistOption = {
+  value: string;
+  label: string;
+};
+
+export type TDatalist = TInput & {
   className?: string;
   custom?: boolean;
   id: string;
   list: string;
   options?: DatalistOption[];
+  datalistProps?: any;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
-}
+};
 
-export interface DatalistOption {
-  value: string;
-  label: string;
-}
-
-export const Datalist = forwardRef<HTMLInputElement, DatalistProps>(
-  ({ id, options, className, ...props }, ref) => {
-    const classes = classNames('sui--datalist', className);
+export const Datalist = forwardRef<HTMLInputElement, TDatalist>(
+  ({ id, options, className, datalistProps, ...props }, ref) => {
+    const classes = clsx('sui--datalist', className);
 
     return (
       <>
         <Input ref={ref} className={classes} {...props} />
-        <datalist id={id}>
+        <datalist id={id} {...datalistProps}>
           {options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -32,7 +33,7 @@ export const Datalist = forwardRef<HTMLInputElement, DatalistProps>(
         </datalist>
       </>
     );
-  },
+  }
 );
 
 Datalist.displayName = 'Datalist';

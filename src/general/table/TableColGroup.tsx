@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableColGroupProps {
+export type TTableColGroup = {
   className?: string;
   children?: ReactNode;
   span?: number;
   custom?: boolean;
 }
 
-export const TableColGroup = forwardRef<HTMLTableColElement, TableColGroupProps>(
+export const TableColGroup = forwardRef<HTMLTableColElement, TTableColGroup>(
   (
     {
       className,
@@ -18,7 +18,7 @@ export const TableColGroup = forwardRef<HTMLTableColElement, TableColGroupProps>
     },
     ref,
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-colgroup',
       !custom && 'table-colgroup',
       className,

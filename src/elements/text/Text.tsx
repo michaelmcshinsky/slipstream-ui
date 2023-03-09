@@ -1,19 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TextProps {
+export type TText = {
   children?: ReactNode;
   className?: string;
-  custom?: boolean;
 }
 
-export const Text = forwardRef<HTMLParagraphElement, TextProps>(
-  ({ children, className, custom, ...props }, ref) => {
-    const classes = classNames(
-      'sui--text',
-      !custom && 'dark:text-gray-300',
-      className
-    );
+export const Text = forwardRef<HTMLParagraphElement, TText>(
+  ({ children, className, ...props }, ref) => {
+    const classes = clsx('sui--text', className);
 
     return (
       <p ref={ref} className={classes} {...props}>

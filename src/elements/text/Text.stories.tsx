@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Text as TextComponent, TextProps, SlipstreamProvider } from '../..';
+import { Text as TextComponent, TText, SlipstreamProvider } from '../..';
 
 export default {
   title: 'Components/Elements/Text',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TextProps> = ({ ...args }) => (
+const Template: Story<TText> = ({ ...args }) => (
   <SlipstreamProvider>
     <TextComponent {...args}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper

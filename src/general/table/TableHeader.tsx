@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableHeaderProps {
+export type TTableHeader = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -9,15 +9,15 @@ export interface TableHeaderProps {
   custom?: boolean;
 }
 
-export const TableHeader = forwardRef<HTMLTableCellElement, TableHeaderProps>(
+export const TableHeader = forwardRef<HTMLTableCellElement, TTableHeader>(
   (
     { className, children, size, borderless, custom, ...props },
     ref,
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-th',
       !custom && [
-        'table-cell text-left dark:text-gray-300',
+        'table-cell text-left',
         !borderless && 'border-b border-gray-500',
         size === 'sm' && 'p-2 text-xs',
         (size === 'md' || !size) && 'p-3 text-sm',

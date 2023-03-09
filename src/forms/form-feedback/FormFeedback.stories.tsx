@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormFeedback as FormFeedbackComponent, FormFeedbackProps } from './FormFeedback';
+import { FormFeedback as FormFeedbackComponent, TFormFeedback } from './FormFeedback';
 
 export default {
   title: 'Components/Forms',
@@ -13,7 +13,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<FormFeedbackProps> = ({ children, ...args }) => (
+const Template: Story<TFormFeedback> = ({ children, ...args }) => (
   <FormFeedbackComponent {...args}>{children}</FormFeedbackComponent>
 );
 

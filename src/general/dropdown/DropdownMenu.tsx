@@ -1,8 +1,8 @@
 import React, { ReactNode, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { mergeRefs } from '../../utils';
 
-export interface DropdownMenuProps {
+export type TDropdownMenu = {
   attributes?: any;
   children?: ReactNode;
   className?: string;
@@ -12,7 +12,7 @@ export interface DropdownMenuProps {
   styles?: any;
 }
 
-export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
+export const DropdownMenu = forwardRef<HTMLElement, TDropdownMenu>(
   (
     {
       attributes,
@@ -30,10 +30,9 @@ export const DropdownMenu = forwardRef<HTMLElement, DropdownMenuProps>(
       return null;
     }
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--dropdown-menu',
-      'py-1 bg-white border border-gray-300 border-solid rounded',
-      'dark:bg-gray-900'
+      'py-1 bg-white border border-gray-300 border-solid rounded'
     )
 
     return (

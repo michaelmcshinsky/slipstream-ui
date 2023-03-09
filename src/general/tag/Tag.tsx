@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TagProps {
+export type TTag = {
   className?: string;
   children?: ReactNode;
   bg?: string;
@@ -24,12 +24,12 @@ export interface TagProps {
   block?: boolean;
 }
 
-export const Tag = forwardRef<HTMLDivElement, TagProps>(
+export const Tag = forwardRef<HTMLDivElement, TTag>(
   (
     { children, className, color, shade, size, block, rounded, bg, ...props },
     ref,
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'leading-tight',
       block ? 'block' : 'inline',
       rounded ? `rounded-${rounded}` : 'rounded-sm',

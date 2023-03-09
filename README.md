@@ -31,8 +31,6 @@ Slipstream UI is a wrapper for Tailwindcss as well as a component library built 
 ```javascript
 const slipstream = require('slipstream-ui/config')
 
-// Tailwind 3.x
-
 module.exports = slipstream({
   content: [
     "./node_modules/slipstream-ui/dist/**/*"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Textarea as TextareaComponent, TextareaProps } from './Textarea';
+import { Textarea as TextareaComponent, TTextarea } from './Textarea';
 
 export default {
   title: 'Components/Forms',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TextareaProps> = args => <TextareaComponent {...args} />;
+const Template: Story<TTextarea> = args => <TextareaComponent {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

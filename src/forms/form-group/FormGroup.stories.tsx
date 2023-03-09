@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FormGroup as FormGroupComponent, FormGroupProps } from './FormGroup';
+import { FormGroup as FormGroupComponent, TFormGroup } from './FormGroup';
 import { Label } from '../label';
 import { Input } from '../input';
 
@@ -13,7 +13,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<FormGroupProps> = ({ ...args }) => (
+const Template: Story<TFormGroup> = ({ ...args }) => (
   <FormGroupComponent {...args}>
     <Label>Label</Label>
     <Input />

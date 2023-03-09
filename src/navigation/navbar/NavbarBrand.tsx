@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface NavbarBrandProps {
+export type TNavbarBrand = {
   children?: ReactNode;
   className?: string;
 }
 
-export const NavbarBrand = forwardRef<HTMLDivElement, NavbarBrandProps>(
+export const NavbarBrand = forwardRef<HTMLDivElement, TNavbarBrand>(
   ({ children, className, ...props }, ref) => {
-    const classes = classNames('sui--navbar-brand', 'flex-shrink-0', className);
+    const classes = clsx('sui--navbar-brand', 'flex-shrink-0', className);
 
     return (
       <div ref={ref} className={classes} {...props}>

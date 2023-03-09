@@ -1,22 +1,22 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { NavProvider } from './';
-import { Navbar, NavbarProps } from './Navbar';
-import { NavbarBrand, NavbarBrandProps } from './NavbarBrand';
-import { NavbarCollapse, NavbarCollapseProps } from './NavbarCollapse';
-import { NavbarDivider, NavbarDividerProps } from './NavbarDivider';
-import { NavbarList, NavbarListProps } from './NavbarList';
-import { NavbarLink, NavbarLinkProps } from './NavbarLink';
-import { NavbarMenu, NavbarMenuProps } from './NavbarMenu';
+import { Navbar, TNavbar } from './Navbar';
+import { NavbarBrand, TNavbarBrand } from './NavbarBrand';
+import { NavbarCollapse, TNavbarCollapse } from './NavbarCollapse';
+import { NavbarDivider, TNavbarDivider } from './NavbarDivider';
+import { NavbarList, TNavbarList } from './NavbarList';
+import { NavbarLink, TNavbarLink } from './NavbarLink';
+import { NavbarMenu, TNavbarMenu } from './NavbarMenu';
 import {
   NavbarSidebar,
   NavBarSidebarElement,
-  NavbarSidebarProps,
+  TNavbarSidebar,
 } from './NavbarSidebar';
-import { NavbarText, NavbarTextProps } from './NavbarText';
-import { NavbarToggler, NavbarTogglerProps } from './NavbarToggler';
+import { NavbarText, TNavbarText } from './NavbarText';
+import { NavbarToggler, TNavbarToggler } from './NavbarToggler';
 
-export interface NavProps {
+export type TNav = {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
@@ -34,53 +34,52 @@ export interface NavProps {
     | '5xl'
     | '6xl'
     | '7xl';
-}
+};
 
-interface NavbarComponent
-  extends React.ForwardRefExoticComponent<
-    NavProps & React.RefAttributes<HTMLElement>
-  > {
+type NavbarComponent = React.ForwardRefExoticComponent<
+  TNav & React.RefAttributes<HTMLElement>
+> & {
   Bar: React.ForwardRefExoticComponent<
-    NavbarProps & React.RefAttributes<HTMLDivElement>
+    TNavbar & React.RefAttributes<HTMLDivElement>
   >;
   Brand: React.ForwardRefExoticComponent<
-    NavbarBrandProps & React.RefAttributes<HTMLDivElement>
+    TNavbarBrand & React.RefAttributes<HTMLDivElement>
   >;
   Collapse: React.ForwardRefExoticComponent<
-    NavbarCollapseProps & React.RefAttributes<HTMLDivElement>
+    TNavbarCollapse & React.RefAttributes<HTMLDivElement>
   >;
   Divider: React.ForwardRefExoticComponent<
-    NavbarDividerProps & React.RefAttributes<HTMLHRElement>
+    TNavbarDivider & React.RefAttributes<HTMLHRElement>
   >;
   List: React.ForwardRefExoticComponent<
-    NavbarListProps & React.RefAttributes<HTMLDivElement>
+    TNavbarList & React.RefAttributes<HTMLDivElement>
   >;
   Link: React.ForwardRefExoticComponent<
-    NavbarLinkProps & React.RefAttributes<HTMLDivElement>
+    TNavbarLink & React.RefAttributes<HTMLDivElement>
   >;
   Menu: React.ForwardRefExoticComponent<
-    NavbarMenuProps & React.RefAttributes<HTMLDivElement>
+    TNavbarMenu & React.RefAttributes<HTMLDivElement>
   >;
   Sidebar: React.ForwardRefExoticComponent<
-    NavbarSidebarProps & React.RefAttributes<NavBarSidebarElement>
+    TNavbarSidebar & React.RefAttributes<NavBarSidebarElement>
   >;
   Text: React.ForwardRefExoticComponent<
-    NavbarTextProps & React.RefAttributes<HTMLDivElement>
+    TNavbarText & React.RefAttributes<HTMLDivElement>
   >;
   Toggler: React.ForwardRefExoticComponent<
-    NavbarTogglerProps & React.RefAttributes<HTMLDivElement>
+    TNavbarToggler & React.RefAttributes<HTMLDivElement>
   >;
-}
+};
 
-export const Nav = forwardRef<HTMLElement, NavProps>(
+export const Nav = forwardRef<HTMLElement, TNav>(
   (
     { children, className, custom, disableScroll, mobile, size, ...props },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--nav',
       'relative',
-      !custom && ['bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-300'],
+      !custom && ['bg-white text-gray-500'],
       className
     );
 

@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableCaptionProps {
+export type TTableCaption = {
   className?: string;
   children?: ReactNode;
   custom?: boolean;
@@ -9,11 +9,11 @@ export interface TableCaptionProps {
 
 export const TableCaption = forwardRef<
   HTMLTableCaptionElement,
-  TableCaptionProps
+  TTableCaption
 >(({ className, children, custom, ...props }, ref) => {
-  const classes = classNames(
+  const classes = clsx(
     'sui--table-caption',
-    !custom && 'table-caption dark:text-gray-300',
+    !custom && 'table-caption',
     className,
   );
 

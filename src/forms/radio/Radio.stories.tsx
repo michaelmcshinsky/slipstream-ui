@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Radio as RadioComponent, RadioProps } from './Radio';
+import { Radio as RadioComponent, TRadio } from './Radio';
 
 export default {
   title: 'Components/Forms',
@@ -24,7 +24,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<RadioProps> = ({ checked, ...args }) => {
+const Template: Story<TRadio> = ({ checked, ...args }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {

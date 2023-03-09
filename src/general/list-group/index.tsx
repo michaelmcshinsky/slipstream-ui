@@ -1,2 +1,2 @@
-export { ListGroup, ListGroupProps } from './ListGroup';
-export { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
+export * from './ListGroup';
+export * from './ListGroupItem';

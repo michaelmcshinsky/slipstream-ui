@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardTitle as CardTitleComponent, CardTitleProps } from './CardTitle';
+import { CardTitle as CardTitleComponent, TCardTitle } from './CardTitle';
 
 export default {
   title: 'Components/General/Card',
@@ -19,7 +19,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardTitleProps> = ({ children, ...args }) => (
+const Template: Story<TCardTitle> = ({ children, ...args }) => (
   <CardTitleComponent {...args}>{children}</CardTitleComponent>
 );
 

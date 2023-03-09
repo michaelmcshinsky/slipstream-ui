@@ -31,8 +31,8 @@ const Template: Story = ({ ...args }) => {
   }
 
   return (
-    <SlipstreamProvider dark>
-      <Container size="xl" className="py-4 bg-gray-900">
+    <SlipstreamProvider>
+      <Container size="xl" className="py-4">
         <FormComponent {...args} onSubmit={_handleSubmit}>
           <FormGroup>
             <Label htmlFor="form-firstName">First Name</Label>

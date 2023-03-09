@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Backdrop, BackdropProps } from './Backdrop';
+import { Backdrop, TBackdrop } from './Backdrop';
 import { Button } from '../../';
 
 export default {
@@ -12,7 +12,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<BackdropProps> = ({ ...args }) => {
+const Template: Story<TBackdrop> = ({ ...args }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-center justify-center">

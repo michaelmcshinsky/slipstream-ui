@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TabItemProps {
+export type TTabItem = {
   active?: boolean;
   background?: boolean;
   border?: boolean;
@@ -28,9 +28,9 @@ export interface TabItemProps {
     | number;
   value?: any;
   vertical?: boolean;
-}
+};
 
-export const TabItem = forwardRef<HTMLElement, TabItemProps>(
+export const TabItem = forwardRef<HTMLElement, TTabItem>(
   (
     {
       active,
@@ -57,7 +57,7 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
       }
     }
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--tab-item',
       !custom && [
         size === 'xs' && 'p-1 text-xs',
@@ -78,9 +78,17 @@ export const TabItem = forwardRef<HTMLElement, TabItemProps>(
           'hover:text-black active:text-black focus:text-black': !active,
         },
         background && [
-          { 'bg-red-100 hover:bg-red-200 active:bg-red-200 focus:bg-red-200': invalid },
-          { 'bg-blue-100 hover:bg-blue-200 active:bg-blue-200 focus:bg-blue-200': active && !invalid },
-          { 'hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100': !active && !invalid}
+          {
+            'bg-red-100 hover:bg-red-200 active:bg-red-200 focus:bg-red-200': invalid,
+          },
+          {
+            'bg-blue-100 hover:bg-blue-200 active:bg-blue-200 focus:bg-blue-200':
+              active && !invalid,
+          },
+          {
+            'hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100':
+              !active && !invalid,
+          },
         ],
         active
           ? invalid

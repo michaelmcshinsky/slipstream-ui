@@ -1,9 +1,9 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { ChevronDown } from '../../assets/icons/ChevronDown';
 
-export interface DropdownToggleProps {
+export type TDropdownToggle = {
   children?: ReactNode;
   className?: string;
   dataDropdown?: string;
@@ -12,9 +12,9 @@ export interface DropdownToggleProps {
   iconProps?: any;
   rtl?: boolean;
   tag?: any;
-}
+};
 
-export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
+export const DropdownToggle = forwardRef<HTMLElement, TDropdownToggle>(
   (
     {
       children,
@@ -29,7 +29,7 @@ export const DropdownToggle = forwardRef<HTMLElement, DropdownToggleProps>(
     },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--dropdown-toggle flex space-x-2 items-center',
       { 'flex-row-reverse': rtl },
       className

@@ -1,19 +1,18 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface NavbarCollapseProps {
+export type TNavbarCollapse = {
   children?: ReactNode;
   className?: string;
-}
+};
 
-export const NavbarCollapse = forwardRef<HTMLDivElement, NavbarCollapseProps>(
+export const NavbarCollapse = forwardRef<HTMLDivElement, TNavbarCollapse>(
   ({ children, className, ...props }, ref) => {
-
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-collapse',
       'basis-full grow items-center',
       className
-    )
+    );
 
     return (
       <div ref={ref} className={classes} {...props}>

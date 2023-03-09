@@ -1,16 +1,16 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { TabSet, TabSetProps } from '../../';
+import clsx from 'clsx';
+import { TabSet, TTabSet } from '../../';
 
-export interface NavbarListProps extends TabSetProps {
+export type TNavbarList = TTabSet & {
   direction?: 'left' | 'right';
   left?: boolean;
   right?: boolean;
 }
 
-export const NavbarList = forwardRef<HTMLDivElement, NavbarListProps>(
+export const NavbarList = forwardRef<HTMLDivElement, TNavbarList>(
   ({ children, className, direction, left, right, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-list',
       { 'justify-end': direction === 'right' || right },
       { 'justify-start': (direction === 'left' || left) && !right },

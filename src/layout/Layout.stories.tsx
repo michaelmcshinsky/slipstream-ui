@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   Container as ContainerComponent,
-  ContainerProps,
+  TContainer,
   Row,
   Col,
 } from './index';
@@ -17,7 +17,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ContainerProps> = ({ ...args }) => (
+const Template: Story<TContainer> = ({ ...args }) => (
   <ContainerComponent {...args}>
     <Row>
       <Col sm="1/3">

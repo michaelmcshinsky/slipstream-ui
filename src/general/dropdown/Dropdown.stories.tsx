@@ -19,7 +19,7 @@ export default {
 } as Meta;
 
 export const Dropdown = (args: DropdownProps) => (
-  <SlipstreamProvider dark>
+  <SlipstreamProvider>
     <DropdownCompnent {...args} className="mt-32 ml-32">
       <DropdownCompnent.Toggle tag={Button}>Click Me</DropdownCompnent.Toggle>
       <DropdownCompnent.Menu>

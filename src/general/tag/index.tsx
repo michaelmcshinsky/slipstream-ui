@@ -1,6 +1,6 @@
-import { Tag as Chip, TagProps as ChipProps } from './Tag';
+import { Tag as Chip, TTag as TChip } from './Tag';
 
 Chip.displayName = 'Chip';
 
-export { Tag, TagProps } from './Tag';
-export { Chip, ChipProps };
+export * from './Tag';
+export { Chip, TChip };

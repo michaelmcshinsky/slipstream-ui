@@ -1,33 +1,13 @@
-export { Checkbox, CheckboxProps } from './checkbox';
-export { Datalist, DatalistProps } from './datalist';
-export {
-  FieldSet,
-  FieldSetProps,
-  FieldSetLegend,
-  FieldSetLegendProps,
-} from './field-set';
-export { Form, FormProps } from './form';
-export { FormFeedback, FormFeedbackProps } from './form-feedback';
-export { FormGroup, FormGroupProps } from './form-group';
-export { Input, InputProps } from './input';
-export {
-  InputGroup,
-  InputGroupProps,
-  InputGroupAppend,
-  InputGroupAppendProps,
-  InputGroupPrepend,
-  InputGroupPrependProps,
-} from './input-group';
-export { Label, LabelProps } from './label';
-export { Radio, RadioProps } from './radio';
-export { Search, SearchProps } from './search';
-export {
-  Select,
-  SelectProps,
-  SelectOption,
-  SelectOptionProps,
-  SelectOptionGroup,
-  SelectOptionGroupProps,
-} from './select';
-export { Switch, SwitchProps } from './switch';
-export { Textarea, Textarea as TextArea, TextareaProps } from './textarea';
+export * from './checkbox';
+export * from './datalist';
+export * from './field-set';
+export * from './form';
+export * from './form-feedback';
+export * from './form-group';
+export * from './input';
+export * from './input-group';
+export * from './label';
+export * from './radio';
+export * from './select';
+export * from './switch';
+export * from './textarea';

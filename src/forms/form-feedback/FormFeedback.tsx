@@ -1,15 +1,15 @@
 import React, { forwardRef, ReactNode, HTMLAttributes } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface FormFeedbackProps extends HTMLAttributes<HTMLDivElement> {
+export type TFormFeedback = HTMLAttributes<HTMLDivElement> & {
   className?: string;
   valid?: boolean;
   children?: ReactNode;
 }
 
-export const FormFeedback = forwardRef<HTMLDivElement, FormFeedbackProps>(
+export const FormFeedback = forwardRef<HTMLDivElement, TFormFeedback>(
   ({ className, valid, children, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--form-feedback text-sm',
       valid ? 'text-green-500' : 'text-red-500',
       className

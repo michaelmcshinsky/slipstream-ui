@@ -1,26 +1,26 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classnames from 'classnames';
-import { SizeListFull } from '../../utils';
+import clsx from 'clsx';
+import { TSizeFull } from '../../utils';
 
-export interface ContainerProps {
+export type TContainer = {
   className?: string;
-  size?: SizeListFull;
+  size?: TSizeFull;
   fluid?: boolean;
   children?: ReactNode;
-}
+};
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+export const Container = forwardRef<HTMLDivElement, TContainer>(
   (props, ref) => {
     const { className, size, fluid, children, ...attributes } = props;
 
-    const maxWidth = size && `max-w-${size}`;
+    const maxTWidth = size && `max-w-${size}`;
 
-    const classes = classnames(
+    const classes = clsx(
       'sui--container px-4 w-full',
       { 'max-w-6xl': !size && !fluid },
       { 'mx-auto': !fluid },
-      maxWidth,
-      className,
+      maxTWidth,
+      className
     );
 
     return (
@@ -28,12 +28,12 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         {children}
       </div>
     );
-  },
+  }
 );
 
 Container.displayName = 'Container';
 Container.defaultProps = {
-  size: '6xl'
-}
+  size: '6xl',
+};
 
 export default Container;

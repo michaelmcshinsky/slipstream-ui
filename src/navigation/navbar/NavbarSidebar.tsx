@@ -1,19 +1,19 @@
 import React, { forwardRef } from 'react';
-import { Drawer, DrawerProps } from '../../';
+import { Drawer, TDrawer } from '../../';
 import { useNav } from './NavContext';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface NavbarSidebarProps extends DrawerProps {}
+export type TNavbarSidebar = TDrawer & {}
 
 export type NavBarSidebarElement = {
   toggle?: () => void;
 };
 
-export const NavbarSidebar = forwardRef<NavBarSidebarElement, NavbarSidebarProps>(
+export const NavbarSidebar = forwardRef<NavBarSidebarElement, TNavbarSidebar>(
   ({ children, className, direction, custom, full, ...props }, ref) => {
     const nav = useNav();
 
-    const classes = classNames('sui--navbar-sidebar', className);
+    const classes = clsx('sui--navbar-sidebar', className);
 
     return (
       <Drawer ref={ref} className={classes} {...nav} {...props}>

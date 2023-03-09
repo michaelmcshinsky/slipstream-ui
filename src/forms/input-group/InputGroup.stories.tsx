@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   InputGroup as InputGroupComponent,
-  InputGroupProps,
+  TInputGroup,
   SlipstreamProvider,
 } from '../../';
 import { Input } from '../input';
@@ -16,9 +16,9 @@ export default {
   },
 } as Meta;
 
-const Template: Story<InputGroupProps> = (args) => (
-  <SlipstreamProvider dark>
-    <div className="p-4 bg-gray-900">
+const Template: Story<TInputGroup> = (args) => (
+  <SlipstreamProvider>
+    <div className="p-4">
       <InputGroupComponent {...args}>
         <InputGroupComponent.Prepend>$</InputGroupComponent.Prepend>
         <Input/>

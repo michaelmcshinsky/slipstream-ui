@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface RowProps {
+export type TRow = {
   children?: ReactNode;
   className?: string;
 }
 
-export const Row = forwardRef<HTMLDivElement, RowProps>(
+export const Row = forwardRef<HTMLDivElement, TRow>(
   ({ children, className, ...props }, ref) => {
-    const classes = classNames('sui--row flex flex-wrap -mx-2', className);
+    const classes = clsx('sui--row flex flex-wrap -mx-2', className);
 
     return (
       <div ref={ref} className={classes} {...props}>

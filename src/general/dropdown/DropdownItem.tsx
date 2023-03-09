@@ -1,27 +1,26 @@
 import React, { ReactNode, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface DropdownItemProps {
+export type TDropdownItem = {
   children?: ReactNode;
   className?: string;
   tag?: any;
-}
+};
 
-export const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
+export const DropdownItem = forwardRef<HTMLElement, TDropdownItem>(
   ({ children, className, tag: Tag, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--dropdown-item',
       'px-2 py-1 leading-tight',
-      'dark:text-gray-300 dark:hover:text-white',
       className
-    )
+    );
 
     return (
       <Tag ref={ref} className={classes} {...props}>
         {children}
       </Tag>
     );
-  },
+  }
 );
 
 DropdownItem.displayName = 'DropdownItem';

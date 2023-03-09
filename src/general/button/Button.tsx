@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import theme from '../../theme/default';
 
 enum ButtonEnum {
@@ -17,8 +17,10 @@ enum Type {
   submit = 'submit',
 }
 
-export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
+export type TButton = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'onClick'
+> & {
   children?: ReactNode;
   className?: string;
   color?: keyof typeof ButtonEnum;
@@ -33,14 +35,14 @@ export interface ButtonProps
   type?: keyof typeof Type;
   flush?: boolean;
   block?: boolean;
-}
+};
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (props: ButtonProps, ref: any) => {
+export const Button = forwardRef<HTMLButtonElement, TButton>(
+  (props: TButton, ref: any) => {
     let { tag: Tag } = props;
     const { children, className, color, size, flush, block, ...attrs } = props;
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--button',
       `sui--button-color_${color}`,
       flush

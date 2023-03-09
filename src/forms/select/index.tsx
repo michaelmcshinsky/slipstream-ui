@@ -1,3 +1,3 @@
-export { Select, SelectProps } from './Select';
-export { SelectOption, SelectOptionProps } from './SelectOption';
-export { SelectOptionGroup, SelectOptionGroupProps } from './SelectOptionGroup';
+export * from './Select';
+export * from './SelectOption';
+export * from './SelectOptionGroup';

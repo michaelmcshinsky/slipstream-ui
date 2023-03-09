@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Heading as HeadingComponent, HeadingProps } from './Heading';
+import { Heading as HeadingComponent, THeading } from './Heading';
 
 export default {
   title: 'Components/Elements/Heading',
@@ -18,7 +18,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<HeadingProps> = ({ ...args }) => (
+const Template: Story<THeading> = ({ ...args }) => (
   <HeadingComponent {...args}>
     Heading: {args.level.toUpperCase()}
   </HeadingComponent>

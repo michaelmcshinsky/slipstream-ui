@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface AvatarGroupProps {
+export type TAvatarGroup = {
   children?: ReactNode;
   className?: string;
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
@@ -9,15 +9,15 @@ export interface AvatarGroupProps {
   textSize?: string;
 }
 
-export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
+export const AvatarGroup = forwardRef<HTMLDivElement, TAvatarGroup>(
   ({ children, className, size, rounded, textSize, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--avatar-group',
       'flex items-center space-x-8',
-      classNames
+      clsx
     );
 
-    const innerClasses = classNames(
+    const innerClasses = clsx(
       'flex overflow-hidden',
       { '-space-x-2': size === 'sm' },
       { '-space-x-5': size === 'md' },
@@ -29,7 +29,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
       .filter(Boolean)
       .map((child: any) => {
         if (child?.type?.displayName?.includes('Avatar')) {
-          const classes = classNames(
+          const classes = clsx(
             'border-solid border-white',
             { border: size === 'sm' },
             { 'border-2': size !== 'sm' }

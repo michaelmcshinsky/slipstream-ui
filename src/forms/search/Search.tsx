@@ -1,10 +1,10 @@
 import React, { useState, forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useDebounce, useDidMount } from '../../utils';
 import { Input } from '../../';
 import { Search as SearchIcon } from '../../assets/icons';
 
-export interface SearchProps {
+export type TSearch = {
   className?: string;
   customIcon: ReactNode;
   defaultValue?: any;
@@ -15,9 +15,9 @@ export interface SearchProps {
   inputClassName?: string;
   inputProps?: any;
   onChange?: (value: string) => void;
-}
+};
 
-export const Search = forwardRef<HTMLDivElement, SearchProps>(
+export const Search = forwardRef<HTMLDivElement, TSearch>(
   (
     {
       className,
@@ -47,18 +47,18 @@ export const Search = forwardRef<HTMLDivElement, SearchProps>(
       setSearchText(e.target.value);
     }
 
-    const classes = classNames('sui--search', 'relative', className);
-    const inputClasses = classNames({ 'pr-7': icon }, inputClassName);
+    const classes = clsx('sui--search', 'relative', className);
+    const inputClasses = clsx({ 'pr-7': icon }, inputClassName);
 
     return (
       <div ref={ref} className={classes} {...props}>
         <Input
+          {...inputProps}
           ref={innerRef}
           type="text"
           className={inputClasses}
           defaultValue={searchText}
           onChange={_handleChange}
-          {...inputProps}
         />
         {!!icon && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-2">

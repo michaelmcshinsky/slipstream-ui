@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   CardHeader as CardHeaderComponent,
-  CardHeaderProps,
+  TCardHeader,
 } from './CardHeader';
 import { CardTitle } from './CardTitle';
 
@@ -22,7 +22,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardHeaderProps> = ({ children, ...args }) => (
+const Template: Story<TCardHeader> = ({ children, ...args }) => (
   <CardHeaderComponent {...args}>
     <CardTitle>{children}</CardTitle>
   </CardHeaderComponent>

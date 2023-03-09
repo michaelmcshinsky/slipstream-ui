@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Search as SearchComponent, SearchProps } from '../../';
+import { Search as SearchComponent, TSearch } from './Search';
 
 export default {
   title: 'Components/Forms',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SearchProps> = args => <SearchComponent {...args} />;
+const Template: Story<TSearch> = args => <SearchComponent {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

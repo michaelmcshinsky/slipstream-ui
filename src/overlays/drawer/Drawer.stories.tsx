@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Drawer, DrawerProps } from './Drawer';
+import { Drawer, TDrawer } from './Drawer';
 import { Button } from '../..';
 
 export default {
@@ -12,7 +12,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<DrawerProps> = ({ ...args }) => {
+const Template: Story<TDrawer> = ({ ...args }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-center justify-center">

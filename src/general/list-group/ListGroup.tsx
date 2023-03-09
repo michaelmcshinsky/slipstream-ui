@@ -1,8 +1,8 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { ListGroupItem, ListGroupItemProps } from './ListGroupItem';
+import clsx from 'clsx';
+import { ListGroupItem, TListGroupItem } from './ListGroupItem';
 
-export interface ListGroupProps {
+export type TListGroup = {
   borderless?: boolean;
   children?: ReactNode;
   className?: string;
@@ -12,18 +12,17 @@ export interface ListGroupProps {
   rtl?: boolean;
   style?: object;
   tag?: any;
-}
+};
 
-interface ListGroupComponent
-  extends React.ForwardRefExoticComponent<
-    ListGroupProps & React.RefAttributes<HTMLElement>
-  > {
+type ListGroupComponent = React.ForwardRefExoticComponent<
+  TListGroup & React.RefAttributes<HTMLElement>
+> & {
   Item: React.ForwardRefExoticComponent<
-    ListGroupItemProps & React.RefAttributes<HTMLElement>
+    TListGroupItem & React.RefAttributes<HTMLElement>
   >;
-}
+};
 
-export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
+export const ListGroup = forwardRef<HTMLElement, TListGroup>(
   (
     {
       borderless,
@@ -39,12 +38,14 @@ export const ListGroup = forwardRef<HTMLElement, ListGroupProps>(
     },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--listgroup',
       'flex flex-col list-none p-0',
       ' border divide-y border:border-none after:border-none',
-      borderless ? 'divide-transparent' : 'divide-gray-300 dark:divide-gray-500',
-      flush ? 'border-t-transparent border-r-0 border-b-transparent border-l-0' : 'border-gray-300 dark:border-gray-500 rounded',
+      borderless ? 'divide-transparent' : 'divide-gray-300',
+      flush
+        ? 'border-t-transparent border-r-0 border-b-transparent border-l-0'
+        : 'border-gray-300 rounded',
       className
     );
 

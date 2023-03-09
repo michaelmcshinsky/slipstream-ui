@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Select as SelectComponent, SelectProps } from './Select';
+import { Select as SelectComponent, TSelect } from './Select';
 
 export default {
   title: 'Components/Forms',
@@ -18,7 +18,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SelectProps> = args => <SelectComponent {...args} >
+const Template: Story<TSelect> = args => <SelectComponent {...args} >
   <SelectComponent.OptionGroup label="Military Alphabet">
     <SelectComponent.Option value="alpha">Alpha</SelectComponent.Option>
     <SelectComponent.Option value="bravo">Bravo</SelectComponent.Option>

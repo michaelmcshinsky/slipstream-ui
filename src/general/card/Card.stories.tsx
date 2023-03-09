@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Card, CardProps, Button, SlipstreamProvider } from '../../';
+import { Card, TCard, Button, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/General/Card',
@@ -18,8 +18,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardProps> = ({ ...args }) => (
-  <SlipstreamProvider dark>
+const Template: Story<TCard> = ({ ...args }) => (
+  <SlipstreamProvider>
     <Card {...args}>
       <Card.Header>
         <Card.Title>Card Title</Card.Title>

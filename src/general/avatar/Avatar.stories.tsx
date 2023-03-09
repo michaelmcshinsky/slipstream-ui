@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Avatar, AvatarProps } from './Avatar';
+import { Avatar, TAvatar } from './Avatar';
 
 export default {
   title: 'Components/General/Avatar',
@@ -29,7 +29,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<AvatarProps> = ({
+const Template: Story<TAvatar> = ({
   label,
   src,
   size,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ModalHeader as Header, ModalHeaderProps } from './ModalHeader';
+import { ModalHeader as Header, TModalHeader } from './ModalHeader';
 
 export default {
   title: 'Components/Overlays/Modal',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ModalHeaderProps> = (args) => {
+const Template: Story<TModalHeader> = args => {
   function _toggle(e) {
     console.log('e', e);
     alert('Closing Modal!');
@@ -26,5 +26,4 @@ export const ModalHeader = Template.bind({});
 
 ModalHeader.args = {
   title: 'Modal Title',
-  children: <p>Children</p>
 };
