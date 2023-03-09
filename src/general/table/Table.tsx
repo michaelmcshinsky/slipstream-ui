@@ -1,16 +1,16 @@
 import React, { ReactNode, forwardRef } from 'react';
-import classNames from 'classnames';
-import TableHead, { TableHeadProps } from './TableHead';
-import TableHeader, { TableHeaderProps } from './TableHeader';
-import TableBody, { TableBodyProps } from './TableBody';
-import TableRow, { TableRowProps } from './TableRow';
-import TableCaption, { TableCaptionProps } from './TableCaption';
-import TableCell, { TableCellProps } from './TableCell';
-import TableCol, { TableColProps } from './TableCol';
-import TableColGroup, { TableColGroupProps } from './TableColGroup';
-import TableFooter, { TableFooterProps } from './TableFooter';
+import clsx from 'clsx';
+import TableHead, { TTableHead } from './TableHead';
+import TableHeader, { TTableHeader } from './TableHeader';
+import TableBody, { TTableBody } from './TableBody';
+import TableRow, { TTableRow } from './TableRow';
+import TableCaption, { TTableCaption } from './TableCaption';
+import TableCell, { TTableCell } from './TableCell';
+import TableCol, { TTableCol } from './TableCol';
+import TableColGroup, { TTableColGroup } from './TableColGroup';
+import TableFooter, { TTableFooter } from './TableFooter';
 
-export interface TableProps {
+export type TTable = {
   className?: string;
   children?: ReactNode;
   tag?: any;
@@ -21,42 +21,41 @@ export interface TableProps {
   hover?: boolean | 'row' | 'cell';
   borderless?: boolean;
   custom?: boolean;
-}
+};
 
-interface TableComponent
-  extends React.ForwardRefExoticComponent<
-    TableProps & React.RefAttributes<HTMLDivElement>
-  > {
+type TableComponent = React.ForwardRefExoticComponent<
+  TTable & React.RefAttributes<HTMLDivElement>
+> & {
   Head: React.ForwardRefExoticComponent<
-    TableHeadProps & React.RefAttributes<HTMLTableSectionElement>
+    TTableHead & React.RefAttributes<HTMLTableSectionElement>
   >;
   Header: React.ForwardRefExoticComponent<
-    TableHeaderProps & React.RefAttributes<HTMLTableCellElement>
+    TTableHeader & React.RefAttributes<HTMLTableCellElement>
   >;
   Body: React.ForwardRefExoticComponent<
-    TableBodyProps & React.RefAttributes<HTMLTableSectionElement>
+    TTableBody & React.RefAttributes<HTMLTableSectionElement>
   >;
   Row: React.ForwardRefExoticComponent<
-    TableRowProps & React.RefAttributes<HTMLTableRowElement>
+    TTableRow & React.RefAttributes<HTMLTableRowElement>
   >;
   Cell: React.ForwardRefExoticComponent<
-    TableCellProps & React.RefAttributes<HTMLTableCellElement>
+    TTableCell & React.RefAttributes<HTMLTableCellElement>
   >;
   Footer: React.ForwardRefExoticComponent<
-    TableFooterProps & React.RefAttributes<HTMLTableSectionElement>
+    TTableFooter & React.RefAttributes<HTMLTableSectionElement>
   >;
   Caption: React.ForwardRefExoticComponent<
-    TableCaptionProps & React.RefAttributes<HTMLTableCaptionElement>
+    TTableCaption & React.RefAttributes<HTMLTableCaptionElement>
   >;
   Col: React.ForwardRefExoticComponent<
-    TableColProps & React.RefAttributes<HTMLTableColElement>
+    TTableCol & React.RefAttributes<HTMLTableColElement>
   >;
   ColGroup: React.ForwardRefExoticComponent<
-    TableColGroupProps & React.RefAttributes<HTMLTableColElement>
+    TTableColGroup & React.RefAttributes<HTMLTableColElement>
   >;
-}
+};
 
-export const Table = forwardRef<HTMLElement, TableProps>(
+export const Table = forwardRef<HTMLElement, TTable>(
   (
     {
       className,
@@ -71,7 +70,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
       custom,
       ...props
     },
-    ref,
+    ref
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -95,12 +94,12 @@ export const Table = forwardRef<HTMLElement, TableProps>(
         return child;
       });
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--table table',
       'w-full border-collapse table-auto',
       !custom && border && 'border border-gray-200',
       !custom && (align ? `align-${align}` : 'align-top'),
-      className,
+      className
     );
 
     return (
@@ -108,7 +107,7 @@ export const Table = forwardRef<HTMLElement, TableProps>(
         {renderedChildren}
       </Tag>
     );
-  },
+  }
 ) as TableComponent;
 
 Table.Body = TableBody;

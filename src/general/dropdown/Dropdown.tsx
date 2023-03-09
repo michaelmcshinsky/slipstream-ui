@@ -1,13 +1,13 @@
 import React, { useState, useEffect, ReactNode, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { usePopper } from 'react-popper';
 import { useClickOutside } from '../../utils';
 import { ComputedPlacement } from '@popperjs/core/lib/enums';
-import DropdownMenu, { DropdownMenuProps } from './DropdownMenu';
-import DropdownItem, { DropdownItemProps } from './DropdownItem';
-import DropdownToggle, { DropdownToggleProps } from './DropdownToggle';
+import DropdownMenu, { TDropdownMenu } from './DropdownMenu';
+import DropdownItem, { TDropdownItem } from './DropdownItem';
+import DropdownToggle, { TDropdownToggle } from './DropdownToggle';
 
-export interface DropdownProps {
+export type TDropdown = {
   children?: ReactNode;
   className?: string;
   direction?: DirectionTypes;
@@ -18,135 +18,134 @@ export interface DropdownProps {
   onClick?: (state: object) => void;
   right?: RightTypes;
   rtl?: boolean;
-}
+};
 
-interface DropdownComponent
-  extends React.ForwardRefExoticComponent<
-    DropdownProps & React.RefAttributes<HTMLDivElement>
-  > {
+type DropdownComponent = React.ForwardRefExoticComponent<
+  TDropdown & React.RefAttributes<HTMLDivElement>
+> & {
   Item: React.ForwardRefExoticComponent<
-    DropdownItemProps & React.RefAttributes<HTMLElement>
+    TDropdownItem & React.RefAttributes<HTMLElement>
   >;
   Menu: React.ForwardRefExoticComponent<
-    DropdownMenuProps & React.RefAttributes<HTMLElement>
+    TDropdownMenu & React.RefAttributes<HTMLElement>
   >;
   Toggle: React.ForwardRefExoticComponent<
-    DropdownToggleProps & React.RefAttributes<HTMLElement>
+    TDropdownToggle & React.RefAttributes<HTMLElement>
   >;
-}
+};
 
 type DirectionTypes = 'top' | 'right' | 'bottom' | 'left';
 type RightTypes = 'start' | 'end';
 
-export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  (props, ref) => {
-    const [state, setState] = useState({
-      isOpen: false,
-      toggleID: Math.random().toString(),
-    });
-    const {
-      children,
-      className,
-      direction,
-      disableOutsideClick,
-      icon,
-      isOpen,
-      offset,
-      onClick,
-      right,
-      rtl,
-      ...attrs
-    } = props;
+export const Dropdown = forwardRef<HTMLDivElement, TDropdown>((props, ref) => {
+  const [state, setState] = useState({
+    isOpen: false,
+    toggleID: Math.random().toString(),
+  });
+  const {
+    children,
+    className,
+    direction,
+    disableOutsideClick,
+    icon,
+    isOpen,
+    offset,
+    onClick,
+    right,
+    rtl,
+    ...attrs
+  } = props;
 
-    const offsetModifier = {
-      name: 'offset',
-      options: {
-        offset: [
-          direction === 'left' || direction === 'right' ? 0 : 0,
-          direction === 'top' ||
-          direction === 'bottom' ||
-          ((direction === 'left' || direction === 'right') &&
-            (right === 'start' || right === 'end'))
-            ? offset
-            : 0,
-        ],
-      },
-    };
+  const offsetModifier = {
+    name: 'offset',
+    options: {
+      offset: [
+        direction === 'left' || direction === 'right' ? 0 : 0,
+        direction === 'top' ||
+        direction === 'bottom' ||
+        ((direction === 'left' || direction === 'right') &&
+          (right === 'start' || right === 'end'))
+          ? offset
+          : 0,
+      ],
+    },
+  };
 
-    const placement: string =
-      direction && right ? `${direction}-${right}` : 'bottom-start';
-    const computedPlacement: ComputedPlacement = placement as ComputedPlacement;
+  const placement: string =
+    direction && right ? `${direction}-${right}` : 'bottom-start';
+  const computedPlacement: ComputedPlacement = placement as ComputedPlacement;
 
-    const [outsideRef, hasClickedOutside, setOutside] = useClickOutside(state.toggleID);
-    const [popperElement, setPopperElement] = useState(null);
-    const [referenceElement, setReferenceElement] = useState(null);
-    const { styles, attributes } = usePopper(referenceElement, popperElement, {
-      strategy: 'fixed',
-      placement: computedPlacement,
-      modifiers: [offsetModifier],
-    });
+  const [outsideRef, hasClickedOutside, setOutside] = useClickOutside(
+    state.toggleID
+  );
+  const [popperElement, setPopperElement] = useState(null);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    strategy: 'fixed',
+    placement: computedPlacement,
+    modifiers: [offsetModifier],
+  });
 
-    useEffect(() => {
-      if (onClick) {
-        onClick(state);
-      }
-      if (
-        hasClickedOutside &&
-        (disableOutsideClick === false || !disableOutsideClick)
-      ) {
-        setState({ ...state, isOpen: false });
-        setOutside(false);
-      }
-    }, [hasClickedOutside]);
-
-    useEffect(() => {
-      setState((prev) => ({ ...prev, isOpen }));
-    }, [isOpen]);
-
-    function _handleToggle() {
-      if (isOpen === undefined || isOpen === null) {
-        setState((prev) => ({ ...prev, isOpen: !state.isOpen }));
-      }
+  useEffect(() => {
+    if (onClick) {
+      onClick(state);
     }
+    if (
+      hasClickedOutside &&
+      (disableOutsideClick === false || !disableOutsideClick)
+    ) {
+      setState({ ...state, isOpen: false });
+      setOutside(false);
+    }
+  }, [hasClickedOutside]);
 
-    const renderedChildren = React.Children.toArray(children)
-      .filter(Boolean)
-      .map((child: any) => {
-        if (child?.type?.displayName?.includes?.('DropdownToggle')) {
-          return React.cloneElement(child, {
-            ref: setReferenceElement,
-            onClick: _handleToggle,
-            'data-dropdown': state.toggleID,
-            dataDropdown: state.toggleID,
-            icon: icon,
-            rtl: rtl,
-          });
-        }
-        if (child?.type?.displayName?.includes?.('DropdownMenu')) {
-          return React.cloneElement(child, {
-            outsideRef: outsideRef,
-            setPopperElement: setPopperElement,
-            styles: styles,
-            attributes: attributes,
-            isOpen: state.isOpen,
-          });
-        }
-        return child;
-      });
+  useEffect(() => {
+    setState((prev) => ({ ...prev, isOpen }));
+  }, [isOpen]);
 
-    const classes = classNames(
-      'sui--dropdown relative inline-block',
-      { 'z-10': !className?.includes('z-') },
-      className,
-    );
+  function _handleToggle() {
+    if (isOpen === undefined || isOpen === null) {
+      setState((prev) => ({ ...prev, isOpen: !state.isOpen }));
+    }
+  }
 
-    return (
-      <div ref={ref} className={classes} {...attrs}>
-        {renderedChildren}
-      </div>
-    );
-  },
-) as DropdownComponent;
+  const renderedChildren = React.Children.toArray(children)
+    .filter(Boolean)
+    .map((child: any) => {
+      if (child?.type?.displayName?.includes?.('DropdownToggle')) {
+        return React.cloneElement(child, {
+          ref: setReferenceElement,
+          onClick: _handleToggle,
+          'data-dropdown': state.toggleID,
+          dataDropdown: state.toggleID,
+          icon: icon,
+          rtl: rtl,
+        });
+      }
+      if (child?.type?.displayName?.includes?.('DropdownMenu')) {
+        return React.cloneElement(child, {
+          outsideRef: outsideRef,
+          setPopperElement: setPopperElement,
+          styles: styles,
+          attributes: attributes,
+          isOpen: state.isOpen,
+        });
+      }
+      return child;
+    });
+
+  const classes = clsx(
+    'sui--dropdown relative inline-block',
+    { 'z-10': !className?.includes('z-') },
+    className
+  );
+
+  return (
+    <div ref={ref} className={classes} {...attrs}>
+      {renderedChildren}
+    </div>
+  );
+}) as DropdownComponent;
 
 Dropdown.displayName = 'Dropdown';
 Dropdown.Item = DropdownItem;

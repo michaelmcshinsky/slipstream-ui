@@ -1,4 +1,4 @@
-export { Check } from './Check';
-export { ChevronDown } from './ChevronDown';
-export { Close } from './Close';
-export { Search } from './Search';
+export * from './Check';
+export * from './ChevronDown';
+export * from './Close';
+export * from './Search';

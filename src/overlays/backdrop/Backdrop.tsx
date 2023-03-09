@@ -1,8 +1,8 @@
 import React, { useState, useEffect, forwardRef, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface BackdropProps {
+export type TBackdrop = {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
@@ -26,7 +26,7 @@ export interface BackdropProps {
     | number;
 }
 
-export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
+export const Backdrop = forwardRef<HTMLDivElement, TBackdrop>(
   (
     {
       children,
@@ -57,7 +57,7 @@ export const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
       }
     }, [isOpen]);
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--backdrop',
       'fixed bg-black bg-opacity-50',
       'transition-opacity transform ease-in-out',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   FieldSet as FieldSetComponent,
-  FieldSetProps,
+  TFieldSet,
   FieldSetLegend,
   FormGroup,
   Label,
@@ -18,7 +18,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<FieldSetProps> = ({ children, ...args }) => (
+const Template: Story<TFieldSet> = ({ children, ...args }) => (
   <FieldSetComponent {...args}>
     <FieldSetLegend>I am Legend</FieldSetLegend>
     <FormGroup>

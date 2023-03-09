@@ -1,12 +1,12 @@
 import React, { useState, useEffect, forwardRef, ReactNode } from 'react';
 import { default as ReactModal, Styles } from 'react-modal';
-import classnames from 'classnames';
-import { ModalBody, ModalBodyProps } from './ModalBody';
-import { ModalButton, ModalButtonProps } from './ModalButton';
-import { ModalFooter, ModalFooterProps } from './ModalFooter';
-import { ModalHeader, ModalHeaderProps } from './ModalHeader';
+import clsx from 'clsx';
+import { ModalBody, TModalBody } from './ModalBody';
+import { ModalButton, TModalButton } from './ModalButton';
+import { ModalFooter, TModalFooter } from './ModalFooter';
+import { ModalHeader, TModalHeader } from './ModalHeader';
 
-export interface ModalProps {
+export type TModal = {
   bodyClassName?: string;
   border?: boolean;
   children?: ReactNode;
@@ -22,25 +22,25 @@ export interface ModalProps {
   toggle?: () => void;
 }
 
-interface ModalComponent
-  extends React.ForwardRefExoticComponent<
-    ModalProps & React.RefAttributes<HTMLDivElement>
-  > {
+type ModalComponent
+  = React.ForwardRefExoticComponent<
+    TModal & React.RefAttributes<HTMLDivElement>
+  > & {
   Body: React.ForwardRefExoticComponent<
-    ModalBodyProps & React.RefAttributes<HTMLDivElement>
+    TModalBody & React.RefAttributes<HTMLDivElement>
   >;
   Button: React.ForwardRefExoticComponent<
-    ModalButtonProps & React.RefAttributes<HTMLButtonElement>
+    TModalButton & React.RefAttributes<HTMLButtonElement>
   >;
   Footer: React.ForwardRefExoticComponent<
-    ModalFooterProps & React.RefAttributes<HTMLDivElement>
+    TModalFooter & React.RefAttributes<HTMLDivElement>
   >;
   Header: React.ForwardRefExoticComponent<
-    ModalHeaderProps & React.RefAttributes<HTMLDivElement>
+    TModalHeader & React.RefAttributes<HTMLDivElement>
   >;
 }
 
-export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
+export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
   const {
     bodyClassName,
     border,
@@ -97,7 +97,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     }
   }
 
-  const classes = classnames(
+  const classes = clsx(
     'sui--modal',
     'mx-auto my-auto w-full',
     { 'max-w-xs': size === 'xs' },
@@ -114,7 +114,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     className
   );
 
-  const overlayClasses = classnames(
+  const overlayClasses = clsx(
     'fixed inset-0 flex overflow-y-auto',
     'bg-black bg-opacity-50',
     { 'opacity-0': isClosing },
@@ -122,8 +122,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     overlayClassName
   );
 
-  const bodyClasses = classnames(
-    'bg-white dark:bg-gray-900 border border-solid border-gray-300 dark:border-gray-500 rounded',
+  const bodyClasses = clsx(
+    'bg-white border border-solid border-gray-300 rounded',
     bodyClassName
   );
 

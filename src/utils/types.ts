@@ -1,4 +1,4 @@
-export type SizeList = 
+export type TSize = 
 | 'xs'
 | 'sm'
 | 'md'
@@ -11,7 +11,7 @@ export type SizeList =
 | '6xl'
 | '7xl';
 
-export type SizeListFull =
+export type TSizeFull =
   | '0'
   | 'none'
   | 'xs'
@@ -35,7 +35,7 @@ export type SizeListFull =
   | 'screen-xl'
   | 'screen-2xl';
 
-export type OrderType =
+export type Torder =
   | '1'
   | '2'
   | '3'
@@ -53,7 +53,7 @@ export type OrderType =
   | 'none';
 
 // w-1/2
-export type Width = 
+export type TWidth = 
   | '0'
   | 'px'
   | '0.5'

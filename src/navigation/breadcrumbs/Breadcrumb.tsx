@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface BreadcrumbProps {
+export type TBreadcrumb = {
   className?: string;
   children?: ReactNode;
 }
 
-export const Breadcrumb = forwardRef<HTMLUListElement, BreadcrumbProps>(
+export const Breadcrumb = forwardRef<HTMLUListElement, TBreadcrumb>(
   ({ className, children, ...props }, ref) => {
-    const classes = classNames('sui--breadcrumbs-crumb', className);
+    const classes = clsx('sui--breadcrumbs-crumb', className);
 
     return (
       <ul ref={ref} className={classes} {...props}>

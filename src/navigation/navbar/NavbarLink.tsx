@@ -1,21 +1,17 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { TabSet, TabItemProps } from '../..';
+import clsx from 'clsx';
+import { TabSet, TTabItem } from '../..';
 
-export interface NavbarLinkProps extends TabItemProps {
+export type TNavbarLink = TTabItem & {
   custom?: boolean;
 }
 
-export const NavbarLink = forwardRef<HTMLDivElement, NavbarLinkProps>(
+export const NavbarLink = forwardRef<HTMLDivElement, TNavbarLink>(
   ({ children, className, custom, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-link',
       { 'text-blue-500': props.active },
       'p-2 cursor-pointer',
-      {
-        'dark:text-gray-300 dark:hover:text-white dark:active:text-white dark:focus:text-white':
-          !props.active && !custom,
-      },
       className
     );
 

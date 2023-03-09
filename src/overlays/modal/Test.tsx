@@ -2,13 +2,13 @@ import React from 'react';
 import { Modal } from './Modal';
 import { Input } from '../../forms'
 
-export interface TestProps {
+export type TTest = {
   isOpen: boolean;
   toggle: any;
   handleSave: any
 }
 
-export function Test({ isOpen, toggle, handleSave }: TestProps) {
+export function Test({ isOpen, toggle, handleSave }: TTest) {
   return (
     <Modal isOpen={isOpen} toggle={toggle}>
       <Modal.Header title="Modal Title" />

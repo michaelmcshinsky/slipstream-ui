@@ -1,8 +1,8 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useNav } from './NavContext';
 
-export interface NavbarTogglerProps {
+export type TNavbarToggler = {
   className?: string;
   custom?: boolean;
   iconOpen?: ReactNode;
@@ -10,7 +10,7 @@ export interface NavbarTogglerProps {
   sr?: string;
 }
 
-export const NavbarToggler = forwardRef<HTMLDivElement, NavbarTogglerProps>(
+export const NavbarToggler = forwardRef<HTMLDivElement, TNavbarToggler>(
   ({ className, custom, iconOpen, iconClose, sr, ...props }, ref) => {
     const nav = useNav();
 
@@ -65,18 +65,17 @@ export const NavbarToggler = forwardRef<HTMLDivElement, NavbarTogglerProps>(
       );
     }
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-toggler',
       'flex',
       !!nav?.mobile ? `${nav.mobile}:hidden` : 'md:hidden',
       className
     );
 
-    const buttonClasses = classNames(
+    const buttonClasses = clsx(
       'inline-flex items-center justify-center p-2 rounded-md',
       'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white',
       'transform-all duration-300 ease',
-      { 'dark:text-gray-300 text-gray-500': !custom }
     );
 
     return (

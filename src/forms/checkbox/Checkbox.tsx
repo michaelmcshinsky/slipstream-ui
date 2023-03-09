@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { Label, LabelProps } from '../label/Label';
+import clsx from 'clsx';
+import { Label, TLabel } from '../label/Label';
 import Input from '../input/Input';
 import theme from '../../theme/default';
 
@@ -12,7 +12,7 @@ enum CheckboxEnum {
   warning,
 }
 
-export interface CheckboxProps {
+export type TCheckbox = {
   children?: ReactNode;
   className?: string;
   color?: keyof typeof CheckboxEnum;
@@ -20,7 +20,7 @@ export interface CheckboxProps {
   disabled?: boolean;
   id?: string;
   invalid?: boolean;
-  labelProps?: LabelProps;
+  labelProps?: TLabel;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
   required?: boolean;
   rtl?: boolean;
@@ -28,7 +28,7 @@ export interface CheckboxProps {
   type?: string;
 }
 
-export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
+export const Checkbox = forwardRef<HTMLLabelElement, TCheckbox>(
   (props, ref) => {
     const {
       children,
@@ -47,7 +47,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       ...attrs
     } = props;
 
-    const inputClasses = classNames(
+    const inputClasses = clsx(
       'sui--checkbox',
       `sui--checkbox-color_${color}`,
       !custom && [
@@ -59,7 +59,7 @@ export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       ],
     );
 
-    const labelClasses = classNames(
+    const labelClasses = clsx(
       'select-none',
       !custom && [
         { 'cursor-not-allowed': disabled },

@@ -43,7 +43,14 @@ const slipstreamConfig = {
     },
     {
       pattern: /bg-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
-      variants: ['peer-checked', 'dark', 'group', 'group-hover', 'group-active', 'group-focus'],
+      variants: [
+        'peer-checked',
+        'dark',
+        'group',
+        'group-hover',
+        'group-active',
+        'group-focus',
+      ],
     },
     {
       pattern: /text-(black|white|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900)/,
@@ -70,39 +77,42 @@ const slipstreamConfig = {
       variants: ['sm', 'md', 'lg', 'xl', '2xl'],
     },
   ],
-  variants: {
-    extend: {
-      backgroundColor: [
-        'active',
-        'checked',
-        'even',
-        'focus',
-        'group-active',
-        'group-focus',
-        'group-hover',
-        'odd',
-      ],
-      borderColor: [
-        'active',
-        'checked',
-        'focus',
-        'group-focus',
-        'group-hover',
-        'group-hover',
-        'last',
-      ],
-      borderWidth: ['first', 'last', 'active', 'hover', 'focus'],
-      gridAutoColumns: ['hover', 'focus'],
-      outline: ['hover', 'active', 'focus'],
-      outlineWidth: ['hover', 'active', 'focus'],
-      outlineStyle: ['hover', 'active', 'focus'],
-      position: ['hover', 'active', 'focus'],
-      zIndex: ['hover', 'active', 'focus'],
-    },
-  },
   plugins: [
     require('@tailwindcss/forms'),
-    plugin(function ({ addComponents }) {
+    plugin(function ({ addComponents, addVariant }) {
+      addVariant('backgroundColor', [
+        '&:active',
+        '&:checked',
+        '&:even',
+        '&:focus',
+        '&:group-active',
+        '&:group-focus',
+        '&:group-hover',
+        '&:odd',
+      ]);
+      addVariant('borderColor', [
+        '&:active',
+        '&:checked',
+        '&:focus',
+        '&:group-focus',
+        '&:group-hover',
+        '&:group-hover',
+        '&:last',
+      ]);
+      addVariant('borderWidth', [
+        '&:first',
+        '&:last',
+        '&:active',
+        '&:hover',
+        '&:focus',
+      ]);
+      addVariant('gridAutoColumns', ['&:hover', '&:focus']);
+      addVariant('outline', ['&:hover', '&:active', '&:focus']);
+      addVariant('outlineWidth', ['&:hover', '&:active', '&:focus']);
+      addVariant('outlineStyle', ['&:hover', '&:active', '&:focus']);
+      addVariant('position', ['&:hover', '&:active', '&:focus']);
+      addVariant('zIndex', ['&:hover', '&:active', '&:focus']);
+
       addComponents({
         '.inline-flex': {
           display: 'inline-flex',
@@ -135,8 +145,8 @@ const slipstreamConfig = {
         },
         '.after\\:w-5::after': { content: '""', width: '1.25rem' },
         '.after\\:h-5::after': { content: '""', height: '1.25rem' },
-        '.after\\:w-6::after': { content: '""', width: '1.5rem' },
-        '.after\\:h-6::after': { content: '""', height: '1.5rem' },
+        '.after\\:w-6::after': { content: '""', width: '1.4rem' },
+        '.after\\:h-6::after': { content: '""', height: '1.4rem' },
         '.after\\:w-8::after': { content: '""', width: '2rem' },
         '.after\\:h-8::after': { content: '""', height: '2rem' },
         '.peer:checked ~ .peer-checked\\:bg-blue-500': {
@@ -180,6 +190,11 @@ const slipstreamConfig = {
           '--tw-translate-x': '.9rem',
           transform: 'matrix(1, 0, 0, 1, 16, 0)',
         },
+        '.peer:checked ~ .peer-checked\\:after\\:translate-x-5::after': {
+          content: '""',
+          '--tw-translate-x': '1.2rem',
+          transform: 'matrix(1, 0, 0, 1, 20, 0)',
+        },
         '.peer:checked ~ .peer-checked\\:after\\:translate-x-6::after': {
           content: '""',
           '--tw-translate-x': '1.4rem',
@@ -213,21 +228,7 @@ const slipstreamConfig = {
  * @return {object} new config object
  */
 function wrapper(tailwindConfig) {
-  console.log('tailwindConfig', tailwindConfig);
-  let purge;
-  if (Array.isArray(tailwindConfig.purge)) {
-    purge = {
-      content: tailwindConfig.purge,
-    };
-  } else {
-    purge = tailwindConfig.purge;
-  }
-  console.log(
-    deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
-      arrayMerge: arrayMergeFn,
-    })
-  );
-  return deepMerge({ ...tailwindConfig, purge }, slipstreamConfig, {
+  return deepMerge({ ...tailwindConfig }, slipstreamConfig, {
     arrayMerge: arrayMergeFn,
   });
 }

@@ -1,26 +1,26 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { renderedChildren } from './utils';
 
-export interface CardFooterProps {
+export type TCardFooter = {
   border?: boolean;
   children?: ReactNode;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
+export const CardFooter = forwardRef<HTMLDivElement, TCardFooter>(
   (props, ref) => {
     const { border, children, className, size, ...attributes } = props;
-    const classes = classnames(
+    const classes = clsx(
       'sui--card-footer',
-      'text-gray-700 dark:text-gray-300 dark:bg-gray-900 dark:border-gray-500',
+      'text-gray-700',
       'p-3 rounded-b flex items-center',
       { 'border-t border-solid': border },
       { 'px-3 py-2': size === 'sm' },
       { 'p-3': size === 'md' || !size },
       { 'p-4': size === 'lg' },
-      { 'border-gray-300 dark:border-gray-500': border },
+      { 'border-gray-300': border },
       className
     );
 

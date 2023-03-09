@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableBodyProps {
+export type TTableBody = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -9,21 +9,12 @@ export interface TableBodyProps {
   hover?: boolean | 'row' | 'cell';
   borderless?: boolean;
   custom?: boolean;
-}
+};
 
-export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
+export const TableBody = forwardRef<HTMLTableSectionElement, TTableBody>(
   (
-    {
-      className,
-      children,
-      size,
-      striped,
-      hover,
-      borderless,
-      custom,
-      ...props
-    },
-    ref,
+    { className, children, size, striped, hover, borderless, custom, ...props },
+    ref
   ) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
@@ -47,18 +38,14 @@ export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
         return child;
       });
 
-    const classes = classNames(
-      'sui--table-tbody',
-      'table-row-group',
-      className,
-    );
+    const classes = clsx('sui--table-tbody', 'table-row-group', className);
 
     return (
       <tbody ref={ref} className={classes} {...props}>
         {renderedChildren}
       </tbody>
     );
-  },
+  }
 );
 
 TableBody.displayName = 'TableBody';

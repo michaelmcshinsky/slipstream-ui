@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   Datalist as DatalistComponent,
-  DatalistProps,
+  TDatalist,
   SlipstreamProvider
 } from '../../';
 import { FormGroup } from '../form-group';
@@ -21,7 +21,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<DatalistProps> = ({ ...args }) => {
+const Template: Story<TDatalist> = ({ ...args }) => {
   const [value, setValue] = useState('');
 
   function _handleChange(event) {
@@ -29,8 +29,8 @@ const Template: Story<DatalistProps> = ({ ...args }) => {
   }
 
   return (
-    <SlipstreamProvider dark>
-      <div className="p-4 bg-gray-900">
+    <SlipstreamProvider>
+      <div className="p-4">
         <FormGroup>
           <DatalistComponent {...args} onChange={_handleChange} />
         </FormGroup>

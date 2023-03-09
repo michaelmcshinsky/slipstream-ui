@@ -1,1 +1,1 @@
-export { FormFeedback, FormFeedbackProps } from './FormFeedback';
+export * from './FormFeedback';

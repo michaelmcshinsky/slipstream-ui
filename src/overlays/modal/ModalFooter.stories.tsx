@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   ModalFooter as Footer,
-  ModalFooterProps,
+  TModalFooter,
   ModalButton,
 } from '../..';
 
@@ -15,7 +15,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ModalFooterProps> = (args) => {
+const Template: Story<TModalFooter> = (args) => {
   return (
     <Footer className="justify-between" {...args}>
       <ModalButton color="danger">Delete</ModalButton>

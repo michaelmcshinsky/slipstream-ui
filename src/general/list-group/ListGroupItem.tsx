@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface ListGroupItemProps {
+export type TListGroupItem = {
   active?: boolean;
   children?: ReactNode;
   className?: string;
@@ -13,7 +13,7 @@ export interface ListGroupItemProps {
   rtl?: boolean;
 }
 
-export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
+export const ListGroupItem = forwardRef<HTMLElement, TListGroupItem>(
   (
     {
       active,
@@ -29,21 +29,20 @@ export const ListGroupItem = forwardRef<HTMLElement, ListGroupItemProps>(
     },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--listgroup-item',
       'flex relative px-4 py-3 -mb-px last:mb-0',
       { 'first:rounded-t-sm last:rounded-b-sm': !flush },
       active
         ? [
             'active bg-blue-500 text-white cursor-pointer',
-            'dark:bg-blue-500 dark:text-white',
           ]
-          : 'bg-white dark:text-gray-300 dark:bg-gray-900',
+          : 'bg-white',
       {
-        'hover:bg-gray-200 dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer':
+        'hover:bg-gray-200 cursor-pointer':
           hover && !active && !disabled,
       },
-      { 'text-gray-400 dark:text-gray-400 cursor-not-allowed': disabled },
+      { 'text-gray-400 cursor-not-allowed': disabled },
       { 'text-left': Tag === 'button' },
       { 'align-start numbered': numbered },
       { 'flex-row-reverse': rtl },

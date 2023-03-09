@@ -1,7 +1,7 @@
 import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
-export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
+export type TAlert = HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode;
   className?: string;
   color?: string;
@@ -23,7 +23,7 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
 }
 
-export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
+export const Alert = forwardRef<HTMLDivElement, TAlert>((props, ref) => {
   const {
     className,
     color,
@@ -43,7 +43,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
       : '-100';
   const bgTheme = color ? `bg-${color}${colorTheme}` : `bg-blue${colorTheme}`;
 
-  const classes = classnames(
+  const classes = clsx(
     'sui--alert',
     `sui--alert-color_${color}`,
     'rounded-md flex flex-wrap items-center relative pr-10',
@@ -57,12 +57,12 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
     className
   );
 
-  const btnClasses = classnames(
+  const btnClasses = clsx(
     'absolute top-0 right-0 bottom-0 mr-2 my-2',
     size === 'sm' ? 'p-1' : 'py-1 px-2'
   );
 
-  const dimensions = classnames(
+  const dimensions = clsx(
     { '12': size === 'sm' },
     { '16': size === 'md' || !size },
     { '20': size === 'lg' }

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-export interface Params {
+export type Params = {
   border?: boolean;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';

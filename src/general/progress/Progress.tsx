@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface ProgressProps {
+export type TProgress = {
   className?: string;
   rounded?: boolean;
   percent?: string | number;
@@ -23,12 +23,12 @@ export interface ProgressProps {
     | number;
 }
 
-export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
+export const Progress = forwardRef<HTMLDivElement, TProgress>(
   (
     { className, rounded, percent, animate, size, color, shade, ...props },
     ref,
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       'w-full bg-gray-200',
       { 'rounded-full': rounded },
       { 'h-1.5': size === 'sm' },
@@ -37,7 +37,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
       className,
     );
 
-    const innerClasses = classNames(
+    const innerClasses = clsx(
       'w-full h-full ease-in-out duration-700',
       color ? `bg-${color}${color === 'black' || color === 'white' ? '' : `-${shade}`}` : 'bg-blue-500',
       { 'animate-pulse': animate },

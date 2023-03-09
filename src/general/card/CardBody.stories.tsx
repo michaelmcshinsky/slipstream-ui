@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CardBody as CardBodyComponent, CardBodyProps } from './CardBody';
+import { CardBody as CardBodyComponent, TCardBody } from './CardBody';
 
 export default {
   title: 'Components/General/Card',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardBodyProps> = ({ ...args }) => (
+const Template: Story<TCardBody> = ({ ...args }) => (
   <CardBodyComponent {...args}>
     <p>lorem ipsum dolor sit amet</p>
     <p>lorem ipsum dolor sit amet</p>

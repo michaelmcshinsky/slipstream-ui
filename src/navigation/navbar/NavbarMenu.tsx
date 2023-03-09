@@ -1,22 +1,22 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { NavbarCollapse, NavbarCollapseProps } from './NavbarCollapse';
+import clsx from 'clsx';
+import { NavbarCollapse, TNavbarCollapse } from './NavbarCollapse';
 import { useNav } from './NavContext';
 
-export interface NavbarMenuProps extends NavbarCollapseProps {
+export type TNavbarMenu = TNavbarCollapse & {
   children?: ReactNode;
   className?: string;
   offCanvas?: boolean;
-}
+};
 
-export const NavbarMenu = forwardRef<HTMLDivElement, NavbarMenuProps>(
+export const NavbarMenu = forwardRef<HTMLDivElement, TNavbarMenu>(
   ({ children, className, offCanvas, ...props }, ref) => {
     const nav = useNav();
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-menu',
       'py-2',
-      !nav?.custom && 'bg-white dark:bg-gray-900 dark:text-gray-300',
+      !nav?.custom && 'bg-white',
       nav?.size && `${nav.size}:hidden`,
       nav?.isOpen ? 'block' : 'hidden',
       { 'absolute w-full': offCanvas },

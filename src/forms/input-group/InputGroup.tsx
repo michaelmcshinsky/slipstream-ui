@@ -1,30 +1,29 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import InputGroupAppend, { InputGroupAppendProps } from './InputGroupAppend';
-import InputGroupPrepend, { InputGroupPrependProps } from './InputGroupPrepend';
+import clsx from 'clsx';
+import InputGroupAppend, { TInputGroupAppend } from './InputGroupAppend';
+import InputGroupPrepend, { TInputGroupPrepend } from './InputGroupPrepend';
 
-export interface InputGroupProps {
+export type TInputGroup = {
   children?: ReactNode;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   invalid?: boolean;
-}
+};
 
-interface InputGroupComponent
-  extends React.ForwardRefExoticComponent<
-    InputGroupProps & React.RefAttributes<HTMLDivElement>
-  > {
+type InputGroupComponent = React.ForwardRefExoticComponent<
+  TInputGroup & React.RefAttributes<HTMLDivElement>
+> & {
   Append: React.ForwardRefExoticComponent<
-    InputGroupAppendProps & React.RefAttributes<HTMLDivElement>
+    TInputGroupAppend & React.RefAttributes<HTMLDivElement>
   >;
   Prepend: React.ForwardRefExoticComponent<
-    InputGroupPrependProps & React.RefAttributes<HTMLDivElement>
+    TInputGroupPrepend & React.RefAttributes<HTMLDivElement>
   >;
-}
+};
 
-export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
+export const InputGroup = forwardRef<HTMLDivElement, TInputGroup>(
   ({ children, className, invalid, size, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--input-group',
       'flex items-center relative w-full group',
       className

@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
 
-export interface SelectOptionGroupProps {
+export type TSelectOptionGroup = {
   label?: string;
   disabled?: boolean;
   children?: ReactNode;
-}
+};
 
 export const SelectOptionGroup = forwardRef<
   HTMLOptGroupElement,
-  SelectOptionGroupProps
+  TSelectOptionGroup
 >(({ children, label, ...props }, ref) => {
   return (
     <optgroup ref={ref} label={label} {...props}>

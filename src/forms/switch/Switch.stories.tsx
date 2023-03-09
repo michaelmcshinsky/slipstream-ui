@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Switch as SwitchComponent, SwitchProps } from './Switch';
+import { Switch as SwitchComponent, TSwitch } from './Switch';
 
 export default {
   title: 'Components/Forms',
@@ -41,7 +41,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<SwitchProps> = ({ text, ...args }) => (
+const Template: Story<TSwitch> = ({ text, ...args }) => (
   <SwitchComponent {...args} />
 );
 

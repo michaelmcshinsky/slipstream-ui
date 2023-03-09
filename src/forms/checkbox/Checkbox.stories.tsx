@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Checkbox as CheckboxComponent, CheckboxProps, SlipstreamProvider } from '../..';
+import { Checkbox as CheckboxComponent, TCheckbox, SlipstreamProvider } from '../..';
 
 export default {
   title: 'Components/Forms',
@@ -24,7 +24,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CheckboxProps> = ({ checked, ...args }) => {
+const Template: Story<TCheckbox> = ({ checked, ...args }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const Template: Story<CheckboxProps> = ({ checked, ...args }) => {
   }
 
   return (
-    <SlipstreamProvider dark>
-      <div className="p-4 bg-gray-900">
+    <SlipstreamProvider>
+      <div className="p-4">
         <CheckboxComponent {...args} checked={isChecked} onChange={_handleCheck}>
           I am a checkbox
         </CheckboxComponent>

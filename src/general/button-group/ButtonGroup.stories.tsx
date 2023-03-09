@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ButtonGroup as ButtonGroupComponent, ButtonGroupProps } from './ButtonGroup';
+import { ButtonGroup as ButtonGroupComponent, TButtonGroup } from './ButtonGroup';
 import { Button } from '../button';
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ButtonGroupProps> = ({ ...args }) => (
+const Template: Story<TButtonGroup> = ({ ...args }) => (
   <ButtonGroupComponent {...args}>
     <Button color="default">Primary</Button>
     <Button color="default">Secondary</Button>

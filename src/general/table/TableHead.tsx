@@ -1,19 +1,16 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableHeadProps {
+export type TTableHead = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
   borderless?: boolean;
   custom?: boolean;
-}
+};
 
-export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
-  (
-    { className, children, size, borderless, custom, ...props },
-    ref,
-  ) => {
+export const TableHead = forwardRef<HTMLTableSectionElement, TTableHead>(
+  ({ className, children, size, borderless, custom, ...props }, ref) => {
     const renderedChildren = React.Children.toArray(children)
       .filter(Boolean)
       .map((child: any) => {
@@ -27,10 +24,10 @@ export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
         return child;
       });
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-thead',
-      !custom && 'table-head-group dark:text-gray-300',
-      className,
+      !custom && 'table-head-group',
+      className
     );
 
     return (
@@ -38,7 +35,7 @@ export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
         {renderedChildren}
       </thead>
     );
-  },
+  }
 );
 
 TableHead.displayName = 'TableHead';

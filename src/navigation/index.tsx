@@ -1,24 +1,2 @@
-export {
-  Nav,
-  NavProps,
-  Navbar,
-  NavbarProps,
-  NavbarBrand,
-  NavbarBrandProps,
-  NavbarCollapse,
-  NavbarCollapseProps,
-  NavbarDivider,
-  NavbarDividerProps,
-  NavbarList,
-  NavbarListProps,
-  NavbarLink,
-  NavbarLinkProps,
-  NavbarSidebar,
-  NavbarSidebarProps,
-  NavBarSidebarElement,
-  NavbarText,
-  NavbarTextProps,
-  NavbarToggler,
-  NavbarTogglerProps,
-} from './navbar';
-export { TabSet, TabSetProps, TabItem, TabItemProps } from './tabs';
+export *from './navbar';
+export * from './tabs';

@@ -1,11 +1,11 @@
 import React, { forwardRef, ReactNode } from 'react';
-import { Button, ButtonProps } from '../..';
+import { Button, TButton } from '../..';
 
-interface Callback {
+type Callback = {
   (): void;
 }
 
-export interface ModalButtonProps extends ButtonProps {
+export type TModalButton = Omit<TButton, 'onClick'> & {
   children?: ReactNode;
   close?: boolean;
   onClick?: (
@@ -15,7 +15,7 @@ export interface ModalButtonProps extends ButtonProps {
   toggle?: Callback;
 }
 
-export const ModalButton = forwardRef<HTMLButtonElement, ModalButtonProps>(
+export const ModalButton = forwardRef<HTMLButtonElement, TModalButton>(
   (props, ref) => {
     const { children, close, onClick, toggle, type, ...attrs } = props;
 

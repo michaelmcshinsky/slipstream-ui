@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Alert, AlertProps, SlipstreamProvider } from '../../';
+import { SlipstreamProvider } from '../../';
+import { Alert, TAlert } from './Alert';
 
 export default {
   title: 'Components/General/Alert',
@@ -36,13 +37,13 @@ export default {
   },
 } as Meta;
 
-const Template: Story<AlertProps> = ({
+const Template: Story<TAlert> = ({
   children,
   size,
   color,
   ...args
 }) => (
-  <SlipstreamProvider dark>
+  <SlipstreamProvider>
   <Alert {...args} size={size} color={color}>
     {children}
   </Alert>

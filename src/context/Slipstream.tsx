@@ -8,16 +8,16 @@ import React, {
   useState,
 } from 'react';
 
-export interface ThemeContextProps {
+export type TThemeContext = {
   dark?: boolean;
   toggle?: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextProps>({
+export const ThemeContext = createContext<TThemeContext>({
   dark: false,
 });
 
-export interface ProviderProps extends HTMLAttributes<HTMLDivElement> {
+export type ProviderProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   dark?: boolean;
 }

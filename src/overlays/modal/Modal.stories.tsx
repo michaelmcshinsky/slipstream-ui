@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Modal, ModalProps, Button, SlipstreamProvider } from '../../';
+import { Modal, TModal, Button, SlipstreamProvider } from '../../';
 import { Test } from './Test';
 
 export default {
@@ -30,7 +30,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ModalProps> = (args: any) => {
+const Template: Story<TModal> = (args: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function _toggle() {

@@ -1,17 +1,17 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
-export interface FormGroupProps {
+export type TFormGroup = {
   className?: string;
   children?: ReactNode;
   margin?: string;
   inline?: boolean;
 }
 
-export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
+export const FormGroup = forwardRef<HTMLDivElement, TFormGroup>(
   (props, ref) => {
     const { className, children, margin, inline, ...attributes } = props;
-    const classes = classnames(
+    const classes = clsx(
       'sui--form-group flex',
       inline ? 'flex-row items-center' : 'flex-col items-start',
       { 'mb-4': !margin },

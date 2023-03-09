@@ -1,7 +1,1 @@
-export {
-  SlipstreamProvider,
-  ThemeContextProps,
-  ProviderProps,
-  ThemeContext,
-  useTheme,
-} from './Slipstream';
+export * from './Slipstream';

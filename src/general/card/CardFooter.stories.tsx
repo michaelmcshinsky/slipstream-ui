@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   CardFooter as CardFooterComponent,
-  CardFooterProps,
+  TCardFooter,
 } from './CardFooter';
 import { Button } from '../button';
 
@@ -22,7 +22,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<CardFooterProps> = ({ ...args }) => (
+const Template: Story<TCardFooter> = ({ ...args }) => (
   <CardFooterComponent className="justify-between" {...args}>
     <Button color="danger">Delete</Button>
     <Button>Submit</Button>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
   TabSet as TabSetComponent,
-  TabSetProps,
+  TTabSet,
   TabItem,
   SlipstreamProvider,
 } from '../../';
@@ -23,7 +23,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TabSetProps> = ({ ...args }) => {
+const Template: Story<TTabSet> = ({ ...args }) => {
   const [active, setActive] = useState('1');
 
   function _handleChange(value: any) {
@@ -32,7 +32,7 @@ const Template: Story<TabSetProps> = ({ ...args }) => {
   }
 
   return (
-    <SlipstreamProvider dark>
+    <SlipstreamProvider>
       <TabSetComponent {...args} border active={active} onClick={_handleChange}>
         <TabSetComponent.Item value="1">
           Home

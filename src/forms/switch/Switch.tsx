@@ -1,8 +1,8 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { LabelProps } from '../label';
+import clsx from 'clsx';
+import { TLabel } from '../label';
 
-export interface SwitchProps extends LabelProps {
+export type TSwitch = TLabel & {
   checked?: boolean;
   children?: ReactNode;
   color?: string;
@@ -23,9 +23,9 @@ export interface SwitchProps extends LabelProps {
     | '900'
     | string
     | number;
-}
+};
 
-export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
+export const Switch = forwardRef<HTMLLabelElement, TSwitch>(
   (
     {
       checked,
@@ -44,22 +44,22 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
     },
     ref
   ) => {
-    const labelClasses = classNames(
+    const labelClasses = clsx(
       'sui--switch',
       'relative inline-flex items-center cursor-pointer',
       { 'opacity-50 cursor-not-allowed': disabled },
       className
     );
 
-    const spanClasses = classNames(
+    const spanClasses = clsx(
       'flex flex-shrink-0 items-center p-1',
       'border border-solid',
       !!checked === true
         ? `border-${color}${
             color === 'black' || color === 'white' ? '' : `-${shade}`
           }`
-        : 'dark:border-gray-300',
-      'duration-300 ease-in-out bg-gray-300 dark:bg-transparent rounded-full',
+        : '',
+      'duration-300 ease-in-out bg-gray-300 rounded-full',
       `peer-checked:bg-${color}${
         color === 'black' || color === 'white' ? '' : `-${shade}`
       }`,
@@ -79,12 +79,17 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
       }
     );
 
-    const labelInnnerClasses = classNames(
-      'text-gray-700 dark:text-gray-300',
+    const labelInnnerClasses = clsx(
+      'text-gray-700',
       { 'text-sm': size === 'sm' },
       { 'text-base': size === 'md' },
       { 'text-lg': size === 'lg' },
       right ? 'pl-2' : 'pr-2'
+    );
+
+    const inputClasses = clsx(
+      'absolute hidden w-full h-full -translate-x-1/2 rounded-md appearance-none left-1/2 peer',
+      inputsProps?.className
     );
 
     return (
@@ -93,15 +98,15 @@ export const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
           <span className={labelInnnerClasses}>{children}</span>
         ) : null}
         <input
-          ref={inputRef}
-          type="checkbox"
-          className="absolute hidden w-full h-full -translate-x-1/2 rounded-md appearance-none left-1/2 peer"
+          {...inputsProps}
           checked={checked}
-          onChange={onChange}
           disabled={disabled}
           required={required}
+          onChange={onChange}
+          className={inputClasses}
+          ref={inputRef}
+          type="checkbox"
           style={{ display: 'none' }}
-          {...inputsProps}
         />
         <span className={spanClasses}></span>
         {right && children ? (

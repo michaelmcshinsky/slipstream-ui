@@ -1,17 +1,17 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useNav } from './NavContext';
 import { Container } from '../../';
 
-export interface NavbarProps {
+export type TNavbar = {
   children?: ReactNode;
   className?: string;
 }
 
-export const Navbar = forwardRef<HTMLDivElement, NavbarProps>(
+export const Navbar = forwardRef<HTMLDivElement, TNavbar>(
   ({ children, className, ...props }, ref) => {
     const nav = useNav();
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar',
       'flex items-center flex-1',
       className

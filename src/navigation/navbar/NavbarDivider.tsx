@@ -1,17 +1,17 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface NavbarDividerProps {
+export type TNavbarDivider = {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
 }
 
-export const NavbarDivider = forwardRef<HTMLHRElement, NavbarDividerProps>(
+export const NavbarDivider = forwardRef<HTMLHRElement, TNavbarDivider>(
   ({ children, className, custom, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--navbar-divider',
-      { 'my-2 border-gray-300 dark:border-gray-500': !custom },
+      { 'my-2 border-gray-300': !custom },
       className
     );
 

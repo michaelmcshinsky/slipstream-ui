@@ -1,9 +1,9 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import theme from '../../theme/default';
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export type TInput
+  = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   autoComplete?: string;
   checked?: boolean | undefined;
   className?: string;
@@ -25,7 +25,7 @@ export interface InputProps
   value?: any;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, TInput>(
   (
     {
       className,
@@ -41,13 +41,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const classes = classNames(
+    const classes = clsx(
       { 'sui--input': Tag === 'input' },
       'relative',
       { 'w-full': !inline },
       !custom && [
         theme.form.base,
-        { 'dark:text-gray-300 dark:bg-transparent': !!props.checked !== true },
         invalid
           ? theme.form.invalid
           : success

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Nav as NavComponent, NavProps, SlipstreamProvider } from '../../';
+import { Nav as NavComponent, TNav, SlipstreamProvider } from '../../';
 
 export default {
   title: 'Components/Navigation/Nav',
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<NavProps> = ({ ...args }) => (
+const Template: Story<TNav> = ({ ...args }) => (
   <SlipstreamProvider>
     <div>
       <NavComponent {...args} disableScroll>

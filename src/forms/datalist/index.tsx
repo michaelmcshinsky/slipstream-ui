@@ -1,1 +1,1 @@
-export { Datalist, DatalistProps } from './Datalist';
+export * from './Datalist';

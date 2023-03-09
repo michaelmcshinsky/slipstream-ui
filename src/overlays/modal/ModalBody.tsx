@@ -1,16 +1,15 @@
 import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
-export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
+export type TModalBody = HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode;
   className?: string;
 }
 
-export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
+export const ModalBody = forwardRef<HTMLDivElement, TModalBody>(
   ({ className, children, ...props }, ref) => {
-    const classes = classnames(
-      'sui--modal-body',
-      'p-3 dark:bg-gray-900 dark:text-gray-300',
+    const classes = clsx(
+      'sui--modal-body p-3',
       className
     );
 

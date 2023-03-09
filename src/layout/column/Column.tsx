@@ -1,31 +1,37 @@
+import clsx from 'clsx';
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { Width, OrderType } from '../../utils';
+import { TWidth, Torder } from '../../utils';
 
-export interface ColProps {
+export type TCol = {
   children?: ReactNode;
   className?: string;
-  xs?: Width;
-  sm?: Width;
-  md?: Width;
-  lg?: Width;
-  xl?: Width;
-  order?: OrderType;
-}
+  custom?: boolean;
+  xs?: TWidth;
+  sm?: TWidth;
+  md?: TWidth;
+  lg?: TWidth;
+  xl?: TWidth;
+  order?: Torder;
+};
 
-export const Col = forwardRef<HTMLDivElement, ColProps>(
-  ({ children, className, xs, sm, md, lg, xl, order, ...props }, ref) => {
-    const classes = classNames(
+export const Col = forwardRef<HTMLDivElement, TCol>(
+  (
+    { children, className, custom, xs, sm, md, lg, xl, order, ...props },
+    ref
+  ) => {
+    const classes = clsx(
       'sui--column',
-      'w-full px-2',
-      xs && `xs:w-${xs}`,
-      sm && `sm:w-${sm}`,
-      md && `md:w-${md}`,
-      lg && `lg:w-${lg}`,
-      xl && `xl:w-${xl}`,
-      { 'flex-1 max-w-full': !xs && !sm && !md && !lg && !xl },
+      !custom && [
+        'w-full px-2',
+        xs && `xs:w-${xs}`,
+        sm && `sm:w-${sm}`,
+        md && `md:w-${md}`,
+        lg && `lg:w-${lg}`,
+        xl && `xl:w-${xl}`,
+        { 'flex-1 max-w-full': !xs && !sm && !md && !lg && !xl },
+      ],
       order && `order-${order}`,
-      className,
+      className
     );
 
     return (
@@ -33,7 +39,7 @@ export const Col = forwardRef<HTMLDivElement, ColProps>(
         {children}
       </div>
     );
-  },
+  }
 );
 
 Col.displayName = 'Col';

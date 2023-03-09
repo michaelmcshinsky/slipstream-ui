@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface TableRowProps {
+export type TTableRow = {
   className?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -10,9 +10,9 @@ export interface TableRowProps {
   active?: boolean;
   borderless?: boolean;
   custom?: boolean;
-}
+};
 
-export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
+export const TableRow = forwardRef<HTMLTableRowElement, TTableRow>(
   (
     {
       className,
@@ -49,17 +49,16 @@ export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
         return child;
       });
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--table-tr',
       !custom && [
         'table-row',
         striped && striped !== 'odd' && 'even:bg-gray-100',
         striped && striped === 'odd' && 'odd:bg-gray-100',
-        active ? 'active bg-gray-200 dark:text-gray-700' : 'dark:text-gray-300',
-        hover && 'dark:hover:text-gray-700',
+        active && 'active bg-gray-200',
         hover &&
           hover !== 'cell' &&
-          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200 dark:hover:text-gray-700',
+          'hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200',
       ],
       className
     );

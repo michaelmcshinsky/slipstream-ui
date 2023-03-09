@@ -6,9 +6,9 @@ import React, {
   ReactNode,
 } from 'react';
 import { Backdrop } from '../..';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface DrawerProps {
+export type TDrawer = {
   children?: ReactNode;
   className?: string;
   custom?: boolean;
@@ -22,7 +22,7 @@ export type DrawerElement = {
   toggle?: () => void;
 };
 
-export const Drawer = forwardRef<DrawerElement, DrawerProps>(
+export const Drawer = forwardRef<DrawerElement, TDrawer>(
   (
     { children, className, custom, direction, full, isOpen, toggle, ...props },
     ref
@@ -62,9 +62,9 @@ export const Drawer = forwardRef<DrawerElement, DrawerProps>(
       }
     }
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--offcanvas--menu',
-      'fixed duration-500 dark:bg-gray-900 dark:text-gray-300',
+      'fixed duration-500',
       { 'w-full h-full': full },
       direction === 'top' && [
         isOpen ? 'translate-y-0' : '-translate-y-full',

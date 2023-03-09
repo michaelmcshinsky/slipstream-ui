@@ -1,18 +1,18 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface FieldSetProps {
+export type TFieldSet = {
   styles?: object;
   className?: string;
   children?: ReactNode;
   custom?: boolean;
 }
 
-export const FieldSet = forwardRef<HTMLFieldSetElement, FieldSetProps>(
+export const FieldSet = forwardRef<HTMLFieldSetElement, TFieldSet>(
   ({ className, styles, children, custom, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--fieldset',
-      !custom && 'block py-2 px-3 border border-solid border-gray-300 dark:border-gray-300',
+      !custom && 'block py-2 px-3 border border-solid border-gray-300',
       className
     );
 

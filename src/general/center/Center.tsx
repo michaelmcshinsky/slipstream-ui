@@ -1,14 +1,14 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface CenterProps {
+export type TCenter = {
   children?: ReactNode;
   className?: string;
 }
 
-export const Center = forwardRef<HTMLDivElement, CenterProps>(
+export const Center = forwardRef<HTMLDivElement, TCenter>(
   ({ children, className, ...props }, ref) => {
-    const classes = classNames('sui--center flex items-center justify-center', className);
+    const classes = clsx('sui--center flex items-center justify-center', className);
 
     return (
       <div ref={ref} className={classes} {...props}>

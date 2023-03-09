@@ -1,17 +1,17 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { Input, InputProps } from '../input/Input';
+import clsx from 'clsx';
+import { Input, TInput } from '../input/Input';
 
-export interface TextareaProps extends InputProps {
+export type TTextarea = TInput & {
   rows?: string | number;
   className?: string;
-}
+};
 
-export const Textarea = forwardRef<HTMLInputElement, TextareaProps>(
+export const Textarea = forwardRef<HTMLInputElement, TTextarea>(
   ({ className, ...props }, ref) => {
-    const classes = classNames('sui--textarea', className);
+    const classes = clsx('sui--textarea', className);
     return <Input ref={ref} className={classes} {...props} tag="textarea" />;
-  },
+  }
 );
 
 Textarea.displayName = 'Textarea';

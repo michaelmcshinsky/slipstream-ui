@@ -1,7 +1,7 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface SearchProps extends React.SVGProps<SVGSVGElement> {
+export type TSearch = React.SVGProps<SVGSVGElement> & {
   custom?: boolean;
   strokeClassName?: string;
 }
@@ -13,11 +13,11 @@ export const Search = ({
   strokeClassName,
   custom,
   ...props
-}: SearchProps) => {
-  const classes = classNames('sui--icon-search', className);
+}: TSearch) => {
+  const classes = clsx('sui--icon-search', className);
 
-  const strokeClasses = classNames(
-    { 'stroke-gray-400 dark:stroke-gray-300': !custom },
+  const strokeClasses = clsx(
+    { 'stroke-gray-400': !custom },
     strokeClassName
   );
 

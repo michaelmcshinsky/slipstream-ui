@@ -1,8 +1,8 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
-import { TabItem, TabItemProps } from './TabItem';
+import clsx from 'clsx';
+import { TabItem, TTabItem } from './TabItem';
 
-export interface TabSetProps {
+export type TTabSet = {
   active?: any;
   background?: boolean;
   border?: boolean;
@@ -17,20 +17,20 @@ export interface TabSetProps {
   vertical?: boolean;
 }
 
-interface TabItemMappedProps extends TabItemProps {
+type TabItemMappedProps = TTabItem & {
   key?: string;
 }
 
-interface TabSetComponent
-  extends React.ForwardRefExoticComponent<
-    TabSetProps & React.RefAttributes<HTMLElement>
-  > {
+type TabSetComponent
+  = React.ForwardRefExoticComponent<
+    TTabSet & React.RefAttributes<HTMLElement>
+  > & {
   Item: React.ForwardRefExoticComponent<
-    TabItemProps & React.RefAttributes<HTMLElement>
+    TTabItem & React.RefAttributes<HTMLElement>
   >;
 }
 
-export const TabSet = forwardRef<HTMLElement, TabSetProps>(
+export const TabSet = forwardRef<HTMLElement, TTabSet>(
   (
     {
       active,
@@ -55,7 +55,7 @@ export const TabSet = forwardRef<HTMLElement, TabSetProps>(
       }
     }
 
-    const classes = classNames(
+    const classes = clsx(
       'sui--tab-set',
       'flex flex-wrap list-none',
       rtl && (vertical ? 'flex-col-reverse' : 'flex-row-reverse'),

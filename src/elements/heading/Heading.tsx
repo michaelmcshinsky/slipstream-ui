@@ -1,18 +1,17 @@
 import React, { forwardRef, ReactNode } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-export interface HeadingProps {
+export type THeading = {
   level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   className?: string;
   custom?: boolean;
   children?: ReactNode;
 }
 
-export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+export const Heading = forwardRef<HTMLHeadingElement, THeading>(
   ({ level: Tag, custom, className, children, ...props }, ref) => {
-    const classes = classNames(
+    const classes = clsx(
       'sui--heading',
-      'dark:text-gray-300',
       !custom && Tag === 'h1' && 'text-3xl',
       !custom && Tag === 'h2' && 'text-2xl',
       !custom && Tag === 'h3' && 'text-xl',
