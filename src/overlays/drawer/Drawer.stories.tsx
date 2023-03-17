@@ -14,18 +14,30 @@ export default {
 
 const Template: Story<TDrawer> = ({ ...args }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState(null);
   return (
     <div className="flex items-center justify-center">
-      <Button className="m-4" onClick={() => setIsOpen(true)}>
+      <Button
+        className="m-4"
+        onClick={() => {
+          setData({
+            yo: 'yo',
+          });
+          setIsOpen(true);
+        }}
+      >
         Click Me
       </Button>
       <Drawer
         isOpen={isOpen}
-        toggle={() => setIsOpen(!isOpen)}
-        className="p-3"
+        setIsOpen={() => setIsOpen(!isOpen)}
+        title="Title"
+        description="Description"
         {...args}
       >
-        <h1>Menu</h1>
+        <div className="p-3">
+          <h1>Menu</h1>
+        </div>
       </Drawer>
     </div>
   );
