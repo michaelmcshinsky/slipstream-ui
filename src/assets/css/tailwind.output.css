@@ -168442,10 +168442,6 @@ ul .numbered:before {
   position: relative;
 }
 
-.hover\:border-none:hover {
-  border-style: none;
-}
-
 .hover\:border-blue-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(37 99 235 / var(--tw-border-opacity));
@@ -168542,10 +168538,6 @@ ul .numbered:before {
 
 .focus\:relative:focus {
   position: relative;
-}
-
-.focus\:border-none:focus {
-  border-style: none;
 }
 
 .focus\:border-blue-500:focus {
@@ -168673,10 +168665,6 @@ ul .numbered:before {
 
 .active\:relative:active {
   position: relative;
-}
-
-.active\:border-none:active {
-  border-style: none;
 }
 
 .active\:border-blue-500:active {

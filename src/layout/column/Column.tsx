@@ -22,12 +22,13 @@ export const Col = forwardRef<HTMLDivElement, TCol>(
     const classes = clsx(
       'sui--column',
       !custom && [
-        'w-full px-2',
+        'px-2',
         xs && `xs:w-${xs}`,
         sm && `sm:w-${sm}`,
         md && `md:w-${md}`,
         lg && `lg:w-${lg}`,
         xl && `xl:w-${xl}`,
+        { 'w-full': xs || sm || md || lg || xl },
         { 'flex-1 max-w-full': !xs && !sm && !md && !lg && !xl },
       ],
       order && `order-${order}`,
