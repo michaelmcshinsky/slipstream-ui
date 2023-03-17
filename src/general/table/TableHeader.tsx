@@ -18,7 +18,7 @@ export const TableHeader = forwardRef<HTMLTableCellElement, TTableHeader>(
       'sui--table-th',
       !custom && [
         'table-cell text-left',
-        !borderless && 'border-b border-gray-500',
+        !borderless && 'border-b border-gray-300',
         size === 'sm' && 'p-2 text-xs',
         (size === 'md' || !size) && 'p-3 text-sm',
         size === 'lg' && 'p-4 text-base',
