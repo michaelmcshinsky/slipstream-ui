@@ -28,10 +28,6 @@ export interface ReasoningStep {
   timestamp?: Date;
 }
 
-export interface StreamingStatus {
-  isStreaming: boolean;
-  progress?: number;
-}
 
 /** A single citation or reference attached to an AI response. */
 export interface SourceItem {

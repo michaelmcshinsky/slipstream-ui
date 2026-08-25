@@ -103,4 +103,12 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
 );
 Message.displayName = 'Message';
 
-export { Message };
+/**
+ * Memoized: during token streaming the parent re-renders on every tick, but
+ * only the streaming message's object identity changes. Memo skips re-render
+ * (and timestamp re-formatting) for every other message in the transcript.
+ */
+const MemoizedMessage = React.memo(Message);
+MemoizedMessage.displayName = 'Message';
+
+export { MemoizedMessage as Message };

@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@slipstream-ui/eslint-config": "workspace:*",
+    "@slipstream-ui/registry": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.10.0",

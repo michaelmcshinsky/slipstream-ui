@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Spinner } from '@slipstream-ui/core';
 import { cn } from '@slipstream-ui/core';
 
 /** A single file attached to a message or prompt. Display-only; upload logic stays consumer-side. */
@@ -61,11 +62,7 @@ const Attachment = React.forwardRef<HTMLDivElement, AttachmentProps>(
         </div>
 
         {attachment.status === 'uploading' && (
-          <span
-            role="status"
-            aria-label="Uploading"
-            className="h-3 w-3 flex-shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent text-muted-foreground"
-          />
+          <Spinner size="sm" label="Uploading" aria-label="Uploading" className="flex-shrink-0" />
         )}
 
         {onRemove && (

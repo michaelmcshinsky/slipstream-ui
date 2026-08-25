@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@slipstream-ui/eslint-config": "workspace:*",
+    "@slipstream-ui/registry": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
     "@types/node": "^20.10.0",
     "eslint": "^8.56.0",

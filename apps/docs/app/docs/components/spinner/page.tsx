@@ -1,4 +1,6 @@
 import { Spinner } from '@slipstream-ui/core';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function SpinnerPage() {
   return (
@@ -22,8 +24,7 @@ export default function SpinnerPage() {
         </div>
       </div>
 
-      <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-8">
-        <code>{`import { Spinner } from '@slipstream-ui/core';
+      <CodeBlock className="mb-8">{`import { Spinner } from '@slipstream-ui/core';
 
 <Spinner size="sm" />
 
@@ -31,35 +32,16 @@ export default function SpinnerPage() {
 <span className="flex items-center gap-2">
   <Spinner size="sm" aria-hidden label="" />
   Generating response...
-</span>`}</code>
-      </pre>
+</span>`}</CodeBlock>
 
       <h2 className="text-2xl font-semibold mb-4">Props</h2>
-      <div className="rounded-lg border border-border overflow-hidden mb-8">
-        <table className="w-full text-sm">
-          <thead className="bg-muted">
-            <tr>
-              <th className="text-left p-3">Prop</th>
-              <th className="text-left p-3">Type</th>
-              <th className="text-left p-3">Default</th>
-              <th className="text-left p-3">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">size</td>
-              <td className="p-3 font-mono">&apos;sm&apos; | &apos;default&apos; | &apos;lg&apos;</td>
-              <td className="p-3 font-mono">&apos;default&apos;</td>
-              <td className="p-3">Visual size of the spinner.</td>
-            </tr>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">label</td>
-              <td className="p-3 font-mono">string</td>
-              <td className="p-3 font-mono">&apos;Loading...&apos;</td>
-              <td className="p-3">Screen-reader label announced via role=status.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="mb-8">
+        <PropsTable
+          rows={[
+            { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'Visual size of the spinner.' },
+            { name: 'label', type: 'string', defaultValue: "'Loading...'", description: 'Screen-reader label announced via role=status.' },
+          ]}
+        />
       </div>
 
       <h2 className="text-2xl font-semibold mb-4">Accessibility</h2>

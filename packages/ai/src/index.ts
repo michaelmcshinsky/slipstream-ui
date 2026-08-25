@@ -1,4 +1,4 @@
-export type { MessageRole, ReasoningStep, StreamingStatus, SourceItem } from './types';
+export type { MessageRole, ReasoningStep, SourceItem } from './types';
 export * from './components/message';
 export * from './components/message-actions';
 export * from './components/attachment';

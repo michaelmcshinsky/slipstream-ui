@@ -8,6 +8,8 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   shims: true,
+  // Bundle the workspace registry module so the published server is self-contained.
+  noExternal: ['@slipstream-ui/registry'],
   banner: {
     js: '#!/usr/bin/env node',
   },

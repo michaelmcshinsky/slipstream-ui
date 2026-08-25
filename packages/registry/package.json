@@ -1,0 +1,30 @@
+{
+  "name": "@slipstream-ui/registry",
+  "version": "0.0.1",
+  "description": "Shared manifest registry resolution for Slipstream UI tooling (CLI and MCP server)",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@slipstream-ui/eslint-config": "workspace:*",
+    "@slipstream-ui/typescript-config": "workspace:*",
+    "@types/node": "^20.10.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.3"
+  }
+}

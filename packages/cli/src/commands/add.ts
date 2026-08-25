@@ -15,21 +15,19 @@ export const addCommand = new Command('add')
     try {
       const id = component.toLowerCase();
       const entry = loadRegistryEntries().find(({ manifest }) => manifest.id === id);
+      const sourceDirName = entry?.manifest.sourceDir;
 
-      if (!entry?.manifest.sourceDir) {
+      if (!entry || !sourceDirName) {
         throw new Error(
           `Unknown component: ${component}. Run "slipstream-ui list" to see available components.`
         );
       }
 
       const { manifest, packageDir } = entry;
-      if (!manifest.sourceDir) {
-        throw new Error(`Manifest for "${id}" is missing a sourceDir field.`);
-      }
-      const sourceDir = path.join(packageDir, 'src', 'components', manifest.sourceDir);
+      const sourceDir = path.join(packageDir, 'src', 'components', sourceDirName);
       const destinationRoot = path.resolve(process.cwd(), 'components', 'slipstream');
 
-      const destination = path.join(destinationRoot, manifest.sourceDir);
+      const destination = path.join(destinationRoot, sourceDirName);
       if ((await fs.pathExists(destination)) && !options.overwrite) {
         throw new Error(`${destination} already exists. Use --overwrite to replace it.`);
       }
