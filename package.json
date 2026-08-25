@@ -16,7 +16,8 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish --provenance",
-    "generate:registry": "tsx scripts/generate-registry.ts"
+    "generate:registry": "tsx scripts/generate-registry.ts",
+    "generate:llm-docs": "tsx scripts/generate-llm-docs.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",

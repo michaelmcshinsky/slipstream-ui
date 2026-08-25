@@ -1,7 +1,7 @@
 {
   "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
   "id": "spinner",
-  "name": "Spinner",
+  "name": "spinner",
   "tier": "atom",
   "description": "Indeterminate loading indicator with accessible status semantics.",
   "designIntent": "Communicate in-progress states without layout shift; inherit text color so it adapts to any context.",
@@ -55,5 +55,29 @@
   "importPath": "@slipstream-ui/core",
   "version": "0.0.1",
   "sourceDir": "spinner",
-  "exportName": "Spinner"
+  "exportName": "Spinner",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/spinner/index.ts",
+      "content": "export { Spinner, spinnerVariants } from './Spinner';\nexport type { SpinnerProps } from './Spinner';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/spinner/Spinner.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nconst spinnerVariants = cva(\n  'inline-block animate-spin rounded-full border-2 border-current border-t-transparent text-muted-foreground motion-reduce:animate-none',\n  {\n    variants: {\n      size: {\n        sm: 'h-3 w-3',\n        default: 'h-4 w-4',\n        lg: 'h-6 w-6',\n      },\n    },\n    defaultVariants: {\n      size: 'default',\n    },\n  }\n);\n\nexport interface SpinnerProps\n  extends React.HTMLAttributes<HTMLSpanElement>,\n    VariantProps<typeof spinnerVariants> {\n  /** Accessible label announced to screen readers; set aria-hidden when purely decorative. */\n  label?: string;\n}\n\nfunction Spinner({ className, size, label = 'Loading...', ...props }: SpinnerProps) {\n  return (\n    <span\n      role=\"status\"\n      className={cn(spinnerVariants({ size }), className)}\n      {...props}\n    >\n      <span className=\"sr-only\">{label}</span>\n    </span>\n  );\n}\n\nexport { Spinner, spinnerVariants };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/spinner.manifest.json",
+      "content": "{\n  \"id\": \"spinner\",\n  \"name\": \"Spinner\",\n  \"tier\": \"atom\",\n  \"description\": \"Indeterminate loading indicator with accessible status semantics.\",\n  \"designIntent\": \"Communicate in-progress states without layout shift; inherit text color so it adapts to any context.\",\n  \"props\": [\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'default' | 'lg'\",\n      \"defaultValue\": \"default\",\n      \"required\": false,\n      \"description\": \"Visual size of the spinner.\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Loading...\",\n      \"required\": false,\n      \"description\": \"Screen-reader label; the visual ring is aria-hidden.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Default\",\n      \"code\": \"<Spinner />\"\n    },\n    {\n      \"title\": \"Inline loading state\",\n      \"code\": \"<span className=\\\"flex items-center gap-2\\\"><Spinner size=\\\"sm\\\" /> Generating...</span>\"\n    },\n    {\n      \"title\": \"Decorative (near visible text)\",\n      \"code\": \"<Spinner aria-hidden label=\\\"\\\" />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not use multiple spinners for one wait state\",\n      \"explanation\": \"One status indicator per operation; multiple role=status elements announce redundantly.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status semantics\",\n      \"implementation\": \"role=status with sr-only label announces loading to screen readers.\"\n    },\n    {\n      \"feature\": \"Reduced motion\",\n      \"implementation\": \"Pair with motion-reduce utilities when animation must be suppressed.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"spinner\",\n  \"exportName\": \"Spinner\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
 }

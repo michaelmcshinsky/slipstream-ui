@@ -1,7 +1,7 @@
 {
   "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
   "id": "suggestions",
-  "name": "Suggestions",
+  "name": "suggestions",
   "tier": "molecule",
   "description": "Displays clickable follow-up prompts for AI interactions.",
   "designIntent": "Help users discover useful next actions without composing every prompt from scratch.",
@@ -35,5 +35,29 @@
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1",
   "sourceDir": "suggestion",
-  "exportName": "Suggestions"
+  "exportName": "Suggestions",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/suggestion/index.ts",
+      "content": "export { Suggestions } from './Suggestion';\nexport type { SuggestionsProps, Suggestion } from './Suggestion';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/suggestion/Suggestion.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface Suggestion {\n  id: string;\n  text: string;\n  type?: 'action' | 'query' | 'follow-up';\n}\n\nexport interface SuggestionsProps {\n  suggestions: Suggestion[];\n  onSelect?: (suggestion: Suggestion) => void;\n  className?: string;\n  maxDisplay?: number;\n}\n\nconst Suggestions = React.forwardRef<HTMLDivElement, SuggestionsProps>(\n  ({ suggestions, onSelect, className, maxDisplay = 4, ...props }, ref) => {\n  const displaySuggestions = maxDisplay ? suggestions.slice(0, maxDisplay) : suggestions;\n\n  if (suggestions.length === 0) {\n    return null;\n  }\n\n  return (\n    <div ref={ref} className={cn('mt-4 space-y-2', className)} {...props}>\n      {displaySuggestions.map((suggestion) => (\n        <button\n          key={suggestion.id}\n          className={cn(\n            'w-full text-left h-auto py-2 px-3 text-sm rounded-md',\n            'hover:bg-accent hover:text-accent-foreground',\n            'transition-colors',\n            'text-muted-foreground',\n            'focus:outline-none focus:ring-2 focus:ring-ring'\n          )}\n          onClick={() => onSelect?.(suggestion)}\n        >\n          {suggestion.text}\n        </button>\n      ))}\n    </div>\n  );\n});\nSuggestions.displayName = 'Suggestions';\n\nexport { Suggestions };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/suggestions.manifest.json",
+      "content": "{\n  \"id\": \"suggestions\",\n  \"name\": \"Suggestions\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays clickable follow-up prompts for AI interactions.\",\n  \"designIntent\": \"Help users discover useful next actions without composing every prompt from scratch.\",\n  \"props\": [\n    {\n      \"name\": \"suggestions\",\n      \"type\": \"Suggestion[]\",\n      \"required\": true,\n      \"description\": \"Suggestions to display.\"\n    },\n    {\n      \"name\": \"onSelect\",\n      \"type\": \"(suggestion: Suggestion) => void\",\n      \"required\": false,\n      \"description\": \"Called when a suggestion is selected.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Follow-up prompts\",\n      \"code\": \"<Suggestions suggestions={[{ id: '1', text: 'Show me an example' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Keyboard activation\",\n      \"implementation\": \"Suggestions are native buttons.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"suggestion\",\n  \"exportName\": \"Suggestions\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
 }

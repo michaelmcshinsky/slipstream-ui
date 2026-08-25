@@ -23,7 +23,7 @@ const StreamingIndicator = React.forwardRef<HTMLDivElement, StreamingIndicatorPr
         {[0, 150, 300].map((delay) => (
           <span
             key={delay}
-            className="w-2 h-2 bg-primary rounded-full animate-pulse"
+            className="w-2 h-2 bg-primary rounded-full animate-pulse motion-reduce:animate-none"
             style={{ animationDelay: `${delay}ms` }}
           />
         ))}

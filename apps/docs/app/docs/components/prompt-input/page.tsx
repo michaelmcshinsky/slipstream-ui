@@ -76,6 +76,40 @@ export default function PromptInputPage() {
         />
       </div>
 
+      <h2 className="text-2xl font-semibold mt-10 mb-4">Compound primitives</h2>
+      <p className="text-sm text-muted-foreground mb-4">
+        Prefer a custom layout? <code className="bg-muted px-1 rounded">PromptInput</code> doubles as a
+        context provider — compose <code className="bg-muted px-1 rounded">PromptInputTextarea</code>,{' '}
+        <code className="bg-muted px-1 rounded">PromptInputFooter</code>,{' '}
+        <code className="bg-muted px-1 rounded">PromptInputTools</code>,{' '}
+        <code className="bg-muted px-1 rounded">PromptInputButton</code> (with tooltips + shortcut hints),{' '}
+        <code className="bg-muted px-1 rounded">PromptInputActionAddAttachments</code>,{' '}
+        <code className="bg-muted px-1 rounded">PromptInputActionDictate</code>, and the status-aware{' '}
+        <code className="bg-muted px-1 rounded">PromptInputSubmit</code>.
+      </p>
+      <CodeBlock className="mb-8">{`<PromptInput onSubmit={send} isLoading={loading} onStop={stop} globalDrop accept="image/*,.pdf">
+  <PromptInputTextarea placeholder="Ask anything..." />
+  <PromptInputFooter>
+    <PromptInputTools>
+      <PromptInputActionAddAttachments />
+      <PromptInputButton tooltip={{ content: 'Search the web', shortcut: '⌘K' }} active={search}>
+        Search
+      </PromptInputButton>
+    </PromptInputTools>
+    <PromptInputSubmit />
+  </PromptInputFooter>
+</PromptInput>`}</CodeBlock>
+
+      <p className="text-sm text-muted-foreground mb-4">
+        Attachment handling: drop files on the input (or anywhere with{' '}
+        <code className="bg-muted px-1 rounded">globalDrop</code>), paste from clipboard, or use the
+        picker. Constraints: <code className="bg-muted px-1 rounded">accept</code>,{' '}
+        <code className="bg-muted px-1 rounded">maxFiles</code>,{' '}
+        <code className="bg-muted px-1 rounded">maxFileSize</code>, with typed{' '}
+        <code className="bg-muted px-1 rounded">onAttachmentError</code>. For custom composers, reuse the
+        headless <code className="bg-muted px-1 rounded">usePromptInputAttachments</code> hook.
+      </p>
+
       <h2 className="text-2xl font-semibold mb-4">Accessibility & behavior</h2>
       <ul className="list-disc pl-5 space-y-2 text-sm mb-8">
         <li>Enter submits; Shift+Enter inserts a newline.</li>

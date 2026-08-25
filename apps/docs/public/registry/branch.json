@@ -1,7 +1,7 @@
 {
   "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
   "id": "branch",
-  "name": "Branch",
+  "name": "branch",
   "tier": "atom",
   "description": "Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
   "designIntent": "Let users compare alternative AI responses without leaving the transcript flow.",
@@ -62,5 +62,29 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/branch/Branch.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface BranchProps {\n  /** Total number of message variants. Renders nothing when count < 2. */\n  count: number;\n  /** Zero-based index of the currently displayed variant. */\n  selected?: number;\n  /** Uncontrolled initial variant when `selected` is omitted. */\n  defaultSelected?: number;\n  onSelect?: (index: number) => void;\n  labels?: { previous?: string; next?: string };\n  className?: string;\n}\n\n/**\n * Variant navigation for branched messages (`‹ 2 / 3 ›`).\n * Purely presentational + minimal internal state; the consumer swaps content.\n */\nconst Branch = React.forwardRef<HTMLDivElement, BranchProps>(\n  (\n    { count, selected, defaultSelected = 0, onSelect, labels, className, ...props },\n    ref\n  ) => {\n    const [internalIndex, setInternalIndex] = React.useState(defaultSelected);\n    const isControlled = selected !== undefined;\n    const index = Math.min(Math.max(isControlled ? selected : internalIndex, 0), count - 1);\n\n    const t = {\n      previous: labels?.previous ?? 'Previous response',\n      next: labels?.next ?? 'Next response',\n    };\n\n    if (count < 2) return null;\n\n    const goTo = (next: number) => {\n      const clamped = Math.min(Math.max(next, 0), count - 1);\n      if (!isControlled) setInternalIndex(clamped);\n      onSelect?.(clamped);\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn('flex items-center gap-1 text-xs text-muted-foreground', className)}\n        {...props}\n      >\n        <button\n          type=\"button\"\n          onClick={() => goTo(index - 1)}\n          disabled={index === 0}\n          aria-label={t.previous}\n          className=\"rounded px-1 hover:bg-accent hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40\"\n        >\n          ‹\n        </button>\n        <span aria-live=\"polite\" className=\"tabular-nums\">\n          {index + 1} / {count}\n        </span>\n        <button\n          type=\"button\"\n          onClick={() => goTo(index + 1)}\n          disabled={index === count - 1}\n          aria-label={t.next}\n          className=\"rounded px-1 hover:bg-accent hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40\"\n        >\n          ›\n        </button>\n      </div>\n    );\n  }\n);\nBranch.displayName = 'Branch';\n\nexport { Branch };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/branch/index.ts",
+      "content": "export { Branch } from './Branch';\nexport type { BranchProps } from './Branch';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/branch.manifest.json",
+      "content": "{\n  \"id\": \"branch\",\n  \"name\": \"Branch\",\n  \"tier\": \"atom\",\n  \"description\": \"Variant navigation for branched messages: previous/next arrows with an N/M position indicator.\",\n  \"designIntent\": \"Let users compare alternative AI responses without leaving the transcript flow.\",\n  \"props\": [\n    {\n      \"name\": \"count\",\n      \"type\": \"number\",\n      \"required\": true,\n      \"description\": \"Total variants; renders nothing below 2.\"\n    },\n    {\n      \"name\": \"selected\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Controlled zero-based index.\"\n    },\n    {\n      \"name\": \"defaultSelected\",\n      \"type\": \"number\",\n      \"defaultValue\": 0,\n      \"required\": false,\n      \"description\": \"Uncontrolled initial index.\"\n    },\n    {\n      \"name\": \"onSelect\",\n      \"type\": \"(index: number) => void\",\n      \"required\": false,\n      \"description\": \"Called with the chosen variant index.\"\n    },\n    {\n      \"name\": \"labels\",\n      \"type\": \"object\",\n      \"required\": false,\n      \"description\": \"Overrides for previous/next aria-labels.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Two variants\",\n      \"code\": \"<Branch count={variants.length} selected={i} onSelect={setI} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not swap message content without syncing selected\",\n      \"explanation\": \"In controlled mode the displayed variant must follow onSelect.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Boundary disabling\",\n      \"implementation\": \"Arrows disable at ends instead of wrapping silently.\"\n    },\n    {\n      \"feature\": \"Position announcement\",\n      \"implementation\": \"N/M indicator uses aria-live=polite.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
 }

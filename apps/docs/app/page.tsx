@@ -225,6 +225,7 @@ export default function LandingPage() {
           <span>© {new Date().getFullYear()} Slipstream UI · MIT License</span>
           <div className="flex items-center gap-6">
             <Link href="/docs" className="hover:text-foreground">Docs</Link>
+            <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
             <a href={`${REPO_URL}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">License</a>
             <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">GitHub</a>
             <a href="/registry/all.json" className="hover:text-foreground">Registry</a>

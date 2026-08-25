@@ -8,6 +8,14 @@ export type FeedbackRating = 'up' | 'down';
 
 export interface MessageActionsProps {
   /**
+   * Visibility rule:
+   * - 'always': always visible (default)
+   * - 'on-hover': fades in when the parent message is hovered/focused
+   *   (add the `group` class to the parent element)
+   * - 'not-last': like 'on-hover', intended for non-latest messages
+   */
+  autohide?: 'always' | 'on-hover' | 'not-last';
+  /**
    * Content to copy. Omit to hide the copy action, or pass a getter when
    * the content lives outside this component.
    */
@@ -30,7 +38,7 @@ export interface MessageActionsProps {
 
 const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
   (
-    { content, onCopy, onFeedback, onRegenerate, labels, className, ...props },
+    { content, onCopy, onFeedback, onRegenerate, autohide = 'always', labels, className, ...props },
     ref
   ) => {
     const [copied, setCopied] = React.useState(false);
@@ -72,7 +80,12 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
         ref={ref}
         role="toolbar"
         aria-label="Message actions"
-        className={cn('flex items-center gap-1 mt-2', className)}
+        className={cn(
+          'flex items-center gap-1 mt-2',
+          autohide !== 'always' &&
+            'opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100 motion-reduce:opacity-100',
+          className
+        )}
         {...props}
       >
         {content !== undefined && (

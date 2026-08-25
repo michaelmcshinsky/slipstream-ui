@@ -7,6 +7,7 @@ import {
 import { listComponentsTool } from './tools/list-components';
 import { getComponentManifestTool } from './tools/get-manifest';
 import { getUsageExamplesTool } from './tools/get-usage-examples';
+import { validateUsageTool } from './tools/validate-usage';
 
 const server = new Server(
   {
@@ -27,6 +28,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       listComponentsTool.definition,
       getComponentManifestTool.definition,
       getUsageExamplesTool.definition,
+      validateUsageTool.definition,
     ],
   };
 });
@@ -40,6 +42,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return await listComponentsTool.handler(args);
       case 'get_component_manifest':
         return await getComponentManifestTool.handler(args);
+      case 'validate_usage':
+        return await validateUsageTool.handler(args);
       case 'get_usage_examples':
         return await getUsageExamplesTool.handler(args);
       default:
