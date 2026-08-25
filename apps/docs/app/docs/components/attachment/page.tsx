@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { AttachmentList } from '@slipstream-ui/ai';
-import { CodeBlock } from '@/components/code-block';
+import { ComponentPage } from '@/components/component-page';
+import { DemoCard } from '@/components/demo-card';
 
 export default function AttachmentPage() {
   const [attachments, setAttachments] = useState([
@@ -12,24 +13,29 @@ export default function AttachmentPage() {
   ]);
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-4">Attachment</h1>
-      <p className="text-lg text-muted-foreground mb-8">
-        File chips for prompts and messages. Display-only — upload logic stays in your app.
-        <code className="bg-muted px-1 rounded mx-1">Attachment</code> renders one file;
-        <code className="bg-muted px-1 rounded mx-1">AttachmentList</code> renders a wrapping row.
-      </p>
-
-      <div className="rounded-lg border border-border p-6 mb-8 space-y-4">
-        <AttachmentList
-          attachments={attachments}
-          onRemove={(attachment) =>
-            setAttachments((prev) => prev.filter((a) => a.id !== attachment.id))
-          }
-        />
-      </div>
-
-      <CodeBlock className="mb-8">{`import { AttachmentList } from '@slipstream-ui/ai';
+    <ComponentPage
+      id="attachment"
+      title="Attachment"
+      description="File chips for prompts and messages. Display-only — upload logic stays in your app. Attachment renders one file; AttachmentList renders a wrapping row."
+      accessibility={[
+        'Remove controls include the file name in their accessible label.',
+        'The uploading state is announced via role=status.',
+        'Thumbnails are aria-hidden; file names carry the meaning.',
+      ]}
+    >
+      <DemoCard
+        title="AttachmentList"
+        preview={
+          <div className="w-full space-y-4">
+            <AttachmentList
+              attachments={attachments}
+              onRemove={(attachment) =>
+                setAttachments((prev) => prev.filter((a) => a.id !== attachment.id))
+              }
+            />
+          </div>
+        }
+        code={`import { AttachmentList } from '@slipstream-ui/ai';
 
 <AttachmentList
   attachments={[
@@ -37,21 +43,8 @@ export default function AttachmentPage() {
     { id: '2', name: 'data.csv', status: 'uploading' },
   ]}
   onRemove={(attachment) => remove(attachment.id)}
-/>`}</CodeBlock>
-
-      <h2 className="text-2xl font-semibold mb-4">Accessibility</h2>
-      <ul className="list-disc pl-5 space-y-2 text-sm mb-8">
-        <li>Remove controls include the file name in their accessible label.</li>
-        <li>The uploading state is announced via <code className="bg-muted px-1 rounded">role=status</code>.</li>
-        <li>Thumbnails are aria-hidden; file names carry the meaning.</li>
-      </ul>
-
-      <h2 className="text-2xl font-semibold mb-4">When to use</h2>
-      <ul className="list-disc pl-5 space-y-2 text-sm">
-        <li>Show files queued on a prompt before sending.</li>
-        <li>Show files the assistant referenced in a response.</li>
-        <li>Do not use chips as drag-and-drop targets — build dropzones in your app.</li>
-      </ul>
-    </div>
+/>`}
+      />
+    </ComponentPage>
   );
 }

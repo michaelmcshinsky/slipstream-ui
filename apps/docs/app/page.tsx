@@ -2,19 +2,22 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
+import { Button } from '@slipstream-ui/core';
 import {
   Conversation,
   PromptInput,
   Response,
-
   type MessageData as MessageType,
 } from '@slipstream-ui/ai';
+import { Navbar } from '@/components/site/navbar';
+import { Footer } from '@/components/site/footer';
+import { ThemeShowcase } from '@/components/theme-showcase';
 
 const REPO_URL = 'https://github.com/slipstream-ui/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **16 AI-native components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
+const DEMO_REPLY = `Slipstream UI ships **21 AI-native components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
 
-Your agent queries the manifest, reads the prop schema and anti-patterns, and generates correct UI on the first try — no source-diving, no hallucinated props.`;
+Your agent queries the manifest via MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
 
 function LandingChatDemo() {
   const [messages, setMessages] = useState<MessageType[]>([
@@ -23,41 +26,37 @@ function LandingChatDemo() {
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const handleSubmit = (value: string) => {
+  function handleSubmit(value: string) {
     const userId = Date.now().toString();
     setMessages((prev) => [...prev, { id: userId, role: 'user', content: value }]);
 
-    const replyId = (Date.now() + 1).toString();
-    const fullText = DEMO_REPLY;
+    const replyId = `${Date.now()}-a`;
     timers.current.push(
       setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          { id: replyId, role: 'assistant', content: '' },
-        ]);
+        setMessages((prev) => [...prev, { id: replyId, role: 'assistant', content: '' }]);
         setStreamingId(replyId);
 
         let cursor = 0;
         const tick = () => {
           cursor += 6;
-          if (cursor >= fullText.length) {
+          if (cursor >= DEMO_REPLY.length) {
             setStreamingId(null);
             return;
           }
-          const partial = fullText.slice(0, cursor);
+          const partial = DEMO_REPLY.slice(0, cursor);
           setMessages((prev) =>
-            prev.map((m) => (m.id === replyId ? { ...m, content: partial } : m))
+            prev.map((message) => (message.id === replyId ? { ...message, content: partial } : message))
           );
           timers.current.push(setTimeout(tick, 24));
         };
         tick();
       }, 500)
     );
-  };
+  }
 
   return (
-    <div className="rounded-xl border border-border bg-card shadow-lg overflow-hidden text-left">
-      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-muted/50">
+    <div className="overflow-hidden rounded-xl border border-border bg-card shadow-xl">
+      <div className="flex items-center gap-1.5 border-b border-border bg-muted/50 px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
@@ -71,112 +70,187 @@ function LandingChatDemo() {
           )}
           streamingMessageId={streamingId ?? undefined}
           showScrollButton={false}
+          welcomeTitle="Ask about Slipstream"
+          welcomeSuggestions={['What makes it different?', 'How does the manifest work?']}
+          onWelcomeSelect={handleSubmit}
         />
       </div>
       <div className="border-t border-border p-3">
-        <PromptInput onSubmit={handleSubmit} placeholder="Ask something..." />
+        <PromptInput onSubmit={handleSubmit} placeholder="Try me…" sendButtonText="Send" />
       </div>
     </div>
   );
 }
 
+function CopyInstallPill() {
+  const [copied, setCopied] = useState(false);
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText('npx slipstream-ui@latest init');
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable.
+    }
+  }
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      className="inline-flex items-center gap-3 rounded-lg border border-border bg-muted px-4 py-2.5 font-mono text-sm transition-colors hover:bg-accent"
+      aria-label="Copy init command"
+    >
+      <span>npx slipstream-ui@latest init</span>
+      <span className="text-xs text-muted-foreground">{copied ? '✓ copied' : 'copy'}</span>
+    </button>
+  );
+}
+
+const FEATURES = [
+  {
+    icon: '📋',
+    title: 'Machine-readable manifests',
+    body: 'Every component ships a COMPONENT_MANIFEST: exact prop schema, defaults, anti-patterns, accessibility requirements, composition rules.',
+  },
+  {
+    icon: '🛡',
+    title: 'validate_usage MCP tool',
+    body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds are caught, not shipped.',
+  },
+  {
+    icon: '📦',
+    title: 'shadcn-compatible registry',
+    body: 'Install real source files through any shadcn-compatible CLI, or use packages. Your codebase, your rules.',
+  },
+  {
+    icon: '🧩',
+    title: 'Fully stateless',
+    body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.',
+  },
+  {
+    icon: '♿',
+    title: 'Accessibility, tested',
+    body: 'jest-axe suites on every component, aria-busy streaming states, polite completion announcements, reduced-motion variants.',
+  },
+  {
+    icon: '🎨',
+    title: 'Themeable to the token',
+    body: 'One createTheme() call emits every CSS variable. Multi-token radius, dark mode, instant switching — no rebuilds.',
+  },
+];
+
+const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b border-border">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold">Slipstream UI</Link>
-          <div className="flex items-center gap-6 text-sm">
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">GitHub</a>
-            <Link href="/docs/components" className="text-muted-foreground hover:text-foreground">Components</Link>
-            <Link href="/docs/templates" className="text-muted-foreground hover:text-foreground">Templates</Link>
-            <Link href="/docs" className="text-foreground hover:text-primary font-medium">Docs</Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero */}
-      <section className="container mx-auto px-4 pt-20 pb-16 grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <img src="https://img.shields.io/npm/v/@slipstream-ui/core.svg" alt="npm version" height="20" />
-            <img src={`https://img.shields.io/github/stars/slipstream-ui/slipstream-ui.svg?style=social`} alt="GitHub stars" height="20" />
-            <span className="text-xs px-2 py-0.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-medium">AI-first</span>
+      <section className="relative overflow-hidden border-b border-border">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.08),transparent_60%)]"
+        />
+        <div className="container relative mx-auto grid items-center gap-12 px-4 py-20 lg:grid-cols-2 lg:py-24">
+          <div>
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              <img src="https://img.shields.io/npm/v/@slipstream-ui/core.svg" alt="npm version" height="20" />
+              <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                AI-first · MIT
+              </span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
+              Your AI already knows{' '}
+              <span className="text-primary">your design system</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+              Slipstream UI is the component library built for AI-assisted development. Every
+              component ships a machine-readable spec, an MCP server that serves it, and a
+              validator that keeps agents honest.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <Link href="/docs/installation">
+                <Button size="lg">Get Started</Button>
+              </Link>
+              <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline">Star on GitHub</Button>
+              </a>
+            </div>
+            <div className="mt-6"><CopyInstallPill /></div>
           </div>
-          <h1 className="text-5xl font-bold tracking-tight mb-6">
-            Your AI already knows your design system
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Every Slipstream UI component ships a machine-readable{' '}
-            <code className="bg-muted px-1.5 py-0.5 rounded text-base">COMPONENT_MANIFEST</code>.
-            Claude, Cursor, and Copilot generate correct UI the first time — because they read
-            the spec, not the source.
-          </p>
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <Link href="/docs/installation" className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-              Get Started
-            </Link>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-6 text-sm font-medium hover:bg-accent transition-colors">
-              Star on GitHub
-            </a>
-          </div>
-          <code className="inline-block bg-muted px-4 py-2.5 rounded-md text-sm font-mono">
-            npx slipstream-ui@latest init
-          </code>
+          <LandingChatDemo />
         </div>
-        <LandingChatDemo />
       </section>
 
-      {/* Differentiator */}
+      {/* Agent strip */}
+      <section className="border-b border-border bg-muted/30 py-6">
+        <div className="container mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 text-sm text-muted-foreground">
+          <span className="text-xs font-semibold uppercase tracking-wider">Speaks fluently to</span>
+          {AGENTS.map((agent) => (
+            <span key={agent} className="font-medium">{agent}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* Feature bento */}
+      <section className="container mx-auto px-4 py-20">
+        <h2 className="max-w-2xl text-3xl font-bold tracking-tight">
+          Built for the way software is written now
+        </h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">
+          Half your UI is written by models. Slipstream gives them something better than docs
+          scraped from training data: a spec they can query, and a guardrail they can self-check against.
+        </p>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((feature) => (
+            <div
+              key={feature.title}
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+            >
+              <div aria-hidden="true" className="mb-3 text-2xl">{feature.icon}</div>
+              <h3 className="mb-2 font-semibold">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Theme showcase */}
       <section className="border-y border-border bg-muted/30">
-        <div className="container mx-auto px-4 py-20">
-          <h2 className="text-3xl font-bold mb-10 text-center">The spec is the API</h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="rounded-lg border border-destructive/40 p-6 bg-card">
-              <h3 className="font-semibold text-destructive mb-4">❌ Without a manifest</h3>
-              <p className="text-sm text-muted-foreground mb-3">Agents guess props from training data and hallucinate:</p>
-              <pre className="bg-muted p-3 rounded text-xs overflow-x-auto"><code>{`<Message author role="bot"
-  avatar animate />  // ❌ invented`}</code></pre>
-            </div>
-            <div className="rounded-lg border border-green-500/40 p-6 bg-card">
-              <h3 className="font-semibold text-green-600 dark:text-green-400 mb-4">✅ With COMPONENT_MANIFEST</h3>
-              <pre className="bg-muted p-3 rounded text-xs overflow-x-auto"><code>{`{
-  "id": "message",
-  "props": [{ "name": "message",
-    "type": "Message", "required": true }],
-  "antiPatterns": [...],
-  "accessibility": [...]
-}`}</code></pre>
-            </div>
-          </div>
+        <div className="container mx-auto max-w-4xl px-4 py-20">
+          <h2 className="mb-3 text-3xl font-bold tracking-tight">Themes that ship with the library</h2>
+          <p className="mb-8 max-w-2xl text-muted-foreground">
+            Default, Violet, and Zinc presets included. Switch below — this is live theming, not a screenshot.
+          </p>
+          <ThemeShowcase />
         </div>
       </section>
 
       {/* Comparison */}
       <section className="container mx-auto px-4 py-20">
-        <h2 className="text-3xl font-bold mb-4 text-center">How it compares</h2>
-        <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+        <h2 className="text-center text-3xl font-bold tracking-tight">How it compares</h2>
+        <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">
           Other libraries document for humans. Slipstream documents for both of you.
         </p>
-        <div className="max-w-3xl mx-auto overflow-x-auto">
-          <table className="w-full text-sm border rounded-lg overflow-hidden">
+        <div className="mx-auto max-w-3xl overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-sm">
             <thead className="bg-muted">
               <tr>
-                <th className="text-left p-3">Capability</th>
-                <th className="text-center p-3">Slipstream</th>
-                <th className="text-center p-3">shadcn / AI Elements</th>
-                <th className="text-center p-3">assistant-ui</th>
+                <th className="p-3 text-left font-medium">Capability</th>
+                <th className="p-3 text-center font-medium">Slipstream</th>
+                <th className="p-3 text-center font-medium text-muted-foreground">shadcn / AI Elements</th>
+                <th className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
               </tr>
             </thead>
             <tbody>
               {[
                 ['Machine-readable component specs', '✅ Built-in', '❌', '❌'],
-                ['MCP server for agents', '✅ 3 tools', '❌', '❌'],
-                ['llms.txt surface', '✅', '❌', '❌'],
+                ['Usage-validation MCP tool', '✅ validate_usage', '❌', '❌'],
+                ['llms.txt + canonical .md routes', '✅', '🟡 llms.txt only', '✅ .md routes'],
+                ['shadcn-compatible registry', '✅', '✅ native', '✅'],
                 ['jest-axe tested components', '✅ All', '🟡 Partial', '✅'],
                 ['Stateless (bring your own state)', '✅', '✅', '❌ runtime lock-in'],
-                ['Copy-paste registry install', '🟡 Coming', '✅', '✅'],
               ].map(([capability, slipstream, shadcn, assistantUi]) => (
                 <tr key={capability} className="border-t border-border">
                   <td className="p-3">{capability}</td>
@@ -190,48 +264,54 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How it works for agents */}
+      {/* Templates teaser */}
       <section className="border-y border-border bg-muted/30">
         <div className="container mx-auto px-4 py-20">
-          <h2 className="text-3xl font-bold mb-10 text-center">How your AI uses it</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight">Start from a template</h2>
+              <p className="mt-2 max-w-xl text-muted-foreground">
+                Complete, copy-paste patterns built entirely from Slipstream components.
+              </p>
+            </div>
+            <Link href="/docs/templates" className="text-sm font-medium text-primary hover:underline">
+              Browse all templates →
+            </Link>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
             {[
-              { step: '1', title: 'Connect', body: 'Point Claude Desktop or Cursor at the Slipstream MCP server, or serve llms.txt.' },
-              { step: '2', title: 'Query', body: 'The agent calls get_component_manifest and get_usage_examples for the components it needs.' },
-              { step: '3', title: 'Generate', body: 'Correct props, correct composition, accessibility handled — on the first attempt.' },
-            ].map(({ step, title, body }) => (
-              <div key={step} className="text-center">
-                <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">{step}</div>
-                <h3 className="font-semibold mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{body}</p>
-              </div>
+              { name: 'Streaming chat', body: 'Markdown responses, stop-generation, scroll pinning, feedback actions.' },
+              { name: 'Agent dashboard', body: 'Tool calls with human-in-the-loop approval, reasoning steps, task progress.' },
+              { name: 'RAG citations', body: 'Grounded answers with inline citation chips and a sources footer.' },
+            ].map((template) => (
+              <Link
+                key={template.name}
+                href="/docs/templates"
+                className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+              >
+                <h3 className="mb-2 font-semibold group-hover:text-primary">{template.name}</h3>
+                <p className="text-sm text-muted-foreground">{template.body}</p>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <h2 className="text-3xl font-bold mb-4">Ship AI interfaces faster</h2>
-        <p className="text-muted-foreground mb-8">16 components. 21 manifests. Zero hallucinated props.</p>
-        <Link href="/docs/installation" className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-          Start building
-        </Link>
+      <section className="container mx-auto px-4 py-24 text-center">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
+        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+          21 components · 21 machine-readable specs · zero hallucinated props.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <Link href="/docs/installation">
+            <Button size="lg">Start building</Button>
+          </Link>
+          <CopyInstallPill />
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border">
-        <div className="container mx-auto px-4 py-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
-          <span>© {new Date().getFullYear()} Slipstream UI · MIT License</span>
-          <div className="flex items-center gap-6">
-            <Link href="/docs" className="hover:text-foreground">Docs</Link>
-            <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
-            <a href={`${REPO_URL}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">License</a>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">GitHub</a>
-            <a href="/registry/all.json" className="hover:text-foreground">Registry</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
