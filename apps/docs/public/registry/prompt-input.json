@@ -264,7 +264,7 @@
   "files": [
     {
       "path": "components/slipstream/prompt-input/index.ts",
-      "content": "export { PromptInput } from './PromptInput';\nexport type { PromptInputProps } from './PromptInput';\n",
+      "content": "export {\n  PromptInput,\n  PromptInputTextarea,\n  PromptInputSubmit,\n  PromptInputFooter,\n  PromptInputTools,\n  PromptInputHeader,\n  PromptInputBody,\n  PromptInputButton,\n  PromptInputActionDictate,\n  PromptInputActionAddAttachments,\n} from './PromptInput';\nexport type {\n  PromptInputProps,\n  PromptInputButtonProps,\n} from './PromptInput';\nexport { usePromptInputAttachments, useSpeechRecognition } from './PromptInput';\nexport type {\n  UseAttachmentsOptions,\n  UseAttachmentsResult,\n} from './PromptInput';\n",
       "type": "registry:component"
     },
     {

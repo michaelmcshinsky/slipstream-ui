@@ -1,6 +1,19 @@
 import { StreamingIndicator } from '@slipstream-ui/ai';
-import { CodeBlock } from '@/components/code-block';
+import { ComponentPage } from '@/components/component-page';
+import { DemoCard } from '@/components/demo-card';
 
 export default function StreamingIndicatorPage() {
-  return <div><h1 className="text-4xl font-bold mb-4">StreamingIndicator</h1><p className="text-lg text-muted-foreground mb-8">Give immediate feedback while an assistant response is arriving.</p><div className="rounded-lg border border-border p-6 mb-8"><StreamingIndicator isStreaming text="Writing a response…" /></div><CodeBlock>{`<StreamingIndicator isStreaming={isGenerating} text="Writing a response…" />`}</CodeBlock></div>;
+  return (
+    <ComponentPage
+      id="streaming-indicator"
+      title="StreamingIndicator"
+      description="Give immediate feedback while an assistant response is arriving."
+    >
+      <DemoCard
+        title="Streaming state"
+        preview={<StreamingIndicator isStreaming text="Writing a response…" />}
+        code={`<StreamingIndicator isStreaming={isGenerating} text="Writing a response…" />`}
+      />
+    </ComponentPage>
+  );
 }
