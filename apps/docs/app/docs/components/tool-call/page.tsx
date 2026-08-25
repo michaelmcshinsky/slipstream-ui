@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { ToolCall } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function ToolCallPage() {
   const [status, setStatus] = useState<'pending' | 'running' | 'completed' | 'failed'>('completed');
@@ -63,16 +65,13 @@ export default function ToolCallPage() {
           <code>npx slipstream-ui add tool-call</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { ToolCall } from '@slipstream-ui/ai'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { ToolCall } from '@slipstream-ui/ai'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`const toolCall = {
+        <CodeBlock>{`const toolCall = {
   id: 'tool-1',
   name: 'search',
   arguments: { query: 'React' },
@@ -83,39 +82,18 @@ export default function ToolCallPage() {
 <ToolCall 
   toolCall={toolCall}
   showResult={true}
-/>`}</code>
-        </pre>
+/>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">toolCall</td>
-                <td className="p-3 text-xs">ToolCall</td>
-                <td className="p-3 text-xs">required</td>
-                <td className="p-3 text-xs">Tool call object with name, arguments, status</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">showResult</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">true</td>
-                <td className="p-3 text-xs">Whether to display the result</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'toolCall', type: 'ToolCall', defaultValue: 'required', description: 'Tool call object with name, arguments, status' },
+            { name: 'showResult', type: 'boolean', defaultValue: 'true', description: 'Whether to display the result' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

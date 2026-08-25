@@ -1,0 +1,52 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "response",
+  "name": "Response",
+  "tier": "molecule",
+  "description": "Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.",
+  "designIntent": "Render AI output as rich content without flicker or broken partial syntax while tokens arrive.",
+  "props": [
+    {
+      "name": "children",
+      "type": "string",
+      "required": true,
+      "description": "Markdown content to render."
+    },
+    {
+      "name": "parseIncompleteMarkdown",
+      "type": "boolean",
+      "defaultValue": true,
+      "required": false,
+      "description": "Close unclosed emphasis/inline-code/fences during streaming."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic response",
+      "code": "<Response>{assistantMessage.content}</Response>"
+    },
+    {
+      "title": "Inside Message",
+      "code": "<Message message={m} renderContent={(c) => <Response>{c}</Response>} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not use Response inside a code fence context",
+      "explanation": "Response is the top-level renderer; nested Response instances double-parse content."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Semantic HTML",
+      "implementation": "Headings, lists and tables are real elements announced correctly."
+    },
+    {
+      "feature": "Code blocks",
+      "implementation": "Routed through CodeBlock with accessible copy button."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}

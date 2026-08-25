@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Input } from '@slipstream-ui/core';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function InputPage() {
   const [type, setType] = useState<'text' | 'email' | 'password' | 'number'>('text');
@@ -58,63 +60,29 @@ export default function InputPage() {
           <code>npx slipstream-ui add input</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Input } from '@slipstream-ui/core'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Input } from '@slipstream-ui/core'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`<Input placeholder="Enter your name" />
+        <CodeBlock>{`<Input placeholder="Enter your name" />
 <Input type="email" placeholder="user@example.com" />
 <Input type="password" placeholder="Enter password" />
-<Input disabled placeholder="Disabled input" />`}</code>
-        </pre>
+<Input disabled placeholder="Disabled input" />`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">type</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">'text'</td>
-                <td className="p-3 text-xs">HTML input type</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">placeholder</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">Placeholder text</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">disabled</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Disables the input</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">required</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Marks input as required</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'type', type: 'string', defaultValue: "'text'", description: 'HTML input type' },
+            { name: 'placeholder', type: 'string', defaultValue: 'undefined', description: 'Placeholder text' },
+            { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the input' },
+            { name: 'required', type: 'boolean', defaultValue: 'false', description: 'Marks input as required' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

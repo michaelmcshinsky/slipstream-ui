@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Button } from '@slipstream-ui/core';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function ButtonPage() {
   const [variant, setVariant] = useState<'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'>('default');
@@ -61,58 +63,29 @@ export default function ButtonPage() {
           <code>npx slipstream-ui add button</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Button } from '@slipstream-ui/core'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Button } from '@slipstream-ui/core'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`<Button>Click me</Button>
+        <CodeBlock>{`<Button>Click me</Button>
 <Button variant="destructive">Delete</Button>
 <Button variant="outline">Cancel</Button>
 <Button size="sm">Small</Button>
-<Button size="lg">Large</Button>`}</code>
-        </pre>
+<Button size="lg">Large</Button>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">variant</td>
-                <td className="p-3 text-xs">'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'</td>
-                <td className="p-3 text-xs">'default'</td>
-                <td className="p-3 text-xs">Visual style variant</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">size</td>
-                <td className="p-3 text-xs">'default' | 'sm' | 'lg' | 'icon'</td>
-                <td className="p-3 text-xs">'default'</td>
-                <td className="p-3 text-xs">Size variant</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">disabled</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Disables the button</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'variant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant' },
+            { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
+            { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Message } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function MessagePage() {
   const [role, setRole] = useState<'user' | 'assistant' | 'system'>('user');
@@ -62,16 +64,13 @@ export default function MessagePage() {
           <code>npx slipstream-ui add message</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Message } from '@slipstream-ui/ai'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Message } from '@slipstream-ui/ai'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`<Message 
+        <CodeBlock>{`<Message 
   message={{ 
     id: '1', 
     role: 'user', 
@@ -86,75 +85,24 @@ export default function MessagePage() {
   }}
   showAvatar={true}
   avatarFallback="AI"
-/>`}</code>
-        </pre>
+/>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">message</td>
-                <td className="p-3 text-xs">Message</td>
-                <td className="p-3 text-xs">required</td>
-                <td className="p-3 text-xs">The message object with role, content, and metadata</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">showAvatar</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">true</td>
-                <td className="p-3 text-xs">Whether to show the avatar</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">avatarSrc</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">Custom avatar image URL</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">avatarFallback</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">Fallback text for avatar</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">userLabel</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">&apos;You&apos;</td>
-                <td className="p-3 text-xs">Display name for user messages (localization)</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">assistantLabel</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">&apos;Assistant&apos;</td>
-                <td className="p-3 text-xs">Display name for assistant messages (localization)</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">renderContent</td>
-                <td className="p-3 text-xs">(content: string) =&gt; ReactNode</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">Custom content renderer (e.g. markdown); replaces plain-text rendering</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">isStreaming</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Shows a typing cursor and sets aria-busy while generating</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'message', type: 'Message', defaultValue: 'required', description: 'The message object with role, content, and metadata' },
+            { name: 'showAvatar', type: 'boolean', defaultValue: 'true', description: 'Whether to show the avatar' },
+            { name: 'avatarSrc', type: 'string', defaultValue: 'undefined', description: 'Custom avatar image URL' },
+            { name: 'avatarFallback', type: 'string', defaultValue: 'undefined', description: 'Fallback text for avatar' },
+            { name: 'userLabel', type: 'string', defaultValue: "'You'", description: 'Display name for user messages (localization)' },
+            { name: 'assistantLabel', type: 'string', defaultValue: "'Assistant'", description: 'Display name for assistant messages (localization)' },
+            { name: 'renderContent', type: '(content: string) => ReactNode', defaultValue: 'undefined', description: 'Custom content renderer (e.g. markdown); replaces plain-text rendering' },
+            { name: 'isStreaming', type: 'boolean', defaultValue: 'false', description: 'Shows a typing cursor and sets aria-busy while generating' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

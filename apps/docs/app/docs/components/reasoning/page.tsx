@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Reasoning } from '@slipstream-ui/ai';
 import type { ReasoningStep } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function ReasoningPage() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -61,16 +63,13 @@ export default function ReasoningPage() {
           <code>npx slipstream-ui add reasoning</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Reasoning } from '@slipstream-ui/ai'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Reasoning } from '@slipstream-ui/ai'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`const reasoningSteps = [
+        <CodeBlock>{`const reasoningSteps = [
   { id: '1', content: 'Analyzing the request...' },
   { id: '2', content: 'Considering different approaches...' },
   { id: '3', content: 'Formulating the response...' }
@@ -80,45 +79,19 @@ export default function ReasoningPage() {
   steps={reasoningSteps}
   collapsible={true}
   defaultExpanded={false}
-/>`}</code>
-        </pre>
+/>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">steps</td>
-                <td className="p-3 text-xs">ReasoningStep[]</td>
-                <td className="p-3 text-xs">required</td>
-                <td className="p-3 text-xs">Array of reasoning steps</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">collapsible</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">true</td>
-                <td className="p-3 text-xs">Whether reasoning can be collapsed</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">defaultExpanded</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Whether expanded by default</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'steps', type: 'ReasoningStep[]', defaultValue: 'required', description: 'Array of reasoning steps' },
+            { name: 'collapsible', type: 'boolean', defaultValue: 'true', description: 'Whether reasoning can be collapsed' },
+            { name: 'defaultExpanded', type: 'boolean', defaultValue: 'false', description: 'Whether expanded by default' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

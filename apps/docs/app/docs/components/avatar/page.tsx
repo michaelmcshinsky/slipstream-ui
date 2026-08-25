@@ -1,6 +1,8 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@slipstream-ui/core';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function AvatarPage() {
   return (
@@ -43,16 +45,13 @@ export default function AvatarPage() {
           <code>npx slipstream-ui add avatar</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Avatar, AvatarImage, AvatarFallback } from '@slipstream-ui/core'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Avatar, AvatarImage, AvatarFallback } from '@slipstream-ui/core'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`<Avatar>
+        <CodeBlock>{`<Avatar>
   <AvatarImage src="/avatar.jpg" alt="User" />
   <AvatarFallback>JD</AvatarFallback>
 </Avatar>
@@ -61,41 +60,19 @@ export default function AvatarPage() {
   <AvatarFallback className="bg-primary text-primary-foreground">
     AI
   </AvatarFallback>
-</Avatar>`}</code>
-        </pre>
+</Avatar>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Component</th>
-                <th className="text-left p-3">Props</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">Avatar</td>
-                <td className="p-3 text-xs">className</td>
-                <td className="p-3 text-xs">Additional CSS classes</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">AvatarImage</td>
-                <td className="p-3 text-xs">src, alt</td>
-                <td className="p-3 text-xs">Image URL and alt text</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">AvatarFallback</td>
-                <td className="p-3 text-xs">children, className</td>
-                <td className="p-3 text-xs">Fallback content and styling</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'Avatar', type: 'className', description: 'Additional CSS classes' },
+            { name: 'AvatarImage', type: 'src, alt', description: 'Image URL and alt text' },
+            { name: 'AvatarFallback', type: 'children, className', description: 'Fallback content and styling' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

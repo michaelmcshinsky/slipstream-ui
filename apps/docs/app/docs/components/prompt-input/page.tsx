@@ -2,6 +2,8 @@
 
 import { useRef, useState } from 'react';
 import { PromptInput } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function PromptInputPage() {
   const [submitted, setSubmitted] = useState<string[]>([]);
@@ -44,8 +46,7 @@ export default function PromptInputPage() {
         )}
       </div>
 
-      <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-8">
-        <code>{`import { PromptInput } from '@slipstream-ui/ai';
+      <CodeBlock className="mb-8">{`import { PromptInput } from '@slipstream-ui/ai';
 
 // Basic
 <PromptInput onSubmit={(text) => send(text)} />
@@ -55,42 +56,24 @@ export default function PromptInputPage() {
   onSubmit={send}
   isLoading={isStreaming}
   onStop={() => controller.abort()}
-/>`}</code>
-      </pre>
+/>`}</CodeBlock>
 
       <h2 className="text-2xl font-semibold mb-4">Props</h2>
-      <div className="rounded-lg border border-border overflow-hidden mb-8">
-        <table className="w-full text-sm">
-          <thead className="bg-muted">
-            <tr>
-              <th className="text-left p-3">Prop</th>
-              <th className="text-left p-3">Type</th>
-              <th className="text-left p-3">Default</th>
-              <th className="text-left p-3">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ['onSubmit', '(value: string) => void', '—', 'Called with the trimmed value on submit'],
-              ['onStop', '() => void', '—', 'While loading, the button becomes Stop and calls this'],
-              ['placeholder', 'string', "'Type your message...'", 'Textarea placeholder'],
-              ['disabled', 'boolean', 'false', 'Disables the whole input'],
-              ['isLoading', 'boolean', 'false', 'Blocks submits; enables stop state when paired with onStop'],
-              ['maxLength', 'number', '—', 'Maximum character count'],
-              ['autoFocus', 'boolean', 'false', 'Focus the textarea on mount'],
-              ['showSendButton', 'boolean', 'true', 'Show/hide the action button'],
-              ['sendButtonText', 'string', "'Send'", 'Accessible label for the send button'],
-              ['stopButtonText', 'string', "'Stop generating'", 'Accessible label for the stop button'],
-            ].map(([prop, type, def, desc]) => (
-              <tr key={prop} className="border-t border-border">
-                <td className="p-3 font-mono">{prop}</td>
-                <td className="p-3 font-mono text-xs">{type}</td>
-                <td className="p-3 font-mono text-xs">{def}</td>
-                <td className="p-3">{desc}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="mb-8">
+        <PropsTable
+          rows={[
+            { name: 'onSubmit', type: '(value: string) => void', description: 'Called with the trimmed value on submit' },
+            { name: 'onStop', type: '() => void', description: 'While loading, the button becomes Stop and calls this' },
+            { name: 'placeholder', type: 'string', defaultValue: "'Type your message...'", description: 'Textarea placeholder' },
+            { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the whole input' },
+            { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Blocks submits; enables stop state when paired with onStop' },
+            { name: 'maxLength', type: 'number', description: 'Maximum character count' },
+            { name: 'autoFocus', type: 'boolean', defaultValue: 'false', description: 'Focus the textarea on mount' },
+            { name: 'showSendButton', type: 'boolean', defaultValue: 'true', description: 'Show/hide the action button' },
+            { name: 'sendButtonText', type: 'string', defaultValue: "'Send'", description: 'Accessible label for the send button' },
+            { name: 'stopButtonText', type: 'string', defaultValue: "'Stop generating'", description: 'Accessible label for the stop button' },
+          ]}
+        />
       </div>
 
       <h2 className="text-2xl font-semibold mb-4">Accessibility & behavior</h2>

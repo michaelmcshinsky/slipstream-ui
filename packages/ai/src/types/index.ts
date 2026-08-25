@@ -20,6 +20,8 @@ export interface ToolCall {
   arguments: Record<string, unknown>;
   result?: string | number | boolean | Record<string, unknown> | unknown[];
   status: 'pending' | 'running' | 'completed' | 'failed';
+  /** Error detail rendered when status is failed. */
+  error?: string;
 }
 
 export interface ReasoningStep {

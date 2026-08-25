@@ -1,0 +1,166 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "reasoning",
+  "name": "Reasoning",
+  "tier": "molecule",
+  "description": "A collapsible component for displaying AI reasoning steps and chain-of-thought processes",
+  "designIntent": "The Reasoning component displays the step-by-step thought process of an AI agent. It's collapsible to avoid cluttering the interface while still providing transparency into how the AI arrived at its conclusions.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "ReasoningStep[]",
+      "required": true,
+      "description": "Array of reasoning steps to display",
+      "examples": [
+        "[{ id: '1', content: 'Analyzing the request...' }, { id: '2', content: 'Formulating response...' }]"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether the reasoning can be collapsed/expanded",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "defaultExpanded",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether the reasoning is expanded by default",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic reasoning",
+      "code": "<Reasoning \n  steps={[\n    { id: '1', content: 'I need to analyze the user\\'s request.' },\n    { id: '2', content: 'The user wants to know about React components.' },\n    { id: '3', content: 'I should provide a comprehensive answer.' }\n  ]}\n/>",
+      "description": "Collapsible reasoning with multiple steps"
+    },
+    {
+      "title": "Expanded by default",
+      "code": "<Reasoning \n  steps={steps}\n  defaultExpanded={true}\n/>",
+      "description": "Reasoning that shows steps immediately"
+    },
+    {
+      "title": "Non-collapsible",
+      "code": "<Reasoning \n  steps={steps}\n  collapsible={false}\n/>",
+      "description": "Reasoning that cannot be collapsed"
+    },
+    {
+      "title": "With timestamps",
+      "code": "<Reasoning \n  steps={[\n    { id: '1', content: 'Step 1', timestamp: new Date() },\n    { id: '2', content: 'Step 2', timestamp: new Date() }\n  ]}\n/>",
+      "description": "Reasoning steps with timing information"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't show reasoning for simple responses",
+      "code": "// Avoid: Showing reasoning for trivial responses\n<Reasoning steps={[\n  { id: '1', content: 'I will say hello' }\n]} />\n<Message message={{ role: 'assistant', content: 'Hello!' }} />\n\n// Prefer: Only show reasoning for complex tasks\n<Reasoning steps={complexReasoning} />\n<Message message={{ role: 'assistant', content: complexResponse }} />",
+      "description": "Reasoning is valuable for complex tasks but adds noise for simple responses."
+    },
+    {
+      "title": "Don't make steps too verbose",
+      "code": "// Avoid: Overly detailed steps\n{ id: '1', content: 'I am now processing the request by analyzing each word and considering multiple interpretations...' }\n\n// Prefer: Concise, clear steps\n{ id: '1', content: 'Analyzing the request for key terms and intent.' }",
+      "description": "Reasoning steps should be concise and focused on key decision points."
+    },
+    {
+      "title": "Don't show empty reasoning",
+      "code": "// Avoid: Rendering with no steps\n<Reasoning steps={[]} />\n\n// Prefer: Conditionally render\n{reasoningSteps.length > 0 && <Reasoning steps={reasoningSteps} />",
+      "description": "The component returns null for empty arrays, but it's better to not render it at all."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Collapsible state",
+      "implementation": "Uses aria-expanded to communicate collapsible state to screen readers",
+      "userRequirements": "Ensure the expanded/collapsed state is clear to all users"
+    },
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Collapsible button is keyboard accessible with Enter/Space to toggle",
+      "userRequirements": "Test keyboard navigation of the collapse/expand functionality"
+    },
+    {
+      "feature": "Visual hierarchy",
+      "implementation": "Steps are numbered and visually distinct with clear hierarchy",
+      "userRequirements": "Ensure step numbers and content have sufficient contrast"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Reasoning step content",
+      "guidelines": [
+        "Each step should represent a distinct decision or action",
+        "Use clear, concise language",
+        "Focus on the 'why' and 'how', not just the 'what'",
+        "Avoid overly technical jargon unless necessary",
+        "Structure steps logically (chronological or hierarchical)"
+      ],
+      "goodExamples": [
+        "Analyzing the user's request for key requirements",
+        "Considering multiple approaches to solve the problem",
+        "Selecting the most efficient solution based on constraints"
+      ],
+      "badExamples": [
+        "I am thinking about what to do",
+        "Processing...",
+        "Step 1",
+        "Lorem ipsum dolor sit amet"
+      ]
+    },
+    {
+      "contentType": "Step count",
+      "guidelines": [
+        "Show the total number of steps in the header",
+        "Number each step sequentially for easy reference",
+        "Keep step count reasonable (typically under 10 steps)",
+        "If there are many steps, consider grouping them"
+      ],
+      "goodExamples": [
+        "Reasoning (5 steps)",
+        "Step 1 of 5"
+      ],
+      "badExamples": [
+        "Reasoning",
+        "Step 1",
+        "Showing 47 steps"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Message",
+      "relationship": "Reasoning is typically displayed before or within an assistant's message to show thought process",
+      "example": "Message component can contain Reasoning to show the AI's thinking before the final response"
+    },
+    {
+      "component": "ToolCall",
+      "relationship": "Reasoning often precedes tool calls to explain why a tool is being used",
+      "example": "Reasoning explains the decision to use a tool, ToolCall shows the actual tool invocation"
+    }
+  ],
+  "relatedComponents": [
+    "Message",
+    "ToolCall",
+    "Conversation"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "reasoning",
+  "exportName": "Reasoning"
+}

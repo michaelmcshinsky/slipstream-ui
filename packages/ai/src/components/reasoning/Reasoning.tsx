@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { ReasoningStep } from '../../types';

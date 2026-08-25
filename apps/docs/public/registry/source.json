@@ -1,0 +1,67 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "source",
+  "name": "Source / Sources",
+  "tier": "molecule",
+  "description": "Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.",
+  "designIntent": "Make generated answers transparent by showing where information came from.",
+  "props": [
+    {
+      "name": "sources",
+      "type": "SourceItem[]",
+      "required": true,
+      "description": "References to display (Sources only)."
+    },
+    {
+      "name": "maxDisplay",
+      "type": "number",
+      "defaultValue": 3,
+      "required": false,
+      "description": "Maximum number of references to show before an overflow indicator."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "defaultValue": "Sources",
+      "required": false,
+      "description": "Heading label; override for localization."
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "required": false,
+      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Citations list",
+      "code": "<Sources sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }, { id: '2', title: 'MDN', url: 'https://developer.mozilla.org' }]} />"
+    },
+    {
+      "title": "Single inline citation",
+      "code": "<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not nest Sources inside Sources",
+      "explanation": "Sources is a list container; compose individual Source items only when building a custom layout."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Link semantics",
+      "implementation": "References use native links with rel=noopener when URLs are provided."
+    },
+    {
+      "feature": "Decorative markers",
+      "implementation": "[n] citation markers are aria-hidden; titles are read as link text."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "source",
+  "exportName": "Source"
+}

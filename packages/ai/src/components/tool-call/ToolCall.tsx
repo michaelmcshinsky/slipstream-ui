@@ -76,6 +76,15 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
               </pre>
             </div>
           )}
+
+          {toolCall.status === 'failed' && toolCall.error && (
+            <div role="alert">
+              <div className="text-xs font-medium text-red-500 mb-1">Error</div>
+              <pre className="text-xs bg-red-500/10 text-red-500 p-2 rounded overflow-x-auto whitespace-pre-wrap">
+                <code>{toolCall.error}</code>
+              </pre>
+            </div>
+          )}
         </div>
       </div>
     );

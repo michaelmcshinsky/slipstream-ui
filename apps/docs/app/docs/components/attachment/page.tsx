@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AttachmentList } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
 
 export default function AttachmentPage() {
   const [attachments, setAttachments] = useState([
@@ -28,8 +29,7 @@ export default function AttachmentPage() {
         />
       </div>
 
-      <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-8">
-        <code>{`import { AttachmentList } from '@slipstream-ui/ai';
+      <CodeBlock className="mb-8">{`import { AttachmentList } from '@slipstream-ui/ai';
 
 <AttachmentList
   attachments={[
@@ -37,8 +37,7 @@ export default function AttachmentPage() {
     { id: '2', name: 'data.csv', status: 'uploading' },
   ]}
   onRemove={(attachment) => remove(attachment.id)}
-/>`}</code>
-      </pre>
+/>`}</CodeBlock>
 
       <h2 className="text-2xl font-semibold mb-4">Accessibility</h2>
       <ul className="list-disc pl-5 space-y-2 text-sm mb-8">
