@@ -9,16 +9,29 @@ export interface ReasoningProps {
   className?: string;
   collapsible?: boolean;
   defaultExpanded?: boolean;
+  /** Elapsed thinking time, e.g. 4 (seconds) or "4s"; rendered in the header. */
+  duration?: number | string;
+  /** Marks reasoning as still arriving: animated header state. */
+  isStreaming?: boolean;
 }
 
 const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
-  ({ steps, className, collapsible = true, defaultExpanded = false, ...props }, ref) => {
+  ({ steps, className, collapsible = true, defaultExpanded = false, duration, isStreaming = false, ...props }, ref) => {
     const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
     const contentId = React.useId();
 
     if (steps.length === 0) {
       return null;
     }
+
+    const headerText = [
+      'Reasoning',
+      `(${steps.length} ${steps.length === 1 ? 'step' : 'steps'})`,
+      typeof duration === 'number' ? `· ${duration}s` : duration ? `· ${duration}` : '',
+      isStreaming ? '· thinking…' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div ref={ref} className={cn('border-l-2 border-muted-foreground/30 pl-4', className)} {...props}>
@@ -30,7 +43,18 @@ const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
             aria-controls={contentId}
           >
             <span className={cn('transition-transform', isExpanded ? 'rotate-90' : '')}>▶</span>
-            <span>Reasoning ({steps.length} steps)</span>
+            <span>{headerText}</span>
+            {isStreaming && (
+              <span className="flex gap-0.5" aria-hidden="true">
+                {[0, 150, 300].map((delay) => (
+                  <span
+                    key={delay}
+                    className="h-1 w-1 rounded-full bg-muted-foreground animate-pulse motion-reduce:animate-none"
+                    style={{ animationDelay: `${delay}ms` }}
+                  />
+                ))}
+              </span>
+            )}
           </button>
         ) : null}
 

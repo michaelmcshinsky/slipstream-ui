@@ -55,13 +55,28 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 ## Registry
 Static manifest registry served from the docs site:
 - GET /registry/all.json - index of every component with id, name, tier, description
-- GET /registry/<id>.json - full COMPONENT_MANIFEST for one component
+- GET /registry/<id>.json - full COMPONENT_MANIFEST plus a shadcn-compatible installer payload with embedded file contents
+- Install source copies: npx shadcn@latest add https://slipstreamui.com/registry/<id>.json
+
+## Canonical markdown docs for agents
+- GET /llm/index.md - library overview and component index
+- GET /llm/components/<id>.md - full per-component reference generated from its manifest
+Prefer these over HTML pages when generating code.
 
 ## MCP Server
 The MCP server provides tools for AI agents:
 - list_components - Query available components with filters
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
+- validate_usage - Validate generated JSX against a component manifest before emitting; detects hallucinated props and missing required props
+
+## Production UX notes
+- Components are stateless; consumers own thread/conversation state
+- Streaming: isStreaming/streamingMessageId render cursors; Response repairs incomplete markdown automatically
+- Accessibility: aria-busy during streams, polite completion announcements, reduced-motion variants on animations
+- Empty transcripts render a configurable welcome state with starter prompts
+- Failed generations render inline error cards with retry callbacks (Message error/onRetry)
+- PromptInput supports compound primitives, drag-drop/paste attachments with constraints, dictation, and status-aware submit
 
 ## Documentation
 Full documentation at https://slipstreamui.com/docs

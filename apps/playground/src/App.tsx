@@ -101,6 +101,10 @@ function App() {
                 showAvatars={true}
                 loadingMessage="Thinking..."
                 streamingMessageId={streamingId ?? undefined}
+                welcomeTitle="Welcome to Slipstream UI"
+                welcomeDescription="Try a starter prompt or type your own — responses stream token by token."
+                welcomeSuggestions={['Explain what you can do', 'Write a haiku about components']}
+                onWelcomeSelect={(prompt) => handleSubmit(prompt)}
               />
             </div>
             <PromptInput

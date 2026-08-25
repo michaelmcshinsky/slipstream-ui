@@ -1,7 +1,7 @@
 {
   "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
   "id": "inline-citation",
-  "name": "InlineCitation",
+  "name": "inline-citation",
   "tier": "atom",
   "description": "Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.",
   "designIntent": "Attribute individual claims inside a response to their source without leaving the paragraph.",
@@ -43,5 +43,29 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/inline-citation/index.ts",
+      "content": "export { InlineCitation } from './InlineCitation';\nexport type { InlineCitationProps } from './InlineCitation';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/inline-citation/InlineCitation.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport type { SourceItem } from '../../types';\n\nexport interface InlineCitationProps {\n  /** The cited source; powers the hover/focus preview card. */\n  source: SourceItem;\n  /** Citation text to wrap (defaults to the source title). */\n  children?: React.ReactNode;\n  className?: string;\n}\n\n/**\n * Perplexity-style inline citation: a superscript chip that reveals the\n * source snippet on hover or keyboard focus.\n */\nconst InlineCitation = React.forwardRef<HTMLSpanElement, InlineCitationProps>(\n  ({ source, children, className, ...props }, ref) => {\n    return (\n      <span\n        ref={ref}\n        className={cn('group relative inline focus-within:outline-none', className)}\n        {...props}\n      >\n        <button\n          type=\"button\"\n          aria-describedby={`citation-${source.id}-card`}\n          className=\"inline-flex items-baseline rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n        >\n          {children ?? <span>{source.title}</span>}\n          <span\n            aria-hidden=\"true\"\n            className=\"inline-flex items-center justify-center align-super ml-0.5 h-4 min-w-4 px-1 rounded-full border border-border bg-muted text-[10px] font-medium text-muted-foreground group-hover:text-foreground transition-colors\"\n          >\n            {source.title.charAt(0).toUpperCase()}\n          </span>\n        </button>\n        <span\n          id={`citation-${source.id}-card`}\n          role=\"tooltip\"\n          className=\"pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 w-64 rounded-md border border-border bg-popover p-2.5 text-xs text-popover-foreground shadow-md opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity\"\n        >\n          <span className=\"block font-medium text-foreground truncate\">{source.title}</span>\n          {source.snippet && (\n            <span className=\"mt-0.5 block text-muted-foreground line-clamp-3\">\n              {source.snippet}\n            </span>\n          )}\n        </span>\n      </span>\n    );\n  }\n);\nInlineCitation.displayName = 'InlineCitation';\n\nexport { InlineCitation };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/inline-citation.manifest.json",
+      "content": "{\n  \"id\": \"inline-citation\",\n  \"name\": \"InlineCitation\",\n  \"tier\": \"atom\",\n  \"description\": \"Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.\",\n  \"designIntent\": \"Attribute individual claims inside a response to their source without leaving the paragraph.\",\n  \"props\": [\n    {\n      \"name\": \"source\",\n      \"type\": \"SourceItem\",\n      \"required\": true,\n      \"description\": \"Cited source powering the preview card.\"\n    },\n    {\n      \"name\": \"children\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Wrapped text; defaults to the source title.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Wrap a claim\",\n      \"code\": \"<InlineCitation source={sources[0]}>as reported</InlineCitation>\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not stack many citations on one word\",\n      \"explanation\": \"Use Sources footer for long lists; keep inline citations to one claim each.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Keyboard access\",\n      \"implementation\": \"Trigger is a focusable button; card opens on focus-within.\"\n    },\n    {\n      \"feature\": \"Tooltip semantics\",\n      \"implementation\": \"Card has role=tooltip linked via aria-describedby.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
 }

@@ -97,7 +97,16 @@ export function themeToCssVariables(theme: Theme): string {
     return `--${cssVarName}: ${value};`;
   });
 
+  // Multi-token radius: Tailwind maps rounded-{sm,md,lg} to these variables.
+  const radius = theme.radius ?? {
+    lg: theme.borderRadius,
+    md: `calc(${theme.borderRadius} - 2px)`,
+    sm: `calc(${theme.borderRadius} - 4px)`,
+  };
   vars.push(`--radius: ${theme.borderRadius};`);
+  vars.push(`--radius-lg: ${radius.lg};`);
+  vars.push(`--radius-md: ${radius.md};`);
+  vars.push(`--radius-sm: ${radius.sm};`);
 
   return vars.join('\n  ');
 }
