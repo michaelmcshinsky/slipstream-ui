@@ -19,6 +19,9 @@ export interface ConversationProps {
   streamingMessageId?: string;
 }
 
+/** Distance (px) from the bottom within which the view counts as "pinned". */
+const PINNED_THRESHOLD = 80;
+
 const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
   ({
     messages,
@@ -37,14 +40,25 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
     const scrollRef = React.useRef<HTMLDivElement>(null);
     const messagesEndRef = React.useRef<HTMLDivElement>(null);
 
-    // Auto-scroll to bottom on new messages and during token streaming
+    // Auto-scroll only when the user is already near the bottom, so reading
+    // history is never yanked. During streaming use instant scrolls; smooth
+    // animations restarted per token cause jank.
     React.useEffect(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      const container = scrollRef.current;
+      if (!container) return;
+
+      const distanceFromBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight;
+      if (distanceFromBottom > PINNED_THRESHOLD) return;
+
+      messagesEndRef.current?.scrollIntoView({
+        behavior: streamingMessageId ? 'auto' : 'smooth',
+      });
     }, [messages, streamingMessageId]);
 
     return (
-      <div ref={ref} className={cn('h-full w-full overflow-auto', className)} {...props}>
-        <div ref={scrollRef} className="flex flex-col gap-4 p-4">
+      <div ref={ref} className={cn('h-full w-full', className)} {...props}>
+        <div ref={scrollRef} className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
           {messages.map((message) => (
             <Message
               key={message.id}
@@ -62,19 +76,20 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
           ))}
 
           {isLoading && (
-            <div className="flex gap-3 p-4 rounded-lg bg-muted/50">
-              {showAvatars && (
-                <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-xs font-medium text-secondary-foreground">
-                  {assistantAvatarFallback || 'A'}
-                </div>
+            <Message
+              message={{
+                id: '__loading__',
+                role: 'assistant',
+                content: loadingMessage,
+              }}
+              showAvatar={showAvatars}
+              avatarSrc={assistantAvatarSrc}
+              avatarFallback={assistantAvatarFallback}
+              className="bg-muted/50"
+              renderContent={(content) => (
+                <span className="text-muted-foreground animate-pulse">{content}</span>
               )}
-              <div className="flex-1">
-                <div className="text-sm font-medium mb-1">Assistant</div>
-                <div className="text-sm text-muted-foreground animate-pulse">
-                  {loadingMessage}
-                </div>
-              </div>
-            </div>
+            />
           )}
 
           <div ref={messagesEndRef} />

@@ -60,6 +60,11 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
       onFeedback?.(updated);
     };
 
+    const actionButton =
+      'rounded px-1.5 py-0.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+    const actionButtonIdle =
+      'text-muted-foreground hover:bg-accent hover:text-accent-foreground';
+
     return (
       <div
         ref={ref}
@@ -69,11 +74,7 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
         {...props}
       >
         {content !== undefined && (
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
+          <button type="button" onClick={handleCopy} className={cn(actionButton, actionButtonIdle)}>
             {copied ? t.copied : t.copy}
           </button>
         )}
@@ -84,10 +85,8 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
           aria-label={t.thumbUp}
           aria-pressed={rating === 'up'}
           className={cn(
-            'rounded px-1.5 py-0.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-            rating === 'up'
-              ? 'text-primary'
-              : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+            actionButton,
+            rating === 'up' ? 'text-primary' : actionButtonIdle
           )}
         >
           👍
@@ -99,21 +98,15 @@ const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
           aria-label={t.thumbDown}
           aria-pressed={rating === 'down'}
           className={cn(
-            'rounded px-1.5 py-0.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-            rating === 'down'
-              ? 'text-destructive'
-              : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+            actionButton,
+            rating === 'down' ? 'text-destructive' : actionButtonIdle
           )}
         >
           👎
         </button>
 
         {onRegenerate && (
-          <button
-            type="button"
-            onClick={onRegenerate}
-            className="rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
+          <button type="button" onClick={onRegenerate} className={cn(actionButton, actionButtonIdle)}>
             {t.regenerate}
           </button>
         )}

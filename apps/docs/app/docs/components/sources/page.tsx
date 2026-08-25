@@ -1,4 +1,6 @@
 import { Source, Sources } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function SourcesPage() {
   return (
@@ -22,8 +24,7 @@ export default function SourcesPage() {
         <Source source={{ id: '1', title: 'React documentation', url: 'https://react.dev' }} index={1} />
       </div>
 
-      <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-8">
-        <code>{`import { Sources, Source } from '@slipstream-ui/ai';
+      <CodeBlock className="mb-8">{`import { Sources, Source } from '@slipstream-ui/ai';
 
 <Sources
   sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }]}
@@ -32,47 +33,18 @@ export default function SourcesPage() {
 />
 
 // Single inline citation
-<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />`}</code>
-      </pre>
+<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />`}</CodeBlock>
 
       <h2 className="text-2xl font-semibold mb-4">Props</h2>
-      <div className="rounded-lg border border-border overflow-hidden mb-8">
-        <table className="w-full text-sm">
-          <thead className="bg-muted">
-            <tr>
-              <th className="text-left p-3">Prop</th>
-              <th className="text-left p-3">Type</th>
-              <th className="text-left p-3">Default</th>
-              <th className="text-left p-3">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">sources</td>
-              <td className="p-3 font-mono">Source[]</td>
-              <td className="p-3">—</td>
-              <td className="p-3">References to display (Sources).</td>
-            </tr>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">maxDisplay</td>
-              <td className="p-3 font-mono">number</td>
-              <td className="p-3 font-mono">3</td>
-              <td className="p-3">Max references before an overflow indicator.</td>
-            </tr>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">label</td>
-              <td className="p-3 font-mono">string</td>
-              <td className="p-3 font-mono">&apos;Sources&apos;</td>
-              <td className="p-3">Heading label; override for localization.</td>
-            </tr>
-            <tr className="border-t border-border">
-              <td className="p-3 font-mono">index</td>
-              <td className="p-3 font-mono">number</td>
-              <td className="p-3">—</td>
-              <td className="p-3">1-based citation marker rendered as [n] (Source).</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="mb-8">
+        <PropsTable
+          rows={[
+            { name: 'sources', type: 'SourceItem[]', description: 'References to display (Sources).' },
+            { name: 'maxDisplay', type: 'number', defaultValue: '3', description: 'Max references before an overflow indicator.' },
+            { name: 'label', type: 'string', defaultValue: "'Sources'", description: 'Heading label; override for localization.' },
+            { name: 'index', type: 'number', description: '1-based citation marker rendered as [n] (Source).' },
+          ]}
+        />
       </div>
 
       <h2 className="text-2xl font-semibold mb-4">Accessibility</h2>

@@ -14,6 +14,8 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   shims: true,
+  // Bundle the workspace registry module so the published CLI is self-contained.
+  noExternal: ['@slipstream-ui/registry'],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },

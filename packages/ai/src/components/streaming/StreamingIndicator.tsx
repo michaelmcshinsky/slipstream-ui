@@ -20,9 +20,13 @@ const StreamingIndicator = React.forwardRef<HTMLDivElement, StreamingIndicatorPr
       {...props}
     >
       <div className="flex gap-1">
-        <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-        <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
-        <span className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+        {[0, 150, 300].map((delay) => (
+          <span
+            key={delay}
+            className="w-2 h-2 bg-primary rounded-full animate-pulse"
+            style={{ animationDelay: `${delay}ms` }}
+          />
+        ))}
       </div>
       <span>{text}</span>
     </div>

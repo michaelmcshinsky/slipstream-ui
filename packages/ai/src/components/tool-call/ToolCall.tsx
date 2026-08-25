@@ -10,6 +10,18 @@ export interface ToolCallProps {
 
 const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
   ({ toolCall, className, showResult = true, ...props }, ref) => {
+    // Serialize once per tool-call change instead of on every render.
+    const serializedArguments = React.useMemo(
+      () => JSON.stringify(toolCall.arguments, null, 2),
+      [toolCall.arguments]
+    );
+    const serializedResult = React.useMemo(() => {
+      if (toolCall.result === undefined) return undefined;
+      return typeof toolCall.result === 'string'
+        ? toolCall.result
+        : JSON.stringify(toolCall.result, null, 2);
+    }, [toolCall.result]);
+
     const statusColors = {
       pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
       running: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
@@ -52,19 +64,15 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
           <div>
             <div className="text-xs font-medium text-muted-foreground mb-1">Arguments</div>
             <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
-              <code>{JSON.stringify(toolCall.arguments, null, 2)}</code>
+              <code>{serializedArguments}</code>
             </pre>
           </div>
 
-          {showResult && toolCall.result !== undefined && (
+          {showResult && serializedResult !== undefined && (
             <div>
               <div className="text-xs font-medium text-muted-foreground mb-1">Result</div>
               <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
-                <code>
-                  {typeof toolCall.result === 'string'
-                    ? toolCall.result
-                    : JSON.stringify(toolCall.result, null, 2)}
-                </code>
+                <code>{serializedResult}</code>
               </pre>
             </div>
           )}

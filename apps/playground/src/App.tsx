@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Input, Badge, Avatar, AvatarFallback, Spinner } from '@slipstream-ui/core';
 import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message } from '@slipstream-ui/ai';
-import { defaultTheme, violetTheme, themeToCssVariables } from '@slipstream-ui/themes';
+import { defaultTheme, violetTheme } from '@slipstream-ui/themes';
 
 function App() {
   const [messages, setMessages] = useState([
@@ -14,16 +14,18 @@ function App() {
 
   const changeTheme = (name: string) => {
     const theme = name === 'violet' ? violetTheme : defaultTheme;
-    themeToCssVariables(theme).split('\n').forEach((declaration) => {
-      const [property, value] = declaration.replace(';', '').split(': ');
-      if (property && value) document.documentElement.style.setProperty(property, value);
+    // Apply the structured token map directly; no CSS-string round-trip.
+    Object.entries(theme.colors).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(`--${key}`, value ?? '');
     });
+    document.documentElement.style.setProperty('--radius', theme.borderRadius ?? '');
     setThemeName(name);
   };
 
   const handleSubmit = (value: string) => {
     const userMessage = { id: Date.now().toString(), role: 'user' as const, content: value };
-    setMessages([...messages, userMessage]);
+    // Updater form avoids a stale `messages` closure.
+    setMessages((prev) => [...prev, userMessage]);
 
     setIsLoading(true);
     setTimeout(() => {
