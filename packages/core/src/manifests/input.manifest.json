@@ -1,0 +1,229 @@
+{
+  "id": "input",
+  "name": "Input",
+  "tier": "atom",
+  "description": "A text input field with support for various input types and standard HTML input attributes",
+  "designIntent": "The Input component provides a styled text input that follows the design system. It supports all standard HTML input attributes and includes proper focus states, disabled states, and file input styling.",
+  "props": [
+    {
+      "name": "type",
+      "type": "string",
+      "defaultValue": "text",
+      "required": false,
+      "description": "HTML input type (text, password, email, number, etc.)",
+      "examples": [
+        "text",
+        "password",
+        "email",
+        "number"
+      ]
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder text to display when input is empty",
+      "examples": [
+        "Enter your name",
+        "Email address",
+        "Search..."
+      ]
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current value of the input (controlled component)",
+      "examples": [
+        "John Doe",
+        "user@example.com"
+      ]
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Default value for uncontrolled input",
+      "examples": [
+        "Default text"
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the input",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Marks the input as required for form validation",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "onChange",
+      "type": "(event: ChangeEvent<HTMLInputElement>) => void",
+      "required": false,
+      "description": "Handler called when input value changes"
+    },
+    {
+      "name": "onFocus",
+      "type": "(event: FocusEvent<HTMLInputElement>) => void",
+      "required": false,
+      "description": "Handler called when input is focused"
+    },
+    {
+      "name": "onBlur",
+      "type": "(event: FocusEvent<HTMLInputElement>) => void",
+      "required": false,
+      "description": "Handler called when input loses focus"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic text input",
+      "code": "<Input placeholder=\"Enter your name\" />",
+      "description": "Simple text input with placeholder"
+    },
+    {
+      "title": "Email input",
+      "code": "<Input type=\"email\" placeholder=\"user@example.com\" />",
+      "description": "Input optimized for email addresses"
+    },
+    {
+      "title": "Password input",
+      "code": "<Input type=\"password\" placeholder=\"Enter password\" />",
+      "description": "Input that obscures text for passwords"
+    },
+    {
+      "title": "Controlled input",
+      "code": "<Input \n  value={value}\n  onChange={(e) => setValue(e.target.value)}\n  placeholder=\"Controlled input\"\n/>",
+      "description": "Input with controlled state"
+    },
+    {
+      "title": "Disabled input",
+      "code": "<Input disabled placeholder=\"Disabled input\" />",
+      "description": "Input that cannot be interacted with"
+    },
+    {
+      "title": "File input",
+      "code": "<Input type=\"file\" />",
+      "description": "Input for file uploads with styled file button"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Input for multi-line text",
+      "code": "// Avoid: Using Input for paragraphs\n<Input placeholder=\"Enter your story\" />\n\n// Prefer: Use Textarea component\n<Textarea placeholder=\"Enter your story\" />",
+      "description": "Input is for single-line text. Use Textarea for multi-line content."
+    },
+    {
+      "title": "Don't ignore validation",
+      "code": "// Avoid: No validation feedback\n<Input value={invalidValue} />\n\n// Prefer: Show validation state\n<Input \n  value={value}\n  className={error ? 'border-destructive' : ''}\n  aria-invalid={error}\n/>",
+      "description": "Provide visual feedback for validation errors"
+    },
+    {
+      "title": "Don't use vague placeholders",
+      "code": "// Avoid: Generic placeholder\n<Input placeholder=\"Text\" />\n\n// Prefer: Descriptive placeholder\n<Input placeholder=\"Enter your full name\" />",
+      "description": "Placeholders should describe what input is expected"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Input is natively focusable and supports all keyboard input",
+      "userRequirements": "Ensure visible focus indicator"
+    },
+    {
+      "feature": "Screen reader support",
+      "implementation": "Input type and placeholder are announced. Use aria-label or aria-labelledby for additional context",
+      "userRequirements": "For inputs without visible labels, use aria-label"
+    },
+    {
+      "feature": "Form validation",
+      "implementation": "Supports HTML5 validation attributes (required, pattern, min, max)",
+      "userRequirements": "Use aria-invalid and aria-describedby for validation errors"
+    },
+    {
+      "feature": "Disabled state",
+      "implementation": "Disabled inputs are not focusable and screen readers announce as disabled",
+      "userRequirements": "Don't rely solely on visual disabled state"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholder text",
+      "guidelines": [
+        "Use descriptive placeholders that indicate expected input",
+        "Keep placeholders concise (under 50 characters ideally)",
+        "Don't use placeholders as a replacement for labels",
+        "Avoid using placeholders as instructions",
+        "For required fields, consider adding '(required)' to placeholder or label"
+      ],
+      "goodExamples": [
+        "Enter your email address",
+        "Search for components...",
+        "Enter your full name"
+      ],
+      "badExamples": [
+        "Text",
+        "Input",
+        "Type here",
+        "Lorem ipsum"
+      ]
+    },
+    {
+      "contentType": "Input labels",
+      "guidelines": [
+        "Always provide visible labels for inputs",
+        "Labels should be positioned above or before the input",
+        "Use sentence case for labels",
+        "For required fields, indicate this clearly",
+        "Labels should describe what the input is for, not what to type"
+      ],
+      "goodExamples": [
+        "Email address",
+        "Full name",
+        "Password (required)"
+      ],
+      "badExamples": [
+        "Type email",
+        "Enter your name here",
+        "Type in this box"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Inputs should always have associated labels for accessibility",
+      "example": "<Label htmlFor=\"email\">Email</Label><Input id=\"email\" />"
+    },
+    {
+      "component": "Form",
+      "relationship": "Inputs are typically used within form components for validation and submission",
+      "example": "Form groups multiple inputs together for validation"
+    }
+  ],
+  "relatedComponents": [
+    "Textarea",
+    "Label",
+    "Form",
+    "Select"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "input",
+  "exportName": "Input"
+}

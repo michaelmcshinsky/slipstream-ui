@@ -1,0 +1,87 @@
+# Slipstream UI - AI-First React Component Library
+
+## Overview
+Slipstream UI is an AI-first React component library designed for AI-assisted development. Every component ships a machine-readable COMPONENT_MANIFEST so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
+
+## Key Differentiator
+AI reads the spec, not the source. Each component includes a COMPONENT_MANIFEST JSON file containing:
+- Component metadata (id, name, tier)
+- Design intent and purpose
+- Full prop schema with types, defaults, and constraints
+- Usage examples (good and anti-patterns)
+- Accessibility requirements
+- Content guidelines for AI text generation
+- Composition rules
+
+## Quick Start
+```bash
+npx slipstream-ui@latest init
+# or
+pnpm add @slipstream-ui/core @slipstream-ui/ai
+```
+
+## Package Structure
+- @slipstream-ui/core - Base atoms and molecules (Button, Input, Badge, Avatar, Spinner)
+- @slipstream-ui/ai - AI interaction components (Message, Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, Attachment, MessageActions)
+- @slipstream-ui/themes - Theming system with createTheme() and presets
+- @slipstream-ui/mcp-server - MCP server for AI agents
+- @slipstream-ui/cli - CLI tool for installation and management
+
+## Core Components (Atoms)
+- Button - Clickable button with variants (default, destructive, outline, secondary, ghost, link)
+- Input - Text input with HTML input type support
+- Badge - Status indicator for tags, counts, or status
+- Avatar - User profile image with fallback support
+- Spinner - Accessible loading indicator with role=status
+
+## AI Components
+- Message - Chat message with role-based styling, optional custom content rendering (renderContent), and streaming cursor support
+- Conversation - Container for message list with auto-scroll and loading states
+- PromptInput - Textarea for chat prompts with auto-resize, keyboard shortcuts, and stop-generation button
+- Reasoning - Collapsible display of AI reasoning steps and chain-of-thought
+- ToolCall - Display of AI tool/function calls with status, arguments, and results
+- Source / Sources - Citation item and numbered citation list for grounding responses
+- Suggestions - Clickable follow-up suggestion buttons
+- ChainThought - Step timeline with status-colored dots
+- StreamingIndicator - Animated indicator while a response is generating
+- Attachment / AttachmentList - Display-only file chips with upload status and remove callbacks
+- MessageActions - Feedback toolbar: copy, thumbs up/down ratings, regenerate
+
+## MCP Server
+The MCP server provides tools for AI agents:
+- list_components - Query available components with filters
+- get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
+- get_usage_examples - Get usage examples, composition rules, and anti-patterns
+
+## Documentation
+Full documentation at https://slipstreamui.com/docs
+
+## For AI Agents
+When generating UI code:
+1. Query the MCP server for component manifests
+2. Read prop schemas and usage examples
+3. Follow content guidelines for text generation
+4. Respect composition rules and anti-patterns
+5. Ensure accessibility requirements are met
+
+## Example Usage
+```tsx
+import { Button } from '@slipstream-ui/core'
+import { Message, Conversation, PromptInput } from '@slipstream-ui/ai'
+
+function ChatApp() {
+  const [messages, setMessages] = useState([
+    { id: '1', role: 'user', content: 'Hello!' }
+  ])
+
+  return (
+    <div>
+      <Conversation messages={messages} />
+      <PromptInput onSubmit={(text) => setMessages([...messages, { id: Date.now(), role: 'user', content: text }])} />
+    </div>
+  )
+}
+```
+
+## License
+MIT

@@ -1,0 +1,255 @@
+{
+  "id": "prompt-input",
+  "name": "PromptInput",
+  "tier": "molecule",
+  "description": "A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button",
+  "designIntent": "The PromptInput component provides a specialized input for chat interfaces. It handles auto-resizing as the user types, supports Enter to submit (Shift+Enter for new line), and integrates with the conversation flow. It's designed to be the primary way users interact with AI assistants.",
+  "props": [
+    {
+      "name": "onSubmit",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback when the user submits the prompt",
+      "examples": [
+        "(value) => sendMessage(value)"
+      ]
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "Type your message...",
+      "required": false,
+      "description": "Placeholder text to display when input is empty",
+      "examples": [
+        "Type your message...",
+        "Ask me anything...",
+        "Enter your prompt..."
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether the input is disabled",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether a submission is currently in progress",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "autoFocus",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether to auto-focus the input on mount",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "required": false,
+      "description": "Maximum character count for the input",
+      "examples": [
+        500,
+        1000,
+        2000
+      ]
+    },
+    {
+      "name": "showSendButton",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether to show the send button",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "sendButtonText",
+      "type": "string",
+      "defaultValue": "Send",
+      "required": false,
+      "description": "Text or icon for the send button",
+      "examples": [
+        "Send",
+        "Submit",
+        "→"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply to the container"
+    },
+    {
+      "name": "onStop",
+      "type": "() => void",
+      "required": false,
+      "description": "While loading, the send button becomes a stop button that calls this handler."
+    },
+    {
+      "name": "stopButtonText",
+      "type": "string",
+      "defaultValue": "Stop generating",
+      "required": false,
+      "description": "Accessible label for the stop button; enables localization."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic prompt input",
+      "code": "<PromptInput onSubmit={(value) => console.log(value)} />",
+      "description": "Simple prompt input with default configuration"
+    },
+    {
+      "title": "With custom placeholder",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  placeholder=\"Ask me anything about coding...\"\n/>",
+      "description": "Prompt input with custom placeholder text"
+    },
+    {
+      "title": "With auto-focus",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  autoFocus={true}\n/>",
+      "description": "Auto-focuses the input when component mounts"
+    },
+    {
+      "title": "With character limit",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  maxLength={500}\n/>",
+      "description": "Limits input to 500 characters"
+    },
+    {
+      "title": "Without send button",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  showSendButton={false}\n/>",
+      "description": "Hides the send button (user must press Enter)"
+    },
+    {
+      "title": "With loading state",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  isLoading={isGenerating}\n  disabled={isGenerating}\n/>",
+      "description": "Shows loading state and disables while AI is responding"
+    },
+    {
+      "title": "Cancellable generation",
+      "code": "<PromptInput onSubmit={send} isLoading={loading} onStop={() => abortRef.current.abort()} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use for non-chat input",
+      "code": "// Avoid: Using PromptInput for forms\n<PromptInput onSubmit={handleFormSubmit} />\n\n// Prefer: Use appropriate form input components\n<TextArea onChange={handleChange} />",
+      "description": "PromptInput is specifically for chat interactions, not general form input"
+    },
+    {
+      "title": "Don't ignore Enter key behavior",
+      "code": "// Avoid: Confusing users by disabling Enter\n<PromptInput \n  onSubmit={handleSubmit}\n  // Users expect Enter to submit\n/>\n\n// If you need different behavior, document it clearly",
+      "description": "Users expect Enter to submit. If you change this, communicate it clearly"
+    },
+    {
+      "title": "Don't validate after submission",
+      "code": "// Avoid: Validating in onSubmit\n<PromptInput onSubmit={(value) => {\n  if (!value) return; // Validate before\n  sendMessage(value);\n}} />\n\n// Prefer: Disable button when empty\n<PromptInput \n  onSubmit={sendMessage}\n  disabled={!value}\n/>",
+      "description": "Disable the input when empty rather than validating in the handler"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Full keyboard support with Enter to submit, Shift+Enter for new line",
+      "userRequirements": "Document keyboard shortcuts for users"
+    },
+    {
+      "feature": "Screen reader support",
+      "implementation": "Textarea has proper label and placeholder. Button state is announced",
+      "userRequirements": "Ensure placeholder text is descriptive and helpful"
+    },
+    {
+      "feature": "Form validation",
+      "implementation": "Button is disabled when input is empty, preventing invalid submissions",
+      "userRequirements": "Consider adding aria-invalid for custom validation if needed"
+    },
+    {
+      "feature": "Auto-resize",
+      "implementation": "Textarea automatically grows with content up to max-height",
+      "userRequirements": "Test with screen readers to ensure height changes are announced appropriately"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholder text",
+      "guidelines": [
+        "Use action-oriented placeholder text",
+        "Be specific about what kind of input is expected",
+        "Keep placeholders concise (under 50 characters ideally)",
+        "Avoid generic placeholders like 'Enter text'",
+        "Consider the context of the conversation"
+      ],
+      "goodExamples": [
+        "Type your message...",
+        "Ask me anything about coding...",
+        "Describe what you'd like to build..."
+      ],
+      "badExamples": [
+        "Enter text here",
+        "Input",
+        "Type something",
+        "Lorem ipsum dolor sit amet"
+      ]
+    },
+    {
+      "contentType": "Send button",
+      "guidelines": [
+        "Use clear icons or text for the send button",
+        "Consider using an arrow icon (→) for a modern look",
+        "Show loading state when submitting",
+        "Disable button when input is empty"
+      ],
+      "goodExamples": [
+        "→",
+        "Send",
+        "Submit"
+      ],
+      "badExamples": [
+        "Click me",
+        "OK",
+        "Go"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Conversation",
+      "relationship": "PromptInput is typically used below a Conversation component to add new messages",
+      "example": "Conversation displays messages, PromptInput submits new ones to the same messages array"
+    },
+    {
+      "component": "ChatLayout",
+      "relationship": "PromptInput is often part of a ChatLayout that combines Conversation and input",
+      "example": "ChatLayout wraps Conversation and PromptInput in a complete chat interface"
+    }
+  ],
+  "relatedComponents": [
+    "Conversation",
+    "ChatLayout",
+    "Button"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "prompt-input",
+  "exportName": "PromptInput"
+}

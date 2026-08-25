@@ -1,0 +1,55 @@
+{
+  "name": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "description": "Core UI components for Slipstream UI",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\"",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@slipstream-ui/eslint-config": "workspace:*",
+    "@slipstream-ui/tailwind-config": "workspace:*",
+    "@slipstream-ui/typescript-config": "workspace:*",
+    "@slipstream-ui/vitest-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "eslint": "^8.56.0",
+    "jest-axe": "^9.0.0",
+    "jsdom": "^24.0.0",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.3",
+    "vitest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  }
+}
