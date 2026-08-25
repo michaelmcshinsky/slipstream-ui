@@ -1,0 +1,59 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "spinner",
+  "name": "Spinner",
+  "tier": "atom",
+  "description": "Indeterminate loading indicator with accessible status semantics.",
+  "designIntent": "Communicate in-progress states without layout shift; inherit text color so it adapts to any context.",
+  "props": [
+    {
+      "name": "size",
+      "type": "'sm' | 'default' | 'lg'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Visual size of the spinner."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "defaultValue": "Loading...",
+      "required": false,
+      "description": "Screen-reader label; the visual ring is aria-hidden."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Default",
+      "code": "<Spinner />"
+    },
+    {
+      "title": "Inline loading state",
+      "code": "<span className=\"flex items-center gap-2\"><Spinner size=\"sm\" /> Generating...</span>"
+    },
+    {
+      "title": "Decorative (near visible text)",
+      "code": "<Spinner aria-hidden label=\"\" />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not use multiple spinners for one wait state",
+      "explanation": "One status indicator per operation; multiple role=status elements announce redundantly."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status semantics",
+      "implementation": "role=status with sr-only label announces loading to screen readers."
+    },
+    {
+      "feature": "Reduced motion",
+      "implementation": "Pair with motion-reduce utilities when animation must be suppressed."
+    }
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "spinner",
+  "exportName": "Spinner"
+}

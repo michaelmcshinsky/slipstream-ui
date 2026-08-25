@@ -15,7 +15,8 @@
     "validate:manifests": "tsx scripts/validate-manifests.ts",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish --provenance"
+    "release": "turbo run build && changeset publish --provenance",
+    "generate:registry": "tsx scripts/generate-registry.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",

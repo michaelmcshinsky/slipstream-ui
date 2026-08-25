@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Badge, Avatar, AvatarFallback, Spinner } from '@slipstream-ui/core';
-import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message } from '@slipstream-ui/ai';
+import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message, Response, CodeBlock, Confirmation, Branch, InlineCitation } from '@slipstream-ui/ai';
 import { defaultTheme, violetTheme } from '@slipstream-ui/themes';
 
 function App() {
@@ -219,6 +219,47 @@ function App() {
                 onFeedback={(rating) => window.alert(`Feedback: ${rating ?? 'cleared'}`)}
                 onRegenerate={() => window.alert('Regenerating...')}
               />
+            </div>
+          </section>
+
+          {/* Response + CodeBlock demo */}
+          <section className="p-6 border rounded-lg bg-card">
+            <h2 className="text-xl font-semibold mb-4">Response & CodeBlock Components</h2>
+            <Response>{'# Streaming markdown\n\nSupports **bold**, `inline code`, and [links](https://react.dev).\n\n- Lists render semantically\n- Tables via GFM too'}</Response>
+            <div className="mt-4">
+              <CodeBlock language="ts" code={'export function greet(name: string) {\n  return `Hello, ${name}!`;\n}'} />
+            </div>
+          </section>
+
+          {/* Confirmation demo */}
+          <section className="p-6 border rounded-lg bg-card max-w-xl">
+            <h2 className="text-xl font-semibold mb-4">Confirmation Component</h2>
+            <Confirmation
+              title="Delete all files in /tmp?"
+              description="This affects 14 files and cannot be undone."
+              toolName="delete_files"
+              onApprove={() => window.alert('Approved')}
+              onReject={() => window.alert('Rejected')}
+            />
+          </section>
+
+          {/* Branch + InlineCitation demo */}
+          <section className="p-6 border rounded-lg bg-card max-w-xl space-y-6">
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Branch Component</h2>
+              <Branch count={3} defaultSelected={0} onSelect={(i) => window.alert(`Variant ${i + 1}`)} />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold mb-4">InlineCitation Component</h2>
+              <p className="text-sm">
+                Enterprise adoption keeps accelerating{' '}
+                <InlineCitation
+                  source={{ id: '1', title: 'State of AI 2026', snippet: '78% of enterprises shipped at least one LLM feature.' }}
+                >
+                  according to industry surveys
+                </InlineCitation>
+                .
+              </p>
             </div>
           </section>
         </div>

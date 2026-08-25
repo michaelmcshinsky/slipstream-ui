@@ -1,0 +1,39 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "suggestions",
+  "name": "Suggestions",
+  "tier": "molecule",
+  "description": "Displays clickable follow-up prompts for AI interactions.",
+  "designIntent": "Help users discover useful next actions without composing every prompt from scratch.",
+  "props": [
+    {
+      "name": "suggestions",
+      "type": "Suggestion[]",
+      "required": true,
+      "description": "Suggestions to display."
+    },
+    {
+      "name": "onSelect",
+      "type": "(suggestion: Suggestion) => void",
+      "required": false,
+      "description": "Called when a suggestion is selected."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Follow-up prompts",
+      "code": "<Suggestions suggestions={[{ id: '1', text: 'Show me an example' }]} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard activation",
+      "implementation": "Suggestions are native buttons."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "suggestion",
+  "exportName": "Suggestions"
+}

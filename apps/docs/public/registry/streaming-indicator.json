@@ -1,0 +1,40 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "streaming-indicator",
+  "name": "StreamingIndicator",
+  "tier": "atom",
+  "description": "Shows that an AI response is currently streaming.",
+  "designIntent": "Give users immediate feedback while generated content is arriving.",
+  "props": [
+    {
+      "name": "isStreaming",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the indicator is visible."
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "defaultValue": "Generating…",
+      "required": false,
+      "description": "Status text."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Generating state",
+      "code": "<StreamingIndicator isStreaming={true} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status text",
+      "implementation": "The state includes human-readable text in addition to animation."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "streaming",
+  "exportName": "StreamingIndicator"
+}

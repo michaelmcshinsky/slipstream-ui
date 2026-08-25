@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Conversation } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
+import { PropsTable } from '@/components/props-table';
 
 export default function ConversationPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -77,16 +79,13 @@ export default function ConversationPage() {
           <code>npx slipstream-ui add conversation</code>
         </pre>
         <p className="text-sm text-muted-foreground mt-2">Or import manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mt-2">
-          <code>{`import { Conversation } from '@slipstream-ui/ai'`}</code>
-        </pre>
+        <CodeBlock className="mt-2">{`import { Conversation } from '@slipstream-ui/ai'`}</CodeBlock>
       </div>
 
       {/* Usage */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Usage</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`const [messages, setMessages] = useState([
+        <CodeBlock>{`const [messages, setMessages] = useState([
   { id: '1', role: 'user', content: 'Hello!' },
   { id: '2', role: 'assistant', content: 'Hi there!' }
 ])
@@ -97,63 +96,22 @@ export default function ConversationPage() {
   showAvatars={true}
   userAvatarFallback="You"
   assistantAvatarFallback="AI"
-/>`}</code>
-        </pre>
+/>`}</CodeBlock>
       </div>
 
       {/* Props */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Props</h2>
-        <div className="border rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="text-left p-3">Prop</th>
-                <th className="text-left p-3">Type</th>
-                <th className="text-left p-3">Default</th>
-                <th className="text-left p-3">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">messages</td>
-                <td className="p-3 text-xs">Message[]</td>
-                <td className="p-3 text-xs">required</td>
-                <td className="p-3 text-xs">Array of message objects to display</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">isLoading</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">false</td>
-                <td className="p-3 text-xs">Whether assistant is generating a response</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">showAvatars</td>
-                <td className="p-3 text-xs">boolean</td>
-                <td className="p-3 text-xs">true</td>
-                <td className="p-3 text-xs">Whether to show avatars for messages</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">loadingMessage</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">'Thinking...'</td>
-                <td className="p-3 text-xs">Text to display while loading</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">renderContent</td>
-                <td className="p-3 text-xs">(content: string) =&gt; ReactNode</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">Custom renderer applied to every message (e.g. markdown)</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-3 font-mono text-xs">streamingMessageId</td>
-                <td className="p-3 text-xs">string</td>
-                <td className="p-3 text-xs">undefined</td>
-                <td className="p-3 text-xs">ID of the message still generating; shows its cursor and auto-scrolls</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <PropsTable
+          rows={[
+            { name: 'messages', type: 'Message[]', defaultValue: 'required', description: 'Array of message objects to display' },
+            { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Whether assistant is generating a response' },
+            { name: 'showAvatars', type: 'boolean', defaultValue: 'true', description: 'Whether to show avatars for messages' },
+            { name: 'loadingMessage', type: 'string', defaultValue: "'Thinking...'", description: 'Text to display while loading' },
+            { name: 'renderContent', type: '(content: string) => ReactNode', defaultValue: 'undefined', description: 'Custom renderer applied to every message (e.g. markdown)' },
+            { name: 'streamingMessageId', type: 'string', defaultValue: 'undefined', description: 'ID of the message still generating; shows its cursor and auto-scrolls' },
+          ]}
+        />
       </div>
 
       {/* Examples */}

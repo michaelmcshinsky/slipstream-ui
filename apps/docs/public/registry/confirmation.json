@@ -1,0 +1,78 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "confirmation",
+  "name": "Confirmation",
+  "tier": "molecule",
+  "description": "Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
+  "designIntent": "Make destructive or consequential tool calls require explicit user consent.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Summary of the action requiring approval."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Detail: affected resource or risk note."
+    },
+    {
+      "name": "toolName",
+      "type": "string",
+      "required": false,
+      "description": "Tool/action name shown as mono text."
+    },
+    {
+      "name": "status",
+      "type": "'pending' | 'approved' | 'rejected'",
+      "defaultValue": "pending",
+      "required": false,
+      "description": "Controlled outcome; omit for uncontrolled."
+    },
+    {
+      "name": "onApprove",
+      "type": "() => void",
+      "required": false,
+      "description": "Called on approval."
+    },
+    {
+      "name": "onReject",
+      "type": "() => void",
+      "required": false,
+      "description": "Called on rejection."
+    },
+    {
+      "name": "labels",
+      "type": "object",
+      "required": false,
+      "description": "Overrides for approve/reject/approved/rejected labels."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Gate a destructive tool",
+      "code": "<Confirmation title=\"Delete all files?\" toolName=\"delete_all\" onApprove={run} onReject={cancel} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not auto-approve after timeout",
+      "explanation": "Silent approval defeats the safety purpose; keep waiting or fail explicitly."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Dialog semantics",
+      "implementation": "Pending state renders role=alertdialog labeled by the title."
+    },
+    {
+      "feature": "Outcome announcement",
+      "implementation": "Status chip text announces Approved/Rejected."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}

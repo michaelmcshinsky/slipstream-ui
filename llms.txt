@@ -36,16 +36,26 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 
 ## AI Components
 - Message - Chat message with role-based styling, optional custom content rendering (renderContent), and streaming cursor support
-- Conversation - Container for message list with auto-scroll and loading states
-- PromptInput - Textarea for chat prompts with auto-resize, keyboard shortcuts, and stop-generation button
+- Response - Streaming-optimized markdown renderer with GFM, incomplete-syntax repair, and CodeBlock integration
+- CodeBlock - Syntax-highlighted code with language label and copy button (prism-react-renderer)
+- Conversation - Container for message list with pinned auto-scroll, scroll-to-latest pill, and transcript download
+- PromptInput - Textarea for chat prompts with auto-resize, keyboard shortcuts, stop-generation button, and attachment tray
 - Reasoning - Collapsible display of AI reasoning steps and chain-of-thought
-- ToolCall - Display of AI tool/function calls with status, arguments, and results
+- ToolCall - Display of AI tool/function calls with status, arguments, results, and error surface
+- Confirmation - Human-in-the-loop approval gate for agent actions (role=alertdialog while pending)
 - Source / Sources - Citation item and numbered citation list for grounding responses
+- InlineCitation - Perplexity-style inline citation chip with hover/focus preview card
 - Suggestions - Clickable follow-up suggestion buttons
 - ChainThought - Step timeline with status-colored dots
 - StreamingIndicator - Animated indicator while a response is generating
+- Branch - Variant navigation for branched messages (N/M position indicator)
 - Attachment / AttachmentList - Display-only file chips with upload status and remove callbacks
 - MessageActions - Feedback toolbar: copy, thumbs up/down ratings, regenerate
+
+## Registry
+Static manifest registry served from the docs site:
+- GET /registry/all.json - index of every component with id, name, tier, description
+- GET /registry/<id>.json - full COMPONENT_MANIFEST for one component
 
 ## MCP Server
 The MCP server provides tools for AI agents:

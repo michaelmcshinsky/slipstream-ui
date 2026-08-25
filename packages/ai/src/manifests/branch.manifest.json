@@ -1,0 +1,65 @@
+{
+  "id": "branch",
+  "name": "Branch",
+  "tier": "atom",
+  "description": "Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
+  "designIntent": "Let users compare alternative AI responses without leaving the transcript flow.",
+  "props": [
+    {
+      "name": "count",
+      "type": "number",
+      "required": true,
+      "description": "Total variants; renders nothing below 2."
+    },
+    {
+      "name": "selected",
+      "type": "number",
+      "required": false,
+      "description": "Controlled zero-based index."
+    },
+    {
+      "name": "defaultSelected",
+      "type": "number",
+      "defaultValue": 0,
+      "required": false,
+      "description": "Uncontrolled initial index."
+    },
+    {
+      "name": "onSelect",
+      "type": "(index: number) => void",
+      "required": false,
+      "description": "Called with the chosen variant index."
+    },
+    {
+      "name": "labels",
+      "type": "object",
+      "required": false,
+      "description": "Overrides for previous/next aria-labels."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Two variants",
+      "code": "<Branch count={variants.length} selected={i} onSelect={setI} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not swap message content without syncing selected",
+      "explanation": "In controlled mode the displayed variant must follow onSelect."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Boundary disabling",
+      "implementation": "Arrows disable at ends instead of wrapping silently."
+    },
+    {
+      "feature": "Position announcement",
+      "implementation": "N/M indicator uses aria-live=polite."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}

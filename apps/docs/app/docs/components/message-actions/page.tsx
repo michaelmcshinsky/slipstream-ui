@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Message, MessageActions } from '@slipstream-ui/ai';
+import { CodeBlock } from '@/components/code-block';
 
 export default function MessageActionsPage() {
   const [rating, setRating] = useState<'up' | 'down' | undefined>();
@@ -35,8 +36,7 @@ export default function MessageActionsPage() {
         </p>
       </div>
 
-      <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-8">
-        <code>{`import { MessageActions } from '@slipstream-ui/ai';
+      <CodeBlock className="mb-8">{`import { MessageActions } from '@slipstream-ui/ai';
 
 <MessageActions
   content={message.content}
@@ -44,8 +44,7 @@ export default function MessageActionsPage() {
   onFeedback={(rating) => analytics.track(rating)}   // 'up' | 'down' | undefined
   onRegenerate={() => regenerate(message.id)}
   labels={{ copy: 'Copy', thumbUp: 'Good response' }}
-/>`}</code>
-      </pre>
+/>`}</CodeBlock>
 
       <h2 className="text-2xl font-semibold mb-4">Accessibility</h2>
       <ul className="list-disc pl-5 space-y-2 text-sm mb-8">

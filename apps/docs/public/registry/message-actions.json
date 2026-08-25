@@ -1,0 +1,73 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "message-actions",
+  "name": "MessageActions",
+  "tier": "atom",
+  "description": "Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.",
+  "designIntent": "Collect user trust signals (copy, rating, regeneration) with minimal API surface; consumers own what happens after each action.",
+  "props": [
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "Text to copy; omit to hide the copy action."
+    },
+    {
+      "name": "onCopy",
+      "type": "(content: string) => void",
+      "required": false,
+      "description": "Called after copy with the copied text."
+    },
+    {
+      "name": "onFeedback",
+      "type": "(rating: 'up' | 'down' | undefined) => void",
+      "required": false,
+      "description": "Rating callback; selecting the active rating again passes undefined."
+    },
+    {
+      "name": "onRegenerate",
+      "type": "() => void",
+      "required": false,
+      "description": "Regeneration request; omit to hide the action."
+    },
+    {
+      "name": "labels",
+      "type": "{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }",
+      "required": false,
+      "description": "Overrides for all visible labels; enables localization."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Full feedback bar",
+      "code": "<MessageActions content={message.content} onCopy={copy} onFeedback={(r) => track(r)} onRegenerate={regen} />"
+    },
+    {
+      "title": "Ratings only",
+      "code": "<MessageActions onFeedback={(r) => save(r)} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not place MessageActions inside the message text flow",
+      "explanation": "Render it below the Message bubble so actions remain visually and semantically separate from content."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Toolbar semantics",
+      "implementation": "Root has role=toolbar with an aria-label."
+    },
+    {
+      "feature": "Toggle state",
+      "implementation": "Rating buttons expose aria-pressed so screen readers announce selection."
+    },
+    {
+      "feature": "Icon buttons",
+      "implementation": "All icon-only controls have accessible labels; labels are localizable."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}

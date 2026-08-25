@@ -40,3 +40,6 @@ jobs:
 
       - name: Validate manifests
         run: pnpm validate:manifests
+
+      - name: Generate registry payload
+        run: pnpm generate:registry

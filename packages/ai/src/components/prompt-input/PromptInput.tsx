@@ -1,11 +1,18 @@
+'use client';
+
 import * as React from 'react';
 import { Button } from '@slipstream-ui/core';
 import { cn } from '@slipstream-ui/core';
+import { AttachmentList } from '../attachment';
+import type { AttachmentItem } from '../attachment';
 
 export interface PromptInputProps {
   onSubmit: (value: string) => void;
   /** Called when the user requests to stop an in-flight generation. */
   onStop?: () => void;
+  /** Files queued on the prompt; rendered as removable chips above the textarea. */
+  attachments?: AttachmentItem[];
+  onRemoveAttachment?: (attachment: AttachmentItem) => void;
   placeholder?: string;
   disabled?: boolean;
   isLoading?: boolean;
@@ -21,6 +28,8 @@ const PromptInput = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
   ({
     onSubmit,
     onStop,
+    attachments,
+    onRemoveAttachment,
     placeholder = 'Type your message...',
     disabled = false,
     isLoading = false,
@@ -79,8 +88,12 @@ const PromptInput = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
     };
 
     return (
-      <div className={cn('flex gap-2 items-end', className)} {...props}>
-        <textarea
+      <div className={cn('flex flex-col gap-2', className)} {...props}>
+        {attachments && attachments.length > 0 && (
+          <AttachmentList attachments={attachments} onRemove={onRemoveAttachment} />
+        )}
+        <div className="flex gap-2 items-end">
+          <textarea
           ref={textareaRef}
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -113,6 +126,7 @@ const PromptInput = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
             )}
           </Button>
         )}
+        </div>
       </div>
     );
   }

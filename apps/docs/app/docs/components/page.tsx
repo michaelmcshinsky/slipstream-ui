@@ -11,14 +11,19 @@ export default function ComponentsOverviewPage() {
 
   const aiComponents = [
     { name: 'Message', id: 'message', tier: 'molecule', description: 'Chat message with role styling, streaming, and custom rendering' },
+    { name: 'Response', id: 'response', tier: 'molecule', description: 'Streaming-safe markdown renderer' },
+    { name: 'CodeBlock', id: 'code-block', tier: 'atom', description: 'Highlighted code with copy button' },
     { name: 'Conversation', id: 'conversation', tier: 'organism', description: 'Message list with auto-scroll' },
     { name: 'PromptInput', id: 'prompt-input', tier: 'molecule', description: 'Chat input with auto-resize and stop-generation' },
     { name: 'Reasoning', id: 'reasoning', tier: 'molecule', description: 'AI reasoning steps display' },
-    { name: 'ToolCall', id: 'tool-call', tier: 'molecule', description: 'Tool call status and results' },
+    { name: 'ToolCall', id: 'tool-call', tier: 'molecule', description: 'Tool call status, results, and errors' },
+    { name: 'Confirmation', id: 'confirmation', tier: 'molecule', description: 'Human-in-the-loop approval gate' },
     { name: 'Sources', id: 'sources', tier: 'molecule', description: 'Citations and references for AI responses' },
+    { name: 'InlineCitation', id: 'inline-citation', tier: 'atom', description: 'Inline hover-citation chip' },
     { name: 'Suggestions', id: 'suggestions', tier: 'molecule', description: 'Clickable follow-up prompts' },
     { name: 'ChainThought', id: 'chain-thought', tier: 'molecule', description: 'Ordered agent reasoning steps' },
     { name: 'StreamingIndicator', id: 'streaming-indicator', tier: 'atom', description: 'Streaming and generating state' },
+    { name: 'Branch', id: 'branch', tier: 'atom', description: 'Variant navigation for branched messages' },
     { name: 'Attachment', id: 'attachment', tier: 'molecule', description: 'File chips with upload status and remove actions' },
     { name: 'MessageActions', id: 'message-actions', tier: 'atom', description: 'Copy, feedback ratings, and regenerate toolbar' },
   ];

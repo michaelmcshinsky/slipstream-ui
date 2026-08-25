@@ -1,0 +1,212 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "message",
+  "name": "Message",
+  "tier": "molecule",
+  "description": "A chat message component that displays messages from users, assistants, or system prompts with optional avatars",
+  "designIntent": "The Message component renders individual chat messages with proper styling based on the message role (user, assistant, system, tool). It handles avatar display, timestamps, and different visual treatments to distinguish between message types in a conversation interface.",
+  "props": [
+    {
+      "name": "message",
+      "type": "Message",
+      "required": true,
+      "description": "The message object containing role, content, and optional metadata",
+      "examples": [
+        "{ id: '1', role: 'user', content: 'Hello' }",
+        "{ id: '2', role: 'assistant', content: 'Hi there!' }"
+      ]
+    },
+    {
+      "name": "showAvatar",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether to show the avatar for the message",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "avatarSrc",
+      "type": "string",
+      "required": false,
+      "description": "Optional custom avatar image URL",
+      "examples": [
+        "https://example.com/avatar.png"
+      ]
+    },
+    {
+      "name": "avatarFallback",
+      "type": "string",
+      "required": false,
+      "description": "Fallback text to show when avatar image is not available",
+      "examples": [
+        "JD",
+        "AI",
+        "Bot"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply to the message container"
+    },
+    {
+      "name": "renderContent",
+      "type": "(content: string) => ReactNode",
+      "required": false,
+      "description": "Custom renderer (e.g. markdown); replaces default plain-text rendering."
+    },
+    {
+      "name": "isStreaming",
+      "type": "boolean",
+      "defaultValue": false,
+      "required": false,
+      "description": "Shows a typing cursor and sets aria-busy while the response is still generating."
+    },
+    {
+      "name": "userLabel",
+      "type": "string",
+      "defaultValue": "You",
+      "required": false,
+      "description": "Display name for user messages; enables localization."
+    },
+    {
+      "name": "assistantLabel",
+      "type": "string",
+      "defaultValue": "Assistant",
+      "required": false,
+      "description": "Display name for assistant messages; enables localization."
+    }
+  ],
+  "examples": [
+    {
+      "title": "User message",
+      "code": "<Message message={{ id: '1', role: 'user', content: 'Hello, how are you?' }} />",
+      "description": "Message from the user with default avatar"
+    },
+    {
+      "title": "Assistant message",
+      "code": "<Message message={{ id: '2', role: 'assistant', content: 'I\\'m doing well, thank you!' }} />",
+      "description": "Message from the AI assistant"
+    },
+    {
+      "title": "System message",
+      "code": "<Message message={{ id: '3', role: 'system', content: 'System initialized' }} />",
+      "description": "System-level message with distinct styling"
+    },
+    {
+      "title": "With custom avatar",
+      "code": "<Message \n  message={{ id: '4', role: 'assistant', content: 'Hello' }}\n  avatarSrc=\"/ai-avatar.png\"\n  avatarFallback=\"AI\"\n/>",
+      "description": "Message with custom avatar image and fallback"
+    },
+    {
+      "title": "Without avatar",
+      "code": "<Message \n  message={{ id: '5', role: 'user', content: 'Quick message' }}\n  showAvatar={false}\n/>",
+      "description": "Message with avatar hidden for more compact display"
+    },
+    {
+      "title": "Markdown rendering (opt-in)",
+      "code": "<Message message={m} renderContent={(c) => <ReactMarkdown>{c}</ReactMarkdown>} />"
+    },
+    {
+      "title": "Streaming response",
+      "code": "<Message message={partial} isStreaming />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use for complex content",
+      "code": "// Avoid: Putting complex UI inside message content\n<Message message={{ \n  role: 'assistant', \n  content: '<div>Complex HTML</div>' \n}} />\n\n// Prefer: Use separate components for complex content\n<Message message={{ role: 'assistant', content: 'Here is the data:' }} />\n<DataDisplay data={...} />",
+      "description": "Message content should be plain text. For complex UI, use additional components."
+    },
+    {
+      "title": "Don't hardcode message data",
+      "code": "// Avoid: Hardcoded message\n<Message message={{ id: '1', role: 'user', content: 'Fixed text' }} />\n\n// Prefer: Dynamic message from state\n<Message message={messages[currentIndex]} />",
+      "description": "Messages should come from a conversation state, not be hardcoded"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Screen reader support",
+      "implementation": "Message role and content are announced. Avatar has proper alt text from fallback or role",
+      "userRequirements": "Ensure avatarFallback is meaningful when avatarSrc is used"
+    },
+    {
+      "feature": "Color contrast",
+      "implementation": "User and assistant messages have distinct background colors with proper contrast",
+      "userRequirements": "Test color contrast in both light and dark modes"
+    },
+    {
+      "feature": "Semantic structure",
+      "implementation": "Message is rendered as a div with proper ARIA attributes for role identification",
+      "userRequirements": "Consider adding aria-live regions for streaming messages"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Message content",
+      "guidelines": [
+        "Content should be plain text, not HTML",
+        "Support markdown formatting if needed (apply at wrapper level)",
+        "Keep messages focused and concise",
+        "Use proper punctuation and grammar for assistant messages",
+        "For user messages, preserve user's original formatting"
+      ],
+      "goodExamples": [
+        "I can help you with that task.",
+        "Here's the code you requested:",
+        "Let me explain step by step."
+      ],
+      "badExamples": [
+        "<b>Bold text</b>",
+        "Lorem ipsum dolor sit amet",
+        "Click here to continue"
+      ]
+    },
+    {
+      "contentType": "Avatar fallback",
+      "guidelines": [
+        "Use 1-2 characters maximum",
+        "Use initials for user names",
+        "Use meaningful abbreviations for bots",
+        "Ensure high contrast with avatar background"
+      ],
+      "goodExamples": [
+        "JD",
+        "AI",
+        "Bot",
+        "S"
+      ],
+      "badExamples": [
+        "John Doe",
+        "Assistant",
+        "long-text"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Conversation",
+      "relationship": "Messages are typically rendered within a Conversation component that manages the message list",
+      "example": "<Conversation>\n  {messages.map(msg => <Message key={msg.id} message={msg} />)}\n</Conversation>"
+    },
+    {
+      "component": "PromptInput",
+      "relationship": "New messages from PromptInput should be added to the message list and rendered as Message components",
+      "example": "const handleSubmit = (text) => {\n  const newMessage = { id: Date.now(), role: 'user', content: text };\n  setMessages([...messages, newMessage]);\n}"
+    }
+  ],
+  "relatedComponents": [
+    "Conversation",
+    "PromptInput",
+    "Avatar"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "message",
+  "exportName": "Message"
+}

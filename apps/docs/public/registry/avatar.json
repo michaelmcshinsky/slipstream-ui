@@ -1,0 +1,159 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "avatar",
+  "name": "Avatar",
+  "tier": "atom",
+  "description": "A user profile image component with fallback support and accessible image loading",
+  "designIntent": "The Avatar component displays user profile images with a circular frame. It includes fallback content when the image fails to load or is not provided, and follows accessibility best practices for user avatars.",
+  "props": [
+    {
+      "name": "src",
+      "type": "string",
+      "required": false,
+      "description": "URL of the avatar image",
+      "examples": [
+        "https://example.com/avatar.jpg",
+        "/avatars/user1.png"
+      ]
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "required": false,
+      "description": "Alt text for the avatar image (for accessibility)",
+      "examples": [
+        "John Doe's avatar",
+        "Profile picture"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply to the avatar container"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Avatar with image",
+      "code": "<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" alt=\"User\" />\n  <AvatarFallback>JD</AvatarFallback>\n</Avatar>",
+      "description": "Avatar with image and fallback text"
+    },
+    {
+      "title": "Avatar with fallback only",
+      "code": "<Avatar>\n  <AvatarFallback>JD</AvatarFallback>\n</Avatar>",
+      "description": "Avatar showing only fallback initials"
+    },
+    {
+      "title": "Large avatar",
+      "code": "<Avatar className=\"h-16 w-16\">\n  <AvatarImage src=\"/avatar.jpg\" alt=\"User\" />\n  <AvatarFallback>JD</AvatarFallback>\n</Avatar>",
+      "description": "Avatar with custom size"
+    },
+    {
+      "title": "Avatar with colored fallback",
+      "code": "<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" alt=\"User\" />\n  <AvatarFallback className=\"bg-primary text-primary-foreground\">JD</AvatarFallback>\n</Avatar>",
+      "description": "Avatar with styled fallback background"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't forget alt text",
+      "code": "// Avoid: Missing alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" />\n</Avatar>\n\n// Prefer: Always include alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" alt=\"John Doe\" />\n</Avatar>",
+      "description": "Alt text is essential for accessibility. Always describe the avatar content."
+    },
+    {
+      "title": "Don't use vague fallback text",
+      "code": "// Avoid: Generic fallback\n<AvatarFallback>Avatar</AvatarFallback>\n\n// Prefer: Use initials or name\n<AvatarFallback>JD</AvatarFallback>",
+      "description": "Fallback should be meaningful. Use initials or abbreviations that identify the user."
+    },
+    {
+      "title": "Don't use avatars for non-people",
+      "code": "// Avoid: Avatar for company logos\n<Avatar>\n  <AvatarImage src=\"/logo.png\" alt=\"Company\" />\n</Avatar>\n\n// Prefer: Use appropriate image component\n<img src=\"/logo.png\" alt=\"Company\" className=\"rounded\" />",
+      "description": "Avatars are designed for people. Use other components for logos or objects."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Screen reader support",
+      "implementation": "AvatarImage requires alt text. AvatarFallback content is announced when image fails",
+      "userRequirements": "Always provide meaningful alt text for AvatarImage"
+    },
+    {
+      "feature": "Image loading",
+      "implementation": "Radix Avatar handles image loading errors and displays fallback automatically",
+      "userRequirements": "Test fallback display with broken image URLs"
+    },
+    {
+      "feature": "Focus indication",
+      "implementation": "Avatar can be focused and has visible focus ring when keyboard navigable",
+      "userRequirements": "If avatar is interactive (clickable), ensure it has proper focus states"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Fallback text",
+      "guidelines": [
+        "Use 1-2 characters for optimal appearance",
+        "Use initials from the user's name",
+        "Use consistent letter case (usually uppercase)",
+        "For unknown users, use generic indicators like '?' or 'U'",
+        "Ensure high contrast with fallback background color"
+      ],
+      "goodExamples": [
+        "JD",
+        "AB",
+        "X",
+        "?"
+      ],
+      "badExamples": [
+        "John Doe",
+        "User",
+        "very-long-text",
+        "lowercase"
+      ]
+    },
+    {
+      "contentType": "Alt text",
+      "guidelines": [
+        "Describe who or what is in the avatar",
+        "Keep alt text concise",
+        "Use the person's name when available",
+        "For generic avatars, describe the purpose",
+        "Don't include 'avatar' or 'image' in alt text (it's redundant)"
+      ],
+      "goodExamples": [
+        "John Doe",
+        "Jane Smith",
+        "Current user"
+      ],
+      "badExamples": [
+        "Avatar image",
+        "Profile picture",
+        "User avatar",
+        "An image of a person"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Message",
+      "relationship": "Avatars are commonly used in Message components to identify the sender",
+      "example": "Message component uses Avatar to show user or assistant identity"
+    },
+    {
+      "component": "UserMenu",
+      "relationship": "Avatars are often used in user menus or profile headers",
+      "example": "UserMenu displays current user's avatar for quick identification"
+    }
+  ],
+  "relatedComponents": [
+    "Message",
+    "UserMenu",
+    "Button"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "avatar",
+  "exportName": "Avatar"
+}

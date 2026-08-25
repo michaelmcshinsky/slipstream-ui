@@ -1,0 +1,50 @@
+{
+  "id": "code-block",
+  "name": "CodeBlock",
+  "tier": "atom",
+  "description": "Syntax-highlighted code block with language label and copy-to-clipboard button.",
+  "designIntent": "Display AI-generated or referenced code readably with one-click copy.",
+  "props": [
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Raw code to display."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "defaultValue": "tsx",
+      "required": false,
+      "description": "Prism language identifier."
+    },
+    {
+      "name": "showCopyButton",
+      "type": "boolean",
+      "defaultValue": true,
+      "required": false,
+      "description": "Show/hide the copy control."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic",
+      "code": "<CodeBlock code={sourceCode} language=\"ts\" />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not nest CodeBlock in Response code fences manually",
+      "explanation": "Response already routes fenced code to CodeBlock."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Copy button",
+      "implementation": "Icon-labeled button with aria-label that flips to Copied."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}
