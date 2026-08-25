@@ -1,0 +1,39 @@
+{
+  "id": "chain-thought",
+  "name": "ChainThought",
+  "tier": "molecule",
+  "description": "Displays ordered reasoning steps with status indicators.",
+  "designIntent": "Provide a compact progress view for multi-step agent work.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "ChainThoughtStep[]",
+      "required": true,
+      "description": "Ordered reasoning steps."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "defaultValue": false,
+      "required": false,
+      "description": "Use compact typography."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Agent steps",
+      "code": "<ChainThought steps={[{ id: '1', content: 'Analyzing…', status: 'pending' }]} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status visibility",
+      "implementation": "Each step exposes a text label and visual status."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "chainthought",
+  "exportName": "ChainThought"
+}
