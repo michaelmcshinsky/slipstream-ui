@@ -4,10 +4,10 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { issueLicense } from '@/lib/licenses';
 import { requireMembership } from '@/lib/teams';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const licenses = await prisma.licenseKey.findMany({
       where: { ownerId: user.id },
@@ -19,7 +19,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const body = await readJson<{ teamId?: string; plan?: string; note?: string }>(request);
     const plan = body.plan ?? 'PRO';

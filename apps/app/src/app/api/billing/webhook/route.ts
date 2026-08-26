@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { prisma } from '@slipstream-ui/db';
 import { activateSubscription, downgradeToFree } from '@/lib/billing';
-import { handle, badRequest } from '@/lib/http';
+import { handle, badRequest } from '@/lib/api/handle';
 
 /** Verify Stripe's signature header (t=v1 scheme). No-op without a secret. */
 function verifyStripeSignature(payload: string, header: string | null): boolean {
@@ -21,7 +21,7 @@ function verifyStripeSignature(payload: string, header: string | null): boolean 
 }
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const payload = await request.text();
     if (!verifyStripeSignature(payload, request.headers.get('stripe-signature'))) {
       badRequest('Invalid webhook signature.');

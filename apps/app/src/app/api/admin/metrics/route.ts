@@ -2,11 +2,11 @@ export const dynamic = 'force-dynamic';
 
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
-import { handle } from '@/lib/http';
+import { handle } from '@/lib/api/handle';
 
 /** Business metrics for the super-admin overview. */
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     requireAdmin(await getSessionUser());
 
     const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);

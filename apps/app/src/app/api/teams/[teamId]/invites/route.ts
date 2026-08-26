@@ -2,12 +2,12 @@ export const dynamic = 'force-dynamic';
 
 import { getSessionUser, requireUser } from '@/lib/session';
 import { inviteMember, requireMembership } from '@/lib/teams';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ teamId: string }> };
 
 export async function POST(request: Request, { params }: Params) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const { teamId } = await params;
     await requireMembership(user.id, teamId, 'ADMIN');

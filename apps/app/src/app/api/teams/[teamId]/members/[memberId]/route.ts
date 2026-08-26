@@ -4,13 +4,13 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { requireMembership } from '@/lib/teams';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ teamId: string; memberId: string }> };
 
 /** Change a member's role. Requires ADMIN; only OWNER can set OWNER. */
 export async function PATCH(request: Request, { params }: Params) {
-  return handle(async () => {
+  return handle(request, async () => {
     const actor = requireUser(await getSessionUser());
     const { teamId, memberId } = await params;
     await requireMembership(actor.id, teamId, 'ADMIN');
@@ -40,8 +40,8 @@ export async function PATCH(request: Request, { params }: Params) {
 }
 
 /** Remove a member. ADMINs can remove MEMBERs; OWNERs can remove anyone but themselves. */
-export async function DELETE(_request: Request, { params }: Params) {
-  return handle(async () => {
+export async function DELETE(request: Request, { params }: Params) {
+  return handle(request, async () => {
     const actor = requireUser(await getSessionUser());
     const { teamId, memberId } = await params;
     const actorMembership = await requireMembership(actor.id, teamId, 'ADMIN');

@@ -3,12 +3,12 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ userId: string }> };
 
-export async function GET(_request: Request, { params }: Params) {
-  return handle(async () => {
+export async function GET(request: Request, { params }: Params) {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     void admin;
     const { userId } = await params;
@@ -29,7 +29,7 @@ export async function GET(_request: Request, { params }: Params) {
 
 /** Update role / suspension. Self-demotion and self-suspension are blocked. */
 export async function PATCH(request: Request, { params }: Params) {
-  return handle(async () => {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     const { userId } = await params;
     if (userId === admin.id) badRequest('Use account settings to change your own account.');

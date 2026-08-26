@@ -3,10 +3,10 @@ export const dynamic = 'force-dynamic';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { createTeamForUser } from '@/lib/teams';
 import { prisma } from '@slipstream-ui/db';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const memberships = await prisma.membership.findMany({
       where: { userId: user.id },
@@ -24,7 +24,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const body = await readJson<{ name?: string }>(request);
     if (!body.name?.trim()) badRequest('Team name is required.');

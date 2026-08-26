@@ -36,7 +36,7 @@ beforeAll(async () => {
     new Request('http://localhost/api/auth/signup', json({ email: `admin-${suffix}@test.dev`, name: 'Admin', password: 'supersecret1' }))
   );
   const data = await response.json();
-  adminId = data.user.id;
+  adminId = data.data.user.id;
   await promoteToAdmin(adminId);
 });
 
@@ -51,7 +51,7 @@ describe('auth lifecycle through route handlers', () => {
     expect(response.status).toBe(200);
     expect(store.has('slipstream_session')).toBe(true);
 
-    const meData = await (await me()).json();
+    const meData = (await (await me(new Request('http://localhost/api/auth/me'))).json()).data;
     expect(meData.user.email).toBe(email);
     expect(meData.teams).toHaveLength(1);
   });
@@ -67,7 +67,7 @@ describe('auth lifecycle through route handlers', () => {
     expect(wrong.status).toBe(400);
 
     const missing = await login(new Request('http://localhost/api/auth/login', json({ email: 'ghost@test.dev', password: 'whatever' })));
-    expect((await missing.json()).error).toMatch(/invalid email or password/i);
+    expect((await missing.json()).error.message).toMatch(/invalid email or password/i);
   });
 
   it('resets a password via token and revokes old sessions', async () => {
@@ -77,7 +77,7 @@ describe('auth lifecycle through route handlers', () => {
     store.clear(); // sign out
 
     const forgotResponse = await forgot(new Request('http://localhost/api/auth/forgot-password', json({ email })));
-    const { resetToken } = await forgotResponse.json();
+    const { resetToken } = (await forgotResponse.json()).data;
     expect(resetToken).toBeTruthy();
 
     // Old sessions must be dead before reset completes.
@@ -85,7 +85,7 @@ describe('auth lifecycle through route handlers', () => {
     expect(resetResponse.status).toBe(200);
 
     // Reset signs the user back in with a fresh session.
-    const meData = await (await me()).json();
+    const meData = (await (await me(new Request('http://localhost/api/auth/me'))).json()).data;
     expect(meData.user.email).toBe(email);
 
     // The reset token is single-use.
@@ -96,7 +96,7 @@ describe('auth lifecycle through route handlers', () => {
   it('validates license keys through the public endpoint', async () => {
     store.clear();
     await signup(new Request('http://localhost/api/auth/signup', json({ email: `lic-${suffix}@test.dev`, password: 'password123' })));
-    const meData = await (await me()).json();
+    const meData = (await (await me(new Request('http://localhost/api/auth/me'))).json()).data;
     const userId = meData.user.id;
 
     // Issue directly in DB to avoid auth-order coupling.
@@ -108,12 +108,12 @@ describe('auth lifecycle through route handlers', () => {
     const good = await validateLicenseRoute(
       new Request('http://localhost/api/licenses/validate', json({ key, machineId: 'm-1' }))
     );
-    expect((await good.json())).toMatchObject({ valid: true, plan: 'PRO' });
+    expect((await good.json()).data).toMatchObject({ valid: true, plan: 'PRO' });
 
     const secondMachine = await validateLicenseRoute(
       new Request('http://localhost/api/licenses/validate', json({ key, machineId: 'm-2' }))
     );
-    expect((await secondMachine.json()).valid).toBe(false); // limit 1
+    expect((await secondMachine.json()).data.valid).toBe(false); // limit 1
   });
 
   it('guards admin routes by role', async () => {
@@ -132,7 +132,7 @@ describe('auth lifecycle through route handlers', () => {
     await login(new Request('http://localhost/api/auth/login', json({ email: `admin-${suffix}@test.dev`, password: 'supersecret1' })));
     const allowed = await adminUsers(new Request('http://localhost/api/admin/users'));
     expect(allowed.status).toBe(200);
-    const users = (await allowed.json()).users;
+    const users = (await allowed.json()).data.users;
     expect(users.some((user: { id: string }) => user.id === adminId)).toBe(true);
   });
 

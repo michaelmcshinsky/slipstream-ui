@@ -5,11 +5,11 @@ import { createHash } from 'node:crypto';
 import { prisma } from '@slipstream-ui/db';
 import { SESSION_COOKIE } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, badRequest } from '@/lib/http';
+import { handle, badRequest } from '@/lib/api/handle';
 
 /** Restore the admin session parked during impersonation. */
-export async function POST() {
-  return handle(async () => {
+export async function POST(request: Request) {
+  return handle(request, async () => {
     const store = await cookies();
     const adminToken = store.get('slipstream_impersonator')?.value;
     if (!adminToken) badRequest('Not currently impersonating.');

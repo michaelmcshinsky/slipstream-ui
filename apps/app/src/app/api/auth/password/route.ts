@@ -6,7 +6,7 @@ import { getSessionUser, requireUser, SESSION_COOKIE } from '@/lib/session';
 import { hashPassword, verifyPassword, assertStrongPassword } from '@/lib/passwords';
 import { hashToken } from '@/lib/tokens';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 interface Body {
   currentPassword?: string;
@@ -15,7 +15,7 @@ interface Body {
 }
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const sessionUser = requireUser(await getSessionUser());
     const body = await readJson<Body>(request);
     if (!body.currentPassword || !body.newPassword) badRequest('Both passwords are required.');

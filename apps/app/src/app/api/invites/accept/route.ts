@@ -3,10 +3,10 @@ export const dynamic = 'force-dynamic';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { acceptInvite } from '@/lib/teams';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const body = await readJson<{ token?: string }>(request);
     if (!body.token) badRequest('Invite token is required.');

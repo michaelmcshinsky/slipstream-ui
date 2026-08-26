@@ -25,3 +25,14 @@ vi.mock('next/headers', () => ({
 export function getCookieStore() {
   return store;
 }
+
+export function nextHeadersMock() {
+  return {
+    cookies: async () => ({
+      get: (name: string) => (store.has(name) ? { name, value: store.get(name)!.value } : undefined),
+      set: (name: string, value: string) => { store.set(name, { name, value }); },
+      delete: (name: string) => { store.delete(name); },
+      getAll: () => Array.from(store.values()),
+    }),
+  };
+}

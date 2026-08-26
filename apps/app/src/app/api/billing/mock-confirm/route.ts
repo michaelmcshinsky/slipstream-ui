@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { activateSubscription } from '@/lib/billing';
 import { issueLicense } from '@/lib/licenses';
-import { handle, badRequest } from '@/lib/http';
+import { handle, badRequest } from '@/lib/api/handle';
 
 /**
  * Mock-provider "checkout completion". Mirrors what the Stripe webhook does:
@@ -11,7 +11,7 @@ import { handle, badRequest } from '@/lib/http';
  * Disabled when BILLING_PROVIDER=stripe.
  */
 export async function GET(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     if (process.env.BILLING_PROVIDER === 'stripe') {
       badRequest('Mock checkout is disabled in stripe mode.');
     }
