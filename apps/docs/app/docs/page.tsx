@@ -1,88 +1,90 @@
+import Link from 'next/link';
+import { CodeBlock } from '@slipstream-ui/ai';
+
+const QUICK_LINKS = [
+  {
+    href: '/docs/installation',
+    title: 'Installation',
+    body: 'Packages, CLI, or shadcn-compatible registry — pick your workflow.',
+    icon: '⚡',
+  },
+  {
+    href: '/docs/ai-manifests',
+    title: 'COMPONENT_MANIFEST',
+    body: 'The machine-readable spec behind every component: props, anti-patterns, a11y.',
+    icon: '📋',
+  },
+  {
+    href: '/docs/components',
+    title: 'Components',
+    body: '21 atoms and molecules across core and AI interaction surfaces.',
+    icon: '🧩',
+  },
+  {
+    href: '/docs/templates',
+    title: 'Templates',
+    body: 'Complete copy-paste patterns: streaming chat, agent dashboard, RAG citations.',
+    icon: '📦',
+  },
+];
+
 export default function DocsPage() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-6">Introduction</h1>
-      <p className="text-lg text-muted-foreground mb-8">
-        Slipstream UI is an AI-first React component library designed for modern development
-        with AI assistance.
+    <div className="max-w-3xl">
+      <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">Introduction</h1>
+      <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
+        Slipstream UI is an AI-first React component library. Every component ships with a{' '}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-base">COMPONENT_MANIFEST</code> — a
+        machine-readable specification that lets coding agents like Claude, Cursor, and Copilot
+        generate correct UI the first time.
       </p>
 
-      <div className="prose prose-gray dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-semibold mt-8 mb-4">What makes Slipstream UI different?</h2>
-        <p className="text-muted-foreground mb-4">
-          Unlike traditional component libraries, Slipstream UI is built from the ground up
-          with AI-assisted development in mind. Every component includes a
-          <code className="bg-muted px-2 py-1 rounded">COMPONENT_MANIFEST</code> — a
-          machine-readable specification that tells AI agents exactly how to use the component.
-        </p>
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+        What makes it different?
+      </h2>
+      <p className="mt-3 leading-relaxed text-muted-foreground">
+        Traditional libraries document for humans and hope models figure it out from training
+        data — which is where hallucinated props come from. Slipstream documents for both of you:
+        humans get this site, agents get manifests over MCP, canonical markdown routes, and a{' '}
+        <code className="rounded bg-muted px-1.5 py-0.5">validate_usage</code> tool that checks
+        their output before it ships.
+      </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Key Features</h2>
-        <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-          <li>
-            <strong className="text-foreground">AI-Native Design:</strong> Every component
-            ships with a machine-readable manifest for AI agents
-          </li>
-          <li>
-            <strong className="text-foreground">Composable Primitives:</strong> Build complex
-            UIs from simple, focused components
-          </li>
-          <li>
-            <strong className="text-foreground">Deep AI SDK Support:</strong> First-class
-            streaming, tool calls, and generative UI patterns
-          </li>
-          <li>
-            <strong className="text-foreground">MCP Server:</strong> Zero-hallucination
-            surface for agents to query component specs
-          </li>
-          <li>
-            <strong className="text-foreground">TypeScript:</strong> Full type safety with
-            excellent IntelliSense
-          </li>
-          <li>
-            <strong className="text-foreground">Accessible:</strong> Built on Radix UI
-            primitives for WCAG compliance
-          </li>
-        </ul>
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Quick start</h2>
+      <div className="mt-4">
+        <CodeBlock language="bash" className="mb-4" code={`# Packages
+pnpm add @slipstream-ui/core @slipstream-ui/ai
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Quick Start</h2>
-        <p className="text-muted-foreground mb-4">
-          Get started with Slipstream UI in your project:
+# Or install source copies via the registry
+npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
+        <p className="text-sm text-muted-foreground">
+          Full setup instructions live under <Link href="/docs/installation" className="font-medium text-primary hover:underline">Installation</Link>.
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>npx slipstream-ui@latest init</code>
-        </pre>
-        <p className="text-muted-foreground mb-4">Or install manually:</p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>pnpm add @slipstream-ui/core @slipstream-ui/ai</code>
-        </pre>
-
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Architecture</h2>
-        <p className="text-muted-foreground mb-4">
-          Slipstream UI is organized into several packages:
-        </p>
-        <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-          <li>
-            <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/core</code> - Base
-            atoms and molecules
-          </li>
-          <li>
-            <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/ai</code> - AI
-            interaction components (Message, Conversation, Reasoning, etc.)
-          </li>
-          <li>
-            <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/themes</code> - Theming
-            system with presets
-          </li>
-          <li>
-            <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/mcp-server</code> - MCP
-            server for AI agents
-          </li>
-          <li>
-            <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/cli</code> - CLI tool
-            for installation and management
-          </li>
-        </ul>
       </div>
+
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Explore</h2>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        {QUICK_LINKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:shadow-sm"
+          >
+            <div aria-hidden="true" className="mb-2 text-xl">{link.icon}</div>
+            <h3 className="font-semibold group-hover:text-primary">{link.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{link.body}</p>
+          </Link>
+        ))}
+      </div>
+
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">For agent builders</h2>
+      <p className="mt-3 leading-relaxed text-muted-foreground">
+        If you are wiring an agent into Slipstream, start with{' '}
+        <Link href="/docs/mcp" className="font-medium text-primary hover:underline">the MCP server</Link>, the{' '}
+        <a href="/llm/index.md" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">canonical markdown index</a>, or{' '}
+        <Link href="/docs/ai-manifests" className="font-medium text-primary hover:underline">the manifest schema</Link>. Every
+        component page also links its own markdown reference in the header.
+      </p>
     </div>
   );
 }

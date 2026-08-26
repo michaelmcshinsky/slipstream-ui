@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { cn } from '@slipstream-ui/core';
 
 export interface DemoCardProps {
@@ -9,6 +10,8 @@ export interface DemoCardProps {
   /** Source code shown in the Code tab. */
   code: string;
   title?: string;
+  /** Prism language identifier for the code tab. */
+  language?: string;
   className?: string;
   /** Start on the code tab instead of the preview. */
   defaultTab?: 'preview' | 'code';
@@ -16,21 +19,11 @@ export interface DemoCardProps {
 
 /**
  * Tabbed Preview/Code card used by every component page
- * (elements.ai-sdk.dev / shadcn pattern).
+ * (elements.ai-sdk.dev / shadcn pattern). The code tab reuses the library's
+ * own highlighted CodeBlock component.
  */
-export function DemoCard({ preview, code, title, className, defaultTab = 'preview' }: DemoCardProps) {
+export function DemoCard({ preview, code, title, language = 'tsx', className, defaultTab = 'preview' }: DemoCardProps) {
   const [tab, setTab] = useState<'preview' | 'code'>(defaultTab);
-  const [copied, setCopied] = useState(false);
-
-  async function copyCode() {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard unavailable; feedback still shows via consumer handlers.
-    }
-  }
 
   return (
     <div className={cn('overflow-hidden rounded-lg border border-border', className)}>
@@ -56,23 +49,11 @@ export function DemoCard({ preview, code, title, className, defaultTab = 'previe
             <span className="ml-2 self-center text-xs text-muted-foreground">{title}</span>
           )}
         </div>
-        {tab === 'code' && (
-          <button
-            type="button"
-            onClick={copyCode}
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            aria-label={copied ? 'Copied' : 'Copy code'}
-          >
-            {copied ? 'Copied!' : 'Copy'}
-          </button>
-        )}
       </div>
       {tab === 'preview' ? (
         <div className="flex min-h-24 items-center justify-center p-6">{preview}</div>
       ) : (
-        <pre className="max-h-96 overflow-auto bg-muted/30 p-4 text-xs leading-relaxed">
-          <code>{code}</code>
-        </pre>
+        <CodeBlock code={code} language={language} className="rounded-none border-0" />
       )}
     </div>
   );
