@@ -3,6 +3,8 @@ import { Stat } from '@/components/ui';
 
 const PLAN_PRICES: Record<string, number> = { PRO: 2900, TEAM: 9900, ENTERPRISE: 49900 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminOverviewPage() {
   const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
