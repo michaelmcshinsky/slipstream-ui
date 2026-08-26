@@ -5,10 +5,10 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { hashToken } from '@/lib/tokens';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const keys = await prisma.apiKey.findMany({
       where: { userId: user.id, revokedAt: null },
@@ -21,7 +21,7 @@ export async function GET() {
 
 /** Creates a key; the plaintext value is shown exactly once. */
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const body = await readJson<{ name?: string }>(request);
     if (!body.name?.trim()) badRequest('A key name is required.');

@@ -2,10 +2,10 @@ export const dynamic = 'force-dynamic';
 
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
-import { handle, readJson } from '@/lib/http';
+import { handle, readJson } from '@/lib/api/handle';
 
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     const user = await getSessionUser();
     if (!user) return { user: null, teams: [], activeRole: null };
     const memberships = await prisma.membership.findMany({
@@ -18,7 +18,7 @@ export async function GET() {
 
 /** Update own profile (display name). */
 export async function PATCH(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const current = requireUser(await getSessionUser());
     const body = await readJson<{ name?: string }>(request);
     const user = await prisma.user.update({

@@ -4,10 +4,10 @@ import { prisma } from '@slipstream-ui/db';
 import { verifyPassword } from '@/lib/passwords';
 import { createSession } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const body = await readJson<{ email?: string; password?: string }>(request);
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? '';

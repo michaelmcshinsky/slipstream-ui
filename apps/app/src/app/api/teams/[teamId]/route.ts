@@ -4,12 +4,12 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { requireMembership } from '@/lib/teams';
 import { audit } from '@/lib/audit';
-import { handle, readJson } from '@/lib/http';
+import { handle, readJson } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ teamId: string }> };
 
-export async function GET(_request: Request, { params }: Params) {
-  return handle(async () => {
+export async function GET(request: Request, { params }: Params) {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const { teamId } = await params;
     await requireMembership(user.id, teamId);
@@ -27,7 +27,7 @@ export async function GET(_request: Request, { params }: Params) {
 }
 
 export async function PATCH(request: Request, { params }: Params) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const { teamId } = await params;
     await requireMembership(user.id, teamId, 'ADMIN');

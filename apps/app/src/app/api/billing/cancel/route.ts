@@ -5,10 +5,10 @@ import { getSessionUser, requireUser } from '@/lib/session';
 import { requireMembership } from '@/lib/teams';
 import { downgradeToFree } from '@/lib/billing';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const user = requireUser(await getSessionUser());
     const body = await readJson<{ teamId?: string }>(request);
     if (!body.teamId) badRequest('teamId is required.');

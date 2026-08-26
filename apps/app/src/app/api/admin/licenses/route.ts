@@ -3,10 +3,10 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { issueLicense, revokeLicense } from '@/lib/licenses';
-import { handle, readJson, badRequest } from '@/lib/http';
+import { handle, readJson, badRequest } from '@/lib/api/handle';
 
-export async function GET() {
-  return handle(async () => {
+export async function GET(request: Request) {
+  return handle(request, async () => {
     requireAdmin(await getSessionUser());
     const licenses = await prisma.licenseKey.findMany({
       include: { owner: { select: { email: true } }, activations: true },
@@ -18,7 +18,7 @@ export async function GET() {
 
 /** Revoke any license (admin override). */
 export async function DELETE(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     const body = await readJson<{ licenseId?: string }>(request);
     if (!body.licenseId) badRequest('licenseId is required.');
@@ -29,7 +29,7 @@ export async function DELETE(request: Request) {
 
 /** Admin-issued comp licenses (sponsorships, enterprise trials). */
 export async function POST(request: Request) {
-  return handle(async () => {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     const body = await readJson<{ userId?: string; plan?: string; maxActivations?: number; note?: string }>(request);
     if (!body.userId || !body.plan) badRequest('userId and plan are required.');

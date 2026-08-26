@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin, createSession } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, badRequest } from '@/lib/http';
+import { handle, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ userId: string }> };
 
@@ -13,8 +13,8 @@ type Params = { params: Promise<{ userId: string }> };
  * impersonator cookie so "stop impersonating" can restore it.
  * Every start and stop is written to the audit log.
  */
-export async function POST(_request: Request, { params }: Params) {
-  return handle(async () => {
+export async function POST(request: Request, { params }: Params) {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     const { userId } = await params;
     if (userId === admin.id) badRequest('You are already signed in as this user.');

@@ -3,13 +3,13 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, badRequest } from '@/lib/http';
+import { handle, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ paymentId: string }> };
 
 /** Mark a payment refunded (mock). Stripe mode issues a real refund via API. */
-export async function POST(_request: Request, { params }: Params) {
-  return handle(async () => {
+export async function POST(request: Request, { params }: Params) {
+  return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
     const { paymentId } = await params;
     const payment = await prisma.payment.findUnique({ where: { id: paymentId } });
