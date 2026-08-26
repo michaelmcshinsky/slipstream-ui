@@ -3,6 +3,8 @@ import { getSessionUser } from '@/lib/session';
 import Link from 'next/link';
 
 /** Super-admin chrome: every child page is additionally guarded per-route. */
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect('/login?next=/admin');

@@ -3,6 +3,8 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser } from '@/lib/session';
 import { DashboardNav } from '@/components/dashboard-nav';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect('/login?next=/dashboard');
