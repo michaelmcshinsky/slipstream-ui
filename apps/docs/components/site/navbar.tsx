@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CommandPalette } from './command-palette';
 
 const REPO_URL = 'https://github.com/slipstream-ui/slipstream-ui';
@@ -13,6 +13,11 @@ const REPO_URL = 'https://github.com/slipstream-ui/slipstream-ui';
 export function Navbar() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [dark, setDark] = useState(false);
+
+  // Sync with the class applied by the pre-paint theme script in the root layout.
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains('dark'));
+  }, []);
 
   function toggleDark() {
     const next = !dark;

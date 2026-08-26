@@ -193,6 +193,23 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Stats band */}
+      <section className="container mx-auto px-4 py-14">
+        <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
+          {[
+            { value: '21', label: 'components' },
+            { value: '21', label: 'machine-readable specs' },
+            { value: '167', label: 'tests incl. jest-axe' },
+            { value: '0', label: 'hallucinated props allowed' },
+          ].map((stat) => (
+            <div key={stat.label} className="rounded-xl border border-border bg-card p-6">
+              <dt className="order-last mt-1 text-sm text-muted-foreground">{stat.label}</dt>
+              <dd className="text-3xl font-bold tracking-tight text-primary">{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
       {/* Feature bento */}
       <section className="container mx-auto px-4 py-20">
         <h2 className="max-w-2xl text-3xl font-bold tracking-tight">
@@ -213,6 +230,43 @@ export default function LandingPage() {
               <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* How it works for agents */}
+      <section className="border-b border-border bg-muted/30">
+        <div className="container mx-auto px-4 py-20">
+          <h2 className="text-center text-3xl font-bold tracking-tight">How your AI uses it</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+            Three steps, no fine-tuning, no prompt incantations.
+          </p>
+          <div className="mx-auto mt-10 grid max-w-4xl gap-8 md:grid-cols-3">
+            {[
+              {
+                step: '1',
+                title: 'Connect',
+                body: 'Point Claude Code or Cursor at the Slipstream MCP server, or serve llms.txt and the /llm markdown routes.',
+              },
+              {
+                step: '2',
+                title: 'Query the spec',
+                body: 'The agent calls get_component_manifest and get_usage_examples — exact props, defaults, anti-patterns.',
+              },
+              {
+                step: '3',
+                title: 'Self-validate',
+                body: 'Before emitting, validate_usage checks the generated JSX against the manifest and corrects hallucinated props.',
+              },
+            ].map(({ step, title, body }) => (
+              <div key={step} className="relative rounded-xl border border-border bg-card p-6">
+                <span className="absolute -top-3 left-6 rounded-full border border-primary/40 bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-foreground">
+                  {step}
+                </span>
+                <h3 className="mb-2 mt-1 font-semibold">{title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
