@@ -52,20 +52,22 @@ export async function destroySession(allDevices = false): Promise<void> {
   const store = await cookies();
   const token = store.get(SESSION_COOKIE)?.value;
   if (token) {
-    const where = allDevices
-      ? (() => {
-          // Need the userId from the token being destroyed.
-          return prisma.session.findUnique({ where: { tokenHash: hashToken(token) } });
-        })()
-      : Promise.resolve(null);
-    const current = await where;
-    if (current) {
-      await prisma.session.deleteMany({
-        where: allDevices ? { userId: current.userId } : { tokenHash: hashToken(token) },
-      });
+    const tokenHash = hashToken(token);
+    if (allDevices) {
+      const current = await prisma.session.findUnique({ where: { tokenHash } });
+      if (current) {
+        await prisma.session.deleteMany({ where: { userId: current.userId } });
+      }
+    } else {
+      await prisma.session.deleteMany({ where: { tokenHash } });
     }
   }
+  const parkedToken = store.get('slipstream_impersonator')?.value;
+  if (parkedToken) {
+    await prisma.session.deleteMany({ where: { tokenHash: hashToken(parkedToken) } });
+  }
   store.delete(SESSION_COOKIE);
+  store.delete('slipstream_impersonator');
 }
 
 export function requireUser(user: SafeUser | null): SafeUser {

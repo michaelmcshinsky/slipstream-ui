@@ -10,12 +10,16 @@ import { prisma } from '@slipstream-ui/db';
 
 import { POST as signup } from './auth/signup/route';
 import { POST as login } from './auth/login/route';
+import { POST as logout } from './auth/logout/route';
 import { GET as me } from './auth/me/route';
 import { POST as forgot } from './auth/forgot-password/route';
 import { POST as reset } from './auth/reset-password/route';
 import { POST as validateLicenseRoute } from './licenses/validate/route';
 import { GET as adminUsers } from './admin/users/route';
 import { PATCH as adminPatchUser } from './admin/users/[userId]/route';
+import { POST as stopImpersonating } from './admin/impersonate/stop/route';
+import { createSession, getSessionUser, SESSION_COOKIE } from '@/lib/session';
+import { hashToken } from '@/lib/tokens';
 
 const json = (body: unknown) => ({
   method: 'POST',
@@ -134,6 +138,74 @@ describe('auth lifecycle through route handlers', () => {
     expect(allowed.status).toBe(200);
     const users = (await allowed.json()).data.users;
     expect(users.some((user: { id: string }) => user.id === adminId)).toBe(true);
+  });
+
+  it('revokes the impersonated session before restoring the admin session', async () => {
+    store.clear();
+    await createSession(adminId);
+    const adminToken = store.get(SESSION_COOKIE)!.value;
+    const target = await prisma.user.create({ data: { email: `impersonated-${suffix}@test.dev` } });
+    await createSession(target.id);
+    const targetToken = store.get(SESSION_COOKIE)!.value;
+    store.set('slipstream_impersonator', { name: 'slipstream_impersonator', value: adminToken });
+
+    const response = await stopImpersonating(new Request('http://localhost/api/admin/impersonate/stop', { method: 'POST' }));
+
+    expect(response.status).toBe(200);
+    expect(store.get(SESSION_COOKIE)?.value).toBe(adminToken);
+    expect(store.has('slipstream_impersonator')).toBe(false);
+    expect((await getSessionUser())?.id).toBe(adminId);
+    expect(await prisma.session.findUnique({ where: { tokenHash: hashToken(targetToken) } })).toBeNull();
+  });
+
+  it.each([false, true])('revokes logout sessions with allDevices=%s without affecting another user', async (allDevices) => {
+    store.clear();
+    const user = await prisma.user.create({ data: { email: `logout-${allDevices}-${suffix}@test.dev` } });
+    await createSession(adminId);
+    const unrelatedToken = store.get(SESSION_COOKIE)!.value;
+    await createSession(user.id);
+    const otherDeviceToken = store.get(SESSION_COOKIE)!.value;
+    await createSession(user.id);
+    const currentToken = store.get(SESSION_COOKIE)!.value;
+
+    expect((await logout(new Request(`http://localhost/api/auth/logout?all=${allDevices}`, { method: 'POST' }))).status).toBe(200);
+    expect(store.has(SESSION_COOKIE)).toBe(false);
+    expect(await prisma.session.findUnique({ where: { tokenHash: hashToken(currentToken) } })).toBeNull();
+    expect(await prisma.session.count({ where: { tokenHash: hashToken(otherDeviceToken) } })).toBe(allDevices ? 0 : 1);
+    expect(await prisma.session.count({ where: { tokenHash: hashToken(unrelatedToken) } })).toBe(1);
+    expect((await logout(new Request('http://localhost/api/auth/logout', { method: 'POST' }))).status).toBe(200);
+  });
+
+  it('clears and revokes both sessions when logging out during impersonation', async () => {
+    store.clear();
+    await createSession(adminId);
+    const adminToken = store.get(SESSION_COOKIE)!.value;
+    const user = await prisma.user.create({ data: { email: `logout-impersonated-${suffix}@test.dev` } });
+    await createSession(user.id);
+    const targetToken = store.get(SESSION_COOKIE)!.value;
+    store.set('slipstream_impersonator', { name: 'slipstream_impersonator', value: adminToken });
+
+    expect((await logout(new Request('http://localhost/api/auth/logout', { method: 'POST' }))).status).toBe(200);
+    expect(store.has(SESSION_COOKIE)).toBe(false);
+    expect(store.has('slipstream_impersonator')).toBe(false);
+    expect(await prisma.session.count({ where: { tokenHash: { in: [hashToken(adminToken), hashToken(targetToken)] } } })).toBe(0);
+  });
+
+  it.each(['expired', 'suspended', 'demoted', 'missing'] as const)('does not restore a %s administrator session', async (state) => {
+    store.clear();
+    const admin = await prisma.user.create({ data: { email: `parked-${state}-${suffix}@test.dev`, role: 'ADMIN' } });
+    await createSession(admin.id);
+    const token = store.get(SESSION_COOKIE)!.value;
+    if (state === 'expired') await prisma.session.updateMany({ where: { userId: admin.id }, data: { expiresAt: new Date(0) } });
+    if (state === 'suspended') await prisma.user.update({ where: { id: admin.id }, data: { suspendedAt: new Date() } });
+    if (state === 'demoted') await prisma.user.update({ where: { id: admin.id }, data: { role: 'USER' } });
+    if (state === 'missing') await prisma.session.deleteMany({ where: { userId: admin.id } });
+    store.delete(SESSION_COOKIE);
+    store.set('slipstream_impersonator', { name: 'slipstream_impersonator', value: token });
+
+    expect((await stopImpersonating(new Request('http://localhost/api/admin/impersonate/stop', { method: 'POST' }))).status).toBe(400);
+    expect(store.has(SESSION_COOKIE)).toBe(false);
+    expect(store.has('slipstream_impersonator')).toBe(false);
   });
 
   it('blocks admins from suspending themselves', async () => {
