@@ -1,4 +1,6 @@
 import path from 'node:path';
+import os from 'node:os';
+import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 
@@ -12,8 +14,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
-    // Each test run gets a throwaway SQLite file.
-    env: { DATABASE_URL: 'file:./test.db', SESSION_SECRET: 'test-secret-at-least-32-characters!!' },
+    env: {
+      DATABASE_URL: `file:${path.join(os.tmpdir(), `slipstream-test-${randomUUID()}.db`).replaceAll('\\', '/')}`,
+      SESSION_SECRET: 'test-secret-at-least-32-characters!!',
+    },
     globalSetup: [path.resolve(rootDir, 'src/test/global-setup.ts')],
   },
 });

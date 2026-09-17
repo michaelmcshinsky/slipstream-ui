@@ -14,20 +14,32 @@ export async function POST(request: Request) {
     const adminToken = store.get('slipstream_impersonator')?.value;
     if (!adminToken) badRequest('Not currently impersonating.');
 
+    const actor = await prisma.session.findUnique({
+      where: { tokenHash: createHash('sha256').update(adminToken).digest('hex') },
+      include: { user: true },
+    });
+    if (!actor || actor.expiresAt <= new Date() || actor.user.suspendedAt || actor.user.role !== 'ADMIN') {
+      store.delete('slipstream_impersonator');
+      badRequest('The administrator session is no longer valid.');
+    }
+
+    const currentToken = store.get(SESSION_COOKIE)?.value;
+    if (currentToken && currentToken !== adminToken) {
+      await prisma.session.deleteMany({
+        where: { tokenHash: createHash('sha256').update(currentToken).digest('hex') },
+      });
+    }
+
     store.set(SESSION_COOKIE, adminToken, {
       httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
       path: '/',
+      expires: actor.expiresAt,
     });
     store.delete('slipstream_impersonator');
 
-    const actor = await prisma.session.findUnique({
-      where: { tokenHash: createHash('sha256').update(adminToken).digest('hex') },
-    });
-    if (actor) {
-      await audit({ actorId: actor.userId, action: 'admin.impersonate.stop' });
-    }
+    await audit({ actorId: actor.userId, action: 'admin.impersonate.stop' });
     return { ok: true };
   });
 }
