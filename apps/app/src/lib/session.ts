@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { prisma, type User } from '@slipstream-ui/db';
+import { prisma, type Prisma, type User } from '@slipstream-ui/db';
 import { generateToken, hashToken } from './tokens';
 
 export const SESSION_COOKIE = 'slipstream_session';
@@ -32,12 +32,12 @@ export async function createSession(userId: string): Promise<void> {
 }
 
 /** Resolve the current user from the session cookie; null when signed out. */
-export async function getSessionUser(): Promise<SafeUser | null> {
+export async function getSessionUser(db: Prisma.TransactionClient = prisma): Promise<SafeUser | null> {
   const store = await cookies();
   const token = store.get(SESSION_COOKIE)?.value;
   if (!token) return null;
 
-  const session = await prisma.session.findUnique({
+  const session = await db.session.findUnique({
     where: { tokenHash: hashToken(token) },
     include: { user: true },
   });

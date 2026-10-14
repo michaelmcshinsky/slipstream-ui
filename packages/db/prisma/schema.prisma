@@ -30,6 +30,7 @@ model User {
   apiKeys       ApiKey[]
   resetTokens   PasswordResetToken[]
   auditLogs     AuditLog[]
+  mockCheckouts MockCheckout[]
 }
 
 model Session {
@@ -66,6 +67,23 @@ model Team {
   subscription Subscription?
   licenseKeys  LicenseKey[]
   Payment      Payment[]
+  mockCheckouts MockCheckout[]
+}
+
+model MockCheckout {
+  id         String    @id
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId     String
+  team       Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  plan       String
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@index([teamId])
+  @@index([expiresAt])
 }
 
 model Membership {
@@ -117,6 +135,15 @@ model Subscription {
   payments Payment[]
   User     User?     @relation(fields: [userId], references: [id])
   userId   String?
+}
+
+model BillingWebhookEvent {
+  provider  String
+  eventId   String
+  type      String
+  createdAt DateTime @default(now())
+
+  @@id([provider, eventId])
 }
 
 model Payment {

@@ -1,29 +1,47 @@
-import { prisma } from '@slipstream-ui/db';
+import { prisma, type Prisma } from '@slipstream-ui/db';
 import { getPlan } from './plans';
+import { generateToken } from './tokens';
+import { requireMembership } from './teams';
+import { errors } from './api/core';
 
-export interface CheckoutResult {
-  /** Redirect URL for the buyer. Mock provider uses an internal confirm route. */
+export type CheckoutResult = {
   url: string;
   provider: string;
-}
+};
 
 /**
  * Billing provider abstraction: Stripe in production, a deterministic mock for
  * local dev and tests. Both implement the same lifecycle so the application
  * layer never branches on the provider.
  */
-export interface BillingProvider {
+export type BillingProvider = {
   name: string;
-  createCheckout(params: { teamId: string; plan: string; email: string }): Promise<CheckoutResult>;
+  createCheckout(params: { userId: string; teamId: string; plan: string; email: string }): Promise<CheckoutResult>;
   createPortalUrl(teamId: string): Promise<string>;
   /** Records a successful payment (used by webhooks and the mock flow). */
   recordPayment(params: { teamId: string; amountCents: number; description: string; externalId?: string; subscriptionId?: string }): Promise<void>;
+};
+
+export function requireMockBilling(): void {
+  if (process.env.NODE_ENV === 'production') {
+    throw errors.forbidden('Mock checkout is unavailable in production.');
+  }
+  if (process.env.BILLING_PROVIDER === 'stripe') {
+    throw errors.badRequest('Mock checkout is disabled in stripe mode.');
+  }
 }
 
 export const mockProvider: BillingProvider = {
   name: 'mock',
-  async createCheckout({ teamId, plan }) {
-    return { url: `/api/billing/mock-confirm?teamId=${teamId}&plan=${plan}`, provider: 'mock' };
+  async createCheckout({ userId, teamId, plan }) {
+    requireMockBilling();
+    const planInfo = getPlan(plan);
+    if (!planInfo || planInfo.id === 'FREE') throw errors.badRequest('Invalid plan.');
+    await requireMembership(userId, teamId, 'ADMIN');
+    const checkout = await prisma.mockCheckout.create({
+      data: { id: generateToken(), userId, teamId, plan: planInfo.id, expiresAt: new Date(Date.now() + 15 * 60_000) },
+    });
+    return { url: `/api/billing/mock-confirm?checkoutId=${checkout.id}`, provider: 'mock' };
   },
   async createPortalUrl(teamId) {
     return `/dashboard/billing?portal=${teamId}`;
@@ -78,9 +96,9 @@ export function getBillingProvider(): BillingProvider {
 }
 
 /** Transition a team onto a paid plan; idempotent per plan change. */
-export async function activateSubscription(teamId: string, plan: string, external?: { customerId?: string; subscriptionId?: string }): Promise<void> {
+export async function activateSubscription(teamId: string, plan: string, external?: { customerId?: string; subscriptionId?: string }, db: Prisma.TransactionClient = prisma): Promise<void> {
   const planInfo = getPlan(plan);
-  await prisma.subscription.upsert({
+  await db.subscription.upsert({
     where: { teamId },
     create: {
       teamId,
@@ -103,8 +121,8 @@ export async function activateSubscription(teamId: string, plan: string, externa
   });
 }
 
-export async function downgradeToFree(teamId: string): Promise<void> {
-  await prisma.subscription.updateMany({
+export async function downgradeToFree(teamId: string, db: Prisma.TransactionClient = prisma): Promise<void> {
+  await db.subscription.updateMany({
     where: { teamId },
     data: { plan: 'FREE', status: 'CANCELED', cancelAtPeriodEnd: false },
   });

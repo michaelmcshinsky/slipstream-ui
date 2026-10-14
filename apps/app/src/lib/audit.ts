@@ -1,28 +1,29 @@
-import { prisma } from '@slipstream-ui/db';
+import { prisma, type Prisma } from '@slipstream-ui/db';
 
-interface AuditInput {
+type AuditInput = {
   actorId?: string | null;
   action: string;
   targetType?: string;
   targetId?: string;
   metadata?: Record<string, unknown>;
-}
+};
 
-/**
- * Append-only audit trail. Never throws into the caller's flow — a failed
- * audit write is logged but must not break the business operation.
- */
-export async function audit(input: AuditInput): Promise<void> {
+export async function audit(input: AuditInput, transaction?: Prisma.TransactionClient): Promise<void> {
+  const write = () => (transaction ?? prisma).auditLog.create({
+    data: {
+      actorId: input.actorId ?? null,
+      action: input.action,
+      targetType: input.targetType,
+      targetId: input.targetId,
+      metadata: input.metadata ? JSON.stringify(input.metadata) : null,
+    },
+  });
+  if (transaction) {
+    await write();
+    return;
+  }
   try {
-    await prisma.auditLog.create({
-      data: {
-        actorId: input.actorId ?? null,
-        action: input.action,
-        targetType: input.targetType,
-        targetId: input.targetId,
-        metadata: input.metadata ? JSON.stringify(input.metadata) : null,
-      },
-    });
+    await write();
   } catch (error) {
     console.error('[audit] failed to record', input.action, error);
   }
