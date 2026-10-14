@@ -13,5 +13,5 @@ export function generateLicenseKey(plan: string): { key: string; prefix: string 
   const body = randomBytes(20).toString('base64url');
   const planCode = plan.toLowerCase().slice(0, 8);
   const key = `slip_${planCode}_${body}`;
-  return { key, prefix: key.slice(0, 16) };
+  return { key, prefix: `slip_${planCode}_${body.slice(0, 16)}` };
 }

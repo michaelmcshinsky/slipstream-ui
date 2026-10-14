@@ -2,7 +2,10 @@ export const dynamic = 'force-dynamic';
 
 import { getSessionUser, requireUser } from '@/lib/session';
 import { inviteMember, requireMembership } from '@/lib/teams';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
+
+const createInviteSchema = z.object({ email: z.string().min(1, 'Email is required.'), role: z.string().nullish() });
 
 type Params = { params: Promise<{ teamId: string }> };
 
@@ -11,8 +14,7 @@ export async function POST(request: Request, { params }: Params) {
     const user = requireUser(await getSessionUser());
     const { teamId } = await params;
     await requireMembership(user.id, teamId, 'ADMIN');
-    const body = await readJson<{ email?: string; role?: string }>(request);
-    if (!body.email) badRequest('Email is required.');
+    const body = await parseBody(request, createInviteSchema);
     const result = await inviteMember({
       teamId,
       email: body.email,
