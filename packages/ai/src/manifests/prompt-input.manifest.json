@@ -152,18 +152,18 @@
   "antiPatterns": [
     {
       "title": "Don't use for non-chat input",
-      "code": "// Avoid: Using PromptInput for forms\n<PromptInput onSubmit={handleFormSubmit} />\n\n// Prefer: Use appropriate form input components\n<TextArea onChange={handleChange} />",
-      "description": "PromptInput is specifically for chat interactions, not general form input"
+      "explanation": "PromptInput is specifically for chat interactions, not general form input",
+      "example": "// Avoid: Using PromptInput for forms\n<PromptInput onSubmit={handleFormSubmit} />\n\n// Prefer: Use appropriate form input components\n<TextArea onChange={handleChange} />"
     },
     {
       "title": "Don't ignore Enter key behavior",
-      "code": "// Avoid: Confusing users by disabling Enter\n<PromptInput \n  onSubmit={handleSubmit}\n  // Users expect Enter to submit\n/>\n\n// If you need different behavior, document it clearly",
-      "description": "Users expect Enter to submit. If you change this, communicate it clearly"
+      "explanation": "Users expect Enter to submit. If you change this, communicate it clearly",
+      "example": "// Avoid: Confusing users by disabling Enter\n<PromptInput \n  onSubmit={handleSubmit}\n  // Users expect Enter to submit\n/>\n\n// If you need different behavior, document it clearly"
     },
     {
       "title": "Don't validate after submission",
-      "code": "// Avoid: Validating in onSubmit\n<PromptInput onSubmit={(value) => {\n  if (!value) return; // Validate before\n  sendMessage(value);\n}} />\n\n// Prefer: Disable button when empty\n<PromptInput \n  onSubmit={sendMessage}\n  disabled={!value}\n/>",
-      "description": "Disable the input when empty rather than validating in the handler"
+      "explanation": "Disable the input when empty rather than validating in the handler",
+      "example": "// Avoid: Validating in onSubmit\n<PromptInput onSubmit={(value) => {\n  if (!value) return; // Validate before\n  sendMessage(value);\n}} />\n\n// Prefer: Disable button when empty\n<PromptInput \n  onSubmit={sendMessage}\n  disabled={!value}\n/>"
     }
   ],
   "accessibility": [

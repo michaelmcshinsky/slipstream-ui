@@ -130,13 +130,13 @@
   "antiPatterns": [
     {
       "title": "Don't manage state inside Conversation",
-      "code": "// Avoid: Conversation managing its own message state\n<Conversation />\n\n// Prefer: Pass messages as props from parent\n<Conversation messages={messages} />",
-      "description": "Conversation should be a controlled component. State should be managed by the parent."
+      "explanation": "Conversation should be a controlled component. State should be managed by the parent.",
+      "example": "// Avoid: Conversation managing its own message state\n<Conversation />\n\n// Prefer: Pass messages as props from parent\n<Conversation messages={messages} />"
     },
     {
       "title": "Don't use for non-chat content",
-      "code": "// Avoid: Using Conversation for general lists\n<Conversation messages={dataItems} />\n\n// Prefer: Use appropriate list components\n<DataList items={dataItems} />",
-      "description": "Conversation is specifically for chat messages, not general data display"
+      "explanation": "Conversation is specifically for chat messages, not general data display",
+      "example": "// Avoid: Using Conversation for general lists\n<Conversation messages={dataItems} />\n\n// Prefer: Use appropriate list components\n<DataList items={dataItems} />"
     }
   ],
   "accessibility": [

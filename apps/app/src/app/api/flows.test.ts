@@ -134,7 +134,10 @@ describe('auth lifecycle through route handlers', () => {
     // As admin:
     store.clear();
     await login(new Request('http://localhost/api/auth/login', json({ email: `admin-${suffix}@test.dev`, password: 'supersecret1' })));
-    const allowed = await adminUsers(new Request('http://localhost/api/admin/users'));
+    // Scope the search to the seeded admin: other test files share this
+    // database and continuously insert users, so an unfiltered page-1
+    // assertion would be order-dependent under parallel test execution.
+    const allowed = await adminUsers(new Request(`http://localhost/api/admin/users?q=admin-${suffix}`));
     expect(allowed.status).toBe(200);
     const users = (await allowed.json()).data.users;
     expect(users.some((user: { id: string }) => user.id === adminId)).toBe(true);

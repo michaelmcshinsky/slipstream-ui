@@ -134,18 +134,18 @@
   "antiPatterns": [
     {
       "title": "Don't use for navigation alone",
-      "code": "// Avoid: Button for simple navigation\n<Button onClick={() => router.push('/home')}>Home</Button>\n\n// Prefer: Use Link component or anchor tag\n<a href=\"/home\">Home</a>",
-      "description": "Buttons should trigger actions, not just navigate. Use proper navigation components."
+      "explanation": "Buttons should trigger actions, not just navigate. Use proper navigation components.",
+      "example": "// Avoid: Button for simple navigation\n<Button onClick={() => router.push('/home')}>Home</Button>\n\n// Prefer: Use Link component or anchor tag\n<a href=\"/home\">Home</a>"
     },
     {
       "title": "Don't nest buttons",
-      "code": "// Avoid: Nested buttons are invalid HTML\n<Button><Button>Click</Button></Button>",
-      "description": "Never nest buttons - it breaks accessibility and HTML validity"
+      "explanation": "Never nest buttons - it breaks accessibility and HTML validity",
+      "example": "// Avoid: Nested buttons are invalid HTML\n<Button><Button>Click</Button></Button>"
     },
     {
       "title": "Don't use vague text",
-      "code": "// Avoid: Unclear action\n<Button>Click here</Button>\n\n// Prefer: Descriptive action\n<Button>Submit form</Button>",
-      "description": "Button text should clearly describe what will happen"
+      "explanation": "Button text should clearly describe what will happen",
+      "example": "// Avoid: Unclear action\n<Button>Click here</Button>\n\n// Prefer: Descriptive action\n<Button>Submit form</Button>"
     }
   ],
   "accessibility": [

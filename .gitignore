@@ -6,6 +6,15 @@ node_modules
 # Testing
 coverage
 
+# Databases (generated locally by prisma db push / seed)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# TypeScript incremental build state
+*.tsbuildinfo
+
 # Next.js
 .next/
 out/

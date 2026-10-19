@@ -23,7 +23,7 @@ Slipstream UI is an AI-first React component library. Every component ships a ma
 
 1. **Every component must have a COMPONENT_MANIFEST**
    - Manifests live in `packages/core/src/manifests/` or `packages/ai/src/manifests/`
-   - Run `pnpm validate:manifests` to validate all manifests against required fields
+   - Run `pnpm validate:manifests` to validate all manifests (schema, prop structure, unique IDs, and registry installability)
    - Schema defined in `packages/core/src/types/manifest.ts`
 
 2. **Component structure**:

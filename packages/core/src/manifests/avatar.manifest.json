@@ -57,18 +57,18 @@
   "antiPatterns": [
     {
       "title": "Don't forget alt text",
-      "code": "// Avoid: Missing alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" />\n</Avatar>\n\n// Prefer: Always include alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" alt=\"John Doe\" />\n</Avatar>",
-      "description": "Alt text is essential for accessibility. Always describe the avatar content."
+      "explanation": "Alt text is essential for accessibility. Always describe the avatar content.",
+      "example": "// Avoid: Missing alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" />\n</Avatar>\n\n// Prefer: Always include alt text\n<Avatar>\n  <AvatarImage src=\"/avatar.jpg\" alt=\"John Doe\" />\n</Avatar>"
     },
     {
       "title": "Don't use vague fallback text",
-      "code": "// Avoid: Generic fallback\n<AvatarFallback>Avatar</AvatarFallback>\n\n// Prefer: Use initials or name\n<AvatarFallback>JD</AvatarFallback>",
-      "description": "Fallback should be meaningful. Use initials or abbreviations that identify the user."
+      "explanation": "Fallback should be meaningful. Use initials or abbreviations that identify the user.",
+      "example": "// Avoid: Generic fallback\n<AvatarFallback>Avatar</AvatarFallback>\n\n// Prefer: Use initials or name\n<AvatarFallback>JD</AvatarFallback>"
     },
     {
       "title": "Don't use avatars for non-people",
-      "code": "// Avoid: Avatar for company logos\n<Avatar>\n  <AvatarImage src=\"/logo.png\" alt=\"Company\" />\n</Avatar>\n\n// Prefer: Use appropriate image component\n<img src=\"/logo.png\" alt=\"Company\" className=\"rounded\" />",
-      "description": "Avatars are designed for people. Use other components for logos or objects."
+      "explanation": "Avatars are designed for people. Use other components for logos or objects.",
+      "example": "// Avoid: Avatar for company logos\n<Avatar>\n  <AvatarImage src=\"/logo.png\" alt=\"Company\" />\n</Avatar>\n\n// Prefer: Use appropriate image component\n<img src=\"/logo.png\" alt=\"Company\" className=\"rounded\" />"
     }
   ],
   "accessibility": [

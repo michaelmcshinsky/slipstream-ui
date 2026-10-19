@@ -11,6 +11,10 @@ export type RegistryManifest = {
   sourceDir?: string;
   /** Primary component export for import hints. */
   exportName?: string;
+  /** Prop schema entries read by validation tools. */
+  props?: { name: string; required?: boolean }[];
+  /** Anti-patterns read by validation and docs tools. */
+  antiPatterns?: { title: string; explanation: string; example?: string }[];
   [key: string]: unknown;
 };
 

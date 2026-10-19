@@ -155,6 +155,8 @@ export default function LandingPage() {
         <div className="container relative mx-auto grid items-center gap-12 px-4 py-20 lg:grid-cols-2 lg:py-24">
           <div>
             <div className="mb-5 flex flex-wrap items-center gap-2">
+              {/* Tiny external badge; not an LCP element, so the img-optimization cost isn't warranted. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="https://img.shields.io/npm/v/@slipstream-ui/core.svg" alt="npm version" height="20" />
               <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 AI-first · MIT

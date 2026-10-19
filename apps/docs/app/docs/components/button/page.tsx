@@ -5,9 +5,12 @@ import { Button } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
+type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+
 export default function ButtonPage() {
-  const [variant, setVariant] = useState<'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'>('default');
-  const [size, setSize] = useState<'default' | 'sm' | 'lg' | 'icon'>('default');
+  const [variant, setVariant] = useState<ButtonVariant>('default');
+  const [size, setSize] = useState<ButtonSize>('default');
 
   return (
     <ComponentPage
@@ -40,7 +43,7 @@ export default function ButtonPage() {
               <label className="text-sm font-medium mb-2 block">Variant</label>
               <select
                 value={variant}
-                onChange={(e) => setVariant(e.target.value as any)}
+                onChange={(e) => setVariant(e.target.value as ButtonVariant)}
                 className="w-full p-2 border rounded bg-background"
               >
                 <option value="default">Default</option>
@@ -55,7 +58,7 @@ export default function ButtonPage() {
               <label className="text-sm font-medium mb-2 block">Size</label>
               <select
                 value={size}
-                onChange={(e) => setSize(e.target.value as any)}
+                onChange={(e) => setSize(e.target.value as ButtonSize)}
                 className="w-full p-2 border rounded bg-background"
               >
                 <option value="default">Default</option>

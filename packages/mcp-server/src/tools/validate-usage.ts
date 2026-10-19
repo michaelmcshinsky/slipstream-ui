@@ -51,9 +51,7 @@ export const validateUsageTool: McpTool = {
 
     const issues: UsageIssue[] = [];
     const exportName = manifest.exportName ?? manifest.name.replace(/\s/g, '');
-    const schemaByName = new Map(
-      ((manifest.props ?? []) as { name: string }[]).map((prop) => [prop.name, prop])
-    );
+    const schemaByName = new Map((manifest.props ?? []).map((prop) => [prop.name, prop]));
 
     const usages = findComponentUsages(code, exportName);
     if (usages.length === 0 && code.includes(exportName)) {
@@ -79,7 +77,7 @@ export const validateUsageTool: McpTool = {
         }
       }
 
-      const missingRequired = ((manifest.props ?? []) as { required?: boolean; name: string }[])
+      const missingRequired = (manifest.props ?? [])
         .filter((prop) => prop.required)
         .filter((prop) => !attributes.includes(prop.name))
         .map((prop) => `"${prop.name}"`);
@@ -104,11 +102,10 @@ export const validateUsageTool: McpTool = {
               valid,
               usageCount: usages.length,
               issues,
-              antiPatternsToCheck:
-                ((manifest.antiPatterns ?? []) as { title: string; explanation: string }[]).map((pattern) => ({
-                  title: pattern.title,
-                  explanation: pattern.explanation,
-                })),
+              antiPatternsToCheck: (manifest.antiPatterns ?? []).map((pattern) => ({
+                title: pattern.title,
+                explanation: pattern.explanation,
+              })),
             },
             null,
             2

@@ -124,18 +124,18 @@
   "antiPatterns": [
     {
       "title": "Don't use Input for multi-line text",
-      "code": "// Avoid: Using Input for paragraphs\n<Input placeholder=\"Enter your story\" />\n\n// Prefer: Use Textarea component\n<Textarea placeholder=\"Enter your story\" />",
-      "description": "Input is for single-line text. Use Textarea for multi-line content."
+      "explanation": "Input is for single-line text. Use Textarea for multi-line content.",
+      "example": "// Avoid: Using Input for paragraphs\n<Input placeholder=\"Enter your story\" />\n\n// Prefer: Use Textarea component\n<Textarea placeholder=\"Enter your story\" />"
     },
     {
       "title": "Don't ignore validation",
-      "code": "// Avoid: No validation feedback\n<Input value={invalidValue} />\n\n// Prefer: Show validation state\n<Input \n  value={value}\n  className={error ? 'border-destructive' : ''}\n  aria-invalid={error}\n/>",
-      "description": "Provide visual feedback for validation errors"
+      "explanation": "Provide visual feedback for validation errors",
+      "example": "// Avoid: No validation feedback\n<Input value={invalidValue} />\n\n// Prefer: Show validation state\n<Input \n  value={value}\n  className={error ? 'border-destructive' : ''}\n  aria-invalid={error}\n/>"
     },
     {
       "title": "Don't use vague placeholders",
-      "code": "// Avoid: Generic placeholder\n<Input placeholder=\"Text\" />\n\n// Prefer: Descriptive placeholder\n<Input placeholder=\"Enter your full name\" />",
-      "description": "Placeholders should describe what input is expected"
+      "explanation": "Placeholders should describe what input is expected",
+      "example": "// Avoid: Generic placeholder\n<Input placeholder=\"Text\" />\n\n// Prefer: Descriptive placeholder\n<Input placeholder=\"Enter your full name\" />"
     }
   ],
   "accessibility": [
