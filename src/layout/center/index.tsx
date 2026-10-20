@@ -1,1 +1,1 @@
-exprot * from './Center'
+export * from './Center'

@@ -1,5 +1,4 @@
-/* eslint-disable import/no-webpack-loader-syntax */
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Close } from '../../assets/icons';
 

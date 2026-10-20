@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   HTMLAttributes,
   ReactNode,
@@ -22,7 +22,7 @@ export type ProviderProps = HTMLAttributes<HTMLDivElement> & {
   dark?: boolean;
 }
 
-export function SlipstreamProvider({ children, dark: defaultDark }: ProviderProps) {
+export function SlipstreamProvider({ children, dark: defaultDark = false }: ProviderProps) {
   const [dark, setMode] = useState(defaultDark);
 
   useLayoutEffect(() => {
@@ -59,6 +59,3 @@ export function SlipstreamProvider({ children, dark: defaultDark }: ProviderProp
 export const useTheme = () => useContext(ThemeContext);
 
 SlipstreamProvider.displayName = 'SlipstreamProvider';
-SlipstreamProvider.defaultProps = {
-  dark: false,
-};

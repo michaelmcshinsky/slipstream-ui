@@ -9,7 +9,7 @@ export type TModalButton = Omit<TButton, 'onClick'> & {
   children?: ReactNode;
   close?: boolean;
   onClick?: (
-    e: React.MouseEventHandler<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLElement>,
     callback: Callback
   ) => void;
   toggle?: Callback;
@@ -19,7 +19,7 @@ export const ModalButton = forwardRef<HTMLButtonElement, TModalButton>(
   (props, ref) => {
     const { children, close, onClick, toggle, type, ...attrs } = props;
 
-    function _toggle(e: React.MouseEventHandler<HTMLButtonElement>) {
+    function _toggle(e: React.MouseEvent<HTMLElement>) {
       if (toggle && close) {
         toggle();
       } else if (onClick) {

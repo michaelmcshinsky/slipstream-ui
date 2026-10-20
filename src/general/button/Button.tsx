@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
+import React, { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from 'react';
 import clsx from 'clsx';
 import theme from '../../theme/default';
 
@@ -27,20 +27,30 @@ export type TButton = Omit<
   disabled?: boolean;
   href?: string | undefined;
   onClick?: (
-    e: React.MouseEventHandler<HTMLElement>,
-    callback?: () => any
+    e: React.MouseEvent<HTMLElement>,
+    callback?: () => void
   ) => void;
   size?: 'sm' | 'md' | 'lg';
-  tag?: any;
+  tag?: 'button' | 'a' | 'span';
   type?: keyof typeof Type;
   flush?: boolean;
   block?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, TButton>(
-  (props: TButton, ref: any) => {
-    let { tag: Tag } = props;
-    const { children, className, color, size, flush, block, ...attrs } = props;
+  (props: TButton, ref) => {
+    const {
+      tag: TagProp = 'button',
+      children,
+      className,
+      color = 'primary',
+      size = 'md',
+      flush,
+      block,
+      type = 'button',
+      ...attrs
+    } = props;
+    let Tag = TagProp as ElementType;
 
     const classes = clsx(
       'sui--button',
@@ -64,7 +74,12 @@ export const Button = forwardRef<HTMLButtonElement, TButton>(
     }
 
     return (
-      <Tag ref={ref} className={classes} {...attrs}>
+      <Tag
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        type={Tag === 'button' ? type : undefined}
+        {...attrs}
+      >
         {children}
       </Tag>
     );
@@ -72,11 +87,5 @@ export const Button = forwardRef<HTMLButtonElement, TButton>(
 );
 
 Button.displayName = 'Button';
-Button.defaultProps = {
-  tag: 'button',
-  color: 'primary',
-  type: 'button',
-  size: 'md',
-};
 
 export default Button;

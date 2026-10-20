@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, DependencyList } from 'react';
 
-export function useDidMount(func: () => void, deps: undefined | [any]) {
+export function useDidMount(func: () => void, deps: DependencyList) {
   const didMount = useRef(false);
 
   useEffect(() => {

@@ -47,7 +47,7 @@ export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
     children,
     className,
     contentLabel,
-    duration,
+    duration = 500,
     isOpen,
     isStatic,
     overlayClassName,
@@ -62,13 +62,14 @@ export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('keydown', (e: any) => handleEsc(e), {
+    const onKeyDown = (e: KeyboardEvent) => handleEsc(e);
+    document.addEventListener('keydown', onKeyDown, {
       capture: true,
     });
     return () => {
-      document.removeEventListener('keydown', (e: any) => handleEsc(e));
+      document.removeEventListener('keydown', onKeyDown);
     };
-  }, []);
+  }, [isStatic, duration, toggle]);
 
   function _onAfterOpen() {
     setIsMounted(true);
@@ -88,7 +89,7 @@ export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
     }, duration);
   }
 
-  function handleEsc(ev: React.KeyboardEvent<HTMLDocument>) {
+  function handleEsc(ev: KeyboardEvent) {
     if (isStatic) {
       return;
     }
@@ -129,20 +130,25 @@ export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
 
   const renderedChildren = React.Children.toArray(children)
     .filter(Boolean)
-    .map((child: any) => {
-      switch (child?.type?.displayName) {
+    .map((child) => {
+      if (!React.isValidElement(child)) return child;
+      const elementType = child.type as { displayName?: string } | string;
+      const displayName =
+        typeof elementType === 'string' ? undefined : elementType?.displayName;
+      const childProps = child.props as { close?: boolean };
+      switch (displayName) {
         case 'ModalHeader':
         case 'ModalFooter':
           return React.cloneElement(child, {
             border,
             toggle: _onRequestClose,
             rtl,
-          });
+          } as Partial<unknown>);
         case 'ModalButton':
-          if (child.props.close) {
+          if (childProps.close) {
             return React.cloneElement(child, {
               toggle: _onRequestClose,
-            });
+            } as Partial<unknown>);
           }
           return child;
         default:
@@ -174,9 +180,6 @@ export const Modal = forwardRef<HTMLDivElement, TModal>((props, ref) => {
 }) as ModalComponent;
 
 Modal.displayName = 'Modal';
-Modal.defaultProps = {
-  duration: 500,
-};
 
 Modal.Body = ModalBody;
 Modal.Button = ModalButton;

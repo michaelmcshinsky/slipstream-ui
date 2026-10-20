@@ -1,111 +1,101 @@
 {
   "name": "slipstream-ui",
   "author": "Michael McShinsky",
-  "description": "Component library combining React and Tailwindcss, built with TypeScript",
-  "version": "3.1.0",
+  "description": "React component library built with Tailwind CSS",
+  "version": "4.0.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "repository": "https://github.com/michaelmcshinsky/slipstream-ui",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./config": {
+      "require": "./config.js",
+      "import": "./config.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
-    "src",
-    "slipstream-banner.png",
     "config.js"
   ],
+  "sideEffects": [
+    "*.css"
+  ],
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
   "scripts": {
-    "analyze": "size-limit --why",
-    "build-storybook": "npm run tailwind && build-storybook -s ./.storybook/public && cp src/assets/css/tailwind.output.css storybook-static/styles.css",
-    "build": "tsdx build",
-    "copy-assets": "cp -r src/assets/css dist/css",
-    "lint:fix": "tsdx lint src --fix",
-    "lint": "tsdx lint src",
-    "prebuild": "npm run tailwind",
-    "prepare": "tsdx build",
-    "prestart": "npm run tailwind",
+    "build": "npm run build:styles && vite build && tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "build:styles": "tailwindcss -c tailwind.build.config.js -i src/assets/css/tailwind.css -o dist/styles.css --minify",
+    "dev": "vite build --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "size": "size-limit",
-    "start": "tsdx watch",
-    "storybook": "concurrently \"npm run tailwind:storybook\" \"start-storybook -s ./.storybook/public -p 6006\"",
-    "tailwind:storybook": "npx tailwindcss -i src/assets/css/tailwind.css -o .storybook/public/styles.css -w",
-    "tailwind": "npx tailwindcss -i src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
-    "test": "tsdx test --passWithNoTests"
+    "release": "changeset publish",
+    "version": "changeset version"
   },
   "peerDependencies": {
-    "react": ">=16"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "module": "dist/slipstream-ui.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/slipstream-ui.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/slipstream-ui.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@size-limit/preset-small-lib": "^8.2.4",
-    "@storybook/addon-actions": "^6.3.8",
-    "@storybook/addon-docs": "^6.3.8",
-    "@storybook/addon-essentials": "^6.3.8",
-    "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-links": "^6.3.8",
-    "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addons": "^6.3.8",
-    "@storybook/react": "^6.3.8",
-    "@testing-library/jest-dom": "^5.15.1",
-    "@testing-library/react": "^14.0.0",
-    "@types/classnames": "^2.2.11",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "autoprefixer": "^10.4.13",
-    "babel-loader": "^9.1.2",
-    "concurrently": "^7.6.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^8.0.3",
-    "identity-obj-proxy": "^3.0.0",
-    "postcss": "8",
-    "postcss-cli": "^10.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
-    "rollup-plugin-postcss": "^4.0.2",
-    "size-limit": "^8.2.4",
-    "tailwindcss": "^3.2.7",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": ">=3.2.0"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.13",
-    "@popperjs/core": "^2.11.6",
-    "@tailwindcss/forms": "^0.5.3",
-    "@types/react-modal": "^3.13.1",
-    "clsx": "^1.2.1",
-    "deepmerge": "^4.3.0",
-    "react-modal": "^3.16.1",
-    "react-popper": "^2.3.0",
-    "svg-react-loader": "^0.4.6"
+    "@headlessui/react": "^2.2.0",
+    "@popperjs/core": "^2.11.8",
+    "clsx": "^2.1.1",
+    "deepmerge": "^4.3.1",
+    "react-modal": "^3.16.3",
+    "react-popper": "^2.3.0"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@tailwindcss/forms": "^0.5.9",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/react-modal": "^3.16.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.17.0",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "size-limit": "^11.1.6",
+    "storybook": "^8.4.7",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "60 KB"
     }
+  ],
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "esbuild@0.21.5": true
   }
 }

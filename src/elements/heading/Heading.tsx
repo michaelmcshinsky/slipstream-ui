@@ -1,15 +1,15 @@
-import React, { forwardRef, ReactNode } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import clsx from 'clsx';
 
 export type THeading = {
-  level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   className?: string;
   custom?: boolean;
   children?: ReactNode;
 }
 
 export const Heading = forwardRef<HTMLHeadingElement, THeading>(
-  ({ level: Tag, custom, className, children, ...props }, ref) => {
+  ({ level: Tag = 'h2', custom = false, className, children, ...props }, ref) => {
     const classes = clsx(
       'sui--heading',
       !custom && Tag === 'h1' && 'text-3xl',
@@ -30,9 +30,5 @@ export const Heading = forwardRef<HTMLHeadingElement, THeading>(
 );
 
 Heading.displayName = 'Heading';
-Heading.defaultProps = {
-  level: 'h2',
-  custom: false,
-};
 
 export default Heading;

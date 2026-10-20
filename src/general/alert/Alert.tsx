@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 
 export type TAlert = HTMLAttributes<HTMLDivElement> & {

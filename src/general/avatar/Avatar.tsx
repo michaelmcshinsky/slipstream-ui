@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 import clsx from 'clsx';
 
 export type TAvatar = HTMLAttributes<HTMLDivElement> & {

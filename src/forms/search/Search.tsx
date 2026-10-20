@@ -6,14 +6,14 @@ import { Search as SearchIcon } from '../../assets/icons';
 
 export type TSearch = {
   className?: string;
-  customIcon: ReactNode;
-  defaultValue?: any;
+  customIcon?: ReactNode;
+  defaultValue?: string;
   delay: number;
   icon?: boolean;
-  iconProps: any;
-  innerRef?: any;
+  iconProps?: Record<string, unknown>;
+  innerRef?: React.Ref<HTMLInputElement>;
   inputClassName?: string;
-  inputProps?: any;
+  inputProps?: Record<string, unknown>;
   onChange?: (value: string) => void;
 };
 
@@ -22,9 +22,9 @@ export const Search = forwardRef<HTMLDivElement, TSearch>(
     {
       className,
       customIcon,
-      defaultValue,
-      delay,
-      icon,
+      defaultValue = '',
+      delay = 500,
+      icon = true,
       iconProps,
       innerRef,
       inputClassName,
@@ -62,7 +62,7 @@ export const Search = forwardRef<HTMLDivElement, TSearch>(
         />
         {!!icon && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-2">
-            {!!customIcon ? { customIcon } : <SearchIcon {...iconProps} />}
+            {customIcon ? customIcon : <SearchIcon {...iconProps} />}
           </div>
         )}
       </div>
@@ -71,10 +71,5 @@ export const Search = forwardRef<HTMLDivElement, TSearch>(
 );
 
 Search.displayName = 'Search';
-Search.defaultProps = {
-  icon: true,
-  delay: 500,
-  defaultValue: '',
-};
 
 export default Search;

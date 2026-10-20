@@ -1,8 +1,14 @@
 import clsx from 'clsx';
 import React from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  Transition,
+  TransitionChild,
+} from '@headlessui/react';
 
-type TDrawer = {
+export type TDrawer = {
   from?: 'top' | 'right' | 'bottom' | 'left';
   full?: boolean;
   custom?: boolean;
@@ -63,7 +69,7 @@ export function Drawer({
         onClose={() => setIsOpen(false)}
         className={classes}
       >
-        <Transition.Child
+        <TransitionChild
           as={React.Fragment}
           enter="transition-opacity ease-in duration-500"
           enterFrom="opacity-0"
@@ -72,10 +78,10 @@ export function Drawer({
           leaveFrom="opacity-30"
           leaveTo="opacity-0"
         >
-          <Dialog.Overlay className="z-40 fixed inset-0 bg-black" />
-        </Transition.Child>
+          <DialogBackdrop className="z-40 fixed inset-0 bg-black" />
+        </TransitionChild>
 
-        <Transition.Child
+        <TransitionChild
           as={React.Fragment}
           enter="transition ease-in-out duration-500 transform"
           enterFrom={enterFromClasses}
@@ -86,8 +92,10 @@ export function Drawer({
           beforeEnter={() => setIsMounted(true)}
           afterLeave={() => setIsMounted(false)}
         >
-          <div className={bodyClasses}>{isMounted && children}</div>
-        </Transition.Child>
+          <DialogPanel className={bodyClasses}>
+            {isMounted && children}
+          </DialogPanel>
+        </TransitionChild>
       </Dialog>
     </Transition>
   );

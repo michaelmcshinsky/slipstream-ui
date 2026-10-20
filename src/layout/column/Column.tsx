@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { forwardRef, ReactNode } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { TWidth, Torder } from '../../utils';
 
 export type TCol = {

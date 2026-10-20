@@ -10,7 +10,6 @@ import { NavbarLink, TNavbarLink } from './NavbarLink';
 import { NavbarMenu, TNavbarMenu } from './NavbarMenu';
 import {
   NavbarSidebar,
-  NavBarSidebarElement,
   TNavbarSidebar,
 } from './NavbarSidebar';
 import { NavbarText, TNavbarText } from './NavbarText';
@@ -61,7 +60,7 @@ type NavbarComponent = React.ForwardRefExoticComponent<
     TNavbarMenu & React.RefAttributes<HTMLDivElement>
   >;
   Sidebar: React.ForwardRefExoticComponent<
-    TNavbarSidebar & React.RefAttributes<NavBarSidebarElement>
+    TNavbarSidebar & React.RefAttributes<HTMLDivElement>
   >;
   Text: React.ForwardRefExoticComponent<
     TNavbarText & React.RefAttributes<HTMLDivElement>
