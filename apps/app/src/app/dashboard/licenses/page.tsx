@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 interface License {
   id: string;
@@ -29,8 +30,8 @@ export default function LicensesPage() {
       fetch('/api/licenses').then((r) => r.json()),
       fetch('/api/api-keys').then((r) => r.json()),
     ]);
-    setLicenses(licenseResponse.licenses ?? []);
-    setKeys(keyResponse.keys ?? []);
+    setLicenses(extractData<{ licenses: License[] }>(licenseResponse)?.licenses ?? []);
+    setKeys(extractData<{ keys: ApiKeyRow[] }>(keyResponse)?.keys ?? []);
   }
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function LicensesPage() {
     });
     const data = await response.json();
     if (!response.ok) {
-      setError(data.error);
+      setError(extractErrorMessage(data));
       return;
     }
     await load();
@@ -68,10 +69,17 @@ export default function LicensesPage() {
     });
     const data = await response.json();
     if (!response.ok) {
-      setError(data.error);
+      setError(extractErrorMessage(data));
       return;
     }
-    setNewKey(data.key);
+    // Envelope wraps the plaintext key: { data: { key } } — read it before it
+    // is lost, since it is shown exactly once (KC-018).
+    const plaintext = extractData<{ key?: string }>(data)?.key;
+    if (!plaintext) {
+      setError('Key created but the plaintext was not returned by the server.');
+      return;
+    }
+    setNewKey(plaintext);
     event.currentTarget.reset();
     await load();
   }

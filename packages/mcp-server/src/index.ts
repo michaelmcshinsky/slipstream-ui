@@ -8,6 +8,7 @@ import { listComponentsTool } from './tools/list-components';
 import { getComponentManifestTool } from './tools/get-manifest';
 import { getUsageExamplesTool } from './tools/get-usage-examples';
 import { validateUsageTool } from './tools/validate-usage';
+import { searchComponentsTool } from './tools/search-components';
 
 const server = new Server(
   {
@@ -29,6 +30,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       getComponentManifestTool.definition,
       getUsageExamplesTool.definition,
       validateUsageTool.definition,
+      searchComponentsTool.definition,
     ],
   };
 });
@@ -46,6 +48,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return await validateUsageTool.handler(args);
       case 'get_usage_examples':
         return await getUsageExamplesTool.handler(args);
+      case 'search_components':
+        return await searchComponentsTool.handler(args);
       default:
         throw new Error(`Unknown tool: ${name}`);
     }

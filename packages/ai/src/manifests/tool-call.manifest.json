@@ -57,18 +57,18 @@
   "antiPatterns": [
     {
       "title": "Don't show tool calls for simple operations",
-      "code": "// Avoid: Showing trivial tool calls\n<ToolCall toolCall={{ name: 'echo', arguments: { text: 'hello' }, status: 'completed' }} />\n\n// Prefer: Only show meaningful tool usage\n<ToolCall toolCall={{ name: 'search_database', arguments: { query: complexQuery }, status: 'completed' }} />",
-      "description": "Tool calls should be shown for meaningful operations, not trivial ones."
+      "explanation": "Tool calls should be shown for meaningful operations, not trivial ones.",
+      "example": "// Avoid: Showing trivial tool calls\n<ToolCall toolCall={{ name: 'echo', arguments: { text: 'hello' }, status: 'completed' }} />\n\n// Prefer: Only show meaningful tool usage\n<ToolCall toolCall={{ name: 'search_database', arguments: { query: complexQuery }, status: 'completed' }} />"
     },
     {
       "title": "Don't expose sensitive data in arguments",
-      "code": "// Avoid: Including sensitive data\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: 'secret-key' }, \n  status: 'completed' \n}} />\n\n// Prefer: Redact sensitive information\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: '[REDACTED]' }, \n  status: 'completed' \n}} />",
-      "description": "Never display sensitive credentials or personal data in tool call arguments."
+      "explanation": "Never display sensitive credentials or personal data in tool call arguments.",
+      "example": "// Avoid: Including sensitive data\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: 'secret-key' }, \n  status: 'completed' \n}} />\n\n// Prefer: Redact sensitive information\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: '[REDACTED]' }, \n  status: 'completed' \n}} />"
     },
     {
       "title": "Don't ignore failed tool calls",
-      "code": "// Avoid: Not addressing failures\n<ToolCall toolCall={{ name: 'save', status: 'failed' }} />\n\n// Prefer: Handle and display failures appropriately\n<ToolCall toolCall={{ name: 'save', status: 'failed', result: { error: 'Permission denied' } }} />",
-      "description": "Failed tool calls should be clearly indicated with error information."
+      "explanation": "Failed tool calls should be clearly indicated with error information.",
+      "example": "// Avoid: Not addressing failures\n<ToolCall toolCall={{ name: 'save', status: 'failed' }} />\n\n// Prefer: Handle and display failures appropriately\n<ToolCall toolCall={{ name: 'save', status: 'failed', result: { error: 'Permission denied' } }} />"
     }
   ],
   "accessibility": [

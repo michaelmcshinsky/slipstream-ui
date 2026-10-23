@@ -76,9 +76,14 @@ export function errorJson(error: ApiError, request: Request) {
   );
 }
 
-/** Weak ETag revalidation: returns a 304 response when the client is current. */
-export function withEtag(request: Request, response: NextResponse): NextResponse {
-  const etag = `W/"${createHash('sha1').update(JSON.stringify(response.body ?? '')).digest('base64url')}"`;
+/**
+ * Weak ETag revalidation: returns a 304 response when the client is current.
+ * Hashes the serialized body text — not the response object/stream, which
+ * would hash identically for every payload (KC-016).
+ */
+export async function withEtag(request: Request, response: NextResponse): Promise<NextResponse> {
+  const bodyText = await response.clone().text();
+  const etag = `W/"${createHash('sha1').update(bodyText).digest('base64url')}"`;
   response.headers.set('ETag', etag);
   if (request.headers.get('if-none-match') === etag) {
     const notModified = new NextResponse(null, { status: 304 });
@@ -155,11 +160,17 @@ export interface PaginatedMeta {
 /**
  * Applies cursor pagination to any prisma findMany argument list and builds
  * the response meta. Cursors are opaque (base64 of the sort field value).
+ *
+ * `cursorOf` overrides which field the cursor encodes — needed when the
+ * public item id differs from the query's sort key (KC-015 teams: display
+ * ids are team ids, but the query paginates membership rows).
  */
 export function paginate<T extends { id: string }>(
   rows: T[],
-  limit: number
+  limit: number,
+  options: { cursorOf?: (row: T) => string } = {}
 ): { items: T[]; meta: PaginatedMeta } {
+  const cursorOf = options.cursorOf ?? ((row: T) => row.id);
   const hasMore = rows.length > limit;
   const items = hasMore ? rows.slice(0, limit) : rows;
   const last = items.at(-1);
@@ -168,7 +179,7 @@ export function paginate<T extends { id: string }>(
     meta: {
       limit,
       hasMore,
-      ...(hasMore && last ? { nextCursor: Buffer.from(last.id).toString('base64url') } : {}),
+      ...(hasMore && last ? { nextCursor: Buffer.from(cursorOf(last)).toString('base64url') } : {}),
     },
   };
 }

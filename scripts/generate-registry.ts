@@ -12,6 +12,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'registry');
@@ -63,6 +64,10 @@ const CORE_EXPORT_SOURCES = {
   AvatarFallback: 'avatar',
   Spinner: 'spinner',
   spinnerVariants: 'spinner',
+  Select: 'select',
+  Dialog: 'dialog',
+  ToastProvider: 'toast',
+  useToast: 'toast',
 };
 
 /**
@@ -219,10 +224,23 @@ function main() {
     ) + '\n'
   );
 
+  // A build-time timestamp would make the committed output differ on every
+  // rebuild; the source revision keeps the payload byte-identical for a given
+  // tree while still recording which commit generated it.
+  const sourceRevision = (() => {
+    try {
+      return execSync('git rev-parse --short HEAD', { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
+        .toString()
+        .trim();
+    } catch {
+      return null;
+    }
+  })();
+
   const index = {
     name: 'slipstream-ui',
     schemaVersion: 1,
-    updated: new Date().toISOString(),
+    ...(sourceRevision ? { sourceRevision } : {}),
     count: entries.length,
     install: 'npx shadcn@latest add https://slipstreamui.com/registry/<id>.json',
     components: entries.map(({ manifest }) => ({

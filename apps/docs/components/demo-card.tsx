@@ -51,7 +51,12 @@ export function DemoCard({ preview, code, title, language = 'tsx', className, de
         </div>
       </div>
       {tab === 'preview' ? (
-        <div className="flex min-h-24 items-center justify-center p-6">{preview}</div>
+        // Scroll instead of clip: the card is overflow-hidden, so a wide
+        // preview must be able to scroll horizontally on small screens.
+        // w-max + min-w-full keeps previews centered when they fit.
+        <div className="overflow-x-auto p-6">
+          <div className="flex min-h-24 w-max min-w-full items-center justify-center">{preview}</div>
+        </div>
       ) : (
         <CodeBlock code={code} language={language} className="rounded-none border-0" />
       )}

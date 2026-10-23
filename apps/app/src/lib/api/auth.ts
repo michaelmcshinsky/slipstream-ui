@@ -20,7 +20,12 @@ export async function getPrincipal(request: Request): Promise<Principal | null> 
   const presented =
     header?.startsWith('Bearer ') ? header.slice('Bearer '.length).trim() : request.headers.get('x-api-key')?.trim();
 
-  if (presented && presented.includes('.')) {
+  if (presented) {
+    // A presented credential must be a well-formed key; never fall back to
+    // cookie identity when the explicit credential is malformed (KC-043).
+    if (!presented.includes('.')) {
+      throw errors.unauthorized('Malformed API key.');
+    }
     const [prefix] = presented.split('.');
     const record = await prisma.apiKey.findUnique({
       where: { prefix },
@@ -29,10 +34,17 @@ export async function getPrincipal(request: Request): Promise<Principal | null> 
     if (!record || record.keyHash !== hashToken(presented) || record.revokedAt || record.user.suspendedAt) {
       throw errors.unauthorized('Invalid API key.');
     }
-    // Fire-and-forget last-used stamp; must not slow the hot path.
+    // Fire-and-forget last-used stamp; must not slow the hot path. Failures
+    // are surfaced operationally without logging the presented credential.
     void prisma.apiKey
       .update({ where: { id: record.id }, data: { lastUsedAt: new Date() } })
-      .catch(() => {});
+      .catch((error: unknown) => {
+        console.error(
+          '[auth] failed to stamp apiKey last-used',
+          record.id,
+          error instanceof Error ? error.message : error,
+        );
+      });
     return {
       kind: 'apikey',
       apiKeyId: record.id,

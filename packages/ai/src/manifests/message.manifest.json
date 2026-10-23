@@ -118,13 +118,13 @@
   "antiPatterns": [
     {
       "title": "Don't use for complex content",
-      "code": "// Avoid: Putting complex UI inside message content\n<Message message={{ \n  role: 'assistant', \n  content: '<div>Complex HTML</div>' \n}} />\n\n// Prefer: Use separate components for complex content\n<Message message={{ role: 'assistant', content: 'Here is the data:' }} />\n<DataDisplay data={...} />",
-      "description": "Message content should be plain text. For complex UI, use additional components."
+      "explanation": "Message content should be plain text. For complex UI, use additional components.",
+      "example": "// Avoid: Putting complex UI inside message content\n<Message message={{ \n  role: 'assistant', \n  content: '<div>Complex HTML</div>' \n}} />\n\n// Prefer: Use separate components for complex content\n<Message message={{ role: 'assistant', content: 'Here is the data:' }} />\n<DataDisplay data={...} />"
     },
     {
       "title": "Don't hardcode message data",
-      "code": "// Avoid: Hardcoded message\n<Message message={{ id: '1', role: 'user', content: 'Fixed text' }} />\n\n// Prefer: Dynamic message from state\n<Message message={messages[currentIndex]} />",
-      "description": "Messages should come from a conversation state, not be hardcoded"
+      "explanation": "Messages should come from a conversation state, not be hardcoded",
+      "example": "// Avoid: Hardcoded message\n<Message message={{ id: '1', role: 'user', content: 'Fixed text' }} />\n\n// Prefer: Dynamic message from state\n<Message message={messages[currentIndex]} />"
     }
   ],
   "accessibility": [

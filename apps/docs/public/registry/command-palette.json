@@ -1,0 +1,114 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "command-palette",
+  "name": "command-palette",
+  "tier": "organism",
+  "description": "Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+  "designIntent": "AI-assisted and power-user apps expose many actions; a command palette keeps them all one keystroke away. The palette is a combobox+listbox with aria-activedescendant navigation so focus never leaves the input, filters lexically over labels/sections/keywords, and reports selection through a single callback.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the palette is visible (controlled)"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": true,
+      "description": "Called when the user opens or dismisses the palette"
+    },
+    {
+      "name": "commands",
+      "type": "Command[]",
+      "required": true,
+      "description": "Available commands: { id, label, section?, keywords?, shortcut? }",
+      "examples": [
+        {
+          "id": "go-docs",
+          "label": "Open documentation",
+          "section": "Navigation"
+        }
+      ]
+    },
+    {
+      "name": "onSelect",
+      "type": "(command: Command) => void",
+      "required": true,
+      "description": "Invoked with the chosen command before the palette closes"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "Type a command…",
+      "required": false,
+      "description": "Input placeholder text"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Wired to Cmd+K",
+      "code": "const [open, setOpen] = useState(false);\n\nuseEffect(() => {\n  const onKeyDown = (event: KeyboardEvent) => {\n    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {\n      event.preventDefault();\n      setOpen((current) => !current);\n    }\n  };\n  window.addEventListener('keydown', onKeyDown);\n  return () => window.removeEventListener('keydown', onKeyDown);\n}, []);\n\n<CommandPalette\n  open={open}\n  onOpenChange={setOpen}\n  commands={commands}\n  onSelect={(command) => run(command.id)}\n/>",
+      "description": "Toggle the palette with Cmd/Ctrl+K and run the selected command."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not use the palette as a text editor command",
+      "explanation": "The palette searches discrete commands. For AI chat input use PromptInput instead."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Combobox pattern",
+      "implementation": "The input uses role=combobox with aria-expanded, aria-controls, aria-activedescendant and aria-autocomplete=list."
+    },
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Arrow keys cycle options, Enter selects, Escape closes; focus never leaves the input."
+    },
+    {
+      "feature": "Option semantics",
+      "implementation": "Each result is role=option with aria-selected marking the active item."
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "PromptInput",
+      "relationship": "CommandPalette switches modes/actions; PromptInput captures free-form chat text."
+    }
+  ],
+  "relatedComponents": [
+    "PromptInput",
+    "Dialog"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "command-palette",
+  "exportName": "CommandPalette",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/command-palette/CommandPalette.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\n\nexport interface Command {\n  id: string;\n  label: string;\n  /** Optional grouping header, e.g. \"Navigation\". */\n  section?: string;\n  /** Extra lexical search terms. */\n  keywords?: string[];\n  shortcut?: string;\n}\n\nexport interface CommandPaletteProps {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n  commands: Command[];\n  onSelect: (command: Command) => void;\n  placeholder?: string;\n}\n\n/**\n * Cmd+K command palette: combobox + listbox with aria-activedescendant\n * keyboard navigation, lexical filtering over label/keywords, and\n * Escape-to-close. No focus leaves the input while navigating (KC-031).\n */\nexport function CommandPalette({\n  open,\n  onOpenChange,\n  commands,\n  onSelect,\n  placeholder = 'Type a command…',\n}: CommandPaletteProps) {\n  const [query, setQuery] = React.useState('');\n  const [activeIndex, setActiveIndex] = React.useState(0);\n  const inputRef = React.useRef<HTMLInputElement | null>(null);\n  const listboxId = React.useId();\n  const optionId = (index: number) => `${listboxId}-option-${index}`;\n\n  const filtered = React.useMemo(() => {\n    const terms = query.trim().toLowerCase().split(/\\s+/).filter(Boolean);\n    if (terms.length === 0) return commands;\n    return commands.filter((command) => {\n      const haystack = `${command.label} ${command.section ?? ''} ${(command.keywords ?? []).join(' ')}`.toLowerCase();\n      return terms.every((term) => haystack.includes(term));\n    });\n  }, [commands, query]);\n\n  React.useEffect(() => {\n    if (open) {\n      setQuery('');\n      setActiveIndex(0);\n      // Focus after paint so the portal/DOM node exists.\n      const timer = setTimeout(() => inputRef.current?.focus(), 0);\n      return () => clearTimeout(timer);\n    }\n    return undefined;\n  }, [open]);\n\n  React.useEffect(() => {\n    setActiveIndex((index) => Math.min(index, Math.max(0, filtered.length - 1)));\n  }, [filtered.length]);\n\n  if (!open) return null;\n\n  const onKeyDown = (event: React.KeyboardEvent) => {\n    if (event.key === 'Escape') {\n      event.preventDefault();\n      onOpenChange(false);\n    } else if (event.key === 'ArrowDown') {\n      event.preventDefault();\n      setActiveIndex((index) => (filtered.length === 0 ? 0 : (index + 1) % filtered.length));\n    } else if (event.key === 'ArrowUp') {\n      event.preventDefault();\n      setActiveIndex((index) => (filtered.length === 0 ? 0 : (index - 1 + filtered.length) % filtered.length));\n    } else if (event.key === 'Enter') {\n      event.preventDefault();\n      const command = filtered[activeIndex];\n      if (command) {\n        onSelect(command);\n        onOpenChange(false);\n      }\n    }\n  };\n\n  let lastSection: string | undefined;\n\n  return (\n    <div\n      className=\"fixed inset-0 z-50 flex items-start justify-center bg-background/80 p-4 pt-[15vh]\"\n      onMouseDown={(event) => {\n        if (event.target === event.currentTarget) onOpenChange(false);\n      }}\n    >\n      <div className=\"w-full max-w-lg overflow-hidden rounded-xl border border-border bg-card shadow-2xl\">\n        <input\n          ref={inputRef}\n          type=\"text\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-controls={listboxId}\n          aria-activedescendant={filtered.length > 0 ? optionId(activeIndex) : undefined}\n          aria-autocomplete=\"list\"\n          aria-label=\"Command palette\"\n          placeholder={placeholder}\n          value={query}\n          onChange={(event) => {\n            setQuery(event.target.value);\n            setActiveIndex(0);\n          }}\n          onKeyDown={onKeyDown}\n          className=\"w-full border-b border-border bg-transparent px-4 py-3 text-sm outline-none placeholder:text-muted-foreground\"\n        />\n        <ul id={listboxId} role=\"listbox\" aria-label=\"Commands\" className=\"max-h-72 overflow-y-auto py-1\">\n          {filtered.length === 0 && (\n            <li role=\"presentation\" className=\"px-4 py-3 text-sm text-muted-foreground\">\n              No matching commands.\n            </li>\n          )}\n          {filtered.map((command, index) => {\n            const showSection = command.section && command.section !== lastSection;\n            lastSection = command.section ?? lastSection;\n            return (\n              <React.Fragment key={command.id}>\n                {showSection && (\n                  <li role=\"presentation\" className=\"px-4 pb-1 pt-3 text-xs font-medium uppercase text-muted-foreground\">\n                    {command.section}\n                  </li>\n                )}\n                <li\n                  id={optionId(index)}\n                  role=\"option\"\n                  aria-selected={index === activeIndex}\n                  onMouseEnter={() => setActiveIndex(index)}\n                  onClick={() => {\n                    onSelect(command);\n                    onOpenChange(false);\n                  }}\n                  className={`flex cursor-pointer items-center justify-between px-4 py-2 text-sm ${\n                    index === activeIndex ? 'bg-primary/10 text-foreground' : 'text-muted-foreground'\n                  }`}\n                >\n                  <span>{command.label}</span>\n                  {command.shortcut && <span className=\"font-mono text-xs\">{command.shortcut}</span>}\n                </li>\n              </React.Fragment>\n            );\n          })}\n        </ul>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/command-palette/index.ts",
+      "content": "export { CommandPalette } from './CommandPalette';\nexport type { CommandPaletteProps, Command } from './CommandPalette';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/command-palette.manifest.json",
+      "content": "{\n  \"id\": \"command-palette\",\n  \"name\": \"CommandPalette\",\n  \"tier\": \"organism\",\n  \"description\": \"Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation\",\n  \"designIntent\": \"AI-assisted and power-user apps expose many actions; a command palette keeps them all one keystroke away. The palette is a combobox+listbox with aria-activedescendant navigation so focus never leaves the input, filters lexically over labels/sections/keywords, and reports selection through a single callback.\",\n  \"props\": [\n    {\n      \"name\": \"open\",\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"description\": \"Whether the palette is visible (controlled)\"\n    },\n    {\n      \"name\": \"onOpenChange\",\n      \"type\": \"(open: boolean) => void\",\n      \"required\": true,\n      \"description\": \"Called when the user opens or dismisses the palette\"\n    },\n    {\n      \"name\": \"commands\",\n      \"type\": \"Command[]\",\n      \"required\": true,\n      \"description\": \"Available commands: { id, label, section?, keywords?, shortcut? }\",\n      \"examples\": [{ \"id\": \"go-docs\", \"label\": \"Open documentation\", \"section\": \"Navigation\" }]\n    },\n    {\n      \"name\": \"onSelect\",\n      \"type\": \"(command: Command) => void\",\n      \"required\": true,\n      \"description\": \"Invoked with the chosen command before the palette closes\"\n    },\n    {\n      \"name\": \"placeholder\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Type a command…\",\n      \"required\": false,\n      \"description\": \"Input placeholder text\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Wired to Cmd+K\",\n      \"code\": \"const [open, setOpen] = useState(false);\\n\\nuseEffect(() => {\\n  const onKeyDown = (event: KeyboardEvent) => {\\n    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {\\n      event.preventDefault();\\n      setOpen((current) => !current);\\n    }\\n  };\\n  window.addEventListener('keydown', onKeyDown);\\n  return () => window.removeEventListener('keydown', onKeyDown);\\n}, []);\\n\\n<CommandPalette\\n  open={open}\\n  onOpenChange={setOpen}\\n  commands={commands}\\n  onSelect={(command) => run(command.id)}\\n/>\",\n      \"description\": \"Toggle the palette with Cmd/Ctrl+K and run the selected command.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not use the palette as a text editor command\",\n      \"explanation\": \"The palette searches discrete commands. For AI chat input use PromptInput instead.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Combobox pattern\",\n      \"implementation\": \"The input uses role=combobox with aria-expanded, aria-controls, aria-activedescendant and aria-autocomplete=list.\"\n    },\n    {\n      \"feature\": \"Keyboard navigation\",\n      \"implementation\": \"Arrow keys cycle options, Enter selects, Escape closes; focus never leaves the input.\"\n    },\n    {\n      \"feature\": \"Option semantics\",\n      \"implementation\": \"Each result is role=option with aria-selected marking the active item.\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"PromptInput\",\n      \"relationship\": \"CommandPalette switches modes/actions; PromptInput captures free-form chat text.\"\n    }\n  ],\n  \"relatedComponents\": [\"PromptInput\", \"Dialog\"],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"command-palette\",\n  \"exportName\": \"CommandPalette\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -47,6 +47,7 @@ export default function AdminAuditPage() {
       </div>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
       <Card>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-muted-foreground">
@@ -72,6 +73,7 @@ export default function AdminAuditPage() {
             )}
           </tbody>
         </table>
+        </div>
       </Card>
     </div>
   );

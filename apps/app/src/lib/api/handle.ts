@@ -14,10 +14,23 @@ export interface HandleOptions {
   public?: boolean;
 }
 
+/**
+ * Explicit trusted-proxy configuration (KC-043):
+ * - `TRUST_PROXY=false` — ignore X-Forwarded-For entirely (direct peer only).
+ * - default / `TRUST_PROXY=true` — trust the FIRST hop of X-Forwarded-For.
+ *   Deploy behind exactly one trusted proxy that overwrites the header.
+ */
+function trustProxy(): boolean {
+  return process.env.TRUST_PROXY !== 'false';
+}
+
 function identityFrom(request: Request): string {
-  // Prefer forwarded client IP (edge/proxy), then direct address.
-  const forwarded = request.headers.get('x-forwarded-for');
-  return forwarded?.split(',')[0]?.trim() || 'local';
+  if (trustProxy()) {
+    const forwarded = request.headers.get('x-forwarded-for');
+    const first = forwarded?.split(',')[0]?.trim();
+    if (first) return first;
+  }
+  return 'local';
 }
 
 /**
@@ -25,6 +38,11 @@ function identityFrom(request: Request): string {
  * - request-id propagation (honors inbound X-Request-Id)
  * - per-identity sliding-window rate limiting
  * - typed error mapping to the standard envelope
+ *
+ * Rate-limit buckets are keyed `${identity}:${routeName}` and held in
+ * per-instance memory. Multi-instance deployments must pin a client to one
+ * instance (sticky routing) or replace `rateLimit` with a shared backend —
+ * the in-memory window is not coordinated across instances.
  *
  * Usage: `export async function GET(request: Request) {
  *   return handle(request, async () => ({ ... }));
@@ -85,23 +103,14 @@ function mapLegacyStatus(status: number): string {
 }
 
 // ---------------------------------------------------------------------------
-// Back-compat helpers used by internal routes
+// Shared helpers used by internal routes
 // ---------------------------------------------------------------------------
 
 import { z } from 'zod';
 
-/** Parse JSON body without a schema (legacy helper); prefer parseBody. */
-export async function readJson<T>(request: Request): Promise<T> {
-  try {
-    return (await request.json()) as T;
-  } catch {
-    throw errors.badRequest('Invalid JSON body.');
-  }
-}
+export { z };
 
 /** Throw a standard 400. */
 export function badRequest(message: string): never {
   throw errors.badRequest(message);
 }
-
-export { z };

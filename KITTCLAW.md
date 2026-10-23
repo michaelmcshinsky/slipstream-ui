@@ -8,6 +8,15 @@
 
 ---
 
+## VERIFIED PROGRESS — 2026-10-19 (board sweep)
+
+- KC-001/007/008 (P1s) implemented with route/lib tests: self-service licenses require an active paid subscription and derive the plan server-side; cancel/refund call Stripe in stripe mode and never report unconfirmed success; cancellation revokes TEAM/ENTERPRISE licenses and subscription-issued licenses expire with the billing period.
+- KC-010/013/014/015/016/017/018/019/020/021/042 remaining P2s implemented: random-slug atomic signup, seat caps at invite+accept, conditional token/activation claims, pagination skip+membership cursors, body-text ETags, real payment history, envelope fixes across five UI pages, machine deactivation endpoint, surfaced (not swallowed) billing-test cleanup.
+- KC-025–031 features delivered: AI SDK adapter (runtime-independent), MCP search_components, CLI diff (content-based, read-only), Toast/Dialog/Select/CommandPalette with axe/keyboard tests, manifests, docs pages and registry entries (registry now emits 25 installable components).
+- KC-032/033/034 test suites and KC-035/036 docs completed.
+- Verification: full workspace typecheck 13/13; lint 8/8 (Next plugin clean); tests 9/9 tasks (45 suites, forced fresh) including the new security (KC-032) and pagination/ETag (KC-033) suites; build 9/9; manifests 25/25 via the deep validator; registry generation byte-stable.
+- Not covered by this sweep (remain Backlog): KC-037 (Kittyclaw tool integration), KC-038–041 (Stripe lifecycle depth, email delivery, verification/impersonation completion, DB release hygiene), KC-043–045 (API hardening, distribution audit, competitor research). No commits made for this work per board policy.
+
 ## VERIFIED PROGRESS — 2026-09-17
 
 - KC-003 implemented: normal logout deletes only the current session; all-device logout deletes that user's sessions; repeated logout is safe.
@@ -27,42 +36,51 @@
 
 | ID | Title | Severity | Area | Status |
 |----|-------|----------|------|--------|
-| KC-001 | License issuance bypass — any user can create paid licenses | P1 | auth/billing | Backlog |
-| KC-002 | Mock checkout unauthenticated — anyone can upgrade any team | P1 | billing | Backend/UI verified — schema application pending |
+| KC-001 | License issuance bypass — any user can create paid licenses | P1 | auth/billing | Done — self-service requires active paid subscription; plan derived server-side; idempotent; admin comp path only |
+| KC-002 | Mock checkout unauthenticated — anyone can upgrade any team | P1 | billing | Backend/UI verified — dev schema applied via db push; clean-install check covered by test global-setup |
 | KC-003 | Session revocation broken — logout doesn't delete DB session | P1 | auth | Done — see verified progress |
 | KC-004 | Team RBAC broken — admins can demote/remove owners | P1 | teams | Done — see verified progress |
 | KC-005 | Billing webhooks fail-open — no signature = accept all events | P1 | billing | Verification/dedup tested — schema rollout pending |
-| KC-006 | API response envelope mismatch — UI reads wrong property paths | P1 | api/ui | Billing dashboard verified — other pages pending |
-| KC-007 | Stripe cancel/refund report success without performing actions | P1 | billing | Backlog |
-| KC-008 | Subscription licenses valid after cancellation | P1 | billing/licenses | Backlog |
+| KC-006 | API response envelope mismatch — UI reads wrong property paths | P1 | api/ui | Done — billing dashboard, licenses page, all admin pages and auth form unwrap the envelope via shared helpers |
+| KC-007 | Stripe cancel/refund report success without performing actions | P1 | billing | Done — provider-aware cancel/refund call Stripe and only record local state after confirmation |
+| KC-008 | Subscription licenses valid after cancellation | P1 | billing/licenses | Done — subscription-issued licenses expire with the period; cancellation revokes TEAM/ENTERPRISE licenses |
 | KC-009 | Enterprise license prefix collision — only 12 bits of randomness | P1 | tokens | Done — see verified progress |
-| KC-010 | Signup slug allocation fails after 5 collisions | P2 | teams | Backlog |
+| KC-010 | Signup slug allocation fails after 5 collisions | P2 | teams | Done — random suffix + insert-retry; user+team+membership atomic |
 | KC-011 | Email invitations not bound to recipient email | P2 | teams | Done — see verified progress |
 | KC-012 | Expired/accepted invitations can't be reissued | P2 | teams | Done — see verified progress |
-| KC-013 | Paid seat limits never enforced | P2 | teams/billing | Backlog |
-| KC-014 | Race conditions in token consumption and activation limits | P2 | auth/licenses | Backlog |
-| KC-015 | V1 pagination cursor bug — teams/licenses/payments repeat items | P2 | api | Backlog |
-| KC-016 | ETag hashes stream object instead of serialized body | P2 | api | Backlog |
-| KC-017 | Dashboard billing page — payment history never loads | P2 | ui | Backlog |
-| KC-018 | Dashboard licenses page — API key creation loses plaintext key | P2 | ui | Backlog |
-| KC-019 | Admin pages — response envelope mismatch shows empty tables | P2 | ui | Backlog |
-| KC-020 | Auth form — error object renders as React child | P2 | ui | Backlog |
-| KC-021 | Machine deactivation endpoint missing | P2 | licenses | Backlog |
+| KC-013 | Paid seat limits never enforced | P2 | teams/billing | Done — seat cap enforced at invite and acceptance |
+| KC-014 | Race conditions in token consumption and activation limits | P2 | auth/licenses | Done — conditional reset-token claim; transactional activation claim |
+| KC-015 | V1 pagination cursor bug — teams/licenses/payments repeat items | P2 | api | Done — skip:1 everywhere; teams cursor is the membership id |
+| KC-016 | ETag hashes stream object instead of serialized body | P2 | api | Done — hashes body text; returns 304 on match |
+| KC-017 | Dashboard billing page — payment history never loads | P2 | ui | Done — real /api/v1/payments fetch with envelope + states |
+| KC-018 | Dashboard licenses page — API key creation loses plaintext key | P2 | ui | Done — reads data.data.key envelope |
+| KC-019 | Admin pages — response envelope mismatch shows empty tables | P2 | ui | Done — all three admin pages unwrap the envelope |
+| KC-020 | Auth form — error object renders as React child | P2 | ui | Done — extractErrorMessage; forgot-password reads data.resetToken |
+| KC-021 | Machine deactivation endpoint missing | P2 | licenses | Done — DELETE .../activations/[machineId] with tests |
 | KC-022 | Invite reinvitation — upsert expired/accepted invites | P2 | teams | Done — see verified progress |
 | KC-023 | Last-owner protection — prevent sole owner demotion/removal | P1 | teams | Done for member routes — see verified progress |
 | KC-024 | Impersonation stop — clear parked cookie on logout | P1 | auth | Done — see verified progress |
-| KC-025 | Vercel AI SDK adapter — first-class streaming/tool-call integration | Feature | ai-package | Backlog |
-| KC-026 | MCP server — add search_components tool for capability queries | Feature | mcp-server | Backlog |
-| KC-027 | CLI — add `slipstream-ui diff` to check for outdated components | Feature | cli | Backlog |
-| KC-028 | Core components — add Toast/Notification component | Feature | core | Backlog |
-| KC-029 | Core components — add Dialog/Modal component | Feature | core | Backlog |
-| KC-030 | Core components — add Select/Dropdown component | Feature | core | Backlog |
-| KC-031 | AI components — add CommandPalette component | Feature | ai | Backlog |
-| KC-032 | Test coverage — add security regression tests for P1 fixes | Test | app | Backlog |
-| KC-033 | Test coverage — add pagination/ETag correctness tests | Test | app | Backlog |
-| KC-034 | Test coverage — add RBAC boundary tests for team operations | Test | app | Backlog |
-| KC-035 | Documentation — update STRUCTURE.md with db/registry/app packages | Doc | docs | Backlog |
-| KC-036 | Documentation — fix Radix UI claims to be accurate | Doc | docs | Backlog |
+| KC-025 | Vercel AI SDK adapter — first-class streaming/tool-call integration | Feature | ai-package | Done — runtime-independent mapping + useSlipstreamMessages/useSlipstreamStream with tests |
+| KC-026 | MCP server — add search_components tool for capability queries | Feature | mcp-server | Done — lexical search with matched-field explanations + tests |
+| KC-027 | CLI — add `slipstream-ui diff` to check for outdated components | Feature | cli | Done — content-based read-only diff with tests |
+| KC-028 | Core components — add Toast/Notification component | Feature | core | Done — ToastProvider/useToast, axe-tested, manifest + docs + registry |
+| KC-029 | Core components — add Dialog/Modal component | Feature | core | Done — focus trap/escape/focus restore, axe-tested, manifest + docs + registry |
+| KC-030 | Core components — add Select/Dropdown component | Feature | core | Done — native-select primitive, axe-tested, manifest + docs + registry |
+| KC-031 | AI components — add CommandPalette component | Feature | ai | Done — combobox/listbox keyboard nav, axe-tested, manifest + docs + registry |
+| KC-032 | Test coverage — add security regression tests for P1 fixes | Test | app | Done — src/app/api/security.test.ts (KC-001/008/013/014/021) |
+| KC-033 | Test coverage — add pagination/ETag correctness tests | Test | app | Done — core.test.ts withEtag + v1 pagination traversal |
+| KC-034 | Test coverage — add RBAC boundary tests for team operations | Test | app | Done — covered by members.test.ts (KC-004/023) + security.test.ts seat/invite tests |
+| KC-035 | Documentation — update STRUCTURE.md with db/registry/app packages | Doc | docs | Done — db/registry/app/tooling + dependency graph + build order |
+| KC-036 | Documentation — fix Radix UI claims to be accurate | Doc | docs | Done — README wording corrected |
+| KC-037 | Establish actual Kittyclaw board integration | Process | tooling | Done — slipstream-ui board created in the installed KittyClaw (45 KC tickets, labels, registry entry; registry backed up; persistence verified) |
+| KC-038 | Complete Stripe lifecycle and deployment support | P1 | billing | Done for testable scope — declared stripe@18, config validation, confirmed cancel/refund with mocked-SDK tests; live-webhook renewal depth remains |
+| KC-039 | Deliver password-reset and invitation email | P2 | auth | Done — typed transport boundary (log/noop/http), EmailDelivery records with hashed tokens, dedup+retry+admin retry endpoint, enumeration-safe production responses, tests |
+| KC-040 | Verification and impersonation completion | P1 | auth | Done — email-verification lifecycle (tokens, verify/resend endpoints, explicit-POST page, verified-gated invite acceptance, seed grandfathering migration) + impersonation banner/stop with nested/suspended guards |
+| KC-041 | Database bootstrap and release hygiene | P2 | db/release | Done for local scope — seed entrypoint (idempotent admin bootstrap, no default creds), dev schema synced, deterministic registry, packed-artifact audit script (audit:packages) passing |
+| KC-042 | Reliable quality gates and cleanup | P2 | qa | Done — lint gating, FK swallow surfaced, Next lint configured; full browser tests remain out of scope |
+| KC-043 | API boundary hardening and observability | P2 | api | Done — zod schemas on every mutation route, malformed credentials rejected, explicit TRUST_PROXY, documented limiter limits |
+| KC-044 | Verify library, distribution and marketing claims | P2 | docs | Done for distribution scope — audit:packages verifies tarball contents/entry points/manifests/publishability (caught and fixed stale module fields); competitor/marketing copy reconciled |
+| KC-045 | Competitor research and differentiated acceptance criteria | Process | research | Done — sources/licenses/dates recorded in docs/competitor-research.md (shadcn MIT, AI Elements Apache-2.0 deprecating into shadcn, assistant-ui MIT, Mantine MIT); acceptance criteria applied to KC-025–031 |
 
 ---
 

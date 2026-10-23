@@ -30,6 +30,7 @@ vi.mock('next/headers', () => ({
 import { GET as v1Me } from './me/route';
 import { GET as v1Teams, POST as v1CreateTeam } from './teams/route';
 import { GET as v1Licenses } from './licenses/route';
+import { GET as v1Payments } from './payments/route';
 import { POST as v1Validate } from './licenses/validate/route';
 
 const suffix = Date.now();
@@ -123,6 +124,70 @@ describe('GET /api/v1/licenses', () => {
     const body = await response.json();
     expect(body.data).toEqual([]);
     expect(body.meta.hasMore).toBe(false);
+  });
+});
+
+describe('pagination traversal (KC-015)', () => {
+  it('walks teams pages without repeating the boundary item', async () => {
+    for (let i = 0; i < 5; i++) {
+      const created = await v1CreateTeam(
+        bearer({ url: 'http://x/api/v1/teams', method: 'POST', body: { name: `Cursor Team ${i}-${suffix}` } })
+      );
+      expect(created.status).toBe(201);
+    }
+
+    const seen: string[] = [];
+    let cursor: string | undefined;
+    for (let page = 0; page < 10; page++) {
+      const url: string = `http://x/api/v1/teams?limit=2${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
+      const response = await v1Teams(bearer({ url }));
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      const pageIds: string[] = body.data.map((team: { id: string }) => team.id);
+      // No repeats within or across pages (skip:1 regression).
+      expect(new Set([...seen, ...pageIds]).size).toBe(seen.length + pageIds.length);
+      seen.push(...pageIds);
+      if (!body.meta.hasMore) break;
+      cursor = body.meta.nextCursor;
+      expect(cursor).toBeTruthy();
+    }
+
+    const mine = await prisma.membership.findMany({ where: { userId } });
+    expect(seen.length).toBe(mine.length);
+    expect(new Set(seen).size).toBe(seen.length);
+  });
+
+  it('walks payments pages without repeating the boundary item', async () => {
+    const teams = await prisma.membership.findMany({ where: { userId }, select: { teamId: true } });
+    expect(teams.length).toBeGreaterThan(0);
+    const teamId = teams[0]!.teamId;
+    const base = Date.now();
+    for (let i = 0; i < 5; i++) {
+      await prisma.payment.create({
+        data: {
+          teamId,
+          amountCents: 100 + i,
+          description: `cursor-payment-${i}`,
+          externalId: `cursor_${suffix}_${i}`,
+          createdAt: new Date(base - i * 1000),
+        },
+      });
+    }
+
+    const seen: string[] = [];
+    let cursor: string | undefined;
+    for (let page = 0; page < 10; page++) {
+      const url: string = `http://x/api/v1/payments?limit=2${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
+      const response = await v1Payments(bearer({ url }));
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      const pageIds: string[] = body.data.map((payment: { id: string }) => payment.id);
+      expect(new Set([...seen, ...pageIds]).size).toBe(seen.length + pageIds.length);
+      seen.push(...pageIds);
+      if (!body.meta.hasMore) break;
+      cursor = body.meta.nextCursor;
+    }
+    expect(seen.length).toBe(5);
   });
 });
 

@@ -4,7 +4,7 @@ export const PLANS = [
     name: 'Free',
     priceCents: 0,
     seats: 1,
-    blurb: 'Everything open source. All 21 core components.',
+    blurb: 'Everything open source. All core components.',
     features: ['All open-source components', 'Manifests + MCP server', 'Community support'],
   },
   {
@@ -12,12 +12,14 @@ export const PLANS = [
     name: 'Pro',
     priceCents: 2900,
     seats: 1,
-    blurb: 'Premium blocks, templates, and priority registry access.',
+    blurb: 'License keys and activation management for individuals.',
     features: [
       'Everything in Free',
-      'Premium templates & blocks',
-      'Private registry access (3 activations)',
-      'Priority issue queue',
+      'License key with 3 machine activations',
+      'Self-service deactivation endpoint',
+      // Label upcoming deliverables explicitly; never sell them as available (KC-044).
+      'Premium templates & blocks (coming soon)',
+      'Priority issue queue (coming soon)',
     ],
   },
   {
@@ -25,11 +27,11 @@ export const PLANS = [
     name: 'Team',
     priceCents: 9900,
     seats: 10,
-    blurb: 'Shared license, team management, and unlimited activations.',
+    blurb: 'Shared licensing, team management, and high activation limits.',
     features: [
       'Everything in Pro',
       'Up to 10 seats',
-      'Unlimited license activations',
+      '100 activations per license',
       'Team billing & invoices',
     ],
   },
@@ -38,12 +40,15 @@ export const PLANS = [
     name: 'Enterprise',
     priceCents: 49900,
     seats: 100,
-    blurb: 'SSO-ready licensing, audit exports, and support SLA.',
+    blurb: 'Licensing for large teams, with admin oversight.',
     features: [
       'Everything in Team',
       '100 seats',
-      'Audit log export',
-      'Support SLA & onboarding call',
+      'Admin audit log console',
+      // Label upcoming deliverables explicitly; never sell them as available (KC-044).
+      'Audit log export (coming soon)',
+      'SSO (coming soon)',
+      'Support SLA & onboarding call (coming soon)',
     ],
   },
 ] as const;

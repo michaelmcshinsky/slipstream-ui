@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { issueLicense, revokeLicense } from '@/lib/licenses';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, badRequest, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 
 export async function GET(request: Request) {
   return handle(request, async () => {
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
 export async function DELETE(request: Request) {
   return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
-    const body = await readJson<{ licenseId?: string }>(request);
+    const body = await parseBody(request, z.object({ licenseId: z.string().min(1).optional() }));
     if (!body.licenseId) badRequest('licenseId is required.');
     await revokeLicense(body.licenseId, admin.id);
     return { ok: true };
@@ -31,7 +32,15 @@ export async function DELETE(request: Request) {
 export async function POST(request: Request) {
   return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());
-    const body = await readJson<{ userId?: string; plan?: string; maxActivations?: number; note?: string }>(request);
+    const body = await parseBody(
+      request,
+      z.object({
+        userId: z.string().min(1).optional(),
+        plan: z.string().min(1).optional(),
+        maxActivations: z.number().int().positive().max(1000).optional(),
+        note: z.string().max(500).optional(),
+      }),
+    );
     if (!body.userId || !body.plan) badRequest('userId and plan are required.');
     return issueLicense({
       ownerId: body.userId,

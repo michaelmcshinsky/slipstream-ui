@@ -5,7 +5,8 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { hashToken } from '@/lib/tokens';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, badRequest, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 
 export async function GET(request: Request) {
   return handle(request, async () => {
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   return handle(request, async () => {
     const user = requireUser(await getSessionUser());
-    const body = await readJson<{ name?: string }>(request);
+    const body = await parseBody(request, z.object({ name: z.string().optional() }));
     if (!body.name?.trim()) badRequest('A key name is required.');
 
     const secret = randomBytes(24).toString('base64url');

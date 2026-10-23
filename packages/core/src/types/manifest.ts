@@ -45,6 +45,20 @@ export interface UsageExample {
   description?: string;
 }
 
+/**
+ * An anti-pattern describes a misuse in prose rather than code: the title
+ * names the mistake, the explanation says why it is wrong (and what to do
+ * instead). `example` optionally shows the offending snippet.
+ */
+export interface AntiPattern {
+  /** Short name of the anti-pattern */
+  title: string;
+  /** Why this usage is wrong and what to do instead */
+  explanation: string;
+  /** Optional snippet of the offending usage */
+  example?: string;
+}
+
 export interface AccessibilityRequirement {
   /** A11y feature (e.g., "keyboard navigation", "screen reader support") */
   feature: string;
@@ -90,7 +104,7 @@ export interface ComponentManifest {
   /** Good usage examples */
   examples: UsageExample[];
   /** Anti-patterns to avoid */
-  antiPatterns?: UsageExample[];
+  antiPatterns?: AntiPattern[];
   /** Accessibility requirements */
   accessibility: AccessibilityRequirement[];
   /** Content guidelines for AI text generation */

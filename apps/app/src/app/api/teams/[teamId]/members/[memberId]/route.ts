@@ -4,7 +4,8 @@ import { prisma, Prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
 import { requireMembership } from '@/lib/teams';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, badRequest, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 import { errors } from '@/lib/api/core';
 
 type Params = { params: Promise<{ teamId: string; memberId: string }> };
@@ -25,8 +26,11 @@ export async function PATCH(request: Request, { params }: Params) {
     const initiatingActor = requireUser(await getSessionUser());
     const { teamId, memberId } = await params;
     await requireMembership(initiatingActor.id, teamId, 'ADMIN');
-    const body = await readJson<{ role?: string }>(request);
-    if (!['OWNER', 'ADMIN', 'MEMBER'].includes(body.role ?? '')) badRequest('Invalid role.');
+    const body = await parseBody(
+      request,
+      z.object({ role: z.enum(['OWNER', 'ADMIN', 'MEMBER']).optional() }),
+    );
+    if (!body.role) badRequest('Invalid role.');
 
     return memberTransaction(async (tx) => {
       const actor = requireUser(await getSessionUser(tx));

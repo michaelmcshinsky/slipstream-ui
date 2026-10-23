@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      // Responsive side gutters: 1rem on phones (2rem per side ate ~18% of a
+      // 360px viewport), 2rem from sm up.
+      padding: { DEFAULT: '1rem', sm: '2rem' },
       screens: {
         '2xl': '1400px',
       },

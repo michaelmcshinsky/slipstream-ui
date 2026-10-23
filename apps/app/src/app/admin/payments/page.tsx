@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardTitle } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 interface Payment {
   id: string;
@@ -23,7 +24,7 @@ export default function AdminPaymentsPage() {
       setError('Admin access required.');
       return;
     }
-    setPayments((await response.json()).payments ?? []);
+    setPayments(extractData<{ payments: Payment[] }>(await response.json())?.payments ?? []);
   }
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function AdminPaymentsPage() {
   async function refund(id: string) {
     const response = await fetch(`/api/admin/payments/${id}/refund`, { method: 'POST' });
     if (!response.ok) {
-      setError((await response.json()).error);
+      setError(extractErrorMessage(await response.json()));
       return;
     }
     await load();
@@ -45,6 +46,7 @@ export default function AdminPaymentsPage() {
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
       <Card>
         <CardTitle>All payments</CardTitle>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-muted-foreground">
@@ -84,6 +86,7 @@ export default function AdminPaymentsPage() {
             )}
           </tbody>
         </table>
+        </div>
       </Card>
     </div>
   );

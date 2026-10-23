@@ -19,10 +19,17 @@ export async function POST(request: Request, { params }: Params) {
     const { userId } = await params;
     if (userId === admin.id) badRequest('You are already signed in as this user.');
 
+    const store = await cookies();
+    // Nested impersonation would overwrite the parked admin token and lose
+    // the original session (KC-040).
+    if (store.get('slipstream_impersonator')) {
+      badRequest('Stop the current impersonation before starting another.');
+    }
+
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) badRequest('User not found.');
+    if (user.suspendedAt) badRequest('Cannot impersonate a suspended user.');
 
-    const store = await cookies();
     const adminToken = store.get('slipstream_session')?.value;
     if (adminToken) {
       store.set('slipstream_impersonator', adminToken, {

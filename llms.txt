@@ -21,8 +21,8 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 ```
 
 ## Package Structure
-- @slipstream-ui/core - Base atoms and molecules (Button, Input, Badge, Avatar, Spinner)
-- @slipstream-ui/ai - AI interaction components (Message, Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, Attachment, MessageActions)
+- @slipstream-ui/core - Base atoms and molecules (Button, Input, Badge, Avatar, Spinner, Select, Toast, Dialog)
+- @slipstream-ui/ai - AI interaction components (Message, Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, Attachment, MessageActions, CommandPalette)
 - @slipstream-ui/themes - Theming system with createTheme() and presets
 - @slipstream-ui/mcp-server - MCP server for AI agents
 - @slipstream-ui/cli - CLI tool for installation and management

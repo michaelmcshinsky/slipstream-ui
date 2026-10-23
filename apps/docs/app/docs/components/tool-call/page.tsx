@@ -1,15 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { ToolCall } from '@slipstream-ui/ai';
+import { ToolCall, type ToolCallData } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
+type ToolCallStatus = 'pending' | 'running' | 'completed' | 'failed';
+
 export default function ToolCallPage() {
-  const [status, setStatus] = useState<'pending' | 'running' | 'completed' | 'failed'>('completed');
+  const [status, setStatus] = useState<ToolCallStatus>('completed');
   const [showResult, setShowResult] = useState(true);
 
-  const toolCall: any = {
+  const toolCall: ToolCallData = {
     id: 'tool-123',
     name: 'search_database',
     arguments: { query: 'React components', limit: 10 },
@@ -48,7 +50,7 @@ export default function ToolCallPage() {
                 <label className="text-sm font-medium mb-2 block">Status</label>
                 <select
                   value={status}
-                  onChange={(e) => setStatus(e.target.value as any)}
+                  onChange={(e) => setStatus(e.target.value as ToolCallStatus)}
                   className="w-full p-2 border rounded bg-background"
                 >
                   <option value="pending">Pending</option>

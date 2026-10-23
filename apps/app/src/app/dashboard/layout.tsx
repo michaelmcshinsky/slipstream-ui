@@ -1,13 +1,17 @@
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser } from '@/lib/session';
 import { DashboardNav } from '@/components/dashboard-nav';
+import { ImpersonationBanner } from '@/components/impersonation-banner';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect('/login?next=/dashboard');
+
+  const impersonating = (await cookies()).has('slipstream_impersonator');
 
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (dbUser?.suspendedAt) {
@@ -25,6 +29,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <div className="min-h-screen">
+      {impersonating && <ImpersonationBanner />}
       <header className="border-b border-border bg-background px-4 py-3">
         <div className="container mx-auto flex items-center justify-between">
           <a href="/" className="text-lg font-bold tracking-tight">

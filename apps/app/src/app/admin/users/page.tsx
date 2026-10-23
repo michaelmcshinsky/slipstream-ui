@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 
 interface AdminUser {
@@ -25,7 +26,7 @@ export default function AdminUsersPage() {
       setError('Admin access required.');
       return;
     }
-    setUsers((await response.json()).users ?? []);
+    setUsers(extractData<{ users: AdminUser[] }>(await response.json())?.users ?? []);
   }
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function AdminUsersPage() {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      setError((await response.json()).error);
+      setError(extractErrorMessage(await response.json()));
       return;
     }
     await load();
@@ -61,7 +62,7 @@ export default function AdminUsersPage() {
             load(event.target.value);
           }}
           placeholder="Search email or name…"
-          className="w-64 rounded-md border border-input bg-background px-3 py-2 text-sm"
+          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm sm:w-64"
           aria-label="Search users"
         />
       </div>
@@ -69,6 +70,7 @@ export default function AdminUsersPage() {
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
 
       <Card>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-muted-foreground">
@@ -135,6 +137,7 @@ export default function AdminUsersPage() {
             )}
           </tbody>
         </table>
+        </div>
       </Card>
     </div>
   );

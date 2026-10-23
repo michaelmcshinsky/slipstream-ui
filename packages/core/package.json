@@ -36,7 +36,7 @@
     "@slipstream-ui/tailwind-config": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
     "@slipstream-ui/vitest-config": "workspace:*",
-    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.0",
     "eslint": "^8.56.0",

@@ -10,6 +10,7 @@ import {
   type MessageData as MessageType,
 } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
+import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
 
@@ -145,6 +146,12 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      {/* Docs links live in the navbar only from md up; below that the pills
+          row keeps marketing pages navigable on phones. The px-4 wrapper
+          absorbs the bar's -mx-4 bleed so no viewport overflow appears. */}
+      <div className="px-4">
+        <MobileNav />
+      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
@@ -155,6 +162,8 @@ export default function LandingPage() {
         <div className="container relative mx-auto grid items-center gap-12 px-4 py-20 lg:grid-cols-2 lg:py-24">
           <div>
             <div className="mb-5 flex flex-wrap items-center gap-2">
+              {/* Tiny external badge; not an LCP element, so the img-optimization cost isn't warranted. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="https://img.shields.io/npm/v/@slipstream-ui/core.svg" alt="npm version" height="20" />
               <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 AI-first · MIT

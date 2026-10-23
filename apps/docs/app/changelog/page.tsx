@@ -1,4 +1,7 @@
 import { CodeBlock } from '@/components/code-block';
+import { Navbar } from '@/components/site/navbar';
+import { MobileNav } from '@/components/site/mobile-nav';
+import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
@@ -24,6 +27,11 @@ const releases = [
 export default function ChangelogPage() {
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
+      {/* px-4 absorbs the pills bar's -mx-4 bleed so the page never scrolls horizontally. */}
+      <div className="px-4">
+        <MobileNav />
+      </div>
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <h1 className="text-4xl font-bold mb-2">Changelog</h1>
         <p className="text-lg text-muted-foreground mb-10">
@@ -56,6 +64,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 # Or install source copies via the shadcn-compatible registry
 npx shadcn@latest add https://slipstreamui.com/registry/message.json`}</CodeBlock>
       </div>
+      <Footer />
     </div>
   );
 }

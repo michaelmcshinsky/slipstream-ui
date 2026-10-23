@@ -1,4 +1,5 @@
 import { prisma, Prisma, type Team, type Membership } from '@slipstream-ui/db';
+import { randomBytes } from 'node:crypto';
 import { hasAtLeast } from './plans';
 import { generateToken, hashToken } from './tokens';
 
@@ -16,22 +17,36 @@ export function slugify(name: string): string {
     .slice(0, 40);
 }
 
-export async function createTeamForUser(userId: string, name: string): Promise<Team> {
+const SLUG_MAX_ATTEMPTS = 5;
+
+/**
+ * Create a team with a collision-resistant slug. Slugs are allocated by
+ * attempting inserts and retrying on unique-constraint conflicts — never by
+ * check-then-insert, which cannot survive concurrent signups (KC-010).
+ * Accepts a transaction client so callers can compose user+team creation
+ * atomically.
+ */
+export async function createTeamForUser(userId: string, name: string, db: Prisma.TransactionClient = prisma): Promise<Team> {
   const base = slugify(name) || 'team';
-  let slug = base;
-  for (let attempt = 1; attempt <= 5; attempt++) {
-    const existing = await prisma.team.findUnique({ where: { slug } });
-    if (!existing) break;
-    slug = `${base}-${attempt}`;
-    if (attempt === 5) throw new TeamError(409, 'Could not derive a unique team slug.');
+  for (let attempt = 1; attempt <= SLUG_MAX_ATTEMPTS; attempt++) {
+    const suffix = randomBytes(4).toString('hex');
+    const slug = `${base}-${suffix}`.slice(0, 60);
+    try {
+      return await db.team.create({
+        data: {
+          name,
+          slug,
+          memberships: { create: { userId, role: 'OWNER' } },
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        continue; // slug raced another insert; retry with a fresh suffix
+      }
+      throw error;
+    }
   }
-  return prisma.team.create({
-    data: {
-      name,
-      slug,
-      memberships: { create: { userId, role: 'OWNER' } },
-    },
-  });
+  throw new TeamError(409, 'Could not derive a unique team slug.');
 }
 
 /** Fetch membership or throw 404/403 semantics used across routes. */
@@ -46,6 +61,20 @@ const INVITE_TTL_DAYS = 7;
 
 function normalizeEmail(email: string): string {
   return email.trim().toLowerCase();
+}
+
+/**
+ * Seats are a hard cap on memberships: FREE defaults to 1, paid plans use the
+ * subscription's seat count (KC-013). Checked at invite time (promise) and
+ * again at acceptance (the authoritative fill).
+ */
+async function assertSeatAvailable(db: Prisma.TransactionClient, teamId: string): Promise<void> {
+  const subscription = await db.subscription.findUnique({ where: { teamId } });
+  const seats = subscription?.seats ?? 1;
+  const members = await db.membership.count({ where: { teamId } });
+  if (members >= seats) {
+    throw new TeamError(409, `Team seat limit reached (${seats}). Remove a member or upgrade the plan.`);
+  }
 }
 
 export async function inviteMember(params: {
@@ -67,6 +96,8 @@ export async function inviteMember(params: {
         });
         if (alreadyMember) throw new TeamError(409, 'That user is already a member of this team.');
       }
+
+      await assertSeatAvailable(db, params.teamId);
 
       const existingInvite = await db.teamInvite.findUnique({
         where: { teamId_email: { teamId: params.teamId, email } },
@@ -118,8 +149,14 @@ export async function acceptInvite(token: string, userId: string): Promise<{ tea
       throw new TeamError(400, 'This invite is invalid or has expired.');
     }
 
-    const user = await db.user.findUnique({ where: { id: userId }, select: { email: true } });
+    const user = await db.user.findUnique({ where: { id: userId }, select: { email: true, emailVerifiedAt: true } });
     if (!user) throw new TeamError(401, 'Authentication required.');
+    // Invitations bind identity to an email address; acceptance therefore
+    // requires a verified address (KC-040). Pre-feature accounts are
+    // grandfathered by the seed backfill (emailVerifiedAt = createdAt).
+    if (!user.emailVerifiedAt) {
+      throw new TeamError(403, 'Verify your email address before accepting invitations.');
+    }
     if (normalizeEmail(invite.email) !== normalizeEmail(user.email)) {
       throw new TeamError(403, 'This invitation was issued to a different email address.');
     }
@@ -129,6 +166,10 @@ export async function acceptInvite(token: string, userId: string): Promise<{ tea
       data: { acceptedAt: now },
     });
     if (claim.count !== 1) throw new TeamError(400, 'This invite is invalid or has expired.');
+    const alreadyMember = await db.membership.findUnique({
+      where: { teamId_userId: { teamId: invite.teamId, userId } },
+    });
+    if (!alreadyMember) await assertSeatAvailable(db, invite.teamId);
     await db.membership.upsert({
       where: { teamId_userId: { teamId: invite.teamId, userId } },
       create: { teamId: invite.teamId, userId, role: invite.role },

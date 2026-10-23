@@ -77,18 +77,18 @@
   "antiPatterns": [
     {
       "title": "Don't use for long text",
-      "code": "// Avoid: Long text in badge\n<Badge>This is way too long for a badge</Badge>\n\n// Prefer: Keep text short\n<Badge>Long</Badge>",
-      "description": "Badges are designed for short text. Use tooltips or other components for longer content."
+      "explanation": "Badges are designed for short text. Use tooltips or other components for longer content.",
+      "example": "// Avoid: Long text in badge\n<Badge>This is way too long for a badge</Badge>\n\n// Prefer: Keep text short\n<Badge>Long</Badge>"
     },
     {
       "title": "Don't overuse badges",
-      "code": "// Avoid: Too many badges\n<div>\n  <Badge>New</Badge>\n  <Badge>Updated</Badge>\n  <Badge>Featured</Badge>\n  <Badge>Popular</Badge>\n</div>\n\n// Prefer: Consolidate or prioritize\n<div>\n  <Badge>New</Badge>\n  <Badge>Featured</Badge>\n</div>",
-      "description": "Too many badges create visual noise. Prioritize the most important information."
+      "explanation": "Too many badges create visual noise. Prioritize the most important information.",
+      "example": "// Avoid: Too many badges\n<div>\n  <Badge>New</Badge>\n  <Badge>Updated</Badge>\n  <Badge>Featured</Badge>\n  <Badge>Popular</Badge>\n</div>\n\n// Prefer: Consolidate or prioritize\n<div>\n  <Badge>New</Badge>\n  <Badge>Featured</Badge>\n</div>"
     },
     {
       "title": "Don't use wrong variant for meaning",
-      "code": "// Avoid: Using destructive for non-destructive\n<Badge variant=\"destructive\">New</Badge>\n\n// Prefer: Use appropriate variant\n<Badge>New</Badge>",
-      "description": "Destructive variant should only be used for errors or destructive actions."
+      "explanation": "Destructive variant should only be used for errors or destructive actions.",
+      "example": "// Avoid: Using destructive for non-destructive\n<Badge variant=\"destructive\">New</Badge>\n\n// Prefer: Use appropriate variant\n<Badge>New</Badge>"
     }
   ],
   "accessibility": [

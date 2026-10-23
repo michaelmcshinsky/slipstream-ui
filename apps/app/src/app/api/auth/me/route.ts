@@ -2,7 +2,8 @@ export const dynamic = 'force-dynamic';
 
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser } from '@/lib/session';
-import { handle, readJson } from '@/lib/api/handle';
+import { handle, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 
 export async function GET(request: Request) {
   return handle(request, async () => {
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
 export async function PATCH(request: Request) {
   return handle(request, async () => {
     const current = requireUser(await getSessionUser());
-    const body = await readJson<{ name?: string }>(request);
+    const body = await parseBody(request, z.object({ name: z.string().max(100).optional() }));
     const user = await prisma.user.update({
       where: { id: current.id },
       data: { name: body.name?.trim() || null },

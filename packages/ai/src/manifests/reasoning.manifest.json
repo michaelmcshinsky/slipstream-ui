@@ -68,18 +68,18 @@
   "antiPatterns": [
     {
       "title": "Don't show reasoning for simple responses",
-      "code": "// Avoid: Showing reasoning for trivial responses\n<Reasoning steps={[\n  { id: '1', content: 'I will say hello' }\n]} />\n<Message message={{ role: 'assistant', content: 'Hello!' }} />\n\n// Prefer: Only show reasoning for complex tasks\n<Reasoning steps={complexReasoning} />\n<Message message={{ role: 'assistant', content: complexResponse }} />",
-      "description": "Reasoning is valuable for complex tasks but adds noise for simple responses."
+      "explanation": "Reasoning is valuable for complex tasks but adds noise for simple responses.",
+      "example": "// Avoid: Showing reasoning for trivial responses\n<Reasoning steps={[\n  { id: '1', content: 'I will say hello' }\n]} />\n<Message message={{ role: 'assistant', content: 'Hello!' }} />\n\n// Prefer: Only show reasoning for complex tasks\n<Reasoning steps={complexReasoning} />\n<Message message={{ role: 'assistant', content: complexResponse }} />"
     },
     {
       "title": "Don't make steps too verbose",
-      "code": "// Avoid: Overly detailed steps\n{ id: '1', content: 'I am now processing the request by analyzing each word and considering multiple interpretations...' }\n\n// Prefer: Concise, clear steps\n{ id: '1', content: 'Analyzing the request for key terms and intent.' }",
-      "description": "Reasoning steps should be concise and focused on key decision points."
+      "explanation": "Reasoning steps should be concise and focused on key decision points.",
+      "example": "// Avoid: Overly detailed steps\n{ id: '1', content: 'I am now processing the request by analyzing each word and considering multiple interpretations...' }\n\n// Prefer: Concise, clear steps\n{ id: '1', content: 'Analyzing the request for key terms and intent.' }"
     },
     {
       "title": "Don't show empty reasoning",
-      "code": "// Avoid: Rendering with no steps\n<Reasoning steps={[]} />\n\n// Prefer: Conditionally render\n{reasoningSteps.length > 0 && <Reasoning steps={reasoningSteps} />",
-      "description": "The component returns null for empty arrays, but it's better to not render it at all."
+      "explanation": "The component returns null for empty arrays, but it's better to not render it at all.",
+      "example": "// Avoid: Rendering with no steps\n<Reasoning steps={[]} />\n\n// Prefer: Conditionally render\n{reasoningSteps.length > 0 && <Reasoning steps={reasoningSteps} />"
     }
   ],
   "accessibility": [

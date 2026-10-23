@@ -13,7 +13,7 @@ Slipstream UI is a modern React component library designed specifically for AI-a
 - **Deep AI SDK Support**: First-class streaming, tool calls, and generative UI
 - **MCP Server**: Zero-hallucination surface for agents to query component specs
 - **TypeScript**: Full type safety with excellent IntelliSense
-- **Accessible**: Built on Radix UI primitives for WCAG compliance
+ - **Accessible**: Keyboard and screen-reader behavior covered by jest-axe tests; Avatar and slot composition use Radix UI primitives
 
 ## Quick Start
 

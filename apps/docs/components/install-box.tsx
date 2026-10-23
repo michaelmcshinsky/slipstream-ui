@@ -52,7 +52,9 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
           </button>
         ))}
       </div>
-      <code className="flex-1 self-center overflow-x-auto px-3 py-2 whitespace-nowrap">{active.command}</code>
+      {/* min-w-0 lets the flex item shrink below its content so the
+          nowrap command scrolls inside the row instead of overflowing it. */}
+      <code className="min-w-0 flex-1 self-center overflow-x-auto px-3 py-2 whitespace-nowrap">{active.command}</code>
       <button
         type="button"
         onClick={copy}

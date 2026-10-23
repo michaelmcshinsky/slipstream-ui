@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "MCP server for Slipstream UI component manifests",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
     "slipstream-mcp": "./dist/index.js"

@@ -37,6 +37,9 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs/components/badge', label: 'Badge' },
       { href: '/docs/components/avatar', label: 'Avatar' },
       { href: '/docs/components/spinner', label: 'Spinner' },
+      { href: '/docs/components/select', label: 'Select' },
+      { href: '/docs/components/toast', label: 'Toast' },
+      { href: '/docs/components/dialog', label: 'Dialog' },
       { href: '/docs/components/message', label: 'Message' },
       { href: '/docs/components/response', label: 'Response' },
       { href: '/docs/components/code-block', label: 'CodeBlock' },
@@ -53,6 +56,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs/components/branch', label: 'Branch' },
       { href: '/docs/components/attachment', label: 'Attachment' },
       { href: '/docs/components/message-actions', label: 'MessageActions' },
+      { href: '/docs/components/command-palette', label: 'CommandPalette' },
     ],
   },
 ];

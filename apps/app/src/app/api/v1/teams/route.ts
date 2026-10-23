@@ -17,18 +17,20 @@ export async function GET(request: Request) {
       where: { userId: principal.user.id },
       include: { team: { include: { subscription: true } } },
       orderBy: { id: 'asc' },
-      ...(cursorId ? { cursor: { id: cursorId } } : {}),
+      ...(cursorId ? { cursor: { id: cursorId }, skip: 1 } : {}),
       take: query.limit + 1,
     });
 
-    const mapped = rows.map((m) => ({
+    // Paginate on membership rows (the query's sort key) so nextCursor is a
+    // membership id; items are then mapped to their public team shape (KC-015).
+    const { items: page, meta } = paginate(rows, query.limit, { cursorOf: (m) => m.id });
+    const items = page.map((m) => ({
       id: m.team.id,
       name: m.team.name,
       slug: m.team.slug,
       role: m.role,
       plan: m.team.subscription?.plan ?? 'FREE',
     }));
-    const { items, meta } = paginate(mapped, query.limit);
     return json(items, { request, meta });
   }, { routeName: 'v1.teams' });
 }

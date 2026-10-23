@@ -25,3 +25,5 @@ export * from './components/source';
 export * from './components/suggestion';
 export * from './components/chainthought';
 export * from './components/streaming';
+export * from './components/command-palette';
+export * from './adapter';

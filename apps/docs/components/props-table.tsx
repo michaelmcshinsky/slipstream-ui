@@ -10,7 +10,9 @@ interface PropsTableProps {
 /** Shared props reference table used by every component docs page. */
 export function PropsTable({ rows }: PropsTableProps) {
   return (
-    <div className="border rounded-lg overflow-hidden">
+    // Scroll horizontally instead of clipping: four columns with long type
+    // signatures are unreadable when squeezed onto a phone width.
+    <div className="overflow-x-auto rounded-lg border">
       <table className="w-full text-sm">
         <thead className="bg-muted">
           <tr>
