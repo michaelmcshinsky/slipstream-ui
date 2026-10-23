@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 
 // ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ const REQUEST_ID_HEADER = 'x-request-id';
 export function getRequestId(request: Request): string {
   const incoming = request.headers.get(REQUEST_ID_HEADER);
   if (incoming) return incoming;
-  const generated = crypto.randomUUID();
+  const generated = randomUUID();
   // Not settable on the immutable Request; handlers echo it via responses.
   void generated;
   return generated;
