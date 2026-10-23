@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .inline-flex: {
+  display: inline-flex;
+}
+
+ul .numbered:before {
+  content: counters(section, '.') '. ';
+  counter-increment: section;
+} */
+
+@layer components {
+  .sui--table {
+    @apply table;
+  }
+}
