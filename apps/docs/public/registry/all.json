@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "3dbef84",
-  "count": 21,
+  "sourceRevision": "7972ccc",
+  "count": 25,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -62,6 +62,14 @@
       "registry": "/registry/code-block.json"
     },
     {
+      "id": "command-palette",
+      "name": "CommandPalette",
+      "package": "@slipstream-ui/ai",
+      "tier": "organism",
+      "description": "Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+      "registry": "/registry/command-palette.json"
+    },
+    {
       "id": "confirmation",
       "name": "Confirmation",
       "package": "@slipstream-ui/ai",
@@ -76,6 +84,14 @@
       "tier": "organism",
       "description": "A container for displaying a list of chat messages with auto-scroll and loading states",
       "registry": "/registry/conversation.json"
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+      "registry": "/registry/dialog.json"
     },
     {
       "id": "inline-citation",
@@ -134,6 +150,14 @@
       "registry": "/registry/response.json"
     },
     {
+      "id": "select",
+      "name": "Select",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+      "registry": "/registry/select.json"
+    },
+    {
       "id": "source",
       "name": "Source / Sources",
       "package": "@slipstream-ui/ai",
@@ -164,6 +188,14 @@
       "tier": "molecule",
       "description": "Displays clickable follow-up prompts for AI interactions.",
       "registry": "/registry/suggestions.json"
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions",
+      "registry": "/registry/toast.json"
     },
     {
       "id": "tool-call",

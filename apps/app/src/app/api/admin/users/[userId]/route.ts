@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, badRequest, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 
 type Params = { params: Promise<{ userId: string }> };
 
@@ -33,8 +34,14 @@ export async function PATCH(request: Request, { params }: Params) {
     const admin = requireAdmin(await getSessionUser());
     const { userId } = await params;
     if (userId === admin.id) badRequest('Use account settings to change your own account.');
-    const body = await readJson<{ role?: string; suspended?: boolean; name?: string }>(request);
-    if (body.role && !['USER', 'ADMIN'].includes(body.role)) badRequest('Invalid role.');
+    const body = await parseBody(
+      request,
+      z.object({
+        role: z.enum(['USER', 'ADMIN']).optional(),
+        suspended: z.boolean().optional(),
+        name: z.string().max(100).optional(),
+      }),
+    );
 
     const data: Record<string, unknown> = {};
     if (body.role) data.role = body.role;

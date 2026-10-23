@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { rateLimit, paginate, decodeCursor, parseQuery, paginationSchema, errors, ApiError } from './core';
+import { NextResponse } from 'next/server';
+import { rateLimit, paginate, decodeCursor, parseQuery, paginationSchema, withEtag, errors, ApiError } from './core';
 import { z } from 'zod';
 
 describe('rateLimit', () => {
@@ -51,6 +52,49 @@ describe('paginate', () => {
     expect(decodeCursor(undefined)).toBeUndefined();
     expect(() => parseQuery(new Request('http://x/?cursor=%%%'), z.object({ cursor: z.string().optional() }))).not.toThrow();
     expect(() => decodeCursor('!!!not-base64url!!!')).toThrow(ApiError);
+  });
+
+  it('encodes the cursor from the configured field, not the item id (KC-015)', () => {
+    const rows = [
+      { id: 'team-a', membershipId: 'mem-1' },
+      { id: 'team-b', membershipId: 'mem-2' },
+    ];
+    const { meta } = paginate(rows, 1, { cursorOf: (row) => row.membershipId });
+    // First page ends at team-a; the cursor must be its membership id, not 'team-a'.
+    expect(decodeCursor(meta.nextCursor!)).toBe('mem-1');
+  });
+});
+
+describe('withEtag (KC-016)', () => {
+  it('hashes the response body so different payloads get different etags', async () => {
+    const request = new Request('http://x/');
+    const first = await withEtag(request, NextResponse.json({ items: [1] }));
+    const second = await withEtag(request, NextResponse.json({ items: [2] }));
+    const firstEtag = first.headers.get('ETag');
+    const secondEtag = second.headers.get('ETag');
+    expect(firstEtag).toBeTruthy();
+    expect(firstEtag).not.toBe(secondEtag);
+  });
+
+  it('returns 304 when if-none-match matches the current body', async () => {
+    const initial = await withEtag(new Request('http://x/'), NextResponse.json({ items: [1] }));
+    const etag = initial.headers.get('ETag')!;
+    const revalidated = await withEtag(
+      new Request('http://x/', { headers: { 'if-none-match': etag } }),
+      NextResponse.json({ items: [1] }),
+    );
+    expect(revalidated.status).toBe(304);
+    expect(revalidated.headers.get('ETag')).toBe(etag);
+  });
+
+  it('does not 304 when the body has changed', async () => {
+    const etag = (await withEtag(new Request('http://x/'), NextResponse.json({ items: [1] }))).headers.get('ETag')!;
+    const changed = await withEtag(
+      new Request('http://x/', { headers: { 'if-none-match': etag } }),
+      NextResponse.json({ items: [999] }),
+    );
+    expect(changed.status).toBe(200);
+    expect(changed.headers.get('ETag')).not.toBe(etag);
   });
 });
 

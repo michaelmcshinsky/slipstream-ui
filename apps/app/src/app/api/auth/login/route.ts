@@ -4,11 +4,12 @@ import { prisma } from '@slipstream-ui/db';
 import { verifyPassword } from '@/lib/passwords';
 import { createSession } from '@/lib/session';
 import { audit } from '@/lib/audit';
-import { handle, readJson, badRequest } from '@/lib/api/handle';
+import { handle, badRequest, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
 
 export async function POST(request: Request) {
   return handle(request, async () => {
-    const body = await readJson<{ email?: string; password?: string }>(request);
+    const body = await parseBody(request, z.object({ email: z.string().optional(), password: z.string().optional() }));
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? '';
     if (!email || !password) badRequest('Email and password are required.');

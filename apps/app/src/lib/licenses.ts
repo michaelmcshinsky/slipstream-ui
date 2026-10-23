@@ -8,10 +8,18 @@ export interface ValidationResult {
   plan?: string;
 }
 
+class ActivationLimitReached extends Error {}
+
+const ACTIVATION_CLAIM_ATTEMPTS = 2;
+
 /**
  * Validate a license key + machine id pair, recording or refreshing the
  * activation. Enforces status, expiry, and per-key activation limits — this
  * is the endpoint the CLI and MCP server call.
+ *
+ * The activation claim (count + insert) runs in one transaction so
+ * concurrent machines cannot exceed the limit; the unique
+ * (licenseId, machineId) constraint collapses same-machine races (KC-014).
  */
 export async function validateLicense(key: string, machineId: string): Promise<ValidationResult> {
   const license = await prisma.licenseKey.findUnique({
@@ -34,15 +42,34 @@ export async function validateLicense(key: string, machineId: string): Promise<V
     return { valid: true, plan: license.plan };
   }
 
-  if (license.activations.length >= license.maxActivations) {
-    return {
-      valid: false,
-      reason: `Activation limit reached (${license.maxActivations}). Deactivate a machine first.`,
-    };
+  for (let attempt = 1; attempt <= ACTIVATION_CLAIM_ATTEMPTS; attempt++) {
+    try {
+      await prisma.$transaction(async (tx) => {
+        const count = await tx.licenseActivation.count({ where: { licenseId: license.id } });
+        if (count >= license.maxActivations) {
+          throw new ActivationLimitReached(`Activation limit reached (${license.maxActivations}). Deactivate a machine first.`);
+        }
+        await tx.licenseActivation.create({ data: { licenseId: license.id, machineId } });
+      });
+      return { valid: true, plan: license.plan };
+    } catch (error) {
+      if (error instanceof ActivationLimitReached) {
+        return { valid: false, reason: error.message };
+      }
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        // A concurrent request registered the same machine; refresh and accept.
+        await prisma.licenseActivation.updateMany({
+          where: { licenseId: license.id, machineId },
+          data: { lastSeenAt: new Date() },
+        });
+        return { valid: true, plan: license.plan };
+      }
+      const contention = error instanceof Prisma.PrismaClientKnownRequestError && ['P2034', 'P1008', 'P2028'].includes(error.code);
+      if (contention && attempt < ACTIVATION_CLAIM_ATTEMPTS) continue;
+      throw error;
+    }
   }
-
-  await prisma.licenseActivation.create({ data: { licenseId: license.id, machineId } });
-  return { valid: true, plan: license.plan };
+  return { valid: false, reason: 'Activation is busy. Retry shortly.' };
 }
 
 const LICENSE_KEY_MAX_ATTEMPTS = 3;
@@ -61,6 +88,8 @@ export async function issueLicense(params: {
   maxActivations?: number;
   note?: string;
   actorId?: string;
+  /** Subscription-bound licenses expire with the billing period (KC-008). */
+  expiresAt?: Date | null;
 }, transaction?: Prisma.TransactionClient): Promise<{ key: string }> {
   if (!transaction) return prisma.$transaction((tx) => issueLicense(params, tx));
   const db = transaction;
@@ -79,6 +108,7 @@ export async function issueLicense(params: {
           plan: planInfo,
           maxActivations: params.maxActivations ?? (planInfo === 'TEAM' || planInfo === 'ENTERPRISE' ? 100 : 3),
           note: params.note,
+          expiresAt: params.expiresAt ?? null,
         },
       });
       break;
@@ -108,4 +138,61 @@ export async function revokeLicense(licenseId: string, actorId: string): Promise
     data: { status: 'REVOKED', revokedAt: new Date() },
   });
   await audit({ actorId, action: 'license.revoked', targetType: 'license', targetId: licenseId });
+}
+
+/**
+ * Deactivate a single machine against a license, freeing its slot (KC-021).
+ * Idempotent: deactivating an unknown machine is a no-op success.
+ */
+export async function deactivateMachine(licenseId: string, machineId: string, actorId: string): Promise<boolean> {
+  const result = await prisma.licenseActivation.deleteMany({ where: { licenseId, machineId } });
+  if (result.count > 0) {
+    await audit({
+      actorId,
+      action: 'license.machine.deactivated',
+      targetType: 'license',
+      targetId: licenseId,
+      metadata: { machineId },
+    });
+  }
+  return result.count > 0;
+}
+
+/** Team-wide activation capacity allowed per plan (matches issueLicense defaults). */export function planActivationBudget(plan: string): number {
+  return plan === 'TEAM' || plan === 'ENTERPRISE' ? 100 : 3;
+}
+
+/**
+ * Remaining activation capacity for a team under its plan budget. Issuance
+ * must not push the team's aggregate maxActivations over this budget (KC-001).
+ */
+export async function remainingTeamActivationBudget(teamId: string, plan: string): Promise<number> {
+  const budget = planActivationBudget(plan);
+  const aggregate = await prisma.licenseKey.aggregate({
+    where: { teamId, status: 'ACTIVE' },
+    _sum: { maxActivations: true },
+  });
+  return Math.max(0, budget - (aggregate._sum.maxActivations ?? 0));
+}
+
+/**
+ * Revoke every active TEAM/ENTERPRISE license bound to a team. Called when a
+ * team's paid subscription ends so out-standing licenses stop validating (KC-008).
+ */
+export async function revokeSubscriptionLicenses(teamId: string, actorId: string, transaction?: Prisma.TransactionClient): Promise<number> {
+  const db = transaction ?? prisma;
+  const result = await db.licenseKey.updateMany({
+    where: { teamId, status: 'ACTIVE', plan: { in: ['TEAM', 'ENTERPRISE'] } },
+    data: { status: 'REVOKED', revokedAt: new Date() },
+  });
+  if (result.count > 0) {
+    await audit({
+      actorId,
+      action: 'license.revoked',
+      targetType: 'team',
+      targetId: teamId,
+      metadata: { reason: 'subscription-ended', count: result.count },
+    }, transaction);
+  }
+  return result.count;
 }

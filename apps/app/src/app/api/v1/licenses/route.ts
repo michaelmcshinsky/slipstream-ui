@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       where: { ownerId: principal.user.id },
       include: { activations: { select: { machineId: true, lastSeenAt: true } } },
       orderBy: { id: 'asc' },
-      ...(cursorId ? { cursor: { id: cursorId } } : {}),
+      ...(cursorId ? { cursor: { id: cursorId }, skip: 1 } : {}),
       take: query.limit + 1,
     });
 

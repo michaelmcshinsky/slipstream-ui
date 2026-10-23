@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 interface LicenseRow {
   id: string;
@@ -26,7 +27,7 @@ export default function AdminLicensesPage() {
       setError('Admin access required.');
       return;
     }
-    setLicenses((await response.json()).licenses ?? []);
+    setLicenses(extractData<{ licenses: LicenseRow[] }>(await response.json())?.licenses ?? []);
   }
 
   useEffect(() => {
@@ -43,10 +44,11 @@ export default function AdminLicensesPage() {
     });
     const data = await response.json();
     if (!response.ok) {
-      setError(data.error);
+      setError(extractErrorMessage(data));
       return;
     }
-    setIssuedKey(data.key);
+    // Envelope wraps the plaintext comp key: { data: { key } } (KC-018 pattern).
+    setIssuedKey(extractData<{ key?: string }>(data)?.key ?? null);
     await load();
   }
 
@@ -57,7 +59,7 @@ export default function AdminLicensesPage() {
       body: JSON.stringify({ licenseId: id }),
     });
     if (!response.ok) {
-      setError((await response.json()).error);
+      setError(extractErrorMessage(await response.json()));
       return;
     }
     await load();
@@ -94,6 +96,7 @@ export default function AdminLicensesPage() {
 
       <Card>
         <CardTitle>All licenses</CardTitle>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left text-muted-foreground">
@@ -120,6 +123,7 @@ export default function AdminLicensesPage() {
             )}
           </tbody>
         </table>
+        </div>
       </Card>
     </div>
   );

@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     const rows = await prisma.payment.findMany({
       where: { teamId: { in: scopedTeamIds } },
       orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-      ...(cursorId ? { cursor: { id: cursorId } } : {}),
+      ...(cursorId ? { cursor: { id: cursorId }, skip: 1 } : {}),
       take: query.limit + 1,
     });
 

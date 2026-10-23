@@ -65,6 +65,20 @@ slipstream-ui/
 │   │   │   └── server.ts
 │   │   └── dist/
 │   │
+│   ├── db/                      # @slipstream-ui/db
+│   │   ├── package.json
+│   │   ├── prisma/
+│   │   │   ├── schema.prisma    # SQLite schema (users, teams, billing, licensing)
+│   │   │   └── migrations/
+│   │   └── src/
+│   │       ├── index.ts         # Prisma client singleton
+│   │       └── seed.ts
+│   │
+│   ├── registry/                # @slipstream-ui/registry
+│   │   ├── package.json
+│   │   └── src/
+│   │       └── index.ts         # Manifest loader used by MCP server + CLI
+│   │
 │   └── cli/                     # CLI tool
 │       ├── package.json
 │       ├── tsconfig.json
@@ -78,6 +92,20 @@ slipstream-ui/
 │       └── dist/
 │
 ├── apps/
+│   ├── app/                     # SaaS dashboard (Next.js)
+│   │   ├── package.json
+│   │   ├── next.config.js
+│   │   ├── vitest.config.ts     # Isolated temp-SQLite test setup
+│   │   ├── prisma -> ../../packages/db  (uses @slipstream-ui/db)
+│   │   └── src/
+│   │       ├── app/
+│   │       │   ├── api/         # Auth, teams, billing, licensing, admin, v1
+│   │       │   ├── dashboard/
+│   │       │   └── admin/
+│   │       ├── components/
+│   │       ├── lib/             # session, teams, licenses, billing, api core
+│   │       └── test/
+│   │
 │   ├── docs/                    # Next.js docs site
 │   │   ├── package.json
 │   │   ├── next.config.js
@@ -121,7 +149,9 @@ slipstream-ui/
 │       └── tailwind.config.js
 │
 ├── scripts/
-│   └── validate-manifests.ts  # Validate component manifests
+│   ├── validate-manifests.ts  # Deep manifest schema/invariant validation
+│   ├── generate-registry.ts   # Deterministic /registry/* payload generation
+│   └── generate-llm-docs.ts   # LLM-oriented docs generation
 │
 └── .github/
     └── workflows/
@@ -132,12 +162,15 @@ slipstream-ui/
 
 ```
 apps/docs → @slipstream-ui/core, @slipstream-ui/ai, @slipstream-ui/themes
+apps/app → @slipstream-ui/core, @slipstream-ui/db
 apps/playground → @slipstream-ui/core, @slipstream-ui/ai
 
 @slipstream-ui/ai → @slipstream-ui/core
 @slipstream-ui/themes → (standalone)
-@slipstream-ui/cli → @slipstream-ui/core, @slipstream-ui/ai
-@slipstream-ui/mcp-server → @slipstream-ui/core, @slipstream-ui/ai
+@slipstream-ui/db → (standalone; Prisma client + schema)
+@slipstream-ui/registry → (standalone; reads core/ai manifests)
+@slipstream-ui/cli → @slipstream-ui/core, @slipstream-ui/ai, @slipstream-ui/registry
+@slipstream-ui/mcp-server → @slipstream-ui/core, @slipstream-ui/ai, @slipstream-ui/registry
 
 tooling/* → (used by all packages)
 ```
@@ -153,11 +186,20 @@ AI-specific interaction components that handle chat, reasoning, tool calls, stre
 ### @slipstream-ui/themes
 Theming system with `createTheme()` function and preset themes. Uses CSS variables for runtime theming.
 
+### @slipstream-ui/db
+Prisma schema and client for the SaaS app: users, sessions, teams, memberships, invites, subscriptions, payments, license keys/activations, API keys and audit logs. SQLite for local/test; the schema is provider-portable.
+
+### @slipstream-ui/registry
+Loads COMPONENT_MANIFESTs from core/ai for consumers that must not import the component source (MCP server, CLI).
+
 ### @slipstream-ui/mcp-server
 MCP (Model Context Protocol) server that allows AI agents to query component manifests, list components, and get usage examples without hallucinating.
 
 ### @slipstream-ui/cli
 CLI tool for installing and managing Slipstream UI components in projects. Supports `init`, `add`, and `list` commands.
+
+### apps/app
+Next.js SaaS dashboard: auth, teams/RBAC, billing (mock + Stripe providers), licensing/activations, admin console and a versioned external API (`/api/v1`). Tested against an isolated per-run SQLite database.
 
 ### apps/docs
 Next.js documentation site that serves both marketing landing page and component documentation. Auto-generates some content from manifests.
@@ -169,8 +211,10 @@ Vite-based playground for testing components interactively during development.
 
 1. tooling/* (no dependencies)
 2. @slipstream-ui/themes (no dependencies)
-3. @slipstream-ui/core (no dependencies)
-4. @slipstream-ui/ai (depends on core)
-5. @slipstream-ui/mcp-server (depends on core, ai)
-6. @slipstream-ui/cli (depends on core, ai)
-7. apps/* (depend on core, ai, themes)
+3. @slipstream-ui/db (no dependencies)
+4. @slipstream-ui/registry (no dependencies)
+5. @slipstream-ui/core (no dependencies)
+6. @slipstream-ui/ai (depends on core)
+7. @slipstream-ui/mcp-server (depends on core, ai, registry)
+8. @slipstream-ui/cli (depends on core, ai, registry)
+9. apps/* (depend on core, ai, themes, db)

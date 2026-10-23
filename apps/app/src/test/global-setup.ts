@@ -24,7 +24,8 @@ function pushSchema(prismaCli: string, dbRoot: string, databaseUrl: string): voi
 export default function setup(project: TestProject) {
   const databaseUrl = project.config.env.DATABASE_URL;
   if (!databaseUrl?.startsWith('file:')) throw new Error('Missing isolated test database URL.');
-  const databasePath = path.resolve(databaseUrl.slice(5));
+  // Strip Prisma URL params (e.g. ?connection_limit=1) before path checks.
+  const databasePath = path.resolve(databaseUrl.slice(5).split('?')[0] ?? '');
   if (path.dirname(databasePath) !== path.resolve(os.tmpdir()) || !/^slipstream-test-[\da-f-]+\.db$/.test(path.basename(databasePath))) {
     throw new Error('Test database must be an isolated temporary file.');
   }

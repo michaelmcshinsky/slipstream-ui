@@ -1,0 +1,75 @@
+{
+  "id": "select",
+  "name": "Select",
+  "tier": "atom",
+  "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+  "designIntent": "Most dropdown needs are satisfied by the platform select: it brings complete keyboard, screen-reader and mobile behavior for free and never strands focus. This primitive adds consistent styling and a typed options API without re-implementing a listbox.",
+  "props": [
+    {
+      "name": "options",
+      "type": "SelectOption[]",
+      "required": true,
+      "description": "Options to render; each is { value, label, disabled? }",
+      "examples": [{ "value": "sm", "label": "Small" }]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Visible label rendered and associated via htmlFor/aria"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled selected value"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Uncontrolled initial value"
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called with the newly selected value"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Controlled select",
+      "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
+      "description": "Keep the selected value in state and render it back through value."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not build a custom listbox for simple choices",
+      "explanation": "Hand-rolled listboxes rarely match native keyboard and screen-reader behavior. Use Select for flat option lists; consider CommandPalette for searchable command surfaces."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Label association",
+      "implementation": "A visible label is connected with htmlFor/id; without one, aria-label is forwarded to the native select."
+    },
+    {
+      "feature": "Platform keyboard and screen-reader support",
+      "implementation": "Built on the native select element, inheriting its full support matrix."
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button",
+      "relationship": "Pair Select with Button in filter toolbars; Button submits, Select filters."
+    }
+  ],
+  "relatedComponents": ["Button", "Input"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "select",
+  "exportName": "Select"
+}

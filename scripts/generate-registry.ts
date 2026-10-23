@@ -64,6 +64,10 @@ const CORE_EXPORT_SOURCES = {
   AvatarFallback: 'avatar',
   Spinner: 'spinner',
   spinnerVariants: 'spinner',
+  Select: 'select',
+  Dialog: 'dialog',
+  ToastProvider: 'toast',
+  useToast: 'toast',
 };
 
 /**

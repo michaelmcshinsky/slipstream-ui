@@ -1,8 +1,19 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { useBilling } from './use-billing';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+
+interface PaymentRow {
+  id: string;
+  amountCents: number;
+  currency: string;
+  status: string;
+  description: string;
+  createdAt: string;
+}
 
 export default function BillingPage() {
   const searchParams = useSearchParams();
@@ -10,6 +21,33 @@ export default function BillingPage() {
     teams, activeTeamId, subscription, plans, error, pendingPlan, canceling,
     loading, loadingSubscription, canCheckout, canCancel, selectTeam, checkout, cancel, retry,
   } = useBilling(searchParams.get('teamId'));
+
+  const [payments, setPayments] = useState<PaymentRow[] | null>(null);
+  const [paymentsError, setPaymentsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeTeamId) {
+      setPayments(null);
+      setPaymentsError(null);
+      return;
+    }
+    let stale = false;
+    setPayments(null);
+    setPaymentsError(null);
+    fetch(`/api/v1/payments?teamId=${encodeURIComponent(activeTeamId)}&limit=10`)
+      .then(async (response) => {
+        const body = await response.json();
+        if (!response.ok) throw new Error(extractErrorMessage(body, 'Payment history failed to load.'));
+        const rows = extractData<PaymentRow[]>(body);
+        if (!stale) setPayments(Array.isArray(rows) ? rows : []);
+      })
+      .catch((cause: unknown) => {
+        if (!stale) setPaymentsError(cause instanceof Error ? cause.message : 'Payment history failed to load.');
+      });
+    return () => {
+      stale = true;
+    };
+  }, [activeTeamId]);
 
   return (
     <div className="space-y-8">
@@ -116,7 +154,33 @@ export default function BillingPage() {
 
       <Card>
         <CardTitle>Payment history</CardTitle>
-        <p className="text-sm text-muted-foreground">Payment history is not available yet.</p>
+        {paymentsError && <p role="alert" className="text-sm text-destructive">{paymentsError}</p>}
+        {!paymentsError && payments === null && (
+          <p className="text-sm text-muted-foreground">{activeTeamId ? 'Loading payments…' : 'Select a team to view payments.'}</p>
+        )}
+        {!paymentsError && payments !== null && payments.length === 0 && (
+          <p className="text-sm text-muted-foreground">No payments yet.</p>
+        )}
+        {!paymentsError && payments !== null && payments.length > 0 && (
+          <ul className="divide-y divide-border">
+            {payments.map((payment) => (
+              <li key={payment.id} className="flex items-center justify-between py-2 text-sm">
+                <span>
+                  {payment.description}
+                  <span className="ml-2 text-xs text-muted-foreground">
+                    {new Date(payment.createdAt).toLocaleDateString()}
+                  </span>
+                </span>
+                <span className="font-medium">
+                  {(payment.amountCents / 100).toFixed(2)} {payment.currency.toUpperCase()}
+                  <span className={`ml-2 text-xs ${payment.status === 'PAID' ? 'text-muted-foreground' : 'text-destructive'}`}>
+                    {payment.status}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </Card>
     </div>
   );

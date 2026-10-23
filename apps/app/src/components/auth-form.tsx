@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 import Link from 'next/link';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset';
@@ -57,13 +58,14 @@ export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: st
       });
       const data = await response.json();
       if (!response.ok) {
-        setError(data.error ?? 'Something went wrong.');
+        setError(extractErrorMessage(data));
         return;
       }
       if (mode === 'forgot') {
+        const resetToken = extractData<{ resetToken?: string }>(data)?.resetToken;
         setNotice(
-          data.resetToken
-            ? `Dev mode — reset token: ${data.resetToken}`
+          resetToken
+            ? `Dev mode — reset token: ${resetToken}`
             : 'If that email exists, a reset link is on its way.'
         );
         return;

@@ -11,9 +11,16 @@ const cleanup: { users: string[]; teams: string[]; licenses: string[] } = {
 };
 
 afterAll(async () => {
-  for (const id of cleanup.licenses) await prisma.licenseKey.delete({ where: { id } }).catch(() => {});
-  for (const id of cleanup.teams) await prisma.team.delete({ where: { id } }).catch(() => {});
-  for (const id of cleanup.users) await prisma.user.delete({ where: { id } }).catch(() => {});
+  // Dependents before principals, and surface real failures instead of
+  // swallowing them into silent FK errors (KC-042). deleteMany is a no-op
+  // for rows that no longer exist. Licenses are removed both by tracked id
+  // and by owner so untracked issuances cannot block user deletion.
+  await prisma.auditLog.deleteMany({ where: { actorId: { in: cleanup.users } } });
+  await prisma.licenseKey.deleteMany({
+    where: { OR: [{ id: { in: cleanup.licenses } }, { ownerId: { in: cleanup.users } }] },
+  });
+  await prisma.team.deleteMany({ where: { id: { in: cleanup.teams } } });
+  await prisma.user.deleteMany({ where: { id: { in: cleanup.users } } });
   await prisma.$disconnect();
 });
 

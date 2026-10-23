@@ -10,6 +10,7 @@ import {
   type MessageData as MessageType,
 } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
+import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
 
@@ -145,6 +146,12 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      {/* Docs links live in the navbar only from md up; below that the pills
+          row keeps marketing pages navigable on phones. The px-4 wrapper
+          absorbs the bar's -mx-4 bleed so no viewport overflow appears. */}
+      <div className="px-4">
+        <MobileNav />
+      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">

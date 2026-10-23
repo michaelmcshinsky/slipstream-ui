@@ -45,7 +45,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setPaletteOpen(true)}
-            className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
+            className="flex h-9 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
             aria-label="Search documentation (Ctrl+K)"
           >
             <span aria-hidden="true">⌕</span>
@@ -55,7 +55,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={toggleDark}
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm hover:bg-muted"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-sm hover:bg-muted"
             aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
           >
             <span aria-hidden="true">{dark ? '☀' : '☾'}</span>
@@ -64,7 +64,7 @@ export function Navbar() {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-9 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             aria-label="GitHub repository"
           >
             <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor" aria-hidden="true">

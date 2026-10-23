@@ -6,6 +6,7 @@ import { POST as createInviteRoute } from '../app/api/teams/[teamId]/invites/rou
 import { prisma } from '@slipstream-ui/db';
 import { generateToken, hashToken } from './tokens';
 import { createTeamForUser, inviteMember, acceptInvite, requireMembership, TeamError } from './teams';
+import { activateSubscription } from './billing';
 
 vi.mock('next/headers', () => ({
   cookies: async () => ({
@@ -35,7 +36,7 @@ async function inviteFixture(role = 'MEMBER') {
   const owner = await makeUser(`invite-owner-${suffix}@test.dev`);
   const recipient = await makeUser(`invite-recipient-${suffix}@test.dev`);
   const other = await makeUser(`invite-other-${suffix}@test.dev`);
-  const team = await createTeamForUser(owner.id, `Invite ${suffix}`);
+  const team = await createSeatedTeamForUser(owner.id, `Invite ${suffix}`);
   createdTeamIds.push(team.id);
   const invite = await inviteMember({ teamId: team.id, email: recipient.email, role, invitedById: owner.id });
   return { owner, recipient, other, team, ...invite };
@@ -50,9 +51,18 @@ async function inviteState(teamId: string) {
 }
 
 async function makeUser(email: string) {
-  const user = await prisma.user.create({ data: { email } });
+  // emailVerifiedAt stamps these fixtures as grandfathered/migrated accounts
+  // (KC-040): direct-DB fixtures predate the verification requirement.
+  const user = await prisma.user.create({ data: { email, emailVerifiedAt: new Date() } });
   createdUserIds.push(user.id);
   return user;
+}
+
+/** Invite/acceptance flows need seat capacity (KC-013); grant a TEAM plan. */
+async function createSeatedTeamForUser(userId: string, name: string) {
+  const team = await createTeamForUser(userId, name);
+  await activateSubscription(team.id, 'TEAM');
+  return team;
 }
 
 afterAll(async () => {
@@ -68,7 +78,7 @@ describe('teams', () => {
     const team = await createTeamForUser(owner.id, 'Acme Inc');
     createdTeamIds.push(team.id);
 
-    expect(team.slug).toBe('acme-inc');
+    expect(team.slug).toMatch(/^acme-inc-[0-9a-f]{8}$/);
     const membership = await prisma.membership.findUnique({
       where: { teamId_userId: { teamId: team.id, userId: owner.id } },
     });
@@ -81,15 +91,16 @@ describe('teams', () => {
     const team1 = await createTeamForUser(a.id, 'Same Name');
     const team2 = await createTeamForUser(b.id, 'Same Name');
     createdTeamIds.push(team1.id, team2.id);
-    expect(team1.slug).toBe('same-name');
-    expect(team2.slug).toBe('same-name-1');
+    expect(team1.slug).toMatch(/^same-name-[0-9a-f]{8}$/);
+    expect(team2.slug).toMatch(/^same-name-[0-9a-f]{8}$/);
+    expect(team1.slug).not.toBe(team2.slug);
   });
 
   describe('invites', () => {
     it('creates an invite whose token can be accepted once', async () => {
       const owner = await makeUser(`inv-owner-${Date.now()}@test.dev`);
       const invitee = await makeUser(`inv-member-${Date.now()}@test.dev`);
-      const team = await createTeamForUser(owner.id, 'Invite Team');
+      const team = await createSeatedTeamForUser(owner.id, 'Invite Team');
       createdTeamIds.push(team.id);
 
       const { token } = await inviteMember({ teamId: team.id, email: invitee.email, role: 'MEMBER', invitedById: owner.id });
@@ -108,7 +119,7 @@ describe('teams', () => {
     it('rejects duplicate invites and existing members', async () => {
       const owner = await makeUser(`dup-owner-${Date.now()}@test.dev`);
       const member = await makeUser(`dup-member-${Date.now()}@test.dev`);
-      const team = await createTeamForUser(owner.id, 'Dup Team');
+      const team = await createSeatedTeamForUser(owner.id, 'Dup Team');
       createdTeamIds.push(team.id);
 
       await inviteMember({ teamId: team.id, email: member.email, role: 'MEMBER', invitedById: owner.id });
@@ -128,7 +139,7 @@ describe('teams', () => {
 
     it('rejects invalid roles and emails', async () => {
       const owner = await makeUser(`bad-invite-${Date.now()}@test.dev`);
-      const team = await createTeamForUser(owner.id, 'Bad Invite Team');
+      const team = await createSeatedTeamForUser(owner.id, 'Bad Invite Team');
       createdTeamIds.push(team.id);
 
       await expect(

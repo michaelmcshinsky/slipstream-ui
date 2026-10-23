@@ -20,7 +20,10 @@ export default defineConfig({
     testTimeout: 30_000,
     hookTimeout: 30_000,
     env: {
-      DATABASE_URL: `file:${path.join(os.tmpdir(), `slipstream-test-${randomUUID()}.db`).replaceAll('\\', '/')}`,
+      // connection_limit=1 serializes SQLite access: all test files share one
+      // per-run database, and parallel workers otherwise trip lock timeouts
+      // under full-machine load.
+      DATABASE_URL: `file:${path.join(os.tmpdir(), `slipstream-test-${randomUUID()}.db`).replaceAll('\\', '/')}?connection_limit=1`,
       SESSION_SECRET: 'test-secret-at-least-32-characters!!',
     },
     globalSetup: [path.resolve(rootDir, 'src/test/global-setup.ts')],
