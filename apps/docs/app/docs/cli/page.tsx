@@ -1,0 +1,3 @@
+export default function CliPage() {
+  return <div><h1 className="text-4xl font-bold mb-4">CLI</h1><p className="text-lg text-muted-foreground mb-8">Initialize a project and copy components into your own codebase.</p><pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-6"><code>{`npx slipstream-ui@latest init\nnpx slipstream-ui@latest add message\nnpx slipstream-ui@latest list`}</code></pre><p className="text-muted-foreground">Copied components live under <code className="bg-muted px-1 rounded">components/slipstream</code>. Use <code className="bg-muted px-1 rounded">--overwrite</code> to replace an existing component.</p></div>;
+}

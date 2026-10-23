@@ -1,0 +1,260 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite does not support Prisma enums; status/role fields are strings
+// constrained at the application layer (see src/lib constants).
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  name            String?
+  passwordHash    String?
+  role            String    @default("USER") // USER | ADMIN
+  suspendedAt     DateTime?
+  emailVerifiedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  sessions      Session[]
+  memberships   Membership[]
+  sentInvites   TeamInvite[]         @relation("InvitedBy")
+  subscriptions Subscription[]
+  payments      Payment[]
+  licenseKeys   LicenseKey[]
+  apiKeys       ApiKey[]
+  resetTokens   PasswordResetToken[]
+  auditLogs     AuditLog[]
+  mockCheckouts MockCheckout[]
+  emailVerifications EmailVerificationToken[]
+}
+
+/// Single-use email verification tokens (KC-040). Raw tokens are never
+/// stored; only their hash. Conditional claims prevent double-consumption.
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  @@index([userId])
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships  Membership[]
+  invites      TeamInvite[]
+  subscription Subscription?
+  licenseKeys  LicenseKey[]
+  Payment      Payment[]
+  mockCheckouts MockCheckout[]
+}
+
+model MockCheckout {
+  id         String    @id
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId     String
+  team       Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  plan       String
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@index([teamId])
+  @@index([expiresAt])
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   @default("MEMBER") // OWNER | ADMIN | MEMBER
+  createdAt DateTime @default(now())
+
+  @@unique([teamId, userId])
+  @@index([userId])
+}
+
+model TeamInvite {
+  id          String    @id @default(cuid())
+  teamId      String
+  team        Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  email       String
+  role        String    @default("MEMBER")
+  tokenHash   String    @unique
+  invitedById String
+  invitedBy   User      @relation("InvitedBy", fields: [invitedById], references: [id])
+  acceptedAt  DateTime?
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+
+  @@unique([teamId, email])
+  @@index([email])
+}
+
+/// One active subscription per team (individual buyers get a personal team).
+model Subscription {
+  id                String    @id @default(cuid())
+  teamId            String    @unique
+  team              Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  plan              String // FREE | PRO | TEAM | ENTERPRISE
+  status            String    @default("ACTIVE") // SubscriptionStatus values
+  provider          String    @default("mock") // stripe | mock
+  externalId        String? // Stripe subscription id
+  customerId        String? // Stripe customer id
+  seats             Int       @default(1)
+  currentPeriodEnd  DateTime?
+  cancelAtPeriodEnd Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  payments Payment[]
+  User     User?     @relation(fields: [userId], references: [id])
+  userId   String?
+}
+
+model BillingWebhookEvent {
+  provider  String
+  eventId   String
+  type      String
+  createdAt DateTime @default(now())
+
+  @@id([provider, eventId])
+}
+
+model Payment {
+  id             String        @id @default(cuid())
+  teamId         String
+  team           Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+  subscriptionId String?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  amountCents    Int
+  currency       String        @default("usd")
+  status         String        @default("PAID") // PaymentStatus values
+  description    String
+  externalId     String?       @unique // Stripe invoice/payment id
+  createdAt      DateTime      @default(now())
+
+  @@index([teamId])
+}
+
+model LicenseKey {
+  id             String              @id @default(cuid())
+  key            String              @unique
+  prefix         String              @unique // short public identifier for tables/UI
+  ownerId        String
+  owner          User                @relation(fields: [ownerId], references: [id])
+  teamId         String?
+  team           Team?               @relation(fields: [teamId], references: [id])
+  plan           String // PRO | TEAM | ENTERPRISE
+  status         String              @default("ACTIVE") // LicenseStatus values
+  maxActivations Int                 @default(3)
+  note           String?
+  createdAt      DateTime            @default(now())
+  revokedAt      DateTime?
+  expiresAt      DateTime?
+  activations    LicenseActivation[]
+
+  @@index([ownerId])
+}
+
+model LicenseActivation {
+  id         String     @id @default(cuid())
+  licenseId  String
+  license    LicenseKey @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  machineId  String
+  label      String?
+  lastSeenAt DateTime   @default(now())
+  createdAt  DateTime   @default(now())
+
+  @@unique([licenseId, machineId])
+}
+
+model ApiKey {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  prefix     String    @unique // public identifier shown in UI, e.g. slip_live_ab12
+  keyHash    String    @unique
+  lastUsedAt DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String // e.g. "user.login", "team.invite.accept", "admin.user.suspend"
+  targetType String?
+  targetId   String?
+  metadata   String? // JSON string
+  createdAt  DateTime @default(now())
+
+  @@index([action])
+  @@index([createdAt])
+}
+
+/// Outbound email delivery records (KC-039). `tokenHash` stores only a hash
+/// for dedup/audit — never the raw token. `bodyText` is the delivered message
+/// content (which may include an action link); tokens are never LOGGED.
+model EmailDelivery {
+  id        String   @id @default(cuid())
+  toEmail   String
+  kind      String // password_reset | invite | email_verify
+  subject   String
+  bodyText  String
+  tokenHash String?
+  status    String   @default("QUEUED") // QUEUED | SENT | FAILED
+  attempts  Int      @default(0)
+  lastError String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([toEmail, kind])
+  @@index([status])
+}

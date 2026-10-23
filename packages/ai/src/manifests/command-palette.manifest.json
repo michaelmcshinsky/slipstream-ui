@@ -1,0 +1,80 @@
+{
+  "id": "command-palette",
+  "name": "CommandPalette",
+  "tier": "organism",
+  "description": "Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+  "designIntent": "AI-assisted and power-user apps expose many actions; a command palette keeps them all one keystroke away. The palette is a combobox+listbox with aria-activedescendant navigation so focus never leaves the input, filters lexically over labels/sections/keywords, and reports selection through a single callback.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the palette is visible (controlled)"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": true,
+      "description": "Called when the user opens or dismisses the palette"
+    },
+    {
+      "name": "commands",
+      "type": "Command[]",
+      "required": true,
+      "description": "Available commands: { id, label, section?, keywords?, shortcut? }",
+      "examples": [{ "id": "go-docs", "label": "Open documentation", "section": "Navigation" }]
+    },
+    {
+      "name": "onSelect",
+      "type": "(command: Command) => void",
+      "required": true,
+      "description": "Invoked with the chosen command before the palette closes"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "Type a command…",
+      "required": false,
+      "description": "Input placeholder text"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Wired to Cmd+K",
+      "code": "const [open, setOpen] = useState(false);\n\nuseEffect(() => {\n  const onKeyDown = (event: KeyboardEvent) => {\n    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {\n      event.preventDefault();\n      setOpen((current) => !current);\n    }\n  };\n  window.addEventListener('keydown', onKeyDown);\n  return () => window.removeEventListener('keydown', onKeyDown);\n}, []);\n\n<CommandPalette\n  open={open}\n  onOpenChange={setOpen}\n  commands={commands}\n  onSelect={(command) => run(command.id)}\n/>",
+      "description": "Toggle the palette with Cmd/Ctrl+K and run the selected command."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not use the palette as a text editor command",
+      "explanation": "The palette searches discrete commands. For AI chat input use PromptInput instead."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Combobox pattern",
+      "implementation": "The input uses role=combobox with aria-expanded, aria-controls, aria-activedescendant and aria-autocomplete=list."
+    },
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Arrow keys cycle options, Enter selects, Escape closes; focus never leaves the input."
+    },
+    {
+      "feature": "Option semantics",
+      "implementation": "Each result is role=option with aria-selected marking the active item."
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "PromptInput",
+      "relationship": "CommandPalette switches modes/actions; PromptInput captures free-form chat text."
+    }
+  ],
+  "relatedComponents": ["PromptInput", "Dialog"],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "command-palette",
+  "exportName": "CommandPalette"
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "message-actions",
+  "name": "message-actions",
+  "tier": "atom",
+  "description": "Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.",
+  "designIntent": "Collect user trust signals (copy, rating, regeneration) with minimal API surface; consumers own what happens after each action.",
+  "props": [
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "Text to copy; omit to hide the copy action."
+    },
+    {
+      "name": "onCopy",
+      "type": "(content: string) => void",
+      "required": false,
+      "description": "Called after copy with the copied text."
+    },
+    {
+      "name": "onFeedback",
+      "type": "(rating: 'up' | 'down' | undefined) => void",
+      "required": false,
+      "description": "Rating callback; selecting the active rating again passes undefined."
+    },
+    {
+      "name": "onRegenerate",
+      "type": "() => void",
+      "required": false,
+      "description": "Regeneration request; omit to hide the action."
+    },
+    {
+      "name": "labels",
+      "type": "{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }",
+      "required": false,
+      "description": "Overrides for all visible labels; enables localization."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Full feedback bar",
+      "code": "<MessageActions content={message.content} onCopy={copy} onFeedback={(r) => track(r)} onRegenerate={regen} />"
+    },
+    {
+      "title": "Ratings only",
+      "code": "<MessageActions onFeedback={(r) => save(r)} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not place MessageActions inside the message text flow",
+      "explanation": "Render it below the Message bubble so actions remain visually and semantically separate from content."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Toolbar semantics",
+      "implementation": "Root has role=toolbar with an aria-label."
+    },
+    {
+      "feature": "Toggle state",
+      "implementation": "Rating buttons expose aria-pressed so screen readers announce selection."
+    },
+    {
+      "feature": "Icon buttons",
+      "implementation": "All icon-only controls have accessible labels; labels are localizable."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/message-actions/index.ts",
+      "content": "export { MessageActions } from './MessageActions';\nexport type { MessageActionsProps, FeedbackRating } from './MessageActions';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/message-actions/MessageActions.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/** User sentiment for an AI response. */\nexport type FeedbackRating = 'up' | 'down';\n\nexport interface MessageActionsProps {\n  /**\n   * Visibility rule:\n   * - 'always': always visible (default)\n   * - 'on-hover': fades in when the parent message is hovered/focused\n   *   (add the `group` class to the parent element)\n   * - 'not-last': like 'on-hover', intended for non-latest messages\n   */\n  autohide?: 'always' | 'on-hover' | 'not-last';\n  /**\n   * Content to copy. Omit to hide the copy action, or pass a getter when\n   * the content lives outside this component.\n   */\n  content?: string;\n  /** Called after the user copies the message; receives the copied text. */\n  onCopy?: (content: string) => void;\n  /** Called with the selected rating; selecting the same rating clears it (passes undefined). */\n  onFeedback?: (rating: FeedbackRating | undefined) => void;\n  /** Called when the user requests a regenerated response; omit to hide the action. */\n  onRegenerate?: () => void;\n  labels?: {\n    copy?: string;\n    copied?: string;\n    thumbUp?: string;\n    thumbDown?: string;\n    regenerate?: string;\n  };\n  className?: string;\n}\n\nconst MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(\n  (\n    { content, onCopy, onFeedback, onRegenerate, autohide = 'always', labels, className, ...props },\n    ref\n  ) => {\n    const [copied, setCopied] = React.useState(false);\n    const [rating, setRating] = React.useState<FeedbackRating | undefined>();\n\n    const t = {\n      copy: labels?.copy ?? 'Copy',\n      copied: labels?.copied ?? 'Copied',\n      thumbUp: labels?.thumbUp ?? 'Good response',\n      thumbDown: labels?.thumbDown ?? 'Bad response',\n      regenerate: labels?.regenerate ?? 'Regenerate',\n    };\n\n    const handleCopy = async () => {\n      if (!content) return;\n      try {\n        await navigator.clipboard.writeText(content);\n      } catch {\n        // Clipboard API may be unavailable (insecure context); still notify so consumers can react.\n      }\n      setCopied(true);\n      window.setTimeout(() => setCopied(false), 2000);\n      onCopy?.(content);\n    };\n\n    const handleRating = (next: FeedbackRating) => {\n      const updated = rating === next ? undefined : next;\n      setRating(updated);\n      onFeedback?.(updated);\n    };\n\n    const actionButton =\n      'rounded px-1.5 py-0.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';\n    const actionButtonIdle =\n      'text-muted-foreground hover:bg-accent hover:text-accent-foreground';\n\n    return (\n      <div\n        ref={ref}\n        role=\"toolbar\"\n        aria-label=\"Message actions\"\n        className={cn(\n          'flex items-center gap-1 mt-2',\n          autohide !== 'always' &&\n            'opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100 motion-reduce:opacity-100',\n          className\n        )}\n        {...props}\n      >\n        {content !== undefined && (\n          <button type=\"button\" onClick={handleCopy} className={cn(actionButton, actionButtonIdle)}>\n            {copied ? t.copied : t.copy}\n          </button>\n        )}\n\n        <button\n          type=\"button\"\n          onClick={() => handleRating('up')}\n          aria-label={t.thumbUp}\n          aria-pressed={rating === 'up'}\n          className={cn(\n            actionButton,\n            rating === 'up' ? 'text-primary' : actionButtonIdle\n          )}\n        >\n          👍\n        </button>\n\n        <button\n          type=\"button\"\n          onClick={() => handleRating('down')}\n          aria-label={t.thumbDown}\n          aria-pressed={rating === 'down'}\n          className={cn(\n            actionButton,\n            rating === 'down' ? 'text-destructive' : actionButtonIdle\n          )}\n        >\n          👎\n        </button>\n\n        {onRegenerate && (\n          <button type=\"button\" onClick={onRegenerate} className={cn(actionButton, actionButtonIdle)}>\n            {t.regenerate}\n          </button>\n        )}\n      </div>\n    );\n  }\n);\nMessageActions.displayName = 'MessageActions';\n\nexport { MessageActions };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/message-actions.manifest.json",
+      "content": "{\n  \"id\": \"message-actions\",\n  \"name\": \"MessageActions\",\n  \"tier\": \"atom\",\n  \"description\": \"Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.\",\n  \"designIntent\": \"Collect user trust signals (copy, rating, regeneration) with minimal API surface; consumers own what happens after each action.\",\n  \"props\": [\n    { \"name\": \"content\", \"type\": \"string\", \"required\": false, \"description\": \"Text to copy; omit to hide the copy action.\" },\n    { \"name\": \"onCopy\", \"type\": \"(content: string) => void\", \"required\": false, \"description\": \"Called after copy with the copied text.\" },\n    { \"name\": \"onFeedback\", \"type\": \"(rating: 'up' | 'down' | undefined) => void\", \"required\": false, \"description\": \"Rating callback; selecting the active rating again passes undefined.\" },\n    { \"name\": \"onRegenerate\", \"type\": \"() => void\", \"required\": false, \"description\": \"Regeneration request; omit to hide the action.\" },\n    { \"name\": \"labels\", \"type\": \"{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }\", \"required\": false, \"description\": \"Overrides for all visible labels; enables localization.\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Full feedback bar\",\n      \"code\": \"<MessageActions content={message.content} onCopy={copy} onFeedback={(r) => track(r)} onRegenerate={regen} />\"\n    },\n    {\n      \"title\": \"Ratings only\",\n      \"code\": \"<MessageActions onFeedback={(r) => save(r)} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    { \"title\": \"Do not place MessageActions inside the message text flow\", \"explanation\": \"Render it below the Message bubble so actions remain visually and semantically separate from content.\" }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Toolbar semantics\", \"implementation\": \"Root has role=toolbar with an aria-label.\" },\n    { \"feature\": \"Toggle state\", \"implementation\": \"Rating buttons expose aria-pressed so screen readers announce selection.\" },\n    { \"feature\": \"Icon buttons\", \"implementation\": \"All icon-only controls have accessible labels; labels are localizable.\" }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

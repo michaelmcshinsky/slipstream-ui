@@ -1,0 +1,46 @@
+{
+  "id": "inline-citation",
+  "name": "InlineCitation",
+  "tier": "atom",
+  "description": "Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.",
+  "designIntent": "Attribute individual claims inside a response to their source without leaving the paragraph.",
+  "props": [
+    {
+      "name": "source",
+      "type": "SourceItem",
+      "required": true,
+      "description": "Cited source powering the preview card."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Wrapped text; defaults to the source title."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Wrap a claim",
+      "code": "<InlineCitation source={sources[0]}>as reported</InlineCitation>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not stack many citations on one word",
+      "explanation": "Use Sources footer for long lists; keep inline citations to one claim each."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard access",
+      "implementation": "Trigger is a focusable button; card opens on focus-within."
+    },
+    {
+      "feature": "Tooltip semantics",
+      "implementation": "Card has role=tooltip linked via aria-describedby."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1"
+}

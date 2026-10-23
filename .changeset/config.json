@@ -1,9 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": ["@changesets/changelog-github", { "repo": "slipstream-ui/slipstream-ui" }],
   "commit": false,
   "fixed": [],
-  "linked": [],
+  "linked": [["@slipstream-ui/core", "@slipstream-ui/ai", "@slipstream-ui/themes"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

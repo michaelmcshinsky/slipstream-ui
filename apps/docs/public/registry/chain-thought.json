@@ -1,0 +1,64 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "chain-thought",
+  "name": "chain-thought",
+  "tier": "molecule",
+  "description": "Displays ordered reasoning steps with status indicators.",
+  "designIntent": "Provide a compact progress view for multi-step agent work.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "ChainThoughtStep[]",
+      "required": true,
+      "description": "Ordered reasoning steps."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "defaultValue": false,
+      "required": false,
+      "description": "Use compact typography."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Agent steps",
+      "code": "<ChainThought steps={[{ id: '1', content: 'Analyzing…', status: 'pending' }]} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status visibility",
+      "implementation": "Each step exposes a text label and visual status."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "chainthought",
+  "exportName": "ChainThought",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/chainthought/ChainThought.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface ChainThoughtStep {\n  id: string;\n  content: string;\n  status?: 'pending' | 'completed' | 'failed';\n}\n\nexport interface ChainThoughtProps {\n  steps: ChainThoughtStep[];\n  className?: string;\n  compact?: boolean;\n}\n\nconst ChainThought = React.forwardRef<HTMLDivElement, ChainThoughtProps>(\n  ({ steps, className, compact = false, ...props }, ref) => {\n  if (steps.length === 0) {\n    return null;\n  }\n\n  return (\n    <div ref={ref} className={cn('space-y-2', className)} {...props}>\n      {steps.map((step, index) => (\n        <div key={step.id} className=\"flex gap-3 items-start\">\n          <div className={cn(\n            'w-2 h-2 rounded-full mt-1.5 flex-shrink-0',\n            step.status === 'completed' ? 'bg-green-500' : \n            step.status === 'failed' ? 'bg-red-500' : \n            step.status === 'pending' ? 'bg-yellow-500' : 'bg-primary'\n          )} />\n          <div className={cn('flex-1', compact && 'text-sm')}>\n            <div className=\"text-sm text-muted-foreground\">\n              Step {index + 1}\n            </div>\n            <div className=\"text-foreground\">{step.content}</div>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n});\nChainThought.displayName = 'ChainThought';\n\nexport { ChainThought };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/chainthought/index.ts",
+      "content": "export { ChainThought } from './ChainThought';\nexport type { ChainThoughtProps, ChainThoughtStep } from './ChainThought';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/chain-thought.manifest.json",
+      "content": "{\n  \"id\": \"chain-thought\",\n  \"name\": \"ChainThought\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays ordered reasoning steps with status indicators.\",\n  \"designIntent\": \"Provide a compact progress view for multi-step agent work.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"ChainThoughtStep[]\",\n      \"required\": true,\n      \"description\": \"Ordered reasoning steps.\"\n    },\n    {\n      \"name\": \"compact\",\n      \"type\": \"boolean\",\n      \"defaultValue\": false,\n      \"required\": false,\n      \"description\": \"Use compact typography.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Agent steps\",\n      \"code\": \"<ChainThought steps={[{ id: '1', content: 'Analyzing…', status: 'pending' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status visibility\",\n      \"implementation\": \"Each step exposes a text label and visual status.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"chainthought\",\n  \"exportName\": \"ChainThought\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

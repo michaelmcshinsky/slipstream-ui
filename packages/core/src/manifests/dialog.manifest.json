@@ -1,0 +1,86 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "tier": "molecule",
+  "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+  "designIntent": "Modals interrupt the task flow on purpose: confirmations, small forms, and destructive-action guards. The Dialog implements the full modal contract — aria-modal labelling, initial focus, a Tab focus trap, Escape and backdrop dismissal, and focus restoration to the opener — so consumers never hand-roll focus management.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the dialog is visible (controlled)"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": true,
+      "description": "Called when the user requests open/close (escape, backdrop, close button)"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Accessible dialog name, wired via aria-labelledby"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Optional supporting text, wired via aria-describedby"
+    },
+    {
+      "name": "closeOnBackdrop",
+      "type": "boolean",
+      "defaultValue": true,
+      "required": false,
+      "description": "Whether clicking the backdrop closes the dialog"
+    },
+    {
+      "name": "initialFocusRef",
+      "type": "React.RefObject<HTMLElement | null>",
+      "required": false,
+      "description": "Element focused on open; defaults to the first focusable element"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Destructive confirmation",
+      "code": "const [open, setOpen] = useState(false);\n\n<Dialog\n  open={open}\n  onOpenChange={setOpen}\n  title=\"Delete project?\"\n  description=\"This cannot be undone.\"\n>\n  <button onClick={confirmDelete}>Delete</button>\n</Dialog>",
+      "description": "Controlled dialog; the opener keeps the open state."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not open a dialog without a focusable control",
+      "explanation": "Users must be able to act or dismiss without a mouse. Always include at least one button inside the dialog body."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Modal semantics",
+      "implementation": "role=dialog with aria-modal=true, aria-labelledby from the title, and aria-describedby when a description is provided."
+    },
+    {
+      "feature": "Focus management",
+      "implementation": "Initial focus moves into the dialog; Tab wraps between focusable elements; focus returns to the opener on close."
+    },
+    {
+      "feature": "Escape dismissal",
+      "implementation": "Escape closes the dialog via the onOpenChange callback."
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button",
+      "relationship": "Dialog footers use Button for primary/secondary actions.",
+      "example": "<Dialog ...><Button onClick={onConfirm}>Confirm</Button></Dialog>"
+    }
+  ],
+  "relatedComponents": ["Button", "Toast"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "dialog",
+  "exportName": "Dialog"
+}

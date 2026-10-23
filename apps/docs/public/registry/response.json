@@ -1,0 +1,81 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "response",
+  "name": "response",
+  "tier": "molecule",
+  "description": "Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.",
+  "designIntent": "Render AI output as rich content without flicker or broken partial syntax while tokens arrive.",
+  "props": [
+    {
+      "name": "children",
+      "type": "string",
+      "required": true,
+      "description": "Markdown content to render."
+    },
+    {
+      "name": "parseIncompleteMarkdown",
+      "type": "boolean",
+      "defaultValue": true,
+      "required": false,
+      "description": "Close unclosed emphasis/inline-code/fences during streaming."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic response",
+      "code": "<Response>{assistantMessage.content}</Response>"
+    },
+    {
+      "title": "Inside Message",
+      "code": "<Message message={m} renderContent={(c) => <Response>{c}</Response>} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not use Response inside a code fence context",
+      "explanation": "Response is the top-level renderer; nested Response instances double-parse content."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Semantic HTML",
+      "implementation": "Headings, lists and tables are real elements announced correctly."
+    },
+    {
+      "feature": "Code blocks",
+      "implementation": "Routed through CodeBlock with accessible copy button."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/response/close-incomplete-markdown.ts",
+      "content": "/**\n * Repairs markdown that is mid-stream: closes unclosed bold/italic/strikethrough\n * markers and unterminated inline code / code fences so partial chunks render\n * without flickering or broken syntax.\n *\n * Deliberately conservative — only appends closing characters, never rewrites content.\n */\nexport function closeIncompleteMarkdown(markdown: string): string {\n  let text = markdown;\n\n  // Close an unterminated fenced code block (odd number of ``` lines).\n  const fenceMatches = text.match(/^`{3,}/gm);\n  if (fenceMatches && fenceMatches.length % 2 === 1) {\n    text = `${text}\\n\\`\\`\\``;\n  }\n\n  // Inline constructs are only repaired outside of code fences for simplicity:\n  // if we just opened a fence, the remainder is code and should not be touched.\n  const firstFence = text.indexOf('```');\n  const hasUnclosedFence = fenceMatches !== null && fenceMatches.length % 2 === 1;\n  const prose = hasUnclosedFence && firstFence !== -1 ? text.slice(0, firstFence) : text;\n  const rest = hasUnclosedFence && firstFence !== -1 ? text.slice(firstFence) : '';\n\n  let repaired = prose;\n  // Count unescaped emphasis markers; close whichever are odd.\n  for (const marker of ['**', '__', '~~']) {\n    const occurrences = prose.split(marker).length - 1;\n    if (occurrences % 2 === 1) {\n      repaired += marker;\n    }\n  }\n  // Single asterisk/underscore italics.\n  for (const marker of ['*', '_']) {\n    // Only count markers not part of **/__ pairs by stripping doubles first.\n    const singles = repaired.replace(/\\*\\*/g, '').replace(/__/g, '').split(marker).length - 1;\n    if (singles % 2 === 1) {\n      repaired += marker;\n    }\n  }\n  // Inline code.\n  const backtickCount = repaired.replace(/```/g, '').split('`').length - 1;\n  if (backtickCount % 2 === 1) {\n    repaired += '`';\n  }\n\n  return repaired + rest;\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/response/index.ts",
+      "content": "export { Response } from './Response';\nexport type { ResponseProps } from './Response';\nexport { closeIncompleteMarkdown } from './close-incomplete-markdown';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/response/Response.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport ReactMarkdown from 'react-markdown';\nimport remarkGfm from 'remark-gfm';\nimport { cn } from '@/lib/utils';\nimport { CodeBlock } from '../code-block';\nimport { closeIncompleteMarkdown } from './close-incomplete-markdown';\n\nexport interface ResponseProps {\n  /** Markdown content to render. */\n  children: string;\n  /**\n   * Repair unclosed emphasis/inline-code/fences while streaming so partial\n   * chunks render cleanly (default true).\n   */\n  parseIncompleteMarkdown?: boolean;\n  className?: string;\n}\n\n/**\n * Streaming-optimized markdown renderer for AI responses.\n *\n * Wraps react-markdown with GFM support and routes fenced code blocks to\n * the CodeBlock component for highlighting + copy.\n */\nconst Response = React.forwardRef<HTMLDivElement, ResponseProps>(\n  ({ children, parseIncompleteMarkdown = true, className, ...props }, ref) => {\n    const content = React.useMemo(\n      () => (parseIncompleteMarkdown ? closeIncompleteMarkdown(children) : children),\n      [children, parseIncompleteMarkdown]\n    );\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          'text-sm space-y-3 [&_a]:text-primary [&_a]:underline underline-offset-2',\n          '[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',\n          '[&_h1]:text-lg [&_h1]:font-semibold [&_h2]:text-base [&_h2]:font-semibold',\n          '[&_h3]:text-sm [&_h3]:font-semibold',\n          '[&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground',\n          '[&_table]:w-full [&_table]:text-xs [&_th]:border [&_th]:border-border [&_th]:p-1.5 [&_td]:border [&_td]:border-border [&_td]:p-1.5',\n          className\n        )}\n        {...props}\n      >\n        <ReactMarkdown\n          remarkPlugins={[remarkGfm]}\n          components={{\n            pre: ({ children }) => <>{children}</>,\n            code: ({ className: codeClassName, children: codeChildren }) => {\n              const raw = String(codeChildren).replace(/\\n$/, '');\n              const match = /language-(\\w+)/.exec(codeClassName ?? '');\n              const isInline = !match && !raw.includes('\\n');\n              if (isInline) {\n                return (\n                  <code className=\"bg-muted px-1 py-0.5 rounded text-xs font-mono before:content-none after:content-none\">\n                    {raw}\n                  </code>\n                );\n              }\n              return <CodeBlock code={raw} language={match?.[1] ?? 'text'} />;\n            },\n          }}\n        >\n          {content}\n        </ReactMarkdown>\n      </div>\n    );\n  }\n);\nResponse.displayName = 'Response';\n\nexport { Response };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/response.manifest.json",
+      "content": "{\n  \"id\": \"response\",\n  \"name\": \"Response\",\n  \"tier\": \"molecule\",\n  \"description\": \"Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.\",\n  \"designIntent\": \"Render AI output as rich content without flicker or broken partial syntax while tokens arrive.\",\n  \"props\": [\n    {\n      \"name\": \"children\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Markdown content to render.\"\n    },\n    {\n      \"name\": \"parseIncompleteMarkdown\",\n      \"type\": \"boolean\",\n      \"defaultValue\": true,\n      \"required\": false,\n      \"description\": \"Close unclosed emphasis/inline-code/fences during streaming.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic response\",\n      \"code\": \"<Response>{assistantMessage.content}</Response>\"\n    },\n    {\n      \"title\": \"Inside Message\",\n      \"code\": \"<Message message={m} renderContent={(c) => <Response>{c}</Response>} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not use Response inside a code fence context\",\n      \"explanation\": \"Response is the top-level renderer; nested Response instances double-parse content.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Semantic HTML\",\n      \"implementation\": \"Headings, lists and tables are real elements announced correctly.\"\n    },\n    {\n      \"feature\": \"Code blocks\",\n      \"implementation\": \"Routed through CodeBlock with accessible copy button.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

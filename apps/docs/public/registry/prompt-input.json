@@ -1,0 +1,281 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "prompt-input",
+  "name": "prompt-input",
+  "tier": "molecule",
+  "description": "A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button",
+  "designIntent": "The PromptInput component provides a specialized input for chat interfaces. It handles auto-resizing as the user types, supports Enter to submit (Shift+Enter for new line), and integrates with the conversation flow. It's designed to be the primary way users interact with AI assistants.",
+  "props": [
+    {
+      "name": "onSubmit",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback when the user submits the prompt",
+      "examples": [
+        "(value) => sendMessage(value)"
+      ]
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "Type your message...",
+      "required": false,
+      "description": "Placeholder text to display when input is empty",
+      "examples": [
+        "Type your message...",
+        "Ask me anything...",
+        "Enter your prompt..."
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether the input is disabled",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether a submission is currently in progress",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "autoFocus",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether to auto-focus the input on mount",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "required": false,
+      "description": "Maximum character count for the input",
+      "examples": [
+        500,
+        1000,
+        2000
+      ]
+    },
+    {
+      "name": "showSendButton",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether to show the send button",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "sendButtonText",
+      "type": "string",
+      "defaultValue": "Send",
+      "required": false,
+      "description": "Text or icon for the send button",
+      "examples": [
+        "Send",
+        "Submit",
+        "→"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply to the container"
+    },
+    {
+      "name": "onStop",
+      "type": "() => void",
+      "required": false,
+      "description": "While loading, the send button becomes a stop button that calls this handler."
+    },
+    {
+      "name": "stopButtonText",
+      "type": "string",
+      "defaultValue": "Stop generating",
+      "required": false,
+      "description": "Accessible label for the stop button; enables localization."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic prompt input",
+      "code": "<PromptInput onSubmit={(value) => console.log(value)} />",
+      "description": "Simple prompt input with default configuration"
+    },
+    {
+      "title": "With custom placeholder",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  placeholder=\"Ask me anything about coding...\"\n/>",
+      "description": "Prompt input with custom placeholder text"
+    },
+    {
+      "title": "With auto-focus",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  autoFocus={true}\n/>",
+      "description": "Auto-focuses the input when component mounts"
+    },
+    {
+      "title": "With character limit",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  maxLength={500}\n/>",
+      "description": "Limits input to 500 characters"
+    },
+    {
+      "title": "Without send button",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  showSendButton={false}\n/>",
+      "description": "Hides the send button (user must press Enter)"
+    },
+    {
+      "title": "With loading state",
+      "code": "<PromptInput \n  onSubmit={handleSubmit}\n  isLoading={isGenerating}\n  disabled={isGenerating}\n/>",
+      "description": "Shows loading state and disables while AI is responding"
+    },
+    {
+      "title": "Cancellable generation",
+      "code": "<PromptInput onSubmit={send} isLoading={loading} onStop={() => abortRef.current.abort()} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use for non-chat input",
+      "explanation": "PromptInput is specifically for chat interactions, not general form input",
+      "example": "// Avoid: Using PromptInput for forms\n<PromptInput onSubmit={handleFormSubmit} />\n\n// Prefer: Use appropriate form input components\n<TextArea onChange={handleChange} />"
+    },
+    {
+      "title": "Don't ignore Enter key behavior",
+      "explanation": "Users expect Enter to submit. If you change this, communicate it clearly",
+      "example": "// Avoid: Confusing users by disabling Enter\n<PromptInput \n  onSubmit={handleSubmit}\n  // Users expect Enter to submit\n/>\n\n// If you need different behavior, document it clearly"
+    },
+    {
+      "title": "Don't validate after submission",
+      "explanation": "Disable the input when empty rather than validating in the handler",
+      "example": "// Avoid: Validating in onSubmit\n<PromptInput onSubmit={(value) => {\n  if (!value) return; // Validate before\n  sendMessage(value);\n}} />\n\n// Prefer: Disable button when empty\n<PromptInput \n  onSubmit={sendMessage}\n  disabled={!value}\n/>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Full keyboard support with Enter to submit, Shift+Enter for new line",
+      "userRequirements": "Document keyboard shortcuts for users"
+    },
+    {
+      "feature": "Screen reader support",
+      "implementation": "Textarea has proper label and placeholder. Button state is announced",
+      "userRequirements": "Ensure placeholder text is descriptive and helpful"
+    },
+    {
+      "feature": "Form validation",
+      "implementation": "Button is disabled when input is empty, preventing invalid submissions",
+      "userRequirements": "Consider adding aria-invalid for custom validation if needed"
+    },
+    {
+      "feature": "Auto-resize",
+      "implementation": "Textarea automatically grows with content up to max-height",
+      "userRequirements": "Test with screen readers to ensure height changes are announced appropriately"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholder text",
+      "guidelines": [
+        "Use action-oriented placeholder text",
+        "Be specific about what kind of input is expected",
+        "Keep placeholders concise (under 50 characters ideally)",
+        "Avoid generic placeholders like 'Enter text'",
+        "Consider the context of the conversation"
+      ],
+      "goodExamples": [
+        "Type your message...",
+        "Ask me anything about coding...",
+        "Describe what you'd like to build..."
+      ],
+      "badExamples": [
+        "Enter text here",
+        "Input",
+        "Type something",
+        "Lorem ipsum dolor sit amet"
+      ]
+    },
+    {
+      "contentType": "Send button",
+      "guidelines": [
+        "Use clear icons or text for the send button",
+        "Consider using an arrow icon (→) for a modern look",
+        "Show loading state when submitting",
+        "Disable button when input is empty"
+      ],
+      "goodExamples": [
+        "→",
+        "Send",
+        "Submit"
+      ],
+      "badExamples": [
+        "Click me",
+        "OK",
+        "Go"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Conversation",
+      "relationship": "PromptInput is typically used below a Conversation component to add new messages",
+      "example": "Conversation displays messages, PromptInput submits new ones to the same messages array"
+    },
+    {
+      "component": "ChatLayout",
+      "relationship": "PromptInput is often part of a ChatLayout that combines Conversation and input",
+      "example": "ChatLayout wraps Conversation and PromptInput in a complete chat interface"
+    }
+  ],
+  "relatedComponents": [
+    "Conversation",
+    "ChatLayout",
+    "Button"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "prompt-input",
+  "exportName": "PromptInput",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json",
+    "https://slipstreamui.com/registry/button.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/prompt-input/index.ts",
+      "content": "export {\n  PromptInput,\n  PromptInputTextarea,\n  PromptInputSubmit,\n  PromptInputFooter,\n  PromptInputTools,\n  PromptInputHeader,\n  PromptInputBody,\n  PromptInputButton,\n  PromptInputActionDictate,\n  PromptInputActionAddAttachments,\n} from './PromptInput';\nexport type {\n  PromptInputProps,\n  PromptInputButtonProps,\n} from './PromptInput';\nexport { usePromptInputAttachments, useSpeechRecognition } from './PromptInput';\nexport type {\n  UseAttachmentsOptions,\n  UseAttachmentsResult,\n} from './PromptInput';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/prompt-input/PromptInput.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { Button } from '@/components/slipstream/button';\nimport { cn } from '@/lib/utils';\nimport { AttachmentList } from '../attachment';\nimport type { AttachmentItem } from '../attachment';\n\n// ---------------------------------------------------------------------------\n// Attachments hook: validation + state, reusable outside the input.\n// ---------------------------------------------------------------------------\n\nexport interface UseAttachmentsOptions {\n  /** File types to accept, e.g. \"image/*\" (HTML accept syntax). */\n  accept?: string;\n  /** Maximum number of queued files. */\n  maxFiles?: number;\n  /** Maximum size per file in bytes. */\n  maxFileSize?: number;\n  multiple?: boolean;\n  onError?: (error: { code: 'max_files' | 'max_file_size' | 'accept'; message: string }) => void;\n}\n\nexport interface UseAttachmentsResult {\n  files: AttachmentItem[];\n  add: (fileList: FileList | File[]) => void;\n  remove: (id: string) => void;\n  clear: () => void;\n  openFileDialog: () => void;\n  /** Hidden file input element; render it once somewhere in your tree. */\n  input: React.ReactElement;\n}\n\n/**\n * Headless attachment queue with constraint validation.\n * Used internally by PromptInput and exported for custom composers.\n */\nexport function usePromptInputAttachments(options: UseAttachmentsOptions = {}): UseAttachmentsResult {\n  const { accept, maxFiles, maxFileSize, multiple = true, onError } = options;\n  const [files, setFiles] = React.useState<AttachmentItem[]>([]);\n  const inputRef = React.useRef<HTMLInputElement>(null);\n\n  const add = React.useCallback(\n    (fileList: FileList | File[]) => {\n      const incoming = Array.from(fileList);\n      setFiles((prev) => {\n        const next = [...prev];\n        for (const file of incoming) {\n          if (accept && !file.type.match(accept.replace(/\\*/g, '.*'))) {\n            onError?.({ code: 'accept', message: `\"${file.name}\" is not an accepted file type.` });\n            continue;\n          }\n          if (maxFileSize && file.size > maxFileSize) {\n            onError?.({\n              code: 'max_file_size',\n              message: `\"${file.name}\" exceeds the ${Math.round(maxFileSize / 1024)} KB limit.`,\n            });\n            continue;\n          }\n          if (maxFiles !== undefined && next.length >= maxFiles) {\n            onError?.({ code: 'max_files', message: `At most ${maxFiles} files can be attached.` });\n            break;\n          }\n          if (!multiple && next.length >= 1) {\n            onError?.({ code: 'max_files', message: 'Only one file can be attached.' });\n            break;\n          }\n          next.push({\n            id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,\n            name: file.name,\n            size: `${Math.max(1, Math.round(file.size / 1024))} KB`,\n            type: file.type.split('/')[1]?.toUpperCase() ?? file.name.split('.').pop()?.toUpperCase(),\n          });\n        }\n        return next;\n      });\n    },\n    [accept, maxFileSize, maxFiles, multiple, onError]\n  );\n\n  const remove = React.useCallback((id: string) => {\n    setFiles((prev) => prev.filter((file) => file.id !== id));\n  }, []);\n\n  const clear = React.useCallback(() => setFiles([]), []);\n\n  const openFileDialog = React.useCallback(() => inputRef.current?.click(), []);\n\n  const input = (\n    <input\n      ref={inputRef}\n      type=\"file\"\n      hidden\n      accept={accept}\n      multiple={multiple}\n      onChange={(event) => {\n        if (event.target.files) add(event.target.files);\n        event.target.value = '';\n      }}\n    />\n  );\n\n  return { files, add, remove, clear, openFileDialog, input };\n}\n\n// ---------------------------------------------------------------------------\n// Speech recognition (Web Speech API), no-op where unsupported.\n// ---------------------------------------------------------------------------\n\ninterface SpeechRecognitionLike {\n  lang: string;\n  continuous: boolean;\n  interimResults: boolean;\n  start: () => void;\n  stop: () => void;\n  onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;\n  onend: (() => void) | null;\n}\n\ntype SpeechRecognitionCtor = new () => SpeechRecognitionLike;\n\n/** Web Speech API dictation; returns supported=false on unsupported browsers. */\nexport function useSpeechRecognition(onTranscript: (text: string) => void): {\n  supported: boolean;\n  isListening: boolean;\n  toggle: () => void;\n} {\n  const [isListening, setIsListening] = React.useState(false);\n  // Cast through unknown: Safari prefixes webkitSpeechRecognition.\n  const Ctor =\n    typeof window !== 'undefined'\n      ? ((window as unknown as Record<string, SpeechRecognitionCtor | undefined>).SpeechRecognition ??\n        (window as unknown as Record<string, SpeechRecognitionCtor | undefined>).webkitSpeechRecognition)\n      : undefined;\n\n  const recognitionRef = React.useRef<SpeechRecognitionLike | null>(null);\n\n  const toggle = React.useCallback(() => {\n    if (!Ctor) return;\n    if (isListening) {\n      recognitionRef.current?.stop();\n      setIsListening(false);\n      return;\n    }\n    const recognition = new Ctor();\n    recognition.lang = navigator.language || 'en-US';\n    recognition.continuous = false;\n    recognition.interimResults = false;\n    recognition.onresult = (event) => {\n      const transcript = Array.from({ length: event.results.length }, (_, i) => event.results[i][0].transcript).join(' ');\n      onTranscript(transcript.trim());\n    };\n    recognition.onend = () => setIsListening(false);\n    recognitionRef.current = recognition;\n    recognition.start();\n    setIsListening(true);\n  }, [Ctor, isListening, onTranscript]);\n\n  return { supported: Boolean(Ctor), isListening, toggle };\n}\n\n// ---------------------------------------------------------------------------\n// Context shared by the compound primitives.\n// ---------------------------------------------------------------------------\n\ninterface PromptInputContextValue {\n  value: string;\n  setValue: (value: string) => void;\n  disabled: boolean;\n  isLoading: boolean;\n  canSubmit: boolean;\n  submit: () => void;\n  stop: () => void;\n  hasStop: boolean;\n  attachments: AttachmentItem[];\n  removeAttachment: (id: string) => void;\n  addFiles: (files: FileList | File[]) => void;\n  openFilePicker: () => void;\n  hiddenInput: React.ReactElement;\n  dictate: { supported: boolean; isListening: boolean; toggle: () => void };\n}\n\nconst PromptInputContext = React.createContext<PromptInputContextValue | null>(null);\n\nfunction usePromptInputContext(): PromptInputContextValue {\n  const context = React.useContext(PromptInputContext);\n  if (!context) throw new Error('PromptInput primitives must be rendered inside <PromptInput>.');\n  return context;\n}\n\n// ---------------------------------------------------------------------------\n// Root\n// ---------------------------------------------------------------------------\n\nexport interface PromptInputProps {\n  onSubmit: (value: string) => void;\n  /** Called when the user requests to stop an in-flight generation. */\n  onStop?: () => void;\n  /**\n   * Externally owned attachment queue. When omitted, PromptInput manages its\n   * own queue with drag-and-drop + clipboard-paste support.\n   */\n  attachments?: AttachmentItem[];\n  onRemoveAttachment?: (attachment: AttachmentItem) => void;\n  /** Called whenever the managed attachment queue changes. */\n  onAttachmentsChange?: (attachments: AttachmentItem[]) => void;\n  /** Marks submission as failed; the send control reflects the error state. */\n  hasError?: boolean;\n  accept?: string;\n  multiple?: boolean;\n  maxFiles?: number;\n  maxFileSize?: number;\n  onAttachmentError?: UseAttachmentsOptions['onError'];\n  /** Accept file drops anywhere on the document (default false). */\n  globalDrop?: boolean;\n  placeholder?: string;\n  disabled?: boolean;\n  isLoading?: boolean;\n  className?: string;\n  autoFocus?: boolean;\n  maxLength?: number;\n  showSendButton?: boolean;\n  sendButtonText?: string;\n  stopButtonText?: string;\n  children?: React.ReactNode;\n}\n\nconst PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(\n  ({\n    onSubmit,\n    onStop,\n    attachments: controlledAttachments,\n    onRemoveAttachment,\n    onAttachmentsChange,\n    hasError = false,\n    accept,\n    multiple = true,\n    maxFiles,\n    maxFileSize,\n    onAttachmentError,\n    globalDrop = false,\n    placeholder = 'Type your message...',\n    disabled = false,\n    isLoading = false,\n    className,\n    autoFocus = false,\n    maxLength,\n    showSendButton = true,\n    sendButtonText = 'Send',\n    stopButtonText = 'Stop generating',\n    children,\n    ...props\n  }, ref) => {\n    const [value, setValue] = React.useState('');\n    const textareaRef = React.useRef<HTMLTextAreaElement>(null);\n\n    const managed = usePromptInputAttachments({ accept, maxFiles, maxFileSize, multiple, onError: onAttachmentError });\n\n    // Notify consumers of managed-queue changes.\n    const prevManagedCount = React.useRef(0);\n    React.useEffect(() => {\n      if (!controlledAttachments && managed.files.length !== prevManagedCount.current) {\n        prevManagedCount.current = managed.files.length;\n        onAttachmentsChange?.(managed.files);\n      }\n    }, [managed.files, controlledAttachments, onAttachmentsChange]);\n\n    const activeAttachments = controlledAttachments ?? managed.files;\n\n    // Auto-focus on mount if requested\n    React.useEffect(() => {\n      if (autoFocus && textareaRef.current) textareaRef.current.focus();\n    }, [autoFocus]);\n\n    // Merge forwarded ref with internal handle (auto-resize needs it).\n    React.useImperativeHandle(ref, () => textareaRef.current!);\n\n    // Auto-resize textarea\n    React.useEffect(() => {\n      if (textareaRef.current) {\n        textareaRef.current.style.height = 'auto';\n        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;\n      }\n    }, [value]);\n\n    // Global drop: opt-in document-level listener.\n    React.useEffect(() => {\n      if (!globalDrop || controlledAttachments) return;\n      const prevent = (event: DragEvent) => event.preventDefault();\n      const drop = (event: DragEvent) => {\n        event.preventDefault();\n        if (event.dataTransfer?.files.length) managed.add(event.dataTransfer.files);\n      };\n      document.addEventListener('dragover', prevent);\n      document.addEventListener('drop', drop);\n      return () => {\n        document.removeEventListener('dragover', prevent);\n        document.removeEventListener('drop', drop);\n      };\n    }, [globalDrop, controlledAttachments, managed]);\n\n    const canSubmit = Boolean(value.trim()) && !disabled && !isLoading;\n\n    const handleSubmit = () => {\n      const trimmedValue = value.trim();\n      if (!trimmedValue || disabled || isLoading) return;\n      onSubmit(trimmedValue);\n      setValue('');\n      if (textareaRef.current) textareaRef.current.style.height = 'auto';\n      if (!controlledAttachments) managed.clear();\n    };\n\n    const handleStop = () => onStop?.();\n\n    const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {\n      if (event.key === 'Enter' && !event.shiftKey) {\n        event.preventDefault();\n        handleSubmit();\n      }\n    };\n\n    const dictate = useSpeechRecognition((transcript) =>\n      setValue((current) => (current ? `${current} ${transcript}` : transcript))\n    );\n\n    const contextValue: PromptInputContextValue = {\n      value,\n      setValue,\n      disabled,\n      isLoading,\n      canSubmit,\n      submit: handleSubmit,\n      stop: handleStop,\n      hasStop: Boolean(onStop),\n      attachments: activeAttachments,\n      removeAttachment: (id) => (controlledAttachments ? onRemoveAttachment?.({ id } as AttachmentItem) : managed.remove(id)),\n      addFiles: (files) => !controlledAttachments && managed.add(files),\n      openFilePicker: managed.openFileDialog,\n      hiddenInput: managed.input,\n      dictate,\n    };\n\n    const showStop = isLoading && Boolean(onStop);\n    const submitIcon = showStop ? '■' : hasError ? '⚠' : '→';\n    const submitLabel = showStop ? stopButtonText : hasError ? 'Failed — check message' : sendButtonText;\n\n    const textarea = (\n      <textarea\n        ref={textareaRef}\n        value={value}\n        onChange={(event) => setValue(event.target.value)}\n        onKeyDown={handleKeyDown}\n        placeholder={placeholder}\n        disabled={disabled || isLoading}\n        maxLength={maxLength}\n        rows={1}\n        className={cn(\n          'flex-1 resize-none rounded-md border border-input bg-background px-3 py-2 text-sm',\n          'placeholder:text-muted-foreground',\n          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n          'disabled:cursor-not-allowed disabled:opacity-50',\n          'min-h-[40px] max-h-[200px] overflow-y-auto'\n        )}\n      />\n    );\n\n    const sendButton = showSendButton ? (\n      <Button\n        onClick={showStop ? handleStop : handleSubmit}\n        disabled={showStop ? false : !canSubmit || disabled}\n        variant={showStop ? 'outline' : 'default'}\n        size=\"icon\"\n        type=\"button\"\n        aria-label={submitLabel}\n      >\n        <span aria-hidden=\"true\">{submitIcon}</span>\n      </Button>\n    ) : null;\n\n    // Drop/paste surface wraps everything in both modes.\n    const dropHandlers = controlledAttachments\n      ? {}\n      : {\n          onDrop: (event: React.DragEvent) => {\n            event.preventDefault();\n            if (event.dataTransfer.files.length) managed.add(event.dataTransfer.files);\n          },\n          onPaste: (event: React.ClipboardEvent) => {\n            const files = event.clipboardData?.files;\n            if (files && files.length > 0) {\n              event.preventDefault();\n              managed.add(files);\n            }\n          },\n        };\n\n    return (\n      <PromptInputContext.Provider value={contextValue}>\n        <div className={cn('flex flex-col gap-2', className)} {...dropHandlers} {...props}>\n          {activeAttachments.length > 0 && (\n            <AttachmentList\n              attachments={activeAttachments}\n              onRemove={controlledAttachments ? onRemoveAttachment : (a) => managed.remove(a.id)}\n            />\n          )}\n\n          {children ? (\n            <>\n              {children}\n              {managed.input}\n            </>\n          ) : (\n            <>\n              <div className=\"flex gap-2 items-end\">\n                {textarea}\n                {sendButton}\n              </div>\n              {managed.input}\n            </>\n          )}\n        </div>\n      </PromptInputContext.Provider>\n    );\n  }\n);\nPromptInputRoot.displayName = 'PromptInput';\n\n// ---------------------------------------------------------------------------\n// Compound primitives\n// ---------------------------------------------------------------------------\n\n/** Auto-resizing textarea bound to the prompt state. Accepts standard textarea props. */\nconst PromptInputTextarea = React.forwardRef<\n  HTMLTextAreaElement,\n  Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'onChange'>\n>(({ className, onKeyDown, ...props }, ref) => {\n  const { value, setValue, disabled, isLoading, submit } = usePromptInputContext();\n  return (\n    <textarea\n      ref={ref}\n      value={value}\n      onChange={(event) => setValue(event.target.value)}\n      onKeyDown={(event) => {\n        if (event.key === 'Enter' && !event.shiftKey) {\n          event.preventDefault();\n          submit();\n        }\n        onKeyDown?.(event);\n      }}\n      disabled={disabled || isLoading}\n      rows={1}\n      className={cn(\n        'flex-1 resize-none rounded-md border border-input bg-background px-3 py-2 text-sm',\n        'placeholder:text-muted-foreground',\n        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n        'min-h-[40px]',\n        className\n      )}\n      {...props}\n    />\n  );\n});\nPromptInputTextarea.displayName = 'PromptInputTextarea';\n\n/** Status-aware submit control: send / stop / error icons chosen automatically. */\nconst PromptInputSubmit = React.forwardRef<HTMLButtonElement, { className?: string }>(({ className }, ref) => {\n  const { canSubmit, isLoading, hasStop, submit, stop, disabled } = usePromptInputContext();\n  return (\n    <Button\n      ref={ref}\n      onClick={isLoading && hasStop ? stop : submit}\n      disabled={isLoading && hasStop ? false : !canSubmit || disabled}\n      variant={isLoading && hasStop ? 'outline' : 'default'}\n      size=\"icon\"\n      type=\"button\"\n      aria-label={isLoading && hasStop ? 'Stop generating' : 'Send'}\n      className={className}\n    >\n      <span aria-hidden=\"true\">{isLoading && hasStop ? '■' : '→'}</span>\n    </Button>\n  );\n});\nPromptInputSubmit.displayName = 'PromptInputSubmit';\n\n/** Toolbar row under the textarea. */\nfunction PromptInputFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn('flex items-center justify-between gap-2 pt-1', className)} {...props} />;\n}\n\n/** Left-aligned group of tools inside a footer. */\nfunction PromptInputTools({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn('flex items-center gap-1', className)} {...props} />;\n}\n\n/** Row above the textarea (attachments, hints). */\nfunction PromptInputHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn('mb-1', className)} {...props} />;\n}\n\n/** Wrapper around the textarea row. */\nfunction PromptInputBody({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn('flex gap-2 items-end', className)} {...props} />;\n}\n\nexport interface PromptInputButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  /** Tooltip content; optionally includes a keyboard shortcut hint. */\n  tooltip?: string | { content: React.ReactNode; shortcut?: string };\n  active?: boolean;\n}\n\n/** Small toolbar button with optional tooltip and shortcut hint. */\nconst PromptInputButton = React.forwardRef<HTMLButtonElement, PromptInputButtonProps>(\n  ({ tooltip, active = false, className, ...props }, ref) => {\n    const tip = typeof tooltip === 'string' ? { content: tooltip } : tooltip;\n    return (\n      <span className=\"relative inline-flex group/tip\">\n        <button\n          ref={ref}\n          type=\"button\"\n          aria-pressed={active || undefined}\n          className={cn(\n            'inline-flex h-7 items-center gap-1 rounded-md border border-transparent px-2 text-xs text-muted-foreground transition-colors',\n            'hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n            active && 'border-border bg-muted text-foreground',\n            className\n          )}\n          {...props}\n        />\n        {tip && (\n          <span\n            role=\"tooltip\"\n            className=\"pointer-events-none absolute bottom-full left-0 mb-1 z-10 flex items-center gap-1 whitespace-nowrap rounded border border-border bg-popover px-2 py-0.5 text-[11px] text-popover-foreground opacity-0 shadow-sm transition-opacity group-hover/tip:opacity-100\"\n          >\n            {tip.content}\n            {tip.shortcut && <kbd className=\"rounded bg-muted px-1 font-mono\">{tip.shortcut}</kbd>}\n          </span>\n        )}\n      </span>\n    );\n  }\n);\nPromptInputButton.displayName = 'PromptInputButton';\n\n/** Dictation toggle using the Web Speech API; hidden when unsupported. */\nfunction PromptInputActionDictate({ labels }: { labels?: { start?: string; stop?: string } }) {\n  const { dictate } = usePromptInputContext();\n  if (!dictate.supported) return null;\n  return (\n    <PromptInputButton\n      onClick={dictate.toggle}\n      active={dictate.isListening}\n      tooltip={{ content: dictate.isListening ? labels?.stop ?? 'Stop dictating' : labels?.start ?? 'Dictate' }}\n      aria-label={dictate.isListening ? labels?.stop ?? 'Stop dictation' : labels?.start ?? 'Start dictation'}\n    >\n      <span aria-hidden=\"true\">🎙</span>\n    </PromptInputButton>\n  );\n}\n\n/** Opens the managed file picker with configured constraints. */\n\n/** Opens the managed file picker with configured constraints. */\nfunction PromptInputActionAddAttachments({ label = 'Add photos or files' }: { label?: string }) {\n  const { openFilePicker } = usePromptInputContext();\n  return (\n    <PromptInputButton onClick={openFilePicker}>\n      <span aria-hidden=\"true\">＋</span>\n      <span>{label}</span>\n    </PromptInputButton>\n  );\n}\n\nexport {\n  PromptInputRoot as PromptInput,\n  PromptInputTextarea,\n  PromptInputSubmit,\n  PromptInputFooter,\n  PromptInputTools,\n  PromptInputHeader,\n  PromptInputBody,\n  PromptInputButton,\n  PromptInputActionDictate,\n  PromptInputActionAddAttachments,\n};\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/prompt-input.manifest.json",
+      "content": "{\n  \"id\": \"prompt-input\",\n  \"name\": \"PromptInput\",\n  \"tier\": \"molecule\",\n  \"description\": \"A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button\",\n  \"designIntent\": \"The PromptInput component provides a specialized input for chat interfaces. It handles auto-resizing as the user types, supports Enter to submit (Shift+Enter for new line), and integrates with the conversation flow. It's designed to be the primary way users interact with AI assistants.\",\n  \"props\": [\n    {\n      \"name\": \"onSubmit\",\n      \"type\": \"(value: string) => void\",\n      \"required\": true,\n      \"description\": \"Callback when the user submits the prompt\",\n      \"examples\": [\n        \"(value) => sendMessage(value)\"\n      ]\n    },\n    {\n      \"name\": \"placeholder\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Type your message...\",\n      \"required\": false,\n      \"description\": \"Placeholder text to display when input is empty\",\n      \"examples\": [\n        \"Type your message...\",\n        \"Ask me anything...\",\n        \"Enter your prompt...\"\n      ]\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Whether the input is disabled\",\n      \"examples\": [\n        true,\n        false\n      ]\n    },\n    {\n      \"name\": \"isLoading\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Whether a submission is currently in progress\",\n      \"examples\": [\n        true,\n        false\n      ]\n    },\n    {\n      \"name\": \"autoFocus\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Whether to auto-focus the input on mount\",\n      \"examples\": [\n        true,\n        false\n      ]\n    },\n    {\n      \"name\": \"maxLength\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Maximum character count for the input\",\n      \"examples\": [\n        500,\n        1000,\n        2000\n      ]\n    },\n    {\n      \"name\": \"showSendButton\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"true\",\n      \"required\": false,\n      \"description\": \"Whether to show the send button\",\n      \"examples\": [\n        true,\n        false\n      ]\n    },\n    {\n      \"name\": \"sendButtonText\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Send\",\n      \"required\": false,\n      \"description\": \"Text or icon for the send button\",\n      \"examples\": [\n        \"Send\",\n        \"Submit\",\n        \"→\"\n      ]\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply to the container\"\n    },\n    {\n      \"name\": \"onStop\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"While loading, the send button becomes a stop button that calls this handler.\"\n    },\n    {\n      \"name\": \"stopButtonText\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Stop generating\",\n      \"required\": false,\n      \"description\": \"Accessible label for the stop button; enables localization.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic prompt input\",\n      \"code\": \"<PromptInput onSubmit={(value) => console.log(value)} />\",\n      \"description\": \"Simple prompt input with default configuration\"\n    },\n    {\n      \"title\": \"With custom placeholder\",\n      \"code\": \"<PromptInput \\n  onSubmit={handleSubmit}\\n  placeholder=\\\"Ask me anything about coding...\\\"\\n/>\",\n      \"description\": \"Prompt input with custom placeholder text\"\n    },\n    {\n      \"title\": \"With auto-focus\",\n      \"code\": \"<PromptInput \\n  onSubmit={handleSubmit}\\n  autoFocus={true}\\n/>\",\n      \"description\": \"Auto-focuses the input when component mounts\"\n    },\n    {\n      \"title\": \"With character limit\",\n      \"code\": \"<PromptInput \\n  onSubmit={handleSubmit}\\n  maxLength={500}\\n/>\",\n      \"description\": \"Limits input to 500 characters\"\n    },\n    {\n      \"title\": \"Without send button\",\n      \"code\": \"<PromptInput \\n  onSubmit={handleSubmit}\\n  showSendButton={false}\\n/>\",\n      \"description\": \"Hides the send button (user must press Enter)\"\n    },\n    {\n      \"title\": \"With loading state\",\n      \"code\": \"<PromptInput \\n  onSubmit={handleSubmit}\\n  isLoading={isGenerating}\\n  disabled={isGenerating}\\n/>\",\n      \"description\": \"Shows loading state and disables while AI is responding\"\n    },\n    {\n      \"title\": \"Cancellable generation\",\n      \"code\": \"<PromptInput onSubmit={send} isLoading={loading} onStop={() => abortRef.current.abort()} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use for non-chat input\",\n      \"explanation\": \"PromptInput is specifically for chat interactions, not general form input\",\n      \"example\": \"// Avoid: Using PromptInput for forms\\n<PromptInput onSubmit={handleFormSubmit} />\\n\\n// Prefer: Use appropriate form input components\\n<TextArea onChange={handleChange} />\"\n    },\n    {\n      \"title\": \"Don't ignore Enter key behavior\",\n      \"explanation\": \"Users expect Enter to submit. If you change this, communicate it clearly\",\n      \"example\": \"// Avoid: Confusing users by disabling Enter\\n<PromptInput \\n  onSubmit={handleSubmit}\\n  // Users expect Enter to submit\\n/>\\n\\n// If you need different behavior, document it clearly\"\n    },\n    {\n      \"title\": \"Don't validate after submission\",\n      \"explanation\": \"Disable the input when empty rather than validating in the handler\",\n      \"example\": \"// Avoid: Validating in onSubmit\\n<PromptInput onSubmit={(value) => {\\n  if (!value) return; // Validate before\\n  sendMessage(value);\\n}} />\\n\\n// Prefer: Disable button when empty\\n<PromptInput \\n  onSubmit={sendMessage}\\n  disabled={!value}\\n/>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Keyboard navigation\",\n      \"implementation\": \"Full keyboard support with Enter to submit, Shift+Enter for new line\",\n      \"userRequirements\": \"Document keyboard shortcuts for users\"\n    },\n    {\n      \"feature\": \"Screen reader support\",\n      \"implementation\": \"Textarea has proper label and placeholder. Button state is announced\",\n      \"userRequirements\": \"Ensure placeholder text is descriptive and helpful\"\n    },\n    {\n      \"feature\": \"Form validation\",\n      \"implementation\": \"Button is disabled when input is empty, preventing invalid submissions\",\n      \"userRequirements\": \"Consider adding aria-invalid for custom validation if needed\"\n    },\n    {\n      \"feature\": \"Auto-resize\",\n      \"implementation\": \"Textarea automatically grows with content up to max-height\",\n      \"userRequirements\": \"Test with screen readers to ensure height changes are announced appropriately\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Placeholder text\",\n      \"guidelines\": [\n        \"Use action-oriented placeholder text\",\n        \"Be specific about what kind of input is expected\",\n        \"Keep placeholders concise (under 50 characters ideally)\",\n        \"Avoid generic placeholders like 'Enter text'\",\n        \"Consider the context of the conversation\"\n      ],\n      \"goodExamples\": [\n        \"Type your message...\",\n        \"Ask me anything about coding...\",\n        \"Describe what you'd like to build...\"\n      ],\n      \"badExamples\": [\n        \"Enter text here\",\n        \"Input\",\n        \"Type something\",\n        \"Lorem ipsum dolor sit amet\"\n      ]\n    },\n    {\n      \"contentType\": \"Send button\",\n      \"guidelines\": [\n        \"Use clear icons or text for the send button\",\n        \"Consider using an arrow icon (→) for a modern look\",\n        \"Show loading state when submitting\",\n        \"Disable button when input is empty\"\n      ],\n      \"goodExamples\": [\n        \"→\",\n        \"Send\",\n        \"Submit\"\n      ],\n      \"badExamples\": [\n        \"Click me\",\n        \"OK\",\n        \"Go\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Conversation\",\n      \"relationship\": \"PromptInput is typically used below a Conversation component to add new messages\",\n      \"example\": \"Conversation displays messages, PromptInput submits new ones to the same messages array\"\n    },\n    {\n      \"component\": \"ChatLayout\",\n      \"relationship\": \"PromptInput is often part of a ChatLayout that combines Conversation and input\",\n      \"example\": \"ChatLayout wraps Conversation and PromptInput in a complete chat interface\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Conversation\",\n    \"ChatLayout\",\n    \"Button\"\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"prompt-input\",\n  \"exportName\": \"PromptInput\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

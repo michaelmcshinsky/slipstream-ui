@@ -1,0 +1,180 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "tier": "atom",
+  "description": "A small status indicator component for displaying tags, counts, or status information",
+  "designIntent": "The Badge component is used to display small pieces of information like status indicators, counts, or tags. It provides visual variants for different semantic meanings (default, secondary, destructive, outline).",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'secondary' | 'destructive' | 'outline'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Visual style variant of the badge",
+      "enum": [
+        "default",
+        "secondary",
+        "destructive",
+        "outline"
+      ],
+      "examples": [
+        "default",
+        "destructive",
+        "outline"
+      ]
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content to display inside the badge",
+      "examples": [
+        "New",
+        "3",
+        "Active",
+        "Error"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Default badge",
+      "code": "<Badge>New</Badge>",
+      "description": "Primary badge for highlighting new items"
+    },
+    {
+      "title": "Secondary badge",
+      "code": "<Badge variant=\"secondary\">Info</Badge>",
+      "description": "Less prominent badge for secondary information"
+    },
+    {
+      "title": "Destructive badge",
+      "code": "<Badge variant=\"destructive\">Error</Badge>",
+      "description": "Badge for error states or destructive actions"
+    },
+    {
+      "title": "Outline badge",
+      "code": "<Badge variant=\"outline\">Beta</Badge>",
+      "description": "Subtle badge with outline style"
+    },
+    {
+      "title": "Count badge",
+      "code": "<Badge>3</Badge>",
+      "description": "Badge for displaying counts or numbers"
+    },
+    {
+      "title": "Status badge",
+      "code": "<Badge variant=\"outline\">Active</Badge>",
+      "description": "Badge for status indicators"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use for long text",
+      "explanation": "Badges are designed for short text. Use tooltips or other components for longer content.",
+      "example": "// Avoid: Long text in badge\n<Badge>This is way too long for a badge</Badge>\n\n// Prefer: Keep text short\n<Badge>Long</Badge>"
+    },
+    {
+      "title": "Don't overuse badges",
+      "explanation": "Too many badges create visual noise. Prioritize the most important information.",
+      "example": "// Avoid: Too many badges\n<div>\n  <Badge>New</Badge>\n  <Badge>Updated</Badge>\n  <Badge>Featured</Badge>\n  <Badge>Popular</Badge>\n</div>\n\n// Prefer: Consolidate or prioritize\n<div>\n  <Badge>New</Badge>\n  <Badge>Featured</Badge>\n</div>"
+    },
+    {
+      "title": "Don't use wrong variant for meaning",
+      "explanation": "Destructive variant should only be used for errors or destructive actions.",
+      "example": "// Avoid: Using destructive for non-destructive\n<Badge variant=\"destructive\">New</Badge>\n\n// Prefer: Use appropriate variant\n<Badge>New</Badge>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Screen reader support",
+      "implementation": "Badge content is announced as text. Use aria-label if badge has visual-only meaning",
+      "userRequirements": "For status badges, consider adding aria-label to convey meaning"
+    },
+    {
+      "feature": "Color contrast",
+      "implementation": "All variants meet WCAG AA contrast requirements",
+      "userRequirements": "Test custom colors for contrast in both light and dark modes"
+    },
+    {
+      "feature": "Focus indication",
+      "implementation": "Badge has visible focus ring when keyboard navigable",
+      "userRequirements": "If badge is interactive, ensure it can be keyboard navigated"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Badge text",
+      "guidelines": [
+        "Keep badge text very short (1-2 words ideally)",
+        "Use sentence case for badge text",
+        "Use numeric values for counts",
+        "Use clear, concise status terms",
+        "Avoid abbreviations unless universally understood"
+      ],
+      "goodExamples": [
+        "New",
+        "Updated",
+        "3",
+        "Active",
+        "Beta"
+      ],
+      "badExamples": [
+        "This is new",
+        "Recently Updated",
+        "Three items",
+        "Currently Active",
+        "BETA"
+      ]
+    },
+    {
+      "contentType": "Status terminology",
+      "guidelines": [
+        "Use standard status terms (Active, Inactive, Pending, etc.)",
+        "Be consistent with status terminology across the application",
+        "Use clear, unambiguous status labels",
+        "Consider color coding to reinforce status meaning"
+      ],
+      "goodExamples": [
+        "Active",
+        "Pending",
+        "Complete",
+        "Failed"
+      ],
+      "badExamples": [
+        "It's working",
+        "Waiting",
+        "Done",
+        "Bad"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button",
+      "relationship": "Badges can be combined with buttons to show notification counts or status",
+      "example": "<Button><Badge>3</Badge> Messages</Button>"
+    },
+    {
+      "component": "Card",
+      "relationship": "Badges are often used in card headers to show status or category",
+      "example": "<Card><CardHeader><Badge>New</Badge></CardHeader></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "Button",
+    "Card",
+    "Tooltip"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "badge",
+  "exportName": "Badge"
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "source",
+  "name": "source",
+  "tier": "molecule",
+  "description": "Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.",
+  "designIntent": "Make generated answers transparent by showing where information came from.",
+  "props": [
+    {
+      "name": "sources",
+      "type": "SourceItem[]",
+      "required": true,
+      "description": "References to display (Sources only)."
+    },
+    {
+      "name": "maxDisplay",
+      "type": "number",
+      "defaultValue": 3,
+      "required": false,
+      "description": "Maximum number of references to show before an overflow indicator."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "defaultValue": "Sources",
+      "required": false,
+      "description": "Heading label; override for localization."
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "required": false,
+      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Citations list",
+      "code": "<Sources sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }, { id: '2', title: 'MDN', url: 'https://developer.mozilla.org' }]} />"
+    },
+    {
+      "title": "Single inline citation",
+      "code": "<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not nest Sources inside Sources",
+      "explanation": "Sources is a list container; compose individual Source items only when building a custom layout."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Link semantics",
+      "implementation": "References use native links with rel=noopener when URLs are provided."
+    },
+    {
+      "feature": "Decorative markers",
+      "implementation": "[n] citation markers are aria-hidden; titles are read as link text."
+    }
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "source",
+  "exportName": "Source",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/source/index.ts",
+      "content": "export { Source } from './Source';\nexport type { SourceProps } from './Source';\nexport { Sources } from './Sources';\nexport type { SourcesProps } from './Sources';\n\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/source/Source.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport type { SourceItem } from '../../types';\n\nexport interface SourceProps {\n  source: SourceItem;\n  /**\n   * 1-based citation marker rendered as a `[n]` prefix.\n   * Omit to render the citation without numbering.\n   */\n  index?: number;\n  className?: string;\n}\n\nconst Source = React.forwardRef<HTMLDivElement, SourceProps>(\n  ({ source, index, className, ...props }, ref) => {\n    return (\n      <div ref={ref} className={cn('flex gap-2 items-start text-sm', className)} {...props}>\n        {index !== undefined && (\n          <span className=\"text-muted-foreground select-none\" aria-hidden=\"true\">\n            [{index}]\n          </span>\n        )}\n        <div className=\"flex-1 min-w-0\">\n          <div className=\"font-medium text-foreground\">\n            {source.url ? (\n              <a\n                href={source.url}\n                target=\"_blank\"\n                rel=\"noopener noreferrer\"\n                className=\"hover:text-primary transition-colors\"\n              >\n                {source.title}\n              </a>\n            ) : (\n              <span>{source.title}</span>\n            )}\n          </div>\n          {source.snippet && (\n            <div className=\"text-xs text-muted-foreground mt-1 line-clamp-2\">\n              {source.snippet}\n            </div>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\nSource.displayName = 'Source';\n\nexport { Source };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/source/Sources.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport type { SourceItem } from '../../types';\nimport { Source } from './Source';\n\nexport interface SourcesProps {\n  sources: SourceItem[];\n  className?: string;\n  maxDisplay?: number;\n  /** Heading label; override for localization. */\n  label?: string;\n}\n\nconst Sources = React.forwardRef<HTMLDivElement, SourcesProps>(\n  ({ sources, className, maxDisplay = 3, label = 'Sources', ...props }, ref) => {\n    const displaySources = maxDisplay ? sources.slice(0, maxDisplay) : sources;\n    const hasMore = maxDisplay && sources.length > maxDisplay;\n\n    if (sources.length === 0) {\n      return null;\n    }\n\n    return (\n      <div ref={ref} className={cn('mt-4 pt-4 border-t border-border', className)} {...props}>\n        <div className=\"text-xs font-medium text-muted-foreground mb-2\">{label}</div>\n        <div className=\"space-y-2\">\n          {displaySources.map((source, index) => (\n            <Source key={source.id} source={source} index={index + 1} />\n          ))}\n          {hasMore && (\n            <div className=\"text-xs text-muted-foreground\">\n              +{sources.length - (maxDisplay ?? 0)} more sources\n            </div>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\nSources.displayName = 'Sources';\n\nexport { Sources };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/source.manifest.json",
+      "content": "{\n  \"id\": \"source\",\n  \"name\": \"Source / Sources\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.\",\n  \"designIntent\": \"Make generated answers transparent by showing where information came from.\",\n  \"props\": [\n    {\n      \"name\": \"sources\",\n      \"type\": \"SourceItem[]\",\n      \"required\": true,\n      \"description\": \"References to display (Sources only).\"\n    },\n    {\n      \"name\": \"maxDisplay\",\n      \"type\": \"number\",\n      \"defaultValue\": 3,\n      \"required\": false,\n      \"description\": \"Maximum number of references to show before an overflow indicator.\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Sources\",\n      \"required\": false,\n      \"description\": \"Heading label; override for localization.\"\n    },\n    {\n      \"name\": \"index\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"1-based citation marker rendered as [n]; omit on Source to hide numbering.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Citations list\",\n      \"code\": \"<Sources sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }, { id: '2', title: 'MDN', url: 'https://developer.mozilla.org' }]} />\"\n    },\n    {\n      \"title\": \"Single inline citation\",\n      \"code\": \"<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not nest Sources inside Sources\",\n      \"explanation\": \"Sources is a list container; compose individual Source items only when building a custom layout.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Link semantics\",\n      \"implementation\": \"References use native links with rel=noopener when URLs are provided.\"\n    },\n    {\n      \"feature\": \"Decorative markers\",\n      \"implementation\": \"[n] citation markers are aria-hidden; titles are read as link text.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"source\",\n  \"exportName\": \"Source\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

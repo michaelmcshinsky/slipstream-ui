@@ -1,0 +1,183 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "tool-call",
+  "name": "tool-call",
+  "tier": "molecule",
+  "description": "A component for displaying AI tool/function calls with status, arguments, and results",
+  "designIntent": "The ToolCall component visualizes when an AI agent uses tools or functions. It shows the tool name, status (pending, running, completed, failed), arguments passed, and the result returned. This provides transparency into the AI's actions.",
+  "props": [
+    {
+      "name": "toolCall",
+      "type": "ToolCall",
+      "required": true,
+      "description": "The tool call object containing name, arguments, status, and result",
+      "examples": [
+        "{ id: '1', name: 'search', arguments: { query: 'React' }, status: 'completed' }"
+      ]
+    },
+    {
+      "name": "showResult",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether to display the tool result",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Completed tool call",
+      "code": "<ToolCall \n  toolCall={{\n    id: '1',\n    name: 'search',\n    arguments: { query: 'React components' },\n    status: 'completed',\n    result: { results: [...] }\n  }}\n/>",
+      "description": "Tool call that completed successfully with result"
+    },
+    {
+      "title": "Running tool call",
+      "code": "<ToolCall \n  toolCall={{\n    id: '2',\n    name: 'calculate',\n    arguments: { expression: '2 + 2' },\n    status: 'running'\n  }}\n/>",
+      "description": "Tool call currently in progress"
+    },
+    {
+      "title": "Failed tool call",
+      "code": "<ToolCall \n  toolCall={{\n    id: '3',\n    name: 'api_request',\n    arguments: { endpoint: '/users' },\n    status: 'failed',\n    result: { error: 'Timeout' }\n  }}\n/>",
+      "description": "Tool call that failed with error message"
+    },
+    {
+      "title": "Without result",
+      "code": "<ToolCall \n  toolCall={toolCall}\n  showResult={false}\n/>",
+      "description": "Tool call with result hidden"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't show tool calls for simple operations",
+      "explanation": "Tool calls should be shown for meaningful operations, not trivial ones.",
+      "example": "// Avoid: Showing trivial tool calls\n<ToolCall toolCall={{ name: 'echo', arguments: { text: 'hello' }, status: 'completed' }} />\n\n// Prefer: Only show meaningful tool usage\n<ToolCall toolCall={{ name: 'search_database', arguments: { query: complexQuery }, status: 'completed' }} />"
+    },
+    {
+      "title": "Don't expose sensitive data in arguments",
+      "explanation": "Never display sensitive credentials or personal data in tool call arguments.",
+      "example": "// Avoid: Including sensitive data\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: 'secret-key' }, \n  status: 'completed' \n}} />\n\n// Prefer: Redact sensitive information\n<ToolCall toolCall={{ \n  name: 'api_call', \n  arguments: { apiKey: '[REDACTED]' }, \n  status: 'completed' \n}} />"
+    },
+    {
+      "title": "Don't ignore failed tool calls",
+      "explanation": "Failed tool calls should be clearly indicated with error information.",
+      "example": "// Avoid: Not addressing failures\n<ToolCall toolCall={{ name: 'save', status: 'failed' }} />\n\n// Prefer: Handle and display failures appropriately\n<ToolCall toolCall={{ name: 'save', status: 'failed', result: { error: 'Permission denied' } }} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status indication",
+      "implementation": "Status is shown with both color and text label for clarity",
+      "userRequirements": "Ensure status colors have sufficient contrast in both light and dark modes"
+    },
+    {
+      "feature": "Code readability",
+      "implementation": "Arguments and results are displayed in pre/code blocks with proper formatting",
+      "userRequirements": "Test JSON display with screen readers for complex nested structures"
+    },
+    {
+      "feature": "Structure",
+      "implementation": "Tool call information is organized in clear sections (header, arguments, result)",
+      "userRequirements": "Use semantic headings for screen reader navigation"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tool names",
+      "guidelines": [
+        "Use clear, descriptive tool names",
+        "Use snake_case or camelCase consistently",
+        "Names should indicate what the tool does",
+        "Avoid abbreviations unless universally understood",
+        "Prefix related tools with a common namespace"
+      ],
+      "goodExamples": [
+        "search_database",
+        "calculate_expression",
+        "send_email",
+        "weather_api.get_current"
+      ],
+      "badExamples": [
+        "tool1",
+        "proc",
+        "do_it",
+        "wthr.get"
+      ]
+    },
+    {
+      "contentType": "Status messages",
+      "guidelines": [
+        "Use standard status terminology (pending, running, completed, failed)",
+        "Be consistent with status labels across the application",
+        "For failed states, include error information when available",
+        "Use color coding to reinforce status meaning"
+      ],
+      "goodExamples": [
+        "Completed",
+        "Failed: Timeout",
+        "Running",
+        "Pending"
+      ],
+      "badExamples": [
+        "Done",
+        "Bad",
+        "Working",
+        "Waiting"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Message",
+      "relationship": "ToolCall components are typically displayed within assistant messages to show tool usage",
+      "example": "Message component can contain ToolCall to show when the AI used tools during its response"
+    },
+    {
+      "component": "Reasoning",
+      "relationship": "Reasoning often precedes ToolCall to explain why a tool is being invoked",
+      "example": "Reasoning explains the decision to use a tool, ToolCall shows the actual invocation"
+    }
+  ],
+  "relatedComponents": [
+    "Message",
+    "Reasoning",
+    "Conversation"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "tool-call",
+  "exportName": "ToolCall",
+  "type": "registry:component",
+  "dependencies": [
+    "@slipstream-ui/core"
+  ],
+  "registryDependencies": [
+    "https://slipstreamui.com/registry/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/slipstream/tool-call/index.ts",
+      "content": "export { ToolCall } from './ToolCall';\nexport type { ToolCallProps } from './ToolCall';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/tool-call/ToolCall.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport type { ToolCall as ToolCallType } from '../../types';\n\nexport interface ToolCallProps {\n  toolCall: ToolCallType;\n  className?: string;\n  showResult?: boolean;\n}\n\nconst ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(\n  ({ toolCall, className, showResult = true, ...props }, ref) => {\n    // Serialize once per tool-call change instead of on every render.\n    const serializedArguments = React.useMemo(\n      () => JSON.stringify(toolCall.arguments, null, 2),\n      [toolCall.arguments]\n    );\n    const serializedResult = React.useMemo(() => {\n      if (toolCall.result === undefined) return undefined;\n      return typeof toolCall.result === 'string'\n        ? toolCall.result\n        : JSON.stringify(toolCall.result, null, 2);\n    }, [toolCall.result]);\n\n    const statusColors = {\n      pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',\n      running: 'bg-blue-500/10 text-blue-500 border-blue-500/20',\n      completed: 'bg-green-500/10 text-green-500 border-green-500/20',\n      failed: 'bg-red-500/10 text-red-500 border-red-500/20',\n    };\n\n    const statusLabels = {\n      pending: 'Pending',\n      running: 'Running',\n      completed: 'Completed',\n      failed: 'Failed',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          'border rounded-lg p-4 bg-muted/30',\n          className\n        )}\n        {...props}\n      >\n        <div className=\"flex items-center justify-between mb-3\">\n          <div className=\"flex items-center gap-2\">\n            <span className=\"font-medium text-sm\">{toolCall.name}</span>\n            <span\n              className={cn(\n                'text-xs px-2 py-0.5 rounded-full border',\n                statusColors[toolCall.status]\n              )}\n            >\n              {statusLabels[toolCall.status]}\n            </span>\n          </div>\n          <span className=\"text-xs text-muted-foreground\">{toolCall.id}</span>\n        </div>\n\n        <div className=\"space-y-2\">\n          <div>\n            <div className=\"text-xs font-medium text-muted-foreground mb-1\">Arguments</div>\n            <pre className=\"text-xs bg-muted p-2 rounded overflow-x-auto\">\n              <code>{serializedArguments}</code>\n            </pre>\n          </div>\n\n          {showResult && serializedResult !== undefined && (\n            <div>\n              <div className=\"text-xs font-medium text-muted-foreground mb-1\">Result</div>\n              <pre className=\"text-xs bg-muted p-2 rounded overflow-x-auto\">\n                <code>{serializedResult}</code>\n              </pre>\n            </div>\n          )}\n\n          {toolCall.status === 'failed' && toolCall.error && (\n            <div role=\"alert\">\n              <div className=\"text-xs font-medium text-red-500 mb-1\">Error</div>\n              <pre className=\"text-xs bg-red-500/10 text-red-500 p-2 rounded overflow-x-auto whitespace-pre-wrap\">\n                <code>{toolCall.error}</code>\n              </pre>\n            </div>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\nToolCall.displayName = 'ToolCall';\n\nexport { ToolCall };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/tool-call.manifest.json",
+      "content": "{\n  \"id\": \"tool-call\",\n  \"name\": \"ToolCall\",\n  \"tier\": \"molecule\",\n  \"description\": \"A component for displaying AI tool/function calls with status, arguments, and results\",\n  \"designIntent\": \"The ToolCall component visualizes when an AI agent uses tools or functions. It shows the tool name, status (pending, running, completed, failed), arguments passed, and the result returned. This provides transparency into the AI's actions.\",\n  \"props\": [\n    {\n      \"name\": \"toolCall\",\n      \"type\": \"ToolCall\",\n      \"required\": true,\n      \"description\": \"The tool call object containing name, arguments, status, and result\",\n      \"examples\": [\n        \"{ id: '1', name: 'search', arguments: { query: 'React' }, status: 'completed' }\"\n      ]\n    },\n    {\n      \"name\": \"showResult\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"true\",\n      \"required\": false,\n      \"description\": \"Whether to display the tool result\",\n      \"examples\": [\n        true,\n        false\n      ]\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Completed tool call\",\n      \"code\": \"<ToolCall \\n  toolCall={{\\n    id: '1',\\n    name: 'search',\\n    arguments: { query: 'React components' },\\n    status: 'completed',\\n    result: { results: [...] }\\n  }}\\n/>\",\n      \"description\": \"Tool call that completed successfully with result\"\n    },\n    {\n      \"title\": \"Running tool call\",\n      \"code\": \"<ToolCall \\n  toolCall={{\\n    id: '2',\\n    name: 'calculate',\\n    arguments: { expression: '2 + 2' },\\n    status: 'running'\\n  }}\\n/>\",\n      \"description\": \"Tool call currently in progress\"\n    },\n    {\n      \"title\": \"Failed tool call\",\n      \"code\": \"<ToolCall \\n  toolCall={{\\n    id: '3',\\n    name: 'api_request',\\n    arguments: { endpoint: '/users' },\\n    status: 'failed',\\n    result: { error: 'Timeout' }\\n  }}\\n/>\",\n      \"description\": \"Tool call that failed with error message\"\n    },\n    {\n      \"title\": \"Without result\",\n      \"code\": \"<ToolCall \\n  toolCall={toolCall}\\n  showResult={false}\\n/>\",\n      \"description\": \"Tool call with result hidden\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't show tool calls for simple operations\",\n      \"explanation\": \"Tool calls should be shown for meaningful operations, not trivial ones.\",\n      \"example\": \"// Avoid: Showing trivial tool calls\\n<ToolCall toolCall={{ name: 'echo', arguments: { text: 'hello' }, status: 'completed' }} />\\n\\n// Prefer: Only show meaningful tool usage\\n<ToolCall toolCall={{ name: 'search_database', arguments: { query: complexQuery }, status: 'completed' }} />\"\n    },\n    {\n      \"title\": \"Don't expose sensitive data in arguments\",\n      \"explanation\": \"Never display sensitive credentials or personal data in tool call arguments.\",\n      \"example\": \"// Avoid: Including sensitive data\\n<ToolCall toolCall={{ \\n  name: 'api_call', \\n  arguments: { apiKey: 'secret-key' }, \\n  status: 'completed' \\n}} />\\n\\n// Prefer: Redact sensitive information\\n<ToolCall toolCall={{ \\n  name: 'api_call', \\n  arguments: { apiKey: '[REDACTED]' }, \\n  status: 'completed' \\n}} />\"\n    },\n    {\n      \"title\": \"Don't ignore failed tool calls\",\n      \"explanation\": \"Failed tool calls should be clearly indicated with error information.\",\n      \"example\": \"// Avoid: Not addressing failures\\n<ToolCall toolCall={{ name: 'save', status: 'failed' }} />\\n\\n// Prefer: Handle and display failures appropriately\\n<ToolCall toolCall={{ name: 'save', status: 'failed', result: { error: 'Permission denied' } }} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status indication\",\n      \"implementation\": \"Status is shown with both color and text label for clarity\",\n      \"userRequirements\": \"Ensure status colors have sufficient contrast in both light and dark modes\"\n    },\n    {\n      \"feature\": \"Code readability\",\n      \"implementation\": \"Arguments and results are displayed in pre/code blocks with proper formatting\",\n      \"userRequirements\": \"Test JSON display with screen readers for complex nested structures\"\n    },\n    {\n      \"feature\": \"Structure\",\n      \"implementation\": \"Tool call information is organized in clear sections (header, arguments, result)\",\n      \"userRequirements\": \"Use semantic headings for screen reader navigation\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Tool names\",\n      \"guidelines\": [\n        \"Use clear, descriptive tool names\",\n        \"Use snake_case or camelCase consistently\",\n        \"Names should indicate what the tool does\",\n        \"Avoid abbreviations unless universally understood\",\n        \"Prefix related tools with a common namespace\"\n      ],\n      \"goodExamples\": [\n        \"search_database\",\n        \"calculate_expression\",\n        \"send_email\",\n        \"weather_api.get_current\"\n      ],\n      \"badExamples\": [\n        \"tool1\",\n        \"proc\",\n        \"do_it\",\n        \"wthr.get\"\n      ]\n    },\n    {\n      \"contentType\": \"Status messages\",\n      \"guidelines\": [\n        \"Use standard status terminology (pending, running, completed, failed)\",\n        \"Be consistent with status labels across the application\",\n        \"For failed states, include error information when available\",\n        \"Use color coding to reinforce status meaning\"\n      ],\n      \"goodExamples\": [\n        \"Completed\",\n        \"Failed: Timeout\",\n        \"Running\",\n        \"Pending\"\n      ],\n      \"badExamples\": [\n        \"Done\",\n        \"Bad\",\n        \"Working\",\n        \"Waiting\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Message\",\n      \"relationship\": \"ToolCall components are typically displayed within assistant messages to show tool usage\",\n      \"example\": \"Message component can contain ToolCall to show when the AI used tools during its response\"\n    },\n    {\n      \"component\": \"Reasoning\",\n      \"relationship\": \"Reasoning often precedes ToolCall to explain why a tool is being invoked\",\n      \"example\": \"Reasoning explains the decision to use a tool, ToolCall shows the actual invocation\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Message\",\n    \"Reasoning\",\n    \"Conversation\"\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"tool-call\",\n  \"exportName\": \"ToolCall\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@slipstream-ui/tailwind-config",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "tailwind.config.js"
+  ],
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "select",
+  "name": "select",
+  "tier": "atom",
+  "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+  "designIntent": "Most dropdown needs are satisfied by the platform select: it brings complete keyboard, screen-reader and mobile behavior for free and never strands focus. This primitive adds consistent styling and a typed options API without re-implementing a listbox.",
+  "props": [
+    {
+      "name": "options",
+      "type": "SelectOption[]",
+      "required": true,
+      "description": "Options to render; each is { value, label, disabled? }",
+      "examples": [
+        {
+          "value": "sm",
+          "label": "Small"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Visible label rendered and associated via htmlFor/aria"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled selected value"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Uncontrolled initial value"
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called with the newly selected value"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Controlled select",
+      "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
+      "description": "Keep the selected value in state and render it back through value."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Do not build a custom listbox for simple choices",
+      "explanation": "Hand-rolled listboxes rarely match native keyboard and screen-reader behavior. Use Select for flat option lists; consider CommandPalette for searchable command surfaces."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Label association",
+      "implementation": "A visible label is connected with htmlFor/id; without one, aria-label is forwarded to the native select."
+    },
+    {
+      "feature": "Platform keyboard and screen-reader support",
+      "implementation": "Built on the native select element, inheriting its full support matrix."
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button",
+      "relationship": "Pair Select with Button in filter toolbars; Button submits, Select filters."
+    }
+  ],
+  "relatedComponents": [
+    "Button",
+    "Input"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "select",
+  "exportName": "Select",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/select/index.ts",
+      "content": "export { Select } from './Select';\nexport type { SelectProps, SelectOption } from './Select';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/select/Select.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\n\nexport interface SelectOption {\n  value: string;\n  label: string;\n  disabled?: boolean;\n}\n\nexport interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value' | 'defaultValue'> {\n  options: SelectOption[];\n  label?: string;\n  value?: string;\n  defaultValue?: string;\n  onChange?: (value: string) => void;\n}\n\n/**\n * Accessible select primitive built on the native <select>: full keyboard,\n * screen-reader and mobile platform behavior comes from the platform rather\n * than a re-implemented listbox (KC-030). Controlled via `value`, or\n * uncontrolled via `defaultValue`.\n */\nexport const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(\n  { options, label, value, defaultValue, onChange, id, className, ...props },\n  ref,\n) {\n  const generatedId = React.useId();\n  const selectId = id ?? generatedId;\n  const labelId = `${selectId}-label`;\n\n  return (\n    <div className=\"flex flex-col gap-1.5\">\n      {label && (\n        <label id={labelId} htmlFor={selectId} className=\"text-sm font-medium\">\n          {label}\n        </label>\n      )}\n      <select\n        ref={ref}\n        id={selectId}\n        aria-labelledby={label ? labelId : undefined}\n        className={`rounded-md border border-input bg-background px-3 py-2 text-sm ${className ?? ''}`}\n        value={value}\n        defaultValue={defaultValue}\n        onChange={(event) => onChange?.(event.target.value)}\n        {...props}\n      >\n        {options.map((option) => (\n          <option key={option.value} value={option.value} disabled={option.disabled}>\n            {option.label}\n          </option>\n        ))}\n      </select>\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/select.manifest.json",
+      "content": "{\n  \"id\": \"select\",\n  \"name\": \"Select\",\n  \"tier\": \"atom\",\n  \"description\": \"Accessible select primitive built on the native select element with controlled and uncontrolled modes\",\n  \"designIntent\": \"Most dropdown needs are satisfied by the platform select: it brings complete keyboard, screen-reader and mobile behavior for free and never strands focus. This primitive adds consistent styling and a typed options API without re-implementing a listbox.\",\n  \"props\": [\n    {\n      \"name\": \"options\",\n      \"type\": \"SelectOption[]\",\n      \"required\": true,\n      \"description\": \"Options to render; each is { value, label, disabled? }\",\n      \"examples\": [{ \"value\": \"sm\", \"label\": \"Small\" }]\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Visible label rendered and associated via htmlFor/aria\"\n    },\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Controlled selected value\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Uncontrolled initial value\"\n    },\n    {\n      \"name\": \"onChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Called with the newly selected value\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Controlled select\",\n      \"code\": \"const [size, setSize] = useState('default');\\n\\n<Select\\n  label=\\\"Size\\\"\\n  value={size}\\n  onChange={setSize}\\n  options={[\\n    { value: 'default', label: 'Default' },\\n    { value: 'sm', label: 'Small' },\\n    { value: 'lg', label: 'Large' },\\n  ]}\\n/>\",\n      \"description\": \"Keep the selected value in state and render it back through value.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not build a custom listbox for simple choices\",\n      \"explanation\": \"Hand-rolled listboxes rarely match native keyboard and screen-reader behavior. Use Select for flat option lists; consider CommandPalette for searchable command surfaces.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Label association\",\n      \"implementation\": \"A visible label is connected with htmlFor/id; without one, aria-label is forwarded to the native select.\"\n    },\n    {\n      \"feature\": \"Platform keyboard and screen-reader support\",\n      \"implementation\": \"Built on the native select element, inheriting its full support matrix.\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Button\",\n      \"relationship\": \"Pair Select with Button in filter toolbars; Button submits, Select filters.\"\n    }\n  ],\n  \"relatedComponents\": [\"Button\", \"Input\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"select\",\n  \"exportName\": \"Select\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

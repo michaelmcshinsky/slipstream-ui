@@ -1,0 +1,209 @@
+{
+  "name": "slipstream-ui",
+  "schemaVersion": 1,
+  "sourceRevision": "7972ccc",
+  "count": 25,
+  "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
+  "components": [
+    {
+      "id": "attachment",
+      "name": "Attachment / AttachmentList",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
+      "registry": "/registry/attachment.json"
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A user profile image component with fallback support and accessible image loading",
+      "registry": "/registry/avatar.json"
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A small status indicator component for displaying tags, counts, or status information",
+      "registry": "/registry/badge.json"
+    },
+    {
+      "id": "branch",
+      "name": "Branch",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "description": "Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
+      "registry": "/registry/branch.json"
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A clickable button component with variants for different visual styles and sizes",
+      "registry": "/registry/button.json"
+    },
+    {
+      "id": "chain-thought",
+      "name": "ChainThought",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "Displays ordered reasoning steps with status indicators.",
+      "registry": "/registry/chain-thought.json"
+    },
+    {
+      "id": "code-block",
+      "name": "CodeBlock",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "description": "Syntax-highlighted code block with language label and copy-to-clipboard button.",
+      "registry": "/registry/code-block.json"
+    },
+    {
+      "id": "command-palette",
+      "name": "CommandPalette",
+      "package": "@slipstream-ui/ai",
+      "tier": "organism",
+      "description": "Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+      "registry": "/registry/command-palette.json"
+    },
+    {
+      "id": "confirmation",
+      "name": "Confirmation",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
+      "registry": "/registry/confirmation.json"
+    },
+    {
+      "id": "conversation",
+      "name": "Conversation",
+      "package": "@slipstream-ui/ai",
+      "tier": "organism",
+      "description": "A container for displaying a list of chat messages with auto-scroll and loading states",
+      "registry": "/registry/conversation.json"
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+      "registry": "/registry/dialog.json"
+    },
+    {
+      "id": "inline-citation",
+      "name": "InlineCitation",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "description": "Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.",
+      "registry": "/registry/inline-citation.json"
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A text input field with support for various input types and standard HTML input attributes",
+      "registry": "/registry/input.json"
+    },
+    {
+      "id": "message",
+      "name": "Message",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "A chat message component that displays messages from users, assistants, or system prompts with optional avatars",
+      "registry": "/registry/message.json"
+    },
+    {
+      "id": "message-actions",
+      "name": "MessageActions",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "description": "Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.",
+      "registry": "/registry/message-actions.json"
+    },
+    {
+      "id": "prompt-input",
+      "name": "PromptInput",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button",
+      "registry": "/registry/prompt-input.json"
+    },
+    {
+      "id": "reasoning",
+      "name": "Reasoning",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "A collapsible component for displaying AI reasoning steps and chain-of-thought processes",
+      "registry": "/registry/reasoning.json"
+    },
+    {
+      "id": "response",
+      "name": "Response",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.",
+      "registry": "/registry/response.json"
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+      "registry": "/registry/select.json"
+    },
+    {
+      "id": "source",
+      "name": "Source / Sources",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.",
+      "registry": "/registry/source.json"
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Indeterminate loading indicator with accessible status semantics.",
+      "registry": "/registry/spinner.json"
+    },
+    {
+      "id": "streaming-indicator",
+      "name": "StreamingIndicator",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "description": "Shows that an AI response is currently streaming.",
+      "registry": "/registry/streaming-indicator.json"
+    },
+    {
+      "id": "suggestions",
+      "name": "Suggestions",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "Displays clickable follow-up prompts for AI interactions.",
+      "registry": "/registry/suggestions.json"
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions",
+      "registry": "/registry/toast.json"
+    },
+    {
+      "id": "tool-call",
+      "name": "ToolCall",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "description": "A component for displaying AI tool/function calls with status, arguments, and results",
+      "registry": "/registry/tool-call.json"
+    }
+  ]
+}

@@ -1,61 +1,61 @@
-<p align="center">
-  <a href="https://slipstreamui.com" target="_blank">
-    <img src="https://github.com/michaelmcshinsky/slipstream-ui/raw/main/slipstream-banner-2.png" alt="Slipstream UI">
-  </a>
-</p>
-<p align="center">
-  Component library combining React and Tailwindcss, built with TypeScript
-</p>
-<p align="center">
-  <a href="https://slipstreamui.com" target="_blank">Documentation</a> | <a href="https://www.npmjs.com/package/slipstream-ui" target="_blank">NPM</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui" target="_blank">Github</a> | <a href="https://github.com/michaelmcshinsky/slipstream-ui/projects/1" target="_blank">Roadmap</a>
-</p>
-<p align="center">
-  <a href="https://www.npmjs.com/package/slipstream-ui" target="_blank">
-    <img src="https://img.shields.io/npm/v/slipstream-ui?style=flat-square"/>
-  </a>
-</p>
-<hr/>
+# Slipstream UI
 
-## Installation
+The AI-first React component library — your AI already knows how to use it.
 
-```
-npm i slipstream-ui
-# or
-yarn add slipstream-ui
-```
+## Overview
 
-## Usage
+Slipstream UI is a modern React component library designed specifically for AI-assisted development. Every component ships a machine-readable `COMPONENT_MANIFEST` so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
 
-Slipstream UI is a wrapper for Tailwindcss as well as a component library built using React. You will first need to add the wrapper to your tailwind.config.js file.
+## Key Features
 
-```javascript
-const slipstream = require('slipstream-ui/config')
+- **AI-Native Design**: Every component includes a machine-readable manifest for AI agents
+- **Composable Primitives**: Build complex UIs from simple, focused components
+- **Deep AI SDK Support**: First-class streaming, tool calls, and generative UI
+- **MCP Server**: Zero-hallucination surface for agents to query component specs
+- **TypeScript**: Full type safety with excellent IntelliSense
+ - **Accessible**: Keyboard and screen-reader behavior covered by jest-axe tests; Avatar and slot composition use Radix UI primitives
 
-module.exports = slipstream({
-  content: [
-    "./node_modules/slipstream-ui/dist/**/*"
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-})
+## Quick Start
+
+```bash
+# Initialize with CLI
+npx slipstream-ui@latest init
+
+# Or install manually
+pnpm add @slipstream-ui/core @slipstream-ui/ai
 ```
 
-You now have access to all Slipstream components inside your React app.
+## Documentation
 
-### Example
+Visit [slipstreamui.com/docs](https://slipstreamui.com/docs) for full documentation.
 
-``` jsx
-import { Button } from 'slipstream-ui';
+## Packages
 
-function Example () {
-  return (
-    <Button>Click me!</Button>
-  )
-}
+- `@slipstream-ui/core` - Base atoms and molecules
+- `@slipstream-ui/ai` - AI interaction components (Message, Conversation, Reasoning, etc.)
+- `@slipstream-ui/themes` - Theming system with presets
+- `@slipstream-ui/mcp-server` - MCP server for AI agents
+- `@slipstream-ui/cli` - CLI tool for installation and management
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run all packages in dev mode
+pnpm dev
+
+# Build all packages
+pnpm build
+
+# Type check
+pnpm typecheck
+
+# Validate component manifests
+pnpm validate:manifests
 ```
 
 ## License
 
-This project is licensed under the terms of the MIT license.
+MIT

@@ -1,0 +1,232 @@
+{
+  "id": "button",
+  "name": "Button",
+  "tier": "atom",
+  "description": "A clickable button component with variants for different visual styles and sizes",
+  "designIntent": "The Button component is a fundamental interactive element that triggers actions or navigation. It provides visual feedback through hover/active states and supports multiple variants to match different semantic contexts (primary actions, destructive actions, navigation, etc.).",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Visual style variant of the button",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "examples": [
+        "default",
+        "destructive",
+        "outline"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'default' | 'sm' | 'lg' | 'icon'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Size variant of the button",
+      "enum": [
+        "default",
+        "sm",
+        "lg",
+        "icon"
+      ],
+      "examples": [
+        "default",
+        "sm",
+        "lg"
+      ]
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "When true, renders as a child component using Radix Slot for composition",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the button and prevents interaction",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content to display inside the button",
+      "examples": [
+        "Click me",
+        "Submit",
+        "Save changes"
+      ]
+    },
+    {
+      "name": "onClick",
+      "type": "(event: MouseEvent<HTMLButtonElement>) => void",
+      "required": false,
+      "description": "Handler called when button is clicked"
+    },
+    {
+      "name": "type",
+      "type": "'button' | 'submit' | 'reset'",
+      "defaultValue": "button",
+      "required": false,
+      "description": "HTML button type attribute",
+      "enum": [
+        "button",
+        "submit",
+        "reset"
+      ],
+      "examples": [
+        "button",
+        "submit"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Primary action button",
+      "code": "<Button>Click me</Button>",
+      "description": "Default variant for primary actions in the interface"
+    },
+    {
+      "title": "Destructive action",
+      "code": "<Button variant=\"destructive\">Delete</Button>",
+      "description": "Use for destructive or dangerous actions like delete, remove, etc."
+    },
+    {
+      "title": "Outline button",
+      "code": "<Button variant=\"outline\">Cancel</Button>",
+      "description": "Secondary action with less visual weight"
+    },
+    {
+      "title": "Small button",
+      "code": "<Button size=\"sm\">Small</Button>",
+      "description": "Compact size for dense interfaces"
+    },
+    {
+      "title": "Icon button",
+      "code": "<Button size=\"icon\"><Icon /></Button>",
+      "description": "Square button for icon-only actions"
+    },
+    {
+      "title": "As link",
+      "code": "<Button variant=\"link\" asChild><a href=\"/docs\">Learn more</a></Button>",
+      "description": "Button styled as a link, using asChild for composition"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use for navigation alone",
+      "explanation": "Buttons should trigger actions, not just navigate. Use proper navigation components.",
+      "example": "// Avoid: Button for simple navigation\n<Button onClick={() => router.push('/home')}>Home</Button>\n\n// Prefer: Use Link component or anchor tag\n<a href=\"/home\">Home</a>"
+    },
+    {
+      "title": "Don't nest buttons",
+      "explanation": "Never nest buttons - it breaks accessibility and HTML validity",
+      "example": "// Avoid: Nested buttons are invalid HTML\n<Button><Button>Click</Button></Button>"
+    },
+    {
+      "title": "Don't use vague text",
+      "explanation": "Button text should clearly describe what will happen",
+      "example": "// Avoid: Unclear action\n<Button>Click here</Button>\n\n// Prefer: Descriptive action\n<Button>Submit form</Button>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Button is natively focusable and can be activated with Enter or Space key",
+      "userRequirements": "Ensure buttons have visible focus indicators"
+    },
+    {
+      "feature": "Screen reader support",
+      "implementation": "Button role is automatically announced. Content is read as button label",
+      "userRequirements": "For icon-only buttons, add aria-label attribute"
+    },
+    {
+      "feature": "Disabled state",
+      "implementation": "Disabled buttons are not focusable and screen readers announce as disabled",
+      "userRequirements": "Don't rely solely on visual disabled state - ensure keyboard users also cannot activate"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Button text",
+      "guidelines": [
+        "Use action verbs (Submit, Save, Delete, Cancel)",
+        "Keep text short and concise (1-3 words ideally)",
+        "Use title case for primary actions",
+        "Be specific about what will happen",
+        "Avoid generic terms like 'Click here' or 'OK'"
+      ],
+      "goodExamples": [
+        "Submit form",
+        "Save changes",
+        "Delete account",
+        "Continue"
+      ],
+      "badExamples": [
+        "Click here",
+        "OK",
+        "Yes",
+        "Do it"
+      ]
+    },
+    {
+      "contentType": "Icon button labels",
+      "guidelines": [
+        "Always provide aria-label for icon-only buttons",
+        "Label should describe the action, not the icon",
+        "Keep label concise but descriptive"
+      ],
+      "goodExamples": [
+        "aria-label=\"Close dialog\"",
+        "aria-label=\"Search\"",
+        "aria-label=\"Settings\""
+      ],
+      "badExamples": [
+        "aria-label=\"X icon\"",
+        "aria-label=\"Magnifying glass\"",
+        "aria-label=\"Gear\""
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Icon",
+      "relationship": "Buttons can contain icons alongside text or as icon-only buttons",
+      "example": "<Button><Icon />Text</Button> or <Button size=\"icon\"><Icon /></Button>"
+    },
+    {
+      "component": "Dialog",
+      "relationship": "Buttons commonly trigger dialog open/close actions",
+      "example": "<Button onClick={() => setOpen(true)}>Open dialog</Button>"
+    }
+  ],
+  "relatedComponents": [
+    "IconButton",
+    "Link",
+    "Tooltip"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.0.1",
+  "sourceDir": "button",
+  "exportName": "Button"
+}

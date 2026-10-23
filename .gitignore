@@ -1,10 +1,51 @@
-*.log
-.DS_Store
+# Dependencies
 node_modules
-.cache
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Databases (generated locally by prisma db push / seed)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# TypeScript incremental build state
+*.tsbuildinfo
+
+# Next.js
+.next/
+out/
+build
 dist
-storybook-static
-docs
-example
-test
-dist/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# Turbo
+.turbo
+
+# IDE
+.vscode/*
+.idea/*
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db

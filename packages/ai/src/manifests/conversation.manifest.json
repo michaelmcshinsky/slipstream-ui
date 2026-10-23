@@ -1,0 +1,222 @@
+{
+  "id": "conversation",
+  "name": "Conversation",
+  "tier": "organism",
+  "description": "A container for displaying a list of chat messages with auto-scroll and loading states",
+  "designIntent": "The Conversation component manages the display of multiple messages in a chat interface. It handles auto-scrolling to show new messages, distinct avatar configurations for users and assistants, and a loading state when the AI is generating a response.",
+  "props": [
+    {
+      "name": "messages",
+      "type": "Message[]",
+      "required": true,
+      "description": "Array of message objects to display",
+      "examples": [
+        "[{ id: '1', role: 'user', content: 'Hello' }, { id: '2', role: 'assistant', content: 'Hi!' }]"
+      ]
+    },
+    {
+      "name": "showAvatars",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Whether to show avatars for messages",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "userAvatarSrc",
+      "type": "string",
+      "required": false,
+      "description": "Custom avatar image URL for user messages",
+      "examples": [
+        "https://example.com/user-avatar.png"
+      ]
+    },
+    {
+      "name": "userAvatarFallback",
+      "type": "string",
+      "required": false,
+      "description": "Fallback text for user avatar",
+      "examples": [
+        "JD",
+        "User"
+      ]
+    },
+    {
+      "name": "assistantAvatarSrc",
+      "type": "string",
+      "required": false,
+      "description": "Custom avatar image URL for assistant messages",
+      "examples": [
+        "https://example.com/ai-avatar.png"
+      ]
+    },
+    {
+      "name": "assistantAvatarFallback",
+      "type": "string",
+      "required": false,
+      "description": "Fallback text for assistant avatar",
+      "examples": [
+        "AI",
+        "Bot"
+      ]
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Whether the assistant is currently generating a response",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "loadingMessage",
+      "type": "string",
+      "defaultValue": "Thinking...",
+      "required": false,
+      "description": "Text to display while loading",
+      "examples": [
+        "Thinking...",
+        "Generating response...",
+        "Processing..."
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply to the conversation container"
+    },
+    {
+      "name": "renderContent",
+      "type": "(content: string) => ReactNode",
+      "required": false,
+      "description": "Custom renderer applied to every message (e.g. markdown)."
+    },
+    {
+      "name": "streamingMessageId",
+      "type": "string",
+      "required": false,
+      "description": "ID of the message still generating; renders its streaming cursor and auto-scrolls."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic conversation",
+      "code": "<Conversation \n  messages={[\n    { id: '1', role: 'user', content: 'Hello' },\n    { id: '2', role: 'assistant', content: 'Hi there!' }\n  ]}\n/>",
+      "description": "Simple conversation with user and assistant messages"
+    },
+    {
+      "title": "With custom avatars",
+      "code": "<Conversation \n  messages={messages}\n  userAvatarSrc=\"/user.png\"\n  userAvatarFallback=\"JD\"\n  assistantAvatarSrc=\"/ai.png\"\n  assistantAvatarFallback=\"AI\"\n/>",
+      "description": "Conversation with custom avatar images and fallbacks"
+    },
+    {
+      "title": "With loading state",
+      "code": "<Conversation \n  messages={messages}\n  isLoading={true}\n  loadingMessage=\"Generating your response...\"\n/>",
+      "description": "Conversation showing loading indicator while AI responds"
+    },
+    {
+      "title": "Without avatars",
+      "code": "<Conversation \n  messages={messages}\n  showAvatars={false}\n/>",
+      "description": "More compact conversation without avatars"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't manage state inside Conversation",
+      "explanation": "Conversation should be a controlled component. State should be managed by the parent.",
+      "example": "// Avoid: Conversation managing its own message state\n<Conversation />\n\n// Prefer: Pass messages as props from parent\n<Conversation messages={messages} />"
+    },
+    {
+      "title": "Don't use for non-chat content",
+      "explanation": "Conversation is specifically for chat messages, not general data display",
+      "example": "// Avoid: Using Conversation for general lists\n<Conversation messages={dataItems} />\n\n// Prefer: Use appropriate list components\n<DataList items={dataItems} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live regions",
+      "implementation": "Consider adding aria-live to the container for screen readers to announce new messages",
+      "userRequirements": "For streaming responses, use aria-live='polite' to avoid interrupting users"
+    },
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Container is scrollable with keyboard. Focus management depends on parent component",
+      "userRequirements": "Ensure users can navigate through messages with keyboard if needed"
+    },
+    {
+      "feature": "Loading announcement",
+      "implementation": "Loading state is visually indicated but not announced to screen readers by default",
+      "userRequirements": "Consider adding aria-live region for loading state if needed"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Loading message",
+      "guidelines": [
+        "Keep loading messages brief and informative",
+        "Avoid specific time estimates (which are often inaccurate)",
+        "Use consistent loading text across the application",
+        "Consider the context (what action is being performed)"
+      ],
+      "goodExamples": [
+        "Thinking...",
+        "Generating response...",
+        "Processing your request"
+      ],
+      "badExamples": [
+        "Please wait about 5 seconds",
+        "Loading loading loading",
+        "Wait"
+      ]
+    },
+    {
+      "contentType": "Avatar fallback text",
+      "guidelines": [
+        "Use consistent abbreviations for user and assistant",
+        "User fallback should be based on user's name or identity",
+        "Assistant fallback should clearly indicate it's an AI",
+        "Keep to 1-2 characters for best appearance"
+      ],
+      "goodExamples": [
+        "JD",
+        "AI",
+        "Bot",
+        "U"
+      ],
+      "badExamples": [
+        "JohnDoe",
+        "Assistant Bot",
+        "very-long-text"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Message",
+      "relationship": "Conversation renders multiple Message components internally",
+      "example": "Conversation maps over messages array and renders Message for each item"
+    },
+    {
+      "component": "PromptInput",
+      "relationship": "PromptInput is typically used alongside Conversation to submit new messages",
+      "example": "Conversation displays messages, PromptInput adds new ones to the messages array"
+    }
+  ],
+  "relatedComponents": [
+    "Message",
+    "PromptInput",
+    "ChatLayout"
+  ],
+  "package": "@slipstream-ui/ai",
+  "importPath": "@slipstream-ui/ai",
+  "version": "0.0.1",
+  "sourceDir": "conversation",
+  "exportName": "Conversation"
+}

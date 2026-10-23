@@ -1,0 +1,33 @@
+{
+  "name": "@slipstream-ui/themes",
+  "version": "0.0.1",
+  "description": "Theming system for Slipstream UI with createTheme() and presets",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@slipstream-ui/eslint-config": "workspace:*",
+    "@slipstream-ui/typescript-config": "workspace:*",
+    "eslint": "^8.56.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.3"
+  }
+}
