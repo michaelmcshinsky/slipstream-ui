@@ -49,6 +49,14 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     // Destructive colors
     destructive: darkMode ? '0 62.8% 30.6%' : '0 84.2% 60.2%',
     'destructive-foreground': darkMode ? '210 40% 98%' : '210 40% 98%',
+
+    // Status colors (success / warning / info)
+    success: darkMode ? '142.1% 70.6% 35.3%' : '142.1% 70.6% 45.3%',
+    'success-foreground': darkMode ? '210 40% 98%' : '0 0% 100%',
+    warning: darkMode ? '35.5% 91.7% 32.9%' : '38 92% 50%',
+    'warning-foreground': darkMode ? '26 83.3% 14.1%' : '0 0% 100%',
+    info: darkMode ? '198.4% 93.2% 59.6%' : '198.4% 93.2% 49.6%',
+    'info-foreground': darkMode ? '222.2% 47.4% 11.2%' : '0 0% 100%',
     
     // Border and input
     border: darkMode ? '217.2 32.6% 17.5%' : '214.3 31.8% 91.4%',

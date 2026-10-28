@@ -5,13 +5,13 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
-    version: '0.1.0-beta',
-    date: 'August 2026',
+    version: '0.1.0',
+    date: 'October 2026',
     tag: 'current',
     highlights: [
       '21 components across @slipstream-ui/core and @slipstream-ui/ai, each shipping a COMPONENT_MANIFEST',
       'Response: streaming-safe GFM markdown renderer with automatic repair of incomplete syntax',
-      'CodeBlock: syntax highlighting with copy button (prism-react-renderer)',
+      'CodeBlock: syntax highlighting with copy button (prism-react-renderer), theme-aware light/dark',
       'Confirmation: human-in-the-loop approval gate for agent actions',
       'Branch: message variant navigation; InlineCitation: hover citation chips',
       'Conversation: welcome/empty state, scroll-to-latest pill, transcript download, paginated history with scroll anchoring',
@@ -20,6 +20,22 @@ const releases = [
       'MCP server: list_components, get_component_manifest, get_usage_examples, validate_usage',
       'shadcn-compatible registry: npx shadcn add https://slipstreamui.com/registry/<id>.json',
       'jest-axe tested components; CI runs lint, typecheck, tests, builds, manifest validation',
+      'Semantic status tokens: success, warning, info — components use theme-aware status colors, not hardcoded palette classes',
+      'Full dark-mode support: every component re-themes via CSS variables; color-scheme set for native controls',
+      'Theme presets: default, violet, zinc — each with paired dark variants',
+      'Streaming indicator announces state to screen readers (role="status")',
+    ],
+  },
+  {
+    version: '0.1.0-beta',
+    date: 'August 2026',
+    tag: 'previous',
+    highlights: [
+      'Initial public beta: 21 components with manifests, MCP server, shadcn-compatible registry',
+      'Core primitives: Button, Badge, Input, Select, Avatar, Dialog, Spinner, Toast',
+      'AI components: Conversation, PromptInput, Response, Message, MessageActions, ToolCall, Confirmation, Reasoning, ChainThought, Sources, Suggestions, Branch, InlineCitation, StreamingIndicator, AttachmentList, CodeBlock, CommandPalette',
+      'createTheme() with CSS variable emission and light/dark presets',
+      'CLI: npx slipstream-ui init scaffolds config, theme variables, and component directory',
     ],
   },
 ];

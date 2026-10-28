@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { cn } from '@slipstream-ui/core';
 
 export interface Command {
   id: string;
@@ -110,7 +111,7 @@ export function CommandPalette({
             setActiveIndex(0);
           }}
           onKeyDown={onKeyDown}
-          className="w-full border-b border-border bg-transparent px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
+          className="w-full border-b border-border bg-transparent px-4 py-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring placeholder:text-muted-foreground"
         />
         <ul id={listboxId} role="listbox" aria-label="Commands" className="max-h-72 overflow-y-auto py-1">
           {filtered.length === 0 && (
@@ -137,9 +138,10 @@ export function CommandPalette({
                     onSelect(command);
                     onOpenChange(false);
                   }}
-                  className={`flex cursor-pointer items-center justify-between px-4 py-2 text-sm ${
+                  className={cn(
+                    'flex cursor-pointer items-center justify-between px-4 py-2 text-sm',
                     index === activeIndex ? 'bg-primary/10 text-foreground' : 'text-muted-foreground'
-                  }`}
+                  )}
                 >
                   <span>{command.label}</span>
                   {command.shortcut && <span className="font-mono text-xs">{command.shortcut}</span>}

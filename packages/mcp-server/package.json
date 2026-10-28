@@ -1,6 +1,6 @@
 {
   "name": "@slipstream-ui/mcp-server",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "MCP server for Slipstream UI component manifests",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

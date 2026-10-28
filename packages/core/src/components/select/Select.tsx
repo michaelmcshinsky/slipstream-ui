@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { cn } from '../../utils/cn';
 
 export interface SelectOption {
   value: string;
@@ -41,7 +42,11 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
         ref={ref}
         id={selectId}
         aria-labelledby={label ? labelId : undefined}
-        className={`rounded-md border border-input bg-background px-3 py-2 text-sm ${className ?? ''}`}
+        className={cn(
+          'rounded-md border border-input bg-background px-3 py-2 text-sm',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+          className
+        )}
         value={value}
         defaultValue={defaultValue}
         onChange={(event) => onChange?.(event.target.value)}

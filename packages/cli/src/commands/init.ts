@@ -8,6 +8,10 @@ import fs from 'fs-extra';
 const THEME_VARIABLES = `:root {
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
   --primary: 210 100% 50%;
   --primary-foreground: 0 0% 100%;
   --secondary: 210 40% 96.1%;
@@ -18,6 +22,12 @@ const THEME_VARIABLES = `:root {
   --accent-foreground: 222.2 47.4% 11.2%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
+  --success: 142.1% 70.6% 45.3%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+  --info: 198.4% 93.2% 49.6%;
+  --info-foreground: 0 0% 100%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 210 100% 50%;
@@ -25,8 +35,32 @@ const THEME_VARIABLES = `:root {
 }
 
 .dark {
+  color-scheme: dark;
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 100% 50%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --success: 142.1% 70.6% 35.3%;
+  --success-foreground: 210 40% 98%;
+  --warning: 35.5% 91.7% 32.9%;
+  --warning-foreground: 26 83.3% 14.1%;
+  --info: 198.4% 93.2% 59.6%;
+  --info-foreground: 222.2% 47.4% 11.2%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 210 100% 50%;
 }`;
 
 /** Candidate global stylesheet locations, Next.js first then Vite conventions. */

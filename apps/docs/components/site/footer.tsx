@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import { SlipstreamIcon } from './slipstream-icon';
 
-const REPO_URL = 'https://github.com/slipstream-ui/slipstream-ui';
+const REPO_URL = 'https://github.com/slipstream-ui';
 const CURRENT_YEAR = new Date().getFullYear();
 
 const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
@@ -47,7 +48,8 @@ export function Footer() {
     <footer className="border-t border-border bg-muted/30">
       <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
-          <Link href="/" className="text-lg font-bold tracking-tight">
+          <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
+            <SlipstreamIcon className="h-6 w-6 text-primary" />
             Slipstream<span className="text-primary">UI</span>
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">

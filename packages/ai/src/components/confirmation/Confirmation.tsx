@@ -27,9 +27,9 @@ export interface ConfirmationProps {
 }
 
 const statusChipClasses: Record<ConfirmationStatus, string> = {
-  pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
-  approved: 'bg-green-500/10 text-green-500 border-green-500/20',
-  rejected: 'bg-red-500/10 text-red-500 border-red-500/20',
+  pending: 'bg-warning/10 text-warning border-warning/20',
+  approved: 'bg-success/10 text-success border-success/20',
+  rejected: 'bg-destructive/10 text-destructive border-destructive/20',
 };
 
 /**
@@ -73,7 +73,7 @@ const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
         aria-label={status === 'pending' ? title : undefined}
         className={cn(
           'rounded-lg border p-4 bg-muted/30 max-w-md',
-          status === 'pending' && 'border-yellow-500/40',
+          status === 'pending' && 'border-warning/40',
           className
         )}
         {...props}

@@ -25,9 +25,9 @@ const ChainThought = React.forwardRef<HTMLDivElement, ChainThoughtProps>(
         <div key={step.id} className="flex gap-3 items-start">
           <div className={cn(
             'w-2 h-2 rounded-full mt-1.5 flex-shrink-0',
-            step.status === 'completed' ? 'bg-green-500' : 
-            step.status === 'failed' ? 'bg-red-500' : 
-            step.status === 'pending' ? 'bg-yellow-500' : 'bg-primary'
+            step.status === 'completed' ? 'bg-success' : 
+            step.status === 'failed' ? 'bg-destructive' : 
+            step.status === 'pending' ? 'bg-warning' : 'bg-primary'
           )} />
           <div className={cn('flex-1', compact && 'text-sm')}>
             <div className="text-sm text-muted-foreground">

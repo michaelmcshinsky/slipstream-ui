@@ -1,6 +1,6 @@
 {
   "name": "@slipstream-ui/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Core UI components for Slipstream UI",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

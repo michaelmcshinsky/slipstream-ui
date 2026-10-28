@@ -14,9 +14,25 @@ export interface CodeBlockProps {
   className?: string;
 }
 
+/** Tracks whether the `.dark` class is present on `<html>`, staying in sync with toggles. */
+function useIsDark(): boolean {
+  const [dark, setDark] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = document.documentElement;
+    setDark(el.classList.contains('dark'));
+    const observer = new MutationObserver(() => setDark(el.classList.contains('dark')));
+    observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return dark;
+}
+
 const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
   ({ code, language = 'tsx', showCopyButton = true, className, ...props }, ref) => {
     const [copied, setCopied] = React.useState(false);
+    const isDark = useIsDark();
     const trimmedCode = code.replace(/\n$/, '');
 
     const handleCopy = async () => {
@@ -52,7 +68,7 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             </button>
           )}
         </div>
-        <Highlight theme={themes.vsDark} code={trimmedCode} language={language}>
+        <Highlight theme={isDark ? themes.vsDark : themes.github} code={trimmedCode} language={language}>
           {({ style, tokens, getLineProps, getTokenProps }) => (
             <pre
               className="overflow-x-auto p-4 text-xs leading-relaxed m-0"

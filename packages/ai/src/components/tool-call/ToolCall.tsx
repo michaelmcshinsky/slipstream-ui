@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { ToolCall as ToolCallType } from '../../types';
@@ -8,6 +10,24 @@ export interface ToolCallProps {
   showResult?: boolean;
 }
 
+const statusChipClasses: Record<ToolCallType['status'], string> = {
+  pending: 'bg-warning/10 text-warning border-warning/20',
+  running: 'bg-info/10 text-info border-info/20',
+  completed: 'bg-success/10 text-success border-success/20',
+  failed: 'bg-destructive/10 text-destructive border-destructive/20',
+};
+
+const statusLabels: Record<ToolCallType['status'], string> = {
+  pending: 'Pending',
+  running: 'Running',
+  completed: 'Completed',
+  failed: 'Failed',
+};
+
+/**
+ * Displays a single tool invocation: name, status chip, serialized
+ * arguments, optional result, and an error block on failure.
+ */
 const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
   ({ toolCall, className, showResult = true, ...props }, ref) => {
     // Serialize once per tool-call change instead of on every render.
@@ -21,20 +41,6 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
         ? toolCall.result
         : JSON.stringify(toolCall.result, null, 2);
     }, [toolCall.result]);
-
-    const statusColors = {
-      pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
-      running: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-      completed: 'bg-green-500/10 text-green-500 border-green-500/20',
-      failed: 'bg-red-500/10 text-red-500 border-red-500/20',
-    };
-
-    const statusLabels = {
-      pending: 'Pending',
-      running: 'Running',
-      completed: 'Completed',
-      failed: 'Failed',
-    };
 
     return (
       <div
@@ -51,7 +57,7 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
             <span
               className={cn(
                 'text-xs px-2 py-0.5 rounded-full border',
-                statusColors[toolCall.status]
+                statusChipClasses[toolCall.status]
               )}
             >
               {statusLabels[toolCall.status]}
@@ -79,8 +85,8 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
 
           {toolCall.status === 'failed' && toolCall.error && (
             <div role="alert">
-              <div className="text-xs font-medium text-red-500 mb-1">Error</div>
-              <pre className="text-xs bg-red-500/10 text-red-500 p-2 rounded overflow-x-auto whitespace-pre-wrap">
+              <div className="text-xs font-medium text-destructive mb-1">Error</div>
+              <pre className="text-xs bg-destructive/10 text-destructive p-2 rounded overflow-x-auto whitespace-pre-wrap">
                 <code>{toolCall.error}</code>
               </pre>
             </div>

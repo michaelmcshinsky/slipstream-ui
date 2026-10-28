@@ -17,6 +17,12 @@ export interface ThemeColors {
   'accent-foreground': string;
   destructive: string;
   'destructive-foreground': string;
+  success: string;
+  'success-foreground': string;
+  warning: string;
+  'warning-foreground': string;
+  info: string;
+  'info-foreground': string;
   border: string;
   input: string;
   ring: string;

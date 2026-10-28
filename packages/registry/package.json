@@ -1,6 +1,6 @@
 {
   "name": "@slipstream-ui/registry",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Shared manifest registry resolution for Slipstream UI tooling (CLI and MCP server)",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

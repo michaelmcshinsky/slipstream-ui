@@ -10,7 +10,7 @@ import {
 
 export type TThemeContext = {
   dark?: boolean;
-  toggle?: () => void;
+  toggleDark?: () => void;
 }
 
 export const ThemeContext = createContext<TThemeContext>({

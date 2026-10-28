@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Input, Badge, Avatar, AvatarFallback, Spinner } from '@slipstream-ui/core';
 import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message, Response, CodeBlock, Confirmation, Branch, InlineCitation } from '@slipstream-ui/ai';
-import { defaultTheme, violetTheme } from '@slipstream-ui/themes';
+import { defaultTheme, darkTheme, violetTheme, violetDarkTheme } from '@slipstream-ui/themes';
 
 function App() {
   const [messages, setMessages] = useState([
@@ -11,16 +11,50 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const [themeName, setThemeName] = useState('default');
+  const [dark, setDark] = useState(false);
+
+  // Sync with the `.dark` class set by the pre-paint script / toggle.
+  useEffect(() => {
+    const el = document.documentElement;
+    setDark(el.classList.contains('dark'));
+    const observer = new MutationObserver(() => setDark(el.classList.contains('dark')));
+    observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  function toggleDark() {
+    const next = !dark;
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('slipstream-theme', next ? 'dark' : 'light');
+    setDark(next);
+  }
 
   const changeTheme = (name: string) => {
-    const theme = name === 'violet' ? violetTheme : defaultTheme;
-    // Apply the structured token map directly; no CSS-string round-trip.
+    // Pick the variant that matches the current mode so dark mode keeps working.
+    const theme =
+      name === 'violet' ? (dark ? violetDarkTheme : violetTheme)
+      : dark ? darkTheme
+      : defaultTheme;
     Object.entries(theme.colors).forEach(([key, value]) => {
       document.documentElement.style.setProperty(`--${key}`, value ?? '');
     });
     document.documentElement.style.setProperty('--radius', theme.borderRadius ?? '');
     setThemeName(name);
   };
+
+  // Re-apply the paired light/dark variant when the mode flips.
+  useEffect(() => {
+    const theme =
+      themeName === 'violet' ? (dark ? violetDarkTheme : violetTheme)
+      : dark ? darkTheme
+      : defaultTheme;
+    Object.entries(theme.colors).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(`--${key}`, value ?? '');
+    });
+    document.documentElement.style.setProperty('--radius', theme.borderRadius ?? '');
+    // Only run when dark changes, not on first mount (CSS defaults already correct).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dark]);
 
   const handleSubmit = (value: string) => {
     const userMessage = { id: Date.now().toString(), role: 'user' as const, content: value };
@@ -61,7 +95,17 @@ function App() {
         <header className="mb-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div><h1 className="text-4xl font-bold mb-2">Slipstream UI Playground</h1><p className="text-muted-foreground">Interactive demo of Slipstream UI components</p></div>
-            <label className="text-sm text-muted-foreground">Theme <select value={themeName} onChange={(event) => changeTheme(event.target.value)} className="ml-2 rounded border border-border bg-background px-2 py-1 text-foreground"><option value="default">Default blue</option><option value="violet">Violet</option></select></label>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={toggleDark}
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-sm hover:bg-muted"
+                aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+              >
+                <span aria-hidden="true">{dark ? '☀' : '☾'}</span>
+              </button>
+              <label className="text-sm text-muted-foreground">Theme <select value={themeName} onChange={(event) => changeTheme(event.target.value)} className="ml-2 rounded border border-border bg-background px-2 py-1 text-foreground"><option value="default">Default blue</option><option value="violet">Violet</option></select></label>
+            </div>
           </div>
         </header>
 

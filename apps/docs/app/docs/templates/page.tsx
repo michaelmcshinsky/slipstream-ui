@@ -1,4 +1,5 @@
 import { CodeBlock } from '@/components/code-block';
+import { StreamingChatDemo } from '@/components/streaming-chat-demo';
 
 interface Template {
   name: string;
@@ -190,7 +191,7 @@ export default function TemplatesPage() {
       </p>
 
       <div className="space-y-12">
-        {templates.map((template) => (
+        {templates.map((template, index) => (
           <section key={template.name}>
             <h2 className="text-2xl font-semibold mb-2">{template.name}</h2>
             <p className="text-muted-foreground mb-3">{template.description}</p>
@@ -204,6 +205,14 @@ export default function TemplatesPage() {
                 </span>
               ))}
             </div>
+            {index === 0 && (
+              <div className="mb-4">
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Live demo — try it
+                </p>
+                <StreamingChatDemo />
+              </div>
+            )}
             <CodeBlock>{template.code}</CodeBlock>
           </section>
         ))}

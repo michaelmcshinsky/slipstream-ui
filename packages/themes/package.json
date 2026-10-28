@@ -1,6 +1,6 @@
 {
   "name": "@slipstream-ui/themes",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Theming system for Slipstream UI with createTheme() and presets",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
