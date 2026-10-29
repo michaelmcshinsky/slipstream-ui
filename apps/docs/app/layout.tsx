@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   description:
     'Your AI already knows your design system. Every component ships a machine-readable manifest so Claude, Cursor, and Copilot generate correct UI the first time.',
-  keywords: ['AI components', 'React', 'component library', 'MCP', 'shadcn', 'chat UI', 'Tailwind'],
+  keywords: ['AI components', 'React', 'component system', 'MCP', 'shadcn', 'chat UI', 'Tailwind', 'design system'],
   authors: [{ name: 'Slipstream UI' }],
   openGraph: {
     type: 'website',

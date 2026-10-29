@@ -72,6 +72,20 @@ module.exports = {
         md: 'var(--radius-md, calc(var(--radius) - 2px))',
         sm: 'var(--radius-sm, calc(var(--radius) - 4px))',
       },
+      transitionDuration: {
+        fast: 'var(--motion-fast)',
+        normal: 'var(--motion-normal)',
+        slow: 'var(--motion-slow)',
+      },
+      transitionTimingFunction: {
+        'ease-standard': 'var(--motion-ease)',
+        'ease-in': 'var(--motion-ease-in)',
+        'ease-out': 'var(--motion-ease-out)',
+      },
+      spacing: {
+        'density': 'var(--density-space)',
+        'control-height': 'var(--density-control-height)',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

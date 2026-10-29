@@ -7,30 +7,42 @@
   "designIntent": "Make generated answers transparent by showing where information came from.",
   "props": [
     {
+      "name": "index",
+      "type": "number",
+      "required": false,
+      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+    },
+    {
+      "name": "source",
+      "type": "SourceItem",
+      "required": true,
+      "description": "The single source to render (Source component)"
+    },
+    {
+      "name": "onSelect",
+      "type": "(source: SourceItem) => void",
+      "required": false,
+      "description": "Called when the source chip is clicked"
+    },
+    {
       "name": "sources",
       "type": "SourceItem[]",
       "required": true,
-      "description": "References to display (Sources only)."
+      "description": "List of sources to render (Sources component)"
     },
     {
       "name": "maxDisplay",
       "type": "number",
-      "defaultValue": 3,
+      "defaultValue": "3",
       "required": false,
-      "description": "Maximum number of references to show before an overflow indicator."
+      "description": "Maximum number of source chips to show before collapsing (Sources component)"
     },
     {
       "name": "label",
       "type": "string",
       "defaultValue": "Sources",
       "required": false,
-      "description": "Heading label; override for localization."
-    },
-    {
-      "name": "index",
-      "type": "number",
-      "required": false,
-      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+      "description": "Section label above the source list (Sources component)"
     }
   ],
   "examples": [
@@ -89,7 +101,7 @@
     },
     {
       "path": "components/slipstream/manifests/source.manifest.json",
-      "content": "{\n  \"id\": \"source\",\n  \"name\": \"Source / Sources\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.\",\n  \"designIntent\": \"Make generated answers transparent by showing where information came from.\",\n  \"props\": [\n    {\n      \"name\": \"sources\",\n      \"type\": \"SourceItem[]\",\n      \"required\": true,\n      \"description\": \"References to display (Sources only).\"\n    },\n    {\n      \"name\": \"maxDisplay\",\n      \"type\": \"number\",\n      \"defaultValue\": 3,\n      \"required\": false,\n      \"description\": \"Maximum number of references to show before an overflow indicator.\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Sources\",\n      \"required\": false,\n      \"description\": \"Heading label; override for localization.\"\n    },\n    {\n      \"name\": \"index\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"1-based citation marker rendered as [n]; omit on Source to hide numbering.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Citations list\",\n      \"code\": \"<Sources sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }, { id: '2', title: 'MDN', url: 'https://developer.mozilla.org' }]} />\"\n    },\n    {\n      \"title\": \"Single inline citation\",\n      \"code\": \"<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not nest Sources inside Sources\",\n      \"explanation\": \"Sources is a list container; compose individual Source items only when building a custom layout.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Link semantics\",\n      \"implementation\": \"References use native links with rel=noopener when URLs are provided.\"\n    },\n    {\n      \"feature\": \"Decorative markers\",\n      \"implementation\": \"[n] citation markers are aria-hidden; titles are read as link text.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"source\",\n  \"exportName\": \"Source\"\n}\n",
+      "content": "{\r\n  \"id\": \"source\",\r\n  \"name\": \"Source / Sources\",\r\n  \"tier\": \"molecule\",\r\n  \"description\": \"Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.\",\r\n  \"designIntent\": \"Make generated answers transparent by showing where information came from.\",\r\n  \"props\": [\r\n    {\r\n      \"name\": \"index\",\r\n      \"type\": \"number\",\r\n      \"required\": false,\r\n      \"description\": \"1-based citation marker rendered as [n]; omit on Source to hide numbering.\"\r\n    },\r\n    {\r\n      \"name\": \"source\",\r\n      \"type\": \"SourceItem\",\r\n      \"required\": true,\r\n      \"description\": \"The single source to render (Source component)\"\r\n    },\r\n    {\r\n      \"name\": \"onSelect\",\r\n      \"type\": \"(source: SourceItem) => void\",\r\n      \"required\": false,\r\n      \"description\": \"Called when the source chip is clicked\"\r\n    },\r\n    {\r\n      \"name\": \"sources\",\r\n      \"type\": \"SourceItem[]\",\r\n      \"required\": true,\r\n      \"description\": \"List of sources to render (Sources component)\"\r\n    },\r\n    {\r\n      \"name\": \"maxDisplay\",\r\n      \"type\": \"number\",\r\n      \"defaultValue\": \"3\",\r\n      \"required\": false,\r\n      \"description\": \"Maximum number of source chips to show before collapsing (Sources component)\"\r\n    },\r\n    {\r\n      \"name\": \"label\",\r\n      \"type\": \"string\",\r\n      \"defaultValue\": \"Sources\",\r\n      \"required\": false,\r\n      \"description\": \"Section label above the source list (Sources component)\"\r\n    }\r\n  ],\r\n  \"examples\": [\r\n    {\r\n      \"title\": \"Citations list\",\r\n      \"code\": \"<Sources sources={[{ id: '1', title: 'React docs', url: 'https://react.dev' }, { id: '2', title: 'MDN', url: 'https://developer.mozilla.org' }]} />\"\r\n    },\r\n    {\r\n      \"title\": \"Single inline citation\",\r\n      \"code\": \"<Source source={{ id: '1', title: 'React docs', url: 'https://react.dev' }} index={1} />\"\r\n    }\r\n  ],\r\n  \"antiPatterns\": [\r\n    {\r\n      \"title\": \"Do not nest Sources inside Sources\",\r\n      \"explanation\": \"Sources is a list container; compose individual Source items only when building a custom layout.\"\r\n    }\r\n  ],\r\n  \"accessibility\": [\r\n    {\r\n      \"feature\": \"Link semantics\",\r\n      \"implementation\": \"References use native links with rel=noopener when URLs are provided.\"\r\n    },\r\n    {\r\n      \"feature\": \"Decorative markers\",\r\n      \"implementation\": \"[n] citation markers are aria-hidden; titles are read as link text.\"\r\n    }\r\n  ],\r\n  \"package\": \"@slipstream-ui/ai\",\r\n  \"importPath\": \"@slipstream-ui/ai\",\r\n  \"version\": \"0.0.1\",\r\n  \"sourceDir\": \"source\",\r\n  \"exportName\": \"Source\"\r\n}",
       "type": "registry:item"
     }
   ]

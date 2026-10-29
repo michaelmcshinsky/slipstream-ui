@@ -1,0 +1,96 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "tier": "atom",
+  "description": "A toggle switch for binary settings, with role=switch and aria-checked",
+  "designIntent": "Switch represents an on/off setting that takes effect immediately. Unlike Checkbox, it signals a change of state rather than a form submission value.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled on/off state"
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false,
+      "description": "Initial state when uncontrolled"
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "description": "Fired when the user toggles the switch"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the switch"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Settings toggle",
+      "code": "<div className=\"flex items-center justify-between\">\n  <Label htmlFor=\"notifications\">Email notifications</Label>\n  <Switch id=\"notifications\" onCheckedChange={setEmails} />\n</div>",
+      "description": "Toggle in a settings row"
+    },
+    {
+      "title": "Controlled switch",
+      "code": "<Switch checked={dark} onCheckedChange={setDark} aria-label=\"Dark mode\" />",
+      "description": "Switch driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Switch inside forms that need a submit",
+      "explanation": "Switch applies immediately. Use Checkbox when the value is submitted with a form.",
+      "example": "// Avoid: Switch as a form checkbox\n<form><Switch checked={agree} /></form>\n\n// Prefer\n<form><Checkbox checked={agree} /></form>"
+    },
+    {
+      "title": "Don't rely on color alone",
+      "explanation": "Switch position conveys state; keep the thumb contrast high in both themes."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Switch semantics",
+      "implementation": "role=\"switch\" with aria-checked announces on/off state",
+      "userRequirements": "Provide an accessible name via Label or aria-label"
+    },
+    {
+      "feature": "Keyboard toggle",
+      "implementation": "Space and Enter toggle the switch",
+      "userRequirements": "Keep the button focusable"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": ["Phrase as the setting, not the action", "Use sentence case"],
+      "goodExamples": ["Email notifications", "Auto-save"],
+      "badExamples": ["Click to enable", "Turn on"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Pair with Label or aria-label",
+      "example": "<Label htmlFor=\"s\">Auto-save</Label><Switch id=\"s\" />"
+    }
+  ],
+  "relatedComponents": ["Checkbox", "Label"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "switch",
+  "exportName": "Switch"
+}

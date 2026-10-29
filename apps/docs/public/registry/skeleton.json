@@ -1,0 +1,112 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "skeleton",
+  "name": "skeleton",
+  "tier": "atom",
+  "description": "A loading placeholder that mirrors the shape of upcoming content",
+  "designIntent": "Skeleton reduces perceived loading time by showing the layout shape before data arrives. It is aria-hidden so screen readers skip it; pair with a live-region status to announce loading.",
+  "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Shape and size classes (e.g. h-4 w-32, rounded-full)"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Text placeholder",
+      "code": "<Skeleton className=\"h-4 w-32\" />",
+      "description": "Placeholder for a line of text"
+    },
+    {
+      "title": "Card placeholder",
+      "code": "<div className=\"space-y-2\">\n  <Skeleton className=\"h-24 w-full rounded-lg\" />\n  <Skeleton className=\"h-4 w-2/3\" />\n</div>",
+      "description": "Placeholder matching a card layout"
+    },
+    {
+      "title": "With live-region announcement",
+      "code": "<span role=\"status\" className=\"sr-only\">Loading…</span>\n<Skeleton className=\"h-4 w-48\" />",
+      "description": "Announcing the loading state to screen readers"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Skeleton as a permanent element",
+      "explanation": "Skeletons are for loading states only; remove once content renders."
+    },
+    {
+      "title": "Don't use Skeleton without announcing loading",
+      "explanation": "Skeleton is aria-hidden. Add a role=status element so screen-reader users know something is loading.",
+      "example": "// Avoid\n<Skeleton />\n\n// Prefer\n<span role=\"status\" className=\"sr-only\">Loading…</span>\n<Skeleton />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Hidden from assistive tech",
+      "implementation": "aria-hidden=\"true\" on the placeholder",
+      "userRequirements": "Provide a separate status region that announces loading"
+    },
+    {
+      "feature": "Reduced motion",
+      "implementation": "Pulse animation is disabled under prefers-reduced-motion",
+      "userRequirements": "Don't re-enable animations via CSS overrides"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Shapes",
+      "guidelines": [
+        "Match the shape of the content it replaces",
+        "Use consistent skeletons within a view"
+      ],
+      "goodExamples": [
+        "h-4 w-32 for text",
+        "h-24 w-24 rounded-full for avatars"
+      ],
+      "badExamples": [
+        "Random sizes that don't match the layout"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Status region",
+      "relationship": "Always pair with a status region to announce loading",
+      "example": "<span role=\"status\" className=\"sr-only\">Loading…</span><Skeleton className=\"h-4 w-32\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Progress",
+    "Spinner"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "skeleton",
+  "exportName": "Skeleton",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/skeleton/index.ts",
+      "content": "export * from './Skeleton';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/skeleton/Skeleton.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {}\n\n/**\n * Loading placeholder that mirrors the shape of upcoming content.\n * Marked `aria-hidden` so screen readers skip it — pair with a\n * live-region status elsewhere to announce the loading state.\n */\nconst Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(\n  ({ className, ...props }, ref) => (\n    <div\n      ref={ref}\n      aria-hidden=\"true\"\n      className={cn('animate-pulse rounded-md bg-muted motion-reduce:animate-none', className)}\n      {...props}\n    />\n  )\n);\nSkeleton.displayName = 'Skeleton';\n\nexport { Skeleton };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/skeleton.manifest.json",
+      "content": "{\n  \"id\": \"skeleton\",\n  \"name\": \"Skeleton\",\n  \"tier\": \"atom\",\n  \"description\": \"A loading placeholder that mirrors the shape of upcoming content\",\n  \"designIntent\": \"Skeleton reduces perceived loading time by showing the layout shape before data arrives. It is aria-hidden so screen readers skip it; pair with a live-region status to announce loading.\",\n  \"props\": [\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Shape and size classes (e.g. h-4 w-32, rounded-full)\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Text placeholder\",\n      \"code\": \"<Skeleton className=\\\"h-4 w-32\\\" />\",\n      \"description\": \"Placeholder for a line of text\"\n    },\n    {\n      \"title\": \"Card placeholder\",\n      \"code\": \"<div className=\\\"space-y-2\\\">\\n  <Skeleton className=\\\"h-24 w-full rounded-lg\\\" />\\n  <Skeleton className=\\\"h-4 w-2/3\\\" />\\n</div>\",\n      \"description\": \"Placeholder matching a card layout\"\n    },\n    {\n      \"title\": \"With live-region announcement\",\n      \"code\": \"<span role=\\\"status\\\" className=\\\"sr-only\\\">Loading…</span>\\n<Skeleton className=\\\"h-4 w-48\\\" />\",\n      \"description\": \"Announcing the loading state to screen readers\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Skeleton as a permanent element\",\n      \"explanation\": \"Skeletons are for loading states only; remove once content renders.\"\n    },\n    {\n      \"title\": \"Don't use Skeleton without announcing loading\",\n      \"explanation\": \"Skeleton is aria-hidden. Add a role=status element so screen-reader users know something is loading.\",\n      \"example\": \"// Avoid\\n<Skeleton />\\n\\n// Prefer\\n<span role=\\\"status\\\" className=\\\"sr-only\\\">Loading…</span>\\n<Skeleton />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Hidden from assistive tech\",\n      \"implementation\": \"aria-hidden=\\\"true\\\" on the placeholder\",\n      \"userRequirements\": \"Provide a separate status region that announces loading\"\n    },\n    {\n      \"feature\": \"Reduced motion\",\n      \"implementation\": \"Pulse animation is disabled under prefers-reduced-motion\",\n      \"userRequirements\": \"Don't re-enable animations via CSS overrides\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Shapes\",\n      \"guidelines\": [\"Match the shape of the content it replaces\", \"Use consistent skeletons within a view\"],\n      \"goodExamples\": [\"h-4 w-32 for text\", \"h-24 w-24 rounded-full for avatars\"],\n      \"badExamples\": [\"Random sizes that don't match the layout\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Status region\",\n      \"relationship\": \"Always pair with a status region to announce loading\",\n      \"example\": \"<span role=\\\"status\\\" className=\\\"sr-only\\\">Loading…</span><Skeleton className=\\\"h-4 w-32\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\"Progress\", \"Spinner\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"skeleton\",\n  \"exportName\": \"Skeleton\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

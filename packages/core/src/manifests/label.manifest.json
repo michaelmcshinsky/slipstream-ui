@@ -1,0 +1,74 @@
+{
+  "id": "label",
+  "name": "Label",
+  "tier": "atom",
+  "description": "An accessible form label that associates with its control",
+  "designIntent": "Label names a form control so screen readers announce the field name together with its value and state. Use htmlFor to associate, or wrap the control.",
+  "props": [
+    {
+      "name": "htmlFor",
+      "type": "string",
+      "required": false,
+      "description": "The id of the control this label describes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "The label text"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Label with input",
+      "code": "<Label htmlFor=\"email\">Email</Label>\n<Input id=\"email\" type=\"email\" />",
+      "description": "Associated label and input"
+    },
+    {
+      "title": "Required field",
+      "code": "<Label htmlFor=\"name\">Name (required)</Label>\n<Input id=\"name\" required />",
+      "description": "Marking required fields explicitly"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use placeholder as a label",
+      "explanation": "Placeholders disappear on input and are skipped by many screen readers.",
+      "example": "// Avoid\n<Input placeholder=\"Email\" />\n\n// Prefer\n<Label htmlFor=\"e\">Email</Label><Input id=\"e\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Programmatic association",
+      "implementation": "htmlFor/id pairing links the label to its control",
+      "userRequirements": "Ensure the id matches the control exactly"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Label text",
+      "guidelines": ["Use sentence case", "Be concise", "Describe the field, not the action"],
+      "goodExamples": ["Email address", "Full name"],
+      "badExamples": ["Enter name", "Click to type email"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Input",
+      "relationship": "Every input should have a label",
+      "example": "<Label htmlFor=\"e\">Email</Label><Input id=\"e\" />"
+    }
+  ],
+  "relatedComponents": ["Input", "Textarea", "Select", "Checkbox", "Radio"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "label",
+  "exportName": "Label"
+}

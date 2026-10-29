@@ -1,0 +1,96 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "tier": "atom",
+  "description": "A multi-line text input styled to match Input, wrapping the native textarea",
+  "designIntent": "Textarea is for free-form, multi-line text such as messages, descriptions, and feedback. Native textarea semantics keep IME, form validation, and screen-reader behavior intact.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled value; omit for uncontrolled usage"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial value when uncontrolled"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder text shown when empty"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the textarea"
+    },
+    {
+      "name": "onChange",
+      "type": "(event: ChangeEvent<HTMLTextAreaElement>) => void",
+      "required": false,
+      "description": "Fired when the content changes"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic textarea",
+      "code": "<Textarea placeholder=\"Tell us about your project\" />",
+      "description": "Multi-line input with a placeholder"
+    },
+    {
+      "title": "With label and helper text",
+      "code": "<div className=\"space-y-1\">\n  <Label htmlFor=\"bio\">Bio</Label>\n  <Textarea id=\"bio\" maxLength={280} />\n  <p className=\"text-xs text-muted-foreground\">Up to 280 characters</p>\n</div>",
+      "description": "Labelled textarea with a hint"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Textarea for single-line values",
+      "explanation": "Use Input for emails, names, and other short single-line data.",
+      "example": "// Avoid\n<Textarea placeholder=\"Email\" />\n\n// Prefer\n<Input type=\"email\" placeholder=\"Email\" />"
+    },
+    {
+      "title": "Don't use Textarea for rich text",
+      "explanation": "Textarea is plain text. Use a rich-text editor when formatting is required."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native semantics",
+      "implementation": "Wraps textarea; multiline text entry and form validation work natively",
+      "userRequirements": "Provide an accessible name via Label or aria-label"
+    },
+    {
+      "feature": "Character limits",
+      "implementation": "maxLength is supported natively",
+      "userRequirements": "Announce the limit in helper text, not just the placeholder"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholders",
+      "guidelines": ["Describe what to write", "Match the expected tone and length"],
+      "goodExamples": ["Describe the bug you encountered", "Tell us about your project"],
+      "badExamples": ["Text", "Type here"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Pair with Label for accessibility",
+      "example": "<Label htmlFor=\"m\">Message</Label><Textarea id=\"m\" />"
+    }
+  ],
+  "relatedComponents": ["Input", "Label"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "textarea",
+  "exportName": "Textarea"
+}

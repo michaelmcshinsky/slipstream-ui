@@ -41,6 +41,28 @@ export interface Theme {
     md: string;
     sm: string;
   };
+  /** Spacing density: controls padding/height of interactive elements. */
+  density?: {
+    /** Vertical padding token (default '0.5rem'). */
+    space: string;
+    /** Control height token (default '2.25rem'). */
+    controlHeight: string;
+  };
+  /** Motion tokens for transitions and animations. */
+  motion?: {
+    /** Fast transition duration (default '150ms'). */
+    fast: string;
+    /** Normal transition duration (default '250ms'). */
+    normal: string;
+    /** Slow transition duration (default '400ms'). */
+    slow: string;
+    /** Standard easing curve (default 'cubic-bezier(0.4, 0, 0.2, 1)'). */
+    ease: string;
+    /** Entrance/exit easing curve (default 'cubic-bezier(0.0, 0, 0.2, 1)'). */
+    easeIn: string;
+    /** Spring-like easing for emphasis (default 'cubic-bezier(0.34, 1.56, 0.64, 1)'). */
+    easeOut: string;
+  };
 }
 
 export interface ThemeConfig {
@@ -56,4 +78,8 @@ export interface ThemeConfig {
    * Whether to use dark mode as default
    */
   darkMode?: boolean;
+  /**
+   * Spacing density: 'compact' | 'normal' | 'relaxed'
+   */
+  density?: 'compact' | 'normal' | 'relaxed';
 }

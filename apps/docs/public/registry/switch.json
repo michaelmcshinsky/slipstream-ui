@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "switch",
+  "name": "switch",
+  "tier": "atom",
+  "description": "A toggle switch for binary settings, with role=switch and aria-checked",
+  "designIntent": "Switch represents an on/off setting that takes effect immediately. Unlike Checkbox, it signals a change of state rather than a form submission value.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled on/off state"
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false,
+      "description": "Initial state when uncontrolled"
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "description": "Fired when the user toggles the switch"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the switch"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Settings toggle",
+      "code": "<div className=\"flex items-center justify-between\">\n  <Label htmlFor=\"notifications\">Email notifications</Label>\n  <Switch id=\"notifications\" onCheckedChange={setEmails} />\n</div>",
+      "description": "Toggle in a settings row"
+    },
+    {
+      "title": "Controlled switch",
+      "code": "<Switch checked={dark} onCheckedChange={setDark} aria-label=\"Dark mode\" />",
+      "description": "Switch driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Switch inside forms that need a submit",
+      "explanation": "Switch applies immediately. Use Checkbox when the value is submitted with a form.",
+      "example": "// Avoid: Switch as a form checkbox\n<form><Switch checked={agree} /></form>\n\n// Prefer\n<form><Checkbox checked={agree} /></form>"
+    },
+    {
+      "title": "Don't rely on color alone",
+      "explanation": "Switch position conveys state; keep the thumb contrast high in both themes."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Switch semantics",
+      "implementation": "role=\"switch\" with aria-checked announces on/off state",
+      "userRequirements": "Provide an accessible name via Label or aria-label"
+    },
+    {
+      "feature": "Keyboard toggle",
+      "implementation": "Space and Enter toggle the switch",
+      "userRequirements": "Keep the button focusable"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Phrase as the setting, not the action",
+        "Use sentence case"
+      ],
+      "goodExamples": [
+        "Email notifications",
+        "Auto-save"
+      ],
+      "badExamples": [
+        "Click to enable",
+        "Turn on"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Pair with Label or aria-label",
+      "example": "<Label htmlFor=\"s\">Auto-save</Label><Switch id=\"s\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Checkbox",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "switch",
+  "exportName": "Switch",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/switch/index.ts",
+      "content": "export * from './Switch';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/switch/Switch.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {\n  /** Controlled on/off state. */\n  checked?: boolean;\n  /** Initial state when uncontrolled. */\n  defaultChecked?: boolean;\n  /** Fired when the user toggles the switch. */\n  onCheckedChange?: (checked: boolean) => void;\n}\n\n/**\n * Toggle switch for binary settings. Rendered as a button with\n * `role=\"switch\"` and `aria-checked`, so screen readers announce\n * on/off state and keyboard users toggle with Enter or Space.\n */\nconst Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(\n  ({ className, checked, defaultChecked, onCheckedChange, disabled, ...props }, ref) => {\n    const [internalChecked, setInternalChecked] = React.useState(defaultChecked ?? false);\n    const isOn = checked ?? internalChecked;\n\n    const toggle = () => {\n      if (checked === undefined) setInternalChecked((prev) => !prev);\n      onCheckedChange?.(!isOn);\n    };\n\n    return (\n      <button\n        type=\"button\"\n        role=\"switch\"\n        aria-checked={isOn}\n        ref={ref}\n        disabled={disabled}\n        onClick={toggle}\n        className={cn(\n          'peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors',\n          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',\n          'disabled:cursor-not-allowed disabled:opacity-50',\n          isOn ? 'bg-primary' : 'bg-input',\n          className\n        )}\n        {...props}\n      >\n        <span\n          aria-hidden=\"true\"\n          className={cn(\n            'pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg transition-transform',\n            isOn ? 'translate-x-4' : 'translate-x-0'\n          )}\n        />\n      </button>\n    );\n  }\n);\nSwitch.displayName = 'Switch';\n\nexport { Switch };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/switch.manifest.json",
+      "content": "{\n  \"id\": \"switch\",\n  \"name\": \"Switch\",\n  \"tier\": \"atom\",\n  \"description\": \"A toggle switch for binary settings, with role=switch and aria-checked\",\n  \"designIntent\": \"Switch represents an on/off setting that takes effect immediately. Unlike Checkbox, it signals a change of state rather than a form submission value.\",\n  \"props\": [\n    {\n      \"name\": \"checked\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Controlled on/off state\"\n    },\n    {\n      \"name\": \"defaultChecked\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Initial state when uncontrolled\"\n    },\n    {\n      \"name\": \"onCheckedChange\",\n      \"type\": \"(checked: boolean) => void\",\n      \"required\": false,\n      \"description\": \"Fired when the user toggles the switch\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Disables the switch\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Settings toggle\",\n      \"code\": \"<div className=\\\"flex items-center justify-between\\\">\\n  <Label htmlFor=\\\"notifications\\\">Email notifications</Label>\\n  <Switch id=\\\"notifications\\\" onCheckedChange={setEmails} />\\n</div>\",\n      \"description\": \"Toggle in a settings row\"\n    },\n    {\n      \"title\": \"Controlled switch\",\n      \"code\": \"<Switch checked={dark} onCheckedChange={setDark} aria-label=\\\"Dark mode\\\" />\",\n      \"description\": \"Switch driven by parent state\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Switch inside forms that need a submit\",\n      \"explanation\": \"Switch applies immediately. Use Checkbox when the value is submitted with a form.\",\n      \"example\": \"// Avoid: Switch as a form checkbox\\n<form><Switch checked={agree} /></form>\\n\\n// Prefer\\n<form><Checkbox checked={agree} /></form>\"\n    },\n    {\n      \"title\": \"Don't rely on color alone\",\n      \"explanation\": \"Switch position conveys state; keep the thumb contrast high in both themes.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Switch semantics\",\n      \"implementation\": \"role=\\\"switch\\\" with aria-checked announces on/off state\",\n      \"userRequirements\": \"Provide an accessible name via Label or aria-label\"\n    },\n    {\n      \"feature\": \"Keyboard toggle\",\n      \"implementation\": \"Space and Enter toggle the switch\",\n      \"userRequirements\": \"Keep the button focusable\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\"Phrase as the setting, not the action\", \"Use sentence case\"],\n      \"goodExamples\": [\"Email notifications\", \"Auto-save\"],\n      \"badExamples\": [\"Click to enable\", \"Turn on\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Label\",\n      \"relationship\": \"Pair with Label or aria-label\",\n      \"example\": \"<Label htmlFor=\\\"s\\\">Auto-save</Label><Switch id=\\\"s\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\"Checkbox\", \"Label\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"switch\",\n  \"exportName\": \"Switch\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

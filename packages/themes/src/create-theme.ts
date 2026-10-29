@@ -83,6 +83,18 @@ export function createTheme(config: ThemeConfig = {}): Theme {
       md: `calc(${borderRadius} - 2px)`,
       sm: `calc(${borderRadius} - 4px)`,
     },
+    density: {
+      space: config.density === 'compact' ? '0.375rem' : config.density === 'relaxed' ? '0.75rem' : '0.5rem',
+      controlHeight: config.density === 'compact' ? '2rem' : config.density === 'relaxed' ? '2.5rem' : '2.25rem',
+    },
+    motion: {
+      fast: '150ms',
+      normal: '250ms',
+      slow: '400ms',
+      ease: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      easeIn: 'cubic-bezier(0.0, 0, 0.2, 1)',
+      easeOut: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+    },
   };
 }
 
@@ -115,6 +127,27 @@ export function themeToCssVariables(theme: Theme): string {
   vars.push(`--radius-lg: ${radius.lg};`);
   vars.push(`--radius-md: ${radius.md};`);
   vars.push(`--radius-sm: ${radius.sm};`);
+
+  // Density tokens: spacing and control sizing.
+  const density = theme.density ?? { space: '0.5rem', controlHeight: '2.25rem' };
+  vars.push(`--density-space: ${density.space};`);
+  vars.push(`--density-control-height: ${density.controlHeight};`);
+
+  // Motion tokens: durations and easing curves.
+  const motion = theme.motion ?? {
+    fast: '150ms',
+    normal: '250ms',
+    slow: '400ms',
+    ease: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    easeIn: 'cubic-bezier(0.0, 0, 0.2, 1)',
+    easeOut: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  };
+  vars.push(`--motion-fast: ${motion.fast};`);
+  vars.push(`--motion-normal: ${motion.normal};`);
+  vars.push(`--motion-slow: ${motion.slow};`);
+  vars.push(`--motion-ease: ${motion.ease};`);
+  vars.push(`--motion-ease-in: ${motion.easeIn};`);
+  vars.push(`--motion-ease-out: ${motion.easeOut};`);
 
   return vars.join('\n  ');
 }

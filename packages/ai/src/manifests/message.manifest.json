@@ -78,6 +78,30 @@
       "defaultValue": "Assistant",
       "required": false,
       "description": "Display name for assistant messages; enables localization."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error text to render on the message; shows an error card with retry"
+    },
+    {
+      "name": "onRetry",
+      "type": "() => void",
+      "required": false,
+      "description": "Called when the user requests a retry after error; omit to hide the action"
+    },
+    {
+      "name": "labels",
+      "type": "{ retry?: string; edit?: string; save?: string; cancel?: string }",
+      "required": false,
+      "description": "Override button labels in the message actions"
+    },
+    {
+      "name": "onEditContent",
+      "type": "(content: string) => void",
+      "required": false,
+      "description": "Enables edit-and-resubmit; called with the edited content"
     }
   ],
   "examples": [

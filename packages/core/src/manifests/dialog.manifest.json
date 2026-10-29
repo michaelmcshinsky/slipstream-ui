@@ -41,6 +41,12 @@
       "type": "React.RefObject<HTMLElement | null>",
       "required": false,
       "description": "Element focused on open; defaults to the first focusable element"
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label for the dialog (required for screen readers)"
     }
   ],
   "examples": [
@@ -77,7 +83,10 @@
       "example": "<Dialog ...><Button onClick={onConfirm}>Confirm</Button></Dialog>"
     }
   ],
-  "relatedComponents": ["Button", "Toast"],
+  "relatedComponents": [
+    "Button",
+    "Toast"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.0.1",

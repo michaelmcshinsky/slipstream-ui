@@ -1,0 +1,95 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "tier": "molecule",
+  "description": "Tabbed content container with ARIA tablist semantics and keyboard navigation",
+  "designIntent": "Tabs organize related content into switchable panels. Tabs manages the active tab, wires ARIA relationships, and uses roving tabindex so keyboard users move through tabs with arrow keys.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled active tab value"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial tab value when uncontrolled"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called when the active tab changes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "TabsList, TabsTrigger, and TabsContent children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic tabs",
+      "code": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"analytics\">Analytics</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"overview\">Overview panel</TabsContent>\n  <TabsContent value=\"analytics\">Analytics panel</TabsContent>\n</Tabs>",
+      "description": "Two-tab layout with panels"
+    },
+    {
+      "title": "Controlled tabs",
+      "code": "<Tabs value={tab} onValueChange={setTab}>\n  <TabsList>\n    <TabsTrigger value=\"one\">One</TabsTrigger>\n    <TabsTrigger value=\"two\">Two</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"one\">Panel one</TabsContent>\n  <TabsContent value=\"two\">Panel two</TabsContent>\n</Tabs>",
+      "description": "Tabs driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Tabs for primary navigation",
+      "explanation": "Tabs switch content within a view. Use links or a navigation menu for moving between pages.",
+      "example": "// Avoid\n<TabsTrigger value=\"home\"><Link to=\"/home\">Home</Link></TabsTrigger>\n\n// Prefer\n<Link href=\"/home\">Home</Link>"
+    },
+    {
+      "title": "Don't nest Tabs more than one level deep",
+      "explanation": "Nested tabs disorient users; use sections or accordions instead."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Tablist semantics",
+      "implementation": "role=tablist/tab/tabpanel with aria-selected and aria-controls",
+      "userRequirements": "Every trigger must have a matching panel"
+    },
+    {
+      "feature": "Roving tabindex",
+      "implementation": "Only the active tab is tabbable; arrow keys move between tabs",
+      "userRequirements": "Don't override the keyboard handlers"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tab labels",
+      "guidelines": ["Use 1-3 words", "Be parallel in structure", "Avoid vague labels like 'More'"],
+      "goodExamples": ["Overview", "Analytics", "Settings"],
+      "badExamples": ["Click here", "Other stuff", "Misc"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "TabsList",
+      "relationship": "Wrap triggers in a TabsList for correct semantics",
+      "example": "<TabsList><TabsTrigger value=\"a\">A</TabsTrigger></TabsList>"
+    }
+  ],
+  "relatedComponents": ["Separator", "Button"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "tabs",
+  "exportName": "Tabs"
+}

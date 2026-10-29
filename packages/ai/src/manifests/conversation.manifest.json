@@ -103,6 +103,74 @@
       "type": "string",
       "required": false,
       "description": "ID of the message still generating; renders its streaming cursor and auto-scrolls."
+    },
+    {
+      "name": "showScrollButton",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Show the scroll-to-latest button when the user scrolls up"
+    },
+    {
+      "name": "showDownload",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Show the transcript download action"
+    },
+    {
+      "name": "messageErrors",
+      "type": "Record<string, string>",
+      "required": false,
+      "description": "Map of message id to error text; renders an error card on that message"
+    },
+    {
+      "name": "onRetryMessage",
+      "type": "(message: MessageData) => void",
+      "required": false,
+      "description": "Called when the user retries a failed message"
+    },
+    {
+      "name": "welcomeTitle",
+      "type": "string",
+      "required": false,
+      "description": "Title shown in the empty/welcome state"
+    },
+    {
+      "name": "welcomeDescription",
+      "type": "string",
+      "required": false,
+      "description": "Supporting text in the welcome state"
+    },
+    {
+      "name": "welcomeSuggestions",
+      "type": "string[]",
+      "required": false,
+      "description": "Starter prompts shown in the welcome state"
+    },
+    {
+      "name": "onWelcomeSelect",
+      "type": "(prompt: string) => void",
+      "required": false,
+      "description": "Called when a welcome suggestion is clicked"
+    },
+    {
+      "name": "hasMoreHistory",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether older history pages exist (enables infinite scroll)"
+    },
+    {
+      "name": "isLoadingMore",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether a history page is currently loading"
+    },
+    {
+      "name": "onLoadMore",
+      "type": "() => void",
+      "required": false,
+      "description": "Called when the user scrolls to the top to load older messages"
     }
   ],
   "examples": [

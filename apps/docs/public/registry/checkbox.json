@@ -1,0 +1,149 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "checkbox",
+  "name": "checkbox",
+  "tier": "atom",
+  "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
+  "designIntent": "The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled checked state; omit for uncontrolled usage",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false,
+      "description": "Initial checked state when uncontrolled",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "description": "Fired when the user toggles the checkbox"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the checkbox"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic checkbox",
+      "code": "<Checkbox aria-label=\"Accept terms\" />",
+      "description": "Simple checkbox with an accessible label"
+    },
+    {
+      "title": "With visible label",
+      "code": "<div className=\"flex items-center gap-2\">\n  <Checkbox id=\"terms\" />\n  <Label htmlFor=\"terms\">Accept terms</Label>\n</div>",
+      "description": "Checkbox paired with a visible Label"
+    },
+    {
+      "title": "Controlled checkbox",
+      "code": "<Checkbox\n  checked={agreed}\n  onCheckedChange={setAgreed}\n  aria-label=\"Accept terms\"\n/>",
+      "description": "Checkbox driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Checkbox for mutually exclusive choices",
+      "explanation": "Checkbox is for multi-select. Use Radio (inside RadioGroup) when only one option can be chosen.",
+      "example": "// Avoid: Checkboxes for exclusive choice\n<Checkbox /> Free\n<Checkbox /> Pro\n\n// Prefer: RadioGroup\n<RadioGroup name=\"plan\" legend=\"Plan\">\n  <RadioGroupItem value=\"free\" label=\"Free\" />\n  <RadioGroupItem value=\"pro\" label=\"Pro\" />\n</RadioGroup>"
+    },
+    {
+      "title": "Don't use Checkbox as a toggle for settings",
+      "explanation": "For binary settings that apply immediately, use Switch which announces on/off state.",
+      "example": "// Avoid\n<Checkbox checked={enabled} onCheckedChange={setEnabled} />\n\n// Prefer\n<Switch checked={enabled} onCheckedChange={setEnabled} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native semantics",
+      "implementation": "Wraps input[type=checkbox]; keyboard and screen-reader behavior is the platform default",
+      "userRequirements": "Provide an accessible name via aria-label or an associated Label"
+    },
+    {
+      "feature": "Focus indicator",
+      "implementation": "Visible ring on focus-visible",
+      "userRequirements": "Don't remove the focus ring with CSS overrides"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use sentence case",
+        "Phrase as the thing being agreed to, not an action",
+        "Keep under 60 characters where possible"
+      ],
+      "goodExamples": [
+        "Accept terms and conditions",
+        "Email me product updates"
+      ],
+      "badExamples": [
+        "Click here",
+        "Check this"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Always pair with a Label or aria-label for accessibility",
+      "example": "<Checkbox id=\"x\" /><Label htmlFor=\"x\">Accept</Label>"
+    }
+  ],
+  "relatedComponents": [
+    "Radio",
+    "Switch",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "checkbox",
+  "exportName": "Checkbox",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/checkbox/Checkbox.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {\n  /** Controlled checked state; omit for uncontrolled usage. */\n  checked?: boolean;\n  /** Fired when the user toggles the checkbox. */\n  onCheckedChange?: (checked: boolean) => void;\n}\n\n/**\n * Accessible checkbox built on the native input: keyboard, form, and\n * screen-reader behavior comes from the platform. Visual state is drawn\n * with a CSS overlay so the native input stays the source of truth.\n */\nconst Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(\n  ({ className, checked, onCheckedChange, ...props }, ref) => (\n    <input\n      type=\"checkbox\"\n      ref={ref}\n      checked={checked}\n      onChange={(event) => onCheckedChange?.(event.target.checked)}\n      className={cn(\n        'peer h-4 w-4 shrink-0 rounded-sm border border-primary',\n        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',\n        'disabled:cursor-not-allowed disabled:opacity-50',\n        'checked:bg-primary checked:text-primary-foreground',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nCheckbox.displayName = 'Checkbox';\n\nexport { Checkbox };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/checkbox/index.ts",
+      "content": "export * from './Checkbox';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/checkbox.manifest.json",
+      "content": "{\n  \"id\": \"checkbox\",\n  \"name\": \"Checkbox\",\n  \"tier\": \"atom\",\n  \"description\": \"A native checkbox input styled to match the design system, with controlled and uncontrolled support\",\n  \"designIntent\": \"The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes.\",\n  \"props\": [\n    {\n      \"name\": \"checked\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Controlled checked state; omit for uncontrolled usage\",\n      \"examples\": [true, false]\n    },\n    {\n      \"name\": \"defaultChecked\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Initial checked state when uncontrolled\",\n      \"examples\": [true, false]\n    },\n    {\n      \"name\": \"onCheckedChange\",\n      \"type\": \"(checked: boolean) => void\",\n      \"required\": false,\n      \"description\": \"Fired when the user toggles the checkbox\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Disables the checkbox\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic checkbox\",\n      \"code\": \"<Checkbox aria-label=\\\"Accept terms\\\" />\",\n      \"description\": \"Simple checkbox with an accessible label\"\n    },\n    {\n      \"title\": \"With visible label\",\n      \"code\": \"<div className=\\\"flex items-center gap-2\\\">\\n  <Checkbox id=\\\"terms\\\" />\\n  <Label htmlFor=\\\"terms\\\">Accept terms</Label>\\n</div>\",\n      \"description\": \"Checkbox paired with a visible Label\"\n    },\n    {\n      \"title\": \"Controlled checkbox\",\n      \"code\": \"<Checkbox\\n  checked={agreed}\\n  onCheckedChange={setAgreed}\\n  aria-label=\\\"Accept terms\\\"\\n/>\",\n      \"description\": \"Checkbox driven by parent state\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Checkbox for mutually exclusive choices\",\n      \"explanation\": \"Checkbox is for multi-select. Use Radio (inside RadioGroup) when only one option can be chosen.\",\n      \"example\": \"// Avoid: Checkboxes for exclusive choice\\n<Checkbox /> Free\\n<Checkbox /> Pro\\n\\n// Prefer: RadioGroup\\n<RadioGroup name=\\\"plan\\\" legend=\\\"Plan\\\">\\n  <RadioGroupItem value=\\\"free\\\" label=\\\"Free\\\" />\\n  <RadioGroupItem value=\\\"pro\\\" label=\\\"Pro\\\" />\\n</RadioGroup>\"\n    },\n    {\n      \"title\": \"Don't use Checkbox as a toggle for settings\",\n      \"explanation\": \"For binary settings that apply immediately, use Switch which announces on/off state.\",\n      \"example\": \"// Avoid\\n<Checkbox checked={enabled} onCheckedChange={setEnabled} />\\n\\n// Prefer\\n<Switch checked={enabled} onCheckedChange={setEnabled} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Native semantics\",\n      \"implementation\": \"Wraps input[type=checkbox]; keyboard and screen-reader behavior is the platform default\",\n      \"userRequirements\": \"Provide an accessible name via aria-label or an associated Label\"\n    },\n    {\n      \"feature\": \"Focus indicator\",\n      \"implementation\": \"Visible ring on focus-visible\",\n      \"userRequirements\": \"Don't remove the focus ring with CSS overrides\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\n        \"Use sentence case\",\n        \"Phrase as the thing being agreed to, not an action\",\n        \"Keep under 60 characters where possible\"\n      ],\n      \"goodExamples\": [\"Accept terms and conditions\", \"Email me product updates\"],\n      \"badExamples\": [\"Click here\", \"Check this\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Label\",\n      \"relationship\": \"Always pair with a Label or aria-label for accessibility\",\n      \"example\": \"<Checkbox id=\\\"x\\\" /><Label htmlFor=\\\"x\\\">Accept</Label>\"\n    }\n  ],\n  \"relatedComponents\": [\"Radio\", \"Switch\", \"Label\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"checkbox\",\n  \"exportName\": \"Checkbox\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

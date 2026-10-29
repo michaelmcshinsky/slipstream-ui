@@ -1,0 +1,131 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "tier": "atom",
+  "description": "Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper",
+  "designIntent": "Radio lets users pick exactly one option from a visible set. RadioGroup provides the shared name and accessible legend so screen readers announce group context.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value this item contributes to the group"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Visible label rendered next to the radio"
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled checked state (on Radio)"
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "description": "Fired when the user selects this radio (on Radio)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the radio"
+    },
+    {
+      "name": "legend",
+      "required": false,
+      "type": "string",
+      "description": "Accessible group label; rendered as <legend> inside a fieldset (RadioGroup component)"
+    },
+    {
+      "name": "onValueChange",
+      "required": false,
+      "type": "(value: string) => void",
+      "description": "Called with the newly selected value (RadioGroup component)"
+    },
+    {
+      "name": "defaultValue",
+      "required": false,
+      "type": "string",
+      "description": "Initial selected value when uncontrolled (RadioGroup component)"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Radio group",
+      "code": "<RadioGroup name=\"plan\" legend=\"Choose a plan\" defaultValue=\"free\">\n  <RadioGroupItem value=\"free\" label=\"Free\" />\n  <RadioGroupItem value=\"pro\" label=\"Pro\" />\n</RadioGroup>",
+      "description": "Mutually exclusive plan selection"
+    },
+    {
+      "title": "Controlled group",
+      "code": "<RadioGroup\n  name=\"plan\"\n  legend=\"Plan\"\n  value={plan}\n  onValueChange={setPlan}\n>\n  <RadioGroupItem value=\"free\" label=\"Free\" />\n  <RadioGroupItem value=\"pro\" label=\"Pro\" />\n</RadioGroup>",
+      "description": "Group driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Radio for multi-select",
+      "explanation": "Radio is single-choice. Use Checkbox when users can pick more than one option.",
+      "example": "// Avoid: Radios for multi-select\n<RadioGroup name=\"tags\">...</RadioGroup>\n\n// Prefer: Checkboxes\n<Checkbox /> React\n<Checkbox /> TypeScript"
+    },
+    {
+      "title": "Don't render bare radios without a group",
+      "explanation": "Without RadioGroup there is no shared name or legend, so screen readers can't convey the grouping.",
+      "example": "// Avoid\n<Radio name=\"x\" value=\"a\" />\n\n// Prefer\n<RadioGroup name=\"x\" legend=\"Options\">\n  <RadioGroupItem value=\"a\" label=\"A\" />\n</RadioGroup>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Group semantics",
+      "implementation": "RadioGroup renders a fieldset with a legend so the group name is announced",
+      "userRequirements": "Always provide a legend describing the choice"
+    },
+    {
+      "feature": "Arrow-key navigation",
+      "implementation": "Native radio behavior: arrows move selection within the group",
+      "userRequirements": "Don't override keyboard handlers"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Make options mutually exclusive and collectively exhaustive",
+        "Use parallel phrasing across options",
+        "Include an Other/free-text option when the set can't be closed"
+      ],
+      "goodExamples": [
+        "Free",
+        "Pro",
+        "Enterprise"
+      ],
+      "badExamples": [
+        "Option 1",
+        "Yes (pick this)",
+        "Free plan for now"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "RadioGroup",
+      "relationship": "Always wrap Radio/RadioGroupItem in a RadioGroup",
+      "example": "<RadioGroup name=\"x\" legend=\"Choose\"><RadioGroupItem value=\"a\" label=\"A\" /></RadioGroup>"
+    }
+  ],
+  "relatedComponents": [
+    "Checkbox",
+    "Select",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "radio",
+  "exportName": "Radio"
+}

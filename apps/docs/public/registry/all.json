@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "3463173",
-  "count": 25,
+  "sourceRevision": "94a6f58",
+  "count": 35,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -52,6 +52,14 @@
       "tier": "molecule",
       "description": "Displays ordered reasoning steps with status indicators.",
       "registry": "/registry/chain-thought.json"
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
+      "registry": "/registry/checkbox.json"
     },
     {
       "id": "code-block",
@@ -110,6 +118,14 @@
       "registry": "/registry/input.json"
     },
     {
+      "id": "label",
+      "name": "Label",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "An accessible form label that associates with its control",
+      "registry": "/registry/label.json"
+    },
+    {
       "id": "message",
       "name": "Message",
       "package": "@slipstream-ui/ai",
@@ -126,12 +142,28 @@
       "registry": "/registry/message-actions.json"
     },
     {
+      "id": "progress",
+      "name": "Progress",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A determinate progress bar with role=progressbar and exact value semantics",
+      "registry": "/registry/progress.json"
+    },
+    {
       "id": "prompt-input",
       "name": "PromptInput",
       "package": "@slipstream-ui/ai",
       "tier": "molecule",
       "description": "A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button",
       "registry": "/registry/prompt-input.json"
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper",
+      "registry": "/registry/radio.json"
     },
     {
       "id": "reasoning",
@@ -156,6 +188,22 @@
       "tier": "atom",
       "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
       "registry": "/registry/select.json"
+    },
+    {
+      "id": "separator",
+      "name": "Separator",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A visual divider between content blocks, decorative or semantic",
+      "registry": "/registry/separator.json"
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A loading placeholder that mirrors the shape of upcoming content",
+      "registry": "/registry/skeleton.json"
     },
     {
       "id": "source",
@@ -190,6 +238,30 @@
       "registry": "/registry/suggestions.json"
     },
     {
+      "id": "switch",
+      "name": "Switch",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A toggle switch for binary settings, with role=switch and aria-checked",
+      "registry": "/registry/switch.json"
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Tabbed content container with ARIA tablist semantics and keyboard navigation",
+      "registry": "/registry/tabs.json"
+    },
+    {
+      "id": "textarea",
+      "name": "Textarea",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A multi-line text input styled to match Input, wrapping the native textarea",
+      "registry": "/registry/textarea.json"
+    },
+    {
       "id": "toast",
       "name": "Toast",
       "package": "@slipstream-ui/core",
@@ -204,6 +276,14 @@
       "tier": "molecule",
       "description": "A component for displaying AI tool/function calls with status, arguments, and results",
       "registry": "/registry/tool-call.json"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal",
+      "registry": "/registry/tooltip.json"
     }
   ]
 }

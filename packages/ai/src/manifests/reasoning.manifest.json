@@ -41,6 +41,18 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": false,
+      "description": "Elapsed reasoning time in seconds; renders a duration chip"
+    },
+    {
+      "name": "isStreaming",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a streaming indicator while reasoning is in progress"
     }
   ],
   "examples": [

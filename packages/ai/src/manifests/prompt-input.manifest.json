@@ -111,6 +111,85 @@
       "defaultValue": "Stop generating",
       "required": false,
       "description": "Accessible label for the stop button; enables localization."
+    },
+    {
+      "name": "attachments",
+      "type": "AttachmentItem[]",
+      "required": false,
+      "description": "Controlled attachment list shown as chips above the input"
+    },
+    {
+      "name": "onRemoveAttachment",
+      "type": "(id: string) => void",
+      "required": false,
+      "description": "Called when the user removes an attachment chip"
+    },
+    {
+      "name": "onAttachmentsChange",
+      "type": "(attachments: AttachmentItem[]) => void",
+      "required": false,
+      "description": "Called when files are added via drag-and-drop, paste, or picker"
+    },
+    {
+      "name": "hasError",
+      "type": "boolean",
+      "required": false,
+      "description": "Styles the input in an error state (e.g. after a rejected file)"
+    },
+    {
+      "name": "accept",
+      "type": "string",
+      "required": false,
+      "description": "MIME types accepted for attachments (e.g. \"image/*\")"
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow selecting multiple files"
+    },
+    {
+      "name": "maxFiles",
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of attachments allowed"
+    },
+    {
+      "name": "maxFileSize",
+      "type": "number",
+      "required": false,
+      "description": "Maximum file size in bytes; rejects larger files"
+    },
+    {
+      "name": "onAttachmentError",
+      "type": "(error: string) => void",
+      "required": false,
+      "description": "Called when an attachment is rejected (size, type, or count limit)"
+    },
+    {
+      "name": "globalDrop",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable drop-anywhere-on-page file acceptance"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom content rendered inside the input row (e.g. tool buttons)"
+    },
+    {
+      "name": "tooltip",
+      "required": false,
+      "type": "string | { content: ReactNode; shortcut?: string }",
+      "description": "Tooltip content for a toolbar button; optionally includes a keyboard shortcut hint (PromptInput.Button sub-component)"
+    },
+    {
+      "name": "active",
+      "required": false,
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Toggles the active state on a toolbar button (PromptInput.Button sub-component)"
     }
   ],
   "examples": [

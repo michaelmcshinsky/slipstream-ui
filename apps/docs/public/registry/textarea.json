@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "textarea",
+  "name": "textarea",
+  "tier": "atom",
+  "description": "A multi-line text input styled to match Input, wrapping the native textarea",
+  "designIntent": "Textarea is for free-form, multi-line text such as messages, descriptions, and feedback. Native textarea semantics keep IME, form validation, and screen-reader behavior intact.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled value; omit for uncontrolled usage"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial value when uncontrolled"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder text shown when empty"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the textarea"
+    },
+    {
+      "name": "onChange",
+      "type": "(event: ChangeEvent<HTMLTextAreaElement>) => void",
+      "required": false,
+      "description": "Fired when the content changes"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic textarea",
+      "code": "<Textarea placeholder=\"Tell us about your project\" />",
+      "description": "Multi-line input with a placeholder"
+    },
+    {
+      "title": "With label and helper text",
+      "code": "<div className=\"space-y-1\">\n  <Label htmlFor=\"bio\">Bio</Label>\n  <Textarea id=\"bio\" maxLength={280} />\n  <p className=\"text-xs text-muted-foreground\">Up to 280 characters</p>\n</div>",
+      "description": "Labelled textarea with a hint"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Textarea for single-line values",
+      "explanation": "Use Input for emails, names, and other short single-line data.",
+      "example": "// Avoid\n<Textarea placeholder=\"Email\" />\n\n// Prefer\n<Input type=\"email\" placeholder=\"Email\" />"
+    },
+    {
+      "title": "Don't use Textarea for rich text",
+      "explanation": "Textarea is plain text. Use a rich-text editor when formatting is required."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native semantics",
+      "implementation": "Wraps textarea; multiline text entry and form validation work natively",
+      "userRequirements": "Provide an accessible name via Label or aria-label"
+    },
+    {
+      "feature": "Character limits",
+      "implementation": "maxLength is supported natively",
+      "userRequirements": "Announce the limit in helper text, not just the placeholder"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholders",
+      "guidelines": [
+        "Describe what to write",
+        "Match the expected tone and length"
+      ],
+      "goodExamples": [
+        "Describe the bug you encountered",
+        "Tell us about your project"
+      ],
+      "badExamples": [
+        "Text",
+        "Type here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Pair with Label for accessibility",
+      "example": "<Label htmlFor=\"m\">Message</Label><Textarea id=\"m\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Input",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "textarea",
+  "exportName": "Textarea",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/textarea/index.ts",
+      "content": "export * from './Textarea';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/textarea/Textarea.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {\n  /** Controlled value; omit for uncontrolled usage. */\n  value?: string;\n  /** Fired when the content changes. */\n  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;\n}\n\n/**\n * Multi-line text input styled to match `Input`. Wraps the native\n * <textarea> so form semantics, IME support, and validation bubbles\n * behave exactly as users expect.\n */\nconst Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(\n  ({ className, ...props }, ref) => (\n    <textarea\n      ref={ref}\n      className={cn(\n        'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm',\n        'placeholder:text-muted-foreground',\n        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',\n        'disabled:cursor-not-allowed disabled:opacity-50',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nTextarea.displayName = 'Textarea';\n\nexport { Textarea };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/textarea.manifest.json",
+      "content": "{\n  \"id\": \"textarea\",\n  \"name\": \"Textarea\",\n  \"tier\": \"atom\",\n  \"description\": \"A multi-line text input styled to match Input, wrapping the native textarea\",\n  \"designIntent\": \"Textarea is for free-form, multi-line text such as messages, descriptions, and feedback. Native textarea semantics keep IME, form validation, and screen-reader behavior intact.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Controlled value; omit for uncontrolled usage\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Initial value when uncontrolled\"\n    },\n    {\n      \"name\": \"placeholder\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Placeholder text shown when empty\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"false\",\n      \"required\": false,\n      \"description\": \"Disables the textarea\"\n    },\n    {\n      \"name\": \"onChange\",\n      \"type\": \"(event: ChangeEvent<HTMLTextAreaElement>) => void\",\n      \"required\": false,\n      \"description\": \"Fired when the content changes\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic textarea\",\n      \"code\": \"<Textarea placeholder=\\\"Tell us about your project\\\" />\",\n      \"description\": \"Multi-line input with a placeholder\"\n    },\n    {\n      \"title\": \"With label and helper text\",\n      \"code\": \"<div className=\\\"space-y-1\\\">\\n  <Label htmlFor=\\\"bio\\\">Bio</Label>\\n  <Textarea id=\\\"bio\\\" maxLength={280} />\\n  <p className=\\\"text-xs text-muted-foreground\\\">Up to 280 characters</p>\\n</div>\",\n      \"description\": \"Labelled textarea with a hint\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Textarea for single-line values\",\n      \"explanation\": \"Use Input for emails, names, and other short single-line data.\",\n      \"example\": \"// Avoid\\n<Textarea placeholder=\\\"Email\\\" />\\n\\n// Prefer\\n<Input type=\\\"email\\\" placeholder=\\\"Email\\\" />\"\n    },\n    {\n      \"title\": \"Don't use Textarea for rich text\",\n      \"explanation\": \"Textarea is plain text. Use a rich-text editor when formatting is required.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Native semantics\",\n      \"implementation\": \"Wraps textarea; multiline text entry and form validation work natively\",\n      \"userRequirements\": \"Provide an accessible name via Label or aria-label\"\n    },\n    {\n      \"feature\": \"Character limits\",\n      \"implementation\": \"maxLength is supported natively\",\n      \"userRequirements\": \"Announce the limit in helper text, not just the placeholder\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Placeholders\",\n      \"guidelines\": [\"Describe what to write\", \"Match the expected tone and length\"],\n      \"goodExamples\": [\"Describe the bug you encountered\", \"Tell us about your project\"],\n      \"badExamples\": [\"Text\", \"Type here\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Label\",\n      \"relationship\": \"Pair with Label for accessibility\",\n      \"example\": \"<Label htmlFor=\\\"m\\\">Message</Label><Textarea id=\\\"m\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\"Input\", \"Label\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"textarea\",\n  \"exportName\": \"Textarea\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

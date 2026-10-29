@@ -1,0 +1,108 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "tier": "atom",
+  "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
+  "designIntent": "The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled checked state; omit for uncontrolled usage",
+      "examples": [true, false]
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "required": false,
+      "description": "Initial checked state when uncontrolled",
+      "examples": [true, false]
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(checked: boolean) => void",
+      "required": false,
+      "description": "Fired when the user toggles the checkbox"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Disables the checkbox"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic checkbox",
+      "code": "<Checkbox aria-label=\"Accept terms\" />",
+      "description": "Simple checkbox with an accessible label"
+    },
+    {
+      "title": "With visible label",
+      "code": "<div className=\"flex items-center gap-2\">\n  <Checkbox id=\"terms\" />\n  <Label htmlFor=\"terms\">Accept terms</Label>\n</div>",
+      "description": "Checkbox paired with a visible Label"
+    },
+    {
+      "title": "Controlled checkbox",
+      "code": "<Checkbox\n  checked={agreed}\n  onCheckedChange={setAgreed}\n  aria-label=\"Accept terms\"\n/>",
+      "description": "Checkbox driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Checkbox for mutually exclusive choices",
+      "explanation": "Checkbox is for multi-select. Use Radio (inside RadioGroup) when only one option can be chosen.",
+      "example": "// Avoid: Checkboxes for exclusive choice\n<Checkbox /> Free\n<Checkbox /> Pro\n\n// Prefer: RadioGroup\n<RadioGroup name=\"plan\" legend=\"Plan\">\n  <RadioGroupItem value=\"free\" label=\"Free\" />\n  <RadioGroupItem value=\"pro\" label=\"Pro\" />\n</RadioGroup>"
+    },
+    {
+      "title": "Don't use Checkbox as a toggle for settings",
+      "explanation": "For binary settings that apply immediately, use Switch which announces on/off state.",
+      "example": "// Avoid\n<Checkbox checked={enabled} onCheckedChange={setEnabled} />\n\n// Prefer\n<Switch checked={enabled} onCheckedChange={setEnabled} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native semantics",
+      "implementation": "Wraps input[type=checkbox]; keyboard and screen-reader behavior is the platform default",
+      "userRequirements": "Provide an accessible name via aria-label or an associated Label"
+    },
+    {
+      "feature": "Focus indicator",
+      "implementation": "Visible ring on focus-visible",
+      "userRequirements": "Don't remove the focus ring with CSS overrides"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use sentence case",
+        "Phrase as the thing being agreed to, not an action",
+        "Keep under 60 characters where possible"
+      ],
+      "goodExamples": ["Accept terms and conditions", "Email me product updates"],
+      "badExamples": ["Click here", "Check this"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Label",
+      "relationship": "Always pair with a Label or aria-label for accessibility",
+      "example": "<Checkbox id=\"x\" /><Label htmlFor=\"x\">Accept</Label>"
+    }
+  ],
+  "relatedComponents": ["Radio", "Switch", "Label"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "checkbox",
+  "exportName": "Checkbox"
+}

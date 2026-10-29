@@ -1,0 +1,128 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "progress",
+  "name": "progress",
+  "tier": "atom",
+  "description": "A determinate progress bar with role=progressbar and exact value semantics",
+  "designIntent": "Progress shows completion of a known-length task (uploads, installs, multi-step flows). It exposes exact values so assistive tech reports percentages, not just a moving bar.",
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "defaultValue": "0",
+      "required": false,
+      "description": "Current value between 0 and max"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "defaultValue": "100",
+      "required": false,
+      "description": "Upper bound of the progress scale"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label announced by screen readers"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Upload progress",
+      "code": "<Progress value={uploadPercent} label=\"Upload progress\" />",
+      "description": "Track an upload percentage"
+    },
+    {
+      "title": "Step completion",
+      "code": "<Progress value={step} max={totalSteps} label=\"Setup progress\" />",
+      "description": "Progress through a finite set of steps"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Progress for indeterminate work",
+      "explanation": "When the duration is unknown, use Spinner or StreamingIndicator instead.",
+      "example": "// Avoid\n<Progress />\n\n// Prefer\n<Spinner label=\"Loading\" />"
+    },
+    {
+      "title": "Don't animate progress beyond its value",
+      "explanation": "Fabricating movement misleads users; only reflect real task progress."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Progressbar semantics",
+      "implementation": "role=\"progressbar\" with aria-valuenow/min/max",
+      "userRequirements": "Provide an accessible label describing the task"
+    },
+    {
+      "feature": "Exact values",
+      "implementation": "aria-valuenow reflects the clamped value",
+      "userRequirements": "Update the value as the task advances"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Name the task, not the bar",
+        "Keep to 2-4 words"
+      ],
+      "goodExamples": [
+        "Upload progress",
+        "Profile setup"
+      ],
+      "badExamples": [
+        "Loading bar",
+        "Progress"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Skeleton",
+      "relationship": "Use Skeleton for unknown-length content, Progress for known-length tasks",
+      "example": "<Progress value={50} label=\"Upload\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Skeleton",
+    "Spinner"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "progress",
+  "exportName": "Progress",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/progress/index.ts",
+      "content": "export * from './Progress';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/progress/Progress.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Current value between 0 and `max`. */\n  value?: number;\n  /** Upper bound (default 100). */\n  max?: number;\n  /** Accessible label announced by screen readers. */\n  label?: string;\n}\n\n/**\n * Determinate progress bar. Exposes `role=\"progressbar\"` with\n * `aria-valuenow`/`aria-valuemax` so assistive tech reports the exact\n * percentage; the visual track is pure CSS.\n */\nconst Progress = React.forwardRef<HTMLDivElement, ProgressProps>(\n  ({ className, value = 0, max = 100, label, ...props }, ref) => {\n    const clamped = Math.min(Math.max(value, 0), max);\n    const percent = max > 0 ? (clamped / max) * 100 : 0;\n\n    return (\n      <div\n        ref={ref}\n        role=\"progressbar\"\n        aria-valuenow={clamped}\n        aria-valuemin={0}\n        aria-valuemax={max}\n        aria-label={label}\n        className={cn('relative h-2 w-full overflow-hidden rounded-full bg-muted', className)}\n        {...props}\n      >\n        <div\n          className=\"h-full bg-primary transition-all duration-300 motion-reduce:transition-none\"\n          style={{ width: `${percent}%` }}\n        />\n      </div>\n    );\n  }\n);\nProgress.displayName = 'Progress';\n\nexport { Progress };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/progress.manifest.json",
+      "content": "{\n  \"id\": \"progress\",\n  \"name\": \"Progress\",\n  \"tier\": \"atom\",\n  \"description\": \"A determinate progress bar with role=progressbar and exact value semantics\",\n  \"designIntent\": \"Progress shows completion of a known-length task (uploads, installs, multi-step flows). It exposes exact values so assistive tech reports percentages, not just a moving bar.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"number\",\n      \"defaultValue\": \"0\",\n      \"required\": false,\n      \"description\": \"Current value between 0 and max\"\n    },\n    {\n      \"name\": \"max\",\n      \"type\": \"number\",\n      \"defaultValue\": \"100\",\n      \"required\": false,\n      \"description\": \"Upper bound of the progress scale\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Accessible label announced by screen readers\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Upload progress\",\n      \"code\": \"<Progress value={uploadPercent} label=\\\"Upload progress\\\" />\",\n      \"description\": \"Track an upload percentage\"\n    },\n    {\n      \"title\": \"Step completion\",\n      \"code\": \"<Progress value={step} max={totalSteps} label=\\\"Setup progress\\\" />\",\n      \"description\": \"Progress through a finite set of steps\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Progress for indeterminate work\",\n      \"explanation\": \"When the duration is unknown, use Spinner or StreamingIndicator instead.\",\n      \"example\": \"// Avoid\\n<Progress />\\n\\n// Prefer\\n<Spinner label=\\\"Loading\\\" />\"\n    },\n    {\n      \"title\": \"Don't animate progress beyond its value\",\n      \"explanation\": \"Fabricating movement misleads users; only reflect real task progress.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Progressbar semantics\",\n      \"implementation\": \"role=\\\"progressbar\\\" with aria-valuenow/min/max\",\n      \"userRequirements\": \"Provide an accessible label describing the task\"\n    },\n    {\n      \"feature\": \"Exact values\",\n      \"implementation\": \"aria-valuenow reflects the clamped value\",\n      \"userRequirements\": \"Update the value as the task advances\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\"Name the task, not the bar\", \"Keep to 2-4 words\"],\n      \"goodExamples\": [\"Upload progress\", \"Profile setup\"],\n      \"badExamples\": [\"Loading bar\", \"Progress\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Skeleton\",\n      \"relationship\": \"Use Skeleton for unknown-length content, Progress for known-length tasks\",\n      \"example\": \"<Progress value={50} label=\\\"Upload\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\"Skeleton\", \"Spinner\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"progress\",\n  \"exportName\": \"Progress\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "id": "separator",
+  "name": "Separator",
+  "tier": "atom",
+  "description": "A visual divider between content blocks, decorative or semantic",
+  "designIntent": "Separator creates visual rhythm between content groups. By default it is decorative; pass a label to make it a semantic divider that assistive tech can announce.",
+  "props": [
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "defaultValue": "horizontal",
+      "required": false,
+      "description": "Direction of the divider line"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name; when set, the separator becomes semantic"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Horizontal divider",
+      "code": "<div>Section A</div>\n<Separator className=\"my-4\" />\n<div>Section B</div>",
+      "description": "Simple line between sections"
+    },
+    {
+      "title": "Vertical divider",
+      "code": "<div className=\"flex items-center gap-4\">\n  <Button>Save</Button>\n  <Separator orientation=\"vertical\" className=\"h-6\" />\n  <Button variant=\"ghost\">Cancel</Button>\n</div>",
+      "description": "Vertical line between actions"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Separator to create layout spacing",
+      "explanation": "Use margin/gap for spacing; Separator is for visual division.",
+      "example": "// Avoid\n<Item /><Separator /><Item />\n// Prefer\n<div className=\"space-y-4\"><Item /><Item /></div>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Decorative by default",
+      "implementation": "role=\"none\" so screen readers skip unlabeled separators",
+      "userRequirements": "Only label separators that carry navigational meaning"
+    },
+    {
+      "feature": "Semantic separator",
+      "implementation": "role=\"separator\" with aria-label when labelled",
+      "userRequirements": "Use short, descriptive labels"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": ["Use only when the boundary is meaningful", "Keep to 2-3 words"],
+      "goodExamples": ["Section break", "Actions"],
+      "badExamples": ["This is a line separating sections"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section headings",
+      "relationship": "Separators pair with headings to divide long pages",
+      "example": "<h2>Settings</h2><Separator className=\"my-4\" />"
+    }
+  ],
+  "relatedComponents": ["Skeleton"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "separator",
+  "exportName": "Separator"
+}

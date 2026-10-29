@@ -16,6 +16,13 @@
       "type": "(suggestion: Suggestion) => void",
       "required": false,
       "description": "Called when a suggestion is selected."
+    },
+    {
+      "name": "maxDisplay",
+      "required": false,
+      "defaultValue": "4",
+      "type": "number",
+      "description": "Maximum number of suggestions to display before truncating"
     }
   ],
   "examples": [

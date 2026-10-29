@@ -1,0 +1,115 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "separator",
+  "name": "separator",
+  "tier": "atom",
+  "description": "A visual divider between content blocks, decorative or semantic",
+  "designIntent": "Separator creates visual rhythm between content groups. By default it is decorative; pass a label to make it a semantic divider that assistive tech can announce.",
+  "props": [
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "defaultValue": "horizontal",
+      "required": false,
+      "description": "Direction of the divider line"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name; when set, the separator becomes semantic"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Horizontal divider",
+      "code": "<div>Section A</div>\n<Separator className=\"my-4\" />\n<div>Section B</div>",
+      "description": "Simple line between sections"
+    },
+    {
+      "title": "Vertical divider",
+      "code": "<div className=\"flex items-center gap-4\">\n  <Button>Save</Button>\n  <Separator orientation=\"vertical\" className=\"h-6\" />\n  <Button variant=\"ghost\">Cancel</Button>\n</div>",
+      "description": "Vertical line between actions"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Separator to create layout spacing",
+      "explanation": "Use margin/gap for spacing; Separator is for visual division.",
+      "example": "// Avoid\n<Item /><Separator /><Item />\n// Prefer\n<div className=\"space-y-4\"><Item /><Item /></div>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Decorative by default",
+      "implementation": "role=\"none\" so screen readers skip unlabeled separators",
+      "userRequirements": "Only label separators that carry navigational meaning"
+    },
+    {
+      "feature": "Semantic separator",
+      "implementation": "role=\"separator\" with aria-label when labelled",
+      "userRequirements": "Use short, descriptive labels"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use only when the boundary is meaningful",
+        "Keep to 2-3 words"
+      ],
+      "goodExamples": [
+        "Section break",
+        "Actions"
+      ],
+      "badExamples": [
+        "This is a line separating sections"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section headings",
+      "relationship": "Separators pair with headings to divide long pages",
+      "example": "<h2>Settings</h2><Separator className=\"my-4\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Skeleton"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "separator",
+  "exportName": "Separator",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/separator/index.ts",
+      "content": "export * from './Separator';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/separator/Separator.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nconst separatorVariants = cva('shrink-0 bg-border', {\n  variants: {\n    orientation: {\n      horizontal: 'h-px w-full',\n      vertical: 'h-full w-px',\n    },\n  },\n  defaultVariants: {\n    orientation: 'horizontal',\n  },\n});\n\nexport interface SeparatorProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof separatorVariants> {\n  /** Accessible label for the dividing line (e.g. \"section break\"). */\n  label?: string;\n}\n\n/**\n * Visual divider between content blocks. Decorative by default\n * (`role=\"none\"`); pass `label` to expose a semantic separator that\n * screen readers can announce.\n */\nconst Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(\n  ({ className, orientation, label, ...props }, ref) => (\n    <div\n      ref={ref}\n      role={label ? 'separator' : 'none'}\n      aria-label={label}\n      aria-orientation={orientation === 'vertical' ? 'vertical' : undefined}\n      className={cn(separatorVariants({ orientation }), className)}\n      {...props}\n    />\n  )\n);\nSeparator.displayName = 'Separator';\n\nexport { Separator, separatorVariants };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/separator.manifest.json",
+      "content": "{\n  \"id\": \"separator\",\n  \"name\": \"Separator\",\n  \"tier\": \"atom\",\n  \"description\": \"A visual divider between content blocks, decorative or semantic\",\n  \"designIntent\": \"Separator creates visual rhythm between content groups. By default it is decorative; pass a label to make it a semantic divider that assistive tech can announce.\",\n  \"props\": [\n    {\n      \"name\": \"orientation\",\n      \"type\": \"'horizontal' | 'vertical'\",\n      \"defaultValue\": \"horizontal\",\n      \"required\": false,\n      \"description\": \"Direction of the divider line\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Accessible name; when set, the separator becomes semantic\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Horizontal divider\",\n      \"code\": \"<div>Section A</div>\\n<Separator className=\\\"my-4\\\" />\\n<div>Section B</div>\",\n      \"description\": \"Simple line between sections\"\n    },\n    {\n      \"title\": \"Vertical divider\",\n      \"code\": \"<div className=\\\"flex items-center gap-4\\\">\\n  <Button>Save</Button>\\n  <Separator orientation=\\\"vertical\\\" className=\\\"h-6\\\" />\\n  <Button variant=\\\"ghost\\\">Cancel</Button>\\n</div>\",\n      \"description\": \"Vertical line between actions\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Separator to create layout spacing\",\n      \"explanation\": \"Use margin/gap for spacing; Separator is for visual division.\",\n      \"example\": \"// Avoid\\n<Item /><Separator /><Item />\\n// Prefer\\n<div className=\\\"space-y-4\\\"><Item /><Item /></div>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Decorative by default\",\n      \"implementation\": \"role=\\\"none\\\" so screen readers skip unlabeled separators\",\n      \"userRequirements\": \"Only label separators that carry navigational meaning\"\n    },\n    {\n      \"feature\": \"Semantic separator\",\n      \"implementation\": \"role=\\\"separator\\\" with aria-label when labelled\",\n      \"userRequirements\": \"Use short, descriptive labels\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\"Use only when the boundary is meaningful\", \"Keep to 2-3 words\"],\n      \"goodExamples\": [\"Section break\", \"Actions\"],\n      \"badExamples\": [\"This is a line separating sections\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section headings\",\n      \"relationship\": \"Separators pair with headings to divide long pages\",\n      \"example\": \"<h2>Settings</h2><Separator className=\\\"my-4\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\"Skeleton\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"separator\",\n  \"exportName\": \"Separator\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

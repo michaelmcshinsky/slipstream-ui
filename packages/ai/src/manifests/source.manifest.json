@@ -6,30 +6,42 @@
   "designIntent": "Make generated answers transparent by showing where information came from.",
   "props": [
     {
+      "name": "index",
+      "type": "number",
+      "required": false,
+      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+    },
+    {
+      "name": "source",
+      "type": "SourceItem",
+      "required": true,
+      "description": "The single source to render (Source component)"
+    },
+    {
+      "name": "onSelect",
+      "type": "(source: SourceItem) => void",
+      "required": false,
+      "description": "Called when the source chip is clicked"
+    },
+    {
       "name": "sources",
       "type": "SourceItem[]",
       "required": true,
-      "description": "References to display (Sources only)."
+      "description": "List of sources to render (Sources component)"
     },
     {
       "name": "maxDisplay",
       "type": "number",
-      "defaultValue": 3,
+      "defaultValue": "3",
       "required": false,
-      "description": "Maximum number of references to show before an overflow indicator."
+      "description": "Maximum number of source chips to show before collapsing (Sources component)"
     },
     {
       "name": "label",
       "type": "string",
       "defaultValue": "Sources",
       "required": false,
-      "description": "Heading label; override for localization."
-    },
-    {
-      "name": "index",
-      "type": "number",
-      "required": false,
-      "description": "1-based citation marker rendered as [n]; omit on Source to hide numbering."
+      "description": "Section label above the source list (Sources component)"
     }
   ],
   "examples": [

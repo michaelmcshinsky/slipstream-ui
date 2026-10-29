@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@slipstream-ui/core';
 
 interface CodeBlockProps {

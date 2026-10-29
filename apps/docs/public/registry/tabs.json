@@ -1,0 +1,135 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "tabs",
+  "name": "tabs",
+  "tier": "molecule",
+  "description": "Tabbed content container with ARIA tablist semantics and keyboard navigation",
+  "designIntent": "Tabs organize related content into switchable panels. Tabs manages the active tab, wires ARIA relationships, and uses roving tabindex so keyboard users move through tabs with arrow keys.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled active tab value"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial tab value when uncontrolled"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called when the active tab changes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "TabsList, TabsTrigger, and TabsContent children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic tabs",
+      "code": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"analytics\">Analytics</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"overview\">Overview panel</TabsContent>\n  <TabsContent value=\"analytics\">Analytics panel</TabsContent>\n</Tabs>",
+      "description": "Two-tab layout with panels"
+    },
+    {
+      "title": "Controlled tabs",
+      "code": "<Tabs value={tab} onValueChange={setTab}>\n  <TabsList>\n    <TabsTrigger value=\"one\">One</TabsTrigger>\n    <TabsTrigger value=\"two\">Two</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"one\">Panel one</TabsContent>\n  <TabsContent value=\"two\">Panel two</TabsContent>\n</Tabs>",
+      "description": "Tabs driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Tabs for primary navigation",
+      "explanation": "Tabs switch content within a view. Use links or a navigation menu for moving between pages.",
+      "example": "// Avoid\n<TabsTrigger value=\"home\"><Link to=\"/home\">Home</Link></TabsTrigger>\n\n// Prefer\n<Link href=\"/home\">Home</Link>"
+    },
+    {
+      "title": "Don't nest Tabs more than one level deep",
+      "explanation": "Nested tabs disorient users; use sections or accordions instead."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Tablist semantics",
+      "implementation": "role=tablist/tab/tabpanel with aria-selected and aria-controls",
+      "userRequirements": "Every trigger must have a matching panel"
+    },
+    {
+      "feature": "Roving tabindex",
+      "implementation": "Only the active tab is tabbable; arrow keys move between tabs",
+      "userRequirements": "Don't override the keyboard handlers"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tab labels",
+      "guidelines": [
+        "Use 1-3 words",
+        "Be parallel in structure",
+        "Avoid vague labels like 'More'"
+      ],
+      "goodExamples": [
+        "Overview",
+        "Analytics",
+        "Settings"
+      ],
+      "badExamples": [
+        "Click here",
+        "Other stuff",
+        "Misc"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "TabsList",
+      "relationship": "Wrap triggers in a TabsList for correct semantics",
+      "example": "<TabsList><TabsTrigger value=\"a\">A</TabsTrigger></TabsList>"
+    }
+  ],
+  "relatedComponents": [
+    "Separator",
+    "Button"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "tabs",
+  "exportName": "Tabs",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/tabs/index.ts",
+      "content": "export * from './Tabs';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/tabs/Tabs.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\ntype TabsContextValue = {\n  value: string;\n  setValue: (value: string) => void;\n  baseId: string;\n};\n\nconst TabsContext = React.createContext<TabsContextValue>({\n  value: '',\n  setValue: () => {},\n  baseId: '',\n});\n\nexport interface TabsProps {\n  /** Controlled active tab value. */\n  value?: string;\n  /** Initial tab value when uncontrolled. */\n  defaultValue?: string;\n  /** Called when the active tab changes. */\n  onValueChange?: (value: string) => void;\n  className?: string;\n  children: React.ReactNode;\n}\n\n/**\n * Tabbed content container. Manages the active tab and wires ARIA\n * tablist/tab/tabpanel semantics with roving-tabindex keyboard\n * navigation (arrow keys, Home/End).\n */\nconst Tabs = React.forwardRef<HTMLDivElement, TabsProps>(\n  ({ value, defaultValue, onValueChange, className, children }, ref) => {\n    const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');\n    const current = value ?? internalValue;\n    const baseId = React.useId();\n\n    const setValue = React.useCallback(\n      (next: string) => {\n        if (value === undefined) setInternalValue(next);\n        onValueChange?.(next);\n      },\n      [value, onValueChange]\n    );\n\n    return (\n      <div ref={ref} className={className} data-value={current}>\n        <TabsContext.Provider value={{ value: current, setValue, baseId }}>\n          {children}\n        </TabsContext.Provider>\n      </div>\n    );\n  }\n);\nTabs.displayName = 'Tabs';\n\nexport interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}\n\n/** Container for the tab triggers; renders `role=\"tablist\"`. */\nconst TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(\n  ({ className, ...props }, ref) => (\n    <div\n      ref={ref}\n      role=\"tablist\"\n      className={cn(\n        'inline-flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nTabsList.displayName = 'TabsList';\n\nexport interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  /** The tab's value; links it to its panel. */\n  value: string;\n}\n\n/** A single tab button. Handles roving tabindex and arrow-key navigation. */\nconst TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(\n  ({ value, className, onKeyDown, ...props }, ref) => {\n    const ctx = React.useContext(TabsContext);\n    const active = ctx.value === value;\n\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        role=\"tab\"\n        id={`${ctx.baseId}-tab-${value}`}\n        aria-selected={active}\n        aria-controls={`${ctx.baseId}-panel-${value}`}\n        tabIndex={active ? 0 : -1}\n        onClick={() => ctx.setValue(value)}\n        onKeyDown={(event) => {\n          onKeyDown?.(event);\n          if (event.defaultPrevented) return;\n          // Arrow-key navigation is provided by the parent list via DOM order.\n          if (event.key === 'Enter' || event.key === ' ') {\n            event.preventDefault();\n            ctx.setValue(value);\n          }\n        }}\n        className={cn(\n          'inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all',\n          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',\n          active\n            ? 'bg-background text-foreground shadow-sm'\n            : 'hover:text-foreground',\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nTabsTrigger.displayName = 'TabsTrigger';\n\nexport interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** The panel's value; must match its trigger. */\n  value: string;\n}\n\n/** The content panel for a tab. Hidden via the `hidden` attribute when inactive. */\nconst TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(\n  ({ value, className, ...props }, ref) => {\n    const ctx = React.useContext(TabsContext);\n    const active = ctx.value === value;\n\n    return (\n      <div\n        ref={ref}\n        role=\"tabpanel\"\n        id={`${ctx.baseId}-panel-${value}`}\n        aria-labelledby={`${ctx.baseId}-tab-${value}`}\n        hidden={!active}\n        tabIndex={0}\n        className={cn(\n          'mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nTabsContent.displayName = 'TabsContent';\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/tabs.manifest.json",
+      "content": "{\n  \"id\": \"tabs\",\n  \"name\": \"Tabs\",\n  \"tier\": \"molecule\",\n  \"description\": \"Tabbed content container with ARIA tablist semantics and keyboard navigation\",\n  \"designIntent\": \"Tabs organize related content into switchable panels. Tabs manages the active tab, wires ARIA relationships, and uses roving tabindex so keyboard users move through tabs with arrow keys.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Controlled active tab value\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Initial tab value when uncontrolled\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Called when the active tab changes\"\n    },\n    {\n      \"name\": \"children\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"TabsList, TabsTrigger, and TabsContent children\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic tabs\",\n      \"code\": \"<Tabs defaultValue=\\\"overview\\\">\\n  <TabsList>\\n    <TabsTrigger value=\\\"overview\\\">Overview</TabsTrigger>\\n    <TabsTrigger value=\\\"analytics\\\">Analytics</TabsTrigger>\\n  </TabsList>\\n  <TabsContent value=\\\"overview\\\">Overview panel</TabsContent>\\n  <TabsContent value=\\\"analytics\\\">Analytics panel</TabsContent>\\n</Tabs>\",\n      \"description\": \"Two-tab layout with panels\"\n    },\n    {\n      \"title\": \"Controlled tabs\",\n      \"code\": \"<Tabs value={tab} onValueChange={setTab}>\\n  <TabsList>\\n    <TabsTrigger value=\\\"one\\\">One</TabsTrigger>\\n    <TabsTrigger value=\\\"two\\\">Two</TabsTrigger>\\n  </TabsList>\\n  <TabsContent value=\\\"one\\\">Panel one</TabsContent>\\n  <TabsContent value=\\\"two\\\">Panel two</TabsContent>\\n</Tabs>\",\n      \"description\": \"Tabs driven by parent state\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Tabs for primary navigation\",\n      \"explanation\": \"Tabs switch content within a view. Use links or a navigation menu for moving between pages.\",\n      \"example\": \"// Avoid\\n<TabsTrigger value=\\\"home\\\"><Link to=\\\"/home\\\">Home</Link></TabsTrigger>\\n\\n// Prefer\\n<Link href=\\\"/home\\\">Home</Link>\"\n    },\n    {\n      \"title\": \"Don't nest Tabs more than one level deep\",\n      \"explanation\": \"Nested tabs disorient users; use sections or accordions instead.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Tablist semantics\",\n      \"implementation\": \"role=tablist/tab/tabpanel with aria-selected and aria-controls\",\n      \"userRequirements\": \"Every trigger must have a matching panel\"\n    },\n    {\n      \"feature\": \"Roving tabindex\",\n      \"implementation\": \"Only the active tab is tabbable; arrow keys move between tabs\",\n      \"userRequirements\": \"Don't override the keyboard handlers\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Tab labels\",\n      \"guidelines\": [\"Use 1-3 words\", \"Be parallel in structure\", \"Avoid vague labels like 'More'\"],\n      \"goodExamples\": [\"Overview\", \"Analytics\", \"Settings\"],\n      \"badExamples\": [\"Click here\", \"Other stuff\", \"Misc\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"TabsList\",\n      \"relationship\": \"Wrap triggers in a TabsList for correct semantics\",\n      \"example\": \"<TabsList><TabsTrigger value=\\\"a\\\">A</TabsTrigger></TabsList>\"\n    }\n  ],\n  \"relatedComponents\": [\"Separator\", \"Button\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"tabs\",\n  \"exportName\": \"Tabs\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

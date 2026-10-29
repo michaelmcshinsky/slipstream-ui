@@ -1,0 +1,140 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "tooltip",
+  "name": "tooltip",
+  "tier": "molecule",
+  "description": "Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal",
+  "designIntent": "Tooltip provides supplementary context on hover and keyboard focus. It appears with a short delay, is announced via aria-describedby, and dismisses on Escape so it never traps the user.",
+  "props": [
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "The tooltip text"
+    },
+    {
+      "name": "side",
+      "type": "'top' | 'bottom' | 'left' | 'right'",
+      "defaultValue": "top",
+      "required": false,
+      "description": "Placement relative to the trigger"
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "defaultValue": "300",
+      "required": false,
+      "description": "Delay before showing on hover, in milliseconds"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "The trigger element"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Button with tooltip",
+      "code": "<Tooltip content=\"Save your changes\">\n  <Button>Save</Button>\n</Tooltip>",
+      "description": "Supplementary hint on a button"
+    },
+    {
+      "title": "Custom placement",
+      "code": "<Tooltip content=\"Opens in a new tab\" side=\"right\" delay={100}>\n  <a href=\"/docs\">Docs</a>\n</Tooltip>",
+      "description": "Tooltip placed to the right with a short delay"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put essential information only in a tooltip",
+      "explanation": "Tooltips are unavailable on touch devices and to keyboard users in some contexts. Required information must be visible in the UI.",
+      "example": "// Avoid\n<Tooltip content=\"Required field\"><Input /></Tooltip>\n\n// Prefer\n<Label htmlFor=\"e\">Email (required)</Label><Input id=\"e\" />"
+    },
+    {
+      "title": "Don't use tooltips for interactive content",
+      "explanation": "Tooltip content is not focusable; use a Popover for links or buttons inside the hint."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "aria-describedby association",
+      "implementation": "The tooltip id is linked to the trigger when visible",
+      "userRequirements": "Triggers should have a visible accessible name"
+    },
+    {
+      "feature": "Keyboard focus support",
+      "implementation": "Shows on focus as well as hover",
+      "userRequirements": "Don't rely on hover alone"
+    },
+    {
+      "feature": "Escape dismissal",
+      "implementation": "Escape hides the tooltip without moving focus",
+      "userRequirements": "Keep the trigger focusable after dismissal"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tooltip text",
+      "guidelines": [
+        "Keep under 120 characters",
+        "Write a sentence or a short label",
+        "Don't repeat the trigger label"
+      ],
+      "goodExamples": [
+        "Save your changes",
+        "Copies the command to your clipboard"
+      ],
+      "badExamples": [
+        "Click",
+        "This button saves"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button / IconButton",
+      "relationship": "Wrap icon-only buttons with a Tooltip to name them",
+      "example": "<Tooltip content=\"Close\"><Button aria-label=\"Close\">×</Button></Tooltip>"
+    }
+  ],
+  "relatedComponents": [
+    "Button",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "tooltip",
+  "exportName": "Tooltip",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/tooltip/index.ts",
+      "content": "export * from './Tooltip';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/tooltip/Tooltip.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface TooltipProps {\n  /** The tooltip text. */\n  content: string;\n  /** Placement relative to the trigger (defaults to top). */\n  side?: 'top' | 'bottom' | 'left' | 'right';\n  /** Delay before showing on hover, in milliseconds. */\n  delay?: number;\n  className?: string;\n  /** A single focusable element; receives aria-describedby when open. */\n  children: React.ReactElement;\n}\n\nconst placementClasses: Record<'top' | 'bottom' | 'left' | 'right', string> = {\n  top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',\n  bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',\n  left: 'right-full top-1/2 -translate-y-1/2 mr-2',\n  right: 'left-full top-1/2 -translate-y-1/2 ml-2',\n};\n\n/**\n * Hover/focus tooltip built on aria-describedby. Shows on pointer\n * hover and keyboard focus (not click), dismisses on Escape, and\n * never traps focus. The describedby attribute is injected directly\n * into the trigger so screen readers announce the hint with focus.\n */\nconst Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(\n  ({ content, side = 'top', delay = 300, className, children }, ref) => {\n    const [open, setOpen] = React.useState(false);\n    const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);\n    const id = React.useId();\n\n    const show = React.useCallback(() => {\n      if (timerRef.current) clearTimeout(timerRef.current);\n      timerRef.current = setTimeout(() => setOpen(true), delay);\n    }, [delay]);\n\n    const hide = React.useCallback(() => {\n      if (timerRef.current) clearTimeout(timerRef.current);\n      setOpen(false);\n    }, []);\n\n    React.useEffect(() => () => {\n      if (timerRef.current) clearTimeout(timerRef.current);\n    }, []);\n\n    // Inject aria-describedby into the trigger so the hint is announced\n    // alongside the trigger's own accessible name.\n    const trigger = React.cloneElement(children, {\n      'aria-describedby': open ? id : undefined,\n    } as React.Attributes);\n\n    return (\n      <div\n        ref={ref}\n        className={cn('relative inline-flex', className)}\n        onMouseEnter={show}\n        onMouseLeave={hide}\n        onFocusCapture={show}\n        onBlurCapture={hide}\n        onKeyDown={(event) => {\n          if (event.key === 'Escape' && open) {\n            event.stopPropagation();\n            hide();\n          }\n        }}\n      >\n        {trigger}\n        {open && (\n          <div\n            id={id}\n            role=\"tooltip\"\n            className={cn(\n              'pointer-events-none absolute z-50 w-max max-w-xs rounded-md border border-border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md',\n              placementClasses[side]\n            )}\n          >\n            {content}\n          </div>\n        )}\n      </div>\n    );\n  }\n);\nTooltip.displayName = 'Tooltip';\n\nexport { Tooltip };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/tooltip.manifest.json",
+      "content": "{\n  \"id\": \"tooltip\",\n  \"name\": \"Tooltip\",\n  \"tier\": \"molecule\",\n  \"description\": \"Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal\",\n  \"designIntent\": \"Tooltip provides supplementary context on hover and keyboard focus. It appears with a short delay, is announced via aria-describedby, and dismisses on Escape so it never traps the user.\",\n  \"props\": [\n    {\n      \"name\": \"content\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"The tooltip text\"\n    },\n    {\n      \"name\": \"side\",\n      \"type\": \"'top' | 'bottom' | 'left' | 'right'\",\n      \"defaultValue\": \"top\",\n      \"required\": false,\n      \"description\": \"Placement relative to the trigger\"\n    },\n    {\n      \"name\": \"delay\",\n      \"type\": \"number\",\n      \"defaultValue\": \"300\",\n      \"required\": false,\n      \"description\": \"Delay before showing on hover, in milliseconds\"\n    },\n    {\n      \"name\": \"children\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"The trigger element\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes to apply\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Button with tooltip\",\n      \"code\": \"<Tooltip content=\\\"Save your changes\\\">\\n  <Button>Save</Button>\\n</Tooltip>\",\n      \"description\": \"Supplementary hint on a button\"\n    },\n    {\n      \"title\": \"Custom placement\",\n      \"code\": \"<Tooltip content=\\\"Opens in a new tab\\\" side=\\\"right\\\" delay={100}>\\n  <a href=\\\"/docs\\\">Docs</a>\\n</Tooltip>\",\n      \"description\": \"Tooltip placed to the right with a short delay\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't put essential information only in a tooltip\",\n      \"explanation\": \"Tooltips are unavailable on touch devices and to keyboard users in some contexts. Required information must be visible in the UI.\",\n      \"example\": \"// Avoid\\n<Tooltip content=\\\"Required field\\\"><Input /></Tooltip>\\n\\n// Prefer\\n<Label htmlFor=\\\"e\\\">Email (required)</Label><Input id=\\\"e\\\" />\"\n    },\n    {\n      \"title\": \"Don't use tooltips for interactive content\",\n      \"explanation\": \"Tooltip content is not focusable; use a Popover for links or buttons inside the hint.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"aria-describedby association\",\n      \"implementation\": \"The tooltip id is linked to the trigger when visible\",\n      \"userRequirements\": \"Triggers should have a visible accessible name\"\n    },\n    {\n      \"feature\": \"Keyboard focus support\",\n      \"implementation\": \"Shows on focus as well as hover\",\n      \"userRequirements\": \"Don't rely on hover alone\"\n    },\n    {\n      \"feature\": \"Escape dismissal\",\n      \"implementation\": \"Escape hides the tooltip without moving focus\",\n      \"userRequirements\": \"Keep the trigger focusable after dismissal\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Tooltip text\",\n      \"guidelines\": [\"Keep under 120 characters\", \"Write a sentence or a short label\", \"Don't repeat the trigger label\"],\n      \"goodExamples\": [\"Save your changes\", \"Copies the command to your clipboard\"],\n      \"badExamples\": [\"Click\", \"This button saves\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Button / IconButton\",\n      \"relationship\": \"Wrap icon-only buttons with a Tooltip to name them\",\n      \"example\": \"<Tooltip content=\\\"Close\\\"><Button aria-label=\\\"Close\\\">×</Button></Tooltip>\"\n    }\n  ],\n  \"relatedComponents\": [\"Button\", \"Label\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"tooltip\",\n  \"exportName\": \"Tooltip\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -160,7 +160,7 @@ node dist/index.js
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Components not showing</h3>
         <p className="text-muted-foreground mb-4">
-          The MCP server currently includes a static list of components. In production, it would load from the actual manifest files. Check that the component IDs match what you're querying.
+          The MCP server loads manifests directly from the installed packages at startup, so component IDs always match the source of truth. If a component is missing, verify it has a COMPONENT_MANIFEST in its package's src/manifests directory.
         </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Permission errors</h3>
