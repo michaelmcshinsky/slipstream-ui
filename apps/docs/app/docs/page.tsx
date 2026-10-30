@@ -29,8 +29,8 @@ const QUICK_LINKS = [
 ];
 
 export default function DocsPage() {
-  return (
-    <div className="max-w-3xl">
+    return (
+      <div>
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">Introduction</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
         Slipstream UI is an AI-first React component library. Every component ships with a{' '}

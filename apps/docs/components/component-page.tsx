@@ -32,7 +32,7 @@ export function ComponentPage({
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
 
   return (
-    <article className="max-w-3xl">
+    <article>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
         {/* Canonical markdown for agents — mirrors assistant-ui's .md convention. */}

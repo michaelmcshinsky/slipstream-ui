@@ -1,6 +1,7 @@
 import { Navbar } from '@/components/site/navbar';
 import { Sidebar } from '@/components/site/sidebar';
 import { MobileNav } from '@/components/site/mobile-nav';
+import { TableOfContents } from '@/components/table-of-contents';
 
 export default function DocsLayout({
   children,
@@ -17,6 +18,7 @@ export default function DocsLayout({
             <MobileNav />
             <div className="mt-4 lg:mt-0">{children}</div>
           </main>
+          <TableOfContents />
         </div>
       </div>
     </>
