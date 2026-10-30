@@ -33,7 +33,9 @@ export default function TabsPage() {
         </Tabs>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Tabs, TabsList, TabsTrigger, TabsContent } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Tabs defaultValue=\"overview\">\n          <TabsList>\n            <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n            <TabsTrigger value=\"analytics\">Analytics</TabsTrigger>\n          </TabsList>\n          <TabsContent value=\"overview\">Overview panel content.</TabsContent>\n          <TabsContent value=\"analytics\">Analytics panel content.</TabsContent>\n        </Tabs>\n    </>\n  );\n}"}
+        usage={"import { Tabs } from '@slipstream-ui/core';\n\n// Basic usage\n<Tabs />"}
+        types={"interface TabsProps {\n  value: string;\n  defaultValue: string;\n  onValueChange: (value: string) => void;\n}"}
       />
     </ComponentPage>
   );

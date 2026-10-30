@@ -26,7 +26,9 @@ export default function LabelPage() {
         <Input id="demo-email" type="email" placeholder="you@example.com" />
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Label, Input } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Label htmlFor=\"demo-email\">Email address</Label>\n        <Input id=\"demo-email\" type=\"email\" placeholder=\"you@example.com\" />\n    </>\n  );\n}"}
+        usage={"import { Label } from '@slipstream-ui/core';\n\n// Basic usage\n<Label />"}
+        types={"interface LabelProps {\n  htmlFor: string;\n  children: ReactNode;\n}"}
       />
     </ComponentPage>
   );

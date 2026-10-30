@@ -1,3 +1,5 @@
+import { CodeBlock } from '@slipstream-ui/ai';
+
 export default function AIManifestsPage() {
   return (
     <div>
@@ -38,8 +40,10 @@ export default function AIManifestsPage() {
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Manifest Structure</h2>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`{
+        <p className="text-muted-foreground mb-4">
+          Every manifest follows this schema. Here is the <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">button</code> manifest as a reference:
+        </p>
+        <CodeBlock code={`{
   "id": "button",
   "name": "Button",
   "tier": "atom",
@@ -48,12 +52,19 @@ export default function AIManifestsPage() {
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'destructive' | ...",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
       "defaultValue": "default",
       "required": false,
       "description": "Visual style variant",
-      "enum": ["default", "destructive", ...],
-      "examples": ["default", "destructive"]
+      "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      "examples": ["default", "destructive", "outline"]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'default' | 'lg' | 'icon'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Button size"
     }
   ],
   "examples": [
@@ -61,20 +72,30 @@ export default function AIManifestsPage() {
       "title": "Primary action button",
       "code": "<Button>Click me</Button>",
       "description": "Default variant for primary actions"
+    },
+    {
+      "title": "Destructive action",
+      "code": "<Button variant=\\"destructive\\">Delete</Button>",
+      "description": "Use for irreversible actions"
     }
   ],
   "antiPatterns": [
     {
       "title": "Don't use for navigation alone",
-      "code": "// Avoid: Button for simple navigation...",
-      "description": "Buttons should trigger actions, not just navigate"
+      "explanation": "Buttons should trigger actions, not just navigate. Use a Link for pure navigation.",
+      "example": "// Avoid\\n<Button onClick={() => router.push('/home')}>Home</Button>\\n\\n// Prefer\\n<Link href=\\"/home\\">Home</Link>"
     }
   ],
   "accessibility": [
     {
       "feature": "Keyboard navigation",
-      "implementation": "Button is natively focusable...",
+      "implementation": "Button is natively focusable and activates on Enter/Space",
       "userRequirements": "Ensure visible focus indicator"
+    },
+    {
+      "feature": "Screen reader support",
+      "implementation": "Button text is announced as the accessible name",
+      "userRequirements": "For icon-only buttons, provide aria-label"
     }
   ],
   "contentGuidelines": [
@@ -85,22 +106,29 @@ export default function AIManifestsPage() {
         "Keep text short and concise",
         "Be specific about what will happen"
       ],
-      "goodExamples": ["Submit form", "Save changes"],
-      "badExamples": ["Click here", "OK"]
+      "goodExamples": ["Submit form", "Save changes", "Delete account"],
+      "badExamples": ["Click here", "OK", "Do it"]
     }
   ],
   "compositionRules": [
     {
       "component": "Icon",
-      "relationship": "Buttons can contain icons...",
+      "relationship": "Buttons can contain icons before or after text",
       "example": "<Button><Icon />Text</Button>"
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "Wrap icon-only buttons with a Tooltip to name them",
+      "example": "<Tooltip content=\\"Close\\"><Button aria-label=\\"Close\\">×</Button></Tooltip>"
     }
   ],
+  "relatedComponents": ["Badge", "Link", "Tooltip"],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.0.1"
-}`}</code>
-        </pre>
+  "version": "0.1.0",
+  "sourceDir": "button",
+  "exportName": "Button"
+}`} language="json" />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Key Sections</h2>
 
@@ -117,14 +145,14 @@ export default function AIManifestsPage() {
           <li>Example values</li>
         </ul>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Examples & Anti-Patterns</h3>
+        <h3 className="text-xl font-semibold mt-6 mb-3">Examples &amp; Anti-Patterns</h3>
         <p className="text-muted-foreground mb-4">
           Each manifest includes both good usage examples and anti-patterns to avoid. This helps AI agents:
         </p>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>Generate correct usage patterns</li>
           <li>Avoid common mistakes</li>
-          <li>Understand the component's intended use cases</li>
+          <li>Understand the component&apos;s intended use cases</li>
           <li>Learn from best practices</li>
         </ul>
 
@@ -171,22 +199,23 @@ export default function AIManifestsPage() {
         <p className="text-muted-foreground mb-4">
           The Slipstream UI MCP server provides tools to query manifests:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`# List all components
+        <CodeBlock code={`# List all components
 list_components()
 
 # Get specific component manifest
-get_component_manifest(componentId="button")`}</code>
-        </pre>
+get_component_manifest(componentId="button")
+
+# Validate generated JSX against the manifest
+validate_usage(componentId="button", code="<Button variant='default'>Click</Button>")`} language="bash" />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Direct File Access</h3>
         <p className="text-muted-foreground mb-4">
           Manifests are stored alongside component source code:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`packages/core/src/manifests/button.manifest.json
-packages/ai/src/manifests/message.manifest.json`}</code>
-        </pre>
+        <CodeBlock code={`packages/core/src/manifests/button.manifest.json
+packages/core/src/manifests/input.manifest.json
+packages/ai/src/manifests/message.manifest.json
+packages/ai/src/manifests/conversation.manifest.json`} language="text" />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">llms.txt</h3>
         <p className="text-muted-foreground mb-4">
@@ -199,10 +228,10 @@ packages/ai/src/manifests/message.manifest.json`}</code>
         </p>
         <ol className="list-decimal pl-6 space-y-2 text-muted-foreground">
           <li>Create the component with proper TypeScript types and JSDoc</li>
-          <li>Create a corresponding manifest file in src/manifests/</li>
+          <li>Create a corresponding manifest file in <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">src/manifests/</code></li>
           <li>Include all required sections (props, examples, accessibility, etc.)</li>
-          <li>Run <code className="bg-muted px-2 py-1 rounded">pnpm validate:manifests</code> to validate</li>
-          <li>Update MCP server and CLI to include the new component</li>
+          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm validate:manifests</code> to validate</li>
+          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm build</code> to regenerate the registry</li>
         </ol>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>

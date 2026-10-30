@@ -27,7 +27,9 @@ export default function SeparatorPage() {
         <div>Section B</div>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Separator } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <div>Section A</div>\n        <Separator className=\"my-3\" />\n        <div>Section B</div>\n    </>\n  );\n}"}
+        usage={"import { Separator } from '@slipstream-ui/core';\n\n// Basic usage\n<Separator />"}
+        types={"interface SeparatorProps {\n  orientation: 'horizontal' | 'vertical';\n  label: string;\n}"}
       />
     </ComponentPage>
   );

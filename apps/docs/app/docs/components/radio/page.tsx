@@ -30,7 +30,9 @@ export default function RadioPage() {
         </RadioGroup>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { RadioGroup, RadioGroupItem } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <RadioGroup name=\"demo-plan\" legend=\"Choose a plan\" defaultValue=\"free\">\n          <RadioGroupItem value=\"free\" label=\"Free\" />\n          <RadioGroupItem value=\"pro\" label=\"Pro\" />\n          <RadioGroupItem value=\"enterprise\" label=\"Enterprise\" />\n        </RadioGroup>\n    </>\n  );\n}"}
+        usage={"import { RadioGroup } from '@slipstream-ui/core';\n\n// Basic usage\n<RadioGroup />"}
+        types={"interface RadioProps {\n  value: string;\n  label: string;\n  legend: string;\n}"}
       />
     </ComponentPage>
   );

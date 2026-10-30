@@ -34,7 +34,9 @@ export default function CardPage() {
         </Card>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Button } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Card className=\"max-w-sm\">\n          <CardHeader>\n            <CardTitle>Profile</CardTitle>\n            <CardDescription>Manage your account settings</CardDescription>\n          </CardHeader>\n          <CardContent>\n            <p className=\"text-sm text-muted-foreground\">Form fields here.</p>\n          </CardContent>\n          <CardFooter>\n            <Button size=\"sm\">Save</Button>\n          </CardFooter>\n        </Card>\n    </>\n  );\n}"}
+        usage={"import { Card } from '@slipstream-ui/core';\n\n// Basic usage\n<Card />"}
+        types={"interface CardProps {\n  children: ReactNode;\n}"}
       />
     </ComponentPage>
   );

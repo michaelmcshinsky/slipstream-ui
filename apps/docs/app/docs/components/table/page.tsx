@@ -36,7 +36,9 @@ export default function TablePage() {
         </Table>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCaption } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Table className=\"max-w-md\">\n          <TableCaption>Monthly revenue</TableCaption>\n          <TableHeader>\n            <TableRow>\n              <TableHead scope=\"col\">Month</TableHead>\n              <TableHead scope=\"col\">Amount</TableHead>\n            </TableRow>\n          </TableHeader>\n          <TableBody>\n            <TableRow><TableCell>January</TableCell><TableCell>$1,200</TableCell></TableRow>\n            <TableRow><TableCell>February</TableCell><TableCell>$1,450</TableCell></TableRow>\n          </TableBody>\n        </Table>\n    </>\n  );\n}"}
+        usage={"import { Table } from '@slipstream-ui/core';\n\n// Basic usage\n<Table />"}
+        types={"interface TableProps {\n  children: ReactNode;\n}"}
       />
     </ComponentPage>
   );

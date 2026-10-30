@@ -28,7 +28,9 @@ export default function SkeletonPage() {
         </div>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Skeleton } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <div className=\"space-y-2\">\n          <Skeleton className=\"h-4 w-48\" />\n          <Skeleton className=\"h-4 w-32\" />\n          <Skeleton className=\"h-20 w-full\" />\n        </div>\n    </>\n  );\n}"}
+        usage={"import { Skeleton } from '@slipstream-ui/core';\n\n// Basic usage\n<Skeleton />"}
+        types={"interface SkeletonProps {\n  className: string;\n}"}
       />
     </ComponentPage>
   );

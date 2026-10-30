@@ -28,7 +28,9 @@ export default function SwitchPage() {
         <Switch id="demo-disabled" disabled aria-label="Disabled" />
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Switch } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Switch id=\"demo-notify\" defaultChecked aria-label=\"Email notifications\" />\n        <Switch id=\"demo-dark\" aria-label=\"Dark mode\" />\n        <Switch id=\"demo-disabled\" disabled aria-label=\"Disabled\" />\n    </>\n  );\n}"}
+        usage={"import { Switch } from '@slipstream-ui/core';\n\n// Basic usage\n<Switch />"}
+        types={"interface SwitchProps {\n  checked: boolean;\n  onCheckedChange: (checked: boolean) => void;\n  disabled: boolean;\n}"}
       />
     </ComponentPage>
   );

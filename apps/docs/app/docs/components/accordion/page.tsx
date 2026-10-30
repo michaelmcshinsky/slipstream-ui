@@ -35,7 +35,9 @@ export default function AccordionPage() {
         </Accordion>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Accordion defaultValue={['a']} className=\"max-w-md\">\n          <AccordionItem id=\"a\">\n            <AccordionTrigger>What is Slipstream?</AccordionTrigger>\n            <AccordionContent>An AI-first component system with machine-readable manifests.</AccordionContent>\n          </AccordionItem>\n          <AccordionItem id=\"b\">\n            <AccordionTrigger>How do I install?</AccordionTrigger>\n            <AccordionContent>Run npx slipstream-ui init in your project.</AccordionContent>\n          </AccordionItem>\n        </Accordion>\n    </>\n  );\n}"}
+        usage={"import { Accordion } from '@slipstream-ui/core';\n\n// Basic usage\n<Accordion />"}
+        types={"interface AccordionProps {\n  value: string[];\n  collapsible: boolean;\n  onValueChange: (value: string[]) => void;\n}"}
       />
     </ComponentPage>
   );

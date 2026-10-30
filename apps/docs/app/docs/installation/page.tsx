@@ -207,6 +207,111 @@ function App() {
           <code>yarn add @slipstream-ui/core @slipstream-ui/ai</code>
         </pre>
 
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Framework Setup</h2>
+        <p className="text-muted-foreground mb-4">
+          Slipstream UI works with any React framework. Here are the specifics for the most common setups:
+        </p>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Next.js (App Router)</h3>
+        <p className="text-muted-foreground mb-4">
+          Add the CSS variables to your global stylesheet, then import components in client components:
+        </p>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`// app/globals.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ... CSS variables from step 3 ... */
+  }
+  .dark {
+    color-scheme: dark;
+    /* ... dark CSS variables ... */
+  }
+}`}</code>
+        </pre>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`// app/layout.tsx
+import './globals.css';
+
+// Pre-paint theme script (avoids flash of wrong theme)
+const THEME_INIT = \`
+try {
+  const stored = localStorage.getItem('slipstream-theme');
+  if (stored === 'dark' || (!stored && matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+} catch {}\`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: THEME_INIT }} /></head>
+      <body>{children}</body>
+    </html>
+  );
+}`}</code>
+        </pre>
+        <p className="text-muted-foreground mb-4">
+          Components use <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">&apos;use client&apos;</code> internally,
+          so they work as client components within server layouts. No additional configuration is needed.
+        </p>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Vite + React</h3>
+        <p className="text-muted-foreground mb-4">
+          Import the CSS variables in your entry file and add the Tailwind content paths:
+        </p>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`// src/main.tsx
+import './index.css';
+import App from './App';
+
+// src/index.css — same CSS variables as above
+// tailwind.config.js — content paths include:
+//   './src/**/*.{ts,tsx}',
+//   './node_modules/@slipstream-ui/**/*.{js,ts,tsx}'`}</code>
+        </pre>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Remix</h3>
+        <p className="text-muted-foreground mb-4">
+          Add the CSS via your root route&apos;s <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">links</code> export:
+        </p>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`// app/root.tsx
+import stylesheet from '~/tailwind.css';
+
+export const links = () => [
+  { rel: 'stylesheet', href: stylesheet },
+];
+
+// Same CSS variables + Tailwind content paths as above`}</code>
+        </pre>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Astro</h3>
+        <p className="text-muted-foreground mb-4">
+          Use a React integration for interactive components. Static markup works without it:
+        </p>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`# Install the React integration
+npx astro add react
+
+// Then use components in .astro files with client:load
+// for interactive components:
+---
+import { Button } from '@slipstream-ui/core';
+---
+<Button client:load>Click me</Button>`}</code>
+        </pre>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Any other React setup</h3>
+        <p className="text-muted-foreground mb-4">
+          As long as you have React 18+, Tailwind CSS 3.4+, and the CSS variables in your global
+          stylesheet, Slipstream UI works. The components are plain React with no runtime
+          dependencies beyond React and Tailwind.
+        </p>
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>

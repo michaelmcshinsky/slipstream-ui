@@ -28,7 +28,9 @@ export default function CheckboxPage() {
         <Checkbox id="disabled" disabled aria-label="Disabled" />
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Checkbox } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Checkbox id=\"terms\" aria-label=\"Accept terms\" />\n        <Checkbox id=\"updates\" defaultChecked aria-label=\"Email updates\" />\n        <Checkbox id=\"disabled\" disabled aria-label=\"Disabled\" />\n    </>\n  );\n}"}
+        usage={"import { Checkbox } from '@slipstream-ui/core';\n\n// Basic usage\n<Checkbox />"}
+        types={"interface CheckboxProps {\n  checked: boolean;\n  onCheckedChange: (checked: boolean) => void;\n  disabled: boolean;\n}"}
       />
     </ComponentPage>
   );

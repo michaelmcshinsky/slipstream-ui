@@ -26,7 +26,9 @@ export default function TextareaPage() {
             <Textarea placeholder="Tell us about your project" className="max-w-md" />
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Textarea } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Textarea placeholder=\"Tell us about your project\" className=\"max-w-md\" />\n    </>\n  );\n}"}
+        usage={"import { Textarea } from '@slipstream-ui/core';\n\n// Basic usage\n<Textarea />"}
+        types={"interface TextareaProps {\n  value: string;\n  placeholder: string;\n  disabled: boolean;\n}"}
       />
     </ComponentPage>
   );

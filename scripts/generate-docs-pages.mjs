@@ -290,6 +290,16 @@ for (const page of pages) {
     .map((a) => `        ${q(a)},`)
     .join('\n');
 
+  // Derive Code tab content: full import + demo JSX wrapped in a fragment.
+  const codeContent = `import { ${page.imports} } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      ${page.demo}\n    </>\n  );\n}`;
+
+  // Derive Usage tab content: minimal import + single-line usage.
+  const firstImport = page.imports.split(',')[0].trim();
+  const usageContent = `import { ${firstImport} } from '@slipstream-ui/core';\n\n// Basic usage\n<${firstImport} />`;
+
+  // Derive Types tab content: TypeScript interface from propsRows.
+  const typesContent = `interface ${page.title}Props {\n${page.propsRows.map((p) => `  ${p.name}${p.required === false ? '?' : ''}: ${p.type};`).join('\n')}\n}`;
+
   const code = `import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { ${page.imports} } from '@slipstream-ui/core';
@@ -315,7 +325,9 @@ ${accessibility}
             ${page.demo}
           </div>
         }
-        code="// See the examples in the props table above"
+        code={${JSON.stringify(codeContent)}}
+        usage={${JSON.stringify(usageContent)}}
+        types={${JSON.stringify(typesContent)}}
       />
     </ComponentPage>
   );

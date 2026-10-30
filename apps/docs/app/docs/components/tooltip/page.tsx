@@ -28,7 +28,9 @@ export default function TooltipPage() {
         </Tooltip>
           </div>
         }
-        code="// See the examples in the props table above"
+        code={"import { Tooltip, Button } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Tooltip content=\"Save your changes\">\n          <Button>Hover me</Button>\n        </Tooltip>\n    </>\n  );\n}"}
+        usage={"import { Tooltip } from '@slipstream-ui/core';\n\n// Basic usage\n<Tooltip />"}
+        types={"interface TooltipProps {\n  content: string;\n  side: 'top' | 'bottom' | 'left' | 'right';\n  delay: number;\n}"}
       />
     </ComponentPage>
   );
