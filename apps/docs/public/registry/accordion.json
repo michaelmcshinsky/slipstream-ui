@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "accordion",
+  "name": "accordion",
+  "tier": "molecule",
+  "description": "Collapsible content sections with ARIA accordion semantics and keyboard navigation",
+  "designIntent": "Accordion organizes content into expandable sections, reducing visual density on pages with lots of content. Each trigger announces its expanded state and controls its panel.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Controlled open item ids"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string[]",
+      "required": false,
+      "description": "Initial open item ids when uncontrolled"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": false,
+      "description": "Called when the open set changes"
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "When true, opening an item closes the others"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "AccordionItem children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "FAQ accordion",
+      "code": "<Accordion defaultValue={['a']}>\n  <AccordionItem id=\"a\">\n    <AccordionTrigger>What is Slipstream?</AccordionTrigger>\n    <AccordionContent>An AI-first component system.</AccordionContent>\n  </AccordionItem>\n  <AccordionItem id=\"b\">\n    <AccordionTrigger>How do I install?</AccordionTrigger>\n    <AccordionContent>Run npx slipstream-ui init.</AccordionContent>\n  </AccordionItem>\n</Accordion>",
+      "description": "Single-open accordion for FAQs"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Accordion for primary navigation",
+      "explanation": "Accordion is for content disclosure. Use Tabs or a nav menu for page-level navigation."
+    },
+    {
+      "title": "Don't hide required information behind a collapsed panel",
+      "explanation": "Users may not discover it. Put critical content in the open by default."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Accordion semantics",
+      "implementation": "Trigger has aria-expanded and aria-controls; panel has role=region and aria-labelledby",
+      "userRequirements": "Every trigger needs a unique id-linked panel"
+    },
+    {
+      "feature": "Keyboard support",
+      "implementation": "Enter/Space toggle; hidden panels are removed from tab order",
+      "userRequirements": "Don't override keyboard handlers"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Trigger labels",
+      "guidelines": [
+        "Phrase as a question or topic",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "What is Slipstream?",
+        "Installation"
+      ],
+      "badExamples": [
+        "Click to expand",
+        "More info"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "AccordionItem",
+      "relationship": "Wrap each section in an AccordionItem with a unique id",
+      "example": "<AccordionItem id=\"x\"><AccordionTrigger>...</AccordionTrigger><AccordionContent>...</AccordionContent></AccordionItem>"
+    }
+  ],
+  "relatedComponents": [
+    "Tabs",
+    "Card"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "accordion",
+  "exportName": "Accordion",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/accordion/Accordion.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\ntype AccordionContextValue = {\n  openItems: Set<string>;\n  toggle: (id: string) => void;\n  /** Whether only one item may be open at a time. */\n  collapsible: boolean;\n};\n\nconst AccordionContext = React.createContext<AccordionContextValue>({\n  openItems: new Set(),\n  toggle: () => {},\n  collapsible: true,\n});\n\nexport interface AccordionProps {\n  /** Controlled open item ids. */\n  value?: string[];\n  /** Initial open item ids when uncontrolled. */\n  defaultValue?: string[];\n  /** Called when the open set changes. */\n  onValueChange?: (value: string[]) => void;\n  /** When true (default), opening an item closes the others. */\n  collapsible?: boolean;\n  className?: string;\n  children: React.ReactNode;\n}\n\n/**\n * Collapsible content sections with proper ARIA accordion semantics.\n * Each item's trigger announces its expanded state and controls its panel.\n */\nconst Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(\n  ({ value, defaultValue = [], onValueChange, collapsible = true, className, children }, ref) => {\n    const [internalOpen, setInternalOpen] = React.useState<string[]>(defaultValue);\n    const current = value ?? internalOpen;\n\n    const toggle = React.useCallback(\n      (id: string) => {\n        const next = current.includes(id)\n          ? current.filter((item) => item !== id)\n          : collapsible\n            ? [id]\n            : [...current, id];\n        if (value === undefined) setInternalOpen(next);\n        onValueChange?.(next);\n      },\n      [current, collapsible, value, onValueChange]\n    );\n\n    return (\n      <div ref={ref} className={cn('divide-y divide-border rounded-lg border border-border', className)}>\n        <AccordionContext.Provider value={{ openItems: new Set(current), toggle, collapsible }}>\n          {children}\n        </AccordionContext.Provider>\n      </div>\n    );\n  }\n);\nAccordion.displayName = 'Accordion';\n\nexport interface AccordionItemProps {\n  /** Unique id linking the trigger to its panel. */\n  id: string;\n  className?: string;\n  children: React.ReactNode;\n}\n\n/** A single collapsible section. */\nconst AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(\n  ({ id, className, children }, ref) => (\n    <div ref={ref} data-accordion-item={id} className={className}>\n      <AccordionItemContext.Provider value={{ id }}>{children}</AccordionItemContext.Provider>\n    </div>\n  )\n);\nAccordionItem.displayName = 'AccordionItem';\n\nconst AccordionItemContext = React.createContext<{ id: string }>({ id: '' });\n\nexport interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}\n\n/** The clickable header that expands/collapses its panel. */\nconst AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(\n  ({ className, children, ...props }, ref) => {\n    const { id } = React.useContext(AccordionItemContext);\n    const { openItems, toggle } = React.useContext(AccordionContext);\n    const open = openItems.has(id);\n    const panelId = `${id}-panel`;\n    const triggerId = `${id}-trigger`;\n\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        id={triggerId}\n        aria-expanded={open}\n        aria-controls={panelId}\n        onClick={() => toggle(id)}\n        className={cn(\n          'flex flex-1 items-center justify-between px-4 py-3 text-left text-sm font-medium transition-colors',\n          'hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <svg\n          aria-hidden=\"true\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          strokeWidth=\"2\"\n          strokeLinecap=\"round\"\n          className={cn('h-4 w-4 shrink-0 transition-transform duration-200', open && 'rotate-180')}\n        >\n          <polyline points=\"6 9 12 15 18 9\" />\n        </svg>\n      </button>\n    );\n  }\n);\nAccordionTrigger.displayName = 'AccordionTrigger';\n\nexport interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}\n\n/** The collapsible panel; hidden from assistive tech when collapsed. */\nconst AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(\n  ({ className, children, ...props }, ref) => {\n    const { id } = React.useContext(AccordionItemContext);\n    const { openItems } = React.useContext(AccordionContext);\n    const open = openItems.has(id);\n\n    return (\n      <div\n        ref={ref}\n        id={`${id}-panel`}\n        role=\"region\"\n        aria-labelledby={`${id}-trigger`}\n        hidden={!open}\n        className={cn('overflow-hidden px-4 pb-3 text-sm text-muted-foreground', className)}\n        {...props}\n      >\n        {children}\n      </div>\n    );\n  }\n);\nAccordionContent.displayName = 'AccordionContent';\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/accordion/index.ts",
+      "content": "export * from './Accordion';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/accordion.manifest.json",
+      "content": "{\n  \"id\": \"accordion\",\n  \"name\": \"Accordion\",\n  \"tier\": \"molecule\",\n  \"description\": \"Collapsible content sections with ARIA accordion semantics and keyboard navigation\",\n  \"designIntent\": \"Accordion organizes content into expandable sections, reducing visual density on pages with lots of content. Each trigger announces its expanded state and controls its panel.\",\n  \"props\": [\n    { \"name\": \"value\", \"type\": \"string[]\", \"required\": false, \"description\": \"Controlled open item ids\" },\n    { \"name\": \"defaultValue\", \"type\": \"string[]\", \"required\": false, \"description\": \"Initial open item ids when uncontrolled\" },\n    { \"name\": \"onValueChange\", \"type\": \"(value: string[]) => void\", \"required\": false, \"description\": \"Called when the open set changes\" },\n    { \"name\": \"collapsible\", \"type\": \"boolean\", \"defaultValue\": \"true\", \"required\": false, \"description\": \"When true, opening an item closes the others\" },\n    { \"name\": \"children\", \"type\": \"ReactNode\", \"required\": true, \"description\": \"AccordionItem children\" },\n    { \"name\": \"className\", \"type\": \"string\", \"required\": false, \"description\": \"Additional CSS classes to apply\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"FAQ accordion\",\n      \"code\": \"<Accordion defaultValue={['a']}>\\n  <AccordionItem id=\\\"a\\\">\\n    <AccordionTrigger>What is Slipstream?</AccordionTrigger>\\n    <AccordionContent>An AI-first component system.</AccordionContent>\\n  </AccordionItem>\\n  <AccordionItem id=\\\"b\\\">\\n    <AccordionTrigger>How do I install?</AccordionTrigger>\\n    <AccordionContent>Run npx slipstream-ui init.</AccordionContent>\\n  </AccordionItem>\\n</Accordion>\",\n      \"description\": \"Single-open accordion for FAQs\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Accordion for primary navigation\",\n      \"explanation\": \"Accordion is for content disclosure. Use Tabs or a nav menu for page-level navigation.\"\n    },\n    {\n      \"title\": \"Don't hide required information behind a collapsed panel\",\n      \"explanation\": \"Users may not discover it. Put critical content in the open by default.\"\n    }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Accordion semantics\", \"implementation\": \"Trigger has aria-expanded and aria-controls; panel has role=region and aria-labelledby\", \"userRequirements\": \"Every trigger needs a unique id-linked panel\" },\n    { \"feature\": \"Keyboard support\", \"implementation\": \"Enter/Space toggle; hidden panels are removed from tab order\", \"userRequirements\": \"Don't override keyboard handlers\" }\n  ],\n  \"contentGuidelines\": [\n    { \"contentType\": \"Trigger labels\", \"guidelines\": [\"Phrase as a question or topic\", \"Keep under 60 characters\"], \"goodExamples\": [\"What is Slipstream?\", \"Installation\"], \"badExamples\": [\"Click to expand\", \"More info\"] }\n  ],\n  \"compositionRules\": [\n    { \"component\": \"AccordionItem\", \"relationship\": \"Wrap each section in an AccordionItem with a unique id\", \"example\": \"<AccordionItem id=\\\"x\\\"><AccordionTrigger>...</AccordionTrigger><AccordionContent>...</AccordionContent></AccordionItem>\" }\n  ],\n  \"relatedComponents\": [\"Tabs\", \"Card\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"accordion\",\n  \"exportName\": \"Accordion\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

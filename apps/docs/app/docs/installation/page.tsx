@@ -7,6 +7,15 @@ export default function InstallationPage() {
       </p>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
+        <div className="mb-6 rounded-lg border border-warning/40 bg-warning/10 p-4 text-sm">
+          <strong className="text-warning-foreground">Migrating from the old slipstream-ui package?</strong>
+          <p className="mt-1 text-muted-foreground">
+            The original <code>slipstream-ui</code> npm package (v3.x, Tailwind 2/3 era) is deprecated and no longer maintained.
+            Use <code>@slipstream-ui/core</code> and <code>@slipstream-ui/ai</code> instead — they are unrelated to the old package
+            and ship with machine-readable manifests, an MCP server, and a shadcn-compatible registry.
+          </p>
+        </div>
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>Node.js 18 or higher</li>

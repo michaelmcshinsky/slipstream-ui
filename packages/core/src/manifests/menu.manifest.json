@@ -1,0 +1,114 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "tier": "molecule",
+  "description": "Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics",
+  "designIntent": "Menu presents a list of actions in a floating panel anchored to a trigger. Supports arrow-key navigation, Home/End, Escape to close, and destructive item styling.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled open state"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": false,
+      "description": "Called when the open state changes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "MenuTrigger and MenuContent children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    },
+    {
+      "description": "Renders the item in a destructive style (MenuItem component)",
+      "name": "destructive",
+      "defaultValue": "false",
+      "required": false,
+      "type": "boolean"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Actions menu",
+      "code": "<Menu>\n  <MenuTrigger>Options</MenuTrigger>\n  <MenuContent>\n    <MenuLabel>Actions</MenuLabel>\n    <MenuItem>Profile</MenuItem>\n    <MenuItem>Settings</MenuItem>\n    <MenuSeparator />\n    <MenuItem destructive>Sign out</MenuItem>\n  </MenuContent>\n</Menu>",
+      "description": "Dropdown with labeled actions and a destructive item"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Menu for navigation",
+      "explanation": "Menu is for actions. Use links or a navigation menu for page navigation."
+    },
+    {
+      "title": "Don't put forms inside a Menu",
+      "explanation": "Menus close on interaction. Use a Popover or Dialog for form inputs."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Menu semantics",
+      "implementation": "role=menu on the panel, role=menuitem on items, aria-haspopup/aria-expanded on the trigger",
+      "userRequirements": "Every menu needs a labelled trigger"
+    },
+    {
+      "feature": "Keyboard navigation",
+      "implementation": "Arrow keys move between items, Home/End jump to ends, Escape closes",
+      "userRequirements": "Don't override keyboard handlers"
+    },
+    {
+      "feature": "Focus management",
+      "implementation": "Focus moves to items on arrow navigation and returns to trigger on close",
+      "userRequirements": "Keep the trigger focusable"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Item labels",
+      "guidelines": [
+        "Use verbs for actions",
+        "Keep to 1-3 words",
+        "Put destructive items last, separated"
+      ],
+      "goodExamples": [
+        "Profile",
+        "Settings",
+        "Sign out"
+      ],
+      "badExamples": [
+        "Click here",
+        "Do something"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "MenuTrigger",
+      "relationship": "Every Menu needs a MenuTrigger",
+      "example": "<MenuTrigger>Options</MenuTrigger>"
+    },
+    {
+      "component": "MenuItem",
+      "relationship": "Items are keyboard-navigable and close the menu on select",
+      "example": "<MenuItem onClick={handleDelete} destructive>Delete</MenuItem>"
+    }
+  ],
+  "relatedComponents": [
+    "Tooltip",
+    "Dialog"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "menu",
+  "exportName": "Menu"
+}

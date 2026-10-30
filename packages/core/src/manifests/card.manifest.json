@@ -1,0 +1,45 @@
+{
+  "id": "card",
+  "name": "Card",
+  "tier": "molecule",
+  "description": "A content container with header, body, and footer sections for grouping related information",
+  "designIntent": "Card groups related content into a scannable container. Use it for settings panels, feature highlights, user profiles, and any content that benefits from visual grouping.",
+  "props": [
+    { "name": "children", "type": "ReactNode", "required": true, "description": "Card sub-components (CardHeader, CardContent, CardFooter)" },
+    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+  ],
+  "examples": [
+    {
+      "title": "Basic card",
+      "code": "<Card>\n  <CardHeader>\n    <CardTitle>Profile</CardTitle>\n    <CardDescription>Manage your account settings</CardDescription>\n  </CardHeader>\n  <CardContent>Form fields here</CardContent>\n  <CardFooter>\n    <Button>Save</Button>\n  </CardFooter>\n</Card>",
+      "description": "Card with header, content, and footer"
+    },
+    {
+      "title": "Simple card",
+      "code": "<Card>\n  <CardContent>\n    <p>Just a content block with a border.</p>\n  </CardContent>\n</Card>",
+      "description": "Minimal card without header or footer"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest Cards",
+      "explanation": "Nesting cards creates visual noise. Use dividers or spacing within a single Card.",
+      "example": "// Avoid\n<Card><CardContent><Card>...</Card></CardContent></Card>\n\n// Prefer\n<Card><CardContent><div className=\"space-y-4\">...</div></CardContent></Card>"
+    }
+  ],
+  "accessibility": [
+    { "feature": "Heading hierarchy", "implementation": "CardTitle renders as h3", "userRequirements": "Maintain logical heading order in your page" }
+  ],
+  "contentGuidelines": [
+    { "contentType": "Card titles", "guidelines": ["Keep titles short (2-5 words)", "Use sentence case"], "goodExamples": ["Profile settings", "Billing overview"], "badExamples": ["Card title", "Section"] }
+  ],
+  "compositionRules": [
+    { "component": "Button", "relationship": "Place primary actions in CardFooter", "example": "<CardFooter><Button>Save</Button></CardFooter>" }
+  ],
+  "relatedComponents": ["Separator", "Tabs"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "card",
+  "exportName": "Card"
+}

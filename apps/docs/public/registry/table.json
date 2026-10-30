@@ -1,0 +1,109 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "table",
+  "name": "table",
+  "tier": "molecule",
+  "description": "Semantic data table with headers, body, footer, and accessible caption",
+  "designIntent": "Table displays tabular data with proper semantics. TableHead uses scope=col, TableCaption provides an accessible summary, and rows support hover/selected states.",
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "TableHeader, TableBody, TableFooter, and TableCaption children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic table",
+      "code": "<Table>\n  <TableCaption>Monthly revenue</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead scope=\"col\">Month</TableHead>\n      <TableHead scope=\"col\">Amount</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell>January</TableCell>\n      <TableCell>$1,200</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>",
+      "description": "Table with caption, headers, and data rows"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Table for layout",
+      "explanation": "Tables are for tabular data. Use CSS Grid or Flexbox for page layout.",
+      "example": "// Avoid\n<Table><TableRow><TableCell>Logo</TableCell><TableCell>Nav</TableCell></TableRow></Table>\n\n// Prefer\n<div className=\"flex items-center justify-between\">...</div>"
+    },
+    {
+      "title": "Don't omit the caption",
+      "explanation": "Screen readers use the caption to describe the table's purpose."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Semantic table",
+      "implementation": "Native table/thead/tbody/tfoot with scope attributes on headers",
+      "userRequirements": "Use scope=col on column headers, scope=row on row headers"
+    },
+    {
+      "feature": "Accessible caption",
+      "implementation": "TableCaption describes the table contents",
+      "userRequirements": "Always provide a caption"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Captions",
+      "guidelines": [
+        "Describe what the data shows",
+        "Include the time period or unit"
+      ],
+      "goodExamples": [
+        "Monthly revenue (USD)",
+        "Team members"
+      ],
+      "badExamples": [
+        "Table",
+        "Data"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "TableHeader",
+      "relationship": "Place column headers in a TableHeader with TableRow",
+      "example": "<TableHeader><TableRow><TableHead scope=\"col\">Name</TableHead></TableRow></TableHeader>"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Badge"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "table",
+  "exportName": "Table",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/table/index.ts",
+      "content": "export * from './Table';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/table/Table.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface TableProps extends React.HTMLAttributes<HTMLTableElement> {}\n\n/** Semantic table wrapper with consistent borders and striping. */\nconst Table = React.forwardRef<HTMLTableElement, TableProps>(\n  ({ className, ...props }, ref) => (\n    <div className=\"relative w-full overflow-auto\">\n      <table\n        ref={ref}\n        className={cn('w-full caption-bottom text-sm', className)}\n        {...props}\n      />\n    </div>\n  )\n);\nTable.displayName = 'Table';\n\nexport interface TableHeaderProps extends React.HTMLAttributes<HTMLTableSectionElement> {}\n\n/** Groups the header row(s). */\nconst TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(\n  ({ className, ...props }, ref) => (\n    <thead ref={ref} className={cn('[&_tr]:border-b', className)} {...props} />\n  )\n);\nTableHeader.displayName = 'TableHeader';\n\nexport interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {}\n\n/** Groups the body row(s). */\nconst TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(\n  ({ className, ...props }, ref) => (\n    <tbody ref={ref} className={cn('[&_tr:last-child]:border-0', className)} {...props} />\n  )\n);\nTableBody.displayName = 'TableBody';\n\nexport interface TableFooterProps extends React.HTMLAttributes<HTMLTableSectionElement> {}\n\n/** Groups the footer row(s) for summary content. */\nconst TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(\n  ({ className, ...props }, ref) => (\n    <tfoot\n      ref={ref}\n      className={cn('border-t border-border bg-muted/50 font-medium [&>tr]:last:border-b-0', className)}\n      {...props}\n    />\n  )\n);\nTableFooter.displayName = 'TableFooter';\n\nexport interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {}\n\n/** A table row. */\nconst TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(\n  ({ className, ...props }, ref) => (\n    <tr\n      ref={ref}\n      className={cn(\n        'border-b border-border transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nTableRow.displayName = 'TableRow';\n\nexport interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {}\n\n/** A header cell. */\nconst TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(\n  ({ className, ...props }, ref) => (\n    <th\n      ref={ref}\n      scope=\"col\"\n      className={cn(\n        'h-10 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider text-muted-foreground',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nTableHead.displayName = 'TableHead';\n\nexport interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {}\n\n/** A data cell. */\nconst TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(\n  ({ className, ...props }, ref) => (\n    <td ref={ref} className={cn('px-3 py-2 align-middle', className)} {...props} />\n  )\n);\nTableCell.displayName = 'TableCell';\n\nexport interface TableCaptionProps extends React.HTMLAttributes<HTMLTableCaptionElement> {}\n\n/** Accessible caption describing the table's contents. */\nconst TableCaption = React.forwardRef<HTMLTableCaptionElement, TableCaptionProps>(\n  ({ className, ...props }, ref) => (\n    <caption ref={ref} className={cn('mt-3 text-xs text-muted-foreground', className)} {...props} />\n  )\n);\nTableCaption.displayName = 'TableCaption';\n\nexport {\n  Table,\n  TableHeader,\n  TableBody,\n  TableFooter,\n  TableRow,\n  TableHead,\n  TableCell,\n  TableCaption,\n};\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/table.manifest.json",
+      "content": "{\n  \"id\": \"table\",\n  \"name\": \"Table\",\n  \"tier\": \"molecule\",\n  \"description\": \"Semantic data table with headers, body, footer, and accessible caption\",\n  \"designIntent\": \"Table displays tabular data with proper semantics. TableHead uses scope=col, TableCaption provides an accessible summary, and rows support hover/selected states.\",\n  \"props\": [\n    { \"name\": \"children\", \"type\": \"ReactNode\", \"required\": true, \"description\": \"TableHeader, TableBody, TableFooter, and TableCaption children\" },\n    { \"name\": \"className\", \"type\": \"string\", \"required\": false, \"description\": \"Additional CSS classes to apply\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic table\",\n      \"code\": \"<Table>\\n  <TableCaption>Monthly revenue</TableCaption>\\n  <TableHeader>\\n    <TableRow>\\n      <TableHead scope=\\\"col\\\">Month</TableHead>\\n      <TableHead scope=\\\"col\\\">Amount</TableHead>\\n    </TableRow>\\n  </TableHeader>\\n  <TableBody>\\n    <TableRow>\\n      <TableCell>January</TableCell>\\n      <TableCell>$1,200</TableCell>\\n    </TableRow>\\n  </TableBody>\\n</Table>\",\n      \"description\": \"Table with caption, headers, and data rows\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Table for layout\",\n      \"explanation\": \"Tables are for tabular data. Use CSS Grid or Flexbox for page layout.\",\n      \"example\": \"// Avoid\\n<Table><TableRow><TableCell>Logo</TableCell><TableCell>Nav</TableCell></TableRow></Table>\\n\\n// Prefer\\n<div className=\\\"flex items-center justify-between\\\">...</div>\"\n    },\n    {\n      \"title\": \"Don't omit the caption\",\n      \"explanation\": \"Screen readers use the caption to describe the table's purpose.\"\n    }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Semantic table\", \"implementation\": \"Native table/thead/tbody/tfoot with scope attributes on headers\", \"userRequirements\": \"Use scope=col on column headers, scope=row on row headers\" },\n    { \"feature\": \"Accessible caption\", \"implementation\": \"TableCaption describes the table contents\", \"userRequirements\": \"Always provide a caption\" }\n  ],\n  \"contentGuidelines\": [\n    { \"contentType\": \"Captions\", \"guidelines\": [\"Describe what the data shows\", \"Include the time period or unit\"], \"goodExamples\": [\"Monthly revenue (USD)\", \"Team members\"], \"badExamples\": [\"Table\", \"Data\"] }\n  ],\n  \"compositionRules\": [\n    { \"component\": \"TableHeader\", \"relationship\": \"Place column headers in a TableHeader with TableRow\", \"example\": \"<TableHeader><TableRow><TableHead scope=\\\"col\\\">Name</TableHead></TableRow></TableHeader>\" }\n  ],\n  \"relatedComponents\": [\"Card\", \"Badge\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"table\",\n  \"exportName\": \"Table\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

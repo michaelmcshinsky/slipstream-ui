@@ -1,10 +1,18 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "94a6f58",
-  "count": 35,
+  "sourceRevision": "124f2f2",
+  "count": 39,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Collapsible content sections with ARIA accordion semantics and keyboard navigation",
+      "registry": "/registry/accordion.json"
+    },
     {
       "id": "attachment",
       "name": "Attachment / AttachmentList",
@@ -44,6 +52,14 @@
       "tier": "atom",
       "description": "A clickable button component with variants for different visual styles and sizes",
       "registry": "/registry/button.json"
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "A content container with header, body, and footer sections for grouping related information",
+      "registry": "/registry/card.json"
     },
     {
       "id": "chain-thought",
@@ -124,6 +140,14 @@
       "tier": "atom",
       "description": "An accessible form label that associates with its control",
       "registry": "/registry/label.json"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics",
+      "registry": "/registry/menu.json"
     },
     {
       "id": "message",
@@ -244,6 +268,14 @@
       "tier": "atom",
       "description": "A toggle switch for binary settings, with role=switch and aria-checked",
       "registry": "/registry/switch.json"
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic data table with headers, body, footer, and accessible caption",
+      "registry": "/registry/table.json"
     },
     {
       "id": "tabs",

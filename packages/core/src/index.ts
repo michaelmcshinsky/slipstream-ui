@@ -18,3 +18,7 @@ export * from './components/skeleton';
 export * from './components/progress';
 export * from './components/tabs';
 export * from './components/tooltip';
+export * from './components/card';
+export * from './components/accordion';
+export * from './components/table';
+export * from './components/menu';
