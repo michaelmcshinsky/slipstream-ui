@@ -277,6 +277,79 @@ const pages = [
           </MenuContent>
         </Menu>`,
   },
+  {
+    dir: 'alert', title: 'Alert', id: 'alert',
+    description: 'Inline alert for status messages with semantic variants.',
+    imports: 'Alert, AlertDescription, AlertTitle',
+    propsRows: [
+      { name: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info'", defaultValue: "'default'", description: 'Semantic style variant.' },
+      { name: 'children', type: 'ReactNode', description: 'Alert content (AlertTitle and AlertDescription).' },
+    ],
+    accessibility: [
+      'role=alert announces the content when it appears.',
+      'AlertTitle renders as h5; maintain logical heading order.',
+    ],
+    demo: `<Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
+        </Alert>`,
+  },
+  {
+    dir: 'popover', title: 'Popover', id: 'popover',
+    description: 'Floating panel anchored to a trigger with interactive content.',
+    imports: 'Popover, PopoverContent, PopoverTrigger, Button',
+    propsRows: [
+      { name: 'open', type: 'boolean', description: 'Controlled open state.' },
+      { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the open state changes.' },
+    ],
+    accessibility: [
+      'role=dialog with aria-labelledby linking to the trigger.',
+      'Escape closes the popover; outside click dismisses it.',
+    ],
+    demo: `<Popover>
+          <PopoverTrigger>Details</PopoverTrigger>
+          <PopoverContent>
+            <p className="text-sm text-muted-foreground">More information here.</p>
+            <Button size="sm" className="mt-2">Action</Button>
+          </PopoverContent>
+        </Popover>`,
+  },
+  {
+    dir: 'breadcrumb', title: 'Breadcrumb', id: 'breadcrumb',
+    description: 'Navigation breadcrumb trail with links and current-page indicator.',
+    imports: 'Breadcrumb',
+    propsRows: [
+      { name: 'items', type: 'BreadcrumbItem[]', description: 'Ordered breadcrumb items; the last is the current page.' },
+      { name: 'separator', type: 'ReactNode', defaultValue: "'/'", description: 'Separator character between items.' },
+    ],
+    accessibility: [
+      'nav[aria-label=Breadcrumb] landmark for screen readers.',
+      'Last item has aria-current=page.',
+    ],
+    demo: `<Breadcrumb
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Docs', href: '/docs' },
+            { label: 'Components' },
+          ]}
+        />`,
+  },
+  {
+    dir: 'pagination', title: 'Pagination', id: 'pagination',
+    description: 'Numeric pagination with prev/next, ellipsis, and aria-current on the active page.',
+    imports: 'Pagination',
+    propsRows: [
+      { name: 'page', type: 'number', description: 'Current page number (1-based).' },
+      { name: 'pageCount', type: 'number', description: 'Total number of pages.' },
+      { name: 'onPageChange', type: '(page: number) => void', description: 'Called with the new page number.' },
+      { name: 'siblings', type: 'number', defaultValue: '1', description: 'How many page buttons to show around the current page.' },
+    ],
+    accessibility: [
+      'nav[aria-label=Pagination] landmark.',
+      'Active button has aria-current=page; disabled buttons at boundaries.',
+    ],
+    demo: `<Pagination page={3} pageCount={10} />`,
+  },
 ];
 
 for (const page of pages) {

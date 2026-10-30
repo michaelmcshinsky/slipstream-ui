@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "bf4cb93",
-  "count": 39,
+  "sourceRevision": "c7fb17a",
+  "count": 43,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -12,6 +12,14 @@
       "tier": "molecule",
       "description": "Collapsible content sections with ARIA accordion semantics and keyboard navigation",
       "registry": "/registry/accordion.json"
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Inline alert for status messages with semantic variants (destructive, success, warning, info)",
+      "registry": "/registry/alert.json"
     },
     {
       "id": "attachment",
@@ -44,6 +52,14 @@
       "tier": "atom",
       "description": "Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
       "registry": "/registry/branch.json"
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Navigation breadcrumb trail with links and current-page indicator",
+      "registry": "/registry/breadcrumb.json"
     },
     {
       "id": "button",
@@ -164,6 +180,22 @@
       "tier": "atom",
       "description": "Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.",
       "registry": "/registry/message-actions.json"
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+      "registry": "/registry/pagination.json"
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
+      "registry": "/registry/popover.json"
     },
     {
       "id": "progress",

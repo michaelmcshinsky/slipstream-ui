@@ -1,0 +1,51 @@
+{
+  "id": "alert",
+  "name": "Alert",
+  "tier": "molecule",
+  "description": "Inline alert for status messages with semantic variants (destructive, success, warning, info)",
+  "designIntent": "Alert communicates status or requires attention. Use it for form errors, success confirmations, warnings, and informational notices. Renders role=alert so screen readers announce it immediately.",
+  "props": [
+    { "name": "variant", "type": "'default' | 'destructive' | 'success' | 'warning' | 'info'", "defaultValue": "'default'", "required": false, "description": "Semantic style variant" },
+    { "name": "children", "type": "ReactNode", "required": true, "description": "Alert content (AlertTitle and AlertDescription)" },
+    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+  ],
+  "examples": [
+    {
+      "title": "Destructive alert",
+      "code": "<Alert variant=\"destructive\">\n  <AlertTitle>Error</AlertTitle>\n  <AlertDescription>Your session has expired. Please log in again.</AlertDescription>\n</Alert>",
+      "description": "Error state with title and description"
+    },
+    {
+      "title": "Success alert",
+      "code": "<Alert variant=\"success\">\n  <AlertTitle>Success</AlertTitle>\n  <AlertDescription>Your changes have been saved.</AlertDescription>\n</Alert>",
+      "description": "Confirmation of a completed action"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Alert for transient notifications",
+      "explanation": "Alert is persistent inline content. Use Toast for temporary notifications that auto-dismiss.",
+      "example": "// Avoid\n<Alert>Message sent!</Alert>\n\n// Prefer\nuseToast().show({ title: 'Message sent!' })"
+    },
+    {
+      "title": "Don't use Alert for required form validation",
+      "explanation": "Field-level errors belong next to the field with aria-describedby. Use Alert only for form-level errors."
+    }
+  ],
+  "accessibility": [
+    { "feature": "Live region", "implementation": "role=alert announces the content when it appears", "userRequirements": "Only use variant=destructive for errors; screen readers announce it with urgency" },
+    { "feature": "Heading semantics", "implementation": "AlertTitle renders as h5", "userRequirements": "Maintain logical heading order in your page" }
+  ],
+  "contentGuidelines": [
+    { "contentType": "Alert text", "guidelines": ["Lead with the outcome", "Explain what to do next", "Keep to 1-2 sentences"], "goodExamples": ["Your session has expired. Please log in again.", "Changes saved successfully."], "badExamples": ["Error!", "An issue occurred somewhere."] }
+  ],
+  "compositionRules": [
+    { "component": "AlertTitle + AlertDescription", "relationship": "Pair title with description for structured alerts", "example": "<Alert><AlertTitle>Title</AlertTitle><AlertDescription>Body</AlertDescription></Alert>" }
+  ],
+  "relatedComponents": ["Toast", "Badge"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "alert",
+  "exportName": "Alert"
+}

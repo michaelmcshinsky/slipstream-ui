@@ -1,0 +1,123 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "breadcrumb",
+  "name": "breadcrumb",
+  "tier": "molecule",
+  "description": "Navigation breadcrumb trail with links and current-page indicator",
+  "designIntent": "Breadcrumb shows the user's location in a hierarchy and lets them navigate back to parent levels. The last item is the current page, marked with aria-current=page.",
+  "props": [
+    {
+      "name": "items",
+      "type": "BreadcrumbItem[]",
+      "required": true,
+      "description": "Ordered breadcrumb items; the last is the current page"
+    },
+    {
+      "name": "separator",
+      "type": "ReactNode",
+      "defaultValue": "'/'",
+      "required": false,
+      "description": "Separator character between items"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Three-level breadcrumb",
+      "code": "<Breadcrumb items={[\n  { label: 'Home', href: '/' },\n  { label: 'Docs', href: '/docs' },\n  { label: 'Components' },\n]} />",
+      "description": "Hierarchical navigation with current page"
+    },
+    {
+      "title": "Custom separator",
+      "code": "<Breadcrumb\n  items={[{ label: 'Home', href: '/' }, { label: 'Page' }]}\n  separator=\"›\"\n/>",
+      "description": "Breadcrumb with a chevron separator"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Breadcrumb for flat navigation",
+      "explanation": "Breadcrumb is for hierarchical structures. Use a nav menu or tabs for flat peer pages."
+    },
+    {
+      "title": "Don't make the current page a link",
+      "explanation": "The last item should be plain text with aria-current=page, not a link to itself."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Navigation landmark",
+      "implementation": "nav[aria-label=Breadcrumb] so screen readers announce the landmark",
+      "userRequirements": "Don't place multiple breadcrumbs on one page"
+    },
+    {
+      "feature": "Current page",
+      "implementation": "Last item has aria-current=page",
+      "userRequirements": "Only one item should have aria-current"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use short nouns",
+        "Match the page title of each level",
+        "Avoid abbreviations"
+      ],
+      "goodExamples": [
+        "Home",
+        "Documentation",
+        "Components"
+      ],
+      "badExamples": [
+        "H",
+        "Docs / Components / Button page",
+        "Click here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Link",
+      "relationship": "Non-last items should be links",
+      "example": "<Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Current' }]} />"
+    }
+  ],
+  "relatedComponents": [
+    "Menu",
+    "Tabs"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "breadcrumb",
+  "exportName": "Breadcrumb",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/breadcrumb/Breadcrumb.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface BreadcrumbItem {\n  /** Display label. */\n  label: string;\n  /** Destination href; omit for the current page (renders as plain text). */\n  href?: string;\n}\n\nexport interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {\n  /** Ordered list of breadcrumb items; the last item is the current page. */\n  items: BreadcrumbItem[];\n  /** Separator character between items (default '/'). */\n  separator?: React.ReactNode;\n}\n\n/**\n * Navigation breadcrumb trail. The last item is rendered as the current\n * page with aria-current=\"page\". Earlier items are links. Screen readers\n * announce the navigation landmark and current location.\n */\nconst Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(\n  ({ items, separator = '/', className, ...props }, ref) => (\n    <nav\n      ref={ref}\n      aria-label=\"Breadcrumb\"\n      className={cn('flex items-center space-x-1.5 text-sm text-muted-foreground', className)}\n      {...props}\n    >\n      <ol className=\"flex flex-wrap items-center space-x-1.5\">\n        {items.map((item, index) => {\n          const isLast = index === items.length - 1;\n          return (\n            <li key={`${item.label}-${index}`} className=\"flex items-center space-x-1.5\">\n              {index > 0 && (\n                <span aria-hidden=\"true\" className=\"text-muted-foreground/50\">\n                  {separator}\n                </span>\n              )}\n              {item.href && !isLast ? (\n                <a\n                  href={item.href}\n                  className=\"transition-colors hover:text-foreground\"\n                >\n                  {item.label}\n                </a>\n              ) : (\n                <span\n                  aria-current={isLast ? 'page' : undefined}\n                  className={isLast ? 'font-medium text-foreground' : undefined}\n                >\n                  {item.label}\n                </span>\n              )}\n            </li>\n          );\n        })}\n      </ol>\n    </nav>\n  )\n);\nBreadcrumb.displayName = 'Breadcrumb';\n\nexport { Breadcrumb };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/breadcrumb/index.ts",
+      "content": "export * from './Breadcrumb';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/breadcrumb.manifest.json",
+      "content": "{\n  \"id\": \"breadcrumb\",\n  \"name\": \"Breadcrumb\",\n  \"tier\": \"molecule\",\n  \"description\": \"Navigation breadcrumb trail with links and current-page indicator\",\n  \"designIntent\": \"Breadcrumb shows the user's location in a hierarchy and lets them navigate back to parent levels. The last item is the current page, marked with aria-current=page.\",\n  \"props\": [\n    { \"name\": \"items\", \"type\": \"BreadcrumbItem[]\", \"required\": true, \"description\": \"Ordered breadcrumb items; the last is the current page\" },\n    { \"name\": \"separator\", \"type\": \"ReactNode\", \"defaultValue\": \"'/'\", \"required\": false, \"description\": \"Separator character between items\" },\n    { \"name\": \"className\", \"type\": \"string\", \"required\": false, \"description\": \"Additional CSS classes to apply\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Three-level breadcrumb\",\n      \"code\": \"<Breadcrumb items={[\\n  { label: 'Home', href: '/' },\\n  { label: 'Docs', href: '/docs' },\\n  { label: 'Components' },\\n]} />\",\n      \"description\": \"Hierarchical navigation with current page\"\n    },\n    {\n      \"title\": \"Custom separator\",\n      \"code\": \"<Breadcrumb\\n  items={[{ label: 'Home', href: '/' }, { label: 'Page' }]}\\n  separator=\\\"›\\\"\\n/>\",\n      \"description\": \"Breadcrumb with a chevron separator\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Breadcrumb for flat navigation\",\n      \"explanation\": \"Breadcrumb is for hierarchical structures. Use a nav menu or tabs for flat peer pages.\"\n    },\n    {\n      \"title\": \"Don't make the current page a link\",\n      \"explanation\": \"The last item should be plain text with aria-current=page, not a link to itself.\"\n    }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Navigation landmark\", \"implementation\": \"nav[aria-label=Breadcrumb] so screen readers announce the landmark\", \"userRequirements\": \"Don't place multiple breadcrumbs on one page\" },\n    { \"feature\": \"Current page\", \"implementation\": \"Last item has aria-current=page\", \"userRequirements\": \"Only one item should have aria-current\" }\n  ],\n  \"contentGuidelines\": [\n    { \"contentType\": \"Labels\", \"guidelines\": [\"Use short nouns\", \"Match the page title of each level\", \"Avoid abbreviations\"], \"goodExamples\": [\"Home\", \"Documentation\", \"Components\"], \"badExamples\": [\"H\", \"Docs / Components / Button page\", \"Click here\"] }\n  ],\n  \"compositionRules\": [\n    { \"component\": \"Link\", \"relationship\": \"Non-last items should be links\", \"example\": \"<Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Current' }]} />\" }\n  ],\n  \"relatedComponents\": [\"Menu\", \"Tabs\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"breadcrumb\",\n  \"exportName\": \"Breadcrumb\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

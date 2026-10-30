@@ -77,6 +77,40 @@ npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
         ))}
       </div>
 
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Versioning &amp; Stability</h2>
+      <div className="mt-4 space-y-3 text-muted-foreground">
+        <p className="leading-relaxed">
+          Slipstream UI follows <strong className="text-foreground">semantic versioning</strong>. The current major
+          version is <strong className="text-foreground">0.x</strong>, meaning the API may change between minor
+          releases as the library matures toward 1.0.
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong className="text-foreground">Patch (0.1.x):</strong> Bug fixes, accessibility improvements,
+            documentation updates. No API changes.
+          </li>
+          <li>
+            <strong className="text-foreground">Minor (0.x.0):</strong> New components, new props, new tokens.
+            Existing props and components remain backward-compatible unless marked deprecated.
+          </li>
+          <li>
+            <strong className="text-foreground">Major (1.0.0):</strong> Stable API guarantee. After 1.0,
+            breaking changes only in major releases with a migration guide.
+          </li>
+        </ul>
+        <p className="leading-relaxed">
+          Every component ships a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">COMPONENT_MANIFEST</code>{' '}
+          with a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">version</code> field. The manifest
+          schema is validated in CI — prop schemas, TypeScript types, and manifests are checked for drift on every
+          commit.
+        </p>
+        <p className="leading-relaxed">
+          <strong className="text-foreground">Accessibility:</strong> All components pass <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">jest-axe</code>{' '}
+          automated checks and support keyboard navigation, screen readers, and reduced-motion preferences.
+          Accessibility regressions are treated as bugs.
+        </p>
+      </div>
+
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">For agent builders</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         If you are wiring an agent into Slipstream, start with{' '}

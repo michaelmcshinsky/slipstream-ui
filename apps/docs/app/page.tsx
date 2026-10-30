@@ -16,7 +16,7 @@ import { ThemeShowcase } from '@/components/theme-showcase';
 
 const REPO_URL = 'https://github.com/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **35 production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
+const DEMO_REPLY = `Slipstream UI ships **43 production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
 
 Your agent queries the manifest via MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
 
@@ -206,8 +206,8 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-14">
         <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
           {[
-            { value: '35', label: 'components' },
-            { value: '35', label: 'machine-readable specs' },
+            { value: '43', label: 'components' },
+            { value: '43', label: 'machine-readable specs' },
             { value: '167', label: 'tests incl. jest-axe' },
             { value: '0', label: 'hallucinated props allowed' },
           ].map((stat) => (
@@ -364,7 +364,7 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-24 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          35 components · 35 machine-readable specs · zero hallucinated props.
+          43 components · 43 machine-readable specs · zero hallucinated props.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link href="/docs/installation">

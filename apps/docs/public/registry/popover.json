@@ -1,0 +1,129 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "popover",
+  "name": "popover",
+  "tier": "molecule",
+  "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
+  "designIntent": "Popover displays interactive content (links, buttons, forms) in a floating panel. Unlike Tooltip, the content is focusable and actionable. Closes on outside click and Escape.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled open state"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": false,
+      "description": "Called when the open state changes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "PopoverTrigger and PopoverContent children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Simple popover",
+      "code": "<Popover>\n  <PopoverTrigger>Details</PopoverTrigger>\n  <PopoverContent>\n    <p>More information here.</p>\n    <Button size=\"sm\">Action</Button>\n  </PopoverContent>\n</Popover>",
+      "description": "Popover with text and a button"
+    },
+    {
+      "title": "Controlled popover",
+      "code": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>Options</PopoverTrigger>\n  <PopoverContent>\n    <form>...</form>\n  </PopoverContent>\n</Popover>",
+      "description": "Popover driven by parent state"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Popover for plain text hints",
+      "explanation": "Use Tooltip for non-interactive hints. Popover is for interactive content.",
+      "example": "// Avoid\n<Popover><PopoverTrigger>?</PopoverTrigger><PopoverContent>Info</PopoverContent></Popover>\n\n// Prefer\n<Tooltip content=\"Info\">?</Tooltip>"
+    },
+    {
+      "title": "Don't use Popover for critical forms or destructive actions",
+      "explanation": "Popovers close on outside click, which can interrupt form filling. Use Dialog for forms and destructive confirmations."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Dialog semantics",
+      "implementation": "role=dialog with aria-labelledby linking to the trigger",
+      "userRequirements": "Trigger must have a visible accessible name"
+    },
+    {
+      "feature": "Escape dismissal",
+      "implementation": "Escape closes the popover",
+      "userRequirements": "Keep the trigger focusable after close"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Popover content",
+      "guidelines": [
+        "Keep content brief",
+        "Include at least one interactive element",
+        "Avoid full-page forms"
+      ],
+      "goodExamples": [
+        "Settings quick-edit",
+        "Color picker",
+        "Filter options"
+      ],
+      "badExamples": [
+        "A full registration form",
+        "A long article"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "PopoverTrigger",
+      "relationship": "Every Popover needs a PopoverTrigger",
+      "example": "<PopoverTrigger>Open</PopoverTrigger>"
+    }
+  ],
+  "relatedComponents": [
+    "Tooltip",
+    "Dialog",
+    "Menu"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "popover",
+  "exportName": "Popover",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/popover/index.ts",
+      "content": "export * from './Popover';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/popover/Popover.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\ntype PopoverContextValue = {\n  open: boolean;\n  setOpen: (open: boolean) => void;\n  triggerId: string;\n  contentId: string;\n};\n\nconst PopoverContext = React.createContext<PopoverContextValue>({\n  open: false,\n  setOpen: () => {},\n  triggerId: '',\n  contentId: '',\n});\n\nexport interface PopoverProps {\n  /** Controlled open state. */\n  open?: boolean;\n  /** Called when the open state changes. */\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n  children: React.ReactNode;\n}\n\n/**\n * Floating panel anchored to a trigger. Unlike Tooltip, the content is\n * interactive (links, buttons, forms). Closes on outside click and Escape.\n * Renders as a non-modal dialog with proper aria wiring.\n */\nconst Popover = React.forwardRef<HTMLDivElement, PopoverProps>(\n  ({ open, onOpenChange, className, children }, ref) => {\n    const [internalOpen, setInternalOpen] = React.useState(false);\n    const current = open ?? internalOpen;\n    const triggerId = React.useId();\n    const contentId = React.useId();\n\n    const setOpen = React.useCallback(\n      (next: boolean) => {\n        if (open === undefined) setInternalOpen(next);\n        onOpenChange?.(next);\n      },\n      [open, onOpenChange]\n    );\n\n    return (\n      <div ref={ref} className={cn('relative inline-block', className)}>\n        <PopoverContext.Provider value={{ open: current, setOpen, triggerId, contentId }}>\n          {children}\n        </PopoverContext.Provider>\n      </div>\n    );\n  }\n);\nPopover.displayName = 'Popover';\n\nexport interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}\n\n/** The button that toggles the popover. */\nconst PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(\n  ({ className, children, onClick, ...props }, ref) => {\n    const { open, setOpen, triggerId, contentId } = React.useContext(PopoverContext);\n    return (\n      <button\n        ref={ref}\n        id={triggerId}\n        type=\"button\"\n        aria-haspopup=\"dialog\"\n        aria-expanded={open}\n        aria-controls={open ? contentId : undefined}\n        onClick={(event) => {\n          onClick?.(event);\n          setOpen(!open);\n        }}\n        className={cn(\n          'inline-flex items-center justify-center rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors',\n          'hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </button>\n    );\n  }\n);\nPopoverTrigger.displayName = 'PopoverTrigger';\n\nexport interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {}\n\n  /** The floating panel with interactive content. */\n  const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(\n    ({ className, children, onKeyDown, ...props }, ref) => {\n      const { open, setOpen, triggerId, contentId } = React.useContext(PopoverContext);\n      const contentRef = React.useRef<HTMLDivElement | null>(null);\n\n      // Close on outside click.\n      React.useEffect(() => {\n        if (!open) return;\n        function onPointerDown(event: PointerEvent) {\n          if (!contentRef.current?.contains(event.target as Node)) setOpen(false);\n        }\n        document.addEventListener('pointerdown', onPointerDown);\n        return () => document.removeEventListener('pointerdown', onPointerDown);\n      }, [open, setOpen]);\n\n      // Focus the content when it opens so Escape reaches it.\n      React.useEffect(() => {\n        if (open && contentRef.current) {\n          contentRef.current.focus();\n        }\n      }, [open]);\n\n      if (!open) return null;\n\n      return (\n        <div\n          ref={(node) => {\n            contentRef.current = node;\n            if (typeof ref === 'function') ref(node);\n            else if (ref) ref.current = node;\n          }}\n          id={contentId}\n          role=\"dialog\"\n          aria-labelledby={triggerId}\n          tabIndex={-1}\n          onKeyDown={(event) => {\n            onKeyDown?.(event);\n            if (event.key === 'Escape') {\n              event.stopPropagation();\n              setOpen(false);\n            }\n          }}\n          className={cn(\n            'absolute right-0 z-50 mt-2 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md outline-none',\n            className\n          )}\n          {...props}\n        >\n          {children}\n        </div>\n      );\n    }\n  );\nPopoverContent.displayName = 'PopoverContent';\n\nexport { Popover, PopoverTrigger, PopoverContent };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/popover.manifest.json",
+      "content": "{\n  \"id\": \"popover\",\n  \"name\": \"Popover\",\n  \"tier\": \"molecule\",\n  \"description\": \"Floating panel anchored to a trigger with interactive content, closing on outside click and Escape\",\n  \"designIntent\": \"Popover displays interactive content (links, buttons, forms) in a floating panel. Unlike Tooltip, the content is focusable and actionable. Closes on outside click and Escape.\",\n  \"props\": [\n    { \"name\": \"open\", \"type\": \"boolean\", \"required\": false, \"description\": \"Controlled open state\" },\n    { \"name\": \"onOpenChange\", \"type\": \"(open: boolean) => void\", \"required\": false, \"description\": \"Called when the open state changes\" },\n    { \"name\": \"children\", \"type\": \"ReactNode\", \"required\": true, \"description\": \"PopoverTrigger and PopoverContent children\" },\n    { \"name\": \"className\", \"type\": \"string\", \"required\": false, \"description\": \"Additional CSS classes to apply\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Simple popover\",\n      \"code\": \"<Popover>\\n  <PopoverTrigger>Details</PopoverTrigger>\\n  <PopoverContent>\\n    <p>More information here.</p>\\n    <Button size=\\\"sm\\\">Action</Button>\\n  </PopoverContent>\\n</Popover>\",\n      \"description\": \"Popover with text and a button\"\n    },\n    {\n      \"title\": \"Controlled popover\",\n      \"code\": \"<Popover open={open} onOpenChange={setOpen}>\\n  <PopoverTrigger>Options</PopoverTrigger>\\n  <PopoverContent>\\n    <form>...</form>\\n  </PopoverContent>\\n</Popover>\",\n      \"description\": \"Popover driven by parent state\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Popover for plain text hints\",\n      \"explanation\": \"Use Tooltip for non-interactive hints. Popover is for interactive content.\",\n      \"example\": \"// Avoid\\n<Popover><PopoverTrigger>?</PopoverTrigger><PopoverContent>Info</PopoverContent></Popover>\\n\\n// Prefer\\n<Tooltip content=\\\"Info\\\">?</Tooltip>\"\n    },\n    {\n      \"title\": \"Don't use Popover for critical forms or destructive actions\",\n      \"explanation\": \"Popovers close on outside click, which can interrupt form filling. Use Dialog for forms and destructive confirmations.\"\n    }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Dialog semantics\", \"implementation\": \"role=dialog with aria-labelledby linking to the trigger\", \"userRequirements\": \"Trigger must have a visible accessible name\" },\n    { \"feature\": \"Escape dismissal\", \"implementation\": \"Escape closes the popover\", \"userRequirements\": \"Keep the trigger focusable after close\" }\n  ],\n  \"contentGuidelines\": [\n    { \"contentType\": \"Popover content\", \"guidelines\": [\"Keep content brief\", \"Include at least one interactive element\", \"Avoid full-page forms\"], \"goodExamples\": [\"Settings quick-edit\", \"Color picker\", \"Filter options\"], \"badExamples\": [\"A full registration form\", \"A long article\"] }\n  ],\n  \"compositionRules\": [\n    { \"component\": \"PopoverTrigger\", \"relationship\": \"Every Popover needs a PopoverTrigger\", \"example\": \"<PopoverTrigger>Open</PopoverTrigger>\" }\n  ],\n  \"relatedComponents\": [\"Tooltip\", \"Dialog\", \"Menu\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"popover\",\n  \"exportName\": \"Popover\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

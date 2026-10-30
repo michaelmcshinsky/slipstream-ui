@@ -22,3 +22,7 @@ export * from './components/card';
 export * from './components/accordion';
 export * from './components/table';
 export * from './components/menu';
+export * from './components/alert';
+export * from './components/popover';
+export * from './components/breadcrumb';
+export * from './components/pagination';

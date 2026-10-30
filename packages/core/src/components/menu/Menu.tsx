@@ -111,7 +111,7 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
         itemsRef.current[0]?.focus();
         setActiveIndex(0);
       }
-    }, [open]);
+    }, [open, setActiveIndex]);
 
     const onKeyDown = (event: React.KeyboardEvent) => {
       const items = itemsRef.current;

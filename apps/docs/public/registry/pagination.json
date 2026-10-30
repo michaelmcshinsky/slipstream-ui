@@ -1,0 +1,139 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "pagination",
+  "name": "pagination",
+  "tier": "molecule",
+  "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+  "designIntent": "Pagination lets users navigate through paged content. It shows page numbers with ellipsis for large ranges, prev/next buttons, and marks the current page with aria-current=page.",
+  "props": [
+    {
+      "name": "page",
+      "type": "number",
+      "required": true,
+      "description": "Current page number (1-based)"
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": true,
+      "description": "Total number of pages"
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": false,
+      "description": "Called with the new page number"
+    },
+    {
+      "name": "siblings",
+      "type": "number",
+      "defaultValue": "1",
+      "required": false,
+      "description": "How many page buttons to show around the current page"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic pagination",
+      "code": "<Pagination page={3} pageCount={10} onPageChange={setPage} />",
+      "description": "Navigate through 10 pages"
+    },
+    {
+      "title": "Wide page range",
+      "code": "<Pagination page={5} pageCount={20} siblings={2} onPageChange={setPage} />",
+      "description": "Show more page buttons around the current page"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Pagination for infinite scroll content",
+      "explanation": "Pagination implies discrete pages. Use a 'Load more' button or infinite scroll for continuous content."
+    },
+    {
+      "title": "Don't hide the current page number",
+      "explanation": "Users need to know where they are. Always show the active page with aria-current=page."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Navigation landmark",
+      "implementation": "nav[aria-label=Pagination]",
+      "userRequirements": "Don't place multiple paginations on one page"
+    },
+    {
+      "feature": "Current page",
+      "implementation": "Active button has aria-current=page",
+      "userRequirements": "Update aria-current when the page changes"
+    },
+    {
+      "feature": "Disabled buttons",
+      "implementation": "Prev/next are disabled at the boundaries",
+      "userRequirements": "Disabled buttons are removed from tab order"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use aria-label for prev/next buttons",
+        "Page numbers are self-explanatory"
+      ],
+      "goodExamples": [
+        "Previous page",
+        "Next page",
+        "Page 3"
+      ],
+      "badExamples": [
+        "<",
+        ">",
+        "..."
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Table",
+      "relationship": "Paginate long table data",
+      "example": "<Table>...</Table><Pagination page={page} pageCount={total} onPageChange={setPage} />"
+    }
+  ],
+  "relatedComponents": [
+    "Table",
+    "Breadcrumb"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "pagination",
+  "exportName": "Pagination",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/pagination/index.ts",
+      "content": "export * from './Pagination';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/pagination/Pagination.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface PaginationProps extends React.HTMLAttributes<HTMLElement> {\n  /** Current page number (1-based). */\n  page: number;\n  /** Total number of pages. */\n  pageCount: number;\n  /** Called with the new page number. */\n  onPageChange?: (page: number) => void;\n  /** How many page buttons to show around the current page (default 1). */\n  siblings?: number;\n}\n\n/**\n * Numeric pagination with prev/next and ellipsis. Renders as a nav\n * landmark with aria-current=\"page\" on the active button. Keyboard\n * users tab through buttons; each is a real <button> with a label.\n */\nconst Pagination = React.forwardRef<HTMLElement, PaginationProps>(\n  ({ page, pageCount, onPageChange, siblings = 1, className, ...props }, ref) => {\n    // Build the page number list with ellipsis markers.\n    const pages: (number | 'ellipsis')[] = [];\n    const start = Math.max(2, page - siblings);\n    const end = Math.min(pageCount - 1, page + siblings);\n\n    pages.push(1);\n    if (start > 2) pages.push('ellipsis');\n    for (let i = start; i <= end; i++) pages.push(i);\n    if (end < pageCount - 1) pages.push('ellipsis');\n    if (pageCount > 1) pages.push(pageCount);\n\n    return (\n      <nav\n        ref={ref}\n        aria-label=\"Pagination\"\n        className={cn('flex items-center justify-center gap-1', className)}\n        {...props}\n      >\n        <button\n          type=\"button\"\n          onClick={() => onPageChange?.(page - 1)}\n          disabled={page <= 1}\n          aria-label=\"Previous page\"\n          className={cn(\n            'inline-flex h-8 items-center rounded-md border border-border px-2.5 text-sm transition-colors',\n            'hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n            'disabled:pointer-events-none disabled:opacity-50'\n          )}\n        >\n          ‹\n        </button>\n        {pages.map((entry, index) =>\n          entry === 'ellipsis' ? (\n            <span\n              key={`ellipsis-${index}`}\n              aria-hidden=\"true\"\n              className=\"px-2 text-sm text-muted-foreground\"\n            >\n              …\n            </span>\n          ) : (\n            <button\n              key={entry}\n              type=\"button\"\n              onClick={() => onPageChange?.(entry)}\n              aria-current={entry === page ? 'page' : undefined}\n              aria-label={`Page ${entry}`}\n              className={cn(\n                'inline-flex h-8 w-8 items-center justify-center rounded-md border text-sm transition-colors',\n                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n                entry === page\n                  ? 'border-primary bg-primary text-primary-foreground font-medium'\n                  : 'border-border hover:bg-muted'\n              )}\n            >\n              {entry}\n            </button>\n          )\n        )}\n        <button\n          type=\"button\"\n          onClick={() => onPageChange?.(page + 1)}\n          disabled={page >= pageCount}\n          aria-label=\"Next page\"\n          className={cn(\n            'inline-flex h-8 items-center rounded-md border border-border px-2.5 text-sm transition-colors',\n            'hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n            'disabled:pointer-events-none disabled:opacity-50'\n          )}\n        >\n          ›\n        </button>\n      </nav>\n    );\n  }\n);\nPagination.displayName = 'Pagination';\n\nexport { Pagination };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/pagination.manifest.json",
+      "content": "{\n  \"id\": \"pagination\",\n  \"name\": \"Pagination\",\n  \"tier\": \"molecule\",\n  \"description\": \"Numeric pagination with prev/next, ellipsis, and aria-current on the active page\",\n  \"designIntent\": \"Pagination lets users navigate through paged content. It shows page numbers with ellipsis for large ranges, prev/next buttons, and marks the current page with aria-current=page.\",\n  \"props\": [\n    { \"name\": \"page\", \"type\": \"number\", \"required\": true, \"description\": \"Current page number (1-based)\" },\n    { \"name\": \"pageCount\", \"type\": \"number\", \"required\": true, \"description\": \"Total number of pages\" },\n    { \"name\": \"onPageChange\", \"type\": \"(page: number) => void\", \"required\": false, \"description\": \"Called with the new page number\" },\n    { \"name\": \"siblings\", \"type\": \"number\", \"defaultValue\": \"1\", \"required\": false, \"description\": \"How many page buttons to show around the current page\" },\n    { \"name\": \"className\", \"type\": \"string\", \"required\": false, \"description\": \"Additional CSS classes to apply\" }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic pagination\",\n      \"code\": \"<Pagination page={3} pageCount={10} onPageChange={setPage} />\",\n      \"description\": \"Navigate through 10 pages\"\n    },\n    {\n      \"title\": \"Wide page range\",\n      \"code\": \"<Pagination page={5} pageCount={20} siblings={2} onPageChange={setPage} />\",\n      \"description\": \"Show more page buttons around the current page\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Pagination for infinite scroll content\",\n      \"explanation\": \"Pagination implies discrete pages. Use a 'Load more' button or infinite scroll for continuous content.\"\n    },\n    {\n      \"title\": \"Don't hide the current page number\",\n      \"explanation\": \"Users need to know where they are. Always show the active page with aria-current=page.\"\n    }\n  ],\n  \"accessibility\": [\n    { \"feature\": \"Navigation landmark\", \"implementation\": \"nav[aria-label=Pagination]\", \"userRequirements\": \"Don't place multiple paginations on one page\" },\n    { \"feature\": \"Current page\", \"implementation\": \"Active button has aria-current=page\", \"userRequirements\": \"Update aria-current when the page changes\" },\n    { \"feature\": \"Disabled buttons\", \"implementation\": \"Prev/next are disabled at the boundaries\", \"userRequirements\": \"Disabled buttons are removed from tab order\" }\n  ],\n  \"contentGuidelines\": [\n    { \"contentType\": \"Labels\", \"guidelines\": [\"Use aria-label for prev/next buttons\", \"Page numbers are self-explanatory\"], \"goodExamples\": [\"Previous page\", \"Next page\", \"Page 3\"], \"badExamples\": [\"<\", \">\", \"...\"] }\n  ],\n  \"compositionRules\": [\n    { \"component\": \"Table\", \"relationship\": \"Paginate long table data\", \"example\": \"<Table>...</Table><Pagination page={page} pageCount={total} onPageChange={setPage} />\" }\n  ],\n  \"relatedComponents\": [\"Table\", \"Breadcrumb\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"pagination\",\n  \"exportName\": \"Pagination\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}
