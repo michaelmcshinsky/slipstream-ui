@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "^3.0.3",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "tsx": "^4.7.0",
