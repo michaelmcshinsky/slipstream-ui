@@ -18,6 +18,8 @@ The Reasoning component displays the step-by-step thought process of an AI agent
 | collapsible | `boolean` | `true` | no | Whether the reasoning can be collapsed/expanded |
 | defaultExpanded | `boolean` | `false` | no | Whether the reasoning is expanded by default |
 | className | `string` | — | no | Additional CSS classes to apply |
+| duration | `number` | — | no | Elapsed reasoning time in seconds; renders a duration chip |
+| isStreaming | `boolean` | — | no | Shows a streaming indicator while reasoning is in progress |
 
 ## Examples
 
@@ -72,9 +74,9 @@ Reasoning steps with timing information
 
 ## Anti-patterns
 
-- **Don't show reasoning for simple responses** — undefined
-- **Don't make steps too verbose** — undefined
-- **Don't show empty reasoning** — undefined
+- **Don't show reasoning for simple responses** — Reasoning is valuable for complex tasks but adds noise for simple responses.
+- **Don't make steps too verbose** — Reasoning steps should be concise and focused on key decision points.
+- **Don't show empty reasoning** — The component returns null for empty arrays, but it's better to not render it at all.
 
 ## Accessibility
 

@@ -17,7 +17,7 @@ const QUICK_LINKS = [
   {
     href: '/docs/components',
     title: 'Components',
-    body: '21 atoms and molecules across core and AI interaction surfaces.',
+    body: '43 components across core and AI interaction surfaces.',
     icon: '🧩',
   },
   {

@@ -113,7 +113,7 @@ export function getRequestId(request: Request): string {
 // ---------------------------------------------------------------------------
 
 /** Parse and validate a JSON body against a zod schema. */
-export async function parseBody<T>(request: Request, schema: z.ZodType<T, z.ZodTypeDef, unknown>): Promise<T> {
+export async function parseBody<T>(request: Request, schema: z.ZodType<T, unknown>): Promise<T> {
   let raw: unknown;
   try {
     raw = await request.json();
@@ -131,7 +131,7 @@ export async function parseBody<T>(request: Request, schema: z.ZodType<T, z.ZodT
 }
 
 /** Parse and validate query params against a zod schema of strings/numbers. */
-export function parseQuery<T>(request: Request, schema: z.ZodType<T, z.ZodTypeDef, unknown>): T {
+export function parseQuery<T>(request: Request, schema: z.ZodType<T, unknown>): T {
   const raw = Object.fromEntries(new URL(request.url).searchParams.entries());
   const parsed = schema.safeParse(raw);
   if (!parsed.success) {

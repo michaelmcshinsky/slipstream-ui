@@ -25,6 +25,17 @@ The Conversation component manages the display of multiple messages in a chat in
 | className | `string` | — | no | Additional CSS classes to apply to the conversation container |
 | renderContent | `(content: string) => ReactNode` | — | no | Custom renderer applied to every message (e.g. markdown). |
 | streamingMessageId | `string` | — | no | ID of the message still generating; renders its streaming cursor and auto-scrolls. |
+| showScrollButton | `boolean` | `true` | no | Show the scroll-to-latest button when the user scrolls up |
+| showDownload | `boolean` | `true` | no | Show the transcript download action |
+| messageErrors | `Record<string, string>` | — | no | Map of message id to error text; renders an error card on that message |
+| onRetryMessage | `(message: MessageData) => void` | — | no | Called when the user retries a failed message |
+| welcomeTitle | `string` | — | no | Title shown in the empty/welcome state |
+| welcomeDescription | `string` | — | no | Supporting text in the welcome state |
+| welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
+| onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
+| isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
+| onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |
 
 ## Examples
 
@@ -80,8 +91,8 @@ More compact conversation without avatars
 
 ## Anti-patterns
 
-- **Don't manage state inside Conversation** — undefined
-- **Don't use for non-chat content** — undefined
+- **Don't manage state inside Conversation** — Conversation should be a controlled component. State should be managed by the parent.
+- **Don't use for non-chat content** — Conversation is specifically for chat messages, not general data display
 
 ## Accessibility
 

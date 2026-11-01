@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsx ../../scripts/generate-registry.ts && next build",
+    "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "next lint"
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",

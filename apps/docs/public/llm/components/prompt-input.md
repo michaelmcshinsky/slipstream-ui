@@ -25,6 +25,19 @@ The PromptInput component provides a specialized input for chat interfaces. It h
 | className | `string` | — | no | Additional CSS classes to apply to the container |
 | onStop | `() => void` | — | no | While loading, the send button becomes a stop button that calls this handler. |
 | stopButtonText | `string` | `Stop generating` | no | Accessible label for the stop button; enables localization. |
+| attachments | `AttachmentItem[]` | — | no | Controlled attachment list shown as chips above the input |
+| onRemoveAttachment | `(id: string) => void` | — | no | Called when the user removes an attachment chip |
+| onAttachmentsChange | `(attachments: AttachmentItem[]) => void` | — | no | Called when files are added via drag-and-drop, paste, or picker |
+| hasError | `boolean` | — | no | Styles the input in an error state (e.g. after a rejected file) |
+| accept | `string` | — | no | MIME types accepted for attachments (e.g. "image/*") |
+| multiple | `boolean` | — | no | Allow selecting multiple files |
+| maxFiles | `number` | — | no | Maximum number of attachments allowed |
+| maxFileSize | `number` | — | no | Maximum file size in bytes; rejects larger files |
+| onAttachmentError | `(error: string) => void` | — | no | Called when an attachment is rejected (size, type, or count limit) |
+| globalDrop | `boolean` | — | no | Enable drop-anywhere-on-page file acceptance |
+| children | `ReactNode` | — | no | Custom content rendered inside the input row (e.g. tool buttons) |
+| tooltip | `string | { content: ReactNode; shortcut?: string }` | — | no | Tooltip content for a toolbar button; optionally includes a keyboard shortcut hint (PromptInput.Button sub-component) |
+| active | `boolean` | `false` | no | Toggles the active state on a toolbar button (PromptInput.Button sub-component) |
 
 ## Examples
 
@@ -100,9 +113,9 @@ Shows loading state and disables while AI is responding
 
 ## Anti-patterns
 
-- **Don't use for non-chat input** — undefined
-- **Don't ignore Enter key behavior** — undefined
-- **Don't validate after submission** — undefined
+- **Don't use for non-chat input** — PromptInput is specifically for chat interactions, not general form input
+- **Don't ignore Enter key behavior** — Users expect Enter to submit. If you change this, communicate it clearly
+- **Don't validate after submission** — Disable the input when empty rather than validating in the handler
 
 ## Accessibility
 

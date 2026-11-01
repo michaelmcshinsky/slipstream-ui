@@ -9,7 +9,7 @@ const releases = [
     date: 'October 2026',
     tag: 'current',
     highlights: [
-      '21 components across @slipstream-ui/core and @slipstream-ui/ai, each shipping a COMPONENT_MANIFEST',
+      '43 components across @slipstream-ui/core and @slipstream-ui/ai, each shipping a COMPONENT_MANIFEST',
       'Response: streaming-safe GFM markdown renderer with automatic repair of incomplete syntax',
       'CodeBlock: syntax highlighting with copy button (prism-react-renderer), theme-aware light/dark',
       'Confirmation: human-in-the-loop approval gate for agent actions',
@@ -31,7 +31,7 @@ const releases = [
     date: 'August 2026',
     tag: 'previous',
     highlights: [
-      'Initial public beta: 21 components with manifests, MCP server, shadcn-compatible registry',
+      'Initial public beta: 43 components with manifests, MCP server, shadcn-compatible registry',
       'Core primitives: Button, Badge, Input, Select, Avatar, Dialog, Spinner, Toast',
       'AI components: Conversation, PromptInput, Response, Message, MessageActions, ToolCall, Confirmation, Reasoning, ChainThought, Sources, Suggestions, Branch, InlineCitation, StreamingIndicator, AttachmentList, CodeBlock, CommandPalette',
       'createTheme() with CSS variable emission and light/dark presets',

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: 'Slipstream UI',
     title: 'Slipstream UI - The AI-first React Component Library',
     description:
-      '21 AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.',
+      '43 AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.',
   },
   twitter: {
     card: 'summary_large_image',

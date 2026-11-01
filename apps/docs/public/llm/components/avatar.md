@@ -65,9 +65,9 @@ Avatar with styled fallback background
 
 ## Anti-patterns
 
-- **Don't forget alt text** — undefined
-- **Don't use vague fallback text** — undefined
-- **Don't use avatars for non-people** — undefined
+- **Don't forget alt text** — Alt text is essential for accessibility. Always describe the avatar content.
+- **Don't use vague fallback text** — Fallback should be meaningful. Use initials or abbreviations that identify the user.
+- **Don't use avatars for non-people** — Avatars are designed for people. Use other components for logos or objects.
 
 ## Accessibility
 

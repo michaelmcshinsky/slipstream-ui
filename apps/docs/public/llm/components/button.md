@@ -74,9 +74,9 @@ Button styled as a link, using asChild for composition
 
 ## Anti-patterns
 
-- **Don't use for navigation alone** — undefined
-- **Don't nest buttons** — undefined
-- **Don't use vague text** — undefined
+- **Don't use for navigation alone** — Buttons should trigger actions, not just navigate. Use proper navigation components.
+- **Don't nest buttons** — Never nest buttons - it breaks accessibility and HTML validity
+- **Don't use vague text** — Button text should clearly describe what will happen
 
 ## Accessibility
 

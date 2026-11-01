@@ -10,7 +10,7 @@ import { ApiError } from '@/lib/api/core';
 const eventSchema = z.object({
   id: z.string().min(1).max(255),
   type: z.string().min(1).max(255),
-  data: z.object({ object: z.record(z.unknown()) }),
+  data: z.object({ object: z.record(z.string(), z.unknown()) }),
 });
 const teamSchema = z.object({
   client_reference_id: z.string().nullish(),

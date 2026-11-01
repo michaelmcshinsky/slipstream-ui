@@ -80,9 +80,9 @@ Tool call with result hidden
 
 ## Anti-patterns
 
-- **Don't show tool calls for simple operations** — undefined
-- **Don't expose sensitive data in arguments** — undefined
-- **Don't ignore failed tool calls** — undefined
+- **Don't show tool calls for simple operations** — Tool calls should be shown for meaningful operations, not trivial ones.
+- **Don't expose sensitive data in arguments** — Never display sensitive credentials or personal data in tool call arguments.
+- **Don't ignore failed tool calls** — Failed tool calls should be clearly indicated with error information.
 
 ## Accessibility
 

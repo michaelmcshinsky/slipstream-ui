@@ -80,9 +80,9 @@ Input for file uploads with styled file button
 
 ## Anti-patterns
 
-- **Don't use Input for multi-line text** — undefined
-- **Don't ignore validation** — undefined
-- **Don't use vague placeholders** — undefined
+- **Don't use Input for multi-line text** — Input is for single-line text. Use Textarea for multi-line content.
+- **Don't ignore validation** — Provide visual feedback for validation errors
+- **Don't use vague placeholders** — Placeholders should describe what input is expected
 
 ## Accessibility
 

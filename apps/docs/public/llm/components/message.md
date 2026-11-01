@@ -23,6 +23,10 @@ The Message component renders individual chat messages with proper styling based
 | isStreaming | `boolean` | `false` | no | Shows a typing cursor and sets aria-busy while the response is still generating. |
 | userLabel | `string` | `You` | no | Display name for user messages; enables localization. |
 | assistantLabel | `string` | `Assistant` | no | Display name for assistant messages; enables localization. |
+| error | `string` | — | no | Error text to render on the message; shows an error card with retry |
+| onRetry | `() => void` | — | no | Called when the user requests a retry after error; omit to hide the action |
+| labels | `{ retry?: string; edit?: string; save?: string; cancel?: string }` | — | no | Override button labels in the message actions |
+| onEditContent | `(content: string) => void` | — | no | Enables edit-and-resubmit; called with the edited content |
 
 ## Examples
 
@@ -87,8 +91,8 @@ Message with avatar hidden for more compact display
 
 ## Anti-patterns
 
-- **Don't use for complex content** — undefined
-- **Don't hardcode message data** — undefined
+- **Don't use for complex content** — Message content should be plain text. For complex UI, use additional components.
+- **Don't hardcode message data** — Messages should come from a conversation state, not be hardcoded
 
 ## Accessibility
 

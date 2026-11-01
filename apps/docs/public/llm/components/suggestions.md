@@ -16,6 +16,7 @@ Help users discover useful next actions without composing every prompt from scra
 |---|---|---|---|---|
 | suggestions | `Suggestion[]` | — | yes | Suggestions to display. |
 | onSelect | `(suggestion: Suggestion) => void` | — | no | Called when a suggestion is selected. |
+| maxDisplay | `number` | `4` | no | Maximum number of suggestions to display before truncating |
 
 ## Examples
 

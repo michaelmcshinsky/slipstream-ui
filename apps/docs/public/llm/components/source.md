@@ -14,10 +14,12 @@ Make generated answers transparent by showing where information came from.
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| sources | `SourceItem[]` | — | yes | References to display (Sources only). |
-| maxDisplay | `number` | `3` | no | Maximum number of references to show before an overflow indicator. |
-| label | `string` | `Sources` | no | Heading label; override for localization. |
 | index | `number` | — | no | 1-based citation marker rendered as [n]; omit on Source to hide numbering. |
+| source | `SourceItem` | — | yes | The single source to render (Source component) |
+| onSelect | `(source: SourceItem) => void` | — | no | Called when the source chip is clicked |
+| sources | `SourceItem[]` | — | yes | List of sources to render (Sources component) |
+| maxDisplay | `number` | `3` | no | Maximum number of source chips to show before collapsing (Sources component) |
+| label | `string` | `Sources` | no | Section label above the source list (Sources component) |
 
 ## Examples
 

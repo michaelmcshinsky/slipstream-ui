@@ -2,17 +2,28 @@
 /**
  * Generates canonical markdown documentation for AI agents, served statically:
  *
- *   /llm/index.md                 - library overview + component index
- *   /llm/components/<id>.md       - full per-component reference from its manifest
+ *   /llms.txt                       - top-level agent index (repo root file,
+ *                                     marker blocks refreshed here, served
+ *                                     copy written into apps/docs/public/)
+ *   /llm/index.md                   - library overview + component index
+ *   /llm/components/<id>.md         - full per-component reference from its manifest
+ *
+ * Component lists inside llms.txt live between `<!-- generated:*:start/end -->`
+ * markers and are derived from the manifests, so llms.txt can never drift from
+ * the real component count. Prose outside the markers stays hand-written.
  *
  * Mirrors assistant-ui's `.md` route convention: every page an agent needs is
  * fetchable as clean markdown without scraping HTML.
+ *
+ * Run: pnpm generate:llm-docs (also runs as part of the docs build).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'llm');
+const LLMS_ROOT_PATH = path.join(ROOT, 'llms.txt');
+const LLMS_PUBLIC_PATH = path.join(ROOT, 'apps', 'docs', 'public', 'llms.txt');
 
 function loadManifests() {
   const dirs = [
@@ -104,8 +115,31 @@ function componentToMarkdown(manifest) {
   ].join('\n');
 }
 
+/**
+ * Replace a marker-delimited block in llms.txt content.
+ * Fails loudly if markers are missing so a renamed/removed block can never
+ * silently ship a stale component list.
+ */
+function replaceMarkerBlock(content, marker, replacement) {
+  const start = `<!-- generated:${marker}:start -->`;
+  const end = `<!-- generated:${marker}:end -->`;
+  const startIndex = content.indexOf(start);
+  const endIndex = content.indexOf(end);
+  if (startIndex === -1 || endIndex === -1 || endIndex < startIndex) {
+    throw new Error(
+      `llms.txt is missing the "${marker}" generated block markers. ` +
+        `Expected:\n  ${start}\n  ${end}`
+    );
+  }
+  return content.slice(0, startIndex + start.length) + replacement + content.slice(endIndex);
+}
+
 function main() {
   const manifests = loadManifests();
+  if (manifests.length === 0) {
+    throw new Error('No COMPONENT_MANIFEST files found — refusing to generate empty LLM docs.');
+  }
+
   fs.mkdirSync(path.join(OUT_DIR, 'components'), { recursive: true });
 
   for (const manifest of manifests) {
@@ -122,18 +156,18 @@ function main() {
 
   const index = `# Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. Every component ships a machine-readable
-COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
+The AI-first React component library. ${manifests.length} components, each shipping a
+machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: \`npx shadcn@latest add https://slipstreamui.com/registry/<id>.json\`
 
-## Core components (@slipstream-ui/core)
+## Core components (@slipstream-ui/core) — ${coreList.length}
 
 ${listItems(coreList)}
 
-## AI components (@slipstream-ui/ai)
+## AI components (@slipstream-ui/ai) — ${aiList.length}
 
 ${listItems(aiList)}
 
@@ -147,7 +181,35 @@ ${listItems(aiList)}
 `;
 
   fs.writeFileSync(path.join(OUT_DIR, 'index.md'), index);
-  console.log(`LLM docs generated: ${manifests.length} component pages -> ${path.relative(ROOT, OUT_DIR)}`);
+
+  // Refresh llms.txt component blocks from the same manifests, then publish the
+  // file to public/ so the site serves it at /llms.txt instead of 404ing.
+  if (!fs.existsSync(LLMS_ROOT_PATH)) {
+    throw new Error(`llms.txt not found at ${LLMS_ROOT_PATH}`);
+  }
+  const rootLlms = fs.readFileSync(LLMS_ROOT_PATH, 'utf8');
+  const bulletList = (list) =>
+    list.map((m) => `- ${m.name} — ${m.description}`).join('\n');
+
+  let updated = replaceMarkerBlock(
+    rootLlms,
+    'core',
+    `\n## Core components (@slipstream-ui/core) — ${coreList.length}\n\n${bulletList(coreList)}\n`
+  );
+  updated = replaceMarkerBlock(
+    updated,
+    'ai',
+    `\n## AI components (@slipstream-ui/ai) — ${aiList.length}\n\n${bulletList(aiList)}\n`
+  );
+
+  fs.writeFileSync(LLMS_ROOT_PATH, updated);
+  fs.mkdirSync(path.dirname(LLMS_PUBLIC_PATH), { recursive: true });
+  fs.writeFileSync(LLMS_PUBLIC_PATH, updated);
+
+  console.log(
+    `LLM docs generated: ${manifests.length} component pages + index.md + llms.txt ` +
+      `(${coreList.length} core / ${aiList.length} ai) -> ${path.relative(ROOT, OUT_DIR)}`
+  );
 }
 
 main();

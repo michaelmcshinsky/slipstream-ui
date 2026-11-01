@@ -70,9 +70,9 @@ Badge for status indicators
 
 ## Anti-patterns
 
-- **Don't use for long text** — undefined
-- **Don't overuse badges** — undefined
-- **Don't use wrong variant for meaning** — undefined
+- **Don't use for long text** — Badges are designed for short text. Use tooltips or other components for longer content.
+- **Don't overuse badges** — Too many badges create visual noise. Prioritize the most important information.
+- **Don't use wrong variant for meaning** — Destructive variant should only be used for errors or destructive actions.
 
 ## Accessibility
 
