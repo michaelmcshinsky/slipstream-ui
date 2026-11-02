@@ -4,11 +4,11 @@ import { FLAT_NAV } from '@/lib/nav';
 const BASE_URL = 'https://slipstreamui.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ['', '/changelog'].map((route) => ({
+  const staticRoutes = ['', '/changelog', '/llm/index.md'].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.6,
+    priority: route === '' ? 1 : route === '/changelog' ? 0.7 : 0.4,
   }));
 
   const docsRoutes = FLAT_NAV.map((item) => ({

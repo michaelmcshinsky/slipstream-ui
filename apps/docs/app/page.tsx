@@ -13,10 +13,11 @@ import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
+import { COMPONENT_COUNT } from '@/lib/component-count';
 
 const REPO_URL = 'https://github.com/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **43 production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
+const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
 
 Your agent queries the manifest via MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
 
@@ -162,9 +163,13 @@ export default function LandingPage() {
         <div className="container relative mx-auto grid items-center gap-12 px-4 py-20 lg:grid-cols-2 lg:py-24">
           <div>
             <div className="mb-5 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium">
-                v0.1.0
-              </span>
+              <Link
+                href="/changelog"
+                title="See what's new in v0.1.0"
+                className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
+              >
+                v0.1.0 <span className="ml-1.5 text-primary">what&apos;s new →</span>
+              </Link>
               <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 AI-first · MIT
               </span>
@@ -206,8 +211,8 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-14">
         <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
           {[
-            { value: '43', label: 'components' },
-            { value: '43', label: 'machine-readable specs' },
+            { value: String(COMPONENT_COUNT), label: 'components' },
+            { value: String(COMPONENT_COUNT), label: 'machine-readable specs' },
             { value: '167', label: 'tests incl. jest-axe' },
             { value: '0', label: 'hallucinated props allowed' },
           ].map((stat) => (
@@ -364,7 +369,7 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-24 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          43 components · 43 machine-readable specs · zero hallucinated props.
+          {COMPONENT_COUNT} components · {COMPONENT_COUNT} machine-readable specs · zero hallucinated props.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link href="/docs/installation">

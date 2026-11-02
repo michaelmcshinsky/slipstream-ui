@@ -1,7 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
-import { getNeighbors } from '@/lib/nav';
+import { getNeighbors, NAV_SECTIONS } from '@/lib/nav';
 
 export interface ComponentPageProps {
   /** Kebab-case registry/CLI id, e.g. "prompt-input". */
@@ -16,9 +20,41 @@ export interface ComponentPageProps {
 }
 
 /**
- * Standardized component docs scaffold (elements.ai-sdk.dev pattern):
+ * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json — only the
+ * fields the human docs surface beyond the hand-written props table.
+ */
+type ManifestAntiPattern = { title?: string; explanation?: string; example?: string };
+type ManifestCompositionRule = { component?: string; relationship?: string; example?: string };
+type RegistryManifest = {
+  antiPatterns?: ManifestAntiPattern[];
+  compositionRules?: ManifestCompositionRule[];
+  relatedComponents?: string[];
+};
+
+/** "MessageActions" / "InlineCitation" → route id used by /docs/components/<id>. */
+function toComponentId(name: string): string {
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/\s+/g, '-')
+    .toLowerCase();
+}
+
+/** Doc routes that exist today — related-component links are gated on this. */
+const COMPONENT_HREFS = new Set(
+  NAV_SECTIONS.flatMap((section) =>
+    section.items.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
+  )
+);
+
+/**
+ * Standardized component docs scaffold (elements.ai.sdk.dev pattern):
  * title → lede → installer box → demos (children: DemoCards) →
- * props table → accessibility notes → prev/next pagination.
+ * props table → anti-patterns → accessibility → composition → prev/next.
+ *
+ * Anti-patterns and composition are fetched from the component's manifest at
+ * /registry/<id>.json so the human docs always show the exact same rules the
+ * MCP `validate_usage` tool enforces. Sections render only when the manifest
+ * carries them; a missing registry file degrades silently to the older layout.
  */
 export function ComponentPage({
   id,
@@ -30,6 +66,28 @@ export function ComponentPage({
   accessibility,
 }: ComponentPageProps) {
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
+  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/registry/${id}.json`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: RegistryManifest | null) => {
+        if (!cancelled && data) setManifest(data);
+      })
+      .catch(() => {
+        // Registry file absent — render without the manifest-derived sections.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  const antiPatterns = manifest?.antiPatterns ?? [];
+  const compositionRules = manifest?.compositionRules ?? [];
+  const related = (manifest?.relatedComponents ?? []).filter((name) =>
+    COMPONENT_HREFS.has(`/docs/components/${toComponentId(name)}`)
+  );
 
   return (
     <article>
@@ -61,6 +119,31 @@ export function ComponentPage({
         </section>
       )}
 
+      {antiPatterns.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-2 text-xl font-semibold">Anti-patterns</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+            The mistakes the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
+            MCP tool rejects — same list agents see over MCP and in the canonical markdown.
+          </p>
+          <ul className="space-y-5">
+            {antiPatterns.map((pattern, i) => (
+              <li key={pattern.title ?? i} className="rounded-xl border border-border bg-card p-4">
+                <p className="font-medium">{pattern.title ?? 'Avoid'}</p>
+                {pattern.explanation && (
+                  <p className="mt-1 text-sm text-muted-foreground">{pattern.explanation}</p>
+                )}
+                {pattern.example && (
+                  <div className="mt-3">
+                    <CodeBlock language="tsx" code={pattern.example} />
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {accessibility && accessibility.length > 0 && (
         <section className="mt-10">
           <h2 className="mb-4 text-xl font-semibold">Accessibility</h2>
@@ -69,6 +152,43 @@ export function ComponentPage({
               <li key={note}>{note}</li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {(compositionRules.length > 0 || related.length > 0) && (
+        <section className="mt-10">
+          <h2 className="mb-4 text-xl font-semibold">Composition</h2>
+          <div className="space-y-4">
+            {compositionRules.map((rule, i) => (
+              <div key={`${rule.component}-${i}`} className="rounded-xl border border-border bg-card p-4">
+                <p className="text-sm">
+                  <span className="font-medium">Compose with {rule.component ?? 'a sibling component'}</span>
+                  {rule.relationship && <span className="text-muted-foreground"> — {rule.relationship}</span>}
+                </p>
+                {rule.example && (
+                  <div className="mt-2">
+                    <CodeBlock language="tsx" code={rule.example} />
+                  </div>
+                )}
+              </div>
+            ))}
+            {related.length > 0 && (
+              <p className="text-sm text-muted-foreground">
+                Related components:{' '}
+                {related.map((name, i) => (
+                  <span key={name}>
+                    {i > 0 && ', '}
+                    <Link
+                      href={`/docs/components/${toComponentId(name)}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      {name}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
         </section>
       )}
 

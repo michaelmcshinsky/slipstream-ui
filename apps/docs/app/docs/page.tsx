@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { COMPONENT_COUNT } from '@/lib/component-count';
 
 const QUICK_LINKS = [
   {
@@ -17,7 +18,7 @@ const QUICK_LINKS = [
   {
     href: '/docs/components',
     title: 'Components',
-    body: '43 components across core and AI interaction surfaces.',
+    body: `${COMPONENT_COUNT} components across core and AI interaction surfaces.`,
     icon: '🧩',
   },
   {
@@ -31,6 +32,19 @@ const QUICK_LINKS = [
 export default function DocsPage() {
     return (
       <div>
+      <div className="mb-8 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
+        <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 font-mono text-xs font-medium text-primary">
+          v0.1.0
+        </span>
+        <span className="text-muted-foreground">
+          {COMPONENT_COUNT} components, MCP{' '}
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>, streaming-safe
+          Response, and a shadcn-compatible registry.
+        </span>
+        <Link href="/changelog" className="font-medium text-primary hover:underline">
+          What&apos;s new →
+        </Link>
+      </div>
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">Introduction</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
         Slipstream UI is an AI-first React component library. Every component ships with a{' '}

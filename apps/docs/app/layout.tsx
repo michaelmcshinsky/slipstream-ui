@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { COMPONENT_COUNT } from '@/lib/component-count';
 
 export const metadata: Metadata = {
   title: {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     siteName: 'Slipstream UI',
     title: 'Slipstream UI - The AI-first React Component Library',
     description:
-      '43 AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.',
+      `${COMPONENT_COUNT} AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.`,
   },
   twitter: {
     card: 'summary_large_image',
