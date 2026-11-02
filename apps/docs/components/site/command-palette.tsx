@@ -99,9 +99,12 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
         role="dialog"
         aria-modal="true"
         aria-label="Search documentation"
-        className="w-full max-w-lg rounded-xl border border-border bg-background shadow-2xl overflow-hidden"
+        className="w-full max-w-lg rounded-xl border border-border bg-background shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
+        {/* No overflow-hidden on the dialog: the input's focus ring follows
+            its own rounded-t corners instead of being clipped at the
+            dialog's corner radius. */}
         <input
           ref={inputRef}
           value={query}
@@ -112,7 +115,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
           onKeyDown={onKeyDown}
           placeholder="Search documentation…"
           aria-label="Search query"
-          className="w-full border-b border-border bg-transparent px-4 py-3.5 text-sm outline-none placeholder:text-muted-foreground"
+          className="w-full rounded-t-xl border-b border-border bg-transparent px-4 py-3.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         />
         <div ref={listRef} className="max-h-80 overflow-y-auto p-2" role="listbox" aria-label="Results">
           {results.length === 0 ? (
@@ -137,7 +140,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
             ))
           )}
         </div>
-        <div className="flex items-center gap-4 border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-4 rounded-b-xl border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
           <span>↑↓ navigate</span>
           <span>↵ open</span>
           <span className="ml-auto">esc close</span>

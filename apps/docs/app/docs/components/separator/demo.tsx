@@ -19,17 +19,26 @@ export default function SeparatorPage() {
       ]}
     >
       <DemoCard
-        title="Usage"
+        title="Both orientations"
         preview={
-          <div className="space-y-4">
-            <div>Section A</div>
-        <Separator className="my-3" />
-        <div>Section B</div>
+          <div className="w-full space-y-4">
+            <div className="text-sm">Section A</div>
+            <Separator />
+            <div className="text-sm">Section B</div>
+            <div className="flex h-16 items-stretch gap-4 pt-2">
+              <div className="flex items-center text-sm">Toolbar left</div>
+              <Separator orientation="vertical" />
+              <div className="flex items-center text-sm">Toolbar right</div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Also exported as <code className="rounded bg-muted px-1 py-0.5">Divider</code> — the same
+              primitive under a layout-friendly name.
+            </p>
           </div>
         }
-        code={"import { Separator } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <div>Section A</div>\n        <Separator className=\"my-3\" />\n        <div>Section B</div>\n    </>\n  );\n}"}
-        usage={"import { Separator } from '@slipstream-ui/core';\n\n// Basic usage\n<Separator />"}
-        types={"interface SeparatorProps {\n  orientation: 'horizontal' | 'vertical';\n  label: string;\n}"}
+        code={"import { Separator, Divider } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <div>Section A</div>\n      <Separator />                       {/* horizontal, decorative */}\n      <div>Section B</div>\n\n      <div className=\"flex h-16 items-stretch gap-4\">\n        <span>Left</span>\n        <Separator orientation=\"vertical\" />\n        <span>Right</span>\n      </div>\n\n      {/* Divider is an alias for Separator */}\n      <Divider />\n    </>\n  );\n}"}
+        usage={"import { Separator } from '@slipstream-ui/core';\n\n<Separator />\n<Separator orientation=\"vertical\" label=\"Toolbar sections\" />"}
+        types={"interface SeparatorProps {\n  orientation: 'horizontal' | 'vertical';\n  label: string;\n}\n\n// Divider is a renamed export of the same component\nconst Divider: typeof Separator;"}
       />
     </ComponentPage>
   );

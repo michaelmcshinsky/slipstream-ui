@@ -69,3 +69,14 @@
     --ring: 210 100% 50%;
   }
 }
+
+/*
+ * Code stays high-contrast on muted surfaces. Deliberately unlayered so it
+ * beats the Typography plugin's layered prose palette colors (its warm code
+ * tint falls below WCAG AA on bg-muted) while Prism token spans inside
+ * CodeBlock keep their own syntax colors (they are not code elements).
+ */
+pre code,
+:not(pre) > code {
+  color: hsl(var(--foreground));
+}

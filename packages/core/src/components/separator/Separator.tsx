@@ -40,4 +40,11 @@ const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
 );
 Separator.displayName = 'Separator';
 
-export { Separator, separatorVariants };
+/**
+ * `Divider` is a semantic alias for the same primitive — either name works;
+ * `Separator` follows the ARIA role terminology, `Divider` reads better in
+ * layout code.
+ */
+const Divider = Separator;
+
+export { Separator, Divider, separatorVariants };

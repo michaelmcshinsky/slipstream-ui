@@ -10,13 +10,19 @@ export default function InstallationPage() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-6">Installation</h1>
-      <p className="text-lg text-muted-foreground mb-8">
+      <p className="text-lg text-muted-foreground mb-4">
         Get started with Slipstream UI in your project.
+      </p>
+      <p className="mb-8 leading-relaxed text-muted-foreground">
+        Slipstream UI is <strong className="text-foreground">React-first</strong>: every component is
+        a React 18+ / TypeScript component. It runs in any React environment — Next.js, Vite,
+        Remix, and Astro are all covered below. Framework-agnostic builds (Vue, Svelte, vanilla JS)
+        are not on the roadmap yet; if your app renders React, you can use Slipstream.
       </p>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <div className="mb-6 rounded-lg border border-warning/40 bg-warning/10 p-4 text-sm">
-          <strong className="text-warning-foreground">Migrating from the old slipstream-ui package?</strong>
+          <strong className="text-foreground">Migrating from the old slipstream-ui package?</strong>
           <p className="mt-1 text-muted-foreground">
             The original <code>slipstream-ui</code> npm package (v3.x, Tailwind 2/3 era) is deprecated and no longer maintained.
             Use <code>@slipstream-ui/core</code> and <code>@slipstream-ui/ai</code> instead — they are unrelated to the old package

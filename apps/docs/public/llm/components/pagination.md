@@ -18,6 +18,7 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | pageCount | `number` | — | yes | Total number of pages |
 | onPageChange | `(page: number) => void` | — | no | Called with the new page number |
 | siblings | `number` | `1` | no | How many page buttons to show around the current page |
+| showBoundaries | `boolean` | `false` | no | Show « / » jump-to-first/last buttons around prev/next |
 | className | `string` | — | no | Additional CSS classes to apply |
 
 ## Examples

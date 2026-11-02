@@ -12,6 +12,8 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   onPageChange?: (page: number) => void;
   /** How many page buttons to show around the current page (default 1). */
   siblings?: number;
+  /** Show « / » jump-to-first/last buttons around prev/next (default false). */
+  showBoundaries?: boolean;
 }
 
 /**
@@ -20,7 +22,7 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
  * users tab through buttons; each is a real <button> with a label.
  */
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
-  ({ page, pageCount, onPageChange, siblings = 1, className, ...props }, ref) => {
+  ({ page, pageCount, onPageChange, siblings = 1, showBoundaries = false, className, ...props }, ref) => {
     // Build the page number list with ellipsis markers.
     const pages: (number | 'ellipsis')[] = [];
     const start = Math.max(2, page - siblings);
@@ -39,6 +41,21 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         className={cn('flex items-center justify-center gap-1', className)}
         {...props}
       >
+        {showBoundaries && (
+          <button
+            type="button"
+            onClick={() => onPageChange?.(1)}
+            disabled={page <= 1}
+            aria-label="First page"
+            className={cn(
+              'inline-flex h-8 items-center rounded-md border border-border px-2.5 text-sm transition-colors',
+              'hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+              'disabled:pointer-events-none disabled:opacity-50'
+            )}
+          >
+            «
+          </button>
+        )}
         <button
           type="button"
           onClick={() => onPageChange?.(page - 1)}
@@ -93,6 +110,21 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
         >
           ›
         </button>
+        {showBoundaries && (
+          <button
+            type="button"
+            onClick={() => onPageChange?.(pageCount)}
+            disabled={page >= pageCount}
+            aria-label="Last page"
+            className={cn(
+              'inline-flex h-8 items-center rounded-md border border-border px-2.5 text-sm transition-colors',
+              'hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+              'disabled:pointer-events-none disabled:opacity-50'
+            )}
+          >
+            »
+          </button>
+        )}
       </nav>
     );
   }

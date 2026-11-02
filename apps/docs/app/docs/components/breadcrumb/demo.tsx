@@ -24,15 +24,17 @@ export default function BreadcrumbPage() {
           <div className="space-y-4">
             <Breadcrumb
           items={[
-            { label: 'Home', href: '/' },
-            { label: 'Docs', href: '/docs' },
+            // Demo-safe fragments: clicking must not navigate the docs site.
+            // In your app, use real routes ("/", "/docs", ...).
+            { label: 'Home', href: '#crumb-home' },
+            { label: 'Docs', href: '#crumb-docs' },
             { label: 'Components' },
           ]}
         />
           </div>
         }
-        code={"import { Breadcrumb } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Breadcrumb\n          items={[\n            { label: 'Home', href: '/' },\n            { label: 'Docs', href: '/docs' },\n            { label: 'Components' },\n          ]}\n        />\n    </>\n  );\n}"}
-        usage={"import { Breadcrumb } from '@slipstream-ui/core';\n\n// Basic usage\n<Breadcrumb />"}
+        code={"import { Breadcrumb } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <Breadcrumb\n      items={[\n        { label: 'Home', href: '/' },\n        { label: 'Docs', href: '/docs' },\n        { label: 'Components' },          // no href = current page\n      ]}\n    />\n  );\n}"}
+        usage={"import { Breadcrumb } from '@slipstream-ui/core';\n\n// Last item (no href) renders as the current page\n<Breadcrumb items={items} separator=\"/\" />"}
         types={"interface BreadcrumbProps {\n  items: BreadcrumbItem[];\n  separator: ReactNode;\n}"}
       />
     </ComponentPage>

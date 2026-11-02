@@ -52,7 +52,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     );
 
     return (
-      <div ref={ref} className={cn('divide-y divide-border rounded-lg border border-border', className)}>
+      <div ref={ref} className={cn('w-full divide-y divide-border rounded-lg border border-border', className)}>
         <AccordionContext.Provider value={{ openItems: new Set(current), toggle, collapsible }}>
           {children}
         </AccordionContext.Provider>
@@ -134,6 +134,34 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
     const { openItems } = React.useContext(AccordionContext);
     const open = openItems.has(id);
 
+    // Expansion animation via grid-template-rows (0fr -> 1fr): supported
+    // in Chrome 117+/Firefox 66+/Safari 17+, and degrades to an instant
+    // toggle elsewhere because the rows value simply stops interpolating.
+    // The `hidden` attribute stays bound to `open` (synchronous) so panels
+    // are removed from the a11y tree and tab order the moment they close.
+    const [expanded, setExpanded] = React.useState(open);
+    React.useEffect(() => {
+      if (!open) {
+        setExpanded(false);
+        return;
+      }
+      const reduce =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) {
+        setExpanded(true);
+        return;
+      }
+      let second = 0;
+      const first = requestAnimationFrame(() => {
+        second = requestAnimationFrame(() => setExpanded(true));
+      });
+      return () => {
+        cancelAnimationFrame(first);
+        cancelAnimationFrame(second);
+      };
+    }, [open]);
+
     return (
       <div
         ref={ref}
@@ -141,10 +169,22 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
         role="region"
         aria-labelledby={`${id}-trigger`}
         hidden={!open}
-        className={cn('overflow-hidden px-4 pb-3 text-sm text-muted-foreground', className)}
+        className={cn(
+          // No display utility while closed: author styles would beat the
+          // UA [hidden] rule and keep the collapsed panel visible.
+          open &&
+            cn(
+              'grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none',
+              expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+            ),
+          !open && 'grid-rows-[0fr]',
+          className
+        )}
         {...props}
       >
-        {children}
+        <div className="overflow-hidden">
+          <div className="px-4 pb-3 text-sm text-muted-foreground">{children}</div>
+        </div>
       </div>
     );
   }
