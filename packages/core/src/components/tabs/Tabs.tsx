@@ -93,6 +93,9 @@ const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
         id={`${ctx.baseId}-tab-${value}`}
         aria-selected={active}
         aria-controls={`${ctx.baseId}-panel-${value}`}
+        // Radix-compatible hook so consumers can style active state from
+        // outside: data-[state=active]:border-primary etc.
+        data-state={active ? 'active' : 'inactive'}
         tabIndex={active ? 0 : -1}
         onClick={() => ctx.setValue(value)}
         onKeyDown={(event) => {
@@ -136,6 +139,7 @@ const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
         role="tabpanel"
         id={`${ctx.baseId}-panel-${value}`}
         aria-labelledby={`${ctx.baseId}-tab-${value}`}
+        data-state={active ? 'active' : 'inactive'}
         hidden={!active}
         tabIndex={0}
         className={cn(
