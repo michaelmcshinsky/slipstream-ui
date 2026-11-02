@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "e8c0185",
-  "count": 43,
+  "sourceRevision": "3be52bd",
+  "count": 48,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -28,6 +28,14 @@
       "tier": "molecule",
       "description": "File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
       "registry": "/registry/attachment.json"
+    },
+    {
+      "id": "autocomplete",
+      "name": "Autocomplete",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.",
+      "registry": "/registry/autocomplete.json"
     },
     {
       "id": "avatar",
@@ -126,12 +134,36 @@
       "registry": "/registry/conversation.json"
     },
     {
+      "id": "data-table",
+      "name": "DataTable",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
+      "registry": "/registry/data-table.json"
+    },
+    {
       "id": "dialog",
       "name": "Dialog",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
       "registry": "/registry/dialog.json"
+    },
+    {
+      "id": "fieldset",
+      "name": "Fieldset",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
+      "registry": "/registry/fieldset.json"
+    },
+    {
+      "id": "form-field",
+      "name": "FormField",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
+      "registry": "/registry/form-field.json"
     },
     {
       "id": "inline-citation",
@@ -236,6 +268,14 @@
       "tier": "molecule",
       "description": "Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.",
       "registry": "/registry/response.json"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.",
+      "registry": "/registry/search.json"
     },
     {
       "id": "select",

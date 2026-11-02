@@ -1,0 +1,185 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "search",
+  "name": "search",
+  "tier": "molecule",
+  "description": "Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.",
+  "designIntent": "A native <select> cannot filter and a free text input cannot constrain. Search covers the middle: constrained choice with inline filtering, full combobox a11y (role=combobox/aria-activedescendant), and a listbox that portals with fixed positioning so scrollable containers never clip it.",
+  "props": [
+    {
+      "name": "options",
+      "type": "SearchOption[]",
+      "required": true,
+      "description": "The full option set; filtered client-side as the user types.",
+      "examples": [
+        "[{ value: 'react', label: 'React', keywords: 'ui framework' }]"
+      ]
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initially selected option value (display starts on its label).",
+      "examples": [
+        "react"
+      ]
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called with the selected option's value."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Input placeholder while no query is typed.",
+      "defaultValue": "'Search…'",
+      "examples": [
+        "'Search components…'"
+      ]
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Shown when no option matches the query.",
+      "defaultValue": "'No matching results'",
+      "examples": [
+        "'No people found'"
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables the input and the dropdown.",
+      "defaultValue": "false",
+      "examples": [
+        "true",
+        "false"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Constrained pick from a list",
+      "code": "<Search\n  aria-label=\"Assign to\"\n  placeholder=\"Search people…\"\n  options={people}\n  onValueChange={(value) => setAssignee(value)}\n/>",
+      "description": "Keyboard: ArrowDown opens, arrows move, Enter selects, Escape closes."
+    },
+    {
+      "title": "With descriptions and keywords",
+      "code": "const options = [\n  { value: 'a1', label: 'Ada Lovelace', description: 'Design', keywords: 'ada design ui' },\n  { value: 'a2', label: 'Alan Turing', description: 'Platform', keywords: 'alan platform' },\n];\n<Search options={options} onValueChange={select} />",
+      "description": "keywords widen matching without widening the visible label."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Search for free-form input",
+      "explanation": "Search constrains the result to known options. For values the system has never seen (tags, new names) use Input or Autocomplete instead.",
+      "example": "// Avoid: inventing tags through a fixed option set\n<Search options={knownTags} onValueChange={addTag} />\n\n// Prefer: Autocomplete lets users enter anything\n<Autocomplete suggestions={knownTags} onValueChange={addTag} />"
+    },
+    {
+      "title": "Don't feed hundreds of options without keywords",
+      "explanation": "The list is filtered client-side; large sets need keywords/descriptions so short queries hit. For server-side search, debounce the query and swap the options prop — do not render raw HTML in labels.",
+      "example": "<Search options={serverResults} onValueChange={select} />"
+    },
+    {
+      "title": "Don't rely on the placeholder as the field's name",
+      "explanation": "The placeholder disappears once typing starts. Pass aria-label (standalone) or wrap the Search in FormField for a persistent accessible name.",
+      "example": "<FormField id=\"assignee\" label=\"Assign to\"><Search options={…} /></FormField>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Combobox pattern",
+      "implementation": "Input exposes role=combobox with aria-expanded, aria-controls, aria-autocomplete=list, and aria-activedescendant pointing at the active option",
+      "userRequirements": "Provide a name: aria-label or a wrapping FormField label"
+    },
+    {
+      "feature": "Keyboard operation",
+      "implementation": "ArrowDown/ArrowUp move the active option (wrapping), Home/End jump, Enter selects, Escape closes without clearing",
+      "userRequirements": "None — behavior is built in"
+    },
+    {
+      "feature": "Focus retention",
+      "implementation": "Option mousedown is prevented so focus stays in the input while clicking; typing continues immediately after selection",
+      "userRequirements": "None"
+    },
+    {
+      "feature": "Clipping-safe listbox",
+      "implementation": "The listbox portals to document.body with fixed coordinates measured from the input and closes on scroll/resize",
+      "userRequirements": "None"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Option labels",
+      "guidelines": [
+        "Show the primary identifying text",
+        "Use description for role/context",
+        "Keep labels unique or disambiguate with description"
+      ],
+      "goodExamples": [
+        "Ada Lovelace — Design",
+        "prod-eu-west-1 (Frankfurt)"
+      ],
+      "badExamples": [
+        "Ada",
+        "test"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Wrap in FormField when the search sits in a form — the label is cloned onto the input",
+      "example": "<FormField id=\"assignee\" label=\"Assign to\"><Search options={people} /></FormField>"
+    },
+    {
+      "component": "Autocomplete",
+      "relationship": "Choose Search for constrained picks; Autocomplete when free-form values must stay allowed"
+    }
+  ],
+  "relatedComponents": [
+    "Autocomplete",
+    "Select",
+    "FormField",
+    "CommandPalette"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "search",
+  "exportName": "Search",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/search/index.ts",
+      "content": "export * from './Search';\nexport * from './use-combobox';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/search/Search.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { createPortal } from 'react-dom';\nimport { cn } from '@/lib/utils';\nimport { Input } from '../input/Input';\nimport { useCombobox, type ComboboxItem } from './use-combobox';\n\nexport interface SearchOption {\n  value: string;\n  label: string;\n  /** Secondary line in the dropdown. */\n  description?: string;\n  /** Extra words matched while filtering (aliases, category…). */\n  keywords?: string;\n}\n\nexport interface SearchProps {\n  /** The full option set; filtered client-side as the user types. */\n  options: SearchOption[];\n  /** Initially selected option value. Selection is reported via onValueChange. */\n  defaultValue?: string;\n  /** Called with the selected option's value. */\n  onValueChange?: (value: string) => void;\n  placeholder?: string;\n  /** Shown when no option matches the query. */\n  emptyText?: string;\n  disabled?: boolean;\n  id?: string;\n  name?: string;\n  className?: string;\n  'aria-label'?: string;\n}\n\n/**\n * Select-with-search: type to filter a full-width dropdown list, or arrow\n * through options from an empty query. Uncontrolled for its display — the\n * selected value is reported through onValueChange (initial selection via\n * defaultValue). The listbox portals to document.body with fixed\n * positioning, so scrollable containers never clip it.\n */\nexport function Search({\n  options,\n  defaultValue,\n  onValueChange,\n  placeholder = 'Search…',\n  emptyText = 'No matching results',\n  disabled,\n  id,\n  name,\n  className,\n  'aria-label': ariaLabel,\n}: SearchProps) {\n  const selected = React.useMemo(\n    () => options.find((option) => option.value === defaultValue),\n    [options, defaultValue]\n  );\n  const [query, setQuery] = React.useState(selected?.label ?? '');\n\n  const filtered = React.useMemo(() => {\n    if (!query.trim()) return options;\n    const q = query.trim().toLowerCase();\n    return options.filter(\n      (option) =>\n        option.label.toLowerCase().includes(q) ||\n        option.value.toLowerCase().includes(q) ||\n        (option.keywords?.toLowerCase().includes(q) ?? false) ||\n        (option.description?.toLowerCase().includes(q) ?? false)\n    );\n  }, [options, query]);\n\n  const combobox = useCombobox({\n    items: filtered,\n    onSelect: (item) => {\n      setQuery(item.label);\n      onValueChange?.(item.value);\n    },\n  });\n\n  const select = (item: ComboboxItem) => {\n    setQuery(item.label);\n    onValueChange?.(item.value);\n    combobox.setOpen(false);\n  };\n\n  return (\n    <div ref={combobox.anchorRef} className={cn('relative w-full', className)}>\n      <Input\n        id={id}\n        name={name}\n        type=\"search\"\n        autoComplete=\"off\"\n        aria-label={ariaLabel}\n        placeholder={placeholder}\n        disabled={disabled}\n        value={query}\n        onChange={(event) => {\n          setQuery(event.target.value);\n          combobox.setOpen(true);\n        }}\n        onFocus={() => {\n          // Refocusing a completed selection shows the whole set again.\n          if (selected && query === selected.label) setQuery('');\n          combobox.setOpen(true);\n        }}\n        onKeyDown={combobox.onInputKeyDown}\n        {...combobox.inputProps}\n      />\n      {combobox.ready &&\n        createPortal(\n          <ul\n            id={combobox.listboxId}\n            role=\"listbox\"\n            aria-label={ariaLabel ?? 'Search results'}\n            style={{\n              position: 'fixed',\n              top: combobox.pos!.top,\n              left: combobox.pos!.left,\n              width: Math.max(combobox.pos!.width, 220),\n              zIndex: 50,\n            }}\n            className=\"max-h-64 overflow-y-auto rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md\"\n          >\n            {filtered.length === 0 ? (\n              <li role=\"presentation\" className=\"px-3 py-2 text-sm text-muted-foreground\">\n                {emptyText}\n              </li>\n            ) : (\n              filtered.map((option, index) => (\n                <li\n                  key={option.value}\n                  id={combobox.optionId(index)}\n                  role=\"option\"\n                  aria-selected={combobox.activeIndex === index}\n                  // Keep focus on the input so typing continues; select on click.\n                  onMouseDown={(event) => event.preventDefault()}\n                  onMouseEnter={() => combobox.setActiveIndex(index)}\n                  onClick={() => select(option)}\n                  className={cn(\n                    'cursor-pointer rounded-sm px-3 py-2 text-sm outline-none',\n                    combobox.activeIndex === index\n                      ? 'bg-accent text-accent-foreground'\n                      : 'hover:bg-accent/60'\n                  )}\n                >\n                  <span className=\"block\">{option.label}</span>\n                  {option.description && (\n                    <span className=\"block text-xs text-muted-foreground\">{option.description}</span>\n                  )}\n                </li>\n              ))\n            )}\n          </ul>,\n          document.body\n        )}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/search/use-combobox.ts",
+      "content": "import * as React from 'react';\n\nexport interface ComboboxItem {\n  value: string;\n  label: string;\n}\n\ninterface UseComboboxOptions {\n  /** Currently visible items (already filtered by the query). */\n  items: ComboboxItem[];\n  /** Called with the chosen item (mouse or Enter). */\n  onSelect: (item: ComboboxItem) => void;\n  /** Called whenever open state changes. */\n  onOpenChange?: (open: boolean) => void;\n  /** Close when the value is submitted with no active item (Enter). Default true. */\n  closeOnSubmit?: boolean;\n}\n\ninterface UseComboboxResult {\n  open: boolean;\n  setOpen: (open: boolean) => void;\n  activeIndex: number;\n  /** Hover/highlight management for the listbox options. */\n  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;\n  listboxId: string;\n  /** Anchors the floating listbox — measured for fixed positioning. */\n  anchorRef: React.MutableRefObject<HTMLDivElement | null>;\n  /** aria-* props to spread on the input (combobox pattern). */\n  inputProps: {\n    role: 'combobox';\n    'aria-expanded': boolean;\n    'aria-controls': string;\n    'aria-autocomplete': 'list';\n    'aria-activedescendant'?: string;\n  };\n  /** Key handler for the input: arrows, Home/End, Enter, Escape. */\n  onInputKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;\n  /** Downward movement for trigger buttons outside the input (optional). */\n  optionId: (index: number) => string;\n  /** True when the listbox should be rendered (open + measured). */\n  ready: boolean;\n  /** Fixed viewport coordinates for the listbox. */\n  pos: { top: number; left: number; width: number } | null;\n}\n\nlet searchUid = 0;\n\n/**\n * Shared combobox brain for Search and Autocomplete: open/close, active\n * option, keyboard navigation, outside-click dismissal, and fixed-position\n * measurement (so demo frames with overflow never clip the listbox).\n */\nexport function useCombobox({\n  items,\n  onSelect,\n  onOpenChange,\n  closeOnSubmit = true,\n}: UseComboboxOptions): UseComboboxResult {\n  const [open, setOpenState] = React.useState(false);\n  const [activeIndex, setActiveIndex] = React.useState(-1);\n  const [pos, setPos] = React.useState<{ top: number; left: number; width: number } | null>(null);\n  const anchorRef = React.useRef<HTMLDivElement | null>(null);\n  const listboxId = React.useRef(`slipstream-combobox-${++searchUid}`).current;\n\n  const setOpen = React.useCallback(\n    (next: boolean) => {\n      setOpenState(next);\n      if (!next) setActiveIndex(-1);\n      onOpenChange?.(next);\n    },\n    [onOpenChange]\n  );\n\n  // Reset the active item whenever the visible set changes.\n  React.useEffect(() => {\n    setActiveIndex(-1);\n  }, [items]);\n\n  // Measure the anchor for fixed listbox positioning while open; close on\n  // any scroll (capture catches non-bubbling element scrolls) so the\n  // floating list never detaches from its input.\n  React.useLayoutEffect(() => {\n    if (!open) {\n      setPos(null);\n      return;\n    }\n    const GAP = 4;\n    const measure = () => {\n      const rect = anchorRef.current?.getBoundingClientRect();\n      if (!rect) return;\n      setPos({ top: rect.bottom + GAP, left: rect.left, width: rect.width });\n    };\n    measure();\n    const onScroll = () => setOpen(false);\n    window.addEventListener('scroll', onScroll, true);\n    window.addEventListener('resize', measure);\n    return () => {\n      window.removeEventListener('scroll', onScroll, true);\n      window.removeEventListener('resize', measure);\n    };\n  }, [open, setOpen]);\n\n  // Dismiss on outside press (the input keeps focus for continued typing).\n  React.useEffect(() => {\n    if (!open) return;\n    const onPointerDown = (event: PointerEvent) => {\n      if (!anchorRef.current?.contains(event.target as Node)) setOpen(false);\n    };\n    document.addEventListener('pointerdown', onPointerDown);\n    return () => document.removeEventListener('pointerdown', onPointerDown);\n  }, [open, setOpen]);\n\n  const onInputKeyDown = React.useCallback(\n    (event: React.KeyboardEvent<HTMLInputElement>) => {\n      if (event.key === 'Escape') {\n        if (open) {\n          event.preventDefault();\n          setOpen(false);\n        }\n        return;\n      }\n      if (event.key === 'ArrowDown') {\n        event.preventDefault();\n        if (!open) {\n          setOpen(true);\n          return;\n        }\n        setActiveIndex((index) => (items.length === 0 ? -1 : index >= items.length - 1 ? 0 : index + 1));\n        return;\n      }\n      if (event.key === 'ArrowUp') {\n        event.preventDefault();\n        if (!open) return;\n        setActiveIndex((index) => (items.length === 0 ? -1 : index <= 0 ? items.length - 1 : index - 1));\n        return;\n      }\n      if (event.key === 'Home' && open) {\n        event.preventDefault();\n        setActiveIndex(items.length ? 0 : -1);\n        return;\n      }\n      if (event.key === 'End' && open) {\n        event.preventDefault();\n        setActiveIndex(items.length ? items.length - 1 : -1);\n        return;\n      }\n      if (event.key === 'Enter') {\n        if (open && activeIndex >= 0 && items[activeIndex]) {\n          event.preventDefault();\n          onSelect(items[activeIndex]);\n          setOpen(false);\n        } else if (open && closeOnSubmit) {\n          setOpen(false);\n        }\n      }\n    },\n    [open, items, activeIndex, onSelect, setOpen, closeOnSubmit]\n  );\n\n  return {\n    open,\n    setOpen,\n    activeIndex,\n    setActiveIndex,\n    listboxId,\n    anchorRef,\n    inputProps: {\n      role: 'combobox',\n      'aria-expanded': open,\n      'aria-controls': listboxId,\n      'aria-autocomplete': 'list',\n      ...(open && activeIndex >= 0 ? { 'aria-activedescendant': `${listboxId}-opt-${activeIndex}` } : {}),\n    },\n    onInputKeyDown,\n    optionId: (index: number) => `${listboxId}-opt-${index}`,\n    ready: open && pos !== null && typeof document !== 'undefined',\n    pos,\n  };\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/search.manifest.json",
+      "content": "{\n  \"id\": \"search\",\n  \"name\": \"Search\",\n  \"tier\": \"molecule\",\n  \"description\": \"Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.\",\n  \"designIntent\": \"A native <select> cannot filter and a free text input cannot constrain. Search covers the middle: constrained choice with inline filtering, full combobox a11y (role=combobox/aria-activedescendant), and a listbox that portals with fixed positioning so scrollable containers never clip it.\",\n  \"props\": [\n    {\n      \"name\": \"options\",\n      \"type\": \"SearchOption[]\",\n      \"required\": true,\n      \"description\": \"The full option set; filtered client-side as the user types.\",\n      \"examples\": [\"[{ value: 'react', label: 'React', keywords: 'ui framework' }]\"]\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Initially selected option value (display starts on its label).\",\n      \"examples\": [\"react\"]\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Called with the selected option's value.\"\n    },\n    {\n      \"name\": \"placeholder\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Input placeholder while no query is typed.\",\n      \"defaultValue\": \"'Search…'\",\n      \"examples\": [\"'Search components…'\"]\n    },\n    {\n      \"name\": \"emptyText\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Shown when no option matches the query.\",\n      \"defaultValue\": \"'No matching results'\",\n      \"examples\": [\"'No people found'\"]\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Disables the input and the dropdown.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\", \"false\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Constrained pick from a list\",\n      \"code\": \"<Search\\n  aria-label=\\\"Assign to\\\"\\n  placeholder=\\\"Search people…\\\"\\n  options={people}\\n  onValueChange={(value) => setAssignee(value)}\\n/>\",\n      \"description\": \"Keyboard: ArrowDown opens, arrows move, Enter selects, Escape closes.\"\n    },\n    {\n      \"title\": \"With descriptions and keywords\",\n      \"code\": \"const options = [\\n  { value: 'a1', label: 'Ada Lovelace', description: 'Design', keywords: 'ada design ui' },\\n  { value: 'a2', label: 'Alan Turing', description: 'Platform', keywords: 'alan platform' },\\n];\\n<Search options={options} onValueChange={select} />\",\n      \"description\": \"keywords widen matching without widening the visible label.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Search for free-form input\",\n      \"explanation\": \"Search constrains the result to known options. For values the system has never seen (tags, new names) use Input or Autocomplete instead.\",\n      \"example\": \"// Avoid: inventing tags through a fixed option set\\n<Search options={knownTags} onValueChange={addTag} />\\n\\n// Prefer: Autocomplete lets users enter anything\\n<Autocomplete suggestions={knownTags} onValueChange={addTag} />\"\n    },\n    {\n      \"title\": \"Don't feed hundreds of options without keywords\",\n      \"explanation\": \"The list is filtered client-side; large sets need keywords/descriptions so short queries hit. For server-side search, debounce the query and swap the options prop — do not render raw HTML in labels.\",\n      \"example\": \"<Search options={serverResults} onValueChange={select} />\"\n    },\n    {\n      \"title\": \"Don't rely on the placeholder as the field's name\",\n      \"explanation\": \"The placeholder disappears once typing starts. Pass aria-label (standalone) or wrap the Search in FormField for a persistent accessible name.\",\n      \"example\": \"<FormField id=\\\"assignee\\\" label=\\\"Assign to\\\"><Search options={…} /></FormField>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Combobox pattern\",\n      \"implementation\": \"Input exposes role=combobox with aria-expanded, aria-controls, aria-autocomplete=list, and aria-activedescendant pointing at the active option\",\n      \"userRequirements\": \"Provide a name: aria-label or a wrapping FormField label\"\n    },\n    {\n      \"feature\": \"Keyboard operation\",\n      \"implementation\": \"ArrowDown/ArrowUp move the active option (wrapping), Home/End jump, Enter selects, Escape closes without clearing\",\n      \"userRequirements\": \"None — behavior is built in\"\n    },\n    {\n      \"feature\": \"Focus retention\",\n      \"implementation\": \"Option mousedown is prevented so focus stays in the input while clicking; typing continues immediately after selection\",\n      \"userRequirements\": \"None\"\n    },\n    {\n      \"feature\": \"Clipping-safe listbox\",\n      \"implementation\": \"The listbox portals to document.body with fixed coordinates measured from the input and closes on scroll/resize\",\n      \"userRequirements\": \"None\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Option labels\",\n      \"guidelines\": [\"Show the primary identifying text\", \"Use description for role/context\", \"Keep labels unique or disambiguate with description\"],\n      \"goodExamples\": [\"Ada Lovelace — Design\", \"prod-eu-west-1 (Frankfurt)\"],\n      \"badExamples\": [\"Ada\", \"test\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"Wrap in FormField when the search sits in a form — the label is cloned onto the input\",\n      \"example\": \"<FormField id=\\\"assignee\\\" label=\\\"Assign to\\\"><Search options={people} /></FormField>\"\n    },\n    {\n      \"component\": \"Autocomplete\",\n      \"relationship\": \"Choose Search for constrained picks; Autocomplete when free-form values must stay allowed\"\n    }\n  ],\n  \"relatedComponents\": [\"Autocomplete\", \"Select\", \"FormField\", \"CommandPalette\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"search\",\n  \"exportName\": \"Search\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

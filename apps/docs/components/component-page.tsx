@@ -23,6 +23,8 @@ export interface ComponentPageProps {
   children: React.ReactNode;
   propsRows?: { name: string; type: string; defaultValue?: string; description: string }[];
   accessibility?: string[];
+  /** Component-specific browser/progressive-enhancement notes. */
+  browserNotes?: string[];
 }
 
 /**
@@ -97,6 +99,7 @@ export function ComponentPage({
   children,
   propsRows,
   accessibility,
+  browserNotes,
 }: ComponentPageProps) {
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
   const manifest = useRegistryManifest(manifestId ?? id);
@@ -209,6 +212,46 @@ export function ComponentPage({
           </div>
         </section>
       )}
+
+      <section className="mt-10">
+        <h2 className="mb-4 text-xl font-semibold">Browser support</h2>
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Browser</th>
+                <th className="p-3 text-left font-medium">Tested versions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Chrome', '111+ (Mar 2023)'],
+                ['Edge', '111+ (Mar 2023)'],
+                ['Firefox', '121+ (Dec 2023)'],
+                ['Safari', '17.2+ — macOS & iOS (Dec 2023)'],
+              ].map(([browser, versions]) => (
+                <tr key={browser} className="border-t border-border">
+                  <td className="p-3 font-medium">{browser}</td>
+                  <td className="p-3 text-muted-foreground">{versions}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Slipstream components rely only on CSS custom properties, Flexbox/Grid, and ARIA — the
+          everyday baseline of the last two years of evergreen releases. Anything newer is
+          progressive enhancement: unsupported browsers keep full functionality with static
+          behavior instead of animations.
+        </p>
+        {browserNotes && browserNotes.length > 0 && (
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+            {browserNotes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <nav aria-label="Pagination" className="mt-14 flex items-stretch justify-between gap-4 border-t border-border pt-6">
         {previous ? (

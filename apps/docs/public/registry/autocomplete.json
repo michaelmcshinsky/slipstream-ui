@@ -1,0 +1,163 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "autocomplete",
+  "name": "autocomplete",
+  "tier": "molecule",
+  "description": "Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.",
+  "designIntent": "Form fields often need both freedom and guidance — usernames, tags, city names. Autocomplete extends the native autocomplete spec: the input stays a normal controlled input (native autoComplete hints keep working), and an ARIA combobox listbox overlays suggestions. Unlike Search, no option constrains the result.",
+  "props": [
+    {
+      "name": "suggestions",
+      "type": "string[]",
+      "required": true,
+      "description": "Suggestion labels offered while typing; any value may still be entered free-form.",
+      "examples": [
+        "['react', 'remix', 'astro']"
+      ]
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current text — standard controlled-input contract (wire onValueChange to update it).",
+      "examples": [
+        "'re'"
+      ]
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial text when uncontrolled.",
+      "defaultValue": "''",
+      "examples": [
+        "'react'"
+      ]
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fires on every keystroke AND on suggestion selection (like a native input's onChange)."
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Shown when no suggestion matches (optional; defaults to 'No suggestions').",
+      "examples": [
+        "'No matches — press Enter to use your text'"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Controlled form field",
+      "code": "const [framework, setFramework] = useState('');\n\n<FormField id=\"framework\" label=\"Primary framework\" hint=\"Type or pick a suggestion\">\n  <Autocomplete\n    suggestions={['react', 'remix', 'next', 'vite']}\n    value={framework}\n    onValueChange={setFramework}\n    name=\"framework\"\n    autoComplete=\"off\"\n  />\n</FormField>",
+      "description": "onValueChange mirrors native onChange; FormField wires the label and hint."
+    },
+    {
+      "title": "Native autofill hints alongside the custom list",
+      "code": "<Autocomplete\n  name=\"country\"\n  autoComplete=\"country-name\"\n  suggestions={countryNames}\n  onValueChange={setCountry}\n/>",
+      "description": "The native autoComplete attribute passes through — browser autofill and the suggestion list coexist."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Autocomplete for constrained choice",
+      "explanation": "Free text is the point of Autocomplete. When only known values are valid (plan tier, enum), use Select or Search so invalid states cannot be typed.",
+      "example": "// Avoid: free text for a closed set\n<Autocomplete suggestions={['free','pro']} onValueChange={setPlan} />\n\n// Prefer\n<Select options={plans} value={plan} onChange={setPlan} />"
+    },
+    {
+      "title": "Don't forget to keep state in sync when controlled",
+      "explanation": "With value set, React makes the input fully controlled — if onValueChange does not update the parent state, typing appears frozen.",
+      "example": "<Autocomplete value={v} onValueChange={setV} suggestions={…} /> // wired\n<Autocomplete value={v} suggestions={…} /> // frozen — bug"
+    },
+    {
+      "title": "Don't block Enter for form submission",
+      "explanation": "Enter only consumes the event when a suggestion is actively highlighted — otherwise it should submit the surrounding form. Avoid adding a global keydown handler that always prevents Enter.",
+      "example": "// The component already handles this; no extra wiring needed."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Combobox pattern",
+      "implementation": "role=combobox with aria-expanded, aria-controls, aria-autocomplete=list, and aria-activedescendant on the input; suggestions render as role=option with aria-selected",
+      "userRequirements": "Provide a name via FormField label or aria-label"
+    },
+    {
+      "feature": "Keyboard operation",
+      "implementation": "ArrowDown/ArrowUp highlight suggestions (wrapping), Home/End jump, Enter accepts the highlighted suggestion, Escape closes the list; unhighlighted Enter submits the form natively",
+      "userRequirements": "None"
+    },
+    {
+      "feature": "Native autocomplete passthrough",
+      "implementation": "The autoComplete attribute is forwarded to the input so browser autofill hints keep working",
+      "userRequirements": "Set autoComplete='off' only when suggestions must not clash with browser autofill"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Suggestions",
+      "guidelines": [
+        "Prefer exact known values (tags, usernames)",
+        "Dedupe against the current value",
+        "Cap lists at ~20 for scannability"
+      ],
+      "goodExamples": [
+        "react",
+        "remix"
+      ],
+      "badExamples": [
+        "React!!",
+        "react (deprecated?)"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Standard form placement — label, hint, and error wiring come free",
+      "example": "<FormField id=\"tag\" label=\"Tag\" hint=\"Type to see existing tags\"><Autocomplete suggestions={tags} value={tag} onValueChange={setTag} /></FormField>"
+    },
+    {
+      "component": "Search",
+      "relationship": "Search when values MUST come from the list; Autocomplete when free text stays valid"
+    }
+  ],
+  "relatedComponents": [
+    "Search",
+    "Input",
+    "FormField",
+    "Select"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "autocomplete",
+  "exportName": "Autocomplete",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/autocomplete/Autocomplete.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { createPortal } from 'react-dom';\nimport { cn } from '@/lib/utils';\nimport { Input } from '../input/Input';\nimport { useCombobox } from '../search/use-combobox';\n\nexport interface AutocompleteProps\n  extends Omit<\n    React.InputHTMLAttributes<HTMLInputElement>,\n    'value' | 'defaultValue' | 'onChange' | 'children' | 'size'\n  > {\n  /** Current text — standard controlled-input contract. */\n  value?: string;\n  /** Initial text when uncontrolled. */\n  defaultValue?: string;\n  /** Fires on every keystroke AND on suggestion selection (like a native input's onChange). */\n  onValueChange?: (value: string) => void;\n  /** Suggestion labels offered while typing; any value may still be entered free-form. */\n  suggestions: string[];\n  /** Shown when no suggestion matches (optional). */\n  emptyText?: string;\n}\n\n/**\n * Type-ahead input following the HTML autocomplete model: users may enter\n * any value (free text is first-class), while matching suggestions appear\n * in a listbox — Arrow keys highlight, Enter accepts, Escape dismisses.\n * The native `autoComplete` attribute passes through (form autofill hints\n * keep working alongside the custom listbox). The listbox portals with\n * fixed positioning so scrollable containers never clip it.\n */\nexport function Autocomplete({\n  value,\n  defaultValue = '',\n  onValueChange,\n  suggestions,\n  emptyText,\n  placeholder,\n  id,\n  name,\n  className,\n  onKeyDown,\n  onFocus,\n  ...inputProps\n}: AutocompleteProps) {\n  const [internalValue, setInternalValue] = React.useState(defaultValue);\n  const current = value ?? internalValue;\n\n  const items = React.useMemo(() => {\n    const q = current.trim().toLowerCase();\n    const list = q\n      ? suggestions.filter((suggestion) => suggestion.toLowerCase().includes(q))\n      : suggestions;\n    // Never offer the exact current value back as a suggestion.\n    return list\n      .filter((suggestion) => suggestion !== current)\n      .map((suggestion) => ({ value: suggestion, label: suggestion }));\n  }, [suggestions, current]);\n\n  const combobox = useCombobox({\n    items,\n    onSelect: (item) => {\n      if (value === undefined) setInternalValue(item.label);\n      onValueChange?.(item.label);\n    },\n  });\n\n  const select = (label: string) => {\n    if (value === undefined) setInternalValue(label);\n    onValueChange?.(label);\n    combobox.setOpen(false);\n  };\n\n  return (\n    <div ref={combobox.anchorRef} className={cn('relative w-full', className)}>\n      <Input\n        id={id}\n        name={name}\n        placeholder={placeholder}\n        autoComplete=\"off\"\n        value={current}\n        onChange={(event) => {\n          if (value === undefined) setInternalValue(event.target.value);\n          onValueChange?.(event.target.value);\n          combobox.setOpen(true);\n        }}\n        onFocus={(event) => {\n          onFocus?.(event);\n          combobox.setOpen(true);\n        }}\n        onKeyDown={(event) => {\n          onKeyDown?.(event);\n          combobox.onInputKeyDown(event);\n        }}\n        {...inputProps}\n        {...combobox.inputProps}\n      />\n      {combobox.ready &&\n        createPortal(\n          <ul\n            id={combobox.listboxId}\n            role=\"listbox\"\n            aria-label=\"Suggestions\"\n            style={{\n              position: 'fixed',\n              top: combobox.pos!.top,\n              left: combobox.pos!.left,\n              width: Math.max(combobox.pos!.width, 220),\n              zIndex: 50,\n            }}\n            className=\"max-h-60 overflow-y-auto rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md\"\n          >\n            {items.length === 0 ? (\n              <li role=\"presentation\" className=\"px-3 py-2 text-sm text-muted-foreground\">\n                {emptyText ?? 'No suggestions'}\n              </li>\n            ) : (\n              items.map((item, index) => (\n                <li\n                  key={item.value}\n                  id={combobox.optionId(index)}\n                  role=\"option\"\n                  aria-selected={combobox.activeIndex === index}\n                  onMouseDown={(event) => event.preventDefault()}\n                  onMouseEnter={() => combobox.setActiveIndex(index)}\n                  onClick={() => select(item.label)}\n                  className={cn(\n                    'cursor-pointer rounded-sm px-3 py-1.5 text-sm outline-none',\n                    combobox.activeIndex === index\n                      ? 'bg-accent text-accent-foreground'\n                      : 'hover:bg-accent/60'\n                  )}\n                >\n                  {item.label}\n                </li>\n              ))\n            )}\n          </ul>,\n          document.body\n        )}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/autocomplete/index.ts",
+      "content": "export * from './Autocomplete';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/autocomplete.manifest.json",
+      "content": "{\n  \"id\": \"autocomplete\",\n  \"name\": \"Autocomplete\",\n  \"tier\": \"molecule\",\n  \"description\": \"Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.\",\n  \"designIntent\": \"Form fields often need both freedom and guidance — usernames, tags, city names. Autocomplete extends the native autocomplete spec: the input stays a normal controlled input (native autoComplete hints keep working), and an ARIA combobox listbox overlays suggestions. Unlike Search, no option constrains the result.\",\n  \"props\": [\n    {\n      \"name\": \"suggestions\",\n      \"type\": \"string[]\",\n      \"required\": true,\n      \"description\": \"Suggestion labels offered while typing; any value may still be entered free-form.\",\n      \"examples\": [\n        \"['react', 'remix', 'astro']\"\n      ]\n    },\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Current text — standard controlled-input contract (wire onValueChange to update it).\",\n      \"examples\": [\n        \"'re'\"\n      ]\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Initial text when uncontrolled.\",\n      \"defaultValue\": \"''\",\n      \"examples\": [\n        \"'react'\"\n      ]\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Fires on every keystroke AND on suggestion selection (like a native input's onChange).\"\n    },\n    {\n      \"name\": \"emptyText\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Shown when no suggestion matches (optional; defaults to 'No suggestions').\",\n      \"examples\": [\n        \"'No matches — press Enter to use your text'\"\n      ]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Controlled form field\",\n      \"code\": \"const [framework, setFramework] = useState('');\\n\\n<FormField id=\\\"framework\\\" label=\\\"Primary framework\\\" hint=\\\"Type or pick a suggestion\\\">\\n  <Autocomplete\\n    suggestions={['react', 'remix', 'next', 'vite']}\\n    value={framework}\\n    onValueChange={setFramework}\\n    name=\\\"framework\\\"\\n    autoComplete=\\\"off\\\"\\n  />\\n</FormField>\",\n      \"description\": \"onValueChange mirrors native onChange; FormField wires the label and hint.\"\n    },\n    {\n      \"title\": \"Native autofill hints alongside the custom list\",\n      \"code\": \"<Autocomplete\\n  name=\\\"country\\\"\\n  autoComplete=\\\"country-name\\\"\\n  suggestions={countryNames}\\n  onValueChange={setCountry}\\n/>\",\n      \"description\": \"The native autoComplete attribute passes through — browser autofill and the suggestion list coexist.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Autocomplete for constrained choice\",\n      \"explanation\": \"Free text is the point of Autocomplete. When only known values are valid (plan tier, enum), use Select or Search so invalid states cannot be typed.\",\n      \"example\": \"// Avoid: free text for a closed set\\n<Autocomplete suggestions={['free','pro']} onValueChange={setPlan} />\\n\\n// Prefer\\n<Select options={plans} value={plan} onChange={setPlan} />\"\n    },\n    {\n      \"title\": \"Don't forget to keep state in sync when controlled\",\n      \"explanation\": \"With value set, React makes the input fully controlled — if onValueChange does not update the parent state, typing appears frozen.\",\n      \"example\": \"<Autocomplete value={v} onValueChange={setV} suggestions={…} /> // wired\\n<Autocomplete value={v} suggestions={…} /> // frozen — bug\"\n    },\n    {\n      \"title\": \"Don't block Enter for form submission\",\n      \"explanation\": \"Enter only consumes the event when a suggestion is actively highlighted — otherwise it should submit the surrounding form. Avoid adding a global keydown handler that always prevents Enter.\",\n      \"example\": \"// The component already handles this; no extra wiring needed.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Combobox pattern\",\n      \"implementation\": \"role=combobox with aria-expanded, aria-controls, aria-autocomplete=list, and aria-activedescendant on the input; suggestions render as role=option with aria-selected\",\n      \"userRequirements\": \"Provide a name via FormField label or aria-label\"\n    },\n    {\n      \"feature\": \"Keyboard operation\",\n      \"implementation\": \"ArrowDown/ArrowUp highlight suggestions (wrapping), Home/End jump, Enter accepts the highlighted suggestion, Escape closes the list; unhighlighted Enter submits the form natively\",\n      \"userRequirements\": \"None\"\n    },\n    {\n      \"feature\": \"Native autocomplete passthrough\",\n      \"implementation\": \"The autoComplete attribute is forwarded to the input so browser autofill hints keep working\",\n      \"userRequirements\": \"Set autoComplete='off' only when suggestions must not clash with browser autofill\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Suggestions\",\n      \"guidelines\": [\n        \"Prefer exact known values (tags, usernames)\",\n        \"Dedupe against the current value\",\n        \"Cap lists at ~20 for scannability\"\n      ],\n      \"goodExamples\": [\n        \"react\",\n        \"remix\"\n      ],\n      \"badExamples\": [\n        \"React!!\",\n        \"react (deprecated?)\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"Standard form placement — label, hint, and error wiring come free\",\n      \"example\": \"<FormField id=\\\"tag\\\" label=\\\"Tag\\\" hint=\\\"Type to see existing tags\\\"><Autocomplete suggestions={tags} value={tag} onValueChange={setTag} /></FormField>\"\n    },\n    {\n      \"component\": \"Search\",\n      \"relationship\": \"Search when values MUST come from the list; Autocomplete when free text stays valid\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Search\",\n    \"Input\",\n    \"FormField\",\n    \"Select\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"autocomplete\",\n  \"exportName\": \"Autocomplete\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

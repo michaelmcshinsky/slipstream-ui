@@ -1,23 +1,27 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 43 components, each shipping a
+The AI-first React component library. 48 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 26
+## Core components (@slipstream-ui/core) — 31
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
+- [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
 - [Badge](https://slipstreamui.com/llm/components/badge.md) — A small status indicator component for displaying tags, counts, or status information
 - [Breadcrumb](https://slipstreamui.com/llm/components/breadcrumb.md) — Navigation breadcrumb trail with links and current-page indicator
 - [Button](https://slipstreamui.com/llm/components/button.md) — A clickable button component with variants for different visual styles and sizes
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, with controlled and uncontrolled support
+- [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trapping, escape-to-close and focus restoration
+- [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
+- [FormField](https://slipstreamui.com/llm/components/form-field.md) — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
@@ -25,6 +29,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
+- [Search](https://slipstreamui.com/llm/components/search.md) — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
 - [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select primitive built on the native select element with controlled and uncontrolled modes
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content

@@ -1,0 +1,139 @@
+{
+  "id": "form-field",
+  "name": "FormField",
+  "tier": "molecule",
+  "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
+  "designIntent": "Every form control needs the same trio — label, hint or error, correct ARIA wiring — and hand-wiring it is where accessibility regressions start. FormField clones id/aria-describedby/aria-invalid onto a single-element child so the common case is one component and zero boilerplate.",
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The control's id — shared with the label's htmlFor and the hint/error ids.",
+      "examples": ["email", "signup-password"]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Visible label text (kept for screen readers even when labelHidden).",
+      "examples": ["Email address"]
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "description": "Helper text under the control, wired via aria-describedby.",
+      "examples": ["We never share your email"]
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert.",
+      "examples": ["Enter a valid email address"]
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": "Renders the required marker next to the label.",
+      "defaultValue": "false",
+      "examples": ["true", "false"]
+    },
+    {
+      "name": "labelHidden",
+      "type": "boolean",
+      "required": false,
+      "description": "Keeps the label screen-reader visible but hides it visually (sr-only).",
+      "defaultValue": "false",
+      "examples": ["true", "false"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Text input with hint",
+      "code": "<FormField id=\"email\" label=\"Email address\" hint=\"We never share your email\" required>\n  <Input type=\"email\" autoComplete=\"email\" />\n</FormField>",
+      "description": "The cloned child receives id, aria-describedby, and the label pairs via htmlFor."
+    },
+    {
+      "title": "Error state",
+      "code": "<FormField id=\"email\" label=\"Email address\" error={errors.email} required>\n  <Input type=\"email\" value={email} onChange={(e) => setEmail(e.target.value)} />\n</FormField>",
+      "description": "Error replaces the hint, flips aria-invalid on the control, and announces via role=alert."
+    },
+    {
+      "title": "Search-style field",
+      "code": "<FormField id=\"assignee\" label=\"Assign to\" hint=\"Start typing to filter\">\n  <Search options={people} onValueChange={setAssignee} />\n</FormField>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't rely on placeholder as the label",
+      "explanation": "Placeholders disappear on input and fail color-contrast rules. FormField renders a real <Label>; use placeholder only for example format.",
+      "example": "// Avoid\n<FormField id=\"q\" label=\"\"> <Input placeholder=\"Search\" /> </FormField>\n\n// Prefer\n<FormField id=\"q\" label=\"Search documents\"> <Input /> </FormField>"
+    },
+    {
+      "title": "Don't nest multiple controls in one FormField",
+      "explanation": "The aria wiring (describedby/invalid) clones onto exactly one child element. For groups, use Fieldset or one FormField per control.",
+      "example": "// Avoid: two inputs, one field\n<FormField id=\"x\" label=\"Names\"><><Input /><Input /></></FormField>"
+    },
+    {
+      "title": "Don't duplicate ids across fields",
+      "explanation": "id keys the whole wiring — every FormField in a form must receive a unique id and the child must not override it with a different value.",
+      "example": "<FormField id=\"email-a\" …><Input id=\"something-else\" /></FormField> // broken pairing"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Label association",
+      "implementation": "Renders <Label htmlFor={id}> and clones the same id onto single-element children",
+      "userRequirements": "Pass the control's real id as the FormField id"
+    },
+    {
+      "feature": "Hint and error wiring",
+      "implementation": "aria-describedby points at the hint (or the error when present); errors render with role=alert",
+      "userRequirements": "Provide hint or error text — never both for the same state"
+    },
+    {
+      "feature": "Invalid state",
+      "implementation": "Sets aria-invalid on the cloned control when error is present",
+      "userRequirements": "Style the control with a destructive border/ring to match the announced state"
+    },
+    {
+      "feature": "Required marker",
+      "implementation": "The asterisk is aria-hidden; native required semantics come from the control's own required attribute",
+      "userRequirements": "Also pass required to the control for native validation"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": ["Use sentence case", "Name the thing, not the action", "Keep under 60 characters"],
+      "goodExamples": ["Email address", "Project name"],
+      "badExamples": ["Enter your email", "Name?"]
+    },
+    {
+      "contentType": "Errors",
+      "guidelines": ["Say what failed and what to do", "Lead with the fix", "Avoid blaming the user"],
+      "goodExamples": ["Enter a valid email address", "Password must be at least 8 characters"],
+      "badExamples": ["Invalid input", "You messed up"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Input / Textarea / Select / Search / Autocomplete",
+      "relationship": "Wrap exactly one control — id/aria wiring is cloned onto it automatically",
+      "example": "<FormField id=\"email\" label=\"Email\"><Input type=\"email\" /></FormField>"
+    },
+    {
+      "component": "Fieldset",
+      "relationship": "Use Fieldset (not FormField) when the label names a GROUP of controls"
+    }
+  ],
+  "relatedComponents": ["Label", "Input", "Fieldset", "Search", "Autocomplete"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "form-field",
+  "exportName": "FormField"
+}

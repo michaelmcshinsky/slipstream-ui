@@ -1,0 +1,129 @@
+{
+  "id": "search",
+  "name": "Search",
+  "tier": "molecule",
+  "description": "Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.",
+  "designIntent": "A native <select> cannot filter and a free text input cannot constrain. Search covers the middle: constrained choice with inline filtering, full combobox a11y (role=combobox/aria-activedescendant), and a listbox that portals with fixed positioning so scrollable containers never clip it.",
+  "props": [
+    {
+      "name": "options",
+      "type": "SearchOption[]",
+      "required": true,
+      "description": "The full option set; filtered client-side as the user types.",
+      "examples": ["[{ value: 'react', label: 'React', keywords: 'ui framework' }]"]
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initially selected option value (display starts on its label).",
+      "examples": ["react"]
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called with the selected option's value."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Input placeholder while no query is typed.",
+      "defaultValue": "'Search…'",
+      "examples": ["'Search components…'"]
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Shown when no option matches the query.",
+      "defaultValue": "'No matching results'",
+      "examples": ["'No people found'"]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables the input and the dropdown.",
+      "defaultValue": "false",
+      "examples": ["true", "false"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Constrained pick from a list",
+      "code": "<Search\n  aria-label=\"Assign to\"\n  placeholder=\"Search people…\"\n  options={people}\n  onValueChange={(value) => setAssignee(value)}\n/>",
+      "description": "Keyboard: ArrowDown opens, arrows move, Enter selects, Escape closes."
+    },
+    {
+      "title": "With descriptions and keywords",
+      "code": "const options = [\n  { value: 'a1', label: 'Ada Lovelace', description: 'Design', keywords: 'ada design ui' },\n  { value: 'a2', label: 'Alan Turing', description: 'Platform', keywords: 'alan platform' },\n];\n<Search options={options} onValueChange={select} />",
+      "description": "keywords widen matching without widening the visible label."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Search for free-form input",
+      "explanation": "Search constrains the result to known options. For values the system has never seen (tags, new names) use Input or Autocomplete instead.",
+      "example": "// Avoid: inventing tags through a fixed option set\n<Search options={knownTags} onValueChange={addTag} />\n\n// Prefer: Autocomplete lets users enter anything\n<Autocomplete suggestions={knownTags} onValueChange={addTag} />"
+    },
+    {
+      "title": "Don't feed hundreds of options without keywords",
+      "explanation": "The list is filtered client-side; large sets need keywords/descriptions so short queries hit. For server-side search, debounce the query and swap the options prop — do not render raw HTML in labels.",
+      "example": "<Search options={serverResults} onValueChange={select} />"
+    },
+    {
+      "title": "Don't rely on the placeholder as the field's name",
+      "explanation": "The placeholder disappears once typing starts. Pass aria-label (standalone) or wrap the Search in FormField for a persistent accessible name.",
+      "example": "<FormField id=\"assignee\" label=\"Assign to\"><Search options={…} /></FormField>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Combobox pattern",
+      "implementation": "Input exposes role=combobox with aria-expanded, aria-controls, aria-autocomplete=list, and aria-activedescendant pointing at the active option",
+      "userRequirements": "Provide a name: aria-label or a wrapping FormField label"
+    },
+    {
+      "feature": "Keyboard operation",
+      "implementation": "ArrowDown/ArrowUp move the active option (wrapping), Home/End jump, Enter selects, Escape closes without clearing",
+      "userRequirements": "None — behavior is built in"
+    },
+    {
+      "feature": "Focus retention",
+      "implementation": "Option mousedown is prevented so focus stays in the input while clicking; typing continues immediately after selection",
+      "userRequirements": "None"
+    },
+    {
+      "feature": "Clipping-safe listbox",
+      "implementation": "The listbox portals to document.body with fixed coordinates measured from the input and closes on scroll/resize",
+      "userRequirements": "None"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Option labels",
+      "guidelines": ["Show the primary identifying text", "Use description for role/context", "Keep labels unique or disambiguate with description"],
+      "goodExamples": ["Ada Lovelace — Design", "prod-eu-west-1 (Frankfurt)"],
+      "badExamples": ["Ada", "test"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Wrap in FormField when the search sits in a form — the label is cloned onto the input",
+      "example": "<FormField id=\"assignee\" label=\"Assign to\"><Search options={people} /></FormField>"
+    },
+    {
+      "component": "Autocomplete",
+      "relationship": "Choose Search for constrained picks; Autocomplete when free-form values must stay allowed"
+    }
+  ],
+  "relatedComponents": ["Autocomplete", "Select", "FormField", "CommandPalette"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "search",
+  "exportName": "Search"
+}

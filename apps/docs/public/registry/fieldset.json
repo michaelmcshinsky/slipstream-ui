@@ -1,0 +1,138 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "fieldset",
+  "name": "fieldset",
+  "tier": "atom",
+  "description": "Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
+  "designIntent": "Radio groups, checkbox groups, and multi-control sections need an accessible group name. Fieldset provides the native <fieldset>/<legend> semantics with token-based styling (borderless by default) plus description and error slots so related controls read as one unit.",
+  "props": [
+    {
+      "name": "legend",
+      "type": "string",
+      "required": false,
+      "description": "Legend rendered as the group's accessible name.",
+      "examples": [
+        "Choose a plan",
+        "Notification preferences"
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Muted supporting line rendered under the legend.",
+      "examples": [
+        "Applies to every project in this workspace"
+      ]
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error line rendered under the controls; announced via role=alert.",
+      "examples": [
+        "Select at least one option"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Grouped radio-style options",
+      "code": "<Fieldset legend=\"Export format\" description=\"Applied to every selected row\">\n  <Checkbox id=\"csv\" /><Label htmlFor=\"csv\">CSV</Label>\n  <Checkbox id=\"json\" /><Label htmlFor=\"json\">JSON</Label>\n</Fieldset>",
+      "description": "Legend names the group; description adds context."
+    },
+    {
+      "title": "With a group-level error",
+      "code": "<Fieldset legend=\"Visibility\" error=\"Choose who can see this project\">\n  <RadioGroupItem value=\"private\" label=\"Private\" />\n  <RadioGroupItem value=\"team\" label=\"Team\" />\n</Fieldset>",
+      "description": "Errors that belong to the whole group live on the fieldset, not each control."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a fieldset for layout grouping",
+      "explanation": "Fieldset is for FORM controls that share one accessible name. For purely visual grouping use Card or a plain div — screen readers announce every fieldset as a landmark-ish group and excess ones add noise.",
+      "example": "// Avoid: fieldset around non-form content\n<fieldset><legend>Footer</legend><p>…</p></fieldset>\n\n// Prefer: Card or div for layout\n<Card>…</Card>"
+    },
+    {
+      "title": "Don't skip the legend",
+      "explanation": "A fieldset without legend (or without aria-label) leaves the group unnamed — controls inside lose their grouping context for screen reader users.",
+      "example": "<Fieldset legend=\"Billing interval\">…</Fieldset>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native group semantics",
+      "implementation": "Renders <fieldset> with <legend>; the legend is the group's accessible name announced before each control",
+      "userRequirements": "Always pass a legend (or an equivalent aria-label)"
+    },
+    {
+      "feature": "Group-level errors",
+      "implementation": "The error slot renders with role=alert so it is announced when it appears",
+      "userRequirements": "Keep the message actionable ('Choose at least one option')"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Legends",
+      "guidelines": [
+        "Use sentence case",
+        "Phrase as the question or choice name",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "Choose a plan",
+        "Billing interval"
+      ],
+      "badExamples": [
+        "Options",
+        "Click here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "RadioGroup / Checkbox",
+      "relationship": "Wrap mutually exclusive or multi-select controls so their group name is announced",
+      "example": "<Fieldset legend=\"Plan\"><RadioGroup name=\"plan\">…</RadioGroup></Fieldset>"
+    },
+    {
+      "component": "FormField",
+      "relationship": "For a single labeled control prefer FormField; Fieldset is for GROUPS of controls"
+    }
+  ],
+  "relatedComponents": [
+    "Radio",
+    "Checkbox",
+    "FormField",
+    "Label"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "fieldset",
+  "exportName": "Fieldset",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/fieldset/Fieldset.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface FieldsetProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {\n  /** Legend rendered as the group's accessible name. */\n  legend?: string;\n  /** Muted supporting line rendered under the legend. */\n  description?: string;\n  /** Error line rendered under the controls; announced via role=alert. */\n  error?: string;\n}\n\n/**\n * Groups related form controls in a native <fieldset> with a legend,\n * optional description, and an error slot. Styling is token-based\n * (borderless by default — the native border reads as chrome, not content).\n */\nconst Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(\n  ({ legend, description, error, className, children, ...props }, ref) => (\n    <fieldset\n      ref={ref}\n      className={cn('m-0 flex min-w-0 flex-col gap-1.5 border-0 p-0', className)}\n      {...props}\n    >\n      {legend && <legend className=\"p-0 text-sm font-medium leading-none\">{legend}</legend>}\n      {description && <p className=\"text-xs text-muted-foreground\">{description}</p>}\n      {children}\n      {error && (\n        <p role=\"alert\" className=\"text-xs text-destructive\">\n          {error}\n        </p>\n      )}\n    </fieldset>\n  )\n);\nFieldset.displayName = 'Fieldset';\n\nexport { Fieldset };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/fieldset/index.ts",
+      "content": "export * from './Fieldset';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/fieldset.manifest.json",
+      "content": "{\n  \"id\": \"fieldset\",\n  \"name\": \"Fieldset\",\n  \"tier\": \"atom\",\n  \"description\": \"Groups related form controls in a native fieldset with a legend, optional description, and an error slot.\",\n  \"designIntent\": \"Radio groups, checkbox groups, and multi-control sections need an accessible group name. Fieldset provides the native <fieldset>/<legend> semantics with token-based styling (borderless by default) plus description and error slots so related controls read as one unit.\",\n  \"props\": [\n    {\n      \"name\": \"legend\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Legend rendered as the group's accessible name.\",\n      \"examples\": [\"Choose a plan\", \"Notification preferences\"]\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Muted supporting line rendered under the legend.\",\n      \"examples\": [\"Applies to every project in this workspace\"]\n    },\n    {\n      \"name\": \"error\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Error line rendered under the controls; announced via role=alert.\",\n      \"examples\": [\"Select at least one option\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Grouped radio-style options\",\n      \"code\": \"<Fieldset legend=\\\"Export format\\\" description=\\\"Applied to every selected row\\\">\\n  <Checkbox id=\\\"csv\\\" /><Label htmlFor=\\\"csv\\\">CSV</Label>\\n  <Checkbox id=\\\"json\\\" /><Label htmlFor=\\\"json\\\">JSON</Label>\\n</Fieldset>\",\n      \"description\": \"Legend names the group; description adds context.\"\n    },\n    {\n      \"title\": \"With a group-level error\",\n      \"code\": \"<Fieldset legend=\\\"Visibility\\\" error=\\\"Choose who can see this project\\\">\\n  <RadioGroupItem value=\\\"private\\\" label=\\\"Private\\\" />\\n  <RadioGroupItem value=\\\"team\\\" label=\\\"Team\\\" />\\n</Fieldset>\",\n      \"description\": \"Errors that belong to the whole group live on the fieldset, not each control.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use a fieldset for layout grouping\",\n      \"explanation\": \"Fieldset is for FORM controls that share one accessible name. For purely visual grouping use Card or a plain div — screen readers announce every fieldset as a landmark-ish group and excess ones add noise.\",\n      \"example\": \"// Avoid: fieldset around non-form content\\n<fieldset><legend>Footer</legend><p>…</p></fieldset>\\n\\n// Prefer: Card or div for layout\\n<Card>…</Card>\"\n    },\n    {\n      \"title\": \"Don't skip the legend\",\n      \"explanation\": \"A fieldset without legend (or without aria-label) leaves the group unnamed — controls inside lose their grouping context for screen reader users.\",\n      \"example\": \"<Fieldset legend=\\\"Billing interval\\\">…</Fieldset>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Native group semantics\",\n      \"implementation\": \"Renders <fieldset> with <legend>; the legend is the group's accessible name announced before each control\",\n      \"userRequirements\": \"Always pass a legend (or an equivalent aria-label)\"\n    },\n    {\n      \"feature\": \"Group-level errors\",\n      \"implementation\": \"The error slot renders with role=alert so it is announced when it appears\",\n      \"userRequirements\": \"Keep the message actionable ('Choose at least one option')\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Legends\",\n      \"guidelines\": [\"Use sentence case\", \"Phrase as the question or choice name\", \"Keep under 60 characters\"],\n      \"goodExamples\": [\"Choose a plan\", \"Billing interval\"],\n      \"badExamples\": [\"Options\", \"Click here\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"RadioGroup / Checkbox\",\n      \"relationship\": \"Wrap mutually exclusive or multi-select controls so their group name is announced\",\n      \"example\": \"<Fieldset legend=\\\"Plan\\\"><RadioGroup name=\\\"plan\\\">…</RadioGroup></Fieldset>\"\n    },\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"For a single labeled control prefer FormField; Fieldset is for GROUPS of controls\"\n    }\n  ],\n  \"relatedComponents\": [\"Radio\", \"Checkbox\", \"FormField\", \"Label\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"fieldset\",\n  \"exportName\": \"Fieldset\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

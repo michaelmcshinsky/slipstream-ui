@@ -18,6 +18,10 @@ export default function AccordionPage() {
         'Trigger has aria-expanded and aria-controls; panel has role=region.',
         'Hidden panels are removed from the tab order.',
       ]}
+      browserNotes={[
+        'Expansion animates via grid-template-rows interpolation (Chrome/Edge 117+, Safari 17+, recent Firefox). Older browsers toggle panels instantly — no functionality lost.',
+        'prefers-reduced-motion: reduce disables the animation.',
+      ]}
     >
       <DemoCard
         title="Usage"
