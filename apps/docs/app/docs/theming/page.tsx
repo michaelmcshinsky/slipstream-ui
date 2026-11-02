@@ -1,3 +1,12 @@
+import type { Metadata } from 'next';
+import { ThemeShowcase } from '@/components/theme-showcase';
+
+export const metadata: Metadata = {
+  title: 'Theming',
+  description:
+    'Theme Slipstream UI with one createTheme() call: CSS variable emission, dark mode, multi-token radius, and violet/zinc presets that switch instantly without rebuilds.',
+};
+
 export default function ThemingPage() {
   return (
     <div>
@@ -5,6 +14,15 @@ export default function ThemingPage() {
       <p className="text-lg text-muted-foreground mb-8">
         Customize Slipstream UI to match your brand with the theming system.
       </p>
+
+      <div className="mb-10 rounded-xl border border-border bg-card p-5">
+        <h2 className="text-xl font-semibold mb-1">Live switcher</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Default, Violet, and Zinc presets below are applied through CSS variables in real time —
+          no rebuilds, no screenshots.
+        </p>
+        <ThemeShowcase />
+      </div>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <h2 className="text-2xl font-semibold mt-8 mb-4">Overview</h2>

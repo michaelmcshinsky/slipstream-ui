@@ -2,59 +2,80 @@
 
 The AI-first React component library — your AI already knows how to use it.
 
+<!-- generated:stats:start -->
+**43 components** · 43 machine-readable specs · MCP `validate_usage` · MIT
+<!-- generated:stats:end -->
+
+[Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
+
 ## Overview
 
-Slipstream UI is a modern React component library designed specifically for AI-assisted development. Every component ships a machine-readable `COMPONENT_MANIFEST` so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
+Slipstream UI is a React component library designed for AI-assisted development. Every component ships a machine-readable `COMPONENT_MANIFEST` so coding agents like Claude, Cursor, and Copilot generate correct UI the first time — exact props, defaults, anti-patterns, and accessibility rules, queryable instead of scraped from training data.
 
-## Key Features
-
-- **AI-Native Design**: Every component includes a machine-readable manifest for AI agents
-- **Composable Primitives**: Build complex UIs from simple, focused components
-- **Deep AI SDK Support**: First-class streaming, tool calls, and generative UI
-- **MCP Server**: Zero-hallucination surface for agents to query component specs
-- **TypeScript**: Full type safety with excellent IntelliSense
- - **Accessible**: Keyboard and screen-reader behavior covered by jest-axe tests; Avatar and slot composition use Radix UI primitives
+- **AI reads the spec, not the source** — manifests over MCP, canonical markdown routes, and a `validate_usage` tool that rejects hallucinated props before they ship
+- **shadcn-compatible registry** — install real source files with `npx shadcn add`, or use the packages; your codebase, your rules
+- **Fully stateless** — bring any backend (Vercel AI SDK, LangGraph, raw streams); components render, you own state
+- **Accessible** — jest-axe suites on every component, keyboard and screen-reader behavior, reduced-motion variants
+- **Themeable to the token** — one `createTheme()` call emits every CSS variable; dark mode and presets switch instantly
 
 ## Quick Start
 
 ```bash
-# Initialize with CLI
+# 1. Initialize (detects Next/Vite + Tailwind, writes config and theme variables)
 npx slipstream-ui@latest init
 
-# Or install manually
+# 2. Or install packages directly
 pnpm add @slipstream-ui/core @slipstream-ui/ai
+
+# 3. Or copy source files through the shadcn-compatible registry
+npx shadcn@latest add https://slipstreamui.com/registry/message.json
 ```
 
-## Documentation
+## For AI agents
 
-Visit [slipstreamui.com/docs](https://slipstreamui.com/docs) for full documentation.
+- [`/llms.txt`](https://slipstreamui.com/llms.txt) — top-level agent index
+- [`/llm/index.md`](https://slipstreamui.com/llm/index.md) — full component index; per-component references at `/llm/components/<id>.md`
+- [`/registry/all.json`](https://slipstreamui.com/registry/all.json) — every COMPONENT_MANIFEST plus installer payload
+- **MCP server** — `list_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
+
+```tsx
+import { Button } from '@slipstream-ui/core';
+import { Conversation, PromptInput } from '@slipstream-ui/ai';
+
+export function ChatApp() {
+  const [messages, setMessages] = useState([{ id: '1', role: 'user', content: 'Hello!' }]);
+  return (
+    <>
+      <Conversation messages={messages} />
+      <PromptInput onSubmit={(text) => setMessages((m) => [...m, { id: crypto.randomUUID(), role: 'user', content: text }])} />
+    </>
+  );
+}
+```
 
 ## Packages
 
-- `@slipstream-ui/core` - Base atoms and molecules
-- `@slipstream-ui/ai` - AI interaction components (Message, Conversation, Reasoning, etc.)
-- `@slipstream-ui/themes` - Theming system with presets
-- `@slipstream-ui/mcp-server` - MCP server for AI agents
-- `@slipstream-ui/cli` - CLI tool for installation and management
+- `@slipstream-ui/core` — base atoms and molecules (Button, Input, Dialog, Table, …)
+- `@slipstream-ui/ai` — AI interaction components (Conversation, PromptInput, Response, ToolCall, …)
+- `@slipstream-ui/themes` — `createTheme()` and default/violet/zinc presets
+- `@slipstream-ui/mcp-server` — MCP server for AI agents
+- `@slipstream-ui/cli` — `init` / `add` / `list` / `diff` commands
 
 ## Development
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Run all packages in dev mode
-pnpm dev
-
-# Build all packages
-pnpm build
-
-# Type check
-pnpm typecheck
-
-# Validate component manifests
-pnpm validate:manifests
+pnpm install            # install dependencies
+pnpm dev                # run all packages in dev mode
+pnpm build              # build all packages
+pnpm typecheck          # type check
+pnpm lint               # lint
+pnpm test               # test
+pnpm validate:manifests # validate COMPONENT_MANIFESTs + TS↔manifest drift
 ```
+
+## Contributing
+
+PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Open an issue before large changes.
 
 ## License
 

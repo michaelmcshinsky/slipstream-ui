@@ -36,6 +36,7 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
     title: 'Project',
     links: [
       { label: 'GitHub', href: REPO_URL, external: true },
+      { label: 'Contributing', href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, external: true },
       { label: 'License (MIT)', href: `${REPO_URL}/blob/main/LICENSE`, external: true },
       { label: 'Report an issue', href: `${REPO_URL}/issues`, external: true },
     ],

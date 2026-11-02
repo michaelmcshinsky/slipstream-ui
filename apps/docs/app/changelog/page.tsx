@@ -1,6 +1,13 @@
+import type { Metadata } from 'next';
 import { CodeBlock } from '@/components/code-block';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
+
+export const metadata: Metadata = {
+  title: 'Changelog',
+  description:
+    'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver.',
+};
 import { Footer } from '@/components/site/footer';
 
 const releases = [

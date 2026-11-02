@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Installation',
+  description:
+    'Install Slipstream UI via pnpm packages, the npx slipstream-ui CLI, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
+};
+
 export default function InstallationPage() {
   return (
     <div>

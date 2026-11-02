@@ -216,6 +216,14 @@ export const AI_COMPONENT_COUNT = ${aiList.length};
   fs.mkdirSync(path.dirname(LLMS_PUBLIC_PATH), { recursive: true });
   fs.writeFileSync(LLMS_PUBLIC_PATH, updated);
 
+  // README headline stats — same anti-drift treatment as llms.txt.
+  const README_PATH = path.join(ROOT, 'README.md');
+  if (fs.existsSync(README_PATH)) {
+    const readme = fs.readFileSync(README_PATH, 'utf8');
+    const stats = `\n**${manifests.length} components** · ${manifests.length} machine-readable specs · MCP \`validate_usage\` · MIT\n`;
+    fs.writeFileSync(README_PATH, replaceMarkerBlock(readme, 'stats', stats));
+  }
+
   console.log(
     `LLM docs generated: ${manifests.length} component pages + index.md + llms.txt ` +
       `(${coreList.length} core / ${aiList.length} ai) -> ${path.relative(ROOT, OUT_DIR)}`

@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { COMPONENT_COUNT } from '@/lib/component-count';
+
+export const metadata: Metadata = {
+  title: 'Components',
+  description: `Browse all ${COMPONENT_COUNT} Slipstream UI components — core atoms and AI interaction molecules — with documentation, live demos, props, and accessibility notes.`,
+};
 
 export default function ComponentsOverviewPage() {
   const coreComponents = [

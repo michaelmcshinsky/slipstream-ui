@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+
+export const metadata: Metadata = {
+  title: 'Patterns',
+  description:
+    'Full recipes for AI product surfaces built with Slipstream UI: streaming chat, tool-calling UI, RAG citations, human-in-the-loop approval, and multi-branch conversations.',
+};
 
 interface Recipe {
   id: string;

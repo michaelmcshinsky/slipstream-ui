@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { COMPONENT_COUNT } from '@/lib/component-count';
+
+export const metadata: Metadata = {
+  title: 'Documentation',
+  description: `Slipstream UI documentation: the AI-first React component library where every one of ${COMPONENT_COUNT} components ships a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator.`,
+};
 
 const QUICK_LINKS = [
   {

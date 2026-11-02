@@ -1,5 +1,22 @@
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { StreamingChatDemo } from '@/components/streaming-chat-demo';
+import { AgentDashboardDemo } from '@/components/agent-dashboard-demo';
+import { RagCitationsDemo } from '@/components/rag-citations-demo';
+
+export const metadata: Metadata = {
+  title: 'Templates',
+  description:
+    'Complete, copy-paste Slipstream UI patterns: streaming chat with stop-generation, agent dashboard with human-in-the-loop tool calls, grounded RAG citations, and validated forms.',
+};
+
+/** Live previews keyed by template index; templates without one show code only. */
+const DEMOS: Record<number, ReactNode> = {
+  0: <StreamingChatDemo />,
+  1: <AgentDashboardDemo />,
+  2: <RagCitationsDemo />,
+};
 
 interface Template {
   name: string;
@@ -328,12 +345,12 @@ export default function TemplatesPage() {
                 </span>
               ))}
             </div>
-            {index === 0 && (
+            {DEMOS[index] && (
               <div className="mb-4">
                 <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Live demo — try it
                 </p>
-                <StreamingChatDemo />
+                {DEMOS[index]}
               </div>
             )}
             <CodeBlock>{template.code}</CodeBlock>

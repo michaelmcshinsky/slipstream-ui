@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'MCP Server',
+  description:
+    'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: list_components, get_component_manifest, get_usage_examples, and validate_usage keep agent-generated UI honest.',
+};
+
 export default function MCPPage() {
   return (
     <div>

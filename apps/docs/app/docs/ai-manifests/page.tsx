@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
+
+export const metadata: Metadata = {
+  title: 'COMPONENT_MANIFEST',
+  description:
+    'The machine-readable spec every Slipstream component ships: exact prop schema, defaults, anti-patterns, accessibility requirements, and composition rules for AI coding agents.',
+};
 
 export default function AIManifestsPage() {
   return (
