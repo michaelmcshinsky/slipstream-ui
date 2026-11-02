@@ -29,6 +29,14 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    title: 'Guides',
+    items: [
+      { href: '/docs/guides/ai-chat-ui', label: 'AI chat UI' },
+      { href: '/docs/guides/agent-integration', label: 'Agent integration' },
+      { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn' },
+    ],
+  },
+  {
     title: 'Components',
     items: [
       { href: '/docs/components', label: 'Overview' },

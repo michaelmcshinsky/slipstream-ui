@@ -17,12 +17,29 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
 
   const results = useMemo<SearchEntry[]>(() => {
     if (!query.trim()) return SEARCH_INDEX.slice(0, 8);
-    const lower = query.trim().toLowerCase();
-    return SEARCH_INDEX.filter(
-      (entry) =>
-        entry.title.toLowerCase().includes(lower) ||
-        entry.content.toLowerCase().includes(lower)
-    ).slice(0, 10);
+    const terms = query.trim().toLowerCase().split(/\s+/);
+    // Rank: exact title > title prefix > title substring > content match.
+    // All terms must hit (AND); lower total score sorts first.
+    const scored: { entry: SearchEntry; score: number }[] = [];
+    for (const entry of SEARCH_INDEX) {
+      const title = entry.title.toLowerCase();
+      const content = entry.content.toLowerCase();
+      let score = 0;
+      let matchedAll = true;
+      for (const term of terms) {
+        if (title === term) score += 0;
+        else if (title.startsWith(term)) score += 1;
+        else if (title.includes(term)) score += 2;
+        else if (content.includes(term)) score += 3;
+        else {
+          matchedAll = false;
+          break;
+        }
+      }
+      if (matchedAll) scored.push({ entry, score });
+    }
+    scored.sort((a, b) => a.score - b.score);
+    return scored.slice(0, 10).map((item) => item.entry);
   }, [query]);
 
   useEffect(() => {

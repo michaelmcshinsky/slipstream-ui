@@ -365,6 +365,33 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Paths */}
+      <section className="container mx-auto px-4 pb-6 pt-4">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Link
+            href="/docs/guides/agent-integration"
+            className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <h3 className="font-semibold group-hover:text-primary">For agent builders →</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Wire the MCP server into Claude Code or Cursor, run{' '}
+              <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">validate_usage</code> before emit, or
+              serve llms.txt and markdown routes — five tools, three consumption paths.
+            </p>
+          </Link>
+          <Link
+            href="/docs/guides/ai-chat-ui"
+            className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <h3 className="font-semibold group-hover:text-primary">For product teams →</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Ship the production chat surface — streaming markdown, stop-generation, citations,
+              approvals — with stateless components, jest-axe coverage, and your own backend.
+            </p>
+          </Link>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="container mx-auto px-4 py-24 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
