@@ -3,6 +3,7 @@ import './globals.css';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://slipstreamui.com'),
   title: {
     default: 'Slipstream UI - The AI-first React Component Library',
     template: '%s · Slipstream UI',
@@ -17,11 +18,20 @@ export const metadata: Metadata = {
     title: 'Slipstream UI - The AI-first React Component Library',
     description:
       `${COMPONENT_COUNT} AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.`,
+    images: [
+      {
+        url: '/og.png',
+        width: 892,
+        height: 300,
+        alt: 'Slipstream UI — Your AI already knows your design system',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Slipstream UI',
     description: 'The AI-first React component library — your AI reads the spec, not the source.',
+    images: ['/og.png'],
   },
 };
 

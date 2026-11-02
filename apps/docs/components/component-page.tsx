@@ -8,8 +8,14 @@ import { PropsTable } from './props-table';
 import { getNeighbors, NAV_SECTIONS } from '@/lib/nav';
 
 export interface ComponentPageProps {
-  /** Kebab-case registry/CLI id, e.g. "prompt-input". */
+  /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
   id: string;
+  /**
+   * COMPONENT_MANIFEST id when it differs from the route id — drives the
+   * registry fetch, install commands, and /llm markdown link
+   * (route "sources" -> manifest "source").
+   */
+  manifestId?: string;
   title: string;
   description: string;
   /** npm packages for the pnpm tab; defaults to core + ai. */
@@ -47,6 +53,32 @@ const COMPONENT_HREFS = new Set(
 );
 
 /**
+ * Fetches a component's manifest slice from /registry/<manifestId>.json.
+ * Returns null while loading or when the file is absent — sections derived
+ * from it simply do not render (graceful degradation).
+ */
+function useRegistryManifest(manifestId: string): RegistryManifest | null {
+  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/registry/${manifestId}.json`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: RegistryManifest | null) => {
+        if (!cancelled && data) setManifest(data);
+      })
+      .catch(() => {
+        // Registry file absent — render without the manifest-derived sections.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [manifestId]);
+
+  return manifest;
+}
+
+/**
  * Standardized component docs scaffold (elements.ai.sdk.dev pattern):
  * title → lede → installer box → demos (children: DemoCards) →
  * props table → anti-patterns → accessibility → composition → prev/next.
@@ -58,6 +90,7 @@ const COMPONENT_HREFS = new Set(
  */
 export function ComponentPage({
   id,
+  manifestId,
   title,
   description,
   npmPackages,
@@ -66,22 +99,7 @@ export function ComponentPage({
   accessibility,
 }: ComponentPageProps) {
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
-  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(`/registry/${id}.json`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: RegistryManifest | null) => {
-        if (!cancelled && data) setManifest(data);
-      })
-      .catch(() => {
-        // Registry file absent — render without the manifest-derived sections.
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [id]);
+  const manifest = useRegistryManifest(manifestId ?? id);
 
   const antiPatterns = manifest?.antiPatterns ?? [];
   const compositionRules = manifest?.compositionRules ?? [];
@@ -95,11 +113,11 @@ export function ComponentPage({
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
         {/* Canonical markdown for agents — mirrors assistant-ui's .md convention. */}
         <a
-          href={`/llm/components/${id}.md`}
+          href={`/llm/components/${manifestId ?? id}.md`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          title={`Canonical markdown reference at /llm/components/${id}.md`}
+          title={`Canonical markdown reference at /llm/components/${manifestId ?? id}.md`}
         >
           <span aria-hidden="true">⧉</span> Markdown for agents
         </a>
@@ -107,7 +125,7 @@ export function ComponentPage({
       <p className="mt-2 text-lg text-muted-foreground">{description}</p>
 
       <div className="mt-6">
-        <InstallBox componentId={id} npmPackages={npmPackages} />
+        <InstallBox componentId={manifestId ?? id} npmPackages={npmPackages} />
       </div>
 
       <div className="mt-8 space-y-6">{children}</div>

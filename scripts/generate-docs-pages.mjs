@@ -409,6 +409,12 @@ ${accessibility}
 
   const dir = path.join(DOCS, page.dir);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'page.tsx'), code);
+  const target = path.join(dir, 'page.tsx');
+  // Never clobber hand-maintained pages (or the server-wrapper + demo split).
+  if (fs.existsSync(target)) {
+    console.log(`Skipped ${page.dir}/page.tsx (already exists)`);
+    continue;
+  }
+  fs.writeFileSync(target, code);
   console.log(`Generated ${page.dir}/page.tsx`);
 }

@@ -1,6 +1,7 @@
 import { Navbar } from '@/components/site/navbar';
 import { Sidebar } from '@/components/site/sidebar';
 import { MobileNav } from '@/components/site/mobile-nav';
+import { PageFeedback } from '@/components/site/page-feedback';
 import { TableOfContents } from '@/components/table-of-contents';
 
 export default function DocsLayout({
@@ -17,6 +18,7 @@ export default function DocsLayout({
           <main className="min-w-0 flex-1 py-8 lg:py-10">
             <MobileNav />
             <div className="mt-4 lg:mt-0">{children}</div>
+            <PageFeedback />
           </main>
           <TableOfContents />
         </div>

@@ -93,6 +93,19 @@ list_components(tier="atom")
 list_components(package="@slipstream-ui/ai", tier="molecule")`}</code>
         </pre>
 
+        <h3 className="text-xl font-semibold mt-6 mb-3">search_components</h3>
+        <p className="text-muted-foreground mb-4">
+          Semantic-ish keyword search over components by capability — faster than browsing when the
+          agent knows what the UI should <em>do</em>, not what it is called.
+        </p>
+        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
+          <code>{`// Find streaming-capable components
+search_components(query="streaming chat")
+
+// Find citation components
+search_components(query="citations grounding")`}</code>
+        </pre>
+
         <h3 className="text-xl font-semibold mt-6 mb-3">get_component_manifest</h3>
         <p className="text-muted-foreground mb-4">
           Get the complete COMPONENT_MANIFEST for a specific component.
