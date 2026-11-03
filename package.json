@@ -15,7 +15,7 @@
     "validate:manifests": "tsx scripts/validate-manifests.ts && tsx scripts/check-manifest-sync.ts",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish --provenance",
+    "release": "turbo run build && changeset publish",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "generate:llm-docs": "tsx scripts/generate-llm-docs.ts",
     "audit:packages": "tsx scripts/audit-packages.ts"

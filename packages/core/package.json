@@ -16,6 +16,10 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\"",
     "dev": "tsup --watch",
