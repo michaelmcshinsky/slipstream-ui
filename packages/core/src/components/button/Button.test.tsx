@@ -67,3 +67,37 @@ describe('Button', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Button semantic theme variants', () => {
+  it('renders success, warning, and info with paired foreground tokens', () => {
+    const { container } = render(
+      <>
+        <Button variant="success">Approve</Button>
+        <Button variant="warning">Caution</Button>
+        <Button variant="info">Details</Button>
+      </>
+    );
+    expect(screen.getByRole('button', { name: 'Approve' })).toHaveClass('bg-success', 'text-success-foreground');
+    expect(screen.getByRole('button', { name: 'Caution' })).toHaveClass('bg-warning', 'text-warning-foreground');
+    expect(screen.getByRole('button', { name: 'Details' })).toHaveClass('bg-info', 'text-info-foreground');
+    expect(container).toBeTruthy();
+  });
+
+  it('keeps disabled + semantic variants usable together', () => {
+    render(
+      <Button variant="success" disabled>
+        Disabled success
+      </Button>
+    );
+    const button = screen.getByRole('button', { name: 'Disabled success' });
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('bg-success', 'disabled:opacity-50');
+  });
+
+  it('semantic variants stay keyboard-focusable with a visible ring', () => {
+    render(<Button variant="warning">Focus me</Button>);
+    expect(screen.getByRole('button', { name: 'Focus me' })).toHaveClass(
+      'focus-visible:ring-2'
+    );
+  });
+});
