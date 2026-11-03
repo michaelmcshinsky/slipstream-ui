@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
-import { getNeighbors, NAV_SECTIONS } from '@/lib/nav';
+import { getNeighbors, FLAT_NAV } from '@/lib/nav';
 
 export interface ComponentPageProps {
   /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
@@ -49,9 +49,7 @@ function toComponentId(name: string): string {
 
 /** Doc routes that exist today — related-component links are gated on this. */
 const COMPONENT_HREFS = new Set(
-  NAV_SECTIONS.flatMap((section) =>
-    section.items.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
-  )
+  FLAT_NAV.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
 );
 
 /**

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { SlipstreamIcon } from './slipstream-icon';
 
 const REPO_URL = 'https://github.com/slipstream-ui';
 const CURRENT_YEAR = new Date().getFullYear();
@@ -50,7 +49,8 @@ export function Footer() {
       <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
           <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <SlipstreamIcon className="h-6 w-6 text-primary" />
+            {/* eslint-disable-next-line @next/next/no-img-element -- local brand SVG, unoptimized by design */}
+            <img src="/logo.svg" alt="" width={24} height={24} className="h-6 w-6" />
             Slipstream<span className="text-primary">UI</span>
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">

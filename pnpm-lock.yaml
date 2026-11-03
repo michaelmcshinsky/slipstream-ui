@@ -188,9 +188,6 @@ importers:
       '@slipstream-ui/themes':
         specifier: workspace:*
         version: link:../../packages/themes
-      flexsearch:
-        specifier: ^0.8.212
-        version: 0.8.212
       next:
         specifier: ^16.4.3
         version: 16.4.3(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@18.3.1)(react@18.3.1)
@@ -213,9 +210,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.20
         version: 0.5.20(tailwindcss@3.4.19)
-      '@types/flexsearch':
-        specifier: ^0.7.42
-        version: 0.7.42
       '@types/node':
         specifier: ^20.10.0
         version: 20.19.43
@@ -2530,13 +2524,6 @@ packages:
   /@types/estree@1.0.9:
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
 
-  /@types/flexsearch@0.7.42:
-    resolution: {integrity: sha512-FdKaw3dPgcCvqU9w8SGgqx8PrxFF2EKySRhEj1nc45HNe/2cBLff3pF52C67hzeUbNhq49t7XRIIibBd41vcIg==}
-    deprecated: This is a stub types definition. flexsearch provides its own type definitions, so you do not need this installed.
-    dependencies:
-      flexsearch: 0.8.212
-    dev: true
-
   /@types/fs-extra@11.0.4:
     resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
     dependencies:
@@ -4375,9 +4362,6 @@ packages:
 
   /flatted@3.4.4:
     resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
-
-  /flexsearch@0.8.212:
-    resolution: {integrity: sha512-wSyJr1GUWoOOIISRu+X2IXiOcVfg9qqBRyCPRUdLMIGJqPzMo+jMRlvE83t14v1j0dRMEaBbER/adQjp6Du2pw==}
 
   /for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}

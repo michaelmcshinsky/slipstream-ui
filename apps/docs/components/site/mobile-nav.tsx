@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV_SECTIONS } from '@/lib/nav';
+import { NAV_SECTIONS, sectionFirstHref } from '@/lib/nav';
 
 /** Horizontal scrollable section pills shown below lg, where the sidebar hides. */
 export function MobileNav() {
@@ -11,7 +11,7 @@ export function MobileNav() {
   // Only top-level sections on mobile — listing every component pill here
   // overflowed narrow viewports and truncated labels ("COMPON…").
   const sections = NAV_SECTIONS.map((section) => ({
-    href: section.items[0]?.href ?? '/docs',
+    href: sectionFirstHref(section),
     label: section.title,
   }));
 

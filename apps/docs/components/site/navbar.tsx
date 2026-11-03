@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CommandPalette } from './command-palette';
-import { SlipstreamIcon } from './slipstream-icon';
 
 const REPO_URL = 'https://github.com/slipstream-ui';
 
@@ -45,10 +44,12 @@ export function Navbar() {
           containing block that would trap the fixed overlay inside the bar. */}
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <nav className="container mx-auto flex h-14 items-center justify-between gap-4 px-4">
+        {/* Full-bleed header: no container cap so navigation spans the viewport. */}
+        <nav className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-              <SlipstreamIcon className="h-6 w-6 text-primary" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- local brand SVG, unoptimized by design */}
+              <img src="/logo.svg" alt="" width={24} height={24} className="h-6 w-6" />
               Slipstream<span className="text-primary">UI</span>
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">
