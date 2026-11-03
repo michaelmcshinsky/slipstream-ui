@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Confirmation } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
+import { VERSION } from '@/lib/version';
 
 export default function ConfirmationPage() {
   const [decisions, setDecisions] = useState<string[]>([]);
@@ -102,7 +103,7 @@ export default function ConfirmationPage() {
         preview={
           <div className="grid w-full gap-4 md:grid-cols-2">
             <Confirmation
-              title="Publish release v0.3.0?"
+              title={`Publish release v${VERSION}?`}
               description="Custom wording and destructive approve styling."
               variant="info"
               approveVariant="destructive"
@@ -118,7 +119,7 @@ export default function ConfirmationPage() {
         }
         code={`{/* Custom wording + button variants */}
 <Confirmation
-  title="Publish release v0.3.0?"
+  title="Publish release v${VERSION}?"
   variant="info"
   approveVariant="destructive"
   rejectVariant="ghost"

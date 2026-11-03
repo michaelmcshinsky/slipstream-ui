@@ -48,12 +48,12 @@ export function Navbar() {
         <nav className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
-              {/* eslint-disable-next-line @next/next/no-img-element -- local brand banner, unoptimized by design */}
+              {/* eslint-disable-next-line @next/next/no-img-element -- local brand lockup, unoptimized by design */}
               <img
-                src="/slipstream-banner-2.png"
+                src="/slipstream-lockup.png"
                 alt="Slipstream UI"
-                height={36}
-                className="h-9 w-auto"
+                height={44}
+                className="h-11 w-auto"
               />
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">

@@ -49,12 +49,12 @@ export function Footer() {
       <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
           <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
-            {/* eslint-disable-next-line @next/next/no-img-element -- local brand banner, unoptimized by design */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- local brand lockup, unoptimized by design */}
             <img
-              src="/slipstream-banner-2.png"
+              src="/slipstream-lockup.png"
               alt="Slipstream UI"
-              height={40}
-              className="h-10 w-auto"
+              height={48}
+              className="h-12 w-auto"
             />
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">
