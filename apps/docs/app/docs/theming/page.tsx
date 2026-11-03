@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { ThemeShowcase } from '@/components/theme-showcase';
 
 export const metadata: Metadata = {
@@ -34,15 +35,13 @@ export default function ThemingPage() {
         <p className="text-muted-foreground mb-4">
           The <code className="bg-muted px-2 py-1 rounded">createTheme()</code> function lets you create custom themes from brand colors:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { createTheme } from '@slipstream-ui/themes'
+        <CodeBlock language="tsx" code={`import { createTheme } from '@slipstream-ui/themes'
 
 const customTheme = createTheme({
   brandColor: '224 89% 58%',  // HSL values
   borderRadius: '0.5rem',
   darkMode: false
-})`}</code>
-        </pre>
+})`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Preset Themes</h2>
         <p className="text-muted-foreground mb-4">
@@ -50,31 +49,22 @@ const customTheme = createTheme({
         </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Default (Blue)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { defaultTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { defaultTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Dark</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { darkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { darkTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Zinc (Neutral)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { zincTheme, zincDarkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { zincTheme, zincDarkTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Violet (Purple)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { violetTheme, violetDarkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { violetTheme, violetDarkTheme } from '@slipstream-ui/themes'`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">CSS Variables</h2>
         <p className="text-muted-foreground mb-4">
           The theme system uses CSS variables that you can override in your global CSS:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`:root {
+        <CodeBlock language="css" code={`:root {
   --background: 0 0% 100%;
   --foreground: 222 85% 7%;
   --primary: 224 89% 58%;
@@ -102,41 +92,34 @@ const customTheme = createTheme({
   --border: 217 20% 24%;
   --input: 217 18% 32%;
   /* ... and so on */
-}`}</code>
-        </pre>
+}`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Dark Mode</h2>
         <p className="text-muted-foreground mb-4">
           To enable dark mode, add the <code className="bg-muted px-2 py-1 rounded">dark</code> class to a parent element (typically the <code className="bg-muted px-2 py-1 rounded">html</code> or <code className="bg-muted px-2 py-1 rounded">body</code> tag):
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// Toggle dark mode
-document.documentElement.classList.toggle('dark')`}</code>
-        </pre>
+        <CodeBlock language="css" code={`// Toggle dark mode
+document.documentElement.classList.toggle('dark')`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
         <p className="text-muted-foreground mb-4">
           When creating a custom theme, provide your brand color in HSL format:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// Convert your brand color to HSL
+        <CodeBlock language="css" code={`// Convert your brand color to HSL
 // Example: #3B82F6 (blue) → 217 91% 60%
 const brandTheme = createTheme({
   brandColor: '217 91% 60%',
   borderRadius: '0.75rem'
-})`}</code>
-        </pre>
+})`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Converting Colors to HSL</h2>
         <p className="text-muted-foreground mb-4">
           You can use online tools or CSS to convert your brand colors to HSL:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`/* In CSS */
+        <CodeBlock language="css" code={`/* In CSS */
 :root {
   --brand: 217 91% 60%;  /* #3B82F6 */
-}`}</code>
-        </pre>
+}`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">

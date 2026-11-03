@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { CodeBlock } from '@/components/code-block';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { StreamingChatDemo } from '@/components/streaming-chat-demo';
 import { AgentDashboardDemo } from '@/components/agent-dashboard-demo';
 import { RagCitationsDemo } from '@/components/rag-citations-demo';
@@ -414,7 +414,7 @@ export default function TemplatesPage() {
                 {DEMOS[index]}
               </div>
             )}
-            <CodeBlock>{template.code}</CodeBlock>
+              <CodeBlock language="tsx" code={template.code} />
           </section>
         ))}
       </div>

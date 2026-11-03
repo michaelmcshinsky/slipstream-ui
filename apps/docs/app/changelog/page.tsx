@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CodeBlock } from '@/components/code-block';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 
@@ -81,11 +81,14 @@ export default function ChangelogPage() {
         ))}
 
         <h2 className="text-2xl font-semibold mb-4">Install</h2>
-        <CodeBlock>{`# Packages
+        <CodeBlock
+          language="bash"
+          code={`# Packages
 pnpm add @slipstream-ui/core @slipstream-ui/ai
 
 # Or install source copies via the shadcn-compatible registry
-npx shadcn@latest add https://slipstreamui.com/registry/message.json`}</CodeBlock>
+npx shadcn@latest add https://slipstreamui.com/registry/message.json`}
+        />
       </div>
       <Footer />
     </div>

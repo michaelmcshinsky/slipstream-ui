@@ -12,7 +12,7 @@ export default function CodeBlockPage() {
     <ComponentPage
       id="code-block"
       title="CodeBlock"
-      description="Syntax-highlighted code with a language label and one-click copy. Used internally by Response and available standalone."
+      description="Syntax-highlighted code with a language label and one-click copy — the single shared code surface: every code example on this site renders through it (also used internally by Response)."
       propsRows={[
         { name: 'code', type: 'string', description: 'Raw code to display.' },
         { name: 'language', type: 'string', defaultValue: "'tsx'", description: 'Prism language identifier.' },

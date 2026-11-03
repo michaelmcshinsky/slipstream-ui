@@ -50,7 +50,9 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       <div
         ref={ref}
         className={cn(
-          'relative group rounded-md border border-border bg-muted/50 overflow-hidden',
+          // bg-background (not muted): Prism light themes assume a white
+          // surface — on gray the comment/keyword tokens fall below AA.
+          'relative group rounded-md border border-border bg-background overflow-hidden',
           className
         )}
         {...props}
