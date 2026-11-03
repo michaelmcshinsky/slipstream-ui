@@ -29,7 +29,7 @@ describe('Select', () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     function Controlled() {
-      const [value, setValue] = useState('default');
+      const [value, setValue] = useState<string | string[]>('default');
       return (
         <Select
           options={options}
@@ -57,5 +57,44 @@ describe('Select', () => {
   it('has no accessibility violations', async () => {
     const { container } = render(<Select options={options} label="Size" />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+
+describe('Select groups, placeholder and multiple', () => {
+  it('renders optgroups with headings', () => {
+    render(
+      <Select
+        label="Plan"
+        placeholder="Choose a plan"
+        groups={[
+          { label: 'Individual', options: [{ value: 'free', label: 'Free' }, { value: 'pro', label: 'Pro' }] },
+          { label: 'Business', options: [{ value: 'team', label: 'Team' }] },
+        ]}
+      />
+    );
+    const groups = screen.getAllByRole('group');
+    expect(groups).toHaveLength(2);
+    expect(groups[0]).toHaveAttribute('label', 'Individual');
+    expect(screen.getByRole('option', { name: 'Choose a plan' })).toBeDisabled();
+  });
+
+  it('supports native multi-select with a string[] contract', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <Select
+        label="Channels"
+        multiple
+        value={['email']}
+        onChange={onChange}
+        options={[
+          { value: 'email', label: 'Email' },
+          { value: 'slack', label: 'Slack' },
+        ]}
+      />
+    );
+    await user.selectOptions(screen.getByRole('listbox', { name: 'Channels' }), ['slack']);
+    expect(onChange).toHaveBeenLastCalledWith(['email', 'slack']);
   });
 });

@@ -106,6 +106,53 @@ const [framework, setFramework] = useState('');
   name="tag"
 />`}
       />
+      <DemoCard
+        title="Async, grouped and clearable"
+        preview={
+          <div className="w-full max-w-md">
+            <Autocomplete
+              aria-label="Search cities"
+              clearable
+              placeholder="Search cities…"
+              debounceMs={150}
+              loadOptions={async (query) =>
+                ['Amsterdam', 'Austin', 'Barcelona', 'Berlin', 'Boston', 'Bristol']
+                  .filter((city) => city.toLowerCase().includes(query.trim().toLowerCase()))
+                  .map((city) => ({ value: city, label: city, group: 'Cities', description: 'Demo result' }))
+              }
+            />
+          </div>
+        }
+        code={`<Autocomplete
+  aria-label="Search cities"
+  clearable
+  placeholder="Search cities…"
+  loadOptions={async (query) =>
+    cities
+      .filter((city) => city.toLowerCase().includes(query.toLowerCase()))
+      .map((city) => ({ value: city, label: city, group: 'Cities' }))
+  }
+/>`}
+        usage={`// loadOptions is debounced (200ms default) and stale responses are
+// discarded. Group headings come from option.group; descriptions render
+// as a muted second line, or supply renderOption for full control.`}
+        types={`type AutocompleteOption = {
+  value: string;
+  label?: string;
+  group?: string;
+  description?: string;
+};
+
+type AutocompleteProps = {
+  options?: Array<string | AutocompleteOption>;
+  loadOptions?: (query: string) => Promise<Array<string | AutocompleteOption>>;
+  renderOption?: (option, state: { active: boolean }) => ReactNode;
+  clearable?: boolean;
+  emptyText?: string;
+  loadingText?: string;
+  debounceMs?: number;
+};`}
+      />
     </ComponentPage>
   );
 }
