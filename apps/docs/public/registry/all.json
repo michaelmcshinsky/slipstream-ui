@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "6c26168",
-  "count": 57,
+  "sourceRevision": "58c6138",
+  "count": 59,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -86,6 +86,14 @@
       "registry": "/registry/button.json"
     },
     {
+      "id": "button-group",
+      "name": "ButtonGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.",
+      "registry": "/registry/button-group.json"
+    },
+    {
       "id": "card",
       "name": "Card",
       "package": "@slipstream-ui/core",
@@ -106,7 +114,7 @@
       "name": "Checkbox",
       "package": "@slipstream-ui/core",
       "tier": "atom",
-      "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
+      "description": "A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend",
       "registry": "/registry/checkbox.json"
     },
     {
@@ -236,6 +244,14 @@
       "tier": "atom",
       "description": "A text input field with support for various input types and standard HTML input attributes",
       "registry": "/registry/input.json"
+    },
+    {
+      "id": "input-group",
+      "name": "InputGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.",
+      "registry": "/registry/input-group.json"
     },
     {
       "id": "label",

@@ -14,6 +14,8 @@ export default function RadioPage() {
         { name: 'value / defaultValue', type: 'string', description: 'Controlled or initial selection (RadioGroup).' },
         { name: 'onValueChange', type: '(value: string) => void', description: 'Called with the newly selected value (RadioGroup).' },
         { name: 'legend', type: 'string', description: 'Accessible group label rendered as the fieldset legend.' },
+        { name: 'orientation', type: "'vertical' | 'horizontal'", defaultValue: "'vertical'", description: 'Stack options or lay them out in a wrapping row (RadioGroup).' },
+        { name: 'error', type: 'string', description: 'Group-level validation message; announced via role=alert (RadioGroup).' },
         { name: 'value', type: 'string', description: 'The value this item contributes to the group (RadioGroupItem).' },
         { name: 'label', type: 'string', description: 'Visible label rendered next to the radio (RadioGroupItem).' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables an individual item.' },

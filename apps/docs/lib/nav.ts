@@ -64,6 +64,7 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Actions',
         items: [
           { href: '/docs/components/button', label: 'Button' },
+          { href: '/docs/components/button-group', label: 'ButtonGroup' },
           { href: '/docs/components/command-palette', label: 'CommandPalette' },
         ],
       },
@@ -86,6 +87,7 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Forms',
         items: [
           { href: '/docs/components/input', label: 'Input' },
+          { href: '/docs/components/input-group', label: 'InputGroup' },
           { href: '/docs/components/textarea', label: 'Textarea' },
           { href: '/docs/components/label', label: 'Label' },
           { href: '/docs/components/form-field', label: 'FormField' },
@@ -93,6 +95,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/form', label: 'Form' },
           { href: '/docs/components/form-layout', label: 'FormLayout' },
           { href: '/docs/components/checkbox', label: 'Checkbox' },
+          { href: '/docs/components/checkbox-group', label: 'CheckboxGroup' },
           { href: '/docs/components/radio', label: 'Radio' },
           { href: '/docs/components/switch', label: 'Switch' },
           { href: '/docs/components/select', label: 'Select' },

@@ -49,6 +49,21 @@
       "description": "Called with the newly selected value (RadioGroup component)"
     },
     {
+      "name": "orientation",
+      "required": false,
+      "type": "'vertical' | 'horizontal'",
+      "description": "Stack options (default) or lay them out in a wrapping row (RadioGroup component)",
+      "defaultValue": "vertical",
+      "examples": ["vertical", "horizontal"]
+    },
+    {
+      "name": "error",
+      "required": false,
+      "type": "string",
+      "description": "Group-level validation message; announced via role=alert (RadioGroup component)",
+      "examples": ["Choose one option"]
+    },
+    {
       "name": "defaultValue",
       "required": false,
       "type": "string",

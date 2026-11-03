@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 57 components, each shipping a
+The AI-first React component library. 59 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 40
+## Core components (@slipstream-ui/core) — 42
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -17,8 +17,9 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Block](https://slipstreamui.com/llm/components/block.md) — Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
 - [Breadcrumb](https://slipstreamui.com/llm/components/breadcrumb.md) — Navigation breadcrumb trail with links and current-page indicator
 - [Button](https://slipstreamui.com/llm/components/button.md) — A clickable button component with variants for different visual styles and sizes
+- [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
-- [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, with controlled and uncontrolled support
+- [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trapping, escape-to-close and focus restoration
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
@@ -30,6 +31,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Grid / GridItem](https://slipstreamui.com/llm/components/grid.md) — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - [Heading](https://slipstreamui.com/llm/components/heading.md) — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
+- [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics

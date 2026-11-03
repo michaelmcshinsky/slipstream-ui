@@ -21,6 +21,8 @@ Radio lets users pick exactly one option from a visible set. RadioGroup provides
 | disabled | `boolean` | `false` | no | Disables the radio |
 | legend | `string` | — | no | Accessible group label; rendered as <legend> inside a fieldset (RadioGroup component) |
 | onValueChange | `(value: string) => void` | — | no | Called with the newly selected value (RadioGroup component) |
+| orientation | `'vertical' | 'horizontal'` | `vertical` | no | Stack options (default) or lay them out in a wrapping row (RadioGroup component) |
+| error | `string` | — | no | Group-level validation message; announced via role=alert (RadioGroup component) |
 | defaultValue | `string` | — | no | Initial selected value when uncontrolled (RadioGroup component) |
 
 ## Examples

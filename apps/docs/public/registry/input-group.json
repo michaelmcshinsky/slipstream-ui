@@ -1,0 +1,150 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "input-group",
+  "name": "input-group",
+  "tier": "molecule",
+  "description": "Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.",
+  "designIntent": "Search fields, URL/unit inputs, and inline actions need affixes that sit flush inside the field. InputGroup owns the combined border and focus ring (the outline doubles as the affordance) while addons stay visually part of the field: ghost addons keep the group background, muted addons paint a light gray, and nested inputs are stripped of their own chrome via descendant selectors.",
+  "props": [
+    {
+      "name": "side",
+      "type": "'left' | 'right'",
+      "required": false,
+      "description": "Edge the addon hugs (flush against the group outline).",
+      "defaultValue": "left",
+      "examples": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "name": "variant",
+      "type": "'ghost' | 'muted'",
+      "required": false,
+      "description": "Addon surface: ghost keeps the group background, muted paints a light gray.",
+      "defaultValue": "ghost",
+      "examples": [
+        "ghost",
+        "muted"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "URL field with unit affixes",
+      "code": "<InputGroup>\n  <InputGroupAddon side=\"left\" variant=\"muted\">https://</InputGroupAddon>\n  <Input placeholder=\"example.com\" />\n  <InputGroupAddon side=\"right\" variant=\"muted\">.com</InputGroupAddon>\n</InputGroup>",
+      "description": "Muted affixes carry the fixed parts of the value; only the middle is editable."
+    },
+    {
+      "title": "Search with icon and action button",
+      "code": "<InputGroup>\n  <InputGroupAddon side=\"left\" aria-hidden=\"true\"><SearchIcon size={16} /></InputGroupAddon>\n  <Input aria-label=\"Search\" placeholder=\"Search issues…\" />\n  <InputGroupAddon side=\"right\" variant=\"muted\">\n    <Button size=\"sm\" variant=\"ghost\">Go</Button>\n  </InputGroupAddon>\n</InputGroup>",
+      "description": "Leading icon is decorative; the trailing button is the pseudo action indicator."
+    },
+    {
+      "title": "Numeric input with currency suffix",
+      "code": "<InputGroup>\n  <Input aria-label=\"Amount\" type=\"number\" defaultValue=\"10\" />\n  <InputGroupAddon side=\"right\" variant=\"muted\">PLN</InputGroupAddon>\n</InputGroup>",
+      "description": "The unit sits flush right; the outline communicates editability."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't give nested inputs their own border",
+      "explanation": "The group's outer border is the control outline. Inner borders create double lines and break the flush-addon look — strip them with the group (built in) or avoid nesting a bordered Input.",
+      "example": "// Avoid: bordered input inside a bordered group\n<InputGroup><Input className=\"border\" /></InputGroup>\n\n// Prefer: let InputGroup strip the chrome\n<InputGroup><Input /></InputGroup>"
+    },
+    {
+      "title": "Don't nest interactive elements without labels",
+      "explanation": "Addon buttons live inside the field's focus-within region; they still need accessible names and must not steal the field's label association.",
+      "example": "// Avoid\n<InputGroupAddon side=\"right\"><button>×</button></InputGroupAddon>\n\n// Prefer\n<InputGroupAddon side=\"right\">\n  <Button aria-label=\"Clear input\" variant=\"ghost\">×</Button>\n</InputGroupAddon>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Single focus stop",
+      "implementation": "Focus ring renders on the group via focus-within; nested inputs keep keyboard focus and their label association (htmlFor/id still targets the input)",
+      "userRequirements": "Label the INPUT (FormField/Input aria-label), not the group"
+    },
+    {
+      "feature": "Decorative affixes",
+      "implementation": "Purely decorative icons/text in addons should carry aria-hidden or the input's aria-label should include the unit",
+      "userRequirements": "Mark decorative addons aria-hidden; name units the field's accessible name when they change meaning (e.g. aria-label=\"Amount in PLN\")"
+    },
+    {
+      "feature": "Disabled state",
+      "implementation": "Nested input's disabled styling applies; addons are independent — disable buttons inside them yourself",
+      "userRequirements": "Disable addon buttons when the field is disabled"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Addon text",
+      "guidelines": [
+        "Keep affixes short (units, schemes, TLDs)",
+        "Use the same casing the user would type",
+        "Prefer icons for actions, text for value parts"
+      ],
+      "goodExamples": [
+        "https://",
+        ".com",
+        "PLN",
+        "/month"
+      ],
+      "badExamples": [
+        "Enter the protocol here",
+        "domain suffix"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Input / Textarea / Select",
+      "relationship": "The nested field is the editable region; InputGroup strips its border/ring automatically",
+      "example": "<InputGroup><InputGroupAddon side=\"left\">@</InputGroupAddon><Input /></InputGroup>"
+    },
+    {
+      "component": "FormField",
+      "relationship": "Wrap the whole group when it needs a persistent label or error",
+      "example": "<FormField label=\"Search\"><InputGroup>…</InputGroup></FormField>"
+    },
+    {
+      "component": "Button",
+      "relationship": "Buttons inside addons are the action affordance — ghost/variant='ghost' keeps the flush look",
+      "example": "<InputGroupAddon side=\"right\"><Button size=\"sm\">Go</Button></InputGroupAddon>"
+    }
+  ],
+  "relatedComponents": [
+    "Input",
+    "FormField",
+    "Search",
+    "Button"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "input-group",
+  "exportName": "InputGroup",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/input-group/index.ts",
+      "content": "export * from './InputGroup';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/input-group/InputGroup.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Input } from '../input/Input';\nimport { Textarea } from '../textarea/Textarea';\nimport { Select } from '../select/Select';\n\nexport type InputGroupProps = React.HTMLAttributes<HTMLDivElement>;\n\ntype CloneableProps = Record<string, unknown>;\n\nconst isNestedField = (child: React.ReactNode): child is React.ReactElement<CloneableProps> =>\n  React.isValidElement(child) && (child.type === Input || child.type === Textarea || child.type === Select);\n\n/**\n * Composite input shell: one outer outline wraps the addons and the\n * field itself. Nested inputs shed their own border/ring — focus and\n * the outline belong to the group, so left/right addons read as flush\n * parts of a single control (the outline doubles as the affordance).\n *\n * id / aria-describedby / aria-invalid arriving from FormField are\n * forwarded to the nested field, because a label's htmlFor must\n * resolve to the editable control, not the shell div.\n */\nconst InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(\n  ({ id, 'aria-describedby': describedBy, 'aria-invalid': invalid, className, children, ...props }, ref) => {\n    let wiredChildren = children;\n\n    if (id !== undefined || describedBy !== undefined || invalid !== undefined) {\n      const items = React.Children.toArray(children);\n      const fieldIndex = items.findIndex(isNestedField);\n      if (fieldIndex !== -1) {\n        const field = items[fieldIndex];\n        items[fieldIndex] = isNestedField(field)\n          ? React.cloneElement(field, {\n              ...(id !== undefined && { id }),\n              ...(describedBy !== undefined && { 'aria-describedby': describedBy }),\n              ...(invalid !== undefined && { 'aria-invalid': invalid }),\n            })\n          : field;\n        wiredChildren = items;\n      } else {\n        // No recognizable field (custom children) — keep the wiring on the shell.\n        props = {\n          ...props,\n          ...(id !== undefined && { id }),\n          ...(describedBy !== undefined && { 'aria-describedby': describedBy }),\n          ...(invalid !== undefined && { 'aria-invalid': invalid }),\n        };\n      }\n    }\n\n    return (\n      <div\n        ref={ref}\n        data-slot=\"input-group\"\n        className={cn(\n          'flex h-10 w-full items-center overflow-hidden rounded-md border border-input bg-background',\n          'ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',\n          // The group is the control: strip chrome from nested fields so\n          // only the outer border shows. Literal variants survive purging.\n          '[&_input]:min-w-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:px-3 [&_input]:py-2 [&_input]:shadow-none',\n          '[&_input]:focus-visible:ring-0 [&_input]:focus-visible:ring-offset-0',\n          '[&_textarea]:border-0 [&_textarea]:bg-transparent [&_textarea]:shadow-none [&_textarea]:focus-visible:ring-0',\n          '[&_select]:border-0 [&_select]:bg-transparent [&_select]:shadow-none [&_select]:focus-visible:ring-0',\n          '[&_input:disabled]:cursor-not-allowed',\n          className\n        )}\n        {...props}\n      >\n        {wiredChildren}\n      </div>\n    );\n  }\n);\nInputGroup.displayName = 'InputGroup';\n\nexport type InputGroupAddonProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Edge the addon hugs (flush against the group outline). */\n  side?: 'left' | 'right';\n  /** 'muted' paints a light-gray surface; 'ghost' keeps the group background. */\n  variant?: 'ghost' | 'muted';\n};\n\n/**\n * Flush icon/text/button slot inside an InputGroup. Addons carry their\n * own padding on the outer edge only — the nested field's padding\n * supplies the gap toward the middle, so content stays on one rhythm.\n */\nconst InputGroupAddon = React.forwardRef<HTMLDivElement, InputGroupAddonProps>(\n  ({ side = 'left', variant = 'ghost', className, ...props }, ref) => (\n    <div\n      ref={ref}\n      data-slot=\"input-group-addon\"\n      data-side={side}\n      className={cn(\n        'flex shrink-0 select-none items-center self-stretch text-sm text-muted-foreground',\n        variant === 'muted' && 'bg-muted',\n        side === 'left' ? 'pl-3' : 'pr-3',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nInputGroupAddon.displayName = 'InputGroupAddon';\n\nexport { InputGroup, InputGroupAddon };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/input-group.manifest.json",
+      "content": "{\n  \"id\": \"input-group\",\n  \"name\": \"InputGroup\",\n  \"tier\": \"molecule\",\n  \"description\": \"Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.\",\n  \"designIntent\": \"Search fields, URL/unit inputs, and inline actions need affixes that sit flush inside the field. InputGroup owns the combined border and focus ring (the outline doubles as the affordance) while addons stay visually part of the field: ghost addons keep the group background, muted addons paint a light gray, and nested inputs are stripped of their own chrome via descendant selectors.\",\n  \"props\": [\n    {\n      \"name\": \"side\",\n      \"type\": \"'left' | 'right'\",\n      \"required\": false,\n      \"description\": \"Edge the addon hugs (flush against the group outline).\",\n      \"defaultValue\": \"left\",\n      \"examples\": [\"left\", \"right\"]\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'ghost' | 'muted'\",\n      \"required\": false,\n      \"description\": \"Addon surface: ghost keeps the group background, muted paints a light gray.\",\n      \"defaultValue\": \"ghost\",\n      \"examples\": [\"ghost\", \"muted\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"URL field with unit affixes\",\n      \"code\": \"<InputGroup>\\n  <InputGroupAddon side=\\\"left\\\" variant=\\\"muted\\\">https://</InputGroupAddon>\\n  <Input placeholder=\\\"example.com\\\" />\\n  <InputGroupAddon side=\\\"right\\\" variant=\\\"muted\\\">.com</InputGroupAddon>\\n</InputGroup>\",\n      \"description\": \"Muted affixes carry the fixed parts of the value; only the middle is editable.\"\n    },\n    {\n      \"title\": \"Search with icon and action button\",\n      \"code\": \"<InputGroup>\\n  <InputGroupAddon side=\\\"left\\\" aria-hidden=\\\"true\\\"><SearchIcon size={16} /></InputGroupAddon>\\n  <Input aria-label=\\\"Search\\\" placeholder=\\\"Search issues…\\\" />\\n  <InputGroupAddon side=\\\"right\\\" variant=\\\"muted\\\">\\n    <Button size=\\\"sm\\\" variant=\\\"ghost\\\">Go</Button>\\n  </InputGroupAddon>\\n</InputGroup>\",\n      \"description\": \"Leading icon is decorative; the trailing button is the pseudo action indicator.\"\n    },\n    {\n      \"title\": \"Numeric input with currency suffix\",\n      \"code\": \"<InputGroup>\\n  <Input aria-label=\\\"Amount\\\" type=\\\"number\\\" defaultValue=\\\"10\\\" />\\n  <InputGroupAddon side=\\\"right\\\" variant=\\\"muted\\\">PLN</InputGroupAddon>\\n</InputGroup>\",\n      \"description\": \"The unit sits flush right; the outline communicates editability.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't give nested inputs their own border\",\n      \"explanation\": \"The group's outer border is the control outline. Inner borders create double lines and break the flush-addon look — strip them with the group (built in) or avoid nesting a bordered Input.\",\n      \"example\": \"// Avoid: bordered input inside a bordered group\\n<InputGroup><Input className=\\\"border\\\" /></InputGroup>\\n\\n// Prefer: let InputGroup strip the chrome\\n<InputGroup><Input /></InputGroup>\"\n    },\n    {\n      \"title\": \"Don't nest interactive elements without labels\",\n      \"explanation\": \"Addon buttons live inside the field's focus-within region; they still need accessible names and must not steal the field's label association.\",\n      \"example\": \"// Avoid\\n<InputGroupAddon side=\\\"right\\\"><button>×</button></InputGroupAddon>\\n\\n// Prefer\\n<InputGroupAddon side=\\\"right\\\">\\n  <Button aria-label=\\\"Clear input\\\" variant=\\\"ghost\\\">×</Button>\\n</InputGroupAddon>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Single focus stop\",\n      \"implementation\": \"Focus ring renders on the group via focus-within; nested inputs keep keyboard focus and their label association (htmlFor/id still targets the input)\",\n      \"userRequirements\": \"Label the INPUT (FormField/Input aria-label), not the group\"\n    },\n    {\n      \"feature\": \"Decorative affixes\",\n      \"implementation\": \"Purely decorative icons/text in addons should carry aria-hidden or the input's aria-label should include the unit\",\n      \"userRequirements\": \"Mark decorative addons aria-hidden; name units the field's accessible name when they change meaning (e.g. aria-label=\\\"Amount in PLN\\\")\"\n    },\n    {\n      \"feature\": \"Disabled state\",\n      \"implementation\": \"Nested input's disabled styling applies; addons are independent — disable buttons inside them yourself\",\n      \"userRequirements\": \"Disable addon buttons when the field is disabled\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Addon text\",\n      \"guidelines\": [\n        \"Keep affixes short (units, schemes, TLDs)\",\n        \"Use the same casing the user would type\",\n        \"Prefer icons for actions, text for value parts\"\n      ],\n      \"goodExamples\": [\"https://\", \".com\", \"PLN\", \"/month\"],\n      \"badExamples\": [\"Enter the protocol here\", \"domain suffix\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Input / Textarea / Select\",\n      \"relationship\": \"The nested field is the editable region; InputGroup strips its border/ring automatically\",\n      \"example\": \"<InputGroup><InputGroupAddon side=\\\"left\\\">@</InputGroupAddon><Input /></InputGroup>\"\n    },\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"Wrap the whole group when it needs a persistent label or error\",\n      \"example\": \"<FormField label=\\\"Search\\\"><InputGroup>…</InputGroup></FormField>\"\n    },\n    {\n      \"component\": \"Button\",\n      \"relationship\": \"Buttons inside addons are the action affordance — ghost/variant='ghost' keeps the flush look\",\n      \"example\": \"<InputGroupAddon side=\\\"right\\\"><Button size=\\\"sm\\\">Go</Button></InputGroupAddon>\"\n    }\n  ],\n  \"relatedComponents\": [\"Input\", \"FormField\", \"Search\", \"Button\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"input-group\",\n  \"exportName\": \"InputGroup\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -46,6 +46,10 @@ export type RadioGroupProps = {
   defaultValue?: string;
   /** Called with the newly selected value. */
   onValueChange?: (value: string) => void;
+  /** Stack options (default) or lay them out in a wrapping row. */
+  orientation?: 'vertical' | 'horizontal';
+  /** Group-level validation message; announced via role=alert. */
+  error?: string;
   className?: string;
   children: React.ReactNode;
 };
@@ -56,7 +60,7 @@ export type RadioGroupProps = {
  * group context alongside each option.
  */
 const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(
-  ({ name, legend, value, defaultValue, onValueChange, className, children }, ref) => {
+  ({ name, legend, value, defaultValue, onValueChange, orientation = 'vertical', error, className, children }, ref) => {
     const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');
     const currentValue = value ?? internalValue;
 
@@ -66,11 +70,22 @@ const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(
     };
 
     return (
-      <fieldset ref={ref} className={cn('space-y-2', className)}>
+      <fieldset
+        ref={ref}
+        className={cn(
+          orientation === 'vertical' ? 'space-y-2' : 'flex flex-row flex-wrap gap-x-4 gap-y-2',
+          className
+        )}
+      >
         {legend && <legend className="text-sm font-medium">{legend}</legend>}
         <RadioGroupContext.Provider value={{ name, value: currentValue, onChange: handleChange }}>
           {children}
         </RadioGroupContext.Provider>
+        {error && (
+          <p role="alert" className="text-xs text-destructive">
+            {error}
+          </p>
+        )}
       </fieldset>
     );
   }
