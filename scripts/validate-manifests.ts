@@ -295,8 +295,12 @@ function validateManifest(manifest: unknown, filePath: string, packageDir: strin
   }
 
   // Registry-installation invariants (mirrors scripts/generate-registry.ts).
-  const sourceDir = isNonEmptyString(manifest.sourceDir) ? manifest.sourceDir : manifest.id;
-  if (isNonEmptyString(manifest.id)) {
+  const sourceDir = isNonEmptyString(manifest.sourceDir)
+    ? manifest.sourceDir
+    : isNonEmptyString(manifest.id)
+      ? manifest.id
+      : undefined;
+  if (sourceDir !== undefined && isNonEmptyString(manifest.id)) {
     checkSourceDirectory(packageDir, sourceDir, errors);
     if (isNonEmptyString(manifest.exportName)) {
       checkExportName(packageDir, sourceDir, manifest.exportName, errors);

@@ -11,6 +11,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Introduction', href: '/docs', content: 'what makes slipstream different component manifest AI-first agents', group: 'Getting Started' },
   { title: 'Installation', href: '/docs/installation', content: 'install setup npx init pnpm add core ai quick start shadcn registry', group: 'Getting Started' },
   { title: 'Theming', href: '/docs/theming', content: 'css variables createTheme presets dark mode violet zinc colors radius switcher', group: 'Getting Started' },
+  { title: 'Roadmap', href: '/docs/roadmap', content: 'roadmap 1.0 stability guarantees release plan deprecation policy targets', group: 'Getting Started' },
   { title: 'COMPONENT_MANIFEST', href: '/docs/ai-manifests', content: 'manifest schema props anti-patterns accessibility composition rules json spec', group: 'AI-First' },
   { title: 'CLI', href: '/docs/cli', content: 'slipstream-ui init add list diff command terminal detection outdated', group: 'AI-First' },
   { title: 'Patterns', href: '/docs/patterns', content: 'recipes chat interface agent activity composed examples', group: 'AI-First' },

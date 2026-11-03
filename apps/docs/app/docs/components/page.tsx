@@ -1,91 +1,116 @@
 import type { Metadata } from 'next';
+import fs from 'node:fs';
+import path from 'node:path';
 import Link from 'next/link';
 import { COMPONENT_COUNT } from '@/lib/component-count';
+import { NAV_SECTIONS, type NavItem } from '@/lib/nav';
 
 export const metadata: Metadata = {
   title: 'Components',
   description: `Browse all ${COMPONENT_COUNT} Slipstream UI components — core atoms and AI interaction molecules — with documentation, live demos, props, and accessibility notes.`,
 };
 
-export default function ComponentsOverviewPage() {
-  const coreComponents = [
-    { name: 'Button', id: 'button', tier: 'atom', description: 'Clickable button with variants' },
-    { name: 'Input', id: 'input', tier: 'atom', description: 'Text input with HTML input support' },
-    { name: 'Badge', id: 'badge', tier: 'atom', description: 'Status indicator for tags and counts' },
-    { name: 'Avatar', id: 'avatar', tier: 'atom', description: 'User profile image with fallback' },
-    { name: 'Spinner', id: 'spinner', tier: 'atom', description: 'Accessible loading indicator' },
-  ];
+interface RegistryEntry {
+  tier?: string;
+  description?: string;
+}
 
-  const aiComponents = [
-    { name: 'Message', id: 'message', tier: 'molecule', description: 'Chat message with role styling, streaming, and custom rendering' },
-    { name: 'Response', id: 'response', tier: 'molecule', description: 'Streaming-safe markdown renderer' },
-    { name: 'CodeBlock', id: 'code-block', tier: 'atom', description: 'Highlighted code with copy button' },
-    { name: 'Conversation', id: 'conversation', tier: 'organism', description: 'Message list with auto-scroll' },
-    { name: 'PromptInput', id: 'prompt-input', tier: 'molecule', description: 'Chat input with auto-resize and stop-generation' },
-    { name: 'Reasoning', id: 'reasoning', tier: 'molecule', description: 'AI reasoning steps display' },
-    { name: 'ToolCall', id: 'tool-call', tier: 'molecule', description: 'Tool call status, results, and errors' },
-    { name: 'Confirmation', id: 'confirmation', tier: 'molecule', description: 'Human-in-the-loop approval gate' },
-    { name: 'Sources', id: 'sources', tier: 'molecule', description: 'Citations and references for AI responses' },
-    { name: 'InlineCitation', id: 'inline-citation', tier: 'atom', description: 'Inline hover-citation chip' },
-    { name: 'Suggestions', id: 'suggestions', tier: 'molecule', description: 'Clickable follow-up prompts' },
-    { name: 'ChainThought', id: 'chain-thought', tier: 'molecule', description: 'Ordered agent reasoning steps' },
-    { name: 'StreamingIndicator', id: 'streaming-indicator', tier: 'atom', description: 'Streaming and generating state' },
-    { name: 'Branch', id: 'branch', tier: 'atom', description: 'Variant navigation for branched messages' },
-    { name: 'Attachment', id: 'attachment', tier: 'molecule', description: 'File chips with upload status and remove actions' },
-    { name: 'MessageActions', id: 'message-actions', tier: 'atom', description: 'Copy, feedback ratings, and regenerate toolbar' },
-  ];
+/**
+ * Registry index read at build/render time so cards can show tier +
+ * description without shipping the whole registry to the client. Falls
+ * back to name-only cards if the generated file is missing.
+ */
+function loadRegistryIndex(): Record<string, RegistryEntry> {
+  try {
+    const file = path.join(process.cwd(), 'public', 'registry', 'all.json');
+    const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as {
+      components?: { id: string; tier?: string; description?: string }[];
+    };
+    return Object.fromEntries(
+      (parsed.components ?? []).map((component) => [
+        component.id,
+        { tier: component.tier, description: component.description },
+      ])
+    );
+  } catch {
+    return {};
+  }
+}
+
+function idFromHref(href: string): string {
+  return href.slice(href.lastIndexOf('/') + 1);
+}
+
+export default function ComponentsOverviewPage() {
+  const registry = loadRegistryIndex();
+  const section = NAV_SECTIONS.find((s) => s.title === 'Components');
+  const overview: NavItem | undefined = section?.items?.[0];
+  const groups = section?.groups ?? [];
+
+  const renderCard = (item: NavItem) => {
+    const entry = registry[idFromHref(item.href)];
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        className="block rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="font-semibold">{item.label}</h3>
+          {entry?.tier && (
+            <span className="shrink-0 rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+              {entry.tier}
+            </span>
+          )}
+        </div>
+        {entry?.description && (
+          <p className="mt-1 text-sm text-muted-foreground">{entry.description}</p>
+        )}
+      </Link>
+    );
+  };
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-6">Components</h1>
-      <p className="text-lg text-muted-foreground mb-8">
-        Explore all available Slipstream UI components with their documentation and examples.
+      <h1 className="text-4xl font-bold mb-3">Components</h1>
+      <p className="text-lg text-muted-foreground mb-2">
+        All {COMPONENT_COUNT} components, grouped the same way as the sidebar. Every page carries a
+        live playground, props table, anti-patterns pulled from the manifest, accessibility notes,
+        and a browser-support table.
+      </p>
+      <p className="text-sm text-muted-foreground mb-8">
+        Install any of them via{' '}
+        <code className="bg-muted px-2 py-1 rounded">npx slipstream-ui add &lt;id&gt;</code> or the{' '}
+        <Link href="/docs/installation" className="text-primary hover:underline">
+          shadcn-compatible registry
+        </Link>
+        .
       </p>
 
-      <div className="space-y-12">
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Core Components</h2>
-          <p className="text-muted-foreground mb-6">
-            Base UI components (atoms and molecules) from <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/core</code>
-          </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {coreComponents.map((component) => (
-              <Link
-                key={component.id}
-                href={`/docs/components/${component.id}`}
-                className="block p-4 border rounded-lg hover:border-primary transition-colors"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold">{component.name}</h3>
-                  <span className="text-xs bg-muted px-2 py-1 rounded">{component.tier}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">{component.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+      {overview && (
+        <div className="mb-8">
+          <Link
+            href={overview.href}
+            className="block rounded-lg border border-primary/40 bg-primary/5 p-4 transition-all hover:bg-primary/10"
+          >
+            <h2 className="font-semibold">{overview.label}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Gallery overview with install paths and tier notes for every group below.
+            </p>
+          </Link>
+        </div>
+      )}
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">AI Components</h2>
-          <p className="text-muted-foreground mb-6">
-            AI interaction components from <code className="bg-muted px-2 py-1 rounded">@slipstream-ui/ai</code>
-          </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {aiComponents.map((component) => (
-              <Link
-                key={component.id}
-                href={`/docs/components/${component.id}`}
-                className="block p-4 border rounded-lg hover:border-primary transition-colors"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold">{component.name}</h3>
-                  <span className="text-xs bg-muted px-2 py-1 rounded">{component.tier}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">{component.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+      <div className="space-y-10">
+        {groups.map((group) => (
+          <section key={group.title}>
+            <h2 className="text-2xl font-semibold mb-1">{group.title}</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              {group.items.length} component{group.items.length === 1 ? '' : 's'}
+            </p>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{group.items.map(renderCard)}</div>
+          </section>
+        ))}
       </div>
     </div>
   );

@@ -188,25 +188,6 @@ function loadManifests(dir: string): { manifest: Record<string, unknown>; file: 
     }));
 }
 
-function findSourceFile(sourceDir: string, exportName: string): string | undefined {
-  // Prefer the exact component file, then any non-barrel .tsx, then barrels.
-  const exact = [`${exportName}.tsx`, `${exportName}.ts`];
-  for (const candidate of exact) {
-    const filePath = path.join(sourceDir, candidate);
-    if (fs.existsSync(filePath)) return filePath;
-  }
-  const components = fs
-    .readdirSync(sourceDir)
-    .filter((f) => (f.endsWith('.tsx') || f.endsWith('.ts')) && !f.startsWith('index.') && !f.includes('.test.'));
-  if (components.length > 0) return path.join(sourceDir, components[0]);
-  // Barrel fallback.
-  for (const candidate of ['index.tsx', 'index.ts']) {
-    const filePath = path.join(sourceDir, candidate);
-    if (fs.existsSync(filePath)) return filePath;
-  }
-  return undefined;
-}
-
 function main(): void {
   const drifts: Drift[] = [];
 

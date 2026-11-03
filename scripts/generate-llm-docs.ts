@@ -25,7 +25,51 @@ const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'llm');
 const LLMS_ROOT_PATH = path.join(ROOT, 'llms.txt');
 const LLMS_PUBLIC_PATH = path.join(ROOT, 'apps', 'docs', 'public', 'llms.txt');
 
-function loadManifests() {
+/** Loose structural types for the manifest fields this script renders. */
+interface ManifestProp {
+  name: string;
+  type: string;
+  defaultValue?: unknown;
+  required?: boolean;
+  description?: string;
+}
+interface ManifestExample {
+  title: string;
+  description?: string;
+  code: string;
+}
+interface ManifestAntiPattern {
+  title: string;
+  explanation: string;
+  example?: string;
+}
+interface ManifestAccessibility {
+  feature: string;
+  implementation: string;
+}
+interface ManifestCompositionRule {
+  component: string;
+  relationship: string;
+  example?: string;
+}
+interface Manifest {
+  id: string;
+  name: string;
+  description: string;
+  designIntent: string;
+  tier: string;
+  package: string;
+  importPath: string;
+  exportName?: string;
+  props?: ManifestProp[];
+  examples?: ManifestExample[];
+  antiPatterns?: ManifestAntiPattern[];
+  accessibility?: ManifestAccessibility[];
+  compositionRules?: ManifestCompositionRule[];
+  relatedComponents?: string[];
+}
+
+function loadManifests(): Manifest[] {
   const dirs = [
     path.join(ROOT, 'packages', 'core', 'src', 'manifests'),
     path.join(ROOT, 'packages', 'ai', 'src', 'manifests'),
@@ -41,7 +85,7 @@ function loadManifests() {
     .sort((a, b) => a.id.localeCompare(b.id));
 }
 
-function propTable(props = []) {
+function propTable(props: ManifestProp[] = []) {
   if (props.length === 0) return '_No public props._\n';
   const rows = props.map((prop) => {
     const required = prop.required ? 'yes' : 'no';
@@ -51,7 +95,7 @@ function propTable(props = []) {
   return ['| Prop | Type | Default | Required | Description |', '|---|---|---|---|---|', ...rows].join('\n') + '\n';
 }
 
-function examplesSection(examples = []) {
+function examplesSection(examples: ManifestExample[] = []) {
   if (examples.length === 0) return '';
   return (
     '## Examples\n\n' +
@@ -62,7 +106,7 @@ function examplesSection(examples = []) {
   );
 }
 
-function antiPatternsSection(antiPatterns = []) {
+function antiPatternsSection(antiPatterns: ManifestAntiPattern[] = []) {
   if (antiPatterns.length === 0) return '';
   return (
     '## Anti-patterns\n\n' +
@@ -71,7 +115,7 @@ function antiPatternsSection(antiPatterns = []) {
   );
 }
 
-function accessibilitySection(requirements = []) {
+function accessibilitySection(requirements: ManifestAccessibility[] = []) {
   if (requirements.length === 0) return '';
   return (
     '## Accessibility\n\n' +
@@ -80,7 +124,7 @@ function accessibilitySection(requirements = []) {
   );
 }
 
-function compositionSection(rules = [], related = []) {
+function compositionSection(rules: ManifestCompositionRule[] = [], related: string[] = []) {
   if (rules.length === 0 && related.length === 0) return '';
   let out = '## Composition\n\n';
   for (const rule of rules) {
@@ -91,7 +135,7 @@ function compositionSection(rules = [], related = []) {
   return out + '\n';
 }
 
-function componentToMarkdown(manifest) {
+function componentToMarkdown(manifest: Manifest) {
   return [
     `# ${manifest.name}`,
     '',
@@ -120,7 +164,7 @@ function componentToMarkdown(manifest) {
  * Fails loudly if markers are missing so a renamed/removed block can never
  * silently ship a stale component list.
  */
-function replaceMarkerBlock(content, marker, replacement) {
+function replaceMarkerBlock(content: string, marker: string, replacement: string) {
   const start = `<!-- generated:${marker}:start -->`;
   const end = `<!-- generated:${marker}:end -->`;
   const startIndex = content.indexOf(start);
@@ -151,7 +195,7 @@ function main() {
 
   const coreList = manifests.filter((m) => m.package === '@slipstream-ui/core');
   const aiList = manifests.filter((m) => m.package === '@slipstream-ui/ai');
-  const listItems = (list) =>
+  const listItems = (list: Manifest[]) =>
     list.map((m) => `- [${m.name}](https://slipstreamui.com/llm/components/${m.id}.md) — ${m.description}`).join('\n');
 
   const index = `# Slipstream UI — LLM Documentation Index
@@ -198,7 +242,7 @@ export const AI_COMPONENT_COUNT = ${aiList.length};
     throw new Error(`llms.txt not found at ${LLMS_ROOT_PATH}`);
   }
   const rootLlms = fs.readFileSync(LLMS_ROOT_PATH, 'utf8');
-  const bulletList = (list) =>
+  const bulletList = (list: Manifest[]) =>
     list.map((m) => `- ${m.name} — ${m.description}`).join('\n');
 
   let updated = replaceMarkerBlock(
