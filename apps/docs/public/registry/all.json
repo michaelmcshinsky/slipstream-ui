@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "2803b72",
-  "count": 59,
+  "sourceRevision": "559d7bc",
+  "count": 66,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -22,6 +22,14 @@
       "registry": "/registry/alert.json"
     },
     {
+      "id": "app-shell",
+      "name": "AppShell",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "registry": "/registry/app-shell.json"
+    },
+    {
       "id": "attachment",
       "name": "Attachment / AttachmentList",
       "package": "@slipstream-ui/ai",
@@ -30,11 +38,19 @@
       "registry": "/registry/attachment.json"
     },
     {
+      "id": "auth-layout",
+      "name": "AuthLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "registry": "/registry/auth-layout.json"
+    },
+    {
       "id": "autocomplete",
       "name": "Autocomplete",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.",
+      "description": "Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
       "registry": "/registry/autocomplete.json"
     },
     {
@@ -174,12 +190,28 @@
       "registry": "/registry/drawer.json"
     },
     {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
+      "registry": "/registry/empty-state.json"
+    },
+    {
       "id": "fieldset",
       "name": "Fieldset",
       "package": "@slipstream-ui/core",
       "tier": "atom",
       "description": "Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
       "registry": "/registry/fieldset.json"
+    },
+    {
+      "id": "filter-bar",
+      "name": "FilterBar",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "List-page filter strip: search field, filter controls, reset affordance and trailing actions.",
+      "registry": "/registry/filter-bar.json"
     },
     {
       "id": "flex",
@@ -294,12 +326,36 @@
       "registry": "/registry/message-actions.json"
     },
     {
+      "id": "metric-card",
+      "name": "MetricCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "KPI tile: label, value, directional delta (arrow + color) and supporting hint.",
+      "registry": "/registry/metric-card.json"
+    },
+    {
+      "id": "page-header",
+      "name": "PageHeader",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.",
+      "registry": "/registry/page-header.json"
+    },
+    {
       "id": "pagination",
       "name": "Pagination",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
       "registry": "/registry/pagination.json"
+    },
+    {
+      "id": "password-input",
+      "name": "PasswordInput",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Password field with an accessible show/hide toggle (aria-pressed), built on Input.",
+      "registry": "/registry/password-input.json"
     },
     {
       "id": "popover",
@@ -362,7 +418,7 @@
       "name": "Select",
       "package": "@slipstream-ui/core",
       "tier": "atom",
-      "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+      "description": "Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.",
       "registry": "/registry/select.json"
     },
     {

@@ -1,0 +1,100 @@
+{
+  "id": "filter-bar",
+  "name": "FilterBar",
+  "tier": "molecule",
+  "description": "List-page filter strip: search field, filter controls, reset affordance and trailing actions.",
+  "designIntent": "Filter rows drift: some pages wrap, some scroll, resets appear inconsistently. FilterBar fixes the order (search → filters → reset → trailing) and keeps the strip compact on narrow screens.",
+  "props": [
+    {
+      "name": "searchValue",
+      "type": "string",
+      "required": false,
+      "description": "Controlled search text."
+    },
+    {
+      "name": "onSearchChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fires on each keystroke; hides the search box when omitted."
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Search…",
+      "description": "Search input placeholder (also its accessible name)."
+    },
+    {
+      "name": "onReset",
+      "type": "() => void",
+      "required": false,
+      "description": "Shows a reset button when provided."
+    },
+    {
+      "name": "activeCount",
+      "type": "number",
+      "required": false,
+      "defaultValue": "0",
+      "description": "Active filter count appended to the reset label."
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Far-right actions (bulk actions, column settings)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "List filters",
+      "code": "<FilterBar\n  searchValue={query}\n  onSearchChange={setQuery}\n  searchPlaceholder=\"Search students\"\n  onReset={resetFilters}\n  activeCount={activeFilters}\n>\n  <Select label=\"Status\" options={statusOptions} />\n</FilterBar>",
+      "description": "Search, filters, reset and count in one strip."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put the primary action in the bar",
+      "explanation": "FilterBar is for narrowing; creation actions belong in PageHeader actions.",
+      "example": "// Avoid\n<FilterBar trailing={<Button>New class</Button>} />\n\n// Prefer\n<PageHeader actions={<Button>New class</Button>} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Search landmark",
+      "implementation": "Wraps controls in role=search; the search input is labelled by its placeholder",
+      "userRequirements": "Provide a descriptive placeholder"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Placeholder",
+      "guidelines": [
+        "Name the collection being searched"
+      ],
+      "goodExamples": [
+        "Search students"
+      ],
+      "badExamples": [
+        "Search…"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Select",
+      "relationship": "Filter controls render in children",
+      "example": "<FilterBar><Select … /></FilterBar>"
+    }
+  ],
+  "relatedComponents": [
+    "DataTable",
+    "Select",
+    "Input",
+    "PageHeader"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "filter-bar",
+  "exportName": "FilterBar"
+}

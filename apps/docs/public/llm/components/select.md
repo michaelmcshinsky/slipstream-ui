@@ -1,6 +1,6 @@
 # Select
 
-Accessible select primitive built on the native select element with controlled and uncontrolled modes
+Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 
 > Import: `import { Select } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/select.json
@@ -8,19 +8,51 @@ Accessible select primitive built on the native select element with controlled a
 
 ## Design intent
 
-Most dropdown needs are satisfied by the platform select: it brings complete keyboard, screen-reader and mobile behavior for free and never strands focus. This primitive adds consistent styling and a typed options API without re-implementing a listbox.
+Native selects keep platform keyboard, mobile picker and screen-reader behavior for free. Groups cover coarse categorization, placeholder renders the 'choose one' affordance, and multiple switches the contract to string[] for tag-picker use cases without reimplementing a listbox.
 
 ## Props
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| options | `SelectOption[]` | — | yes | Options to render; each is { value, label, disabled? } |
+| options | `SelectOption[]` | — | no | Flat options ({ value, label, disabled? }). Ignored when groups is provided. |
 | label | `string` | — | no | Visible label rendered and associated via htmlFor/aria |
-| value | `string` | — | no | Controlled selected value |
-| defaultValue | `string` | — | no | Uncontrolled initial value |
-| onChange | `(value: string) => void` | — | no | Called with the newly selected value |
+| value | `string | string[]` | — | no | Controlled value (string, or string[] when multiple). |
+| defaultValue | `string | string[]` | — | no | Initial value when uncontrolled. |
+| onChange | `(value: string | string[]) => void` | — | no | Fired with the new value; string[] when multiple. |
+| groups | `SelectOptionGroup[]` | — | no | Optgroups: [{ label, options }] rendered with a heading per section. |
+| placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
+| multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue/onChange switch to string[]. |
 
 ## Examples
+
+### Grouped options
+
+Optgroups with a placeholder row.
+
+```tsx
+<Select
+  label="Plan"
+  placeholder="Choose a plan"
+  groups={[
+    { label: 'Individual', options: [{ value: 'free', label: 'Free' }] },
+    { label: 'Business', options: [{ value: 'team', label: 'Team' }] },
+  ]}
+/>
+```
+
+### Multi-select
+
+Native listbox with a string[] contract.
+
+```tsx
+<Select
+  label="Channels"
+  multiple
+  value={channels}
+  onChange={setChannels}
+  options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}
+/>
+```
 
 ### Controlled select
 

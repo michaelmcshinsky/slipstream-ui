@@ -81,6 +81,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/flex', label: 'Flex' },
           { href: '/docs/components/grid', label: 'Grid' },
           { href: '/docs/components/block', label: 'Block' },
+          { href: '/docs/components/page-header', label: 'PageHeader' },
+          { href: '/docs/components/auth-layout', label: 'AuthLayout' },
         ],
       },
       {
@@ -88,6 +90,7 @@ export const NAV_SECTIONS: NavSection[] = [
         items: [
           { href: '/docs/components/input', label: 'Input' },
           { href: '/docs/components/input-group', label: 'InputGroup' },
+          { href: '/docs/components/password-input', label: 'PasswordInput' },
           { href: '/docs/components/textarea', label: 'Textarea' },
           { href: '/docs/components/label', label: 'Label' },
           { href: '/docs/components/form-field', label: 'FormField' },
@@ -121,6 +124,9 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/avatar', label: 'Avatar' },
           { href: '/docs/components/card', label: 'Card' },
           { href: '/docs/components/list', label: 'List' },
+          { href: '/docs/components/empty-state', label: 'EmptyState' },
+          { href: '/docs/components/metric-card', label: 'MetricCard' },
+          { href: '/docs/components/filter-bar', label: 'FilterBar' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },
           { href: '/docs/components/separator', label: 'Separator' },
@@ -138,6 +144,7 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         title: 'Navigation & disclosure',
         items: [
+          { href: '/docs/components/app-shell', label: 'AppShell' },
           { href: '/docs/components/breadcrumb', label: 'Breadcrumb' },
           { href: '/docs/components/pagination', label: 'Pagination' },
           { href: '/docs/components/tabs', label: 'Tabs' },

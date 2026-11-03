@@ -1,17 +1,19 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 59 components, each shipping a
+The AI-first React component library. 66 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 42
+## Core components (@slipstream-ui/core) — 49
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
-- [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.
+- [AppShell](https://slipstreamui.com/llm/components/app-shell.md) — Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
+- [AuthLayout](https://slipstreamui.com/llm/components/auth-layout.md) — Centered authentication surface: brand, title/description, form card and footer, with size presets.
+- [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
 - [Badge](https://slipstreamui.com/llm/components/badge.md) — A small status indicator component for displaying tags, counts, or status information
 - [Block](https://slipstreamui.com/llm/components/block.md) — Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
@@ -23,7 +25,9 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
+- [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
+- [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
 - [Flex / FlexItem](https://slipstreamui.com/llm/components/flex.md) — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 - [Form](https://slipstreamui.com/llm/components/form.md) — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 - [FormField](https://slipstreamui.com/llm/components/form-field.md) — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
@@ -35,12 +39,15 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
+- [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next, ellipsis, and aria-current on the active page
+- [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 - [Search](https://slipstreamui.com/llm/components/search.md) — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
-- [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select primitive built on the native select element with controlled and uncontrolled modes
+- [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
