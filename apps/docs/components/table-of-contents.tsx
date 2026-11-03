@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
-interface Heading {
+type Heading = {
   id: string;
   text: string;
   level: number;
-}
+};
 
 /**
  * Sticky right-sidebar table of contents. Scans the main content area for

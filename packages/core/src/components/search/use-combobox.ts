@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-export interface ComboboxItem {
+export type ComboboxItem = {
   value: string;
   label: string;
-}
+};
 
-interface UseComboboxOptions {
+type UseComboboxOptions = {
   /** Currently visible items (already filtered by the query). */
   items: ComboboxItem[];
   /** Called with the chosen item (mouse or Enter). */
@@ -14,9 +14,9 @@ interface UseComboboxOptions {
   onOpenChange?: (open: boolean) => void;
   /** Close when the value is submitted with no active item (Enter). Default true. */
   closeOnSubmit?: boolean;
-}
+};
 
-interface UseComboboxResult {
+type UseComboboxResult = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeIndex: number;
@@ -41,7 +41,7 @@ interface UseComboboxResult {
   ready: boolean;
   /** Fixed viewport coordinates for the listbox. */
   pos: { top: number; left: number; width: number } | null;
-}
+};
 
 let searchUid = 0;
 

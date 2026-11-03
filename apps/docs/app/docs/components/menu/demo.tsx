@@ -36,7 +36,7 @@ export default function MenuPage() {
         }
         code={"import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Menu>\n          <MenuTrigger>Options</MenuTrigger>\n          <MenuContent>\n            <MenuLabel>Actions</MenuLabel>\n            <MenuItem>Profile</MenuItem>\n            <MenuItem>Settings</MenuItem>\n            <MenuSeparator />\n            <MenuItem destructive>Sign out</MenuItem>\n          </MenuContent>\n        </Menu>\n    </>\n  );\n}"}
         usage={"import { Menu } from '@slipstream-ui/core';\n\n// Basic usage\n<Menu />"}
-        types={"interface MenuProps {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n}"}
+        types={"type MenuProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n};"}
       />
 
       <DemoCard

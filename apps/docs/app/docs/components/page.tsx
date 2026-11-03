@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   description: `Browse all ${COMPONENT_COUNT} Slipstream UI components — core atoms and AI interaction molecules — with documentation, live demos, props, and accessibility notes.`,
 };
 
-interface RegistryEntry {
+type RegistryEntry = {
   tier?: string;
   description?: string;
-}
+};
 
 /**
  * Registry index read at build/render time so cards can show tier +

@@ -7,7 +7,7 @@ import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
 import { getNeighbors, FLAT_NAV } from '@/lib/nav';
 
-export interface ComponentPageProps {
+export type ComponentPageProps = {
   /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
   id: string;
   /**
@@ -25,7 +25,7 @@ export interface ComponentPageProps {
   accessibility?: string[];
   /** Component-specific browser/progressive-enhancement notes. */
   browserNotes?: string[];
-}
+};
 
 /**
  * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json — only the

@@ -31,10 +31,10 @@ export const errors = {
 // Envelope
 // ---------------------------------------------------------------------------
 
-export interface RequestMeta {
+export type RequestMeta = {
   requestId: string;
   [key: string]: unknown;
-}
+};
 
 function baseHeaders(requestId?: string): Record<string, string> {
   const headers: Record<string, string> = {
@@ -151,11 +151,11 @@ export function paginationSchema(defaultLimit = 25, maxLimit = 100) {
   });
 }
 
-export interface PaginatedMeta {
+export type PaginatedMeta = {
   limit: number;
   nextCursor?: string;
   hasMore: boolean;
-}
+};
 
 /**
  * Applies cursor pagination to any prisma findMany argument list and builds
@@ -198,9 +198,9 @@ export function decodeCursor(cursor?: string): string | undefined {
 // Rate limiting (per-identity sliding window)
 // ---------------------------------------------------------------------------
 
-interface Bucket {
+type Bucket = {
   timestamps: number[];
-}
+};
 
 const buckets = new Map<string, Bucket>();
 
@@ -215,20 +215,20 @@ function prune(now: number, windowMs: number) {
   }
 }
 
-export interface RateLimitOptions {
+export type RateLimitOptions = {
   /** Unique bucket key, usually `${identity}:${routeName}` or an IP. */
   key: string;
   /** Max requests inside the window. */
   limit: number;
   /** Window length in milliseconds. */
   windowMs: number;
-}
+};
 
-export interface RateLimitResult {
+export type RateLimitResult = {
   allowed: boolean;
   remaining: number;
   retryAfterSeconds: number;
-}
+};
 
 /**
  * In-memory sliding-window limiter — zero-dependency and correct for a single

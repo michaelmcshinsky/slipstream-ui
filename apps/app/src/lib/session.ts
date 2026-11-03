@@ -5,12 +5,12 @@ import { generateToken, hashToken } from './tokens';
 export const SESSION_COOKIE = 'slipstream_session';
 const SESSION_TTL_DAYS = 30;
 
-export interface SafeUser {
+export type SafeUser = {
   id: string;
   email: string;
   name: string | null;
   role: string;
-}
+};
 
 function toSafeUser(user: User): SafeUser {
   return { id: user.id, email: user.email, name: user.name, role: user.role };

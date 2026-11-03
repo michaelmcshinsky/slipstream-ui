@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
   /** Controlled checked state; omit for uncontrolled usage. */
   checked?: boolean;
   /** Fired when the user toggles the checkbox. */
   onCheckedChange?: (checked: boolean) => void;
-}
+};
 
 /**
  * Accessible checkbox built on the native input: keyboard, form, and

@@ -11,7 +11,7 @@ import { prisma } from '@slipstream-ui/db';
 
 export type EmailKind = 'password_reset' | 'invite' | 'email_verify';
 
-export interface OutboundEmail {
+export type OutboundEmail = {
   to: string;
   kind: EmailKind;
   subject: string;
@@ -21,12 +21,12 @@ export interface OutboundEmail {
   token?: string;
   /** Hash of the token for dedup/audit. */
   tokenHash?: string;
-}
+};
 
-export interface EmailTransport {
+export type EmailTransport = {
   name: string;
   send(email: OutboundEmail): Promise<void>;
-}
+};
 
 const MAX_DELIVERY_ATTEMPTS = 3;
 

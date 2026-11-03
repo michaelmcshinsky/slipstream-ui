@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     'Full recipes for AI product surfaces built with Slipstream UI: streaming chat, tool-calling UI, RAG citations, human-in-the-loop approval, and multi-branch conversations.',
 };
 
-interface Recipe {
+type Recipe = {
   id: string;
   title: string;
   description: string;
   components: string[];
   code: string;
-}
+};
 
 const recipes: Recipe[] = [
   {

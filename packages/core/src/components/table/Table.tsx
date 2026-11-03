@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {}
+export type TableProps = React.HTMLAttributes<HTMLTableElement>;
 
 /** Semantic table wrapper with consistent borders and striping. */
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
@@ -17,7 +17,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
 );
 Table.displayName = 'Table';
 
-export interface TableHeaderProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export type TableHeaderProps = React.HTMLAttributes<HTMLTableSectionElement>;
 
 /** Groups the header row(s). */
 const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
@@ -27,7 +27,7 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
 );
 TableHeader.displayName = 'TableHeader';
 
-export interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement>;
 
 /** Groups the body row(s). */
 const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
@@ -37,7 +37,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
 );
 TableBody.displayName = 'TableBody';
 
-export interface TableFooterProps extends React.HTMLAttributes<HTMLTableSectionElement> {}
+export type TableFooterProps = React.HTMLAttributes<HTMLTableSectionElement>;
 
 /** Groups the footer row(s) for summary content. */
 const TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(
@@ -51,7 +51,7 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(
 );
 TableFooter.displayName = 'TableFooter';
 
-export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {}
+export type TableRowProps = React.HTMLAttributes<HTMLTableRowElement>;
 
 /** A table row. */
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
@@ -68,7 +68,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
 );
 TableRow.displayName = 'TableRow';
 
-export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {}
+export type TableHeadProps = React.ThHTMLAttributes<HTMLTableCellElement>;
 
 /** A header cell. */
 const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
@@ -86,7 +86,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
 );
 TableHead.displayName = 'TableHead';
 
-export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {}
+export type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement>;
 
 /** A data cell. */
 const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
@@ -96,7 +96,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
 );
 TableCell.displayName = 'TableCell';
 
-export interface TableCaptionProps extends React.HTMLAttributes<HTMLTableCaptionElement> {}
+export type TableCaptionProps = React.HTMLAttributes<HTMLTableCaptionElement>;
 
 /** Accessible caption describing the table's contents. */
 const TableCaption = React.forwardRef<HTMLTableCaptionElement, TableCaptionProps>(

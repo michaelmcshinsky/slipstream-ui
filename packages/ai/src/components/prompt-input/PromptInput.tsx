@@ -10,7 +10,7 @@ import type { AttachmentItem } from '../attachment';
 // Attachments hook: validation + state, reusable outside the input.
 // ---------------------------------------------------------------------------
 
-export interface UseAttachmentsOptions {
+export type UseAttachmentsOptions = {
   /** File types to accept, e.g. "image/*" (HTML accept syntax). */
   accept?: string;
   /** Maximum number of queued files. */
@@ -19,9 +19,9 @@ export interface UseAttachmentsOptions {
   maxFileSize?: number;
   multiple?: boolean;
   onError?: (error: { code: 'max_files' | 'max_file_size' | 'accept'; message: string }) => void;
-}
+};
 
-export interface UseAttachmentsResult {
+export type UseAttachmentsResult = {
   files: AttachmentItem[];
   add: (fileList: FileList | File[]) => void;
   remove: (id: string) => void;
@@ -29,7 +29,7 @@ export interface UseAttachmentsResult {
   openFileDialog: () => void;
   /** Hidden file input element; render it once somewhere in your tree. */
   input: React.ReactElement;
-}
+};
 
 /**
  * Headless attachment queue with constraint validation.
@@ -107,7 +107,7 @@ export function usePromptInputAttachments(options: UseAttachmentsOptions = {}): 
 // Speech recognition (Web Speech API), no-op where unsupported.
 // ---------------------------------------------------------------------------
 
-interface SpeechRecognitionLike {
+type SpeechRecognitionLike = {
   lang: string;
   continuous: boolean;
   interimResults: boolean;
@@ -115,7 +115,7 @@ interface SpeechRecognitionLike {
   stop: () => void;
   onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
   onend: (() => void) | null;
-}
+};
 
 type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
 
@@ -163,7 +163,7 @@ export function useSpeechRecognition(onTranscript: (text: string) => void): {
 // Context shared by the compound primitives.
 // ---------------------------------------------------------------------------
 
-interface PromptInputContextValue {
+type PromptInputContextValue = {
   value: string;
   setValue: (value: string) => void;
   disabled: boolean;
@@ -178,7 +178,7 @@ interface PromptInputContextValue {
   openFilePicker: () => void;
   hiddenInput: React.ReactElement;
   dictate: { supported: boolean; isListening: boolean; toggle: () => void };
-}
+};
 
 const PromptInputContext = React.createContext<PromptInputContextValue | null>(null);
 
@@ -192,7 +192,7 @@ function usePromptInputContext(): PromptInputContextValue {
 // Root
 // ---------------------------------------------------------------------------
 
-export interface PromptInputProps {
+export type PromptInputProps = {
   onSubmit: (value: string) => void;
   /** Called when the user requests to stop an in-flight generation. */
   onStop?: () => void;
@@ -223,7 +223,7 @@ export interface PromptInputProps {
   sendButtonText?: string;
   stopButtonText?: string;
   children?: React.ReactNode;
-}
+};
 
 const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
   ({
@@ -502,11 +502,11 @@ function PromptInputBody({ className, ...props }: React.HTMLAttributes<HTMLDivEl
   return <div className={cn('flex gap-2 items-end', className)} {...props} />;
 }
 
-export interface PromptInputButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type PromptInputButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Tooltip content; optionally includes a keyboard shortcut hint. */
   tooltip?: string | { content: React.ReactNode; shortcut?: string };
   active?: boolean;
-}
+};
 
 /** Small toolbar button with optional tooltip and shortcut hint. */
 const PromptInputButton = React.forwardRef<HTMLButtonElement, PromptInputButtonProps>(

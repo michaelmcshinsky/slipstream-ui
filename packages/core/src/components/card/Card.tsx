@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Content container with a subtle border and surface styling. */
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
@@ -15,7 +15,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 Card.displayName = 'Card';
 
-export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Header section of a Card; typically contains CardTitle and CardDescription. */
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
@@ -25,7 +25,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 );
 CardHeader.displayName = 'CardHeader';
 
-export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+export type CardTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 /** Title heading inside a CardHeader. */
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
@@ -39,7 +39,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
 );
 CardTitle.displayName = 'CardTitle';
 
-export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export type CardDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 /** Supporting text inside a CardHeader. */
 const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
@@ -49,7 +49,7 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionPr
 );
 CardDescription.displayName = 'CardDescription';
 
-export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Main content area of a Card. */
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
@@ -59,7 +59,7 @@ const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
 );
 CardContent.displayName = 'CardContent';
 
-export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CardFooterProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Footer section of a Card; typically contains actions. */
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(

@@ -6,11 +6,10 @@ import { cn } from '../../utils/cn';
 import { Input } from '../input/Input';
 import { useCombobox } from '../search/use-combobox';
 
-export interface AutocompleteProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'value' | 'defaultValue' | 'onChange' | 'children' | 'size'
-  > {
+export type AutocompleteProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'value' | 'defaultValue' | 'onChange' | 'children' | 'size'
+> & {
   /** Current text — standard controlled-input contract. */
   value?: string;
   /** Initial text when uncontrolled. */
@@ -21,7 +20,7 @@ export interface AutocompleteProps
   suggestions: string[];
   /** Shown when no suggestion matches (optional). */
   emptyText?: string;
-}
+};
 
 /**
  * Type-ahead input following the HTML autocomplete model: users may enter

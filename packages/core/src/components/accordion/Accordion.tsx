@@ -16,7 +16,7 @@ const AccordionContext = React.createContext<AccordionContextValue>({
   collapsible: true,
 });
 
-export interface AccordionProps {
+export type AccordionProps = {
   /** Controlled open item ids. */
   value?: string[];
   /** Initial open item ids when uncontrolled. */
@@ -27,7 +27,7 @@ export interface AccordionProps {
   collapsible?: boolean;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Collapsible content sections with proper ARIA accordion semantics.
@@ -62,12 +62,12 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
 );
 Accordion.displayName = 'Accordion';
 
-export interface AccordionItemProps {
+export type AccordionItemProps = {
   /** Unique id linking the trigger to its panel. */
   id: string;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /** A single collapsible section. */
 const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(

@@ -76,14 +76,13 @@ const [framework, setFramework] = useState('');
   suggestions={countryNames}
   onValueChange={setCountry}
 />`}
-        types={`interface AutocompleteProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'> {
+        types={`type AutocompleteProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   suggestions: string[];
   emptyText?: string;
-}`}
+};`}
       />
 
       <DemoCard

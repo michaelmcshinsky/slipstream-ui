@@ -22,12 +22,12 @@ const DEMOS: Record<number, ReactNode> = {
   4: <MultiThreadDemo />,
 };
 
-interface Template {
+type Template = {
   name: string;
   description: string;
   features: string[];
   code: string;
-}
+};
 
 const templates: Template[] = [
   {
@@ -171,11 +171,11 @@ export function AgentActivity({ toolCall }: { toolCall: ToolCallType }) {
 } from '@slipstream-ui/ai';
 import type { SourceItem } from '@slipstream-ui/ai';
 
-interface GroundedAnswer {
+type GroundedAnswer = {
   answer: string;       // markdown with {{citation:N}} markers
   sources: SourceItem[];
   followUps: { id: string; text: string }[];
-}
+};
 
 // Resolve citation markers to InlineCitation chips at render time.
 function renderAnswer(answer: string, sources: SourceItem[]) {
@@ -219,10 +219,10 @@ export function GroundedResponse({ result }: { result: GroundedAnswer }) {
       '  Textarea,',
       "} from '@slipstream-ui/core';",
       '',
-      'interface FormErrors {',
+      'type FormErrors = {',
       '  email?: string;',
       '  password?: string;',
-      '}',
+      '};',
       '',
       'export function SignupForm() {',
       "  const [email, setEmail] = useState('');",

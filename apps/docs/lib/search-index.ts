@@ -1,11 +1,11 @@
-export interface SearchEntry {
+export type SearchEntry = {
   title: string;
   href: string;
   /** Keywords/content used for full-text matching. */
   content: string;
   /** Section grouping shown in the palette. */
   group: string;
-}
+};
 
 export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Introduction', href: '/docs', content: 'what makes slipstream different component manifest AI-first agents', group: 'Getting Started' },

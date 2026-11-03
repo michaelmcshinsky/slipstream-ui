@@ -6,16 +6,16 @@ import { cn } from '../../utils/cn';
 import { Input } from '../input/Input';
 import { useCombobox, type ComboboxItem } from './use-combobox';
 
-export interface SearchOption {
+export type SearchOption = {
   value: string;
   label: string;
   /** Secondary line in the dropdown. */
   description?: string;
   /** Extra words matched while filtering (aliases, category…). */
   keywords?: string;
-}
+};
 
-export interface SearchProps {
+export type SearchProps = {
   /** The full option set; filtered client-side as the user types. */
   options: SearchOption[];
   /** Initially selected option value. Selection is reported via onValueChange. */
@@ -30,7 +30,7 @@ export interface SearchProps {
   name?: string;
   className?: string;
   'aria-label'?: string;
-}
+};
 
 /**
  * Select-with-search: type to filter a full-width dropdown list, or arrow

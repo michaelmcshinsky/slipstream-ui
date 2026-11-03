@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { ApiError, errors, errorJson, getRequestId, rateLimit } from './core';
 import type { TeamError } from '../teams';
 
-export interface HandleOptions {
+export type HandleOptions = {
   /** Per-identity request budget. Defaults: 120 req / 60s. */
   rateLimit?: { limit: number; windowMs: number };
   /**
@@ -12,7 +12,7 @@ export interface HandleOptions {
   routeName?: string;
   /** Disable auth-based bucketing for public endpoints (falls back to IP). */
   public?: boolean;
-}
+};
 
 /**
  * Explicit trusted-proxy configuration:

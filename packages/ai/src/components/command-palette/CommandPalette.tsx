@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface Command {
+export type Command = {
   id: string;
   label: string;
   /** Optional grouping header, e.g. "Navigation". */
@@ -11,15 +11,15 @@ export interface Command {
   /** Extra lexical search terms. */
   keywords?: string[];
   shortcut?: string;
-}
+};
 
-export interface CommandPaletteProps {
+export type CommandPaletteProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   commands: Command[];
   onSelect: (command: Command) => void;
   placeholder?: string;
-}
+};
 
 /**
  * Cmd+K command palette: combobox + listbox with aria-activedescendant

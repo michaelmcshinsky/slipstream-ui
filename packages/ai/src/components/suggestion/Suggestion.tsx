@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface Suggestion {
+export type Suggestion = {
   id: string;
   text: string;
   type?: 'action' | 'query' | 'follow-up';
-}
+};
 
-export interface SuggestionsProps {
+export type SuggestionsProps = {
   suggestions: Suggestion[];
   onSelect?: (suggestion: Suggestion) => void;
   className?: string;
   maxDisplay?: number;
-}
+};
 
 const Suggestions = React.forwardRef<HTMLDivElement, SuggestionsProps>(
   ({ suggestions, onSelect, className, maxDisplay = 4, ...props }, ref) => {

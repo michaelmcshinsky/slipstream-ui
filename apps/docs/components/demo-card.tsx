@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { cn } from '@slipstream-ui/core';
 
-export interface DemoCardProps {
+export type DemoCardProps = {
   /** Rendered live preview. */
   preview: React.ReactNode;
   /** Source code shown in the Code tab. */
@@ -19,7 +19,7 @@ export interface DemoCardProps {
   className?: string;
   /** Start on the code tab instead of the preview. */
   defaultTab?: DemoTab;
-}
+};
 
 type DemoTab = 'preview' | 'code' | 'usage' | 'types';
 

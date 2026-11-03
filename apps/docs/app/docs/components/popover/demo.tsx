@@ -33,7 +33,7 @@ export default function PopoverPage() {
         }
         code={"import { Popover, PopoverContent, PopoverTrigger, Button } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Popover>\n          <PopoverTrigger>Details</PopoverTrigger>\n          <PopoverContent>\n            <p className=\"text-sm text-muted-foreground\">More information here.</p>\n            <Button size=\"sm\" className=\"mt-2\">Action</Button>\n          </PopoverContent>\n        </Popover>\n    </>\n  );\n}"}
         usage={"import { Popover } from '@slipstream-ui/core';\n\n// Basic usage\n<Popover />"}
-        types={"interface PopoverProps {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n}"}
+        types={"type PopoverProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n};"}
       />
 
       <DemoCard

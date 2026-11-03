@@ -3,11 +3,11 @@ import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 import { DataTable, type DataTableColumn } from './DataTable';
 
-interface Row {
+type Row = {
   id: string;
   name: string;
   messages: number;
-}
+};
 
 const ROWS: Row[] = [
   { id: '1', name: 'Zeta', messages: 3 },

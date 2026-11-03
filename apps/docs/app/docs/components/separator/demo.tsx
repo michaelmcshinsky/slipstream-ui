@@ -38,7 +38,7 @@ export default function SeparatorPage() {
         }
         code={"import { Separator, Divider } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <div>Section A</div>\n      <Separator />                       {/* horizontal, decorative */}\n      <div>Section B</div>\n\n      <div className=\"flex h-16 items-stretch gap-4\">\n        <span>Left</span>\n        <Separator orientation=\"vertical\" />\n        <span>Right</span>\n      </div>\n\n      {/* Divider is an alias for Separator */}\n      <Divider />\n    </>\n  );\n}"}
         usage={"import { Separator } from '@slipstream-ui/core';\n\n<Separator />\n<Separator orientation=\"vertical\" label=\"Toolbar sections\" />"}
-        types={"interface SeparatorProps {\n  orientation: 'horizontal' | 'vertical';\n  label: string;\n}\n\n// Divider is a renamed export of the same component\nconst Divider: typeof Separator;"}
+        types={"type SeparatorProps = {\n  orientation: 'horizontal' | 'vertical';\n  label: string;\n};\n\n// Divider is a renamed export of the same component\nconst Divider: typeof Separator;"}
       />
     </ComponentPage>
   );

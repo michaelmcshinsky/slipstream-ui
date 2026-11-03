@@ -80,19 +80,19 @@ export default function RadioPage() {
   <RadioGroupItem value="m" label="Medium" />
   <RadioGroupItem value="l" label="Large" />
 </RadioGroup>`}
-        types={`interface RadioGroupProps {
+        types={`type RadioGroupProps = {
   name: string;
   legend?: string;
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-}
+};
 
-interface RadioGroupItemProps {
+type RadioGroupItemProps = {
   value: string;
   label?: string;
   disabled?: boolean;
-}`}
+};`}
       />
     </ComponentPage>
   );

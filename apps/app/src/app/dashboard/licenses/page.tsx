@@ -4,20 +4,20 @@ import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
-interface License {
+type License = {
   id: string;
   key: string;
   plan: string;
   status: string;
   maxActivations: number;
   activations: { id: string; machineId: string; lastSeenAt: string }[];
-}
+};
 
-interface ApiKeyRow {
+type ApiKeyRow = {
   id: string;
   name: string;
   prefix: string;
-}
+};
 
 export default function LicensesPage() {
   const [licenses, setLicenses] = useState<License[]>([]);

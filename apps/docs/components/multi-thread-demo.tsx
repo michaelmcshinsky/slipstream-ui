@@ -9,12 +9,12 @@ import {
   type MessageData,
 } from '@slipstream-ui/ai';
 
-interface Thread {
+type Thread = {
   id: string;
   title: string;
   messages: MessageData[];
   streamingId?: string | null;
-}
+};
 
 const SEED: Thread[] = [
   {

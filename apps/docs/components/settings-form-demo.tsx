@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { Button, FormField, Input, Switch } from '@slipstream-ui/core';
 
-interface FormErrors {
+type FormErrors = {
   name?: string;
   email?: string;
-}
+};
 
 /**
  * Live demo of the settings form template: FormField error wiring, switch

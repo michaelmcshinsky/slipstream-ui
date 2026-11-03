@@ -3,13 +3,13 @@ import { cn } from '@slipstream-ui/core';
 import type { SourceItem } from '../../types';
 import { Source } from './Source';
 
-export interface SourcesProps {
+export type SourcesProps = {
   sources: SourceItem[];
   className?: string;
   maxDisplay?: number;
   /** Heading label; override for localization. */
   label?: string;
-}
+};
 
 const Sources = React.forwardRef<HTMLDivElement, SourcesProps>(
   ({ sources, className, maxDisplay = 3, label = 'Sources', ...props }, ref) => {

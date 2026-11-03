@@ -2,11 +2,11 @@ import { prisma, Prisma } from '@slipstream-ui/db';
 import { generateLicenseKey } from './tokens';
 import { audit } from './audit';
 
-export interface ValidationResult {
+export type ValidationResult = {
   valid: boolean;
   reason?: string;
   plan?: string;
-}
+};
 
 class ActivationLimitReached extends Error {}
 

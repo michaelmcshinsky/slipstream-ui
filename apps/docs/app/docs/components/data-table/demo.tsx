@@ -5,13 +5,13 @@ import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, DataTable, Switch, type DataTableColumn } from '@slipstream-ui/core';
 
-interface Conversation {
+type Conversation = {
   id: string;
   title: string;
   messages: number;
   status: 'live' | 'archived' | 'failed';
   updatedAt: string;
-}
+};
 
 const CONVERSATIONS: Conversation[] = [
   { id: 'c1', title: 'MCP manifest sync', messages: 42, status: 'live', updatedAt: '2026-10-28' },
@@ -135,16 +135,16 @@ const columns: DataTableColumn<Conversation>[] = [
   sortDir={sort.dir}
   onSortChange={(key, dir) => fetchSorted(key, dir)}
 />`}
-        types={`interface DataTableColumn<T> {
+        types={`type DataTableColumn<<T>> = {
   key: string;
   header: React.ReactNode;
   cell?: (row: T, index: number) => React.ReactNode;
   sortable?: boolean;
   align?: 'left' | 'center' | 'right';
   className?: string;
-}
+};
 
-interface DataTableProps<T> {
+type DataTableProps<<T>> = {
   columns: DataTableColumn<T>[];
   data: T[];
   rowId: (row: T) => string;
@@ -159,7 +159,7 @@ interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   emptyMessage?: string;
   className?: string;
-}`}
+};`}
       />
 
       <DemoCard

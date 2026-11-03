@@ -1,7 +1,7 @@
 import { loadRegistry } from '../registry';
 import type { McpTool } from './types';
 
-interface SearchHit {
+type SearchHit = {
   id: string;
   name: string;
   package: string;
@@ -10,7 +10,7 @@ interface SearchHit {
   /** Which fields matched the query, so agents can judge relevance. */
   matchedFields: string[];
   score: number;
-}
+};
 
 /**
  * Deterministic lexical search across component capability fields. Every hit

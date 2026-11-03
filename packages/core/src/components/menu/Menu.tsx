@@ -21,14 +21,14 @@ const MenuContext = React.createContext<MenuContextValue>({
   wrapperRef: { current: null },
 });
 
-export interface MenuProps {
+export type MenuProps = {
   /** Controlled open state. */
   open?: boolean;
   /** Called when the open state changes. */
   onOpenChange?: (open: boolean) => void;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Dropdown menu with keyboard navigation (arrows, Home/End, Escape),
@@ -72,7 +72,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 );
 Menu.displayName = 'Menu';
 
-export interface MenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type MenuTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** The button that opens the menu. */
 const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(
@@ -99,7 +99,7 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(
 );
 MenuTrigger.displayName = 'MenuTrigger';
 
-export interface MenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** The floating panel containing menu items. */
 const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
@@ -211,10 +211,10 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
 );
 MenuContent.displayName = 'MenuContent';
 
-export interface MenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type MenuItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Renders the item in a destructive style. */
   destructive?: boolean;
-}
+};
 
 /** A single action item in the menu. */
 const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(
@@ -242,7 +242,7 @@ const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(
 );
 MenuItem.displayName = 'MenuItem';
 
-export interface MenuSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuSeparatorProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Visual divider between menu items. */
 const MenuSeparator = React.forwardRef<HTMLDivElement, MenuSeparatorProps>(
@@ -252,7 +252,7 @@ const MenuSeparator = React.forwardRef<HTMLDivElement, MenuSeparatorProps>(
 );
 MenuSeparator.displayName = 'MenuSeparator';
 
-export interface MenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuLabelProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Non-interactive label grouping related menu items. */
 const MenuLabel = React.forwardRef<HTMLDivElement, MenuLabelProps>(

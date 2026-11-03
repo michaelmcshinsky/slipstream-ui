@@ -1,20 +1,20 @@
-export interface NavItem {
+export type NavItem = {
   href: string;
   label: string;
-}
+};
 
-export interface NavGroup {
+export type NavGroup = {
   title: string;
   items: NavItem[];
-}
+};
 
-export interface NavSection {
+export type NavSection = {
   title: string;
   /** Flat items rendered directly under the section (optional when groups cover it). */
   items?: NavItem[];
   /** Nested groups rendered as collapsible sub-sections (sidebar accordion). */
   groups?: NavGroup[];
-}
+};
 
 /** First href in a section across items and groups — used by the mobile pills. */
 export function sectionFirstHref(section: NavSection): string {

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface ChainThoughtStep {
+export type ChainThoughtStep = {
   id: string;
   content: string;
   status?: 'pending' | 'completed' | 'failed';
-}
+};
 
-export interface ChainThoughtProps {
+export type ChainThoughtProps = {
   steps: ChainThoughtStep[];
   className?: string;
   compact?: boolean;
-}
+};
 
 const ChainThought = React.forwardRef<HTMLDivElement, ChainThoughtProps>(
   ({ steps, className, compact = false, ...props }, ref) => {

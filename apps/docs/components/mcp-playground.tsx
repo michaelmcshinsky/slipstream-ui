@@ -5,25 +5,25 @@ import { CodeBlock } from '@slipstream-ui/ai';
 
 type Tool = 'list_components' | 'search_components' | 'get_component_manifest' | 'validate_usage';
 
-interface RegistryIndex {
+type RegistryIndex = {
   count: number;
   components: { id: string; name: string; package: string; tier: string; description: string }[];
-}
+};
 
-interface ManifestProp {
+type ManifestProp = {
   name: string;
   type: string;
   required?: boolean;
   description?: string;
-}
+};
 
-interface ManifestDetail {
+type ManifestDetail = {
   id: string;
   name: string;
   tier: string;
   package: string;
   props: ManifestProp[];
-}
+};
 
 const TOOLS: { id: Tool; label: string; blurb: string }[] = [
   { id: 'list_components', label: 'list_components', blurb: 'Browse every component with package/tier filters.' },

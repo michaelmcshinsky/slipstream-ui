@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
   /** Controlled checked state; omit for uncontrolled usage. */
   checked?: boolean;
   /** Fired when the user selects this radio. */
   onCheckedChange?: (checked: boolean) => void;
-}
+};
 
 /**
  * Accessible radio built on the native input, to be used inside a
@@ -35,7 +35,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 );
 Radio.displayName = 'Radio';
 
-export interface RadioGroupProps {
+export type RadioGroupProps = {
   /** Shared name applied to every radio in the group. */
   name: string;
   /** Accessible group label; rendered as <legend> inside a fieldset. */
@@ -48,7 +48,7 @@ export interface RadioGroupProps {
   onValueChange?: (value: string) => void;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Groups related radios with a shared name and accessible legend.
@@ -89,12 +89,12 @@ const RadioGroupContext = React.createContext<RadioGroupContextValue>({
   onChange: () => {},
 });
 
-export interface RadioGroupItemProps extends Omit<RadioProps, 'name' | 'checked' | 'onCheckedChange' | 'value'> {
+export type RadioGroupItemProps = Omit<RadioProps, 'name' | 'checked' | 'onCheckedChange' | 'value'> & {
   /** The value this item contributes to the group. */
   value: string;
   /** Visible label rendered next to the radio. */
   label?: string;
-}
+};
 
 /** A single radio option inside a `RadioGroup`. */
 const RadioGroupItem = React.forwardRef<HTMLInputElement, RadioGroupItemProps>(

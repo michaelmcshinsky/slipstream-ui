@@ -2,28 +2,28 @@
 
 import * as React from 'react';
 
-export interface ToastAction {
+export type ToastAction = {
   label: string;
   onClick: () => void;
-}
+};
 
-export interface ToastOptions {
+export type ToastOptions = {
   title: string;
   description?: string;
   action?: ToastAction;
   /** Auto-dismiss delay in ms; 0 keeps the toast until dismissed. Default 5000. */
   duration?: number;
-}
+};
 
-export interface ToastRecord extends ToastOptions {
+export type ToastRecord = ToastOptions & {
   id: string;
-}
+};
 
-export interface ToastContextValue {
+export type ToastContextValue = {
   toasts: ToastRecord[];
   toast: (options: ToastOptions) => string;
   dismiss: (id: string) => void;
-}
+};
 
 const ToastContext = React.createContext<ToastContextValue | null>(null);
 

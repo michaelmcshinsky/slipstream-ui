@@ -34,7 +34,7 @@ export default function LabelPage() {
         }
         code={"import { Label, Input } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    // Keep labels tight against their control (space-y-1.5) and use a\n    // larger gap (space-y-5) between separate fields.\n    <div className=\"space-y-5\">\n      <div className=\"space-y-1.5\">\n        <Label htmlFor=\"email\">Email address</Label>\n        <Input id=\"email\" type=\"email\" placeholder=\"you@example.com\" />\n      </div>\n      <div className=\"space-y-1.5\">\n        <Label htmlFor=\"password\">Password</Label>\n        <Input id=\"password\" type=\"password\" />\n      </div>\n    </div>\n  );\n}"}
         usage={"import { Label, Input } from '@slipstream-ui/core';\n\n// Label sits directly above its control\n<Label htmlFor=\"email\">Email</Label>\n<Input id=\"email\" type=\"email\" />"}
-        types={"interface LabelProps {\n  htmlFor: string;\n  children: ReactNode;\n}"}
+        types={"type LabelProps = {\n  htmlFor: string;\n  children: ReactNode;\n};"}
       />
     </ComponentPage>
   );

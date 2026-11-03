@@ -73,7 +73,7 @@ export default function FormFieldPage() {
 <FormField id="email" label="Email" error={errors.email} required>
   <Input value={email} onChange={(e) => setEmail(e.target.value)} />
 </FormField>`}
-        types={`interface FormFieldProps {
+        types={`type FormFieldProps = {
   id: string;
   label: string;
   hint?: string;
@@ -81,7 +81,7 @@ export default function FormFieldPage() {
   required?: boolean;
   labelHidden?: boolean;
   children: React.ReactNode;
-}`}
+};`}
       />
 
       <DemoCard

@@ -3,19 +3,19 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface SelectOption {
+export type SelectOption = {
   value: string;
   label: string;
   disabled?: boolean;
-}
+};
 
-export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value' | 'defaultValue'> {
+export type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value' | 'defaultValue'> & {
   options: SelectOption[];
   label?: string;
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
-}
+};
 
 /**
  * Accessible select primitive built on the native <select>: full keyboard,
