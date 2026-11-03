@@ -17,6 +17,7 @@ Breadcrumb shows the user's location in a hierarchy and lets them navigate back 
 | items | `BreadcrumbItem[]` | — | yes | Ordered breadcrumb items; the last is the current page |
 | separator | `ReactNode` | `'/'` | no | Separator character between items |
 | className | `string` | — | no | Additional CSS classes to apply |
+| onItemClick | `(item: BreadcrumbItem, index: number) => void` | — | no | Receives every link click with default navigation prevented — route programmatically. |
 
 ## Examples
 

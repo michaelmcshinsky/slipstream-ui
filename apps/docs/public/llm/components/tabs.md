@@ -19,6 +19,8 @@ Tabs organize related content into switchable panels. Tabs manages the active ta
 | onValueChange | `(value: string) => void` | — | no | Called when the active tab changes |
 | children | `ReactNode` | — | yes | TabsList, TabsTrigger, and TabsContent children |
 | className | `string` | — | no | Additional CSS classes to apply |
+| variant | `'default' | 'underline'` | `default` | no | Strip design: enclosed pill track (default) or background-free underline. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Density for the strip and its triggers. |
 
 ## Examples
 

@@ -109,3 +109,27 @@ describe('Dialog', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
+
+describe('Dialog showClose', () => {
+  it('hides the header close button when showClose is false', async () => {
+    const onOpenChange = vi.fn();
+    render(
+      <Dialog open onOpenChange={onOpenChange} title="No close" showClose={false}>
+        <p>Body</p>
+      </Dialog>
+    );
+    expect(screen.queryByRole('button', { name: 'Close dialog' })).not.toBeInTheDocument();
+    // Escape still closes.
+    await userEvent.keyboard('{Escape}');
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it('renders the close button by default', () => {
+    render(
+      <Dialog open onOpenChange={vi.fn()} title="Default">
+        <p>Body</p>
+      </Dialog>
+    );
+    expect(screen.getByRole('button', { name: 'Close dialog' })).toBeInTheDocument();
+  });
+});

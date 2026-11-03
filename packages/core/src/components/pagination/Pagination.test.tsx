@@ -57,3 +57,34 @@ describe('Pagination', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Pagination boundaries and icons', () => {
+  it('shows no boundary buttons by default', () => {
+    render(<Pagination page={1} pageCount={5} />);
+    expect(screen.queryByRole('button', { name: 'First page' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Last page' })).not.toBeInTheDocument();
+  });
+
+  it('showFirst/ showLast fall back to showBoundaries', () => {
+    const { rerender } = render(<Pagination page={2} pageCount={5} showBoundaries />);
+    expect(screen.getByRole('button', { name: 'First page' })).toBeInTheDocument();
+    rerender(<Pagination page={2} pageCount={5} showBoundaries showFirst={false} />);
+    expect(screen.queryByRole('button', { name: 'First page' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+  });
+
+  it('replaces glyphs through the icons prop while keeping accessible names', () => {
+    render(
+      <Pagination
+        page={2}
+        pageCount={5}
+        showBoundaries
+        icons={{ previous: '←', next: '→', first: '⏮', last: '⏭' }}
+      />
+    );
+    expect(screen.getByRole('button', { name: 'Previous page' })).toHaveTextContent('←');
+    expect(screen.getByRole('button', { name: 'Next page' })).toHaveTextContent('→');
+    expect(screen.getByRole('button', { name: 'First page' })).toHaveTextContent('⏮');
+    expect(screen.getByRole('button', { name: 'Last page' })).toHaveTextContent('⏭');
+  });
+});

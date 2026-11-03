@@ -81,11 +81,14 @@ AccordionItem.displayName = 'AccordionItem';
 
 const AccordionItemContext = React.createContext<{ id: string }>({ id: '' });
 
-export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type AccordionTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  /** Replace the default chevron (rendered at the far right of the header). */
+  icon?: React.ReactNode;
+};
 
 /** The clickable header that expands/collapses its panel. */
 const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, icon, ...props }, ref) => {
     const { id } = React.useContext(AccordionItemContext);
     const { openItems, toggle } = React.useContext(AccordionContext);
     const open = openItems.has(id);
@@ -101,31 +104,35 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerPro
         aria-controls={panelId}
         onClick={() => toggle(id)}
         className={cn(
-          'flex flex-1 items-center justify-between px-4 py-3 text-left text-sm font-medium transition-colors',
+          // w-full keeps the header clickable edge-to-edge in closed AND
+          // open states; the icon slot sits at the far right via justify-between.
+          'flex w-full flex-1 items-center justify-between px-4 py-3 text-left text-sm font-medium transition-colors',
           'hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
           className
         )}
         {...props}
       >
         {children}
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          className={cn('h-4 w-4 shrink-0 transition-transform duration-200', open && 'rotate-180')}
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        {icon ?? (
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className={cn('h-4 w-4 shrink-0 transition-transform duration-200', open && 'rotate-180')}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        )}
       </button>
     );
   }
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type AccordionContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** The collapsible panel; hidden from assistive tech when collapsed. */
 const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(

@@ -3,17 +3,19 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 
-export interface DialogProps {
+export type DialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description?: string;
   children?: React.ReactNode;
   closeOnBackdrop?: boolean;
+  /** Hide the close (✕) button in the header; Escape and backdrop still close. */
+  showClose?: boolean;
   /** Focused when the dialog opens; defaults to the first focusable element. */
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   ariaLabel?: string;
-}
+};
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -30,6 +32,7 @@ export function Dialog({
   description,
   children,
   closeOnBackdrop = true,
+  showClose = true,
   initialFocusRef,
 }: DialogProps) {
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
@@ -99,14 +102,16 @@ export function Dialog({
           <h2 id={titleId} className="text-lg font-semibold">
             {title}
           </h2>
-          <button
-            type="button"
-            onClick={() => onOpenChange(false)}
-            aria-label="Close dialog"
-            className="rounded p-1 text-muted-foreground hover:text-foreground"
-          >
-            ✕
-          </button>
+          {showClose && (
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              aria-label="Close dialog"
+              className="rounded p-1 text-muted-foreground hover:text-foreground"
+            >
+              ✕
+            </button>
+          )}
         </div>
         {description && (
           <p id={descriptionId} className="mt-2 text-sm text-muted-foreground">

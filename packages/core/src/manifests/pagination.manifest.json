@@ -46,6 +46,34 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "showFirst",
+      "type": "boolean",
+      "defaultValue": "showBoundaries",
+      "required": false,
+      "description": "Force-show the first-page button; defaults to showBoundaries.",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "showLast",
+      "type": "boolean",
+      "defaultValue": "showBoundaries",
+      "required": false,
+      "description": "Force-show the last-page button; defaults to showBoundaries.",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "icons",
+      "type": "{ first?: ReactNode; previous?: ReactNode; next?: ReactNode; last?: ReactNode }",
+      "required": false,
+      "description": "Replace the default ‹ › « » glyphs with custom markup."
     }
   ],
   "examples": [

@@ -20,6 +20,9 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | siblings | `number` | `1` | no | How many page buttons to show around the current page |
 | showBoundaries | `boolean` | `false` | no | Show « / » jump-to-first/last buttons around prev/next |
 | className | `string` | — | no | Additional CSS classes to apply |
+| showFirst | `boolean` | `showBoundaries` | no | Force-show the first-page button; defaults to showBoundaries. |
+| showLast | `boolean` | `showBoundaries` | no | Force-show the last-page button; defaults to showBoundaries. |
+| icons | `{ first?: ReactNode; previous?: ReactNode; next?: ReactNode; last?: ReactNode }` | — | no | Replace the default ‹ › « » glyphs with custom markup. |
 
 ## Examples
 

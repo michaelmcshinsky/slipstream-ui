@@ -47,6 +47,17 @@
       "type": "string",
       "required": false,
       "description": "Accessible label for the dialog (required for screen readers)"
+    },
+    {
+      "name": "showClose",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Hide the close (✕) button in the header; Escape and backdrop still close.",
+      "examples": [
+        "true",
+        "false"
+      ]
     }
   ],
   "examples": [

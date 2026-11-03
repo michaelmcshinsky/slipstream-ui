@@ -10,6 +10,45 @@
       "type": "string",
       "required": false,
       "description": "Shape and size classes (e.g. h-4 w-32, rounded-full)"
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "Tailwind height class for the block (e.g. 'h-4').",
+      "examples": [
+        "h-4",
+        "h-10"
+      ]
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "defaultValue": "w-full",
+      "required": false,
+      "description": "Tailwind width class for the block (e.g. 'w-48').",
+      "examples": [
+        "w-48",
+        "w-full"
+      ]
+    },
+    {
+      "name": "rounded",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'full'",
+      "defaultValue": "md",
+      "required": false,
+      "description": "Corner preset — full for avatars/dots, none for tables.",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "full"
+      ],
+      "examples": [
+        "md",
+        "full"
+      ]
     }
   ],
   "examples": [
@@ -55,9 +94,17 @@
   "contentGuidelines": [
     {
       "contentType": "Shapes",
-      "guidelines": ["Match the shape of the content it replaces", "Use consistent skeletons within a view"],
-      "goodExamples": ["h-4 w-32 for text", "h-24 w-24 rounded-full for avatars"],
-      "badExamples": ["Random sizes that don't match the layout"]
+      "guidelines": [
+        "Match the shape of the content it replaces",
+        "Use consistent skeletons within a view"
+      ],
+      "goodExamples": [
+        "h-4 w-32 for text",
+        "h-24 w-24 rounded-full for avatars"
+      ],
+      "badExamples": [
+        "Random sizes that don't match the layout"
+      ]
     }
   ],
   "compositionRules": [
@@ -67,7 +114,10 @@
       "example": "<span role=\"status\" className=\"sr-only\">Loading…</span><Skeleton className=\"h-4 w-32\" />"
     }
   ],
-  "relatedComponents": ["Progress", "Spinner"],
+  "relatedComponents": [
+    "Progress",
+    "Spinner"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

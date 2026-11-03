@@ -7,6 +7,7 @@ import { DemoCard } from '@/components/demo-card';
 
 export default function DialogPage() {
   const [open, setOpen] = useState(false);
+  const [openNoClose, setOpenNoClose] = useState(false);
   return (
     <ComponentPage
       id="dialog"
@@ -17,8 +18,9 @@ export default function DialogPage() {
         { name: 'open', type: 'boolean', defaultValue: 'required', description: 'Whether the dialog is visible (controlled)' },
         { name: 'onOpenChange', type: '(open: boolean) => void', defaultValue: 'required', description: 'Open/close requests' },
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Accessible dialog name' },
-        { name: 'description', type: 'string', defaultValue: '—', description: 'Optional supporting text' },
+        { name: 'description', type: 'string', defaultValue: '-', description: 'Optional supporting text' },
         { name: 'closeOnBackdrop', type: 'boolean', defaultValue: 'true', description: 'Backdrop click closes the dialog' },
+        { name: 'showClose', type: 'boolean', defaultValue: 'true', description: 'Hide the ✕ button in the header (Escape and backdrop still close)' },
         { name: 'initialFocusRef', type: 'RefObject<HTMLElement>', defaultValue: 'first focusable', description: 'Element focused on open' },
       ]}
       accessibility={[
@@ -48,7 +50,7 @@ export default function DialogPage() {
         }
         code={`const [open, setOpen] = useState(false);
 
-<Button onClick={() => setOpen(true)}>Delete project…</Button>
+<Button onClick={() => setOpen(true)}>Delete project.</Button>
 
 <Dialog
   open={open}
@@ -58,6 +60,52 @@ export default function DialogPage() {
 >
   <button onClick={() => setOpen(false)}>Cancel</button>
 </Dialog>`}
+      />
+
+      <DemoCard
+        title="Without header close button"
+        preview={
+          <>
+            <Button variant="outline" onClick={() => setOpenNoClose(true)}>
+              Open dialog with no ✕
+            </Button>
+            <Dialog
+              open={openNoClose}
+              onOpenChange={setOpenNoClose}
+              title="Confirm in the body"
+              description="showClose hides the header ✕ — dismissal is via Escape, backdrop, or an explicit button below."
+              showClose={false}
+            >
+              <div className="flex justify-end gap-2">
+                <Button onClick={() => setOpenNoClose(false)}>Got it</Button>
+              </div>
+            </Dialog>
+          </>
+        }
+        code={`// Remove the header ✕ while Escape/backdrop/actions still close
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Confirm in the body"
+  showClose={false}
+>
+  <Button onClick={() => setOpen(false)}>Got it</Button>
+</Dialog>`}
+        usage={`import { Dialog } from '@slipstream-ui/core';
+
+// Forced action dialog: no header escape hatch, body owns dismissal
+<Dialog open={open} onOpenChange={setOpen} title="Finish setup" showClose={false}>
+  …
+</Dialog>`}
+        types={`type DialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  description?: string;
+  closeOnBackdrop?: boolean;
+  showClose?: boolean;
+  initialFocusRef?: RefObject<HTMLElement | null>;
+};`}
       />
     </ComponentPage>
   );

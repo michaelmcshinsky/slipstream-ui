@@ -234,8 +234,11 @@ export function DataTable<T>({
         </table>
       </div>
       {pageSize && pageCount > 1 && (
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground" aria-live="polite">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <p
+            className="min-h-8 leading-none text-xs text-muted-foreground"
+            aria-live="polite"
+          >
             {(safePage - 1) * pageSize + 1}–{Math.min(safePage * pageSize, sorted.length)} of{' '}
             {sorted.length}
           </p>

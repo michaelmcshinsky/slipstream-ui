@@ -20,6 +20,7 @@ Accordion organizes content into expandable sections, reducing visual density on
 | collapsible | `boolean` | `true` | no | When true, opening an item closes the others |
 | children | `ReactNode` | — | yes | AccordionItem children |
 | className | `string` | — | no | Additional CSS classes to apply |
+| icon | `ReactNode` | — | no | AccordionTrigger only: replace the default chevron rendered at the far right of the header. |
 
 ## Examples
 

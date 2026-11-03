@@ -5,12 +5,49 @@
   "description": "Collapsible content sections with ARIA accordion semantics and keyboard navigation",
   "designIntent": "Accordion organizes content into expandable sections, reducing visual density on pages with lots of content. Each trigger announces its expanded state and controls its panel.",
   "props": [
-    { "name": "value", "type": "string[]", "required": false, "description": "Controlled open item ids" },
-    { "name": "defaultValue", "type": "string[]", "required": false, "description": "Initial open item ids when uncontrolled" },
-    { "name": "onValueChange", "type": "(value: string[]) => void", "required": false, "description": "Called when the open set changes" },
-    { "name": "collapsible", "type": "boolean", "defaultValue": "true", "required": false, "description": "When true, opening an item closes the others" },
-    { "name": "children", "type": "ReactNode", "required": true, "description": "AccordionItem children" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Controlled open item ids"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string[]",
+      "required": false,
+      "description": "Initial open item ids when uncontrolled"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": false,
+      "description": "Called when the open set changes"
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "When true, opening an item closes the others"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "AccordionItem children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "AccordionTrigger only: replace the default chevron rendered at the far right of the header."
+    }
   ],
   "examples": [
     {
@@ -30,16 +67,45 @@
     }
   ],
   "accessibility": [
-    { "feature": "Accordion semantics", "implementation": "Trigger has aria-expanded and aria-controls; panel has role=region and aria-labelledby", "userRequirements": "Every trigger needs a unique id-linked panel" },
-    { "feature": "Keyboard support", "implementation": "Enter/Space toggle; hidden panels are removed from tab order", "userRequirements": "Don't override keyboard handlers" }
+    {
+      "feature": "Accordion semantics",
+      "implementation": "Trigger has aria-expanded and aria-controls; panel has role=region and aria-labelledby",
+      "userRequirements": "Every trigger needs a unique id-linked panel"
+    },
+    {
+      "feature": "Keyboard support",
+      "implementation": "Enter/Space toggle; hidden panels are removed from tab order",
+      "userRequirements": "Don't override keyboard handlers"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Trigger labels", "guidelines": ["Phrase as a question or topic", "Keep under 60 characters"], "goodExamples": ["What is Slipstream?", "Installation"], "badExamples": ["Click to expand", "More info"] }
+    {
+      "contentType": "Trigger labels",
+      "guidelines": [
+        "Phrase as a question or topic",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "What is Slipstream?",
+        "Installation"
+      ],
+      "badExamples": [
+        "Click to expand",
+        "More info"
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "AccordionItem", "relationship": "Wrap each section in an AccordionItem with a unique id", "example": "<AccordionItem id=\"x\"><AccordionTrigger>...</AccordionTrigger><AccordionContent>...</AccordionContent></AccordionItem>" }
+    {
+      "component": "AccordionItem",
+      "relationship": "Wrap each section in an AccordionItem with a unique id",
+      "example": "<AccordionItem id=\"x\"><AccordionTrigger>...</AccordionTrigger><AccordionContent>...</AccordionContent></AccordionItem>"
+    }
   ],
-  "relatedComponents": ["Tabs", "Card"],
+  "relatedComponents": [
+    "Tabs",
+    "Card"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

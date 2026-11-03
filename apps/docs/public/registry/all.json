@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "374b6fa",
+  "sourceRevision": "92e7d55",
   "count": 48,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [

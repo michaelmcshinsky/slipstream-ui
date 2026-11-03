@@ -31,6 +31,24 @@
       "description": "Controlled outcome; omit for uncontrolled."
     },
     {
+      "name": "variant",
+      "type": "'default' | 'warning' | 'destructive' | 'info' | 'success'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Accent color of the pending card; outcome chips always follow the result.",
+      "enum": [
+        "default",
+        "warning",
+        "destructive",
+        "info",
+        "success"
+      ],
+      "examples": [
+        "destructive",
+        "info"
+      ]
+    },
+    {
       "name": "onApprove",
       "type": "() => void",
       "required": false,

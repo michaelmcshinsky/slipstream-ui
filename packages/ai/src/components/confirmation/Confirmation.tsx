@@ -6,7 +6,9 @@ import { cn } from '@slipstream-ui/core';
 
 export type ConfirmationStatus = 'pending' | 'approved' | 'rejected';
 
-export interface ConfirmationProps {
+export type ConfirmationVariant = 'default' | 'warning' | 'destructive' | 'info' | 'success';
+
+export type ConfirmationProps = {
   /** Human-readable summary of the action requiring approval. */
   title: string;
   /** Optional detail: affected resource, arguments preview, risk note. */
@@ -15,6 +17,8 @@ export interface ConfirmationProps {
   toolName?: string;
   /** Controlled outcome; omit for fully interactive uncontrolled use. */
   status?: ConfirmationStatus;
+  /** Accent color of the pending card (outcome chips always follow the result). */
+  variant?: ConfirmationVariant;
   onApprove?: () => void;
   onReject?: () => void;
   labels?: {
@@ -24,12 +28,20 @@ export interface ConfirmationProps {
     rejected?: string;
   };
   className?: string;
-}
+};
 
 const statusChipClasses: Record<ConfirmationStatus, string> = {
   pending: 'bg-warning/10 text-warning border-warning/20',
   approved: 'bg-success/10 text-success border-success/20',
   rejected: 'bg-destructive/10 text-destructive border-destructive/20',
+};
+
+const pendingVariantClasses: Record<ConfirmationVariant, string> = {
+  default: 'border-warning/40',
+  warning: 'border-warning/40',
+  destructive: 'border-destructive/40 bg-destructive/5',
+  info: 'border-info/40',
+  success: 'border-success/40',
 };
 
 /**
@@ -43,6 +55,7 @@ const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
       description,
       toolName,
       status: controlledStatus,
+      variant = 'default',
       onApprove,
       onReject,
       labels,
@@ -73,7 +86,7 @@ const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
         aria-label={status === 'pending' ? title : undefined}
         className={cn(
           'rounded-lg border p-4 bg-muted/30 max-w-md',
-          status === 'pending' && 'border-warning/40',
+          status === 'pending' && pendingVariantClasses[variant],
           className
         )}
         {...props}

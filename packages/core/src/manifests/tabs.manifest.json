@@ -34,6 +34,38 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'underline'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Strip design: enclosed pill track (default) or background-free underline.",
+      "enum": [
+        "default",
+        "underline"
+      ],
+      "examples": [
+        "default",
+        "underline"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "defaultValue": "md",
+      "required": false,
+      "description": "Density for the strip and its triggers.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "examples": [
+        "sm",
+        "md",
+        "lg"
+      ]
     }
   ],
   "examples": [
@@ -74,9 +106,21 @@
   "contentGuidelines": [
     {
       "contentType": "Tab labels",
-      "guidelines": ["Use 1-3 words", "Be parallel in structure", "Avoid vague labels like 'More'"],
-      "goodExamples": ["Overview", "Analytics", "Settings"],
-      "badExamples": ["Click here", "Other stuff", "Misc"]
+      "guidelines": [
+        "Use 1-3 words",
+        "Be parallel in structure",
+        "Avoid vague labels like 'More'"
+      ],
+      "goodExamples": [
+        "Overview",
+        "Analytics",
+        "Settings"
+      ],
+      "badExamples": [
+        "Click here",
+        "Other stuff",
+        "Misc"
+      ]
     }
   ],
   "compositionRules": [
@@ -86,7 +130,10 @@
       "example": "<TabsList><TabsTrigger value=\"a\">A</TabsTrigger></TabsList>"
     }
   ],
-  "relatedComponents": ["Separator", "Button"],
+  "relatedComponents": [
+    "Separator",
+    "Button"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",
