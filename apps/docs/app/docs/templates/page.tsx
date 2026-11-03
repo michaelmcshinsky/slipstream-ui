@@ -4,11 +4,13 @@ import { CodeBlock } from '@/components/code-block';
 import { StreamingChatDemo } from '@/components/streaming-chat-demo';
 import { AgentDashboardDemo } from '@/components/agent-dashboard-demo';
 import { RagCitationsDemo } from '@/components/rag-citations-demo';
+import { MultiThreadDemo } from '@/components/multi-thread-demo';
+import { SettingsFormDemo } from '@/components/settings-form-demo';
 
 export const metadata: Metadata = {
   title: 'Templates',
   description:
-    'Complete, copy-paste Slipstream UI patterns: streaming chat with stop-generation, agent dashboard with human-in-the-loop tool calls, grounded RAG citations, and validated forms.',
+    'Complete, copy-paste Slipstream UI patterns: streaming chat, agent dashboard with human-in-the-loop tool calls, grounded RAG citations, multi-thread conversations, and validated settings forms.',
 };
 
 /** Live previews keyed by template index; templates without one show code only. */
@@ -16,6 +18,8 @@ const DEMOS: Record<number, ReactNode> = {
   0: <StreamingChatDemo />,
   1: <AgentDashboardDemo />,
   2: <RagCitationsDemo />,
+  3: <SettingsFormDemo />,
+  4: <MultiThreadDemo />,
 };
 
 interface Template {
@@ -318,6 +322,63 @@ export function GroundedResponse({ result }: { result: GroundedAnswer }) {
       '  );',
       '}',
     ].join('\n'),
+  },
+  {
+    name: 'Multi-thread chat',
+    description:
+      'Thread list beside the active conversation: per-thread message state, thread-scoped streaming, and a key-reset that keeps scroll state independent. The structure behind every chat product with a sidebar.',
+    features: ['threads[] + activeId', 'Thread-scoped streaming', 'Conversation key reset', 'New thread flow'],
+    code: `'use client';
+
+import { useState } from 'react';
+import { Conversation, PromptInput, Response } from '@slipstream-ui/ai';
+import type { Message } from '@slipstream-ui/ai';
+
+type Thread = { id: string; title: string; messages: Message[]; streamingId?: string | null };
+
+export function MultiThreadChat({ initial }: { initial: Thread[] }) {
+  const [threads, setThreads] = useState(initial);
+  const [activeId, setActiveId] = useState(initial[0].id);
+  const active = threads.find((t) => t.id === activeId)!;
+
+  const patch = (id: string, next: Partial<Thread>) =>
+    setThreads((prev) => prev.map((t) => (t.id === id ? { ...t, ...next } : t)));
+
+  async function send(text: string) {
+    // Stream into the thread captured at send time — never "the active one",
+    // the user may switch threads mid-generation.
+    const target = active.id;
+    patch(target, { messages: [...active.messages, { id: crypto.randomUUID(), role: 'user', content: text }] });
+    // ... append assistant message, stream chunks into target thread only,
+    //     clear target.streamingId when done.
+  }
+
+  return (
+    <div className="flex h-[600px]">
+      <aside className="w-56 space-y-1 border-r p-2">
+        {threads.map((t) => (
+          <button key={t.id} onClick={() => setActiveId(t.id)}
+            className={'block w-full truncate rounded-md px-2 py-1.5 text-left text-sm ' +
+              (t.id === active.id ? 'bg-primary/10 text-primary' : 'text-muted-foreground')}>
+            {t.title}
+          </button>
+        ))}
+      </aside>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* key resets scroll + welcome state per thread */}
+        <Conversation
+          key={active.id}
+          messages={active.messages}
+          streamingMessageId={active.streamingId ?? undefined}
+          renderContent={(content) => <Response parseIncompleteMarkdown>{content}</Response>}
+          className="flex-1"
+        />
+        <PromptInput onSubmit={send} isLoading={Boolean(active.streamingId)} />
+      </div>
+    </div>
+  );
+}`,
   },
 ];
 
