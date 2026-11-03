@@ -12,9 +12,25 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
-    version: '0.2.0',
+    version: '0.3.0',
     date: 'November 2026',
     tag: 'current',
+    highlights: [
+      'New components: Form + FormLayout (validated composition with even tokenized spacing), Drawer (edge sheet with Dialog-grade modal semantics), InputGroup (flush left/right addons behind one outer outline), ButtonGroup (joined segments, single border), CheckboxGroup (multi-select counterpart of RadioGroup), RadioCard (whole clickable sections, native circle hidden, optional square corners)',
+      'Optional overlay motion: Dialog animate (fade + zoom backdrop/panel) and Drawer animate (side-aware slide in/out) — opt-in, reduced-motion safe, exit window via usePresence with immediate focus restoration',
+      'RadioGroup/CheckboxGroup: orientation (vertical/horizontal) and group-level error wired through a single fieldset (role=alert, one legend)',
+      'Info color retuned from sky to teal in both themes — light-mode info now meets WCAG AA against its ink foreground (4.04 → 6.36); token updated across themes, CLI template, and docs',
+      'Button success/warning/info semantic variants; Tabs rounded variant; Accordion borderless variant + gap; DataTable loadingRows with density-matched skeleton heights; Confirmation approveVariant/rejectVariant/showActions',
+      'Gap props accept tokens or exact pixels across Flex, Grid, Form, FormLayout, and Accordion (shared GapValue)',
+      'FormField: trailing slot now sits inline with the control at label-placements left; InputGroup forwards FormField id/aria wiring to the nested field so labels target the editable control',
+      'Docs: brand banner in full for navbar/footer, On-This-Page TOC rescans per navigation, GitHub links fixed, Block moved to Layout, search index backfilled (Input/Button/Badge + new components)',
+      'Release pipeline: CI and Release workflows moved to Node 22 (Next 16 requires ≥20.9), release workflow gains contents/PR write plus id-token for npm provenance',
+    ],
+  },
+  {
+    version: '0.2.0',
+    date: 'November 2026',
+    tag: 'previous',
     highlights: [
       'Axial-inspired design pivot: dark surface ladder (background < card < popover), crisp navy borders, light-blue primary with WCAG AA contrast in both themes, 6px radii',
       'Fixed invalid percent-hue success/warning/info tokens that silently dropped (status chips render correctly in both themes again)',
