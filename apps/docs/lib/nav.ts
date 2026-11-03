@@ -29,6 +29,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs', label: 'Introduction' },
       { href: '/docs/installation', label: 'Installation' },
       { href: '/docs/theming', label: 'Theming' },
+      { href: '/docs/roadmap', label: 'Roadmap' },
     ],
   },
   {

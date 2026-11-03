@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { McpPlayground } from '@/components/mcp-playground';
 
 export const metadata: Metadata = {
   title: 'MCP Server',
   description:
-    'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: list_components, get_component_manifest, get_usage_examples, and validate_usage keep agent-generated UI honest.',
+    'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: list_components, get_component_manifest, validate_usage keep agent-generated UI honest.',
 };
 
 export default function MCPPage() {
@@ -13,6 +14,11 @@ export default function MCPPage() {
       <p className="text-lg text-muted-foreground mb-8">
         Set up the Slipstream UI MCP server to give AI agents zero-hallucination access to component specifications.
       </p>
+
+      <div className="mb-10">
+        <McpPlayground />
+      </div>
+
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
         <h2 className="text-2xl font-semibold mt-8 mb-4">What is MCP?</h2>
