@@ -1,6 +1,11 @@
 {
   "name": "@slipstream-ui/mcp-server",
   "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmcshinsky/slipstream-ui.git",
+    "directory": "packages/mcp-server"
+  },
   "description": "MCP server for Slipstream UI component manifests",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

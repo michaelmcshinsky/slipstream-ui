@@ -1,6 +1,11 @@
 {
   "name": "@slipstream-ui/themes",
   "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmcshinsky/slipstream-ui.git",
+    "directory": "packages/themes"
+  },
   "description": "Theming system for Slipstream UI with createTheme() and presets",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

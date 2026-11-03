@@ -1,6 +1,11 @@
 {
   "name": "@slipstream-ui/core",
   "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmcshinsky/slipstream-ui.git",
+    "directory": "packages/core"
+  },
   "description": "Core UI components for Slipstream UI",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

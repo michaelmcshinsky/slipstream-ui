@@ -1,6 +1,11 @@
 {
   "name": "@slipstream-ui/registry",
   "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmcshinsky/slipstream-ui.git",
+    "directory": "packages/registry"
+  },
   "description": "Shared manifest registry resolution for Slipstream UI tooling (CLI and MCP server)",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
