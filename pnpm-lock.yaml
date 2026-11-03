@@ -101,8 +101,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.7(@types/react@18.3.31)
       tsx:
-        specifier: ^4.7.0
-        version: 4.23.12
+        specifier: ^4.23.15
+        version: 4.23.15
       turbo:
         specifier: ^2.0.0
         version: 2.10.9
@@ -169,7 +169,7 @@ importers:
         version: 8.5.32
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.19(tsx@4.23.12)
+        version: 3.4.19(tsx@4.23.15)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.19)
@@ -236,13 +236,13 @@ importers:
         version: 8.5.32
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.19(tsx@4.23.12)
+        version: 3.4.19(tsx@4.23.15)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.19)
       tsx:
-        specifier: ^4.7.0
-        version: 4.23.12
+        specifier: ^4.23.15
+        version: 4.23.15
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -288,7 +288,7 @@ importers:
         version: 8.5.32
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.19(tsx@4.23.12)
+        version: 3.4.19(tsx@4.23.15)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.19)
@@ -297,7 +297,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^8.3.5
-        version: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.12)
+        version: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.15)
 
   packages/ai:
     dependencies:
@@ -364,7 +364,7 @@ importers:
         version: 24.1.3
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -407,7 +407,7 @@ importers:
         version: 8.57.1
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -477,10 +477,10 @@ importers:
         version: 24.1.3
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.19(tsx@4.23.12)
+        version: 3.4.19(tsx@4.23.15)
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -501,8 +501,8 @@ importers:
         specifier: ^5.19.0
         version: 5.22.0
       tsx:
-        specifier: ^4.7.0
-        version: 4.23.12
+        specifier: ^4.23.15
+        version: 4.23.15
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -536,7 +536,7 @@ importers:
         version: 24.1.3
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -557,7 +557,7 @@ importers:
         version: 20.19.43
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -575,7 +575,7 @@ importers:
         version: 8.57.1
       tsup:
         specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -606,7 +606,7 @@ importers:
     devDependencies:
       tailwindcss:
         specifier: ^3.4.0
-        version: 3.4.19(tsx@4.23.12)
+        version: 3.4.19(tsx@4.23.15)
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.19)
@@ -1710,13 +1710,13 @@ packages:
     dev: true
     optional: true
 
-  /@napi-rs/wasm-runtime@1.2.6(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0):
-    resolution: {integrity: sha512-mRyDmEw9/fCDXCGfL1sbgIw/GUK0PVxRW4YwgPN61F3LQ+fSyoBFarJVzgGyhF6kRzEQZ0FejDqm4WLXSeqQmw==}
+  /@napi-rs/wasm-runtime@1.2.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0):
+    resolution: {integrity: sha512-zJccwplOAbgfZju95IUHazLnx9RAPtPN2YGJXI6UbrgeaR9QfPjGrQL6ERkSAtnVCA4Q+83ApGyaX5zdpCaKkQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=23.5.0}
     requiresBuild: true
     peerDependencies:
-      '@emnapi/core': ^1.7.1 || 2.0.0-beta.2
-      '@emnapi/runtime': ^1.7.1 || 2.0.0-beta.2
+      '@emnapi/core': ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
+      '@emnapi/runtime': ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
     dependencies:
       '@emnapi/core': 1.10.0
       '@emnapi/runtime': 1.10.0
@@ -2350,7 +2350,7 @@ packages:
       tailwindcss: '>=3.0.0 || >=4.0.0 || insiders'
     dependencies:
       postcss-selector-parser: 7.1.7
-      tailwindcss: 3.4.19(tsx@4.23.12)
+      tailwindcss: 3.4.19(tsx@4.23.15)
     dev: true
 
   /@testing-library/dom@10.4.2:
@@ -2886,7 +2886,7 @@ packages:
     dependencies:
       '@emnapi/core': 1.10.0
       '@emnapi/runtime': 1.10.0
-      '@napi-rs/wasm-runtime': 1.2.6(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
+      '@napi-rs/wasm-runtime': 1.2.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
     dev: true
     optional: true
 
@@ -2926,7 +2926,7 @@ packages:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.12)
+      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.15)
     transitivePeerDependencies:
       - supports-color
 
@@ -2945,7 +2945,7 @@ packages:
       '@vitest/spy': 5.0.5
       estree-walker: 3.0.3
       magic-string: 1.4.5
-      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.12)
+      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.15)
 
   /@vitest/spy@5.0.5:
     resolution: {integrity: sha512-lwJRExuH417257Q5wv9QYugN9IMJkoxcrKrYxGPQkBzl7wlNpTUxD/5yNX4ESKVUIShKPgkGchYPFMWOOk0wzw==}
@@ -6293,7 +6293,7 @@ packages:
       camelcase-css: 2.0.1
       postcss: 8.5.32
 
-  /postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.12):
+  /postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.15):
     resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
     engines: {node: '>= 18'}
     peerDependencies:
@@ -6314,7 +6314,7 @@ packages:
       jiti: 1.21.7
       lilconfig: 3.1.3
       postcss: 8.5.32
-      tsx: 4.23.12
+      tsx: 4.23.15
 
   /postcss-nested@6.2.0(postcss@8.5.32):
     resolution: {integrity: sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==}
@@ -7205,9 +7205,9 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
-      tailwindcss: 3.4.19(tsx@4.23.12)
+      tailwindcss: 3.4.19(tsx@4.23.15)
 
-  /tailwindcss@3.4.19(tsx@4.23.12):
+  /tailwindcss@3.4.19(tsx@4.23.15):
     resolution: {integrity: sha512-3ofp+LL8E+pK/JuPLPggVAIaEuhvIz4qNcf3nA1Xn2o/7fb7s/TYpHhwGDv1ZU3PkBluUVaF8PyCHcm48cKLWQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -7229,7 +7229,7 @@ packages:
       postcss: 8.5.32
       postcss-import: 15.1.0(postcss@8.5.32)
       postcss-js: 4.1.0(postcss@8.5.32)
-      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.12)
+      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.15)
       postcss-nested: 6.2.0(postcss@8.5.32)
       postcss-selector-parser: 7.1.7
       resolve: 1.22.12
@@ -7338,7 +7338,7 @@ packages:
   /tslib@2.9.1:
     resolution: {integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==}
 
-  /tsup@8.5.1(postcss@8.5.32)(tsx@4.23.12)(typescript@5.9.3):
+  /tsup@8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3):
     resolution: {integrity: sha512-xtgkqwdhpKWr3tKPmCkvYmS9xnQK3m3XgxZHwSUjvfTjp7YfXe5tT3GgWi0F2N+ZSMsOeWeZFh7ZZFg5iPhing==}
     engines: {node: '>=18'}
     hasBin: true
@@ -7367,7 +7367,7 @@ packages:
       joycon: 3.1.1
       picocolors: 1.1.1
       postcss: 8.5.32
-      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.12)
+      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.32)(tsx@4.23.15)
       resolve-from: 5.0.0
       rollup: 4.62.4
       source-map: 0.7.6
@@ -7383,8 +7383,8 @@ packages:
       - yaml
     dev: true
 
-  /tsx@4.23.12:
-    resolution: {integrity: sha512-FDf4L4sYzKtzWYhU/Xm0AQFdTjdIxNo9ElTf2mxXM6k8YMHXzYUe4yODVaXP4V9uMFbVg8c0qyBccK2OOxb45Q==}
+  /tsx@4.23.15:
+    resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
@@ -7622,7 +7622,7 @@ packages:
       vfile-message: 4.0.3
     dev: false
 
-  /vite@8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.12):
+  /vite@8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.15):
     resolution: {integrity: sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
@@ -7672,7 +7672,7 @@ packages:
       postcss: 8.5.32
       rolldown: 1.2.16
       tinyglobby: 0.2.17
-      tsx: 4.23.12
+      tsx: 4.23.15
     optionalDependencies:
       fsevents: 2.3.3
 
@@ -7731,7 +7731,7 @@ packages:
       tinybench: 6.2.2
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.12)
+      vite: 8.3.5(@types/node@20.19.43)(esbuild@0.28.2)(tsx@4.23.15)
       why-is-node-running: 3.2.1
     transitivePeerDependencies:
       - msw
