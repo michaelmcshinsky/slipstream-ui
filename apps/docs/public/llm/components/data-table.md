@@ -14,7 +14,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| columns | `DataTableColumn<T>[]` | — | yes | Column configuration: key, header, optional cell renderer, sortable flag, align, className. |
+| columns | `DataTableColumn<T>[]` | — | yes | Column configuration: key, header, optional cell renderer, sortable flag, align, className. Each column may define onClick(row) to make the cell content a button (column-level callbacks); onSortChange wires server-side sorting. |
 | data | `T[]` | — | yes | Row data. |
 | rowId | `(row: T) => string` | — | yes | Stable id per row (React key + test hooks). |
 | caption | `string` | — | no | Accessible table caption. |
@@ -26,6 +26,11 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | page | `number` | — | no | Controlled page number (1-based) when pageSize is set. |
 | onPageChange | `(page: number) => void` | — | no | Fires when the pagination control changes page. |
 | onRowClick | `(row: T) => void` | — | no | Makes rows interactive: click plus Enter/Space activation with ring focus. |
+| renderSortIcon | `(state: 'none' | 'asc' | 'desc') => ReactNode` | — | no | Replace the default ▲/▼/↕ header glyphs with custom markup. |
+| stickyHeader | `boolean` | `false` | no | Pin the header while the body scrolls (add a max-height via className). |
+| density | `'default' | 'compact'` | `default` | no | Row density — compact shrinks text and cell padding. |
+| zebra | `boolean` | `false` | no | Zebra-striped rows for long tables. |
+| loading | `boolean` | `false` | no | Render skeleton placeholder rows (tbody is aria-busy while loading). |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 

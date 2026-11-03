@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { Badge, DataTable, type DataTableColumn } from '@slipstream-ui/core';
+import { Badge, DataTable, Switch, type DataTableColumn } from '@slipstream-ui/core';
 
 interface Conversation {
   id: string;
@@ -40,6 +40,8 @@ const COLUMNS: DataTableColumn<Conversation>[] = [
 
 export default function DataTablePage() {
   const [clicked, setClicked] = useState<string | null>(null);
+  const [cellClick, setCellClick] = useState<string | null>(null);
+  const [loadingDemo, setLoadingDemo] = useState(false);
 
   return (
     <ComponentPage
@@ -59,6 +61,12 @@ export default function DataTablePage() {
         { name: 'page / onPageChange', type: 'number / (page: number) => void', description: 'Controlled pagination when pageSize is set.' },
         { name: 'onRowClick', type: '(row: T) => void', description: 'Makes rows keyboard-focusable (Enter/Space) with a visible ring.' },
         { name: 'emptyMessage', type: 'string', defaultValue: "'No results.'", description: 'Shown when data is empty.' },
+        { name: 'renderSortIcon', type: "(state: 'none' | 'asc' | 'desc') => ReactNode", description: 'Replace the default ▲/▼/↕ header glyphs with custom markup.' },
+        { name: 'stickyHeader', type: 'boolean', defaultValue: 'false', description: 'Pin the header while the body scrolls (pair with a max-height on className).' },
+        { name: 'density', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Row density — compact shrinks text and cell padding.' },
+        { name: 'zebra', type: 'boolean', defaultValue: 'false', description: 'Zebra-striped rows for long tables.' },
+        { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Render skeleton rows; tbody is aria-busy while loading.' },
+        { name: 'columns[].onClick', type: '(row: T) => void', description: 'Column-level callback — the cell content renders as a keyboard-operable button.' },
       ]}
       accessibility={[
         'Sortable headers expose aria-sort (ascending/descending/none) and toggle via a real button.',
@@ -173,6 +181,84 @@ interface DataTableProps<T> {
   rowId={(row) => row.id}
   emptyMessage="No failed runs in this window."
 />`}
+      />
+
+      <DemoCard
+        title="Custom icons · density · zebra · loading · cell callbacks"
+        preview={
+          <div className="w-full space-y-4">
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Switch
+                checked={loadingDemo}
+                onCheckedChange={setLoadingDemo}
+                aria-label="Toggle loading state"
+              />
+              loading (skeleton rows + aria-busy)
+            </label>
+            <DataTable
+              caption="Advanced config in one props object"
+              columns={[
+                {
+                  key: 'title',
+                  header: 'Title',
+                  sortable: true,
+                  // Column-level callback: the cell renders as a button.
+                  onClick: (row) => setCellClick(row.title),
+                },
+                { key: 'messages', header: 'Messages', align: 'right', sortable: true },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  cell: (row) => (
+                    <Badge variant={row.status === 'failed' ? 'destructive' : row.status === 'live' ? 'default' : 'outline'}>
+                      {row.status}
+                    </Badge>
+                  ),
+                },
+                { key: 'updatedAt', header: 'Updated', align: 'right' },
+              ]}
+              data={CONVERSATIONS}
+              rowId={(row) => row.id}
+              zebra
+              density="compact"
+              loading={loadingDemo}
+              renderSortIcon={(state) => (state === 'none' ? '⇅' : state === 'asc' ? '↑' : '↓')}
+            />
+            <p className="text-xs text-muted-foreground">
+              Title cell clicked:{' '}
+              <code className="rounded bg-muted px-1 py-0.5 font-mono">{cellClick ?? 'none yet'}</code>{' '}
+              — click a Title cell (its own onClick), or sort with the custom ↑/↓/⇅ icons.
+            </p>
+          </div>
+        }
+        code={`<DataTable
+  columns={[
+    { key: 'title', header: 'Title', sortable: true,
+      onClick: (row) => open(row) },          // cell becomes a button
+    { key: 'messages', header: 'Messages', align: 'right', sortable: true },
+    { key: 'status', header: 'Status',
+      cell: (row) => <Badge variant={tone(row.status)}>{row.status}</Badge> },
+  ]}
+  data={rows}
+  rowId={(row) => row.id}
+  zebra
+  density="compact"
+  loading={isLoading}
+  renderSortIcon={(s) => (s === 'none' ? '⇅' : s === 'asc' ? '↑' : '↓')}
+/>`}
+        usage={`// Server-side sort: onSortChange fires on every header toggle while
+// DataTable keeps aria-sort honest — fetch and replace data yourself.
+<DataTable
+  columns={columns}
+  data={serverRows}
+  rowId={(row) => row.id}
+  sortKey={sort.key}
+  sortDir={sort.dir}
+  onSortChange={(key, dir) => fetchSorted(key, dir)}
+/>
+
+// Sticky header: give the wrapper a height
+<DataTable … stickyHeader className="max-h-[480px] overflow-y-auto" />`}
       />
     </ComponentPage>
   );

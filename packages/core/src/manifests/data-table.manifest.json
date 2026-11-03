@@ -9,36 +9,46 @@
       "name": "columns",
       "type": "DataTableColumn<T>[]",
       "required": true,
-      "description": "Column configuration: key, header, optional cell renderer, sortable flag, align, className.",
-      "examples": ["[{ key: 'name', header: 'Name', sortable: true }, { key: 'age', header: 'Age', align: 'right' }]"]
+      "description": "Column configuration: key, header, optional cell renderer, sortable flag, align, className. Each column may define onClick(row) to make the cell content a button (column-level callbacks); onSortChange wires server-side sorting.",
+      "examples": [
+        "[{ key: 'name', header: 'Name', sortable: true }, { key: 'age', header: 'Age', align: 'right' }]"
+      ]
     },
     {
       "name": "data",
       "type": "T[]",
       "required": true,
       "description": "Row data.",
-      "examples": ["users"]
+      "examples": [
+        "users"
+      ]
     },
     {
       "name": "rowId",
       "type": "(row: T) => string",
       "required": true,
       "description": "Stable id per row (React key + test hooks).",
-      "examples": ["(row) => row.id"]
+      "examples": [
+        "(row) => row.id"
+      ]
     },
     {
       "name": "caption",
       "type": "string",
       "required": false,
       "description": "Accessible table caption.",
-      "examples": ["Recent conversations"]
+      "examples": [
+        "Recent conversations"
+      ]
     },
     {
       "name": "defaultSort",
       "type": "{ key: string; dir: 'asc' | 'desc' } | null",
       "required": false,
       "description": "Initial sort when uncontrolled.",
-      "examples": ["{ key: 'name', dir: 'asc' }"]
+      "examples": [
+        "{ key: 'name', dir: 'asc' }"
+      ]
     },
     {
       "name": "sortKey",
@@ -63,7 +73,9 @@
       "type": "number",
       "required": false,
       "description": "Rows per page; enables pagination with a count line when set.",
-      "examples": ["10"]
+      "examples": [
+        "10"
+      ]
     },
     {
       "name": "page",
@@ -84,12 +96,64 @@
       "description": "Makes rows interactive: click plus Enter/Space activation with ring focus."
     },
     {
+      "name": "renderSortIcon",
+      "type": "(state: 'none' | 'asc' | 'desc') => ReactNode",
+      "required": false,
+      "description": "Replace the default ▲/▼/↕ header glyphs with custom markup."
+    },
+    {
+      "name": "stickyHeader",
+      "type": "boolean",
+      "required": false,
+      "description": "Pin the header while the body scrolls (add a max-height via className).",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "density",
+      "type": "'default' | 'compact'",
+      "required": false,
+      "description": "Row density — compact shrinks text and cell padding.",
+      "defaultValue": "default",
+      "enum": [
+        "default",
+        "compact"
+      ],
+      "examples": [
+        "compact"
+      ]
+    },
+    {
+      "name": "zebra",
+      "type": "boolean",
+      "required": false,
+      "description": "Zebra-striped rows for long tables.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Render skeleton placeholder rows (tbody is aria-busy while loading).",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
       "name": "emptyMessage",
       "type": "string",
       "required": false,
       "description": "Shown when data is empty.",
       "defaultValue": "'No results.'",
-      "examples": ["'No conversations yet'"]
+      "examples": [
+        "'No conversations yet'"
+      ]
     },
     {
       "name": "className",
@@ -152,9 +216,19 @@
   "contentGuidelines": [
     {
       "contentType": "Headers",
-      "guidelines": ["Short noun labels", "Right-align numeric columns", "State units in the header when relevant"],
-      "goodExamples": ["Messages", "Latency (ms)"],
-      "badExamples": ["How many messages were sent?", "ms latency number"]
+      "guidelines": [
+        "Short noun labels",
+        "Right-align numeric columns",
+        "State units in the header when relevant"
+      ],
+      "goodExamples": [
+        "Messages",
+        "Latency (ms)"
+      ],
+      "badExamples": [
+        "How many messages were sent?",
+        "ms latency number"
+      ]
     }
   ],
   "compositionRules": [
@@ -173,7 +247,12 @@
       "relationship": "Prefer Table when you need fully custom markup or non-interactive static data"
     }
   ],
-  "relatedComponents": ["Table", "Pagination", "Badge", "Skeleton"],
+  "relatedComponents": [
+    "Table",
+    "Pagination",
+    "Badge",
+    "Skeleton"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",
