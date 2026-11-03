@@ -1,23 +1,9 @@
 'use client';
 
 import * as React from 'react';
+import type { ToastAction, ToastOptions, ToastRecord } from './toast-store';
 
-export type ToastAction = {
-  label: string;
-  onClick: () => void;
-};
-
-export type ToastOptions = {
-  title: string;
-  description?: string;
-  action?: ToastAction;
-  /** Auto-dismiss delay in ms; 0 keeps the toast until dismissed. Default 5000. */
-  duration?: number;
-};
-
-export type ToastRecord = ToastOptions & {
-  id: string;
-};
+export type { ToastAction, ToastOptions, ToastRecord };
 
 export type ToastContextValue = {
   toasts: ToastRecord[];

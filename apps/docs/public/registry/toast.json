@@ -3,54 +3,99 @@
   "id": "toast",
   "name": "toast",
   "tier": "molecule",
-  "description": "Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions",
-  "designIntent": "Applications need lightweight feedback that does not steal focus. Toasts render into a labelled polite live region so screen readers announce them, stack newest-first, auto-dismiss on a timer, and support one optional action (typically undo).",
+  "description": "Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.",
+  "designIntent": "Toasts announce status changes without stealing focus. The provider/useToast pair covers tree-scoped usage; the module-level toast() + <Toaster /> covers event handlers and data layers where threading a hook is impossible (e.g. 1000+ call sites). A polite live region and auto-dismiss keep the queue quiet.",
   "props": [
     {
       "name": "title",
       "type": "string",
       "required": true,
-      "description": "Short heading announced with the toast"
+      "description": "Toast heading.",
+      "examples": [
+        "Saved",
+        "Upload failed"
+      ]
     },
     {
       "name": "description",
       "type": "string",
       "required": false,
-      "description": "Optional supporting detail"
+      "description": "Supporting line under the title."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'success' | 'error' | 'warning' | 'info'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Status accent (dot + optional rich tint).",
+      "enum": [
+        "default",
+        "success",
+        "error",
+        "warning",
+        "info"
+      ],
+      "examples": [
+        "success",
+        "error"
+      ]
     },
     {
       "name": "action",
       "type": "{ label: string; onClick: () => void }",
       "required": false,
-      "description": "Optional inline action; invoking it dismisses the toast"
+      "description": "Single inline action; dismisses the toast after running."
     },
     {
       "name": "duration",
       "type": "number",
-      "defaultValue": 5000,
       "required": false,
-      "description": "Auto-dismiss delay in ms; 0 keeps the toast until dismissed",
+      "defaultValue": "5000",
+      "description": "Auto-dismiss delay in ms; 0 keeps the toast until dismissed."
+    },
+    {
+      "name": "position",
+      "type": "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+      "required": false,
+      "defaultValue": "bottom-right",
+      "description": "Toaster placement (Toaster component).",
       "enum": [
-        "0",
-        "5000"
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right"
       ],
       "examples": [
-        0,
-        3000,
-        5000
+        "top-right"
       ]
+    },
+    {
+      "name": "richColors",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Tint the toast surface with its status color (Toaster component)."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Notifications",
+      "description": "Accessible name of the live region (Toaster component)."
     }
   ],
   "examples": [
     {
-      "title": "Basic toast with useToast",
-      "code": "'use client';\n\nimport { ToastProvider, useToast } from '@/components/slipstream/toast';\n\nfunction SaveButton() {\n  const { toast } = useToast();\n  return (\n    <button onClick={() => toast({ title: 'Saved', description: 'Your changes are live.' })}>\n      Save\n    </button>\n  );\n}\n\nexport function App() {\n  return (\n    <ToastProvider>\n      <SaveButton />\n    </ToastProvider>\n  );\n}",
-      "description": "Wrap your app in ToastProvider once; call toast() anywhere below it."
+      "title": "Imperative API",
+      "code": "import { Toaster, toast } from '@slipstream-ui/core';\n\n<Toaster position=\"bottom-right\" richColors />\n\ntoast.success('Saved', 'Your changes are live');\ntoast.error('Upload failed', 'Check your connection');\ntoast({ title: 'Heads up', duration: 0 });",
+      "description": "Fire from event handlers or data layers — no hook needed."
     },
     {
-      "title": "Undo action",
-      "code": "toast({\n  title: 'License revoked',\n  action: { label: 'Undo', onClick: restore },\n  duration: 0,\n});",
-      "description": "duration: 0 keeps the toast until the user acts or dismisses it."
+      "title": "Tree-scoped provider",
+      "code": "<ToastProvider>\n  <App />\n</ToastProvider>;\n\nconst { toast, dismiss } = useToast();\ntoast({ title: 'Saved' });",
+      "description": "Existing provider/hook pair for component-scoped usage."
     }
   ],
   "antiPatterns": [
@@ -61,12 +106,19 @@
   ],
   "accessibility": [
     {
-      "feature": "Screen reader announcements",
-      "implementation": "Each toast renders inside role=status (implicit aria-live=polite) within a labelled list container."
+      "feature": "Polite live region",
+      "implementation": "Each toast renders role=status inside a labelled list; announcements never steal focus",
+      "userRequirements": "Keep messages short and actionable"
     },
     {
-      "feature": "Keyboard dismiss",
-      "implementation": "Toast content is regular DOM; buttons inside toasts are reachable and activatable with the keyboard."
+      "feature": "Dismiss control",
+      "implementation": "Every toast has a labelled dismiss button (Dismiss <title>)",
+      "userRequirements": "Don't remove the dismiss button"
+    },
+    {
+      "feature": "Auto-dismiss timing",
+      "implementation": "5s default; duration 0 keeps sticky toasts",
+      "userRequirements": "Use duration 0 for errors that need a decision"
     }
   ],
   "contentGuidelines": [
@@ -87,8 +139,14 @@
   ],
   "compositionRules": [
     {
-      "component": "Confirmation",
-      "relationship": "Use Confirmation for destructive actions before they happen; use Toast to report the result after."
+      "component": "Toaster",
+      "relationship": "Mount once near the app root next to your router; keep it outside transforms so fixed positioning is not affected",
+      "example": "<App><Toaster /></App>"
+    },
+    {
+      "component": "ToastProvider",
+      "relationship": "Use the provider/hook pair when the call site is inside the React tree",
+      "example": "<ToastProvider><App /></ToastProvider>"
     }
   ],
   "relatedComponents": [
@@ -110,17 +168,27 @@
   "files": [
     {
       "path": "components/slipstream/toast/index.ts",
-      "content": "export { ToastProvider, useToast } from './Toast';\nexport type { ToastOptions, ToastRecord, ToastAction, ToastContextValue } from './Toast';\n",
+      "content": "export { ToastProvider, useToast } from './Toast';\nexport type { ToastOptions, ToastRecord, ToastAction, ToastContextValue } from './Toast';\nexport { Toaster } from './Toaster';\nexport type { ToasterProps, ToasterPosition } from './Toaster';\nexport { toast } from './toast-store';\nexport type { ToastVariant } from './toast-store';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/toast/toast-store.ts",
+      "content": "/**\n * Imperative toast store.\n *\n * Components can call `toast(...)` from anywhere — event handlers, data\n * layers, async catch blocks — without threading a hook through the tree.\n * `<Toaster />` subscribes to this store and renders the queue. The\n * provider/hook API in Toast.tsx remains for tree-scoped usage.\n */\n\nexport type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info';\n\nexport type ToastAction = {\n  label: string;\n  onClick: () => void;\n};\n\nexport type ToastOptions = {\n  title: string;\n  description?: string;\n  action?: ToastAction;\n  variant?: ToastVariant;\n  /** Auto-dismiss delay in ms; 0 keeps the toast until dismissed. Default 5000. */\n  duration?: number;\n};\n\nexport type ToastRecord = ToastOptions & { id: string };\n\ntype Listener = (toasts: readonly ToastRecord[]) => void;\n\nconst DEFAULT_DURATION = 5000;\n\nlet toasts: readonly ToastRecord[] = [];\nconst EMPTY: readonly ToastRecord[] = [];\nconst listeners = new Set<Listener>();\nconst timers = new Map<string, ReturnType<typeof setTimeout>>();\n\nfunction emit() {\n  for (const listener of listeners) listener(toasts);\n}\n\nfunction dismiss(id: string) {\n  const timer = timers.get(id);\n  if (timer) {\n    clearTimeout(timer);\n    timers.delete(id);\n  }\n  toasts = toasts.filter((entry) => entry.id !== id);\n  emit();\n}\n\nfunction show(options: ToastOptions): string {\n  const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;\n  toasts = [...toasts, { ...options, id }];\n  emit();\n\n  const duration = options.duration ?? DEFAULT_DURATION;\n  if (duration > 0) {\n    timers.set(\n      id,\n      setTimeout(() => dismiss(id), duration),\n    );\n  }\n  return id;\n}\n\ntype ToastFunction = ((options: ToastOptions) => string) & {\n  success: (title: string, description?: string) => string;\n  error: (title: string, description?: string) => string;\n  warning: (title: string, description?: string) => string;\n  info: (title: string, description?: string) => string;\n  dismiss: (id?: string) => void;\n  clear: () => void;\n};\n\n/**\n * Fire a toast from anywhere. Variant helpers mirror the sonner/Radix\n * shape most codebases already call:\n *\n *   toast.success('Saved')\n *   toast.error('Upload failed', 'Check your connection')\n *   toast({ title: 'Heads up', duration: 0 })\n */\nexport const toast: ToastFunction = Object.assign(\n  (options: ToastOptions) => show({ ...options, variant: options.variant ?? 'default' }),\n  {\n    success: (title: string, description?: string) => show({ title, description, variant: 'success' }),\n    error: (title: string, description?: string) => show({ title, description, variant: 'error' }),\n    warning: (title: string, description?: string) => show({ title, description, variant: 'warning' }),\n    info: (title: string, description?: string) => show({ title, description, variant: 'info' }),\n    dismiss: (id?: string) => {\n      if (id) {\n        dismiss(id);\n        return;\n      }\n      for (const entry of [...toasts]) dismiss(entry.id);\n    },\n    clear: () => {\n      for (const entry of [...toasts]) dismiss(entry.id);\n    },\n  },\n);\n\n/** Subscribe to the queue (used by `<Toaster />`). */\nexport function subscribeToToasts(listener: Listener): () => void {\n  listeners.add(listener);\n  return () => listeners.delete(listener);\n}\n\n/** Current queue; the reference is stable between mutations. */\nexport function getToastSnapshot(): readonly ToastRecord[] {\n  return toasts;\n}\n\n/** SSR-safe snapshot — always empty (toasts only exist client-side). */\nexport function getToastServerSnapshot(): readonly ToastRecord[] {\n  return EMPTY;\n}\n",
       "type": "registry:component"
     },
     {
       "path": "components/slipstream/toast/Toast.tsx",
-      "content": "'use client';\n\nimport * as React from 'react';\n\nexport type ToastAction = {\n  label: string;\n  onClick: () => void;\n};\n\nexport type ToastOptions = {\n  title: string;\n  description?: string;\n  action?: ToastAction;\n  /** Auto-dismiss delay in ms; 0 keeps the toast until dismissed. Default 5000. */\n  duration?: number;\n};\n\nexport type ToastRecord = ToastOptions & {\n  id: string;\n};\n\nexport type ToastContextValue = {\n  toasts: ToastRecord[];\n  toast: (options: ToastOptions) => string;\n  dismiss: (id: string) => void;\n};\n\nconst ToastContext = React.createContext<ToastContextValue | null>(null);\n\nconst DEFAULT_DURATION = 5000;\n\n/**\n * Accessible app-level notifications. Toasts render into a polite live\n * region so screen readers announce them without stealing focus, stack\n * newest-first, and auto-dismiss unless duration is 0.\n */\nexport function ToastProvider({ children, label = 'Notifications' }: { children: React.ReactNode; label?: string }) {\n  const [toasts, setToasts] = React.useState<ToastRecord[]>([]);\n  const timers = React.useRef(new Map<string, ReturnType<typeof setTimeout>>());\n\n  const dismiss = React.useCallback((id: string) => {\n    const timer = timers.current.get(id);\n    if (timer) {\n      clearTimeout(timer);\n      timers.current.delete(id);\n    }\n    setToasts((current) => current.filter((entry) => entry.id !== id));\n  }, []);\n\n  const toast = React.useCallback(\n    (options: ToastOptions) => {\n      const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;\n      setToasts((current) => [...current, { ...options, id }]);\n      const duration = options.duration ?? DEFAULT_DURATION;\n      if (duration > 0) {\n        timers.current.set(\n          id,\n          setTimeout(() => dismiss(id), duration),\n        );\n      }\n      return id;\n    },\n    [dismiss],\n  );\n\n  React.useEffect(() => {\n    const pending = timers.current;\n    return () => {\n      for (const timer of pending.values()) clearTimeout(timer);\n      pending.clear();\n    };\n  }, []);\n\n  const value = React.useMemo(() => ({ toasts, toast, dismiss }), [toasts, toast, dismiss]);\n\n  return (\n    <ToastContext.Provider value={value}>\n      {children}\n      <ToastRegion toasts={toasts} onDismiss={dismiss} label={label} />\n    </ToastContext.Provider>\n  );\n}\n\nexport function useToast(): ToastContextValue {\n  const context = React.useContext(ToastContext);\n  if (!context) throw new Error('useToast must be used within a <ToastProvider>.');\n  return context;\n}\n\nfunction ToastRegion({\n  toasts,\n  onDismiss,\n  label,\n}: {\n  toasts: ToastRecord[];\n  onDismiss: (id: string) => void;\n  label: string;\n}) {\n  return (\n    <ol\n      aria-label={label}\n      className=\"fixed bottom-4 right-4 z-50 flex w-full max-w-sm flex-col gap-2\"\n    >\n      {toasts.map((entry) => (\n        <li key={entry.id} className=\"rounded-lg border border-border bg-card p-4 shadow-lg\">\n          <div role=\"status\" className=\"flex items-start justify-between gap-3\">\n            <div>\n              <p className=\"text-sm font-semibold\">{entry.title}</p>\n              {entry.description && <p className=\"mt-1 text-sm text-muted-foreground\">{entry.description}</p>}\n            </div>\n            <button\n              type=\"button\"\n              onClick={() => onDismiss(entry.id)}\n              aria-label={`Dismiss ${entry.title}`}\n              className=\"rounded p-1 text-muted-foreground hover:text-foreground\"\n            >\n              ✕\n            </button>\n          </div>\n          {entry.action && (\n            <button\n              type=\"button\"\n              onClick={() => {\n                entry.action?.onClick();\n                onDismiss(entry.id);\n              }}\n              className=\"mt-2 text-sm font-medium text-primary hover:underline\"\n            >\n              {entry.action.label}\n            </button>\n          )}\n        </li>\n      ))}\n    </ol>\n  );\n}\n",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport type { ToastAction, ToastOptions, ToastRecord } from './toast-store';\n\nexport type { ToastAction, ToastOptions, ToastRecord };\n\nexport type ToastContextValue = {\n  toasts: ToastRecord[];\n  toast: (options: ToastOptions) => string;\n  dismiss: (id: string) => void;\n};\n\nconst ToastContext = React.createContext<ToastContextValue | null>(null);\n\nconst DEFAULT_DURATION = 5000;\n\n/**\n * Accessible app-level notifications. Toasts render into a polite live\n * region so screen readers announce them without stealing focus, stack\n * newest-first, and auto-dismiss unless duration is 0.\n */\nexport function ToastProvider({ children, label = 'Notifications' }: { children: React.ReactNode; label?: string }) {\n  const [toasts, setToasts] = React.useState<ToastRecord[]>([]);\n  const timers = React.useRef(new Map<string, ReturnType<typeof setTimeout>>());\n\n  const dismiss = React.useCallback((id: string) => {\n    const timer = timers.current.get(id);\n    if (timer) {\n      clearTimeout(timer);\n      timers.current.delete(id);\n    }\n    setToasts((current) => current.filter((entry) => entry.id !== id));\n  }, []);\n\n  const toast = React.useCallback(\n    (options: ToastOptions) => {\n      const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;\n      setToasts((current) => [...current, { ...options, id }]);\n      const duration = options.duration ?? DEFAULT_DURATION;\n      if (duration > 0) {\n        timers.current.set(\n          id,\n          setTimeout(() => dismiss(id), duration),\n        );\n      }\n      return id;\n    },\n    [dismiss],\n  );\n\n  React.useEffect(() => {\n    const pending = timers.current;\n    return () => {\n      for (const timer of pending.values()) clearTimeout(timer);\n      pending.clear();\n    };\n  }, []);\n\n  const value = React.useMemo(() => ({ toasts, toast, dismiss }), [toasts, toast, dismiss]);\n\n  return (\n    <ToastContext.Provider value={value}>\n      {children}\n      <ToastRegion toasts={toasts} onDismiss={dismiss} label={label} />\n    </ToastContext.Provider>\n  );\n}\n\nexport function useToast(): ToastContextValue {\n  const context = React.useContext(ToastContext);\n  if (!context) throw new Error('useToast must be used within a <ToastProvider>.');\n  return context;\n}\n\nfunction ToastRegion({\n  toasts,\n  onDismiss,\n  label,\n}: {\n  toasts: ToastRecord[];\n  onDismiss: (id: string) => void;\n  label: string;\n}) {\n  return (\n    <ol\n      aria-label={label}\n      className=\"fixed bottom-4 right-4 z-50 flex w-full max-w-sm flex-col gap-2\"\n    >\n      {toasts.map((entry) => (\n        <li key={entry.id} className=\"rounded-lg border border-border bg-card p-4 shadow-lg\">\n          <div role=\"status\" className=\"flex items-start justify-between gap-3\">\n            <div>\n              <p className=\"text-sm font-semibold\">{entry.title}</p>\n              {entry.description && <p className=\"mt-1 text-sm text-muted-foreground\">{entry.description}</p>}\n            </div>\n            <button\n              type=\"button\"\n              onClick={() => onDismiss(entry.id)}\n              aria-label={`Dismiss ${entry.title}`}\n              className=\"rounded p-1 text-muted-foreground hover:text-foreground\"\n            >\n              ✕\n            </button>\n          </div>\n          {entry.action && (\n            <button\n              type=\"button\"\n              onClick={() => {\n                entry.action?.onClick();\n                onDismiss(entry.id);\n              }}\n              className=\"mt-2 text-sm font-medium text-primary hover:underline\"\n            >\n              {entry.action.label}\n            </button>\n          )}\n        </li>\n      ))}\n    </ol>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/toast/Toaster.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport {\n  getToastServerSnapshot,\n  getToastSnapshot,\n  subscribeToToasts,\n  toast as imperativeToast,\n  type ToastRecord,\n  type ToastVariant,\n} from './toast-store';\n\nexport type ToasterPosition =\n  | 'top-left'\n  | 'top-center'\n  | 'top-right'\n  | 'bottom-left'\n  | 'bottom-center'\n  | 'bottom-right';\n\nexport type ToasterProps = {\n  /** Corner/edge the stack renders at. Default 'bottom-right'. */\n  position?: ToasterPosition;\n  /** Accessible name of the live region. Default 'Notifications'. */\n  label?: string;\n  /** Tint the toast surface with its status color (neutral by default). */\n  richColors?: boolean;\n};\n\nconst positionClasses: Record<ToasterPosition, string> = {\n  'top-left': 'left-4 top-4 items-start',\n  'top-center': 'left-1/2 top-4 -translate-x-1/2 items-center',\n  'top-right': 'right-4 top-4 items-end',\n  'bottom-left': 'bottom-4 left-4 items-start',\n  'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2 items-center',\n  'bottom-right': 'bottom-4 right-4 items-end',\n};\n\nconst richClasses: Record<ToastVariant, string> = {\n  default: 'border-border bg-card',\n  success: 'border-success/50 bg-success/10',\n  error: 'border-destructive/50 bg-destructive/10',\n  warning: 'border-warning/50 bg-warning/10',\n  info: 'border-info/50 bg-info/10',\n};\n\nconst dotClasses: Record<ToastVariant, string> = {\n  default: 'bg-muted-foreground',\n  success: 'bg-success',\n  error: 'bg-destructive',\n  warning: 'bg-warning',\n  info: 'bg-info',\n};\n\n/**\n * Renders the imperative toast queue. Mount once near the app root:\n *\n *   <Toaster />\n *   toast.success('Saved')\n *\n * The region is a polite live region, so announcements don't steal focus.\n */\nexport function Toaster({ position = 'bottom-right', label = 'Notifications', richColors = false }: ToasterProps) {\n  const entries = React.useSyncExternalStore(subscribeToToasts, getToastSnapshot, getToastServerSnapshot);\n\n  return (\n    <ol\n      aria-label={label}\n      className={cn('fixed z-[60] flex w-full max-w-sm flex-col gap-2', positionClasses[position])}\n    >\n      {entries.map((entry) => {\n        const variant = entry.variant ?? 'default';\n        return (\n          <li\n            key={entry.id}\n            className={cn(\n              'rounded-lg border p-4 shadow-lg',\n              richColors ? richClasses[variant] : 'border-border bg-card',\n            )}\n          >\n            <div role=\"status\" className=\"flex items-start gap-3\">\n              <span aria-hidden=\"true\" className={cn('mt-1 h-2 w-2 shrink-0 rounded-full', dotClasses[variant])} />\n              <div className=\"min-w-0 flex-1\">\n                <p className=\"text-sm font-semibold\">{entry.title}</p>\n                {entry.description && <p className=\"mt-1 text-sm text-muted-foreground\">{entry.description}</p>}\n                {entry.action && (\n                  <button\n                    type=\"button\"\n                    onClick={() => {\n                      entry.action?.onClick();\n                      imperativeToast.dismiss(entry.id);\n                    }}\n                    className=\"mt-2 text-sm font-medium text-primary hover:underline\"\n                  >\n                    {entry.action.label}\n                  </button>\n                )}\n              </div>\n              <button\n                type=\"button\"\n                onClick={() => imperativeToast.dismiss(entry.id)}\n                aria-label={`Dismiss ${entry.title}`}\n                className=\"rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n              >\n                ✕\n              </button>\n            </div>\n          </li>\n        );\n      })}\n    </ol>\n  );\n}\n\nexport type { ToastRecord };\n",
       "type": "registry:component"
     },
     {
       "path": "components/slipstream/manifests/toast.manifest.json",
-      "content": "{\n  \"id\": \"toast\",\n  \"name\": \"Toast\",\n  \"tier\": \"molecule\",\n  \"description\": \"Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions\",\n  \"designIntent\": \"Applications need lightweight feedback that does not steal focus. Toasts render into a labelled polite live region so screen readers announce them, stack newest-first, auto-dismiss on a timer, and support one optional action (typically undo).\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Short heading announced with the toast\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Optional supporting detail\"\n    },\n    {\n      \"name\": \"action\",\n      \"type\": \"{ label: string; onClick: () => void }\",\n      \"required\": false,\n      \"description\": \"Optional inline action; invoking it dismisses the toast\"\n    },\n    {\n      \"name\": \"duration\",\n      \"type\": \"number\",\n      \"defaultValue\": 5000,\n      \"required\": false,\n      \"description\": \"Auto-dismiss delay in ms; 0 keeps the toast until dismissed\",\n      \"enum\": [\"0\", \"5000\"],\n      \"examples\": [0, 3000, 5000]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic toast with useToast\",\n      \"code\": \"'use client';\\n\\nimport { ToastProvider, useToast } from '@/components/slipstream/toast';\\n\\nfunction SaveButton() {\\n  const { toast } = useToast();\\n  return (\\n    <button onClick={() => toast({ title: 'Saved', description: 'Your changes are live.' })}>\\n      Save\\n    </button>\\n  );\\n}\\n\\nexport function App() {\\n  return (\\n    <ToastProvider>\\n      <SaveButton />\\n    </ToastProvider>\\n  );\\n}\",\n      \"description\": \"Wrap your app in ToastProvider once; call toast() anywhere below it.\"\n    },\n    {\n      \"title\": \"Undo action\",\n      \"code\": \"toast({\\n  title: 'License revoked',\\n  action: { label: 'Undo', onClick: restore },\\n  duration: 0,\\n});\",\n      \"description\": \"duration: 0 keeps the toast until the user acts or dismisses it.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not use toasts for critical errors\",\n      \"explanation\": \"Auto-dismissed messages can be missed. Render persistent inline error states (role=alert) for failures the user must resolve.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Screen reader announcements\",\n      \"implementation\": \"Each toast renders inside role=status (implicit aria-live=polite) within a labelled list container.\"\n    },\n    {\n      \"feature\": \"Keyboard dismiss\",\n      \"implementation\": \"Toast content is regular DOM; buttons inside toasts are reachable and activatable with the keyboard.\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"toast title\",\n      \"guidelines\": [\"State what happened in past tense\", \"Keep under ~60 characters\"],\n      \"goodExamples\": [\"Saved\", \"License revoked\"],\n      \"badExamples\": [\"Oops!\"]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Confirmation\",\n      \"relationship\": \"Use Confirmation for destructive actions before they happen; use Toast to report the result after.\"\n    }\n  ],\n  \"relatedComponents\": [\"Confirmation\", \"Button\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"toast\",\n  \"exportName\": \"ToastProvider\"\n}\n",
+      "content": "{\n  \"id\": \"toast\",\n  \"name\": \"Toast\",\n  \"tier\": \"molecule\",\n  \"description\": \"Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.\",\n  \"designIntent\": \"Toasts announce status changes without stealing focus. The provider/useToast pair covers tree-scoped usage; the module-level toast() + <Toaster /> covers event handlers and data layers where threading a hook is impossible (e.g. 1000+ call sites). A polite live region and auto-dismiss keep the queue quiet.\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Toast heading.\",\n      \"examples\": [\n        \"Saved\",\n        \"Upload failed\"\n      ]\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Supporting line under the title.\"\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'default' | 'success' | 'error' | 'warning' | 'info'\",\n      \"required\": false,\n      \"defaultValue\": \"default\",\n      \"description\": \"Status accent (dot + optional rich tint).\",\n      \"enum\": [\n        \"default\",\n        \"success\",\n        \"error\",\n        \"warning\",\n        \"info\"\n      ],\n      \"examples\": [\n        \"success\",\n        \"error\"\n      ]\n    },\n    {\n      \"name\": \"action\",\n      \"type\": \"{ label: string; onClick: () => void }\",\n      \"required\": false,\n      \"description\": \"Single inline action; dismisses the toast after running.\"\n    },\n    {\n      \"name\": \"duration\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"defaultValue\": \"5000\",\n      \"description\": \"Auto-dismiss delay in ms; 0 keeps the toast until dismissed.\"\n    },\n    {\n      \"name\": \"position\",\n      \"type\": \"'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'\",\n      \"required\": false,\n      \"defaultValue\": \"bottom-right\",\n      \"description\": \"Toaster placement (Toaster component).\",\n      \"enum\": [\n        \"top-left\",\n        \"top-center\",\n        \"top-right\",\n        \"bottom-left\",\n        \"bottom-center\",\n        \"bottom-right\"\n      ],\n      \"examples\": [\n        \"top-right\"\n      ]\n    },\n    {\n      \"name\": \"richColors\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Tint the toast surface with its status color (Toaster component).\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Notifications\",\n      \"description\": \"Accessible name of the live region (Toaster component).\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Imperative API\",\n      \"code\": \"import { Toaster, toast } from '@slipstream-ui/core';\\n\\n<Toaster position=\\\"bottom-right\\\" richColors />\\n\\ntoast.success('Saved', 'Your changes are live');\\ntoast.error('Upload failed', 'Check your connection');\\ntoast({ title: 'Heads up', duration: 0 });\",\n      \"description\": \"Fire from event handlers or data layers — no hook needed.\"\n    },\n    {\n      \"title\": \"Tree-scoped provider\",\n      \"code\": \"<ToastProvider>\\n  <App />\\n</ToastProvider>;\\n\\nconst { toast, dismiss } = useToast();\\ntoast({ title: 'Saved' });\",\n      \"description\": \"Existing provider/hook pair for component-scoped usage.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not use toasts for critical errors\",\n      \"explanation\": \"Auto-dismissed messages can be missed. Render persistent inline error states (role=alert) for failures the user must resolve.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Polite live region\",\n      \"implementation\": \"Each toast renders role=status inside a labelled list; announcements never steal focus\",\n      \"userRequirements\": \"Keep messages short and actionable\"\n    },\n    {\n      \"feature\": \"Dismiss control\",\n      \"implementation\": \"Every toast has a labelled dismiss button (Dismiss <title>)\",\n      \"userRequirements\": \"Don't remove the dismiss button\"\n    },\n    {\n      \"feature\": \"Auto-dismiss timing\",\n      \"implementation\": \"5s default; duration 0 keeps sticky toasts\",\n      \"userRequirements\": \"Use duration 0 for errors that need a decision\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"toast title\",\n      \"guidelines\": [\n        \"State what happened in past tense\",\n        \"Keep under ~60 characters\"\n      ],\n      \"goodExamples\": [\n        \"Saved\",\n        \"License revoked\"\n      ],\n      \"badExamples\": [\n        \"Oops!\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Toaster\",\n      \"relationship\": \"Mount once near the app root next to your router; keep it outside transforms so fixed positioning is not affected\",\n      \"example\": \"<App><Toaster /></App>\"\n    },\n    {\n      \"component\": \"ToastProvider\",\n      \"relationship\": \"Use the provider/hook pair when the call site is inside the React tree\",\n      \"example\": \"<ToastProvider><App /></ToastProvider>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Confirmation\",\n    \"Button\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"toast\",\n  \"exportName\": \"ToastProvider\"\n}\n",
       "type": "registry:item"
     }
   ]

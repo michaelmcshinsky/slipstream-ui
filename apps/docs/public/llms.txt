@@ -42,7 +42,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Card — A content container with header, body, and footer sections for grouping related information
 - Checkbox — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
-- Dialog — Accessible modal dialog with focus trapping, escape-to-close and focus restoration
+- Dialog — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - Drawer — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - Fieldset — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 - Flex / FlexItem — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
@@ -70,7 +70,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Tabs — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - Text — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - Textarea — A multi-line text input styled to match Input, wrapping the native textarea
-- Toast — Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions
+- Toast — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 - Tooltip — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 <!-- generated:core:end -->
 

@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "e51546f",
+  "sourceRevision": "2803b72",
   "count": 59,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
@@ -162,7 +162,7 @@
       "name": "Dialog",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+      "description": "Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
       "registry": "/registry/dialog.json"
     },
     {
@@ -458,7 +458,7 @@
       "name": "Toast",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions",
+      "description": "Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.",
       "registry": "/registry/toast.json"
     },
     {

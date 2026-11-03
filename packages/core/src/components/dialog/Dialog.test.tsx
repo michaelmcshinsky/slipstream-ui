@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
-import { Dialog } from './Dialog';
+import { Dialog, DialogBody, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './Dialog';
 
 function Harness(props: { onOpenChange?: (open: boolean) => void; closeOnBackdrop?: boolean }) {
   const [open, setOpen] = useState(true);
@@ -182,5 +182,68 @@ describe('Dialog animate (optional fade)', () => {
       </Dialog>
     );
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+});
+
+
+describe('Dialog sizes, slots and compound parts', () => {
+  it('applies size presets', () => {
+    const { rerender } = render(
+      <Dialog open onOpenChange={vi.fn()} title="Sized" size="2xl">
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('max-w-2xl');
+    rerender(
+      <Dialog open onOpenChange={vi.fn()} title="Sized" size="sm">
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('max-w-sm');
+  });
+
+  it('wires a composed header through DialogTitle/DialogDescription', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={vi.fn()}
+        header={
+          <DialogHeader>
+            <DialogTitle>Publish release</DialogTitle>
+          </DialogHeader>
+        }
+      >
+        <DialogDescription>Tag and publish the workspace.</DialogDescription>
+        <DialogBody>Body content</DialogBody>
+      </Dialog>
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Publish release' });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByText('Body content')).toBeInTheDocument();
+  });
+
+  it('renders the footer slot inside the panel', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={vi.fn()}
+        title="Confirm"
+        footer={<DialogFooter><button type="button">Save</button></DialogFooter>}
+      >
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
+
+  it('caps and scrolls the body when scrollable', () => {
+    render(
+      <Dialog open onOpenChange={vi.fn()} title="Long" scrollable>
+        <p>scrollable body</p>
+      </Dialog>
+    );
+    const body = screen.getByText('scrollable body').parentElement!;
+    expect(body.className).toContain('max-h-[60vh]');
+    expect(body.className).toContain('overflow-y-auto');
   });
 });

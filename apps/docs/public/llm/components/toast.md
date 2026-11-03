@@ -1,6 +1,6 @@
 # Toast
 
-Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions
+Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 
 > Import: `import { ToastProvider } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/toast.json
@@ -8,56 +8,48 @@ Accessible app-level notifications announced through a polite live region, with 
 
 ## Design intent
 
-Applications need lightweight feedback that does not steal focus. Toasts render into a labelled polite live region so screen readers announce them, stack newest-first, auto-dismiss on a timer, and support one optional action (typically undo).
+Toasts announce status changes without stealing focus. The provider/useToast pair covers tree-scoped usage; the module-level toast() + <Toaster /> covers event handlers and data layers where threading a hook is impossible (e.g. 1000+ call sites). A polite live region and auto-dismiss keep the queue quiet.
 
 ## Props
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| title | `string` | — | yes | Short heading announced with the toast |
-| description | `string` | — | no | Optional supporting detail |
-| action | `{ label: string; onClick: () => void }` | — | no | Optional inline action; invoking it dismisses the toast |
-| duration | `number` | `5000` | no | Auto-dismiss delay in ms; 0 keeps the toast until dismissed |
+| title | `string` | — | yes | Toast heading. |
+| description | `string` | — | no | Supporting line under the title. |
+| variant | `'default' | 'success' | 'error' | 'warning' | 'info'` | `default` | no | Status accent (dot + optional rich tint). |
+| action | `{ label: string; onClick: () => void }` | — | no | Single inline action; dismisses the toast after running. |
+| duration | `number` | `5000` | no | Auto-dismiss delay in ms; 0 keeps the toast until dismissed. |
+| position | `'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'` | `bottom-right` | no | Toaster placement (Toaster component). |
+| richColors | `boolean` | `false` | no | Tint the toast surface with its status color (Toaster component). |
+| label | `string` | `Notifications` | no | Accessible name of the live region (Toaster component). |
 
 ## Examples
 
-### Basic toast with useToast
+### Imperative API
 
-Wrap your app in ToastProvider once; call toast() anywhere below it.
+Fire from event handlers or data layers — no hook needed.
 
 ```tsx
-'use client';
+import { Toaster, toast } from '@slipstream-ui/core';
 
-import { ToastProvider, useToast } from '@/components/slipstream/toast';
+<Toaster position="bottom-right" richColors />
 
-function SaveButton() {
-  const { toast } = useToast();
-  return (
-    <button onClick={() => toast({ title: 'Saved', description: 'Your changes are live.' })}>
-      Save
-    </button>
-  );
-}
-
-export function App() {
-  return (
-    <ToastProvider>
-      <SaveButton />
-    </ToastProvider>
-  );
-}
+toast.success('Saved', 'Your changes are live');
+toast.error('Upload failed', 'Check your connection');
+toast({ title: 'Heads up', duration: 0 });
 ```
 
-### Undo action
+### Tree-scoped provider
 
-duration: 0 keeps the toast until the user acts or dismisses it.
+Existing provider/hook pair for component-scoped usage.
 
 ```tsx
-toast({
-  title: 'License revoked',
-  action: { label: 'Undo', onClick: restore },
-  duration: 0,
-});
+<ToastProvider>
+  <App />
+</ToastProvider>;
+
+const { toast, dismiss } = useToast();
+toast({ title: 'Saved' });
 ```
 
 ## Anti-patterns
@@ -66,11 +58,21 @@ toast({
 
 ## Accessibility
 
-- **Screen reader announcements**: Each toast renders inside role=status (implicit aria-live=polite) within a labelled list container.
-- **Keyboard dismiss**: Toast content is regular DOM; buttons inside toasts are reachable and activatable with the keyboard.
+- **Polite live region**: Each toast renders role=status inside a labelled list; announcements never steal focus
+- **Dismiss control**: Every toast has a labelled dismiss button (Dismiss <title>)
+- **Auto-dismiss timing**: 5s default; duration 0 keeps sticky toasts
 
 ## Composition
 
-- Compose with **Confirmation** — Use Confirmation for destructive actions before they happen; use Toast to report the result after.
+- Compose with **Toaster** — Mount once near the app root next to your router; keep it outside transforms so fixed positioning is not affected
+  
+  ```tsx
+  <App><Toaster /></App>
+  ```
+- Compose with **ToastProvider** — Use the provider/hook pair when the call site is inside the React tree
+  
+  ```tsx
+  <ToastProvider><App /></ToastProvider>
+  ```
 - Related: Confirmation, Button
 
