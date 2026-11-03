@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
@@ -131,5 +131,56 @@ describe('Dialog showClose', () => {
       </Dialog>
     );
     expect(screen.getByRole('button', { name: 'Close dialog' })).toBeInTheDocument();
+  });
+});
+
+describe('Dialog animate (optional fade)', () => {
+  it('applies enter motion classes and reduced-motion opt-out when animate is on', () => {
+    render(
+      <Dialog open animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-in');
+    expect(dialog.className).toContain('fade-in-0');
+    expect(dialog.className).toContain('motion-reduce:animate-none');
+    // The backdrop fades with the panel.
+    const backdrop = document.querySelector('.fixed.inset-0')!;
+    expect(backdrop.className).toContain('fade-in-0');
+  });
+
+  it('keeps the dialog mounted for the exit window, then unmounts', async () => {
+    const { rerender } = render(
+      <Dialog open animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    rerender(
+      <Dialog open={false} animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    // Exit classes need a mounted target.
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-out');
+    expect(dialog.className).toContain('fade-out-0');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument(), {
+      timeout: 1500,
+    });
+  });
+
+  it('unmounts immediately when animate is off (default)', () => {
+    const { rerender } = render(
+      <Dialog open onOpenChange={vi.fn()} title="Instant">
+        body
+      </Dialog>
+    );
+    rerender(
+      <Dialog open={false} onOpenChange={vi.fn()} title="Instant">
+        body
+      </Dialog>
+    );
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

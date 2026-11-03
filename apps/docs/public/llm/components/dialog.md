@@ -21,7 +21,8 @@ Modals interrupt the task flow on purpose: confirmations, small forms, and destr
 | closeOnBackdrop | `boolean` | `true` | no | Whether clicking the backdrop closes the dialog |
 | initialFocusRef | `React.RefObject<HTMLElement | null>` | — | no | Element focused on open; defaults to the first focusable element |
 | ariaLabel | `string` | — | no | Accessible label for the dialog (required for screen readers) |
-| showClose | `boolean` | `true` | no | Hide the close (✕) button in the header; Escape and backdrop still close. |
+| showClose | `boolean` | `true` | no | Hide the close (?) button in the header; Escape and backdrop still close. |
+| animate | `boolean` | `false` | no | Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected). |
 
 ## Examples
 

@@ -22,6 +22,7 @@ export default function DialogPage() {
         { name: 'closeOnBackdrop', type: 'boolean', defaultValue: 'true', description: 'Backdrop click closes the dialog' },
         { name: 'showClose', type: 'boolean', defaultValue: 'true', description: 'Hide the ✕ button in the header (Escape and backdrop still close)' },
         { name: 'initialFocusRef', type: 'RefObject<HTMLElement>', defaultValue: 'first focusable', description: 'Element focused on open' },
+        { name: 'animate', type: 'boolean', defaultValue: 'false', description: 'Fade the backdrop and panel in/out (needs tailwindcss-animate)' },
       ]}
       accessibility={[
         'role=dialog with aria-modal, labelled by title and described by description',

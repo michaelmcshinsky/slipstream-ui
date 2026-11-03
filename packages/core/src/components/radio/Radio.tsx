@@ -98,7 +98,8 @@ type RadioGroupContextValue = {
   onChange: (value: string) => void;
 };
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue>({
+/** Shared group state — exported so custom option controls (RadioCard) can join a RadioGroup. */
+export const RadioGroupContext = React.createContext<RadioGroupContextValue>({
   name: '',
   value: '',
   onChange: () => {},

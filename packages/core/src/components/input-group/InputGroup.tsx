@@ -93,9 +93,8 @@ const InputGroupAddon = React.forwardRef<HTMLDivElement, InputGroupAddonProps>(
       data-slot="input-group-addon"
       data-side={side}
       className={cn(
-        'flex shrink-0 select-none items-center self-stretch text-sm text-muted-foreground',
+        'flex shrink-0 select-none items-center self-stretch px-3 text-sm text-muted-foreground',
         variant === 'muted' && 'bg-muted',
-        side === 'left' ? 'pl-3' : 'pr-3',
         className
       )}
       {...props}

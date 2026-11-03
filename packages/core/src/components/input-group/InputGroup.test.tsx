@@ -35,11 +35,11 @@ describe('InputGroup', () => {
       </InputGroup>
     );
     const left = screen.getByText('https://');
-    expect(left).toHaveClass('bg-muted', 'pl-3');
+    expect(left).toHaveClass('bg-muted', 'px-3');
     expect(left).toHaveAttribute('data-side', 'left');
     const right = screen.getByText('.com');
     expect(right).not.toHaveClass('bg-muted');
-    expect(right).toHaveClass('pr-3');
+    expect(right).toHaveClass('px-3');
   });
 
   it('keeps the field editable and reports typing', async () => {

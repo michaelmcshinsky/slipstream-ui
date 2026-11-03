@@ -37,6 +37,28 @@
       "description": "Disables the radio"
     },
     {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Section heading (RadioCard component)",
+      "examples": ["Pro", "Free"]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the title (RadioCard component)",
+      "examples": ["For teams, with audit logs"]
+    },
+    {
+      "name": "rounded",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Outer border radius on the section; false gives square corners (RadioCard component)",
+      "examples": ["true", "false"]
+    },
+    {
       "name": "legend",
       "required": false,
       "type": "string",

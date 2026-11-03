@@ -73,7 +73,6 @@ export const NAV_SECTIONS: NavSection[] = [
         items: [
           { href: '/docs/components/heading', label: 'Heading' },
           { href: '/docs/components/text', label: 'Text' },
-          { href: '/docs/components/block', label: 'Block' },
         ],
       },
       {
@@ -81,6 +80,7 @@ export const NAV_SECTIONS: NavSection[] = [
         items: [
           { href: '/docs/components/flex', label: 'Flex' },
           { href: '/docs/components/grid', label: 'Grid' },
+          { href: '/docs/components/block', label: 'Block' },
         ],
       },
       {

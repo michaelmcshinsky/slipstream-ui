@@ -26,7 +26,7 @@ const THEME_VARIABLES = `:root {
   --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
   --warning-foreground: 26 83% 14%;
-  --info: 198 74% 38%;
+  --info: 176 74% 38%;
   --info-foreground: 222 75% 10%;
   --border: 214 28% 89%;
   --input: 214 28% 89%;
@@ -64,7 +64,7 @@ const THEME_VARIABLES = `:root {
   --success-foreground: 222 75% 10%;
   --warning: 38 92% 60%;
   --warning-foreground: 26 83% 14%;
-  --info: 198 80% 56%;
+  --info: 176 74% 56%;
   --info-foreground: 222 75% 10%;
   --border: 217 20% 24%;
   --input: 217 18% 32%;

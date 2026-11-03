@@ -19,6 +19,9 @@ Radio lets users pick exactly one option from a visible set. RadioGroup provides
 | checked | `boolean` | — | no | Controlled checked state (on Radio) |
 | onCheckedChange | `(checked: boolean) => void` | — | no | Fired when the user selects this radio (on Radio) |
 | disabled | `boolean` | `false` | no | Disables the radio |
+| title | `string` | — | no | Section heading (RadioCard component) |
+| description | `string` | — | no | Supporting line under the title (RadioCard component) |
+| rounded | `boolean` | `true` | no | Outer border radius on the section; false gives square corners (RadioCard component) |
 | legend | `string` | — | no | Accessible group label; rendered as <legend> inside a fieldset (RadioGroup component) |
 | onValueChange | `(value: string) => void` | — | no | Called with the newly selected value (RadioGroup component) |
 | orientation | `'vertical' | 'horizontal'` | `vertical` | no | Stack options (default) or lay them out in a wrapping row (RadioGroup component) |

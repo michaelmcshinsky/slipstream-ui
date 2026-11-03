@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import { createPortal } from 'react-dom';
+import { cn } from '../../utils/cn';
+import { usePresence } from '../../utils/presence';
 
 export type DialogProps = {
   open: boolean;
@@ -15,6 +17,12 @@ export type DialogProps = {
   /** Focused when the dialog opens; defaults to the first focusable element. */
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   ariaLabel?: string;
+  /**
+   * Fade the backdrop and panel in on open and out on close (requires
+   * the tailwindcss-animate plugin). Off by default; reduced-motion
+   * users get animate-none automatically.
+   */
+  animate?: boolean;
 };
 
 const FOCUSABLE =
@@ -34,23 +42,34 @@ export function Dialog({
   closeOnBackdrop = true,
   showClose = true,
   initialFocusRef,
+  animate = false,
 }: DialogProps) {
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   const previouslyFocused = React.useRef<HTMLElement | null>(null);
   const titleId = React.useId();
   const descriptionId = React.useId();
+  const { present, exiting } = usePresence(open, animate);
 
+  // Capture the opener before the panel takes focus; restore the moment
+  // open flips false — even while an exit animation keeps the DOM up.
   React.useEffect(() => {
-    if (!open) return;
-    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    if (open) {
+      previouslyFocused.current = document.activeElement as HTMLElement | null;
+      return;
+    }
+    previouslyFocused.current?.focus?.();
+    previouslyFocused.current = null;
+  }, [open]);
+
+  // Move focus in once the panel is actually mounted (present can lag
+  // open by a render when the presence gate starts closed).
+  React.useEffect(() => {
+    if (!open || !present) return;
     const node = dialogRef.current;
     const target =
       initialFocusRef?.current ?? node?.querySelector<HTMLElement>(FOCUSABLE) ?? node;
     target?.focus();
-    return () => {
-      previouslyFocused.current?.focus?.();
-    };
-  }, [open, initialFocusRef]);
+  }, [open, present, initialFocusRef]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -80,11 +99,18 @@ export function Dialog({
     return () => document.removeEventListener('keydown', onKeyDown, true);
   }, [open, onOpenChange]);
 
-  if (!open || typeof document === 'undefined') return null;
+  if (!present || typeof document === 'undefined') return null;
+
+  const motion = animate
+    ? cn(
+        'duration-200 motion-reduce:animate-none',
+        exiting ? 'animate-out fade-out-0 zoom-out-95' : 'animate-in fade-in-0 zoom-in-95',
+      )
+    : undefined;
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4"
+      className={cn('fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4', motion)}
       onMouseDown={(event) => {
         if (closeOnBackdrop && event.target === event.currentTarget) onOpenChange(false);
       }}
@@ -96,7 +122,7 @@ export function Dialog({
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         tabIndex={-1}
-        className="w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-xl"
+        className={cn('w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-xl', motion)}
       >
         <div className="flex items-start justify-between gap-4">
           <h2 id={titleId} className="text-lg font-semibold">

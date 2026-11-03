@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../utils/cn';
+import { usePresence } from '../../utils/presence';
 
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
 export type DrawerSize = 'sm' | 'md' | 'lg';
@@ -25,6 +26,12 @@ export type DrawerProps = {
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   /** Overrides the accessible name (defaults to the title). */
   ariaLabel?: string;
+  /**
+   * Slide the panel in from its edge and out on close (requires the
+   * tailwindcss-animate plugin). Off by default; reduced-motion users
+   * get animate-none automatically.
+   */
+  animate?: boolean;
 };
 
 const FOCUSABLE =
@@ -42,6 +49,20 @@ const sizeClasses: Record<DrawerSide, Record<DrawerSize, string>> = {
   left: { sm: 'w-72', md: 'w-96', lg: 'w-[32rem]' },
   top: { sm: 'h-48', md: 'h-80', lg: 'h-[32rem]' },
   bottom: { sm: 'h-48', md: 'h-80', lg: 'h-[32rem]' },
+};
+
+// Literal class maps so Tailwind's scanner keeps every slide utility.
+const slideIn: Record<DrawerSide, string> = {
+  right: 'slide-in-from-right',
+  left: 'slide-in-from-left',
+  top: 'slide-in-from-top',
+  bottom: 'slide-in-from-bottom',
+};
+const slideOut: Record<DrawerSide, string> = {
+  right: 'slide-out-to-right',
+  left: 'slide-out-to-left',
+  top: 'slide-out-to-top',
+  bottom: 'slide-out-to-bottom',
 };
 
 /**
@@ -63,23 +84,34 @@ export function Drawer({
   showClose = true,
   initialFocusRef,
   ariaLabel,
+  animate = false,
 }: DrawerProps) {
   const drawerRef = React.useRef<HTMLDivElement | null>(null);
   const previouslyFocused = React.useRef<HTMLElement | null>(null);
   const titleId = React.useId();
   const descriptionId = React.useId();
+  const { present, exiting } = usePresence(open, animate);
 
+  // Capture the opener before the panel takes focus; restore the moment
+  // open flips false — even while an exit animation keeps the DOM up.
   React.useEffect(() => {
-    if (!open) return;
-    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    if (open) {
+      previouslyFocused.current = document.activeElement as HTMLElement | null;
+      return;
+    }
+    previouslyFocused.current?.focus?.();
+    previouslyFocused.current = null;
+  }, [open]);
+
+  // Move focus in once the panel is actually mounted (present can lag
+  // open by a render when the presence gate starts closed).
+  React.useEffect(() => {
+    if (!open || !present) return;
     const node = drawerRef.current;
     const target =
       initialFocusRef?.current ?? node?.querySelector<HTMLElement>(FOCUSABLE) ?? node;
     target?.focus();
-    return () => {
-      previouslyFocused.current?.focus?.();
-    };
-  }, [open, initialFocusRef]);
+  }, [open, present, initialFocusRef]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -112,7 +144,14 @@ export function Drawer({
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [open, onOpenChange]);
 
-  if (!open || typeof document === 'undefined') return null;
+  if (!present || typeof document === 'undefined') return null;
+
+  const motion = animate
+    ? cn(
+        'duration-200 motion-reduce:animate-none',
+        exiting ? `animate-out ${slideOut[side]}` : `animate-in ${slideIn[side]}`,
+      )
+    : undefined;
 
   return createPortal(
     <div
@@ -132,7 +171,8 @@ export function Drawer({
         className={cn(
           'fixed flex flex-col bg-background shadow-xl border-border',
           sideClasses[side],
-          sizeClasses[side][size]
+          sizeClasses[side][size],
+          motion
         )}
       >
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">

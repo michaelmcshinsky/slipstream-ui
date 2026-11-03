@@ -75,6 +75,14 @@
       "type": "string",
       "required": false,
       "description": "Overrides the accessible name (defaults to the title)."
+    },
+    {
+      "name": "animate",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected).",
+      "examples": ["true", "false"]
     }
   ],
   "examples": [

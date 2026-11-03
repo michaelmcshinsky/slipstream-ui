@@ -10,6 +10,7 @@ export default function DrawerPage() {
   const [side, setSide] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
   const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md');
   const [openBottom, setOpenBottom] = useState(false);
+  const [animate, setAnimate] = useState(true);
 
   return (
     <ComponentPage
@@ -27,6 +28,7 @@ export default function DrawerPage() {
         { name: 'closeOnBackdrop', type: 'boolean', defaultValue: 'true', description: 'Clicking the backdrop closes the drawer.' },
         { name: 'showClose', type: 'boolean', defaultValue: 'true', description: 'Hide the header ✕ (Escape and backdrop still close).' },
         { name: 'initialFocusRef', type: 'RefObject<HTMLElement | null>', description: 'Element focused on open (defaults to first focusable).' },
+        { name: 'animate', type: 'boolean', defaultValue: 'false', description: 'Slide the panel in from its edge and out on close (needs tailwindcss-animate).' },
       ]}
       accessibility={[
         'role=dialog + aria-modal, labelled by title, described by description; portals to body.',
@@ -71,6 +73,18 @@ export default function DrawerPage() {
                   <option value="lg">lg</option>
                 </select>
               </div>
+              <div className="flex items-center gap-2 pb-2">
+                <input
+                  id="dr-animate"
+                  type="checkbox"
+                  checked={animate}
+                  onChange={(e) => setAnimate(e.target.checked)}
+                  className="h-4 w-4 rounded-sm border border-primary"
+                />
+                <label htmlFor="dr-animate" className="text-sm text-muted-foreground">
+                  animate
+                </label>
+              </div>
               <Button onClick={() => setOpen(true)}>Open filter drawer</Button>
             </div>
 
@@ -80,6 +94,7 @@ export default function DrawerPage() {
               title="Filter results"
               description="Narrow by status — Escape or the backdrop closes."
               side={side}
+              animate={animate}
               size={size}
             >
               <Form gap="sm" noValidate>

@@ -48,10 +48,14 @@ export function Footer() {
     <footer className="border-t border-border bg-muted/30">
       <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div>
-          <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            {/* eslint-disable-next-line @next/next/no-img-element -- local brand SVG, unoptimized by design */}
-            <img src="/logo.svg" alt="" width={24} height={24} className="h-6 w-6" />
-            Slipstream<span className="text-primary">UI</span>
+          <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
+            {/* eslint-disable-next-line @next/next/no-img-element -- local brand banner, unoptimized by design */}
+            <img
+              src="/slipstream-banner-2.png"
+              alt="Slipstream UI"
+              height={40}
+              className="h-10 w-auto"
+            />
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">
             The AI-first React component library. Your AI reads the spec, not the source.

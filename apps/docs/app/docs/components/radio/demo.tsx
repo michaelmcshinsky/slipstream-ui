@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
+import { RadioCard, RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
 
 export default function RadioPage() {
   return (
@@ -18,6 +18,9 @@ export default function RadioPage() {
         { name: 'error', type: 'string', description: 'Group-level validation message; announced via role=alert (RadioGroup).' },
         { name: 'value', type: 'string', description: 'The value this item contributes to the group (RadioGroupItem).' },
         { name: 'label', type: 'string', description: 'Visible label rendered next to the radio (RadioGroupItem).' },
+        { name: 'title', type: 'string', description: 'Section heading (RadioCard).' },
+        { name: 'description', type: 'string', description: 'Supporting line under the title (RadioCard).' },
+        { name: 'rounded', type: 'boolean', defaultValue: 'true', description: 'Outer border radius on the section; false gives square corners (RadioCard).' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables an individual item.' },
       ]}
       accessibility={[
@@ -93,6 +96,62 @@ export default function RadioPage() {
 type RadioGroupItemProps = {
   value: string;
   label?: string;
+  disabled?: boolean;
+};`}
+      />
+
+      <DemoCard
+        title="RadioCard — clickable sections (interactive)"
+        preview={
+          <div className="w-full max-w-2xl">
+            <RadioGroup name="demo-card-plan" legend="Choose a plan" defaultValue="pro" orientation="horizontal">
+              <RadioCard
+                value="free"
+                title="Free"
+                description="1 project, community support"
+                className="min-w-40 flex-1"
+              />
+              <RadioCard
+                value="pro"
+                title="Pro"
+                description="Unlimited projects, priority support"
+                className="min-w-40 flex-1"
+              />
+              <RadioCard
+                value="team"
+                title="Team"
+                description="SSO, audit log, shared billing"
+                className="min-w-40 flex-1"
+              />
+            </RadioGroup>
+          </div>
+        }
+        code={`import { RadioCard, RadioGroup } from '@slipstream-ui/core';
+
+{/* The whole section is the label; the native circle is sr-only.
+    Selected state = primary border + tint via has-[:checked]. */}
+<RadioGroup name="plan" legend="Choose a plan" defaultValue="pro" orientation="horizontal">
+  <RadioCard value="free" title="Free" description="1 project, community support" className="flex-1" />
+  <RadioCard value="pro" title="Pro" description="Unlimited projects, priority support" className="flex-1" />
+  <RadioCard value="team" title="Team" description="SSO, audit log, shared billing" className="flex-1" />
+</RadioGroup>`}
+        usage={`import { RadioCard, RadioGroup } from '@slipstream-ui/core';
+
+// Square corners for a tiled look
+<RadioCard value="a" title="Grid" rounded={false} />
+
+// Card body can hold custom content
+<RadioCard value="b" title="Pro" description="For teams">
+  <ul className="mt-2 list-inside list-disc text-xs text-muted-foreground">
+    <li>Unlimited projects</li>
+    <li>Priority support</li>
+  </ul>
+</RadioCard>`}
+        types={`type RadioCardProps = {
+  value: string;
+  title?: string;
+  description?: string;
+  rounded?: boolean; // outer border radius, default true
   disabled?: boolean;
 };`}
       />

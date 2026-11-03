@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { useState } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
@@ -62,5 +63,62 @@ describe('Drawer', () => {
   it('has no accessibility violations', async () => {
     const { container } = render(<BaseDrawer />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('Drawer animate (optional slide)', () => {
+  it('applies side-aware slide-in classes when animate is on', () => {
+    render(
+      <Drawer open animate onOpenChange={vi.fn()} title="Sliding" side="left">
+        body
+      </Drawer>
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-in');
+    expect(dialog.className).toContain('slide-in-from-left');
+    expect(dialog.className).toContain('motion-reduce:animate-none');
+  });
+
+  it('keeps the drawer mounted for the exit window, then unmounts', async () => {
+    const { rerender } = render(
+      <Drawer open animate onOpenChange={vi.fn()} title="Sliding" side="bottom">
+        body
+      </Drawer>
+    );
+    rerender(
+      <Drawer open={false} animate onOpenChange={vi.fn()} title="Sliding" side="bottom">
+        body
+      </Drawer>
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-out');
+    expect(dialog.className).toContain('slide-out-to-bottom');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument(), {
+      timeout: 1500,
+    });
+  });
+
+  it('restores focus to the opener immediately on close (before exit completes)', async () => {
+    const user = userEvent.setup();
+    function Opener() {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <button type="button" onClick={() => setOpen(true)}>open</button>
+          <Drawer open={open} onOpenChange={setOpen} title="Focus" animate>
+            body
+          </Drawer>
+        </>
+      );
+    }
+    render(<Opener />);
+    const trigger = screen.getByRole('button', { name: 'open' });
+    await user.click(trigger);
+    expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
+    await user.keyboard('{Escape}');
+    expect(document.activeElement).toBe(trigger);
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument(), {
+      timeout: 1500,
+    });
   });
 });

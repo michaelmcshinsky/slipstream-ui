@@ -24,6 +24,7 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | showClose | `boolean` | `true` | no | Hide the header ✕ button (Escape and backdrop still close). |
 | initialFocusRef | `RefObject<HTMLElement | null>` | — | no | Element focused on open (defaults to the first focusable element). |
 | ariaLabel | `string` | — | no | Overrides the accessible name (defaults to the title). |
+| animate | `boolean` | `false` | no | Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected). |
 
 ## Examples
 

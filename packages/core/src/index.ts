@@ -1,6 +1,7 @@
 export * from './types/manifest';
 export * from './utils/cn';
 export * from './utils/gap';
+export * from './utils/presence';
 export * from './components/button';
 export * from './components/button-group';
 export * from './components/input';
