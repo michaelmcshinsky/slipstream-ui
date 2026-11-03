@@ -13,6 +13,8 @@ export default function AccordionPage() {
         { name: 'value', type: 'string[]', description: 'Controlled open item ids.' },
         { name: 'collapsible', type: 'boolean', defaultValue: 'true', description: 'When true, opening an item closes the others.' },
         { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called when the open set changes.' },
+        { name: 'variant', type: "'default' | 'borderless'", defaultValue: "'default'", description: 'Bordered card with dividers, or plain stacked sections.' },
+        { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | number", description: "Token gap ('lg') or exact pixels (16) between items." },
         { name: 'AccordionTrigger icon', type: 'ReactNode', description: 'Swap the default chevron rendered at the far right of the header.' },
       ]}
       accessibility={[
@@ -101,13 +103,58 @@ export default function Example() {
         code={`import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@slipstream-ui/core';
 
 <Accordion>
-  <AccordionItem id="x">
-    <AccordionTrigger icon={<span className="font-mono text-sm text-primary">[+]</span>}>
-      Rendered with a custom icon slot
-    </AccordionTrigger>
-    <AccordionContent>Panel content.</AccordionContent>
+    <AccordionItem id="x">
+      <AccordionTrigger icon={<span className="font-mono text-sm text-primary">[+]</span>}>
+        Rendered with a custom icon slot
+      </AccordionTrigger>
+      <AccordionContent>Panel content.</AccordionContent>
+    </AccordionItem>
+  </Accordion>`}
+      />
+
+      <DemoCard
+        title="Borderless + gap"
+        preview={
+          <div className="w-full space-y-4">
+            <Accordion variant="borderless" gap={16} defaultValue={['a']}>
+              <AccordionItem id="a">
+                <AccordionTrigger>Spaced sections, no chrome</AccordionTrigger>
+                <AccordionContent>
+                  variant=&quot;borderless&quot; removes the outer border and dividers; gap accepts
+                  tokens (&apos;lg&apos;) or exact pixels (16).
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem id="b">
+                <AccordionTrigger>Second section</AccordionTrigger>
+                <AccordionContent>Exact pixel gaps keep spacing on your own scale.</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        }
+        code={`import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@slipstream-ui/core';
+
+{/* Plain stacked sections with an exact 16px gap */}
+<Accordion variant="borderless" gap={16} defaultValue={['a']}>
+  <AccordionItem id="a">
+    <AccordionTrigger>Spaced sections, no chrome</AccordionTrigger>
+    <AccordionContent>…</AccordionContent>
   </AccordionItem>
-</Accordion>`}
+  …
+</Accordion>
+
+{/* Token gap instead: gap="lg" */}
+<Accordion variant="borderless" gap="lg">…</Accordion>`}
+        usage={`// Default (bordered card with dividers) — unchanged
+<Accordion>…</Accordion>
+
+// Variants combine: borderless + token spacing
+<Accordion variant="borderless" gap="lg">…</Accordion>`}
+        types={`type AccordionProps = {
+  value?: string[];
+  collapsible?: boolean;
+  variant?: 'default' | 'borderless';
+  gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | number;
+};`}
       />
     </ComponentPage>
   );

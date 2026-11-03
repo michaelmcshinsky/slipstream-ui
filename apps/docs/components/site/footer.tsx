@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const REPO_URL = 'https://github.com/slipstream-ui';
+const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 const CURRENT_YEAR = new Date().getFullYear();
 
 const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [

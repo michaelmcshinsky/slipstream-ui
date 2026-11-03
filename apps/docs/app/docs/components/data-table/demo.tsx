@@ -66,6 +66,7 @@ export default function DataTablePage() {
         { name: 'density', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Row density — compact shrinks text and cell padding.' },
         { name: 'zebra', type: 'boolean', defaultValue: 'false', description: 'Zebra-striped rows for long tables.' },
         { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Render skeleton rows; tbody is aria-busy while loading.' },
+        { name: 'loadingRows', type: 'number', defaultValue: 'page size (else 5)', description: 'Skeleton row count — match it to visible data so replacing placeholders does not shift the table. Row heights follow density.' },
         { name: 'columns[].onClick', type: '(row: T) => void', description: 'Column-level callback — the cell content renders as a keyboard-operable button.' },
       ]}
       accessibility={[
@@ -222,6 +223,7 @@ type DataTableProps<<T>> = {
               zebra
               density="compact"
               loading={loadingDemo}
+              loadingRows={CONVERSATIONS.length}
               renderSortIcon={(state) => (state === 'none' ? '⇅' : state === 'asc' ? '↑' : '↓')}
             />
             <p className="text-xs text-muted-foreground">
@@ -244,6 +246,7 @@ type DataTableProps<<T>> = {
   zebra
   density="compact"
   loading={isLoading}
+  loadingRows={rows.length}          // skeleton matches data — no jump
   renderSortIcon={(s) => (s === 'none' ? '⇅' : s === 'asc' ? '↑' : '↓')}
 />`}
         usage={`// Server-side sort: onSortChange fires on every header toggle while

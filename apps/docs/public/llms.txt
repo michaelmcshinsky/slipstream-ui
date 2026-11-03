@@ -28,7 +28,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 37
+## Core components (@slipstream-ui/core) — 40
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -42,9 +42,12 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Checkbox — A native checkbox input styled to match the design system, with controlled and uncontrolled support
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - Dialog — Accessible modal dialog with focus trapping, escape-to-close and focus restoration
+- Drawer — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - Fieldset — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 - Flex / FlexItem — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
+- Form — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 - FormField — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
+- FormLayout — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 - Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - Input — A text input field with support for various input types and standard HTML input attributes

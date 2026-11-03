@@ -8,6 +8,15 @@ export type ConfirmationStatus = 'pending' | 'approved' | 'rejected';
 
 export type ConfirmationVariant = 'default' | 'warning' | 'destructive' | 'info' | 'success';
 
+/** Button variants accepted for the approve/reject actions (Button's variant union). */
+export type ConfirmationActionVariant =
+  | 'default'
+  | 'destructive'
+  | 'outline'
+  | 'secondary'
+  | 'ghost'
+  | 'link';
+
 export type ConfirmationProps = {
   /** Human-readable summary of the action requiring approval. */
   title: string;
@@ -21,6 +30,11 @@ export type ConfirmationProps = {
   variant?: ConfirmationVariant;
   onApprove?: () => void;
   onReject?: () => void;
+  /** Button styling for the approve/reject actions. */
+  approveVariant?: ConfirmationActionVariant;
+  rejectVariant?: ConfirmationActionVariant;
+  /** Hide the action buttons (controlled-only gate; status drives the chip). */
+  showActions?: boolean;
   labels?: {
     approve?: string;
     reject?: string;
@@ -58,6 +72,9 @@ const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
       variant = 'default',
       onApprove,
       onReject,
+      approveVariant = 'default',
+      rejectVariant = 'outline',
+      showActions = true,
       labels,
       className,
       ...props
@@ -110,12 +127,12 @@ const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
           <div className="text-xs font-mono text-muted-foreground mb-3">{toolName}</div>
         )}
 
-        {status === 'pending' && (
+        {status === 'pending' && showActions && (
           <div className="flex gap-2 mt-2">
-            <Button size="sm" onClick={() => decide('approved')}>
+            <Button size="sm" variant={approveVariant} onClick={() => decide('approved')}>
               {t.approve}
             </Button>
-            <Button size="sm" variant="outline" onClick={() => decide('rejected')}>
+            <Button size="sm" variant={rejectVariant} onClick={() => decide('rejected')}>
               {t.reject}
             </Button>
           </div>

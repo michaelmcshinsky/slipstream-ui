@@ -14,7 +14,7 @@ The Button component is a fundamental interactive element that triggers actions 
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'` | `default` | no | Visual style variant of the button |
+| variant | `'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'secondary' | 'ghost' | 'link'` | `default` | no | Visual style variant of the button |
 | size | `'default' | 'sm' | 'lg' | 'icon'` | `default` | no | Size variant of the button |
 | asChild | `boolean` | `false` | no | When true, renders as a child component using Radix Slot for composition |
 | disabled | `boolean` | `false` | no | Disables the button and prevents interaction |

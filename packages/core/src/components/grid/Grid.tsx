@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
-
-const gapClasses = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
-} as const;
+import { resolveGap, type GapValue } from '../../utils/gap';
 
 // Literal class maps — Tailwind's scanner only keeps classes it can see in
 // source, so every col-span/columns combination must appear verbatim here.
@@ -90,8 +83,8 @@ export type GridProps = React.HTMLAttributes<HTMLElement> & {
    * responsively without per-breakpoint column math. Overrides cols*.
    */
   minCol?: string;
-  /** Token gap between cells. */
-  gap?: keyof typeof gapClasses;
+  /** Token gap ('md') or exact pixels (16) between cells. */
+  gap?: GapValue;
   /** Semantic element (default 'div'). */
   as?: 'div' | 'span' | 'section' | 'ul';
 };
@@ -104,6 +97,7 @@ export type GridProps = React.HTMLAttributes<HTMLElement> & {
 const Grid = React.forwardRef<HTMLElement, GridProps>(
   ({ cols, smCols, mdCols, lgCols, minCol, gap = 'md', as = 'div', className, style, ...props }, ref) => {
     const Tag = as as 'div' | 'span' | 'section' | 'ul';
+    const gapResolved = resolveGap(gap);
     return (
       <Tag
         ref={ref as never}
@@ -113,10 +107,14 @@ const Grid = React.forwardRef<HTMLElement, GridProps>(
           !minCol && smCols && SM_COLS[smCols],
           !minCol && mdCols && MD_COLS[mdCols],
           !minCol && lgCols && LG_COLS[lgCols],
-          gapClasses[gap],
+          gapResolved.className,
           className
         )}
-        style={minCol ? { gridTemplateColumns: `repeat(auto-fit, minmax(${minCol}, 1fr))`, ...style } : style}
+        style={{
+          ...(minCol ? { gridTemplateColumns: `repeat(auto-fit, minmax(${minCol}, 1fr))` } : {}),
+          ...gapResolved.style,
+          ...style,
+        }}
         {...props}
       />
     );

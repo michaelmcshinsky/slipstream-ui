@@ -90,6 +90,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/label', label: 'Label' },
           { href: '/docs/components/form-field', label: 'FormField' },
           { href: '/docs/components/fieldset', label: 'Fieldset' },
+          { href: '/docs/components/form', label: 'Form' },
+          { href: '/docs/components/form-layout', label: 'FormLayout' },
           { href: '/docs/components/checkbox', label: 'Checkbox' },
           { href: '/docs/components/radio', label: 'Radio' },
           { href: '/docs/components/switch', label: 'Switch' },
@@ -125,6 +127,7 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Overlays',
         items: [
           { href: '/docs/components/dialog', label: 'Dialog' },
+          { href: '/docs/components/drawer', label: 'Drawer' },
           { href: '/docs/components/menu', label: 'Menu' },
           { href: '/docs/components/popover', label: 'Popover' },
         ],

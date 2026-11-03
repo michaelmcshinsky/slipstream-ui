@@ -125,12 +125,16 @@ const FormField = ({
             {tooltipNode}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            {control}
+            {/* Trailing sits inline with the control (vertically centered),
+                not floating above it — keeps the row reading as one field. */}
+            <div className="flex min-w-0 items-center gap-2">
+              <div className="min-w-0 flex-1">{control}</div>
+              {trailing && (
+                <span className="shrink-0 text-xs text-muted-foreground">{trailing}</span>
+              )}
+            </div>
             {hintOrError}
           </div>
-          {trailing && (
-            <div className="shrink-0 pt-1.5 text-right text-xs text-muted-foreground">{trailing}</div>
-          )}
         </div>
       </div>
     );

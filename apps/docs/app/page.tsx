@@ -15,7 +15,7 @@ import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 
-const REPO_URL = 'https://github.com/slipstream-ui';
+const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
 const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
 

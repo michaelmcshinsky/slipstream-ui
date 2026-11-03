@@ -1,21 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
-type Heading = {
+interface Heading {
   id: string;
   text: string;
   level: number;
-};
+}
 
 /**
  * Sticky right-sidebar table of contents. Scans the main content area for
  * h2/h3 headings and highlights the section currently in view using
- * IntersectionObserver. Hidden on screens where there is no room.
+ * IntersectionObserver. Re-scans on every client-side navigation so the
+ * heading list and anchor ids always match the current page. Hidden on
+ * screens where there is no room.
  */
 export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  const pathname = usePathname();
 
   useEffect(() => {
     // Collect h2/h3 headings that have ids (or generate slugs).
@@ -35,6 +39,7 @@ export function TableOfContents() {
       return { id, text: el.textContent ?? '', level: el.tagName === 'H2' ? 2 : 3 };
     });
     setHeadings(collected);
+    setActiveId('');
 
     // Track which heading is currently in view.
     const observer = new IntersectionObserver(
@@ -53,7 +58,7 @@ export function TableOfContents() {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   if (headings.length === 0) return null;
 

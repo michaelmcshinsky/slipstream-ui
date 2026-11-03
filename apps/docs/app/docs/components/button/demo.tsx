@@ -5,10 +5,29 @@ import { Button } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+type ButtonVariant =
+  | 'default'
+  | 'destructive'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'outline'
+  | 'secondary'
+  | 'ghost'
+  | 'link';
 type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 
-const VARIANTS: ButtonVariant[] = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'];
+const VARIANTS: ButtonVariant[] = [
+  'default',
+  'destructive',
+  'success',
+  'warning',
+  'info',
+  'outline',
+  'secondary',
+  'ghost',
+  'link',
+];
 const SIZES: ButtonSize[] = ['sm', 'default', 'lg'];
 
 const variantCode = VARIANTS.map(
@@ -27,7 +46,7 @@ export default function ButtonPage() {
       description="A clickable button component with variants for different visual styles and sizes."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'variant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant' },
+        { name: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant (semantic colors pair with the status tokens)' },
         { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Renders the child element (e.g. <a>, <Link>) with button styling instead of a <button>.' },

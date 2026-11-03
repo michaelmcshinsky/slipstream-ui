@@ -19,6 +19,10 @@ export default function ConfirmationPage() {
         { name: 'toolName', type: 'string', description: 'Tool name shown as mono text.' },
         { name: 'status', type: "'pending' | 'approved' | 'rejected'", defaultValue: "'pending'", description: 'Controlled outcome; omit for uncontrolled.' },
         { name: 'variant', type: "'default' | 'warning' | 'destructive' | 'info' | 'success'", defaultValue: "'default'", description: 'Accent color of the pending card; outcome chips always follow the result.' },
+        { name: 'approveVariant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Button variant for the approve action.' },
+        { name: 'rejectVariant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'outline'", description: 'Button variant for the reject action.' },
+        { name: 'showActions', type: 'boolean', defaultValue: 'true', description: 'Hide the action buttons (controlled-only gate; status drives the chip).' },
+        { name: 'labels', type: '{ approve?, reject?, approved?, rejected? }', description: 'Wording overrides for the buttons and outcome chips.' },
         { name: 'onApprove', type: '() => void', description: 'Called on approval.' },
         { name: 'onReject', type: '() => void', description: 'Called on rejection.' },
         { name: 'labels', type: 'object', description: 'Label overrides for localization.' },
@@ -91,6 +95,53 @@ export default function ConfirmationPage() {
   | 'destructive'
   | 'info'
   | 'success';`}
+      />
+
+      <DemoCard
+        title="Buttons: wording, styling, visibility"
+        preview={
+          <div className="grid w-full gap-4 md:grid-cols-2">
+            <Confirmation
+              title="Publish release v0.3.0?"
+              description="Custom wording and destructive approve styling."
+              variant="info"
+              approveVariant="destructive"
+              rejectVariant="ghost"
+              labels={{ approve: 'Ship it', reject: 'Not yet', approved: 'Shipped', rejected: 'Held' }}
+            />
+            <Confirmation
+              title="Read-only gate"
+              description="showActions hides the buttons — pair with a controlled status driven by your own UI."
+              showActions={false}
+            />
+          </div>
+        }
+        code={`{/* Custom wording + button variants */}
+<Confirmation
+  title="Publish release v0.3.0?"
+  variant="info"
+  approveVariant="destructive"
+  rejectVariant="ghost"
+  labels={{ approve: 'Ship it', reject: 'Not yet', approved: 'Shipped', rejected: 'Held' }}
+  onApprove={ship}
+/>
+
+{/* Controlled-only gate: no inline buttons */}
+<Confirmation title="Read-only gate" showActions={false} status={status} />`}
+        usage={`import { Confirmation } from '@slipstream-ui/ai';
+
+// Destructive actions get destructive approve styling
+<Confirmation
+  title="Delete the workspace?"
+  variant="destructive"
+  approveVariant="destructive"
+  labels={{ approve: 'Delete everything' }}
+  onApprove={destroy}
+  onReject={cancel}
+/>`}
+        types={`type ConfirmationActionVariant =
+  | 'default' | 'destructive' | 'outline'
+  | 'secondary' | 'ghost' | 'link';`}
       />
     </ComponentPage>
   );

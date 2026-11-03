@@ -37,17 +37,19 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'underline'",
+      "type": "'default' | 'underline' | 'rounded'",
       "defaultValue": "default",
       "required": false,
-      "description": "Strip design: enclosed pill track (default) or background-free underline.",
+      "description": "Strip design: enclosed pill track (default), background-free underline, or fully-rounded pill track.",
       "enum": [
         "default",
-        "underline"
+        "underline",
+        "rounded"
       ],
       "examples": [
         "default",
-        "underline"
+        "underline",
+        "rounded"
       ]
     },
     {

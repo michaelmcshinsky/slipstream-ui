@@ -65,6 +65,12 @@ export type DataTableProps<T> = {
   zebra?: boolean;
   /** Render skeleton placeholder rows (announced via aria-busy). */
   loading?: boolean;
+  /**
+   * Skeleton row count while loading (defaults to the page size, else 5).
+   * Match it to your visible data length so rows don't jump when real
+   * data replaces the placeholders.
+   */
+  loadingRows?: number;
   className?: string;
 };
 
@@ -103,6 +109,7 @@ export function DataTable<T>({
   density = 'default',
   zebra,
   loading,
+  loadingRows,
   className,
 }: DataTableProps<T>) {
   const [internalSort, setInternalSort] = React.useState<SortState>(defaultSort);
@@ -220,15 +227,20 @@ export function DataTable<T>({
           </thead>
           <tbody aria-busy={loading || undefined}>
             {loading ? (
-              Array.from({ length: Math.min(pageSize ?? 5, Math.max(visible.length, 3)) }, (_, skeletonRow) => (
-                <tr key={`skeleton-${skeletonRow}`}>
-                  {columns.map((column) => (
-                    <td key={column.key} className={cn('px-3 py-2', density === 'compact' && 'px-2 py-1')}>
-                      <Skeleton className="h-4 w-full" />
-                    </td>
-                  ))}
-                </tr>
-              ))
+              Array.from(
+                { length: (loadingRows ?? pageSize ?? Math.min(visible.length, 5)) || 5 },
+                (_, skeletonRow) => (
+                  <tr key={`skeleton-${skeletonRow}`}>
+                    {columns.map((column) => (
+                      <td key={column.key} className={cn('px-3 py-2', density === 'compact' && 'px-2 py-1')}>
+                        {/* Height tracks density so skeleton rows match real row
+                            height and replacing them doesn't shift the table. */}
+                        <Skeleton className={density === 'compact' ? 'h-3 w-full' : 'h-4 w-full'} />
+                      </td>
+                    ))}
+                  </tr>
+                )
+              )
             ) : visible.length === 0 ? (
               <tr>
                 <td

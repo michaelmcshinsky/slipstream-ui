@@ -47,6 +47,30 @@
       "type": "ReactNode",
       "required": false,
       "description": "AccordionTrigger only: replace the default chevron rendered at the far right of the header."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'borderless'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "'default' = bordered card with dividers; 'borderless' = plain stacked sections.",
+      "enum": [
+        "default",
+        "borderless"
+      ],
+      "examples": [
+        "borderless"
+      ]
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | number",
+      "required": false,
+      "description": "Token gap ('lg') or exact pixels (16) between items.",
+      "examples": [
+        "lg",
+        "16"
+      ]
     }
   ],
   "examples": [

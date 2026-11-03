@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CommandPalette } from './command-palette';
 
-const REPO_URL = 'https://github.com/slipstream-ui';
+const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
 /**
  * Sticky top navigation shared by the marketing site and docs.

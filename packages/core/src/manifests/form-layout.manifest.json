@@ -1,0 +1,110 @@
+{
+  "id": "form-layout",
+  "name": "FormLayout",
+  "tier": "molecule",
+  "description": "Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.",
+  "designIntent": "Field rhythm is the difference between a form that scans and one that doesn't. FormLayout owns the ARRANGEMENT (stack/row/grid + exact gap) while Fieldset owns the group semantics (legend) and FormField owns per-control wiring — three small pieces instead of one magic wrapper.",
+  "props": [
+    {
+      "name": "layout",
+      "type": "'stack' | 'row' | 'grid'",
+      "defaultValue": "stack",
+      "required": false,
+      "description": "Grouping layout: even vertical stack, horizontal row, or column grid.",
+      "enum": ["stack", "row", "grid"],
+      "examples": ["grid", "row"]
+    },
+    {
+      "name": "columns",
+      "type": "1 | 2 | 3 | 4",
+      "defaultValue": "2",
+      "required": false,
+      "description": "Grid column count (literal classes survive CSS purging).",
+      "examples": ["2", "4"]
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | number",
+      "required": false,
+      "description": "Even spacing between children — token or exact pixels (16).",
+      "examples": ["lg", "16"]
+    },
+    {
+      "name": "legend",
+      "type": "string",
+      "required": false,
+      "description": "Group label rendered as a semantic <legend> (fieldset mode).",
+      "examples": ["Billing details"]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the legend (fieldset mode)."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'fieldset'",
+      "defaultValue": "div",
+      "required": false,
+      "description": "Render as a semantic fieldset when the layout names a group of controls.",
+      "enum": ["div", "fieldset"],
+      "examples": ["fieldset"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Two-column settings grid",
+      "code": "<FormLayout layout=\"grid\" columns={2} gap={16} as=\"fieldset\" legend=\"Profile\">\n  <FormField id=\"first\" label=\"First name\"><Input /></FormField>\n  <FormField id=\"last\" label=\"Last name\"><Input /></FormField>\n  <FormField id=\"email\" label=\"Email\"><Input type=\"email\" /></FormField>\n</FormLayout>",
+      "description": "Exact 16px gaps; fields wrap into rows of two."
+    },
+    {
+      "title": "Inline action row",
+      "code": "<FormLayout layout=\"row\" gap=\"sm\">\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</FormLayout>"}
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hand-roll spacer divs",
+      "explanation": "Empty divs with heights drift from the token scale and break under different densities — gap exists for spacing.",
+      "example": "<div className=\"h-4\" />  // avoid\n<FormLayout gap=\"md\">…</FormLayout>"
+    },
+    {
+      "title": "Don't use fieldset mode without a legend",
+      "explanation": "as=\"fieldset\" without legend renders an unnamed group — assistive tech announces nothing useful. Prefer div, or provide the legend.",
+      "example": "<FormLayout as=\"fieldset\">…</FormLayout>  // nameless"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Fieldset mode gives the group a name",
+      "implementation": "legend renders as a real <legend>; use it whenever the layout wraps related controls",
+      "userRequirements": "Legend text must name the choice, not the layout"
+    },
+    {
+      "feature": "Reading order equals DOM order",
+      "implementation": "Row/grid layouts reflow visually; source order never changes",
+      "userRequirements": "Order fields by task flow, not visual position"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "FormLayout arranges the fields; each field keeps its own FormField wiring",
+      "example": "<FormLayout layout=\"grid\" columns={2}><FormField …>…</FormField></FormLayout>"
+    },
+    {
+      "component": "Form",
+      "relationship": "Layouts live inside a Form (or standalone for filter bars)"
+    },
+    {
+      "component": "Fieldset",
+      "relationship": "Fieldset when the legend/grouping IS the point; FormLayout when spacing/arrangement is"
+    }
+  ],
+  "relatedComponents": ["FormField", "Form", "Fieldset", "Grid"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "form-layout",
+  "exportName": "FormLayout"
+}

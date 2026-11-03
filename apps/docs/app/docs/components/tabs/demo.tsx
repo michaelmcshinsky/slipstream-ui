@@ -13,7 +13,7 @@ export default function TabsPage() {
         { name: 'value', type: 'string', description: 'Controlled active tab value.' },
         { name: 'defaultValue', type: 'string', description: 'Initial tab value when uncontrolled.' },
         { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the active tab changes.' },
-        { name: 'variant', type: "'default' | 'underline'", defaultValue: "'default'", description: 'Strip design: enclosed pill track or background-free underline.' },
+        { name: 'variant', type: "'default' | 'underline' | 'rounded'", defaultValue: "'default'", description: 'Strip design: enclosed pill track, background-free underline, or fully-rounded pills.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Density for strip and triggers.' },
         { name: 'TabsTrigger className', type: 'string', description: 'Per-trigger overrides (twMerge resolves conflicts with variant/size).' },
       ]}
@@ -114,13 +114,26 @@ export default function TabsPage() {
                 </TabsList>
               </Tabs>
             </div>
+            <div className="flex items-center gap-4">
+              <span className="w-8 shrink-0 font-mono text-xs text-muted-foreground">rounded</span>
+              <Tabs defaultValue="a" variant="rounded">
+                <TabsList>
+                  <TabsTrigger value="a">Overview</TabsTrigger>
+                  <TabsTrigger value="b">Activity</TabsTrigger>
+                  <TabsTrigger value="c">Usage</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
           </div>
         }
         code={`{/* size applies to strip + triggers; combines with variant */}
 <Tabs size="sm">…</Tabs>
 <Tabs size="md">…</Tabs>   {/* default */}
 <Tabs size="lg">…</Tabs>
-<Tabs variant="underline" size="sm">…</Tabs>`}
+<Tabs variant="underline" size="sm">…</Tabs>
+
+{/* fully-rounded pill track */}
+<Tabs variant="rounded">…</Tabs>`}
         usage={`import { Tabs, TabsList, TabsTrigger } from '@slipstream-ui/core';
 
 // Controlled with explicit design + density
@@ -131,7 +144,7 @@ export default function TabsPage() {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  variant?: 'default' | 'underline';
+  variant?: 'default' | 'underline' | 'rounded';
   size?: 'sm' | 'md' | 'lg';
 };`}
       />

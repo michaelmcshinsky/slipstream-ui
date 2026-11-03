@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "fa9ea84",
-  "count": 54,
+  "sourceRevision": "167b16f",
+  "count": 57,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -158,6 +158,14 @@
       "registry": "/registry/dialog.json"
     },
     {
+      "id": "drawer",
+      "name": "Drawer",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
+      "registry": "/registry/drawer.json"
+    },
+    {
       "id": "fieldset",
       "name": "Fieldset",
       "package": "@slipstream-ui/core",
@@ -174,12 +182,28 @@
       "registry": "/registry/flex.json"
     },
     {
+      "id": "form",
+      "name": "Form",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.",
+      "registry": "/registry/form.json"
+    },
+    {
       "id": "form-field",
       "name": "FormField",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
       "registry": "/registry/form-field.json"
+    },
+    {
+      "id": "form-layout",
+      "name": "FormLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.",
+      "registry": "/registry/form-layout.json"
     },
     {
       "id": "grid",
