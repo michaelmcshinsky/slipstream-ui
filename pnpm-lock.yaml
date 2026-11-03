@@ -375,8 +375,8 @@ importers:
         specifier: ^12.0.0
         version: 12.1.0
       fs-extra:
-        specifier: ^11.2.0
-        version: 11.4.0
+        specifier: ^11.4.1
+        version: 11.4.1
       ora:
         specifier: ^5.4.1
         version: 5.4.1
@@ -4393,8 +4393,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /fs-extra@11.4.0:
-    resolution: {integrity: sha512-EQsFzMUJkCKGr1ePqlYADkIUmHW1s3ZXr5Yqy6wbGrfUCphpl2maM/kyOIRA2HpP3AaFQTZXD4ldjek+nccddA==}
+  /fs-extra@11.4.1:
+    resolution: {integrity: sha512-KYAb4c9BJQI6QqGKthV68OHe0badztdXJWKo0WtBA9IuCFPTKvE5ZdUBglP833aMjhaSPNO4A5j/EkzZtGlKjA==}
     engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.11
