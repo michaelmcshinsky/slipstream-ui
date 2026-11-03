@@ -41,12 +41,26 @@
     },
     {
       "name": "size",
-      "type": "'sm' | 'md' | 'lg'",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
       "defaultValue": "md",
       "required": false,
-      "description": "Extent along the side axis (width for left/right, height for top/bottom).",
-      "enum": ["sm", "md", "lg"],
-      "examples": ["lg"]
+      "description": "Preset extent along the side axis (width for left/right, height for top/bottom).",
+      "enum": ["sm", "md", "lg", "xl", "2xl"],
+      "examples": ["lg", "xl"]
+    },
+    {
+      "name": "width",
+      "type": "number | string",
+      "required": false,
+      "description": "Custom extent for left/right drawers: pixels (480) or any CSS length (\"70vw\"). Overrides size.",
+      "examples": [480, "70vw"]
+    },
+    {
+      "name": "height",
+      "type": "number | string",
+      "required": false,
+      "description": "Custom extent for top/bottom drawers: pixels (320) or any CSS length (\"60vh\"). Overrides size.",
+      "examples": [320, "60vh"]
     },
     {
       "name": "closeOnBackdrop",

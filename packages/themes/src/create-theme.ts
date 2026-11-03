@@ -60,7 +60,7 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'success-foreground': darkMode ? '222 75% 10%' : '0 0% 100%',
     warning: darkMode ? '38 92% 60%' : '38 92% 50%',
     'warning-foreground': '26 83% 14%',
-    info: darkMode ? '176 74% 56%' : '176 74% 38%',
+    info: darkMode ? '190 80% 58%' : '190 76% 38%',
     'info-foreground': '222 75% 10%',
 
     // Borders: dark gets a crisp 24% navy line; inputs read brighter (32%)

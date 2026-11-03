@@ -15,13 +15,12 @@ describe('ButtonGroup', () => {
       </ButtonGroup>
     );
     const group = container.querySelector('[data-slot="button-group"]')!;
-    expect(group).toHaveClass('-space-x-px');
+    // The group owns the single outline and clips the outer radius.
+    expect(group).toHaveClass('overflow-hidden', 'rounded-md', 'border', 'border-border');
     expect(group.querySelectorAll('button')).toHaveLength(3);
-    // First/last keep outer corners; middles square off — the join rules
-    // live as descendant tokens on the group's class.
-    expect(group.className).toContain('[&>*:first-child]:rounded-l-md');
-    expect(group.className).toContain('[&>*:last-child]:rounded-r-md');
     expect(group.className).toContain('[&>*]:rounded-none');
+    expect(group.className).toContain('[&>*]:border-0');
+    expect(group).toHaveClass('divide-x', 'divide-border');
   });
 
   it('vertical orientation stacks with collapsed borders', () => {
@@ -32,9 +31,8 @@ describe('ButtonGroup', () => {
       </ButtonGroup>
     );
     const group = container.querySelector('[data-slot="button-group"]')!;
-    expect(group).toHaveClass('-space-y-px');
-    expect(group.className).toContain('[&>*:first-child]:rounded-t-md');
-    expect(group.className).toContain('[&>*:last-child]:rounded-b-md');
+    expect(group).toHaveClass('flex-col');
+    expect(group).toHaveClass('divide-y', 'divide-border');
   });
 
   it('exposes a group role and forwards aria-label', () => {

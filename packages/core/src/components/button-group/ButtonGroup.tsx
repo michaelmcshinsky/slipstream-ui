@@ -7,11 +7,16 @@ export type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 /**
- * Joins buttons into one segmented control: adjacent borders collapse
- * (negative spacing), middle corners square off, and only the outer
- * corners stay rounded — a single outline around the whole group.
- * Use border-bearing variants (default/outline/secondary); ghost
- * buttons have no border and would break the joined outline.
+ * Joins buttons into one segmented control.
+ *
+ * The group owns the outline: a single border, one outer radius (children
+ * are clipped by overflow-hidden), and 1px separators drawn between
+ * segments. Children lose their own borders and radii, so mixed variants
+ * (default/outline/secondary/ghost) still read as one instrument — a
+ * borderless variant no longer leaves the seam misaligned the way
+ * negative-margin border collapsing did.
+ *
+ * Focus rings render inset so they are never clipped at the edges.
  */
 const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
   ({ orientation = 'horizontal', className, ...props }, ref) => (
@@ -20,11 +25,14 @@ const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
       data-slot="button-group"
       role="group"
       className={cn(
-        'inline-flex',
+        'inline-flex overflow-hidden rounded-md border border-border bg-background',
+        '[&>*]:rounded-none [&>*]:border-0',
+        '[&>*:focus-visible]:ring-inset [&>*:focus-visible]:ring-offset-0',
+        // divide-* compiles to `.group > * ~ * { border-left/top }` — higher
+        // specificity than the lead-strip above, so seams stay exact.
         orientation === 'horizontal'
-          ? '-space-x-px [&>*:first-child]:rounded-l-md [&>*:last-child]:rounded-r-md'
-          : '-space-y-px [&>*:first-child]:rounded-t-md [&>*:last-child]:rounded-b-md',
-        '[&>*]:rounded-none [&>*]:focus-visible:relative [&>*]:focus-visible:z-10',
+          ? 'divide-x divide-border'
+          : 'flex-col divide-y divide-border',
         className
       )}
       {...props}

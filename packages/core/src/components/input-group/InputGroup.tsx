@@ -56,12 +56,15 @@ const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
         className={cn(
           'flex h-10 w-full items-center overflow-hidden rounded-md border border-input bg-background',
           'ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-          // The group is the control: strip chrome from nested fields so
-          // only the outer border shows. Literal variants survive purging.
-          '[&_input]:min-w-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:px-3 [&_input]:py-2 [&_input]:shadow-none',
-          '[&_input]:focus-visible:ring-0 [&_input]:focus-visible:ring-offset-0',
-          '[&_textarea]:border-0 [&_textarea]:bg-transparent [&_textarea]:shadow-none [&_textarea]:focus-visible:ring-0',
-          '[&_select]:border-0 [&_select]:bg-transparent [&_select]:shadow-none [&_select]:focus-visible:ring-0',
+          // The group's outline is the only outline: force-strip every
+          // nested field's border, radius, ring, shadow and UA focus outline.
+          // Important flags defeat both the component's own utilities
+          // (Input ships `border` + `focus-visible:ring-2`) and browser
+          // defaults — no seams appear where an addon sits flush.
+          '[&_input]:h-full [&_input]:min-w-0 [&_input]:flex-1 [&_input]:rounded-none [&_input]:px-3 [&_input]:py-2',
+          '[&_input]:!border-0 [&_input]:!bg-transparent [&_input]:!shadow-none [&_input]:!outline-none [&_input]:!ring-0 [&_input]:!ring-offset-0',
+          '[&_textarea]:!border-0 [&_textarea]:!rounded-none [&_textarea]:!bg-transparent [&_textarea]:!shadow-none [&_textarea]:!outline-none [&_textarea]:!ring-0 [&_textarea]:!ring-offset-0',
+          '[&_select]:!border-0 [&_select]:!rounded-none [&_select]:!bg-transparent [&_select]:!shadow-none [&_select]:!outline-none [&_select]:!ring-0 [&_select]:!ring-offset-0',
           '[&_input:disabled]:cursor-not-allowed',
           className
         )}

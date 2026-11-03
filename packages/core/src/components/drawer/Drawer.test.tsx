@@ -122,3 +122,53 @@ describe('Drawer animate (optional slide)', () => {
     });
   });
 });
+
+describe('Drawer sizes and custom extents', () => {
+  it('supports xl and 2xl presets on each axis', () => {
+    const { rerender } = render(
+      <Drawer open onOpenChange={vi.fn()} title="Wide" side="right" size="xl">
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('w-[40rem]');
+    rerender(
+      <Drawer open onOpenChange={vi.fn()} title="Wide" side="right" size="2xl">
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('w-[48rem]');
+    rerender(
+      <Drawer open onOpenChange={vi.fn()} title="Tall" side="bottom" size="2xl">
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('h-[48rem]');
+  });
+
+  it('accepts a pixel width and overrides the preset', () => {
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Custom" side="right" width={560}>
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).toHaveStyle({ width: '560px' });
+  });
+
+  it('accepts a CSS length height for top/bottom drawers', () => {
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Custom" side="top" height="60vh">
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).toHaveStyle({ height: '60vh' });
+  });
+
+  it('ignores width/height that do not match the side axis', () => {
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Mismatch" side="bottom" width={400}>
+        body
+      </Drawer>
+    );
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('style');
+  });
+});

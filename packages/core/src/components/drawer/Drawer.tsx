@@ -6,7 +6,7 @@ import { cn } from '../../utils/cn';
 import { usePresence } from '../../utils/presence';
 
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
-export type DrawerSize = 'sm' | 'md' | 'lg';
+export type DrawerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export type DrawerProps = {
   open: boolean;
@@ -16,8 +16,18 @@ export type DrawerProps = {
   children?: React.ReactNode;
   /** Edge the drawer slides from (default 'right'). */
   side?: DrawerSide;
-  /** Extent along the side axis (width for left/right, height for top/bottom). */
+  /** Preset extent along the side axis (width for left/right, height for top/bottom). */
   size?: DrawerSize;
+  /**
+   * Custom extent for left/right drawers: pixels (480) or any CSS length
+   * ("70vw"). Overrides `size`.
+   */
+  width?: number | string;
+  /**
+   * Custom extent for top/bottom drawers: pixels (320) or any CSS length
+   * ("60vh"). Overrides `size`.
+   */
+  height?: number | string;
   /** Clicking the backdrop closes (default true). */
   closeOnBackdrop?: boolean;
   /** Hide the close (✕) button in the header (default true). */
@@ -44,12 +54,34 @@ const sideClasses: Record<DrawerSide, string> = {
   bottom: 'inset-x-0 bottom-0 border-t',
 };
 
-const sizeClasses: Record<DrawerSide, Record<DrawerSize, string>> = {
-  right: { sm: 'w-72', md: 'w-96', lg: 'w-[32rem]' },
-  left: { sm: 'w-72', md: 'w-96', lg: 'w-[32rem]' },
-  top: { sm: 'h-48', md: 'h-80', lg: 'h-[32rem]' },
-  bottom: { sm: 'h-48', md: 'h-80', lg: 'h-[32rem]' },
+const sideWidths: Record<DrawerSize, string> = {
+  sm: 'w-72',
+  md: 'w-96',
+  lg: 'w-[32rem]',
+  xl: 'w-[40rem]',
+  '2xl': 'w-[48rem]',
 };
+
+const sideHeights: Record<DrawerSize, string> = {
+  sm: 'h-48',
+  md: 'h-80',
+  lg: 'h-[32rem]',
+  xl: 'h-[40rem]',
+  '2xl': 'h-[48rem]',
+};
+
+const sizeClasses: Record<DrawerSide, Record<DrawerSize, string>> = {
+  right: sideWidths,
+  left: sideWidths,
+  top: sideHeights,
+  bottom: sideHeights,
+};
+
+/** Custom extent wins over the preset; numbers are pixels. */
+function extentStyle(value: number | string | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  return typeof value === 'number' ? `${value}px` : value;
+}
 
 // Literal class maps so Tailwind's scanner keeps every slide utility.
 const slideIn: Record<DrawerSide, string> = {
@@ -80,6 +112,8 @@ export function Drawer({
   children,
   side = 'right',
   size = 'md',
+  width,
+  height,
   closeOnBackdrop = true,
   showClose = true,
   initialFocusRef,
@@ -146,6 +180,9 @@ export function Drawer({
 
   if (!present || typeof document === 'undefined') return null;
 
+  const isVerticalSide = side === 'top' || side === 'bottom';
+  const customExtent = isVerticalSide ? extentStyle(height) : extentStyle(width);
+
   const motion = animate
     ? cn(
         'duration-200 motion-reduce:animate-none',
@@ -174,6 +211,7 @@ export function Drawer({
           sizeClasses[side][size],
           motion
         )}
+        style={customExtent ? { [isVerticalSide ? 'height' : 'width']: customExtent } : undefined}
       >
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
           <div>

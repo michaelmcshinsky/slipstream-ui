@@ -8,7 +8,8 @@ import { DemoCard } from '@/components/demo-card';
 export default function DrawerPage() {
   const [open, setOpen] = useState(false);
   const [side, setSide] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
-  const [size, setSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [size, setSize] = useState<'sm' | 'md' | 'lg' | 'xl' | '2xl'>('md');
+  const [customWidth, setCustomWidth] = useState('');
   const [openBottom, setOpenBottom] = useState(false);
   const [animate, setAnimate] = useState(true);
 
@@ -24,7 +25,9 @@ export default function DrawerPage() {
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Accessible dialog name rendered as the header title.' },
         { name: 'description', type: 'string', description: 'Supporting line under the title (wired via aria-describedby).' },
         { name: 'side', type: "'left' | 'right' | 'top' | 'bottom'", defaultValue: "'right'", description: 'Edge the drawer slides from.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Extent along the side axis (width for sides, height for top/bottom).' },
+        { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | '2xl'", defaultValue: "'md'", description: 'Preset extent along the side axis (width for sides, height for top/bottom).' },
+        { name: 'width', type: 'number | string', description: 'Custom extent for left/right drawers — pixels (520) or any CSS length ("70vw"). Overrides size.' },
+        { name: 'height', type: 'number | string', description: 'Custom extent for top/bottom drawers — pixels (320) or any CSS length ("60vh"). Overrides size.' },
         { name: 'closeOnBackdrop', type: 'boolean', defaultValue: 'true', description: 'Clicking the backdrop closes the drawer.' },
         { name: 'showClose', type: 'boolean', defaultValue: 'true', description: 'Hide the header ✕ (Escape and backdrop still close).' },
         { name: 'initialFocusRef', type: 'RefObject<HTMLElement | null>', description: 'Element focused on open (defaults to first focusable).' },
@@ -71,7 +74,24 @@ export default function DrawerPage() {
                   <option value="sm">sm</option>
                   <option value="md">md</option>
                   <option value="lg">lg</option>
+                  <option value="xl">xl</option>
+                  <option value="2xl">2xl</option>
                 </select>
+              </div>
+              <div>
+                <label htmlFor="dr-width" className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  width (px)
+                </label>
+                <input
+                  id="dr-width"
+                  type="number"
+                  min={240}
+                  step={16}
+                  value={customWidth}
+                  onChange={(e) => setCustomWidth(e.target.value)}
+                  placeholder="auto"
+                  className="w-28 rounded-md border border-border bg-background px-3 py-2 text-sm"
+                />
               </div>
               <div className="flex items-center gap-2 pb-2">
                 <input
@@ -94,6 +114,7 @@ export default function DrawerPage() {
               title="Filter results"
               description="Narrow by status — Escape or the backdrop closes."
               side={side}
+              width={customWidth ? Number(customWidth) : undefined}
               animate={animate}
               size={size}
             >

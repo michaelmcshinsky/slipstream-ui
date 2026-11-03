@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "type": "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link'",
       "defaultValue": "default",
       "required": false,
       "description": "Visual style variant of the button",
@@ -20,7 +20,11 @@
         "link",
         "success",
         "warning",
-        "info"
+        "info",
+        "outline-destructive",
+        "outline-success",
+        "outline-warning",
+        "outline-info"
       ],
       "examples": [
         "default",

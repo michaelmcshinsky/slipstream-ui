@@ -15,9 +15,12 @@ describe('InputGroup', () => {
     );
     const group = container.querySelector('[data-slot="input-group"]')!;
     expect(group).toHaveClass('border', 'rounded-md', 'focus-within:ring-2');
-    // Chrome-stripping rides on descendant selectors in the group's class.
-    expect(group.className).toContain('[&_input]:border-0');
-    expect(group.className).toContain('[&_input]:bg-transparent');
+    // Chrome-stripping rides on important descendant selectors in the
+    // group's class so no inner border/outline can show at addon seams.
+    expect(group.className).toContain('[&_input]:!border-0');
+    expect(group.className).toContain('[&_input]:!bg-transparent');
+    expect(group.className).toContain('[&_input]:!ring-0');
+    expect(group.className).toContain('[&_input]:!outline-none');
     expect(group.className).toContain('[&_input]:flex-1');
     expect(group.querySelector('input')).toHaveAttribute('placeholder', 'Search');
   });

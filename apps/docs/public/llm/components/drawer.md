@@ -19,7 +19,9 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | title | `string` | — | yes | Accessible dialog name rendered as the header title. |
 | description | `string` | — | no | Supporting line under the title (wired via aria-describedby). |
 | side | `'left' | 'right' | 'top' | 'bottom'` | `right` | no | Edge the drawer slides from. |
-| size | `'sm' | 'md' | 'lg'` | `md` | no | Extent along the side axis (width for left/right, height for top/bottom). |
+| size | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `md` | no | Preset extent along the side axis (width for left/right, height for top/bottom). |
+| width | `number | string` | — | no | Custom extent for left/right drawers: pixels (480) or any CSS length ("70vw"). Overrides size. |
+| height | `number | string` | — | no | Custom extent for top/bottom drawers: pixels (320) or any CSS length ("60vh"). Overrides size. |
 | closeOnBackdrop | `boolean` | `true` | no | Clicking the backdrop closes the drawer. |
 | showClose | `boolean` | `true` | no | Hide the header ✕ button (Escape and backdrop still close). |
 | initialFocusRef | `RefObject<HTMLElement | null>` | — | no | Element focused on open (defaults to the first focusable element). |

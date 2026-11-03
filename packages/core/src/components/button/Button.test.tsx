@@ -101,3 +101,32 @@ describe('Button semantic theme variants', () => {
     );
   });
 });
+
+describe('Button outline color variants', () => {
+  it('renders each colored outline with a semantic border and label', () => {
+    render(
+      <>
+        <Button variant="outline-destructive">Delete</Button>
+        <Button variant="outline-success">Approve</Button>
+        <Button variant="outline-warning">Careful</Button>
+        <Button variant="outline-info">Info</Button>
+      </>
+    );
+    const del = screen.getByRole('button', { name: 'Delete' });
+    expect(del).toHaveClass('border', 'border-destructive/50', 'text-destructive', 'bg-background');
+    expect(del.className).toContain('hover:bg-destructive/10');
+    expect(screen.getByRole('button', { name: 'Approve' })).toHaveClass('border-success/50', 'text-success');
+    expect(screen.getByRole('button', { name: 'Careful' })).toHaveClass('border-warning/50', 'text-warning');
+    expect(screen.getByRole('button', { name: 'Info' })).toHaveClass('border-info/50', 'text-info');
+  });
+
+  it('keeps colored outlines accessible as links via asChild', () => {
+    render(
+      <Button asChild variant="outline-success">
+        <a href="/ship">Ship</a>
+      </Button>
+    );
+    const link = screen.getByRole('link', { name: 'Ship' });
+    expect(link).toHaveClass('border-success/50', 'text-success');
+  });
+});
