@@ -6,7 +6,7 @@
     "tailwind.config.js"
   ],
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.3.3",
     "tailwindcss-animate": "^1.0.7"
   }
 }
