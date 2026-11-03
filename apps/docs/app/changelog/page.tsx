@@ -12,9 +12,27 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
+    version: '0.2.0',
+    date: 'November 2026',
+    tag: 'current',
+    highlights: [
+      'Axial-inspired design pivot: dark surface ladder (background < card < popover), crisp navy borders, light-blue primary with WCAG AA contrast in both themes, 6px radii',
+      'Fixed invalid percent-hue success/warning/info tokens that silently dropped (status chips render correctly in both themes again)',
+      'New components: Fieldset, FormField (label placement + tooltip + trailing slot), Text, Heading, Block, Flex/FlexItem, Grid/GridItem, List/ListItem',
+      'DataTable: custom sort icons, sticky header, compact density, zebra rows, loading skeletons, row AND column click callbacks, server-side sort via onSortChange',
+      'Search + Autocomplete: full combobox (portalled listbox, keyboard-complete) — constrained picks vs free-form type-ahead',
+      'Tabs: underline variant (no strip background), sm/md/lg sizes, real Arrow/Home/End navigation with activation',
+      'Dialog showClose, Breadcrumb onItemClick, Pagination showFirst/showLast/custom icons, Accordion custom icon slot + full-width headers, Confirmation color variants, Skeleton sizing props',
+      'Tooltip portals with fixed positioning — overflowing a container no longer scrolls or clips the bubble',
+      'Docs: browser-support table on every component page, grouped accordion sidebar, full-width shell with centered reading column, nine guides, interactive MCP playground, five live templates',
+      'Every code example unified on CodeBlock with an AA-safe surface; per-page SEO metadata across all docs; codebase converted from interface to type',
+      'Repo hygiene: kittyclaw references removed, legacy root build cluster (src/stories/storybook/vite/vitest configs) deleted, typecheck covers the build scripts (43 pre-existing errors fixed)',
+    ],
+  },
+  {
     version: '0.1.0',
     date: 'October 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       '43 components across @slipstream-ui/core and @slipstream-ui/ai, each shipping a COMPONENT_MANIFEST',
       'Response: streaming-safe GFM markdown renderer with automatic repair of incomplete syntax',

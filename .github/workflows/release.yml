@@ -10,7 +10,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     # Only publish when the push actually contains version-bumping changeset commits.
-    if: github.repository == 'slipstream-ui/slipstream-ui'
+    if: github.repository == 'michaelmcshinsky/slipstream-ui'
 
     steps:
       - uses: actions/checkout@v4
