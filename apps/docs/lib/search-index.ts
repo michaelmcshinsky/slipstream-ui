@@ -69,4 +69,10 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'AI chat UI guide', href: '/docs/guides/ai-chat-ui', content: 'guide react ai chat components streaming markdown stop generation production walkthrough', group: 'Guides' },
   { title: 'Agent integration guide', href: '/docs/guides/agent-integration', content: 'guide MCP component library claude cursor validate_usage tools llms.txt zero hallucination', group: 'Guides' },
   { title: 'Migrating from shadcn', href: '/docs/guides/migrating-from-shadcn', content: 'guide shadcn alternative AI UI migration coexist registry comparison switch', group: 'Guides' },
+  { title: 'Streaming guide', href: '/docs/guides/streaming', content: 'guide streaming fetch reader SSE abort stop generation partial markdown scroll anchoring backpressure', group: 'Guides' },
+  { title: 'State & threads guide', href: '/docs/guides/state-threads', content: 'guide stateless store messages persistence history prepend multi-thread branching zustand', group: 'Guides' },
+  { title: 'Vercel AI SDK guide', href: '/docs/guides/vercel-ai-sdk', content: 'guide vercel ai sdk useChat adapter useSlipstreamMessages useSlipstreamStream tool invocations', group: 'Guides' },
+  { title: 'Accessibility for AI UIs', href: '/docs/guides/accessibility-ai', content: 'guide accessibility streaming announcements live region focus keyboard reduced motion jest-axe', group: 'Guides' },
+  { title: 'IDE setup guide', href: '/docs/guides/ide-setup', content: 'guide claude code cursor windsurf mcp json config AGENTS rules setup troubleshooting', group: 'Guides' },
+  { title: 'Testing guide', href: '/docs/guides/testing', content: 'guide testing jest-axe interaction streaming error CI drift validate_usage diff', group: 'Guides' },
 ];

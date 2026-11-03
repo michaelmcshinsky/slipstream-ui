@@ -45,7 +45,13 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'Guides',
     items: [
       { href: '/docs/guides/ai-chat-ui', label: 'AI chat UI' },
+      { href: '/docs/guides/streaming', label: 'Streaming' },
+      { href: '/docs/guides/state-threads', label: 'State & threads' },
+      { href: '/docs/guides/vercel-ai-sdk', label: 'Vercel AI SDK' },
+      { href: '/docs/guides/accessibility-ai', label: 'Accessibility' },
       { href: '/docs/guides/agent-integration', label: 'Agent integration' },
+      { href: '/docs/guides/ide-setup', label: 'IDE setup (Claude/Cursor)' },
+      { href: '/docs/guides/testing', label: 'Testing' },
       { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn' },
     ],
   },
