@@ -1,0 +1,208 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "grid",
+  "name": "grid",
+  "tier": "molecule",
+  "description": "Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.",
+  "designIntent": "Grid layout should be declarative without stepping on Tailwind's compiler: column counts map to literal class names the scanner can see, and responsive card grids use minmax() auto-fit via minCol — no breakpoint math, no purged runtime-built classes. GridItem adds per-cell spans with the same literal approach.",
+  "props": [
+    {
+      "name": "cols",
+      "type": "number",
+      "required": false,
+      "description": "Base column count (1-6).",
+      "defaultValue": "auto (minCol) or browser default",
+      "examples": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "name": "smCols",
+      "type": "number",
+      "required": false,
+      "description": "Columns from the sm breakpoint up (1-6).",
+      "examples": [
+        "3"
+      ]
+    },
+    {
+      "name": "mdCols",
+      "type": "number",
+      "required": false,
+      "description": "Columns from the md breakpoint up (1-6).",
+      "examples": [
+        "4"
+      ]
+    },
+    {
+      "name": "lgCols",
+      "type": "number",
+      "required": false,
+      "description": "Columns from the lg breakpoint up (1-6).",
+      "examples": [
+        "4"
+      ]
+    },
+    {
+      "name": "minCol",
+      "type": "string",
+      "required": false,
+      "description": "Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)) — cards wrap responsively. Overrides the cols* props.",
+      "defaultValue": "undefined",
+      "examples": [
+        "16rem",
+        "280px"
+      ]
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
+      "required": false,
+      "description": "Token gap between cells.",
+      "defaultValue": "md",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "lg"
+      ]
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'span' | 'section' | 'ul'",
+      "required": false,
+      "description": "Semantic element (use 'ul' with GridItem as=\"li\" for item grids).",
+      "enum": [
+        "div",
+        "span",
+        "section",
+        "ul"
+      ],
+      "examples": [
+        "ul"
+      ]
+    },
+    {
+      "name": "span",
+      "type": "number",
+      "required": false,
+      "description": "GridItem column span at the base breakpoint (1-6).",
+      "examples": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "name": "smSpan",
+      "type": "number",
+      "required": false,
+      "description": "GridItem column span from sm up (1-6).",
+      "examples": [
+        "2"
+      ]
+    },
+    {
+      "name": "mdSpan",
+      "type": "number",
+      "required": false,
+      "description": "GridItem column span from md up (1-6).",
+      "examples": [
+        "3"
+      ]
+    },
+    {
+      "name": "lgSpan",
+      "type": "number",
+      "required": false,
+      "description": "GridItem column span from lg up (1-6).",
+      "examples": [
+        "4"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Responsive card grid (auto-fit)",
+      "code": "<Grid minCol=\"18rem\" gap=\"lg\">\n  {cards.map((c) => (\n    <Card key={c.id}>…</Card>\n  ))}\n</Grid>",
+      "description": "minmax() wrapping — works at every width without breakpoint columns."
+    },
+    {
+      "title": "Fixed columns with a hero span",
+      "code": "<Grid cols={2} mdCols={3} gap=\"md\">\n  <GridItem span={2} mdSpan={2} className=\"…\">Hero</GridItem>\n  <GridItem>Card A</GridItem>\n  <GridItem>Card B</GridItem>\n</Grid>",
+      "description": "Literal grid-cols-*/col-span-* classes are compiled (they exist verbatim in source)."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't build column classes at runtime",
+      "explanation": "Template-built utilities (md:grid-cols-${n}) are invisible to Tailwind's scanner and get purged — the grid silently collapses to one column. The cols props use pre-declared literal classes.",
+      "example": "<div className={`md:grid-cols-${n}`}>  // purged\n<Grid mdCols={n}>  // compiled"
+    },
+    {
+      "title": "Don't nest grids for one-axis layouts",
+      "explanation": "Row/column alignment is Flex's job; nesting grids adds template complexity with no benefit.",
+      "example": "<Grid>…<Flex>row of two</Flex>…</Grid>  // fine\n<Grid><Grid>…  // avoid"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Layout-only semantics",
+      "implementation": "Renders div/section/ul — no interactive behavior added",
+      "userRequirements": "Cells keep their own roles; list grids pair as=\"ul\" with GridItem as=\"li\""
+    },
+    {
+      "feature": "Reading order equals DOM order",
+      "implementation": "Visual column reflow never reorders DOM nodes",
+      "userRequirements": "Order cells by reading priority, not visual position"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Flex",
+      "relationship": "Flex for one-axis rows; Grid for two-axis layout"
+    },
+    {
+      "component": "Card",
+      "relationship": "The classic minCol grid cell — cards wrap responsively"
+    }
+  ],
+  "relatedComponents": [
+    "Flex",
+    "Card",
+    "Block"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "grid",
+  "exportName": "Grid",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/grid/Grid.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nconst gapClasses = {\n  none: 'gap-0',\n  sm: 'gap-2',\n  md: 'gap-4',\n  lg: 'gap-6',\n  xl: 'gap-8',\n} as const;\n\n// Literal class maps — Tailwind's scanner only keeps classes it can see in\n// source, so every col-span/columns combination must appear verbatim here.\nconst BASE_COLS: Record<number, string> = {\n  1: 'grid-cols-1',\n  2: 'grid-cols-2',\n  3: 'grid-cols-3',\n  4: 'grid-cols-4',\n  5: 'grid-cols-5',\n  6: 'grid-cols-6',\n};\nconst SM_COLS: Record<number, string> = {\n  1: 'sm:grid-cols-1',\n  2: 'sm:grid-cols-2',\n  3: 'sm:grid-cols-3',\n  4: 'sm:grid-cols-4',\n  5: 'sm:grid-cols-5',\n  6: 'sm:grid-cols-6',\n};\nconst MD_COLS: Record<number, string> = {\n  1: 'md:grid-cols-1',\n  2: 'md:grid-cols-2',\n  3: 'md:grid-cols-3',\n  4: 'md:grid-cols-4',\n  5: 'md:grid-cols-5',\n  6: 'md:grid-cols-6',\n};\nconst LG_COLS: Record<number, string> = {\n  1: 'lg:grid-cols-1',\n  2: 'lg:grid-cols-2',\n  3: 'lg:grid-cols-3',\n  4: 'lg:grid-cols-4',\n  5: 'lg:grid-cols-5',\n  6: 'lg:grid-cols-6',\n};\nconst COL_SPAN: Record<number, string> = {\n  1: 'col-span-1',\n  2: 'col-span-2',\n  3: 'col-span-3',\n  4: 'col-span-4',\n  5: 'col-span-5',\n  6: 'col-span-6',\n};\nconst SM_COL_SPAN: Record<number, string> = {\n  1: 'sm:col-span-1',\n  2: 'sm:col-span-2',\n  3: 'sm:col-span-3',\n  4: 'sm:col-span-4',\n  5: 'sm:col-span-5',\n  6: 'sm:col-span-6',\n};\nconst MD_COL_SPAN: Record<number, string> = {\n  1: 'md:col-span-1',\n  2: 'md:col-span-2',\n  3: 'md:col-span-3',\n  4: 'md:col-span-4',\n  5: 'md:col-span-5',\n  6: 'md:col-span-6',\n};\nconst LG_COL_SPAN: Record<number, string> = {\n  1: 'lg:col-span-1',\n  2: 'lg:col-span-2',\n  3: 'lg:col-span-3',\n  4: 'lg:col-span-4',\n  5: 'lg:col-span-5',\n  6: 'lg:col-span-6',\n};\n\nexport type GridProps = React.HTMLAttributes<HTMLElement> & {\n  /** Base column count (1-6). */\n  cols?: number;\n  /** Columns from the sm breakpoint up (1-6). */\n  smCols?: number;\n  /** Columns from the md breakpoint up (1-6). */\n  mdCols?: number;\n  /** Columns from the lg breakpoint up (1-6). */\n  lgCols?: number;\n  /**\n   * Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)) — cards wrap\n   * responsively without per-breakpoint column math. Overrides cols*.\n   */\n  minCol?: string;\n  /** Token gap between cells. */\n  gap?: keyof typeof gapClasses;\n  /** Semantic element (default 'div'). */\n  as?: 'div' | 'span' | 'section' | 'ul';\n};\n\n/**\n * Layout grid container with typed column counts (literal Tailwind classes,\n * so utilities survive CSS purging) and an auto-fit min-column mode for\n * card grids. Pair with GridItem for per-cell spans.\n */\nconst Grid = React.forwardRef<HTMLElement, GridProps>(\n  ({ cols, smCols, mdCols, lgCols, minCol, gap = 'md', as = 'div', className, style, ...props }, ref) => {\n    const Tag = as as 'div' | 'span' | 'section' | 'ul';\n    return (\n      <Tag\n        ref={ref as never}\n        className={cn(\n          'grid min-w-0',\n          !minCol && cols && BASE_COLS[cols],\n          !minCol && smCols && SM_COLS[smCols],\n          !minCol && mdCols && MD_COLS[mdCols],\n          !minCol && lgCols && LG_COLS[lgCols],\n          gapClasses[gap],\n          className\n        )}\n        style={minCol ? { gridTemplateColumns: `repeat(auto-fit, minmax(${minCol}, 1fr))`, ...style } : style}\n        {...props}\n      />\n    );\n  }\n);\nGrid.displayName = 'Grid';\n\nexport type GridItemProps = React.HTMLAttributes<HTMLElement> & {\n  /** Column span at the base breakpoint (1-6). */\n  span?: number;\n  /** Column span from the sm breakpoint up (1-6). */\n  smSpan?: number;\n  /** Column span from the md breakpoint up (1-6). */\n  mdSpan?: number;\n  /** Column span from the lg breakpoint up (1-6). */\n  lgSpan?: number;\n  /** Semantic element (default 'div'; 'li' pairs with as=\"ul\" on Grid). */\n  as?: 'div' | 'span' | 'li';\n};\n\n/** Per-cell column spans for a Grid container. */\nconst GridItem = React.forwardRef<HTMLElement, GridItemProps>(\n  ({ span, smSpan, mdSpan, lgSpan, as = 'div', className, ...props }, ref) => {\n    const Tag = as as 'div' | 'span' | 'li';\n    return (\n      <Tag\n        ref={ref as never}\n        className={cn(\n          span && COL_SPAN[span],\n          smSpan && SM_COL_SPAN[smSpan],\n          mdSpan && MD_COL_SPAN[mdSpan],\n          lgSpan && LG_COL_SPAN[lgSpan],\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nGridItem.displayName = 'GridItem';\n\nexport { Grid, GridItem };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/grid/index.ts",
+      "content": "export * from './Grid';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/grid.manifest.json",
+      "content": "{\n  \"id\": \"grid\",\n  \"name\": \"Grid / GridItem\",\n  \"tier\": \"molecule\",\n  \"description\": \"Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.\",\n  \"designIntent\": \"Grid layout should be declarative without stepping on Tailwind's compiler: column counts map to literal class names the scanner can see, and responsive card grids use minmax() auto-fit via minCol — no breakpoint math, no purged runtime-built classes. GridItem adds per-cell spans with the same literal approach.\",\n  \"props\": [\n    {\n      \"name\": \"cols\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Base column count (1-6).\",\n      \"defaultValue\": \"auto (minCol) or browser default\",\n      \"examples\": [\"2\", \"3\"]\n    },\n    {\n      \"name\": \"smCols\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Columns from the sm breakpoint up (1-6).\",\n      \"examples\": [\"3\"]\n    },\n    {\n      \"name\": \"mdCols\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Columns from the md breakpoint up (1-6).\",\n      \"examples\": [\"4\"]\n    },\n    {\n      \"name\": \"lgCols\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Columns from the lg breakpoint up (1-6).\",\n      \"examples\": [\"4\"]\n    },\n    {\n      \"name\": \"minCol\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)) — cards wrap responsively. Overrides the cols* props.\",\n      \"defaultValue\": \"undefined\",\n      \"examples\": [\"16rem\", \"280px\"]\n    },\n    {\n      \"name\": \"gap\",\n      \"type\": \"'none' | 'sm' | 'md' | 'lg' | 'xl'\",\n      \"required\": false,\n      \"description\": \"Token gap between cells.\",\n      \"defaultValue\": \"md\",\n      \"enum\": [\"none\", \"sm\", \"md\", \"lg\", \"xl\"],\n      \"examples\": [\"lg\"]\n    },\n    {\n      \"name\": \"as\",\n      \"type\": \"'div' | 'span' | 'section' | 'ul'\",\n      \"required\": false,\n      \"description\": \"Semantic element (use 'ul' with GridItem as=\\\"li\\\" for item grids).\",\n      \"enum\": [\"div\", \"span\", \"section\", \"ul\"],\n      \"examples\": [\"ul\"]\n    },\n    {\n      \"name\": \"span\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"GridItem column span at the base breakpoint (1-6).\",\n      \"examples\": [\"2\", \"3\"]\n    },\n    {\n      \"name\": \"smSpan\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"GridItem column span from sm up (1-6).\",\n      \"examples\": [\"2\"]\n    },\n    {\n      \"name\": \"mdSpan\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"GridItem column span from md up (1-6).\",\n      \"examples\": [\"3\"]\n    },\n    {\n      \"name\": \"lgSpan\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"GridItem column span from lg up (1-6).\",\n      \"examples\": [\"4\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Responsive card grid (auto-fit)\",\n      \"code\": \"<Grid minCol=\\\"18rem\\\" gap=\\\"lg\\\">\\n  {cards.map((c) => (\\n    <Card key={c.id}>…</Card>\\n  ))}\\n</Grid>\",\n      \"description\": \"minmax() wrapping — works at every width without breakpoint columns.\"\n    },\n    {\n      \"title\": \"Fixed columns with a hero span\",\n      \"code\": \"<Grid cols={2} mdCols={3} gap=\\\"md\\\">\\n  <GridItem span={2} mdSpan={2} className=\\\"…\\\">Hero</GridItem>\\n  <GridItem>Card A</GridItem>\\n  <GridItem>Card B</GridItem>\\n</Grid>\",\n      \"description\": \"Literal grid-cols-*/col-span-* classes are compiled (they exist verbatim in source).\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't build column classes at runtime\",\n      \"explanation\": \"Template-built utilities (md:grid-cols-${n}) are invisible to Tailwind's scanner and get purged — the grid silently collapses to one column. The cols props use pre-declared literal classes.\",\n      \"example\": \"<div className={`md:grid-cols-${n}`}>  // purged\\n<Grid mdCols={n}>  // compiled\"\n    },\n    {\n      \"title\": \"Don't nest grids for one-axis layouts\",\n      \"explanation\": \"Row/column alignment is Flex's job; nesting grids adds template complexity with no benefit.\",\n      \"example\": \"<Grid>…<Flex>row of two</Flex>…</Grid>  // fine\\n<Grid><Grid>…  // avoid\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Layout-only semantics\",\n      \"implementation\": \"Renders div/section/ul — no interactive behavior added\",\n      \"userRequirements\": \"Cells keep their own roles; list grids pair as=\\\"ul\\\" with GridItem as=\\\"li\\\"\"\n    },\n    {\n      \"feature\": \"Reading order equals DOM order\",\n      \"implementation\": \"Visual column reflow never reorders DOM nodes\",\n      \"userRequirements\": \"Order cells by reading priority, not visual position\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Flex\",\n      \"relationship\": \"Flex for one-axis rows; Grid for two-axis layout\"\n    },\n    {\n      \"component\": \"Card\",\n      \"relationship\": \"The classic minCol grid cell — cards wrap responsively\"\n    }\n  ],\n  \"relatedComponents\": [\"Flex\", \"Card\", \"Block\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"grid\",\n  \"exportName\": \"Grid\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

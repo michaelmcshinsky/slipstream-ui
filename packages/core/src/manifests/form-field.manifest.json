@@ -10,28 +10,37 @@
       "type": "string",
       "required": true,
       "description": "The control's id — shared with the label's htmlFor and the hint/error ids.",
-      "examples": ["email", "signup-password"]
+      "examples": [
+        "email",
+        "signup-password"
+      ]
     },
     {
       "name": "label",
       "type": "string",
       "required": true,
       "description": "Visible label text (kept for screen readers even when labelHidden).",
-      "examples": ["Email address"]
+      "examples": [
+        "Email address"
+      ]
     },
     {
       "name": "hint",
       "type": "string",
       "required": false,
       "description": "Helper text under the control, wired via aria-describedby.",
-      "examples": ["We never share your email"]
+      "examples": [
+        "We never share your email"
+      ]
     },
     {
       "name": "error",
       "type": "string",
       "required": false,
       "description": "Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert.",
-      "examples": ["Enter a valid email address"]
+      "examples": [
+        "Enter a valid email address"
+      ]
     },
     {
       "name": "required",
@@ -39,7 +48,10 @@
       "required": false,
       "description": "Renders the required marker next to the label.",
       "defaultValue": "false",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     },
     {
       "name": "labelHidden",
@@ -47,7 +59,40 @@
       "required": false,
       "description": "Keeps the label screen-reader visible but hides it visually (sr-only).",
       "defaultValue": "false",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Slot pinned to the far right of the label row (badge, link, action)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Info icon rendered after the label; opens a tooltip with this text.",
+      "examples": [
+        "Use your work email so teammates can find you."
+      ]
+    },
+    {
+      "name": "labelPlacement",
+      "type": "'top' | 'left'",
+      "defaultValue": "top",
+      "required": false,
+      "description": "Stack the label above the control (default) or inline it to the left.",
+      "enum": [
+        "top",
+        "left"
+      ],
+      "examples": [
+        "top",
+        "left"
+      ]
     }
   ],
   "examples": [
@@ -108,15 +153,35 @@
   "contentGuidelines": [
     {
       "contentType": "Labels",
-      "guidelines": ["Use sentence case", "Name the thing, not the action", "Keep under 60 characters"],
-      "goodExamples": ["Email address", "Project name"],
-      "badExamples": ["Enter your email", "Name?"]
+      "guidelines": [
+        "Use sentence case",
+        "Name the thing, not the action",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "Email address",
+        "Project name"
+      ],
+      "badExamples": [
+        "Enter your email",
+        "Name?"
+      ]
     },
     {
       "contentType": "Errors",
-      "guidelines": ["Say what failed and what to do", "Lead with the fix", "Avoid blaming the user"],
-      "goodExamples": ["Enter a valid email address", "Password must be at least 8 characters"],
-      "badExamples": ["Invalid input", "You messed up"]
+      "guidelines": [
+        "Say what failed and what to do",
+        "Lead with the fix",
+        "Avoid blaming the user"
+      ],
+      "goodExamples": [
+        "Enter a valid email address",
+        "Password must be at least 8 characters"
+      ],
+      "badExamples": [
+        "Invalid input",
+        "You messed up"
+      ]
     }
   ],
   "compositionRules": [
@@ -130,7 +195,13 @@
       "relationship": "Use Fieldset (not FormField) when the label names a GROUP of controls"
     }
   ],
-  "relatedComponents": ["Label", "Input", "Fieldset", "Search", "Autocomplete"],
+  "relatedComponents": [
+    "Label",
+    "Input",
+    "Fieldset",
+    "Search",
+    "Autocomplete"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

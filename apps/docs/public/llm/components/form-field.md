@@ -20,6 +20,9 @@ Every form control needs the same trio — label, hint or error, correct ARIA wi
 | error | `string` | — | no | Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert. |
 | required | `boolean` | `false` | no | Renders the required marker next to the label. |
 | labelHidden | `boolean` | `false` | no | Keeps the label screen-reader visible but hides it visually (sr-only). |
+| trailing | `ReactNode` | — | no | Slot pinned to the far right of the label row (badge, link, action). |
+| tooltip | `string` | — | no | Info icon rendered after the label; opens a tooltip with this text. |
+| labelPlacement | `'top' | 'left'` | `top` | no | Stack the label above the control (default) or inline it to the left. |
 
 ## Examples
 

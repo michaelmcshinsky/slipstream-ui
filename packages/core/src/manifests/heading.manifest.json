@@ -1,0 +1,76 @@
+{
+  "id": "heading",
+  "name": "Heading",
+  "tier": "atom",
+  "description": "Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.",
+  "designIntent": "Document structure and visual size are different axes: screen readers and SEO need the correct h-level, while design sometimes needs a smaller visual size. Heading takes level (semantic) and size (visual) separately so outline integrity never gets sacrificed for typography.",
+  "props": [
+    {
+      "name": "level",
+      "type": "1 | 2 | 3 | 4 | 5 | 6",
+      "required": true,
+      "description": "Semantic level — renders the matching h1..h6 element.",
+      "examples": ["1", "2", "3"]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'",
+      "required": false,
+      "description": "Visual size override, independent of the semantic level.",
+      "enum": ["sm", "md", "lg", "xl", "2xl", "3xl"],
+      "examples": ["lg", "2xl"]
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the muted-foreground token instead of the primary text color.",
+      "defaultValue": "false",
+      "examples": ["true"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Structural heading with visual override",
+      "code": "<Heading level={2}>Section title</Heading>\n\n{/* h4 semantics (correct outline position) but large visual size) */}\n<Heading level={4} size=\"2xl\">Card headline</Heading>"},
+    {
+      "title": "Muted subheading",
+      "code": "<Heading level={3} size=\"sm\" muted>Supporting label</Heading>"}
+  ],
+  "antiPatterns": [
+    {
+      "title": "Never skip levels for styling",
+      "explanation": "Jumping h1 -> h3 breaks the outline assistive tech announces. Use size for visual weight; level stays sequential.",
+      "example": "<Heading level={1}>Page</Heading>\n<Heading level={3}>Sub</Heading>  // avoid — use level={2}"
+    },
+    {
+      "title": "Don't use Text as a heading",
+      "explanation": "A bolded paragraph is not a heading: navigation panes and find-in-page won't index it.",
+      "example": "<Text size=\"2xl\" weight=\"bold\">Title</Text>  // avoid"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Correct heading elements",
+      "implementation": "Renders h1..h6 from the level prop; default scale keeps visual hierarchy aligned with structure",
+      "userRequirements": "One h1 per page; no skipped levels between headings"
+    },
+    {
+      "feature": "Tokenized color",
+      "implementation": "muted uses --muted-foreground (AA in both themes)",
+      "userRequirements": "Avoid custom color classes on headings"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Text",
+      "relationship": "Headings introduce sections; Text carries the prose"
+    }
+  ],
+  "relatedComponents": ["Text", "Block"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "heading",
+  "exportName": "Heading"
+}

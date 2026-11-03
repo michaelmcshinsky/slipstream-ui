@@ -1,0 +1,82 @@
+{
+  "id": "block",
+  "name": "Block",
+  "tier": "atom",
+  "description": "Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+  "designIntent": "Layout wrappers should still mean something: section, article, figure. Block is a typed, discoverable div that picks the element matching the content's role, with an inline (span) variation for flow contexts — no default decoration, so it composes with any utilities.",
+  "props": [
+    {
+      "name": "as",
+      "type": "'div' | 'span' | 'section' | 'article' | 'figure' | 'header' | 'footer' | 'nav' | 'main' | 'aside'",
+      "required": false,
+      "description": "Semantic element to render.",
+      "defaultValue": "div",
+      "enum": ["div", "span", "section", "article", "figure", "header", "footer", "nav", "main", "aside"],
+      "examples": ["section", "article"]
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "required": false,
+      "description": "Shorthand for as=\"span\" — inline flow instead of a block box.",
+      "defaultValue": "false",
+      "examples": ["true"]
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the muted-foreground token for the block's text.",
+      "defaultValue": "false",
+      "examples": ["true"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic containers",
+      "code": "<Block as=\"section\" className=\"space-y-2\">\n  <Heading level={3}>Related</Heading>\n  <Text size=\"sm\" muted>Prose lives in Text, not Block.</Text>\n</Block>\n\n<Block as=\"figure\">…</Block>\n\n{/* Inline flow */}\n<Block inline>…</Block>"},
+    {
+      "title": "Card-like surface via utilities",
+      "code": "<Block className=\"rounded-lg border border-border p-4\">…</Block>"}
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put paragraphs inside Block",
+      "explanation": "Copy belongs in Text (p). Block is structure — mixing them loses document semantics.",
+      "example": "<Block>Paragraph copy.</Block>  // avoid\n<Text>Paragraph copy.</Text>  // prefer"
+    },
+    {
+      "title": "Don't default to div when a landmark fits",
+      "explanation": "If the content is a section of page structure, as=\"section\"/\"article\" gives assistive tech navigable landmarks for free.",
+      "example": "<Block as=\"article\">…</Block>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Element choice is explicit",
+      "implementation": "as/inline map to real intrinsic elements (semantic by selection)",
+      "userRequirements": "Pick the element that matches the content role"
+    },
+    {
+      "feature": "No interactive defaults",
+      "implementation": "Block renders no focusable content of its own",
+      "userRequirements": "Interactive children carry their own keyboard/ARIA behavior"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Text / Heading",
+      "relationship": "Block wraps structure; Text and Heading provide the content semantics"
+    },
+    {
+      "component": "Flex / Grid",
+      "relationship": "Compose layout as Block → Flex/Grid → Text/Heading hierarchies"
+    }
+  ],
+  "relatedComponents": ["Text", "Heading", "Flex", "Grid"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "block",
+  "exportName": "Block"
+}

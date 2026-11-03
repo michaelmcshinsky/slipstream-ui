@@ -3,8 +3,11 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Label } from '../label/Label';
+import { Tooltip } from '../tooltip/Tooltip';
 
-export interface FormFieldProps {
+export type FormFieldLabelPlacement = 'top' | 'left';
+
+export type FormFieldProps = {
   /**
    * The control's id. The same value is applied to the label's htmlFor, the
    * control (via clone), and the hint/error describedby wiring.
@@ -14,12 +17,21 @@ export interface FormFieldProps {
   label: string;
   /** Helper text rendered under the control and wired via aria-describedby. */
   hint?: string;
-  /** Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert. */
+  /**
+   * Validation error; replaces the hint, sets aria-invalid on the control,
+   * announced via role=alert.
+   */
   error?: string;
   /** Renders the required marker and (via the cloned control) keeps the native required attribute. */
   required?: boolean;
   /** Keeps the label for assistive tech but hides it visually. */
   labelHidden?: boolean;
+  /** Stack the label above the control (default) or inline it to the left. */
+  labelPlacement?: FormFieldLabelPlacement;
+  /** Info icon rendered after the label; opens a tooltip with this text. */
+  tooltip?: string;
+  /** Slot pinned to the far right of the label row (badge, link, action). */
+  trailing?: React.ReactNode;
   className?: string;
   /**
    * The control. When it is a single React element (Slipstream inputs,
@@ -27,15 +39,16 @@ export interface FormFieldProps {
    * it automatically; wrapped or custom children must set them manually.
    */
   children: React.ReactNode;
-}
+};
 
 type CloneableProps = Record<string, unknown>;
 
 /**
  * Label + control + hint/error in one unit with the a11y wiring done for
  * you: htmlFor pairing, aria-describedby pointing at the hint (or error),
- * and aria-invalid when an error is present. Keeps label-to-control
- * spacing tight and consistent (gap-1.5).
+ * and aria-invalid when an error is present. Supports top or left label
+ * placement, a label tooltip with info icon, and a trailing slot on the
+ * right of the label row.
  */
 const FormField = ({
   id,
@@ -44,6 +57,9 @@ const FormField = ({
   error,
   required,
   labelHidden,
+  labelPlacement = 'top',
+  tooltip,
+  trailing,
   className,
   children,
 }: FormFieldProps) => {
@@ -62,31 +78,75 @@ const FormField = ({
     });
   }
 
+  const labelNode = (
+    <Label htmlFor={id} className={labelHidden ? 'sr-only' : undefined}>
+      {label}
+      {required && (
+        <>
+          {' '}
+          <span aria-hidden="true" className="ml-0.5 text-destructive">
+            *
+          </span>
+        </>
+      )}
+    </Label>
+  );
+
+  const tooltipNode = tooltip ? (
+    <Tooltip content={tooltip} side="top">
+      <button
+        type="button"
+        aria-label={`${label} information`}
+        className="ml-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+          <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 7a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 7Zm0-2.25a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z" />
+        </svg>
+      </button>
+    </Tooltip>
+  ) : null;
+
+  const hintOrError = error ? (
+    <p id={errorId} role="alert" className="text-xs text-destructive">
+      {error}
+    </p>
+  ) : hint ? (
+    <p id={hintId} className="text-xs text-muted-foreground">
+      {hint}
+    </p>
+  ) : null;
+
+  if (labelPlacement === 'left') {
+    return (
+      <div className={cn('flex min-w-0 flex-col gap-1.5', className)}>
+        <div className="flex items-start gap-3">
+          <div className="flex w-40 shrink-0 items-center gap-1 pt-2">
+            {labelNode}
+            {tooltipNode}
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+            {control}
+            {hintOrError}
+          </div>
+          {trailing && (
+            <div className="shrink-0 pt-1.5 text-right text-xs text-muted-foreground">{trailing}</div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={cn('flex min-w-0 flex-col gap-1.5', className)}>
-      <Label htmlFor={id} className={labelHidden ? 'sr-only' : undefined}>
-        {label}
-        {required && (
-          <>
-            {' '}
-            <span aria-hidden="true" className="ml-0.5 text-destructive">
-              *
-            </span>
-          </>
-        )}
-      </Label>
+      <div className="flex items-center justify-between gap-2">
+        <span className="flex min-w-0 items-center">
+          {labelNode}
+          {tooltipNode}
+        </span>
+        {trailing}
+      </div>
       {control}
-      {error ? (
-        <p id={errorId} role="alert" className="text-xs text-destructive">
-          {error}
-        </p>
-      ) : (
-        hint && (
-          <p id={hintId} className="text-xs text-muted-foreground">
-            {hint}
-          </p>
-        )
-      )}
+      {hintOrError}
     </div>
   );
 };

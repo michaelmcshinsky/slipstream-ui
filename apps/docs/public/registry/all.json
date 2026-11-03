@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "92e7d55",
-  "count": 48,
+  "sourceRevision": "76d6c76",
+  "count": 54,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -52,6 +52,14 @@
       "tier": "atom",
       "description": "A small status indicator component for displaying tags, counts, or status information",
       "registry": "/registry/badge.json"
+    },
+    {
+      "id": "block",
+      "name": "Block",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+      "registry": "/registry/block.json"
     },
     {
       "id": "branch",
@@ -158,12 +166,36 @@
       "registry": "/registry/fieldset.json"
     },
     {
+      "id": "flex",
+      "name": "Flex / FlexItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.",
+      "registry": "/registry/flex.json"
+    },
+    {
       "id": "form-field",
       "name": "FormField",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
       "registry": "/registry/form-field.json"
+    },
+    {
+      "id": "grid",
+      "name": "Grid / GridItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.",
+      "registry": "/registry/grid.json"
+    },
+    {
+      "id": "heading",
+      "name": "Heading",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.",
+      "registry": "/registry/heading.json"
     },
     {
       "id": "inline-citation",
@@ -188,6 +220,14 @@
       "tier": "atom",
       "description": "An accessible form label that associates with its control",
       "registry": "/registry/label.json"
+    },
+    {
+      "id": "list",
+      "name": "List / ListItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.",
+      "registry": "/registry/list.json"
     },
     {
       "id": "menu",
@@ -356,6 +396,14 @@
       "tier": "molecule",
       "description": "Tabbed content container with ARIA tablist semantics and keyboard navigation",
       "registry": "/registry/tabs.json"
+    },
+    {
+      "id": "text",
+      "name": "Text",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).",
+      "registry": "/registry/text.json"
     },
     {
       "id": "textarea",

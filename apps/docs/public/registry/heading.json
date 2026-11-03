@@ -1,0 +1,122 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "heading",
+  "name": "heading",
+  "tier": "atom",
+  "description": "Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.",
+  "designIntent": "Document structure and visual size are different axes: screen readers and SEO need the correct h-level, while design sometimes needs a smaller visual size. Heading takes level (semantic) and size (visual) separately so outline integrity never gets sacrificed for typography.",
+  "props": [
+    {
+      "name": "level",
+      "type": "1 | 2 | 3 | 4 | 5 | 6",
+      "required": true,
+      "description": "Semantic level — renders the matching h1..h6 element.",
+      "examples": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'",
+      "required": false,
+      "description": "Visual size override, independent of the semantic level.",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "examples": [
+        "lg",
+        "2xl"
+      ]
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the muted-foreground token instead of the primary text color.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Structural heading with visual override",
+      "code": "<Heading level={2}>Section title</Heading>\n\n{/* h4 semantics (correct outline position) but large visual size) */}\n<Heading level={4} size=\"2xl\">Card headline</Heading>"
+    },
+    {
+      "title": "Muted subheading",
+      "code": "<Heading level={3} size=\"sm\" muted>Supporting label</Heading>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Never skip levels for styling",
+      "explanation": "Jumping h1 -> h3 breaks the outline assistive tech announces. Use size for visual weight; level stays sequential.",
+      "example": "<Heading level={1}>Page</Heading>\n<Heading level={3}>Sub</Heading>  // avoid — use level={2}"
+    },
+    {
+      "title": "Don't use Text as a heading",
+      "explanation": "A bolded paragraph is not a heading: navigation panes and find-in-page won't index it.",
+      "example": "<Text size=\"2xl\" weight=\"bold\">Title</Text>  // avoid"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Correct heading elements",
+      "implementation": "Renders h1..h6 from the level prop; default scale keeps visual hierarchy aligned with structure",
+      "userRequirements": "One h1 per page; no skipped levels between headings"
+    },
+    {
+      "feature": "Tokenized color",
+      "implementation": "muted uses --muted-foreground (AA in both themes)",
+      "userRequirements": "Avoid custom color classes on headings"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Text",
+      "relationship": "Headings introduce sections; Text carries the prose"
+    }
+  ],
+  "relatedComponents": [
+    "Text",
+    "Block"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "heading",
+  "exportName": "Heading",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/heading/Heading.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;\n\nconst levelClasses: Record<HeadingLevel, string> = {\n  1: 'text-4xl',\n  2: 'text-3xl',\n  3: 'text-2xl',\n  4: 'text-xl',\n  5: 'text-lg',\n  6: 'text-base',\n};\n\nconst sizeClasses = {\n  sm: 'text-lg',\n  md: 'text-xl',\n  lg: 'text-2xl',\n  xl: 'text-3xl',\n  '2xl': 'text-4xl',\n  '3xl': 'text-5xl',\n} as const;\n\nexport type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {\n  /** Semantic level — renders the matching h1..h6 element. */\n  level: HeadingLevel;\n  /** Visual size override, independent of the semantic level. */\n  size?: keyof typeof sizeClasses;\n  /** Use the muted-foreground token instead of the primary text color. */\n  muted?: boolean;\n};\n\n/**\n * Semantic heading with a safe default scale. Keep `level` correct for\n * document outline (h1 once per page, no skipped levels) and use `size`\n * when the visual weight must differ from the structural level.\n */\nconst Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(\n  ({ level, size, muted, className, ...props }, ref) => {\n    const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';\n    return (\n      <Tag\n        ref={ref}\n        className={cn(\n          'font-semibold tracking-tight',\n          size ? sizeClasses[size] : levelClasses[level],\n          muted && 'text-muted-foreground',\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nHeading.displayName = 'Heading';\n\nexport { Heading };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/heading/index.ts",
+      "content": "export * from './Heading';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/heading.manifest.json",
+      "content": "{\n  \"id\": \"heading\",\n  \"name\": \"Heading\",\n  \"tier\": \"atom\",\n  \"description\": \"Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.\",\n  \"designIntent\": \"Document structure and visual size are different axes: screen readers and SEO need the correct h-level, while design sometimes needs a smaller visual size. Heading takes level (semantic) and size (visual) separately so outline integrity never gets sacrificed for typography.\",\n  \"props\": [\n    {\n      \"name\": \"level\",\n      \"type\": \"1 | 2 | 3 | 4 | 5 | 6\",\n      \"required\": true,\n      \"description\": \"Semantic level — renders the matching h1..h6 element.\",\n      \"examples\": [\"1\", \"2\", \"3\"]\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'\",\n      \"required\": false,\n      \"description\": \"Visual size override, independent of the semantic level.\",\n      \"enum\": [\"sm\", \"md\", \"lg\", \"xl\", \"2xl\", \"3xl\"],\n      \"examples\": [\"lg\", \"2xl\"]\n    },\n    {\n      \"name\": \"muted\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Use the muted-foreground token instead of the primary text color.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Structural heading with visual override\",\n      \"code\": \"<Heading level={2}>Section title</Heading>\\n\\n{/* h4 semantics (correct outline position) but large visual size) */}\\n<Heading level={4} size=\\\"2xl\\\">Card headline</Heading>\"},\n    {\n      \"title\": \"Muted subheading\",\n      \"code\": \"<Heading level={3} size=\\\"sm\\\" muted>Supporting label</Heading>\"}\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Never skip levels for styling\",\n      \"explanation\": \"Jumping h1 -> h3 breaks the outline assistive tech announces. Use size for visual weight; level stays sequential.\",\n      \"example\": \"<Heading level={1}>Page</Heading>\\n<Heading level={3}>Sub</Heading>  // avoid — use level={2}\"\n    },\n    {\n      \"title\": \"Don't use Text as a heading\",\n      \"explanation\": \"A bolded paragraph is not a heading: navigation panes and find-in-page won't index it.\",\n      \"example\": \"<Text size=\\\"2xl\\\" weight=\\\"bold\\\">Title</Text>  // avoid\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Correct heading elements\",\n      \"implementation\": \"Renders h1..h6 from the level prop; default scale keeps visual hierarchy aligned with structure\",\n      \"userRequirements\": \"One h1 per page; no skipped levels between headings\"\n    },\n    {\n      \"feature\": \"Tokenized color\",\n      \"implementation\": \"muted uses --muted-foreground (AA in both themes)\",\n      \"userRequirements\": \"Avoid custom color classes on headings\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Text\",\n      \"relationship\": \"Headings introduce sections; Text carries the prose\"\n    }\n  ],\n  \"relatedComponents\": [\"Text\", \"Block\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"heading\",\n  \"exportName\": \"Heading\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

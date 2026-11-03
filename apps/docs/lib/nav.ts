@@ -68,6 +68,21 @@ export const NAV_SECTIONS: NavSection[] = [
         ],
       },
       {
+        title: 'Typography',
+        items: [
+          { href: '/docs/components/heading', label: 'Heading' },
+          { href: '/docs/components/text', label: 'Text' },
+          { href: '/docs/components/block', label: 'Block' },
+        ],
+      },
+      {
+        title: 'Layout',
+        items: [
+          { href: '/docs/components/flex', label: 'Flex' },
+          { href: '/docs/components/grid', label: 'Grid' },
+        ],
+      },
+      {
         title: 'Forms',
         items: [
           { href: '/docs/components/input', label: 'Input' },
@@ -100,6 +115,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/badge', label: 'Badge' },
           { href: '/docs/components/avatar', label: 'Avatar' },
           { href: '/docs/components/card', label: 'Card' },
+          { href: '/docs/components/list', label: 'List' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },
           { href: '/docs/components/separator', label: 'Separator' },
