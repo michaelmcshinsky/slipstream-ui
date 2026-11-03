@@ -67,7 +67,7 @@ export interface Theme {
 
 export interface ThemeConfig {
   /**
-   * Brand color in HSL format (e.g., "210 100% 50%")
+   * Brand color in HSL format (e.g., "224 89% 58%")
    */
   brandColor?: string;
   /**

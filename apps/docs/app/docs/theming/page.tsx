@@ -38,7 +38,7 @@ export default function ThemingPage() {
           <code>{`import { createTheme } from '@slipstream-ui/themes'
 
 const customTheme = createTheme({
-  brandColor: '210 100% 50%',  // HSL values
+  brandColor: '224 89% 58%',  // HSL values
   borderRadius: '0.5rem',
   darkMode: false
 })`}</code>
@@ -76,28 +76,31 @@ const customTheme = createTheme({
         <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
           <code>{`:root {
   --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --primary: 210 100% 50%;
+  --foreground: 222 85% 7%;
+  --primary: 224 89% 58%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 210 100% 50%;
-  --radius: 0.5rem;
+  --secondary: 214 45% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 214 40% 96%;
+  --muted-foreground: 219 12% 42%;
+  --accent: 214 45% 96%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 348 68% 44%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 28% 89%;
+  --input: 214 28% 89%;
+  --ring: 224 89% 58%;
+  --radius: 0.375rem;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --primary: 210 100% 50%;
-  --primary-foreground: 210 40% 98%;
+  --background: 222 42% 5%;
+  --card: 222 36% 9%;
+  --foreground: 210 40% 96%;
+  --primary: 224 90% 70%;
+  --primary-foreground: 222 75% 10%;
+  --border: 217 20% 24%;
+  --input: 217 18% 32%;
   /* ... and so on */
 }`}</code>
         </pre>
