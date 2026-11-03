@@ -1,5 +1,5 @@
 /**
- * Idempotent database seed (KC-041).
+ * Idempotent database seed.
  *
  * Bootstraps a platform admin from ADMIN_EMAIL / ADMIN_PASSWORD. There are no
  * default credentials: with the variables unset the seed prints setup guidance
@@ -20,7 +20,7 @@ function hashPassword(password: string): string {
 }
 
 async function main(): Promise<void> {
-  // Existing-account migration (KC-040): accounts created before email
+  // Existing-account migration: accounts created before email
   // verification shipped cannot retroactively confirm, so they are
   // grandfathered by stamping emailVerifiedAt with their creation time.
   // Idempotent — only touches rows where emailVerifiedAt is still null.
@@ -32,7 +32,7 @@ async function main(): Promise<void> {
     await prisma.user.update({ where: { id: user.id }, data: { emailVerifiedAt: user.createdAt } });
   }
   if (unverified.length > 0) {
-    console.log(`[seed] Grandfathered ${unverified.length} pre-feature account(s) as email-verified (KC-040 migration).`);
+    console.log(`[seed] Grandfathered ${unverified.length} pre-feature account(s) as email-verified (migration).`);
   }
 
   const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();

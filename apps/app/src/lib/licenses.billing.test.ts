@@ -12,7 +12,7 @@ const cleanup: { users: string[]; teams: string[]; licenses: string[] } = {
 
 afterAll(async () => {
   // Dependents before principals, and surface real failures instead of
-  // swallowing them into silent FK errors (KC-042). deleteMany is a no-op
+  // swallowing them into silent FK errors. deleteMany is a no-op
   // for rows that no longer exist. Licenses are removed both by tracked id
   // and by owner so untracked issuances cannot block user deletion.
   await prisma.auditLog.deleteMany({ where: { actorId: { in: cleanup.users } } });
@@ -94,7 +94,7 @@ describe('licenses', () => {
   });
 });
 
-describe('license collision retry (KC-009)', () => {
+describe('license collision retry', () => {
   const ownerIds: string[] = [];
 
   afterEach(async () => {

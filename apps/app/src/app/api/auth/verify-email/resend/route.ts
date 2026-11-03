@@ -7,7 +7,7 @@ import { handle } from '@/lib/api/handle';
 
 /**
  * POST /api/auth/verify-email/resend — a signed-in, unverified user requests
- * a fresh verification link (KC-040). Always reports ok for verified users
+ * a fresh verification link. Always reports ok for verified users
  * so the endpoint cannot be used to probe account state.
  */
 export async function POST(request: Request) {

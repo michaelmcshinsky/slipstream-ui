@@ -54,7 +54,7 @@ describe('paginate', () => {
     expect(() => decodeCursor('!!!not-base64url!!!')).toThrow(ApiError);
   });
 
-  it('encodes the cursor from the configured field, not the item id (KC-015)', () => {
+  it('encodes the cursor from the configured field, not the item id', () => {
     const rows = [
       { id: 'team-a', membershipId: 'mem-1' },
       { id: 'team-b', membershipId: 'mem-2' },
@@ -65,7 +65,7 @@ describe('paginate', () => {
   });
 });
 
-describe('withEtag (KC-016)', () => {
+describe('withEtag', () => {
   it('hashes the response body so different payloads get different etags', async () => {
     const request = new Request('http://x/');
     const first = await withEtag(request, NextResponse.json({ items: [1] }));

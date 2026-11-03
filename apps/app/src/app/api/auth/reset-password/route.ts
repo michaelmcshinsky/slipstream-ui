@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const tokenHash = hashToken(token);
     const userId = await prisma.$transaction(async (tx) => {
       // Conditional claim: exactly one concurrent request can consume the
-      // token; everyone else sees count 0 (KC-014).
+      // token; everyone else sees count 0.
       const claim = await tx.passwordResetToken.updateMany({
         where: { tokenHash, usedAt: null, expiresAt: { gt: new Date() } },
         data: { usedAt: new Date() },

@@ -47,7 +47,7 @@ export default function AdminLicensesPage() {
       setError(extractErrorMessage(data));
       return;
     }
-    // Envelope wraps the plaintext comp key: { data: { key } } (KC-018 pattern).
+    // Envelope wraps the plaintext comp key: { data: { key } } (pattern).
     setIssuedKey(extractData<{ key?: string }>(data)?.key ?? null);
     await load();
   }

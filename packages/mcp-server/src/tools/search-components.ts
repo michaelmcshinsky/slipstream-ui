@@ -15,7 +15,7 @@ interface SearchHit {
 /**
  * Deterministic lexical search across component capability fields. Every hit
  * reports which fields matched and a stable score, so agents can explain why
- * a component was returned (KC-026 / KC-045: lexical, not "semantic").
+ * a component was returned (/ lexical, not "semantic").
  */
 export const searchComponentsTool: McpTool = {
   definition: {

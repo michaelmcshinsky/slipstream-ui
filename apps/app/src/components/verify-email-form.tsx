@@ -6,7 +6,7 @@ import { Card, CardTitle } from '@/components/ui';
 import { extractErrorMessage } from '@/lib/api/envelope';
 
 /**
- * Explicit POST confirmation for emailed verification links (KC-040):
+ * Explicit POST confirmation for emailed verification links:
  * opening the link never mutates state — the user presses "Verify email".
  */
 function VerifyEmailInner() {

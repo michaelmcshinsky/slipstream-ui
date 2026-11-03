@@ -36,7 +36,7 @@ function sourceFiles(dir: string): string[] {
 
 /**
  * Content-based, read-only comparison of a consumer's installed components
- * against the registry (KC-027 / KC-045: compare file contents, not versions
+ * against the registry (/ compare file contents, not versions
  * alone; never modify anything).
  */
 export async function diffInstalledComponents(options: {

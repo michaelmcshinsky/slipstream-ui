@@ -17,7 +17,7 @@ export interface UseSlipstreamMessagesResult {
 /**
  * Bridge AI SDK chat messages to Slipstream `<Conversation>`/`<Message>`
  * input. Pure derivation of the current state — safe to call from any
- * runtime that provides the structural message shape (KC-025).
+ * runtime that provides the structural message shape.
  */
 export function useSlipstreamMessages({ messages }: UseSlipstreamMessagesOptions): UseSlipstreamMessagesResult {
   const mapped = useMemo(() => toSlipstreamMessages(messages), [messages]);
@@ -46,7 +46,7 @@ export interface UseSlipstreamStreamResult {
  * Bridge AI SDK stream status/error to Slipstream Conversation props:
  * `isLoading` gates the loading row, `streamingMessageId` drives the typing
  * cursor on the last assistant message, and errors map to retryable
- * per-message failures (KC-025 streaming/tool states).
+ * per-message failures (streaming/tool states).
  */
 export function useSlipstreamStream({
   status,

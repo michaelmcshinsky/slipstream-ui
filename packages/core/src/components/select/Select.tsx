@@ -20,7 +20,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
 /**
  * Accessible select primitive built on the native <select>: full keyboard,
  * screen-reader and mobile platform behavior comes from the platform rather
- * than a re-implemented listbox (KC-030). Controlled via `value`, or
+ * than a re-implemented listbox. Controlled via `value`, or
  * uncontrolled via `defaultValue`.
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(

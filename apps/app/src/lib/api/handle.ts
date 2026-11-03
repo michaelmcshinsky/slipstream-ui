@@ -15,7 +15,7 @@ export interface HandleOptions {
 }
 
 /**
- * Explicit trusted-proxy configuration (KC-043):
+ * Explicit trusted-proxy configuration:
  * - `TRUST_PROXY=false` — ignore X-Forwarded-For entirely (direct peer only).
  * - default / `TRUST_PROXY=true` — trust the FIRST hop of X-Forwarded-For.
  *   Deploy behind exactly one trusted proxy that overwrites the header.

@@ -79,7 +79,7 @@ export function errorJson(error: ApiError, request: Request) {
 /**
  * Weak ETag revalidation: returns a 304 response when the client is current.
  * Hashes the serialized body text — not the response object/stream, which
- * would hash identically for every payload (KC-016).
+ * would hash identically for every payload.
  */
 export async function withEtag(request: Request, response: NextResponse): Promise<NextResponse> {
   const bodyText = await response.clone().text();
@@ -162,7 +162,7 @@ export interface PaginatedMeta {
  * the response meta. Cursors are opaque (base64 of the sort field value).
  *
  * `cursorOf` overrides which field the cursor encodes — needed when the
- * public item id differs from the query's sort key (KC-015 teams: display
+ * public item id differs from the query's sort key (teams: display
  * ids are team ids, but the query paginates membership rows).
  */
 export function paginate<T extends { id: string }>(

@@ -32,7 +32,7 @@ const DEFAULT_DURATION = 5000;
 /**
  * Accessible app-level notifications. Toasts render into a polite live
  * region so screen readers announce them without stealing focus, stack
- * newest-first, and auto-dismiss unless duration is 0 (KC-028).
+ * newest-first, and auto-dismiss unless duration is 0.
  */
 export function ToastProvider({ children, label = 'Notifications' }: { children: React.ReactNode; label?: string }) {
   const [toasts, setToasts] = React.useState<ToastRecord[]>([]);

@@ -10,7 +10,7 @@ import {
 } from './index';
 import type { AiSdkMessage } from './index';
 
-describe('AI SDK adapter (KC-025)', () => {
+describe('AI SDK adapter', () => {
   const assistantWithTools: AiSdkMessage = {
     id: 'msg-1',
     role: 'assistant',

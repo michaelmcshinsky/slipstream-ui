@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Packed-artifact distribution audit (KC-041 / KC-044).
+ * Packed-artifact distribution audit (/ ).
  *
  * For each publishable package this script:
  * - builds nothing (expects `pnpm build` to have run), packs with `pnpm pack`

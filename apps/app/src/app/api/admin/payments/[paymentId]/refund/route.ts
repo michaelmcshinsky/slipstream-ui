@@ -8,7 +8,7 @@ import { handle, badRequest } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ paymentId: string }> };
 
-/** Refund a payment. Mock mode flips local state; stripe mode issues a real refund and only marks refunded after the provider confirms (KC-007). */
+/** Refund a payment. Mock mode flips local state; stripe mode issues a real refund and only marks refunded after the provider confirms. */
 export async function POST(request: Request, { params }: Params) {
   return handle(request, async () => {
     const admin = requireAdmin(await getSessionUser());

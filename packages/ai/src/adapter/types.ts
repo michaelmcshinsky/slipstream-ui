@@ -2,7 +2,7 @@
  * Structural types mirroring the parts of the Vercel AI SDK's chat state the
  * adapter consumes. Declared locally (instead of importing the SDK) so the
  * adapter stays runtime-independent: any chat library that produces this
- * shape can be bridged, and consumers install the SDK themselves (KC-025).
+ * shape can be bridged, and consumers install the SDK themselves.
  */
 export interface AiSdkToolInvocation {
   toolCallId: string;

@@ -4,7 +4,7 @@ import { deliverEmail } from './email';
 import { audit } from './audit';
 
 /**
- * Email verification lifecycle (KC-040).
+ * Email verification lifecycle.
  *
  * Signup leaves the account unverified; a signed link delivered by email
  * flips `emailVerifiedAt`. Tokens are single-use (conditional claim) and

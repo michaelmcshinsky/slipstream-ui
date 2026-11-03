@@ -85,7 +85,7 @@ export const stripeProvider: BillingProvider = {
 
 function getStripe(): Stripe {
   // Every real Stripe call goes through here, so stripe mode fails fast with
-  // a complete list of missing settings (KC-038) at the point of use.
+  // a complete list of missing settings at the point of use.
   validateBillingConfig();
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new Error('STRIPE_SECRET_KEY is not configured.');
@@ -93,7 +93,7 @@ function getStripe(): Stripe {
 }
 
 /**
- * Startup validation for stripe mode (KC-038): fail fast with a list of
+ * Startup validation for stripe mode: fail fast with a list of
  * missing settings instead of surfacing errors mid-checkout.
  */
 export function validateBillingConfig(): void {
@@ -147,7 +147,7 @@ export async function downgradeToFree(teamId: string, db: Prisma.TransactionClie
     where: { teamId },
     data: { plan: 'FREE', status: 'CANCELED', cancelAtPeriodEnd: false },
   });
-  // Ending the paid relationship must end its licenses (KC-008).
+  // Ending the paid relationship must end its licenses.
   await revokeSubscriptionLicenses(teamId, actorId, db);
 }
 
@@ -155,7 +155,7 @@ export async function downgradeToFree(teamId: string, db: Prisma.TransactionClie
  * Cancel a team's paid subscription. Mock mode cancels immediately; Stripe
  * mode schedules cancellation at period end via the Stripe API and only then
  * records it locally — success is reported only after the provider confirms
- * (KC-007). Local-only "success" without a provider call is never allowed in
+ *. Local-only "success" without a provider call is never allowed in
  * stripe mode.
  */
 export async function cancelSubscription(teamId: string, actorId: string): Promise<void> {
@@ -179,7 +179,7 @@ export async function cancelSubscription(teamId: string, actorId: string): Promi
 /**
  * Refund a recorded payment. Mock mode flips local state; Stripe mode issues
  * a real refund against the payment's invoice/payment intent and only marks
- * the payment refunded after the provider confirms (KC-007).
+ * the payment refunded after the provider confirms.
  */
 export async function refundPayment(payment: { id: string; externalId: string | null }): Promise<void> {
   if (getBillingProvider().name !== 'stripe') {

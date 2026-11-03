@@ -21,7 +21,7 @@ const FOCUSABLE =
 /**
  * Accessible modal dialog: portal, aria-modal + labelled/describedby wiring,
  * Escape and backdrop dismissal, initial focus on open and focus restoration
- * on close, plus a Tab/Shift+Tab focus trap (KC-029).
+ * on close, plus a Tab/Shift+Tab focus trap.
  */
 export function Dialog({
   open,

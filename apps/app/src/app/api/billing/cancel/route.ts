@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     if (!subscription || subscription.plan === 'FREE') badRequest('No paid subscription to cancel.');
 
     // Provider-aware: mock cancels immediately; Stripe schedules cancellation
-    // at period end via the API and only then records it locally (KC-007).
+    // at period end via the API and only then records it locally.
     // Throws when the provider call fails, so success is never reported
     // without a confirmed cancellation.
     await cancelSubscription(body.teamId, user.id);

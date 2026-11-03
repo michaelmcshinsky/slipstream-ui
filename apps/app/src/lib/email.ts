@@ -1,7 +1,7 @@
 import { prisma } from '@slipstream-ui/db';
 
 /**
- * Outbound email delivery boundary (KC-039).
+ * Outbound email delivery boundary.
  *
  * Every message goes through a pluggable transport and is recorded as an
  * EmailDelivery row (token stored hashed only). Tokens are never written to
@@ -85,7 +85,7 @@ export function escapeHtml(value: string): string {
 }
 
 /**
- * Resolve the configured transport with production validation (KC-039):
+ * Resolve the configured transport with production validation:
  * production requires EMAIL_TRANSPORT=http with EMAIL_WEBHOOK_URL; the log
  * transport is a dev/test convenience only.
  */

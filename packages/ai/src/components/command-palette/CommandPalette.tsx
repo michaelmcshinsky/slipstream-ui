@@ -24,7 +24,7 @@ export interface CommandPaletteProps {
 /**
  * Cmd+K command palette: combobox + listbox with aria-activedescendant
  * keyboard navigation, lexical filtering over label/keywords, and
- * Escape-to-close. No focus leaves the input while navigating (KC-031).
+ * Escape-to-close. No focus leaves the input while navigating.
  */
 export function CommandPalette({
   open,
