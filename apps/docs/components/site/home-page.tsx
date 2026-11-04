@@ -14,14 +14,17 @@ import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
+import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
+const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components** (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), each with a machine-readable \`COMPONENT_MANIFEST\`.
 
-Your agent queries the manifest via MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
+The live lab on this page runs the real library: DataTable selection + pagination, MetricCard, SelectMenu, InputGroup, ButtonGroup, ConfirmDialog, Drawer, imperative toasts and the Stepper.
+
+Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
 
 /**
  * Facts below reflect each project's public documentation and published
@@ -35,97 +38,19 @@ const COMPARISON: {
   assistantUi: string;
   mui: string;
 }[] = [
-  {
-    capability: 'Distribution model',
-    slipstream: 'npm packages (ESM + CJS)',
-    shadcn: 'copy-in source via CLI',
-    assistantUi: 'npm packages',
-    mui: 'npm packages',
-  },
-  {
-    capability: 'Components shipped',
-    slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`,
-    shadcn: 'UI primitives + AI Elements',
-    assistantUi: 'Chat surface + primitives',
-    mui: 'Broad UI set, no chat',
-  },
-  {
-    capability: 'Per-component machine-readable spec',
-    slipstream: '✅ all, with props, a11y and anti-patterns',
-    shadcn: '🟡 registry.json: files, deps, description',
-    assistantUi: '—',
-    mui: '—',
-  },
-  {
-    capability: 'MCP server',
-    slipstream: '✅ 5 tools incl. validate_usage',
-    shadcn: '🟡 browse/search/install + install checklist',
-    assistantUi: '—',
-    mui: '🟡 agent skills (guidance, not a server)',
-  },
-  {
-    capability: 'Validates generated JSX against the spec',
-    slipstream: '✅ validate_usage',
-    shadcn: '—',
-    assistantUi: '—',
-    mui: '—',
-  },
-  {
-    capability: 'llms.txt',
-    slipstream: '✅',
-    shadcn: '✅',
-    assistantUi: '✅',
-    mui: '—',
-  },
-  {
-    capability: 'Canonical markdown per component/page',
-    slipstream: '✅ /llm/*.md',
-    shadcn: '🟡 MDX in the repo',
-    assistantUi: '✅ .md pages',
-    mui: '—',
-  },
-  {
-    capability: 'AI chat components',
-    slipstream: '✅ 17 built-in',
-    shadcn: '✅ AI Elements (separate install)',
-    assistantUi: '✅ core focus',
-    mui: '—',
-  },
-  {
-    capability: 'State & transport',
-    slipstream: '✅ stateless, bring your own',
-    shadcn: '✅ components only',
-    assistantUi: '✅ runtime adapters (AI SDK, LangGraph, ADK, custom)',
-    mui: 'n/a — no chat components',
-  },
-  {
-    capability: 'Styling',
-    slipstream: 'Tailwind + CSS variables',
-    shadcn: 'Tailwind + CSS variables',
-    assistantUi: 'Tailwind',
-    mui: 'Emotion + theme object',
-  },
-  {
-    capability: 'Theme presets',
-    slipstream: '4 (Default, Dark, Violet, Zinc)',
-    shadcn: 'CSS-variable themes',
-    assistantUi: 'CSS variables',
-    mui: 'theme object',
-  },
-  {
-    capability: 'Peer dependencies',
-    slipstream: 'react, react-dom',
-    shadcn: 'react',
-    assistantUi: 'react',
-    mui: 'react, @emotion/react, @emotion/styled',
-  },
-  {
-    capability: 'License',
-    slipstream: 'MIT',
-    shadcn: 'MIT',
-    assistantUi: 'MIT',
-    mui: 'MIT',
-  },
+  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
+  { capability: 'Components shipped', slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`, shadcn: 'UI primitives + AI Elements', assistantUi: 'Chat surface + primitives', mui: 'Broad UI set, no chat' },
+  { capability: 'Per-component machine-readable spec', slipstream: 'Yes — props, a11y, anti-patterns', shadcn: 'Partial — registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
+  { capability: 'MCP server', slipstream: 'Yes — 5 tools incl. validate_usage', shadcn: 'Partial — browse/search/install', assistantUi: 'No', mui: 'Partial — agent skills' },
+  { capability: 'Validates generated JSX against the spec', slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
+  { capability: 'llms.txt', slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
+  { capability: 'Canonical markdown per component/page', slipstream: 'Yes — /llm/*.md', shadcn: 'Partial — MDX in repo', assistantUi: 'Yes — .md pages', mui: 'No' },
+  { capability: 'AI chat components', slipstream: `Yes — ${AI_COMPONENT_COUNT} built-in`, shadcn: 'Yes — AI Elements (separate)', assistantUi: 'Yes — core focus', mui: 'No' },
+  { capability: 'State & transport', slipstream: 'Stateless — bring your own', shadcn: 'Components only', assistantUi: 'Runtime adapters (AI SDK, LangGraph, custom)', mui: 'n/a — no chat components' },
+  { capability: 'Styling', slipstream: 'Tailwind + CSS variables', shadcn: 'Tailwind + CSS variables', assistantUi: 'Tailwind', mui: 'Emotion + theme object' },
+  { capability: 'Theme presets', slipstream: '4 (Default, Dark, Violet, Zinc)', shadcn: 'CSS-variable themes', assistantUi: 'CSS variables', mui: 'theme object' },
+  { capability: 'Peer dependencies', slipstream: 'react, react-dom', shadcn: 'react', assistantUi: 'react', mui: 'react, @emotion/react, @emotion/styled' },
+  { capability: 'License', slipstream: 'MIT', shadcn: 'MIT', assistantUi: 'MIT', mui: 'MIT' },
 ];
 
 function LandingChatDemo() {
@@ -210,42 +135,18 @@ function CopyInstallPill() {
       aria-label="Copy init command"
     >
       <span>npx slipstream-ui@latest init</span>
-      <span className="text-xs text-muted-foreground">{copied ? '✓ copied' : 'copy'}</span>
+      <span className="text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
     </button>
   );
 }
 
 const FEATURES = [
-  {
-    icon: '📋',
-    title: 'Machine-readable manifests',
-    body: 'Every component ships a COMPONENT_MANIFEST: exact prop schema, defaults, anti-patterns, accessibility requirements, composition rules.',
-  },
-  {
-    icon: '🛡',
-    title: 'validate_usage MCP tool',
-    body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds are caught, not shipped.',
-  },
-  {
-    icon: '📦',
-    title: 'shadcn-compatible registry',
-    body: 'Install real source files through any shadcn-compatible CLI, or use packages. Your codebase, your rules.',
-  },
-  {
-    icon: '🧩',
-    title: 'Fully stateless',
-    body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.',
-  },
-  {
-    icon: '♿',
-    title: 'Accessibility, tested',
-    body: 'jest-axe suites on every component, aria-busy streaming states, polite completion announcements, reduced-motion variants.',
-  },
-  {
-    icon: '🎨',
-    title: 'Themeable to the token',
-    body: 'One createTheme() call emits every CSS variable. Multi-token radius, dark mode, instant switching — no rebuilds.',
-  },
+  { index: '01', title: 'Machine-readable manifests', body: 'Every component ships a COMPONENT_MANIFEST: exact prop schema, defaults, anti-patterns, accessibility requirements, composition rules.' },
+  { index: '02', title: 'validate_usage MCP tool', body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds are caught, not shipped.' },
+  { index: '03', title: 'shadcn-compatible registry', body: 'Install real source files through any shadcn-compatible CLI, or use packages. Your codebase, your rules.' },
+  { index: '04', title: 'Fully stateless', body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.' },
+  { index: '05', title: 'Accessibility, tested', body: 'jest-axe suites on every component, aria-busy streaming states, polite completion announcements, reduced-motion variants.' },
+  { index: '06', title: 'Themeable to the token', body: 'One createTheme() call emits every CSS variable. Radius, dark mode, instant switching — no rebuilds.' },
 ];
 
 const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
@@ -317,13 +218,15 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <LiveLab />
+
       {/* Stats band */}
       <section className="container mx-auto px-4 py-14">
         <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
           {[
             { value: String(COMPONENT_COUNT), label: 'components' },
             { value: String(COMPONENT_COUNT), label: 'machine-readable specs' },
-            { value: '167', label: 'tests incl. jest-axe' },
+            { value: '5', label: 'MCP tools for agents' },
             { value: '0', label: 'hallucinated props allowed' },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl border border-border bg-card p-6">
@@ -349,7 +252,7 @@ export default function LandingPage() {
               key={feature.title}
               className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
             >
-              <div aria-hidden="true" className="mb-3 text-2xl">{feature.icon}</div>
+              <div aria-hidden="true" className="mb-3 font-mono text-sm text-muted-foreground">{feature.index}</div>
               <h3 className="mb-2 font-semibold">{feature.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
             </div>
