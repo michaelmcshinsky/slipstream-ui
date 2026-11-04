@@ -28,7 +28,7 @@ export default function AuthLayoutPage() {
               <AuthLayout
                 title="Sign in"
                 description="Welcome back to Acme Studio."
-                footer={<span>New here? <a className="text-primary hover:underline" href="#signup">Create an account</a></span>}
+                footer={<span>New here? <a className="text-primary underline underline-offset-2 hover:text-primary/80" href="#signup">Create an account</a></span>}
               >
                 <form className="space-y-4" onSubmit={(event) => event.preventDefault()}>
                   <FormField id="auth-email" label="Email">

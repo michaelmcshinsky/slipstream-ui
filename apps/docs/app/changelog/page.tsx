@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
+import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 
 export const metadata: Metadata = {
   title: 'Changelog',
@@ -22,7 +23,7 @@ const releases = [
       'Select: optgroups, placeholder row and native multi-select with a string[] contract; Autocomplete: option objects with descriptions, debounced async loadOptions with stale-response guard, grouped headings, custom rows and a clear button',
       'Pagination: currentPage/totalPages aliases, pageCount derived from total + pageSize, and a "Showing 26–50 of 312 students" summary',
       'asChild on Card, Badge and MenuItem for router links; theming docs gain the z-index ladder (10 docked · 30 sticky · 40 chrome · 50 overlays · 60 toasts)',
-      'Docs: 14 new component pages, nav and search index updated; registry + LLM docs regenerate to 73 components (56 core / 17 AI)',
+      `Docs: 14 new component pages, nav and search index updated; registry + LLM docs regenerate to ${COMPONENT_COUNT} components (${CORE_COMPONENT_COUNT} core / ${AI_COMPONENT_COUNT} AI)`,
     ],
   },
   {

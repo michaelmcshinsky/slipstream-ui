@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
-import { COMPONENT_COUNT } from '@/lib/component-count';
+import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default function DocsPage() {
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>, streaming-safe
           Response, and a shadcn-compatible registry.
         </span>
-        <Link href="/changelog" className="font-medium text-primary hover:underline">
+        <Link href="/changelog" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
           What&apos;s new →
         </Link>
       </div>
@@ -91,12 +91,39 @@ export default function DocsPage() {
         />
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
-        <li><strong className="text-foreground">@slipstream-ui/core</strong> — 63 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography</li>
-        <li><strong className="text-foreground">@slipstream-ui/ai</strong> — 17 AI chat and agent components (stateless; you own state and transport)</li>
+        <li><strong className="text-foreground">@slipstream-ui/core</strong> — {CORE_COMPONENT_COUNT} components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography</li>
+        <li><strong className="text-foreground">@slipstream-ui/ai</strong> — {AI_COMPONENT_COUNT} AI chat and agent components (stateless; you own state and transport)</li>
         <li><strong className="text-foreground">@slipstream-ui/themes</strong> — createTheme() and presets over a CSS-variable token contract</li>
         <li><strong className="text-foreground">@slipstream-ui/cli · registry · mcp-server</strong> — install and agent tooling sharing the same manifests</li>
         <li><strong className="text-foreground">apps/docs · apps/app · apps/playground</strong> — the docs you are reading and a reference dashboard, both built with this library</li>
       </ul>
+
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Start here</h2>
+      <ol className="mt-4 space-y-3 text-muted-foreground">
+        <li>
+          <strong className="text-foreground">1. Install.</strong> Add the packages, or copy source into
+          your repository with the shadcn-compatible CLI -{' '}
+          <Link href="/docs/installation" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
+            installation guide
+          </Link>
+          .
+        </li>
+        <li>
+          <strong className="text-foreground">2. Read one manifest.</strong> Open{' '}
+          <Link href="/docs/ai-manifests" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
+            COMPONENT_MANIFEST
+          </Link>{' '}
+          to see the prop schema, anti-patterns, and accessibility rules your agent will read.
+        </li>
+        <li>
+          <strong className="text-foreground">3. Wire up the agent loop.</strong> Connect the{' '}
+          <Link href="/docs/mcp" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
+            MCP server
+          </Link>{' '}
+          and call <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">validate_usage</code> before
+          generated JSX reaches your editor.
+        </li>
+      </ol>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Quick start</h2>
       <div className="mt-4">
@@ -106,7 +133,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 # Or install source copies via the registry
 npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
         <p className="text-sm text-muted-foreground">
-          Full setup instructions live under <Link href="/docs/installation" className="font-medium text-primary hover:underline">Installation</Link>.
+          Full setup instructions live under <Link href="/docs/installation" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">Installation</Link>.
         </p>
       </div>
 
@@ -162,9 +189,9 @@ npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">For agent builders</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         If you are wiring an agent into Slipstream, start with{' '}
-        <Link href="/docs/mcp" className="font-medium text-primary hover:underline">the MCP server</Link>, the{' '}
-        <a href="/llm/index.md" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">canonical markdown index</a>, or{' '}
-        <Link href="/docs/ai-manifests" className="font-medium text-primary hover:underline">the manifest schema</Link>. Every
+        <Link href="/docs/mcp" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">the MCP server</Link>, the{' '}
+        <a href="/llm/index.md" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">canonical markdown index</a>, or{' '}
+        <Link href="/docs/ai-manifests" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">the manifest schema</Link>. Every
         component page also links its own markdown reference in the header.
       </p>
     </div>

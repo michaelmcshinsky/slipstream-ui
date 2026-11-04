@@ -192,7 +192,12 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
 
     return (
       <div ref={ref} className={cn('relative h-full w-full', className)} {...props}>
-        <div ref={scrollRef} className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
+        <div
+          ref={scrollRef}
+          tabIndex={0}
+          aria-label="Conversation transcript"
+          className="flex flex-col gap-4 p-4 overflow-y-auto h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
           {(hasMoreHistory || isLoadingMore) && (
             <button
               type="button"

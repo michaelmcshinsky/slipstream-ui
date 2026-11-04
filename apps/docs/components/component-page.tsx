@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
+import { JsonLd } from './site/json-ld';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import { getNeighbors, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
@@ -110,6 +112,13 @@ export function ComponentPage({
 
   return (
     <article>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Docs', path: '/docs' },
+          { name: 'Components', path: '/docs/components' },
+          { name: title, path: `/docs/components/${id}` },
+        ])}
+      />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
         {/* Canonical markdown for agents — mirrors assistant-ui's .md convention. */}
@@ -199,7 +208,7 @@ export function ComponentPage({
                     {i > 0 && ', '}
                     <Link
                       href={`/docs/components/${toComponentId(name)}`}
-                      className="font-medium text-primary hover:underline"
+                      className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
                     >
                       {name}
                     </Link>

@@ -51,12 +51,25 @@ pnpm generate:registry
 pnpm generate:llm-docs
 ```
 
+Site audits (production build required):
+
+```bash
+pnpm --filter slipstream-ui-docs build
+pnpm --filter slipstream-ui-docs start -- -p 3111
+pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111
+pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111
+```
+
+`audit:a11y` runs axe-core over 13 routes in light and dark mode and exits non-zero on WCAG 2.2 A/AA violations. `audit:perf` reports Lighthouse mobile scores plus LCP/CLS/TBT.
+
 Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), so `--filter` needs the real name.
 
 ## Styling and theming
 
 - Tailwind CSS **3.4** with `tooling/tailwind-config`; dark mode via `.dark` and CSS variables
-- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`, `text-info`…). Never hardcode palette colors.
+- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`). Never hardcode palette colors.
+- Status text on a neutral surface uses `text-success` / `text-warning-ink` / `text-info-ink` / `text-destructive`; the solid `-foreground` tokens are only valid on top of their matching fill. `--primary` is tuned to clear 4.5:1 on tinted surfaces.
+- Never set theme variables on `document.documentElement` from a demo/component - scope them to the demo container (see `ThemeShowcase`), or they leak site-wide.
 - Dynamic class names are purged: use literal class maps or inline `style` (see `Grid`/`Drawer` size maps).
 - Status colors: `success`, `warning`, `info` (teal-cyan), `destructive`; ink/white foregrounds are pre-audited.
 - Layering: 10 docked · 30 sticky · 40 chrome · 50 overlays · **60 toasts**. Don't exceed the ladder.

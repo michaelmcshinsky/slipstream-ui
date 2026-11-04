@@ -110,8 +110,9 @@ export function ChatApp() {
 
 - Metadata per route (title/description, canonical, OG/Twitter cards, 1200×630 image), favicon set + web manifest
 - `robots.txt` + dynamic `sitemap.xml`
-- Legal pages (`/privacy`, `/terms`), `/contact` (Netlify form → `/thank-you`), custom 404
+- Legal pages (`/privacy`, `/terms`), `/about`, `/accessibility`, `/contact` (Netlify forms -> `/thank-you`), custom 404
 - Cookie consent banner that gates a privacy-friendly analytics loader — set `NEXT_PUBLIC_ANALYTICS_SRC` (and optional `NEXT_PUBLIC_ANALYTICS_DOMAIN`) to enable; nothing loads without consent
+- Structured data (Organization, WebSite, SoftwareApplication, BreadcrumbList) and hardened response headers (CSP in report-only, frame-ancestors, HSTS, Permissions-Policy); report vulnerabilities via `/.well-known/security.txt`
 - Contact details live in `apps/docs/lib/site.ts`
 
 ## Development
@@ -129,6 +130,19 @@ pnpm generate:llm-docs   # regenerate /llm docs, llms.txt + README stats
 ```
 
 Useful filters: `pnpm dev:docs`, `pnpm dev:playground`, `pnpm --filter slipstream-ui-docs build`.
+
+### Site audits
+
+Run against a production build (server on port 3111):
+
+```bash
+pnpm --filter slipstream-ui-docs build
+pnpm --filter slipstream-ui-docs start -- -p 3111
+pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # axe-core, light + dark, 13 routes
+pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111   # Lighthouse mobile (lab)
+```
+
+`audit:a11y` exits non-zero on any WCAG 2.2 A/AA violation. `audit:perf` reports Lighthouse scores plus LCP/CLS/TBT for the home, docs index, and a component page.
 
 ## Quality gates
 

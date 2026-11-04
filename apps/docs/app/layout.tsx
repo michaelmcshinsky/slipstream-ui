@@ -3,6 +3,8 @@ import './globals.css';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 import { Analytics } from '@/components/site/analytics';
 import { CookieBanner } from '@/components/site/cookie-banner';
+import { JsonLd } from '@/components/site/json-ld';
+import { organizationSchema, websiteSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://slipstreamui.com'),
@@ -51,6 +53,9 @@ try {
   if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
   }
+  if (localStorage.getItem('slipstream-consent')) {
+    document.documentElement.classList.add('consent-decided');
+  }
 } catch {}
 `;
 
@@ -63,6 +68,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
       </head>
       <body>
         <a

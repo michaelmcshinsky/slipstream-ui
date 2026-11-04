@@ -205,6 +205,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
+- Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: \`npx shadcn@latest add https://slipstreamui.com/registry/<id>.json\`
 
 ## Core components (@slipstream-ui/core) — ${coreList.length}
@@ -225,6 +226,17 @@ ${listItems(aiList)}
 `;
 
   fs.writeFileSync(path.join(OUT_DIR, 'index.md'), index);
+
+  // One-fetch corpus for agents that prefer a single document over crawling
+  // every component page. Generated from the same manifests, so it cannot drift.
+  const full = [
+    index.trim(),
+    '',
+    '---',
+    '',
+    ...manifests.map((manifest) => componentToMarkdown(manifest).trim()),
+  ].join('\n\n---\n\n');
+  fs.writeFileSync(path.join(ROOT, 'apps', 'docs', 'public', 'llms-full.txt'), full + '\n');
 
   // Single source of truth for every human-facing count (homepage stats, OG
   // description, docs intro). Regenerated on each docs build so marketing copy

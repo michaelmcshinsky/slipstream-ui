@@ -15,7 +15,7 @@ import type { Theme, ThemeConfig, ThemeColors } from './types';
  * @example
  * ```ts
  * const theme = createTheme({
- *   brandColor: '224 89% 58%',
+ *   brandColor: '224 89% 53%',
  *   borderRadius: '0.375rem',
  *   darkMode: true
  * })
@@ -23,7 +23,7 @@ import type { Theme, ThemeConfig, ThemeColors } from './types';
  */
 export function createTheme(config: ThemeConfig = {}): Theme {
   const {
-    brandColor = '224 89% 58%',
+    brandColor = '224 89% 53%',
     borderRadius = '0.375rem',
     darkMode = false,
   } = config;
@@ -41,15 +41,15 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'primary-foreground': darkMode ? inkForDark(baseColor) : '0 0% 100%',
 
     // Secondary / muted / accent
-    secondary: darkMode ? '217 26% 15%' : '214 45% 96%',
+    secondary: darkMode ? '217 24% 17%' : '214 45% 96%',
     'secondary-foreground': darkMode ? '210 40% 96%' : '222 47% 11%',
-    muted: darkMode ? '217 26% 15%' : '214 40% 96%',
-    'muted-foreground': darkMode ? '215 16% 62%' : '219 12% 42%',
-    accent: darkMode ? '217 26% 15%' : '214 45% 96%',
+    muted: darkMode ? '217 24% 17%' : '214 40% 96%',
+    'muted-foreground': darkMode ? '215 16% 68%' : '219 12% 42%',
+    accent: darkMode ? '217 24% 17%' : '214 45% 96%',
     'accent-foreground': darkMode ? '210 40% 96%' : '222 47% 11%',
 
     // Destructive — dark text carries AA on bg and card; solid fills take ink
-    destructive: darkMode ? '0 76% 58%' : '348 68% 44%',
+    destructive: darkMode ? '0 76% 64%' : '348 68% 44%',
     'destructive-foreground': darkMode ? '222 75% 10%' : '0 0% 100%',
 
     // Status colors (success / warning / info) — unitless hues.
@@ -60,18 +60,20 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'success-foreground': darkMode ? '222 75% 10%' : '0 0% 100%',
     warning: darkMode ? '38 92% 60%' : '38 92% 50%',
     'warning-foreground': '26 83% 14%',
+    'warning-ink': darkMode ? '38 92% 62%' : '32 90% 32%',
     info: darkMode ? '190 80% 58%' : '190 76% 38%',
     'info-foreground': '222 75% 10%',
+    'info-ink': darkMode ? '190 80% 62%' : '190 90% 28%',
 
-    // Borders: dark gets a crisp 24% navy line; inputs read brighter (32%)
-    border: darkMode ? '217 20% 24%' : '214 28% 89%',
-    input: darkMode ? '217 18% 32%' : '214 28% 89%',
+    // Borders: dark gets a crisp 30% navy line; inputs read brighter (36%)
+    border: darkMode ? '217 20% 30%' : '214 28% 89%',
+    input: darkMode ? '217 18% 36%' : '214 28% 89%',
     ring: darkMode ? lightenForDark(baseColor) : baseColor,
 
     // Card / popover: elevated steps above the dark background
-    card: darkMode ? '222 36% 9%' : '0 0% 100%',
+    card: darkMode ? '222 34% 11%' : '0 0% 100%',
     'card-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
-    popover: darkMode ? '222 36% 11%' : '0 0% 100%',
+    popover: darkMode ? '222 34% 14%' : '0 0% 100%',
     'popover-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
   };
 
@@ -135,7 +137,7 @@ function inkForDark(hsl: string): string {
  *
  * @example
  * ```ts
- * const theme = createTheme({ brandColor: '224 89% 58%' });
+ * const theme = createTheme({ brandColor: '224 89% 53%' });
  * const cssVars = themeToCssVariables(theme);
  * // Returns: "--background: 0 0% 100%; --foreground: 222 85% 7%; ..."
  * ```

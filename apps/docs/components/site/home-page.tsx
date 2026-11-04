@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@slipstream-ui/core';
 import {
+  CodeBlock,
   Conversation,
   PromptInput,
   Response,
@@ -13,10 +14,12 @@ import { Navbar } from '@/components/site/navbar';
 import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
+import { GitHubStars } from '@/components/site/github-stars';
 import { ThemeShowcase } from '@/components/theme-showcase';
 import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
+import { track } from '@/lib/analytics';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -121,6 +124,7 @@ function CopyInstallPill() {
   async function copy() {
     try {
       await navigator.clipboard.writeText('npx slipstream-ui@latest init');
+      track('install_copy', { command: 'init', location: 'home' });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -132,7 +136,6 @@ function CopyInstallPill() {
       type="button"
       onClick={copy}
       className="inline-flex items-center gap-3 rounded-lg border border-border bg-muted px-4 py-2.5 font-mono text-sm transition-colors hover:bg-accent"
-      aria-label="Copy init command"
     >
       <span>npx slipstream-ui@latest init</span>
       <span className="text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
@@ -153,7 +156,7 @@ const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
 
 export default function LandingPage() {
   return (
-    <div id="main" className="min-h-screen bg-background">
+    <main id="main" className="min-h-screen bg-background">
       <Navbar />
       {/* Docs links live in the navbar only from md up; below that the pills
           row keeps marketing pages navigable on phones. The px-4 wrapper
@@ -195,14 +198,23 @@ export default function LandingPage() {
               validator that keeps agents honest.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link href="/docs/installation">
+              <Link
+                href="/docs/installation"
+                onClick={() => track('cta_click', { cta: 'get_started', location: 'hero' })}
+              >
                 <Button size="lg">Get Started</Button>
               </Link>
-              <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+              <a
+                href={REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('github_click', { location: 'hero' })}
+              >
                 <Button size="lg" variant="outline">Star on GitHub</Button>
               </a>
             </div>
             <div className="mt-6"><CopyInstallPill /></div>
+            <div className="mt-4"><GitHubStars /></div>
           </div>
           <LandingChatDemo />
         </div>
@@ -297,6 +309,71 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* What the validator actually catches - real manifest, real output. */}
+      <section className="container mx-auto px-4 py-20">
+        <h2 className="text-center text-3xl font-bold tracking-tight">The failure mode, caught</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+          An agent guesses <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onSend</code> because that
+          is what other chat libraries call it. <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
+          checks the manifest and refuses the snippet before it is written.
+        </p>
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="rounded-xl border border-destructive/30 bg-card p-4">
+            <p className="mb-3 text-sm font-semibold text-destructive">1. Hallucinated usage</p>
+            <CodeBlock
+              language="tsx"
+              showCopyButton={false}
+              code={`<PromptInput
+  onSend={handleSend}
+  placeholder="Ask anything"
+/>`}
+            />
+            <p className="mt-3 text-xs text-muted-foreground">
+              The prop does not exist, and the required <code className="font-mono">onSubmit</code> is missing.
+            </p>
+          </div>
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="mb-3 text-sm font-semibold">2. validate_usage response</p>
+            <CodeBlock
+              language="json"
+              showCopyButton={false}
+              code={`{
+  "componentId": "prompt-input",
+  "valid": false,
+  "usageCount": 1,
+  "issues": [
+    {
+      "severity": "error",
+      "message": "Unknown prop \\"onSend\\" on <PromptInput> (usage). This prop does not exist in the manifest."
+    },
+    {
+      "severity": "error",
+      "message": "Missing required prop(s) on <PromptInput> (usage): \\"onSubmit\\"."
+    }
+  ]
+}`}
+            />
+            <p className="mt-3 text-xs text-muted-foreground">
+              Trimmed for display; the tool also returns the manifest&apos;s anti-patterns.
+            </p>
+          </div>
+          <div className="rounded-xl border border-success/30 bg-card p-4">
+            <p className="mb-3 text-sm font-semibold text-success">3. Correct usage</p>
+            <CodeBlock
+              language="tsx"
+              showCopyButton={false}
+              code={`<PromptInput
+  onSubmit={handleSend}
+  placeholder="Ask anything"
+/>`}
+            />
+            <p className="mt-3 text-xs text-muted-foreground">
+              Validated against the same contract your docs, MCP server, and registry serve.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Theme showcase */}
       <section className="border-y border-border bg-muted/30">
         <div className="container mx-auto max-w-4xl px-4 py-20">
@@ -342,6 +419,35 @@ export default function LandingPage() {
           Reflects each project&apos;s public documentation and published packages as of November 2026 ·
           ✅ provided · 🟡 partial or a different model · — not provided for this purpose
         </p>
+        <div className="mx-auto mt-8 grid max-w-5xl gap-4 sm:grid-cols-3">
+          {[
+            {
+              title: 'Choose Slipstream',
+              body: 'When agents must generate correct, design-system-compliant code and you want a validator in the loop before code ships.',
+              accent: true,
+            },
+            {
+              title: 'Choose shadcn/ui + AI Elements',
+              body: 'When maximum ecosystem gravity and copy-in ownership of a very large primitive base matter most.',
+            },
+            {
+              title: 'Choose assistant-ui',
+              body: 'When you need a battle-tested chat runtime: streaming, tools, and generative UI as the core product.',
+            },
+          ].map((card) => (
+            <div
+              key={card.title}
+              className={`rounded-xl border p-5 ${
+                card.accent ? 'border-primary/40 bg-primary/5' : 'border-border bg-card'
+              }`}
+            >
+              <h3 className={`text-sm font-semibold ${card.accent ? 'text-primary' : 'text-foreground'}`}>
+                {card.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Templates teaser */}
@@ -411,7 +517,10 @@ export default function LandingPage() {
           {COMPONENT_COUNT} components · {COMPONENT_COUNT} machine-readable specs · zero hallucinated props.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/docs/installation">
+          <Link
+            href="/docs/installation"
+            onClick={() => track('cta_click', { cta: 'start_building', location: 'footer' })}
+          >
             <Button size="lg">Start building</Button>
           </Link>
           <CopyInstallPill />
@@ -420,6 +529,6 @@ export default function LandingPage() {
 
       <Footer />
       <StickyCta />
-    </div>
+    </main>
   );
 }

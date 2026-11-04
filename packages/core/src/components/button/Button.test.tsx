@@ -116,8 +116,8 @@ describe('Button outline color variants', () => {
     expect(del).toHaveClass('border', 'border-destructive/50', 'text-destructive', 'bg-background');
     expect(del.className).toContain('hover:bg-destructive/10');
     expect(screen.getByRole('button', { name: 'Approve' })).toHaveClass('border-success/50', 'text-success');
-    expect(screen.getByRole('button', { name: 'Careful' })).toHaveClass('border-warning/50', 'text-warning');
-    expect(screen.getByRole('button', { name: 'Info' })).toHaveClass('border-info/50', 'text-info');
+    expect(screen.getByRole('button', { name: 'Careful' })).toHaveClass('border-warning/50', 'text-warning-ink');
+    expect(screen.getByRole('button', { name: 'Info' })).toHaveClass('border-info/50', 'text-info-ink');
   });
 
   it('keeps colored outlines accessible as links via asChild', () => {

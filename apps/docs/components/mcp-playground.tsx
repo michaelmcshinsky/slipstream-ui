@@ -377,7 +377,11 @@ export function McpPlayground() {
             <span>tool result</span>
             <span className="font-mono">GET {tool === 'validate_usage' ? 'validate_usage()' : `/registry — ${activeTool.label}`}</span>
           </p>
-          <div className="max-h-80 overflow-auto rounded-lg border border-border bg-muted/40">
+          <div
+            tabIndex={0}
+            aria-label="Tool result output"
+            className="max-h-80 overflow-auto rounded-lg border border-border bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             <CodeBlock code={output} language="json" showCopyButton={false} className="border-0 bg-transparent shadow-none" />
           </div>
         </div>

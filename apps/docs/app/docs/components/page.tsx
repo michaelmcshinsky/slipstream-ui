@@ -81,7 +81,7 @@ export default function ComponentsOverviewPage() {
       <p className="text-sm text-muted-foreground mb-8">
         Install any of them via{' '}
         <code className="bg-muted px-2 py-1 rounded">npx slipstream-ui add &lt;id&gt;</code> or the{' '}
-        <Link href="/docs/installation" className="text-primary hover:underline">
+        <Link href="/docs/installation" className="text-primary underline underline-offset-2 hover:text-primary/80">
           shadcn-compatible registry
         </Link>
         .

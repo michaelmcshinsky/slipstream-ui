@@ -7,7 +7,9 @@
     "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx"
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "audit:a11y": "tsx scripts/audit-a11y.ts",
+    "audit:perf": "node scripts/audit-perf.mjs"
   },
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",
@@ -26,8 +28,12 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.16",
+    "axe-core": "^4.14.0",
+    "chrome-launcher": "^1.2.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
+    "lighthouse": "^13.6.0",
+    "playwright-core": "^1.64.1",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",

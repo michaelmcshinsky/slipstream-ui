@@ -5,7 +5,7 @@ const BASE_URL = 'https://slipstreamui.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const LAST_UPDATED = new Date('2026-11-04');
-  const staticRoutes = ['', '/changelog', '/contact', '/privacy', '/terms', '/llm/index.md'].map((route) => ({
+  const staticRoutes = ['', '/changelog', '/about', '/accessibility', '/contact', '/privacy', '/terms', '/llm/index.md'].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: LAST_UPDATED,
     changeFrequency: 'weekly' as const,

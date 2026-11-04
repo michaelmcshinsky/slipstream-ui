@@ -21,8 +21,11 @@ export type ThemeColors = {
   'success-foreground': string;
   warning: string;
   'warning-foreground': string;
+  /** Status label/text colour that clears AA on a neutral surface. */
+  'warning-ink': string;
   info: string;
   'info-foreground': string;
+  'info-ink': string;
   border: string;
   input: string;
   ring: string;

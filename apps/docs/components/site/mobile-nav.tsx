@@ -29,7 +29,7 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               aria-current={isActive ? 'page' : undefined}
-              className={`whitespace-nowrap rounded-full border px-3 py-2 text-xs transition-colors ${
+              className={`inline-flex min-h-11 items-center whitespace-nowrap rounded-full border px-3.5 py-2 text-xs transition-colors ${
                 isActive
                   ? 'border-primary/50 bg-primary/10 font-medium text-primary'
                   : 'border-border text-muted-foreground hover:bg-muted hover:text-foreground'

@@ -21,7 +21,7 @@ export default function VercelAiSdkGuidePage() {
         Your route handlers stay untouched — the adapter only reads state on the client.
       </p>
 
-      <div className="mt-6 rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
+      <div className="mt-6 rounded-xl border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
         The adapter imports <strong className="text-foreground">no SDK code</strong> — it consumes a
         structural shape (<code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">{'{ id, role, content, toolInvocations }'}</code>,
         status strings, error). Anything producing that shape works: AI SDK <em>useChat</em>,{' '}

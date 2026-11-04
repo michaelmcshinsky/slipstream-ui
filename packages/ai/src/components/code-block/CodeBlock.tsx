@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Highlight, themes } from 'prism-react-renderer';
+import { Highlight, type PrismTheme } from 'prism-react-renderer';
 import { cn } from '@slipstream-ui/core';
 
 export type CodeBlockProps = {
@@ -29,11 +29,94 @@ function useIsDark(): boolean {
   return dark;
 }
 
+/**
+ * AA-safe syntax palettes.
+ *
+ * prism-react-renderer's stock themes put comments (#999988) and constants
+ * (#36acaa) at ~2.7-2.9:1 on the code surface. Every colour below clears
+ * 4.5:1 against its background (white light / near-black dark).
+ */
+const LIGHT_CODE_THEME: PrismTheme = {
+  plain: { color: '#1f2328', backgroundColor: 'transparent' },
+  styles: [
+    { types: ['comment', 'prolog', 'doctype', 'cdata'], style: { color: '#57606a' } },
+    { types: ['punctuation', 'operator'], style: { color: '#24292f' } },
+    { types: ['namespace'], style: { color: '#6f42c1' } },
+    { types: ['tag', 'deleted', 'keyword', 'atrule', 'important'], style: { color: '#b31d28' } },
+    { types: ['attr-name', 'variable'], style: { color: '#953800' } },
+    { types: ['string', 'char', 'attr-value', 'inserted', 'regex'], style: { color: '#0a5c2f' } },
+    {
+      types: [
+        'function',
+        'class-name',
+        'number',
+        'boolean',
+        'constant',
+        'symbol',
+        'property',
+        'selector',
+        'builtin',
+        'entity',
+        'url',
+      ],
+      style: { color: '#0550ae' },
+    },
+  ],
+};
+
+const DARK_CODE_THEME: PrismTheme = {
+  plain: { color: '#e6edf3', backgroundColor: 'transparent' },
+  styles: [
+    { types: ['comment', 'prolog', 'doctype', 'cdata'], style: { color: '#8b949e' } },
+    { types: ['punctuation', 'operator'], style: { color: '#c9d1d9' } },
+    { types: ['namespace'], style: { color: '#d2a8ff' } },
+    { types: ['tag', 'deleted', 'keyword', 'atrule', 'important'], style: { color: '#ff7b72' } },
+    { types: ['attr-name', 'variable'], style: { color: '#ffa657' } },
+    { types: ['string', 'char', 'attr-value', 'inserted', 'regex'], style: { color: '#7ee787' } },
+    {
+      types: [
+        'function',
+        'class-name',
+        'number',
+        'boolean',
+        'constant',
+        'symbol',
+        'property',
+        'selector',
+        'builtin',
+        'entity',
+        'url',
+      ],
+      style: { color: '#79c0ff' },
+    },
+  ],
+};
+
 const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
   ({ code, language = 'tsx', showCopyButton = true, className, ...props }, ref) => {
     const [copied, setCopied] = React.useState(false);
     const isDark = useIsDark();
     const trimmedCode = code.replace(/\n$/, '');
+
+    // Horizontally scrollable code must be reachable by keyboard (WCAG 2.1.1).
+    // Only make it a tab stop when it actually overflows, so short snippets
+    // do not add noise to the tab order.
+    const preRef = React.useRef<HTMLPreElement>(null);
+    const [scrollable, setScrollable] = React.useState(false);
+    React.useEffect(() => {
+      const element = preRef.current;
+      if (!element) return;
+      const update = () => setScrollable(element.scrollWidth > element.clientWidth + 1);
+      update();
+      // jsdom (tests) has no ResizeObserver; window resize is the fallback.
+      if (typeof ResizeObserver === 'undefined') {
+        window.addEventListener('resize', update);
+        return () => window.removeEventListener('resize', update);
+      }
+      const observer = new ResizeObserver(update);
+      observer.observe(element);
+      return () => observer.disconnect();
+    }, [trimmedCode, language]);
 
     const handleCopy = async () => {
       try {
@@ -50,8 +133,8 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       <div
         ref={ref}
         className={cn(
-          // bg-background (not muted): Prism light themes assume a white
-          // surface — on gray the comment/keyword tokens fall below AA.
+          // bg-background (not muted): the light syntax palette is tuned for
+          // a white surface; on gray the token contrast drops below AA.
           'relative group rounded-md border border-border bg-background overflow-hidden',
           className
         )}
@@ -70,10 +153,13 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             </button>
           )}
         </div>
-        <Highlight theme={isDark ? themes.vsDark : themes.github} code={trimmedCode} language={language}>
+        <Highlight theme={isDark ? DARK_CODE_THEME : LIGHT_CODE_THEME} code={trimmedCode} language={language}>
           {({ style, tokens, getLineProps, getTokenProps }) => (
             <pre
-              className="overflow-x-auto p-4 text-xs leading-relaxed m-0"
+              ref={preRef}
+              tabIndex={scrollable ? 0 : undefined}
+              aria-label={scrollable ? `${language} code, scrollable` : undefined}
+              className="overflow-x-auto p-4 text-xs leading-relaxed m-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               style={{ ...style, background: 'transparent' }}
             >
               {tokens.map((line, i) => (

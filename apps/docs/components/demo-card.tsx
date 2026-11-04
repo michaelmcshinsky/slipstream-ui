@@ -52,7 +52,7 @@ export function DemoCard({
 
   return (
     <div className={cn('overflow-hidden rounded-lg border border-border', className)}>
-      <div className="flex items-center justify-between border-b border-border bg-muted/50 px-3 py-1.5">
+      <div className="flex items-center justify-between border-b border-border bg-muted/40 px-3 py-1.5">
         <div role="tablist" aria-label={`${title ?? 'Demo'} view`} className="flex gap-1">
           {tabs.map(({ value, label }) => (
             <button
@@ -80,7 +80,7 @@ export function DemoCard({
         // Block layout (not flex): children with w-full must resolve against
         // the full preview width. The old flex+w-max shrink-wrapped wrappers
         // so Progress collapsed to 0px and Accordions sized to closed content.
-        <div className="overflow-x-auto p-6">
+        <div className="overflow-x-auto bg-background p-6">
           <div className="min-h-24 w-full">{preview}</div>
         </div>
       ) : (

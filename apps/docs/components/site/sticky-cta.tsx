@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { readConsent } from '@/lib/site';
+import { track } from '@/lib/analytics';
 
 /**
  * Sticky mobile call to action. Appears on small screens only, after the
@@ -26,6 +27,7 @@ export function StickyCta() {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(command);
+      track('install_copy', { command: 'core', location: 'sticky_cta' });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -39,14 +41,14 @@ export function StickyCta() {
         <button
           type="button"
           onClick={copy}
-          className="min-w-0 flex-1 truncate rounded-md border border-border bg-muted/50 px-3 py-2 text-left font-mono text-xs"
+          className="min-h-11 min-w-0 flex-1 truncate rounded-md border border-border bg-muted/50 px-3 py-2 text-left font-mono text-xs"
           aria-label={`Copy install command: ${command}`}
         >
           {copied ? 'Copied!' : command}
         </button>
         <Link
           href="/docs/installation"
-          className="inline-flex h-9 shrink-0 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
+          className="inline-flex h-11 shrink-0 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
         >
           Install
         </Link>

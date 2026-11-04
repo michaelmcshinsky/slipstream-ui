@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { cn } from '@slipstream-ui/core';
+import { track } from '@/lib/analytics';
 
 export type InstallBoxProps = {
   componentId: string;
@@ -27,6 +28,7 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
   async function copy() {
     try {
       await navigator.clipboard.writeText(active.command);
+      track('install_copy', { component: componentId, method: tab });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -44,7 +46,7 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
             role="tab"
             aria-selected={tab === entry.id}
             onClick={() => setTab(entry.id)}
-            className={`px-3 py-2 transition-colors ${
+            className={`inline-flex min-h-11 items-center px-3 py-2 transition-colors ${
               tab === entry.id ? 'bg-muted font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -59,7 +61,7 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
         type="button"
         onClick={copy}
         aria-label={copied ? 'Copied' : 'Copy install command'}
-        className="border-l border-border px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        className="min-h-11 border-l border-border px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
         {copied ? '✓' : 'Copy'}
       </button>

@@ -29,7 +29,7 @@ function NavItemLink({ href, label, active }: { href: string; label: string; act
         href={href}
         aria-current={active ? 'page' : undefined}
         className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
-          active ? 'bg-muted font-medium text-foreground' : 'text-muted-foreground hover:bg-muted/60'
+          active ? 'bg-primary/10 font-medium text-primary' : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
         }`}
       >
         {label}
@@ -88,7 +88,7 @@ export function Sidebar() {
           type="button"
           onClick={() => toggle(sectionKey, !sectionOpen)}
           aria-expanded={sectionOpen}
-          className={`flex w-full items-center justify-between gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors hover:text-foreground ${
+          className={`flex w-full items-center justify-between gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors hover:bg-muted/40 hover:text-foreground ${
             sectionActive ? 'text-foreground' : 'text-muted-foreground'
           }`}
         >
@@ -109,7 +109,7 @@ export function Sidebar() {
                     type="button"
                     onClick={() => toggle(groupKey, !groupOpen)}
                     aria-expanded={groupOpen}
-                    className={`flex w-full items-center justify-between gap-1.5 rounded-md px-2 py-1 text-[11px] font-semibold uppercase tracking-wider transition-colors hover:text-foreground ${
+                    className={`flex w-full items-center justify-between gap-1.5 rounded-md px-2 py-1 text-[11px] font-semibold uppercase tracking-wider transition-colors hover:bg-muted/40 hover:text-foreground ${
                       groupActive ? 'text-foreground' : 'text-muted-foreground'
                     }`}
                   >

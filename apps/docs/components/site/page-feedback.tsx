@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { track } from '@/lib/analytics';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -58,14 +59,20 @@ export function PageFeedback() {
       <span className="text-muted-foreground">Was this page helpful?</span>
       <button
         type="button"
-        onClick={() => setAnswer('yes')}
+        onClick={() => {
+          track('feedback', { helpful: 'yes' });
+          setAnswer('yes');
+        }}
         className="rounded-md border border-border px-3 py-1 text-xs font-medium transition-colors hover:bg-muted"
       >
         Yes
       </button>
       <button
         type="button"
-        onClick={() => setAnswer('no')}
+        onClick={() => {
+          track('feedback', { helpful: 'no' });
+          setAnswer('no');
+        }}
         className="rounded-md border border-border px-3 py-1 text-xs font-medium transition-colors hover:bg-muted"
       >
         No

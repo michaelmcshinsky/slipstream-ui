@@ -21,7 +21,7 @@ export default function TermsPage() {
         <h2 className="text-lg font-semibold text-foreground">The software</h2>
         <p>
           Slipstream UI packages are released under the{' '}
-          <a className="text-primary hover:underline" href={`${SITE.repo}/blob/main/LICENSE`}>
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`${SITE.repo}/blob/main/LICENSE`}>
             MIT license
           </a>
           . You may use, modify and redistribute them commercially, provided the copyright notice and permission notice
@@ -76,11 +76,11 @@ export default function TermsPage() {
         <h2 className="text-lg font-semibold text-foreground">Contact</h2>
         <p>
           Questions about these terms:{' '}
-          <a className="text-primary hover:underline" href={`mailto:${SITE.contact.email}`}>
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
             {SITE.contact.email}
           </a>
           . See also the{' '}
-          <Link href="/privacy" className="text-primary hover:underline">
+          <Link href="/privacy" className="text-primary underline underline-offset-2 hover:text-primary/80">
             privacy policy
           </Link>
           .

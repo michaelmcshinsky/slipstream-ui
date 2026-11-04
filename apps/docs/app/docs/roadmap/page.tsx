@@ -21,7 +21,7 @@ const RELEASES: {
     state: 'shipped',
     focus: 'Complete surface: migration-readiness round one',
     items: [
-      '73 components at release, each with a COMPONENT_MANIFEST, tests and docs',
+      `${COMPONENT_COUNT} components at release, each with a COMPONENT_MANIFEST, tests and docs`,
       'Forms: Form, FormLayout, InputGroup, ButtonGroup, CheckboxGroup, RadioCard, Select optgroups/multi, async Autocomplete',
       'Overlays: Drawer with motion + custom widths, Dialog size presets and composed parts, imperative toasts (toast.* + <Toaster>)',
       'App patterns: AppShell/Sidebar, EmptyState, PageHeader, MetricCard, PasswordInput, AuthLayout, FilterBar, DatePicker/TimePicker, Stepper, FileUpload, Timeline',

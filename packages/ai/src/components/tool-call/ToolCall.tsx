@@ -11,8 +11,8 @@ export type ToolCallProps = {
 };
 
 const statusChipClasses: Record<ToolCallType['status'], string> = {
-  pending: 'bg-warning/10 text-warning border-warning/20',
-  running: 'bg-info/10 text-info border-info/20',
+  pending: 'bg-warning/10 text-warning-ink border-warning/20',
+  running: 'bg-info/10 text-info-ink border-info/20',
   completed: 'bg-success/10 text-success border-success/20',
   failed: 'bg-destructive/10 text-destructive border-destructive/20',
 };

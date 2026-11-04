@@ -70,8 +70,9 @@ export default function ButtonPage() {
               </Button>
             </div>
             <div>
-              <label className="text-sm font-medium mb-2 block">Variant</label>
+              <label htmlFor="button-variant" className="text-sm font-medium mb-2 block">Variant</label>
               <select
+                id="button-variant"
                 value={variant}
                 onChange={(e) => setVariant(e.target.value as ButtonVariant)}
                 className="w-full p-2 border rounded bg-background"
@@ -82,8 +83,9 @@ export default function ButtonPage() {
               </select>
             </div>
             <div>
-              <label className="text-sm font-medium mb-2 block">Size</label>
+              <label htmlFor="button-size" className="text-sm font-medium mb-2 block">Size</label>
               <select
+                id="button-size"
                 value={size}
                 onChange={(e) => setSize(e.target.value as ButtonSize)}
                 className="w-full p-2 border rounded bg-background"

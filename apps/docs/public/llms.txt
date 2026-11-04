@@ -1,5 +1,8 @@
 # Slipstream UI - AI-First React Component Library
 
+> Single-file corpus (all components): https://slipstreamui.com/llms-full.txt
+> Per-component markdown: https://slipstreamui.com/llm/components/<id>.md
+
 ## Overview
 Slipstream UI is an AI-first React component library designed for AI-assisted development. Every component ships a machine-readable COMPONENT_MANIFEST so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
 

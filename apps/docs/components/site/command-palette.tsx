@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SEARCH_INDEX, type SearchEntry } from '@/lib/search-index';
+import { track } from '@/lib/analytics';
 
 /**
  * ⌘K command palette (mantine/shadcn style): fuzzy search over docs,
@@ -44,10 +45,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault();
-        onOpenChange(!open);
-      }
+      // Cmd/Ctrl+K is owned by the navbar, which mounts this component.
       if (event.key === 'Escape' && open) onOpenChange(false);
     };
     window.addEventListener('keydown', onKeyDown);
@@ -65,10 +63,11 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
 
   const go = useCallback(
     (href: string) => {
+      track('search_select', { href, query: query.trim() || '(browse)' });
       onOpenChange(false);
       router.push(href);
     },
-    [onOpenChange, router]
+    [onOpenChange, query, router]
   );
 
   const onKeyDown = (event: React.KeyboardEvent) => {
@@ -130,7 +129,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
                 data-active={index === activeIndex}
                 onClick={() => go(result.href)}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors ${
+                className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors ${
                   index === activeIndex ? 'bg-accent text-accent-foreground' : ''
                 }`}
               >

@@ -55,6 +55,28 @@ export default function PrivacyPage() {
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground">Release notifications</h2>
+        <p>
+          The release-notes form stores the email address you submit and uses it only to send occasional release
+          announcements. It is not a newsletter, is never sold or shared, and you can ask us to delete it at any time
+          by emailing{' '}
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
+            {SITE.contact.email}
+          </a>
+          .
+        </p>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground">Third-party requests</h2>
+        <p>
+          The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any
+          request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No
+          cookies are set by that request, and no other third-party resources are loaded.
+        </p>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-semibold text-foreground">Hosting logs</h2>
         <p>
           Our hosting provider records standard request logs (IP address, user agent, requested URL) for security and
@@ -67,7 +89,7 @@ export default function PrivacyPage() {
         <ul className="list-disc space-y-1 pl-6">
           <li>No advertising or retargeting pixels.</li>
           <li>No selling or renting of personal data.</li>
-          <li>No account, newsletter or tracking profiles on this documentation site.</li>
+          <li>No advertising profiles or cross-site tracking.</li>
         </ul>
       </section>
 
@@ -76,7 +98,7 @@ export default function PrivacyPage() {
         <p>
           Depending on where you live you may have the right to access, correct, export or delete personal data we
           hold about you, and to object to processing. Email{' '}
-          <a className="text-primary hover:underline" href={`mailto:${SITE.contact.email}`}>
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
             {SITE.contact.email}
           </a>{' '}
           and we will respond within 30 days. You can also lodge a complaint with your local supervisory authority.
@@ -92,7 +114,7 @@ export default function PrivacyPage() {
         <h2 className="text-lg font-semibold text-foreground">Changes</h2>
         <p>
           We will update this page and its “last updated” date when practices change. See also our{' '}
-          <Link href="/terms" className="text-primary hover:underline">
+          <Link href="/terms" className="text-primary underline underline-offset-2 hover:text-primary/80">
             terms of use
           </Link>
           .
@@ -107,7 +129,7 @@ export default function PrivacyPage() {
               {line}
             </span>
           ))}
-          <a className="text-primary hover:underline" href={`mailto:${SITE.contact.email}`}>
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
             {SITE.contact.email}
           </a>
         </address>

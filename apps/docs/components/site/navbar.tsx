@@ -1,10 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { CommandPalette } from './command-palette';
+import { track } from '@/lib/analytics';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
+
+// Search ships its own index; load it on first open instead of on every page.
+const CommandPalette = dynamic(() => import('./command-palette').then((mod) => mod.CommandPalette), {
+  ssr: false,
+});
 
 /**
  * Sticky top navigation shared by the marketing site and docs.
@@ -31,6 +37,22 @@ export function Navbar() {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  // The palette is mounted on demand, so the shortcut lives here rather than
+  // inside it. Escape still closes from within.
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen((open) => {
+          if (!open) track('search_open', { source: 'keyboard' });
+          return !open;
+        });
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   function toggleDark() {
     const next = !dark;
     document.documentElement.classList.toggle('dark', next);
@@ -40,9 +62,9 @@ export function Navbar() {
 
   return (
     <>
-      {/* The palette must live outside <header>: backdrop-blur creates a
-          containing block that would trap the fixed overlay inside the bar. */}
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      {/* Outside <header>: backdrop-blur would trap the fixed overlay. Mounted
+          on demand so the search index stays out of the initial bundle. */}
+      {paletteOpen && <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />}
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {/* Full-bleed header: no container cap so navigation spans the viewport. */}
         <nav className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
@@ -52,7 +74,7 @@ export function Navbar() {
               <img
                 src="/slipstream-lockup.png"
                 alt="Slipstream UI"
-                height={44}
+                width={164} height={44}
                 className="h-11 w-auto"
               />
             </Link>
@@ -67,8 +89,11 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setPaletteOpen(true)}
-              className="flex h-9 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
+              onClick={() => {
+                track('search_open', { source: 'button' });
+                setPaletteOpen(true);
+              }}
+              className="flex h-11 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
               aria-label="Search documentation (Ctrl+K)"
             >
               <span aria-hidden="true">⌕</span>
@@ -78,7 +103,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={toggleDark}
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-sm hover:bg-muted"
+              className="flex h-11 w-11 items-center justify-center rounded-md border border-border text-sm hover:bg-muted sm:h-9 sm:w-9"
               aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
             >
               <span aria-hidden="true">{dark ? '☀' : '☾'}</span>
@@ -87,7 +112,8 @@ export function Navbar() {
               href={REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-9 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              onClick={() => track('github_click', { location: 'navbar' })}
+              className="flex h-11 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:h-9"
               aria-label="GitHub repository"
             >
               <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor" aria-hidden="true">

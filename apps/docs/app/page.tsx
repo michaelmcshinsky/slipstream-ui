@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import HomePage from '@/components/site/home-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { softwareApplicationSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   // Absolute so the layout's "%s · Slipstream UI" template doesn't double the brand.
@@ -10,5 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomePage />;
+  return (
+    <>
+      <JsonLd data={softwareApplicationSchema()} />
+      <HomePage />
+    </>
+  );
 }

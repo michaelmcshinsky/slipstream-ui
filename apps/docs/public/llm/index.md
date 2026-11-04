@@ -5,6 +5,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
+- Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
 ## Core components (@slipstream-ui/core) — 63

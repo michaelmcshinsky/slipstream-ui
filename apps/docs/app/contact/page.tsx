@@ -19,14 +19,14 @@ export default function ContactPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-foreground">Email</h2>
           <p>
-            <a className="text-primary hover:underline" href={`mailto:${SITE.contact.email}`}>
+            <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
               {SITE.contact.email}
             </a>
           </p>
           <h2 className="pt-2 text-lg font-semibold text-foreground">Issues &amp; discussions</h2>
           <p>
             Bugs and feature requests are best filed on{' '}
-            <a className="text-primary hover:underline" href={`${SITE.repo}/issues`}>
+            <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`${SITE.repo}/issues`}>
               GitHub
             </a>
             .

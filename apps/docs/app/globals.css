@@ -5,8 +5,9 @@
 /*
  * Design tokens — Axial.net-inspired palette.
  * Light: pure-white surfaces, navy ink headings (#031235 direction),
- *   royal-blue primary (#326cf4 exact), thin blue-gray borders, 6px radii.
- * Dark: navy-tinted surface ladder (bg < card < popover), crisp 24% borders,
+ *   royal-blue primary (#326cf4 family, one step darker so link text clears
+ *   4.5:1 on tinted surfaces), thin blue-gray borders, 6px radii.
+ * Dark: navy-tinted surface ladder (bg < card < popover), crisp 30% borders,
  *   light-blue primary with navy ink foreground so links AND buttons both
  *   meet WCAG AA, semantic status hues lightened for dark text usage.
  * Note: hue values are unitless (142 not 142.1%) — percent hues make the
@@ -20,7 +21,7 @@
     --card-foreground: 222 85% 7%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 85% 7%;
-    --primary: 224 89% 58%;
+    --primary: 224 89% 53%;
     --primary-foreground: 0 0% 100%;
     --secondary: 214 45% 96%;
     --secondary-foreground: 222 47% 11%;
@@ -34,11 +35,15 @@
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 26 83% 14%;
+    /* Ink = text/interactive label on a NEUTRAL surface. The solid status
+       tokens are mid-luminance and fail 4.5:1 as text on white. */
+    --warning-ink: 32 90% 32%;
     --info: 190 76% 38%;
     --info-foreground: 222 75% 10%;
+    --info-ink: 190 90% 28%;
     --border: 214 28% 89%;
     --input: 214 28% 89%;
-    --ring: 224 89% 58%;
+    --ring: 224 89% 53%;
     --radius: 0.375rem;
     --density-space: 0.5rem;
     --density-control-height: 2.25rem;
@@ -54,28 +59,30 @@
     color-scheme: dark;
     --background: 222 42% 5%;
     --foreground: 210 40% 96%;
-    --card: 222 36% 9%;
+    --card: 222 34% 11%;
     --card-foreground: 210 40% 96%;
-    --popover: 222 36% 11%;
+    --popover: 222 34% 14%;
     --popover-foreground: 210 40% 96%;
     --primary: 224 90% 70%;
     --primary-foreground: 222 75% 10%;
-    --secondary: 217 26% 15%;
+    --secondary: 217 24% 17%;
     --secondary-foreground: 210 40% 96%;
-    --muted: 217 26% 15%;
-    --muted-foreground: 215 16% 62%;
-    --accent: 217 26% 15%;
+    --muted: 217 24% 17%;
+    --muted-foreground: 215 16% 68%;
+    --accent: 217 24% 17%;
     --accent-foreground: 210 40% 96%;
-    --destructive: 0 76% 58%;
+    --destructive: 0 76% 64%;
     --destructive-foreground: 222 75% 10%;
     --success: 142 62% 52%;
     --success-foreground: 222 75% 10%;
     --warning: 38 92% 60%;
     --warning-foreground: 26 83% 14%;
+    --warning-ink: 38 92% 62%;
     --info: 190 80% 58%;
     --info-foreground: 222 75% 10%;
-    --border: 217 20% 24%;
-    --input: 217 18% 32%;
+    --info-ink: 190 80% 62%;
+    --border: 217 20% 30%;
+    --input: 217 18% 36%;
     --ring: 224 90% 70%;
   }
 }
@@ -89,4 +96,23 @@
 pre code,
 :not(pre) > code {
   color: hsl(var(--foreground));
+}
+
+/*
+ * The page canvas belongs to the theme, not to the UA. Without this, routes
+ * whose shell does not paint `bg-background` (the docs layout) keep a white
+ * canvas while `.dark` swaps every text token to a light value - light text
+ * on white in dark-preference browsers.
+ */
+@layer base {
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+/* Set pre-paint when a consent choice is already stored, so the SSR banner
+   never flashes for returning visitors. */
+html.consent-decided [data-cookie-banner] {
+  display: none;
 }
