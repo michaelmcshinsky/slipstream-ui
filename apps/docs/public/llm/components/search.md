@@ -20,6 +20,7 @@ A native <select> cannot filter and a free text input cannot constrain. Search c
 | placeholder | `string` | `'Search…'` | no | Input placeholder while no query is typed. |
 | emptyText | `string` | `'No matching results'` | no | Shown when no option matches the query. |
 | disabled | `boolean` | `false` | no | Disables the input and the dropdown. |
+| value | `string | null` | — | no | Controlled selected value; display follows it (null clears). |
 
 ## Examples
 

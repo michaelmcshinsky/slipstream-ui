@@ -10,14 +10,18 @@
       "type": "SearchOption[]",
       "required": true,
       "description": "The full option set; filtered client-side as the user types.",
-      "examples": ["[{ value: 'react', label: 'React', keywords: 'ui framework' }]"]
+      "examples": [
+        "[{ value: 'react', label: 'React', keywords: 'ui framework' }]"
+      ]
     },
     {
       "name": "defaultValue",
       "type": "string",
       "required": false,
       "description": "Initially selected option value (display starts on its label).",
-      "examples": ["react"]
+      "examples": [
+        "react"
+      ]
     },
     {
       "name": "onValueChange",
@@ -31,7 +35,9 @@
       "required": false,
       "description": "Input placeholder while no query is typed.",
       "defaultValue": "'Search…'",
-      "examples": ["'Search components…'"]
+      "examples": [
+        "'Search components…'"
+      ]
     },
     {
       "name": "emptyText",
@@ -39,7 +45,9 @@
       "required": false,
       "description": "Shown when no option matches the query.",
       "defaultValue": "'No matching results'",
-      "examples": ["'No people found'"]
+      "examples": [
+        "'No people found'"
+      ]
     },
     {
       "name": "disabled",
@@ -47,7 +55,16 @@
       "required": false,
       "description": "Disables the input and the dropdown.",
       "defaultValue": "false",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "value",
+      "type": "string | null",
+      "required": false,
+      "description": "Controlled selected value; display follows it (null clears)."
     }
   ],
   "examples": [
@@ -104,9 +121,19 @@
   "contentGuidelines": [
     {
       "contentType": "Option labels",
-      "guidelines": ["Show the primary identifying text", "Use description for role/context", "Keep labels unique or disambiguate with description"],
-      "goodExamples": ["Ada Lovelace — Design", "prod-eu-west-1 (Frankfurt)"],
-      "badExamples": ["Ada", "test"]
+      "guidelines": [
+        "Show the primary identifying text",
+        "Use description for role/context",
+        "Keep labels unique or disambiguate with description"
+      ],
+      "goodExamples": [
+        "Ada Lovelace — Design",
+        "prod-eu-west-1 (Frankfurt)"
+      ],
+      "badExamples": [
+        "Ada",
+        "test"
+      ]
     }
   ],
   "compositionRules": [
@@ -120,7 +147,12 @@
       "relationship": "Choose Search for constrained picks; Autocomplete when free-form values must stay allowed"
     }
   ],
-  "relatedComponents": ["Autocomplete", "Select", "FormField", "CommandPalette"],
+  "relatedComponents": [
+    "Autocomplete",
+    "Select",
+    "FormField",
+    "CommandPalette"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

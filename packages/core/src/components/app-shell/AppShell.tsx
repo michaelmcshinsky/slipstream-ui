@@ -12,6 +12,8 @@ export type SidebarItem = {
   badge?: React.ReactNode;
   /** Force the active state (otherwise activeHref is compared). */
   active?: boolean;
+  /** Nested items — renders a collapsible group with aria-expanded. */
+  children?: SidebarItem[];
 };
 
 export type SidebarSection = {
@@ -31,12 +33,32 @@ export type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> &
   linkComponent?: React.ElementType;
   /** Accessible name of the nav landmark. Default 'Primary'. */
   label?: string;
+  /** Show the collapse/expand control (icon-only rail when collapsed). */
+  collapsible?: boolean;
+  /** Initial collapsed state when uncontrolled. */
+  defaultCollapsed?: boolean;
+  /** Controlled collapsed state. */
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  /** Groups open initially (in addition to groups containing the active route). */
+  defaultExpanded?: string[];
 };
 
+function containsActive(item: SidebarItem, activeHref: string | undefined): boolean {
+  if (!activeHref) return false;
+  if (item.href === activeHref) return true;
+  return (item.children ?? []).some((child) => containsActive(child, activeHref));
+}
+
+const itemClass =
+  'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+const activeClass = 'bg-primary/10 font-medium text-primary';
+const idleClass = 'text-muted-foreground hover:bg-accent hover:text-accent-foreground';
+
 /**
- * Sectioned navigation rail. Purely presentational: you pass the active
- * route and a router link component, so it stays stateless and works with
- * any routing library.
+ * Sectioned navigation rail — now with nested groups and a collapsible
+ * icon-only mode. Purely presentational: you pass the active route and a
+ * router link component, so it stays stateless about routing.
  */
 export function Sidebar({
   sections,
@@ -45,50 +67,117 @@ export function Sidebar({
   activeHref,
   linkComponent,
   label = 'Primary',
+  collapsible = false,
+  defaultCollapsed = false,
+  collapsed: collapsedProp,
+  onCollapsedChange,
+  defaultExpanded = [],
   className,
   ...props
 }: SidebarProps) {
   const Link = linkComponent ?? 'a';
+  const [internalCollapsed, setInternalCollapsed] = React.useState(defaultCollapsed);
+  const collapsed = collapsedProp ?? internalCollapsed;
+  const [openGroups, setOpenGroups] = React.useState<string[]>(defaultExpanded);
+
+  const isOpen = (item: SidebarItem) =>
+    collapsed ? false : openGroups.includes(item.href) || containsActive(item, activeHref);
+
+  const toggleGroup = (href: string) => {
+    setOpenGroups((current) =>
+      current.includes(href) ? current.filter((entry) => entry !== href) : [...current, href]
+    );
+  };
+
+  const toggleCollapsed = () => {
+    const next = !collapsed;
+    if (collapsedProp === undefined) setInternalCollapsed(next);
+    onCollapsedChange?.(next);
+  };
+
+  const renderItems = (items: SidebarItem[], depth = 0): React.ReactNode => (
+    <ul className={cn('space-y-0.5', depth > 0 && 'ml-3.5 border-l border-border pl-2.5')}>
+      {items.map((item) => {
+        const active = item.active ?? containsActive(item, activeHref);
+        const hasChildren = Boolean(item.children?.length);
+        const expanded = hasChildren && isOpen(item);
+        const panelId = `sidebar-group-${item.href.replace(/[^a-z0-9-]/gi, '-')}`;
+
+        if (hasChildren) {
+          return (
+            <li key={item.href}>
+              <button
+                type="button"
+                aria-expanded={expanded}
+                aria-controls={expanded ? panelId : undefined}
+                onClick={() => toggleGroup(item.href)}
+                title={collapsed ? item.label : undefined}
+                className={cn(itemClass, active ? activeClass : idleClass, collapsed && 'justify-center px-0')}
+              >
+                {item.icon && <span className="shrink-0 [&_svg]:size-4">{item.icon}</span>}
+                <span className={cn('min-w-0 flex-1 truncate text-left', collapsed && 'sr-only')}>{item.label}</span>
+                {!collapsed && (
+                  <span aria-hidden="true" className={cn('shrink-0 text-xs transition-transform', expanded && 'rotate-90')}>
+                    ›
+                  </span>
+                )}
+              </button>
+              {expanded && <div id={panelId}>{renderItems(item.children!, depth + 1)}</div>}
+            </li>
+          );
+        }
+
+        return (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              aria-current={active ? 'page' : undefined}
+              title={collapsed ? item.label : undefined}
+              className={cn(itemClass, active ? activeClass : idleClass, collapsed && 'justify-center px-0')}
+            >
+              {item.icon && <span className="shrink-0 [&_svg]:size-4">{item.icon}</span>}
+              <span className={cn('min-w-0 flex-1 truncate', collapsed && 'sr-only')}>{item.label}</span>
+              {!collapsed && item.badge && <span className="shrink-0 text-xs">{item.badge}</span>}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 
   return (
-    <div className={cn('flex h-full min-h-0 flex-col gap-6 p-4', className)} {...props}>
-      {heading && <div className="px-2">{heading}</div>}
-      <nav aria-label={label} className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto">
+    <div
+      data-collapsed={collapsed || undefined}
+      className={cn('flex h-full min-h-0 flex-col gap-5 p-3', className)}
+      {...props}
+    >
+      {heading && <div className={cn('px-1', collapsed && 'sr-only')}>{heading}</div>}
+      <nav aria-label={label} className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
         {sections.map((section, index) => (
           <div key={section.title ?? `section-${index}`}>
             {section.title && (
-              <p className="mb-1.5 px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              <p className={cn('mb-1.5 px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground', collapsed && 'sr-only')}>
                 {section.title}
               </p>
             )}
-            <ul className="space-y-0.5">
-              {section.items.map((item) => {
-                const active = item.active ?? (activeHref !== undefined && item.href === activeHref);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? 'page' : undefined}
-                      className={cn(
-                        'flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors',
-                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                        active
-                          ? 'bg-primary/10 font-medium text-primary'
-                          : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                      )}
-                    >
-                      {item.icon && <span className="shrink-0 [&_svg]:size-4">{item.icon}</span>}
-                      <span className="min-w-0 flex-1 truncate">{item.label}</span>
-                      {item.badge && <span className="shrink-0 text-xs">{item.badge}</span>}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            {renderItems(section.items)}
           </div>
         ))}
       </nav>
-      {footer && <div className="border-t border-border pt-4">{footer}</div>}
+      {collapsible && (
+        <button
+          type="button"
+          onClick={toggleCollapsed}
+          aria-expanded={!collapsed}
+          aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'}
+          className={cn(itemClass, idleClass, 'justify-center')}
+        >
+          <span aria-hidden="true" className={cn('transition-transform', collapsed && 'rotate-180')}>
+            «
+          </span>
+        </button>
+      )}
+      {footer && !collapsed && <div className="border-t border-border pt-3">{footer}</div>}
     </div>
   );
 }
@@ -102,18 +191,34 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
   hideMobileMenu?: boolean;
   /** Tailwind width class for the desktop rail. Default 'w-64'. */
   sidebarWidth?: string;
+  /** Breakpoint at which the rail switches to the mobile drawer. Default 'md'. */
+  mobileBreakpoint?: 'sm' | 'md' | 'lg';
+};
+
+const hideAt: Record<NonNullable<AppShellProps['mobileBreakpoint']>, string> = {
+  sm: 'hidden sm:block',
+  md: 'hidden md:block',
+  lg: 'hidden lg:block',
+};
+
+const showBelow: Record<NonNullable<AppShellProps['mobileBreakpoint']>, string> = {
+  sm: 'sm:hidden',
+  md: 'md:hidden',
+  lg: 'lg:hidden',
 };
 
 /**
  * Application frame: fixed-height sidebar, sticky header, scrolling main.
  * On small screens the sidebar becomes a left Drawer opened by a burger
- * button, so pages never need their own responsive nav wiring.
+ * button, so pages never need their own responsive nav wiring. A collapsed
+ * Sidebar (data-collapsed) shrinks the desktop rail automatically.
  */
 export function AppShell({
   sidebar,
   header,
   hideMobileMenu = false,
   sidebarWidth = 'w-64',
+  mobileBreakpoint = 'md',
   className,
   children,
   ...props
@@ -123,7 +228,13 @@ export function AppShell({
   return (
     <div className={cn('flex min-h-screen bg-background text-foreground', className)} {...props}>
       {sidebar && (
-        <aside className={cn('hidden shrink-0 border-r border-border md:block', sidebarWidth)}>
+        <aside
+          className={cn(
+            'shrink-0 border-r border-border has-[[data-collapsed]]:w-16',
+            hideAt[mobileBreakpoint],
+            sidebarWidth
+          )}
+        >
           {sidebar}
         </aside>
       )}
@@ -135,7 +246,7 @@ export function AppShell({
                 type="button"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open navigation"
-                className="rounded-md border border-border p-2 text-muted-foreground hover:bg-muted md:hidden"
+                className={cn('rounded-md border border-border p-2 text-muted-foreground hover:bg-muted', showBelow[mobileBreakpoint])}
               >
                 <span aria-hidden="true">☰</span>
               </button>
@@ -146,14 +257,7 @@ export function AppShell({
         <main className="min-w-0 flex-1">{children}</main>
       </div>
       {sidebar && (
-        <Drawer
-          open={mobileOpen}
-          onOpenChange={setMobileOpen}
-          title="Navigation"
-          side="left"
-          size="sm"
-          animate
-        >
+        <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title="Navigation" side="left" size="sm" animate>
           {sidebar}
         </Drawer>
       )}

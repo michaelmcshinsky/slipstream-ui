@@ -106,6 +106,13 @@
         "button",
         "submit"
       ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a spinner, disables the button and sets aria-busy."
     }
   ],
   "examples": [

@@ -22,7 +22,13 @@
       "type": "Command[]",
       "required": true,
       "description": "Available commands: { id, label, section?, keywords?, shortcut? }",
-      "examples": [{ "id": "go-docs", "label": "Open documentation", "section": "Navigation" }]
+      "examples": [
+        {
+          "id": "go-docs",
+          "label": "Open documentation",
+          "section": "Navigation"
+        }
+      ]
     },
     {
       "name": "onSelect",
@@ -36,6 +42,31 @@
       "defaultValue": "Type a command…",
       "required": false,
       "description": "Input placeholder text"
+    },
+    {
+      "name": "loadCommands",
+      "type": "(query: string) => Promise<Command[]>",
+      "required": false,
+      "description": "Async command source; debounced and stale-response guarded."
+    },
+    {
+      "name": "debounceMs",
+      "type": "number",
+      "required": false,
+      "defaultValue": "200",
+      "description": "Debounce for loadCommands in ms."
+    },
+    {
+      "name": "renderCommand",
+      "type": "(command, state: { active: boolean }) => ReactNode",
+      "required": false,
+      "description": "Custom row renderer (icons, type badges)."
+    },
+    {
+      "name": "loadingText",
+      "type": "string",
+      "required": false,
+      "description": "Shown while async commands load."
     }
   ],
   "examples": [
@@ -71,7 +102,10 @@
       "relationship": "CommandPalette switches modes/actions; PromptInput captures free-form chat text."
     }
   ],
-  "relatedComponents": ["PromptInput", "Dialog"],
+  "relatedComponents": [
+    "PromptInput",
+    "Dialog"
+  ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1",

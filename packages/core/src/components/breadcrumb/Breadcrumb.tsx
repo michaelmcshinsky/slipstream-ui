@@ -19,6 +19,8 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
    * (e.g. via a router, state machine, or analytics wrapper).
    */
   onItemClick?: (item: BreadcrumbItem, index: number) => void;
+  /** Custom link element for routers (Next Link, react-router Link). */
+  linkComponent?: React.ElementType;
 };
 
 /**
@@ -27,7 +29,9 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
  * announce the navigation landmark and current location.
  */
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, separator = '/', onItemClick, className, ...props }, ref) => (
+  ({ items, separator = '/', onItemClick, linkComponent, className, ...props }, ref) => {
+    const LinkEl = linkComponent ?? 'a';
+    return (
     <nav
       ref={ref}
       aria-label="Breadcrumb"
@@ -45,12 +49,12 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                 </span>
               )}
               {item.href && !isLast ? (
-                <a
+                <LinkEl
                   href={item.href}
                   className="transition-colors hover:text-foreground"
                   onClick={
                     onItemClick
-                      ? (event) => {
+                      ? (event: React.MouseEvent<HTMLAnchorElement>) => {
                           event.preventDefault();
                           onItemClick(item, index);
                         }
@@ -58,7 +62,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                   }
                 >
                   {item.label}
-                </a>
+                </LinkEl>
               ) : (
                 <span
                   aria-current={isLast ? 'page' : undefined}
@@ -72,7 +76,8 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         })}
       </ol>
     </nav>
-  )
+    );
+  }
 );
 Breadcrumb.displayName = 'Breadcrumb';
 

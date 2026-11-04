@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { AppShell, Sidebar, type SidebarSection } from './AppShell';
 
 const sections: SidebarSection[] = [
@@ -96,5 +96,53 @@ describe('AppShell', () => {
     );
     expect(screen.queryByRole('button', { name: 'Open navigation' })).not.toBeInTheDocument();
     expect(screen.getByText('Only header')).toBeInTheDocument();
+  });
+});
+
+
+describe('Sidebar nesting and collapse', () => {
+  const nested: SidebarSection[] = [
+    {
+      items: [
+        {
+          href: '/classes',
+          label: 'Classes',
+          children: [
+            { href: '/classes/today', label: 'Today' },
+            { href: '/classes/week', label: 'This week' },
+          ],
+        },
+        { href: '/settings', label: 'Settings' },
+      ],
+    },
+  ];
+
+  it('renders nested groups with aria-expanded and opens the active group', () => {
+    render(<Sidebar sections={nested} activeHref="/classes/today" />);
+    const group = screen.getByRole('button', { name: 'Classes' });
+    expect(group).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'This week' })).toBeInTheDocument();
+  });
+
+  it('toggles nested groups', async () => {
+    const user = userEvent.setup();
+    render(<Sidebar sections={nested} activeHref="/settings" />);
+    const group = screen.getByRole('button', { name: 'Classes' });
+    expect(group).toHaveAttribute('aria-expanded', 'false');
+    await user.click(group);
+    expect(group).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'Today' })).toBeInTheDocument();
+  });
+
+  it('collapses to an icon rail and reports the change', async () => {
+    const user = userEvent.setup();
+    const onCollapsedChange = vi.fn();
+    const { container } = render(
+      <Sidebar sections={nested} collapsible onCollapsedChange={onCollapsedChange} />
+    );
+    await user.click(screen.getByRole('button', { name: 'Collapse navigation' }));
+    expect(onCollapsedChange).toHaveBeenCalledWith(true);
+    expect(container.firstChild).toHaveAttribute('data-collapsed', 'true');
+    expect(screen.getByRole('button', { name: 'Expand navigation' })).toBeInTheDocument();
   });
 });

@@ -130,3 +130,34 @@ describe('Button outline color variants', () => {
     expect(link).toHaveClass('border-success/50', 'text-success');
   });
 });
+
+
+describe('Button aliases and loading', () => {
+  it('accepts primary/danger aliases', () => {
+    render(
+      <>
+        <Button variant="primary">Go</Button>
+        <Button variant="danger">Delete</Button>
+      </>
+    );
+    expect(screen.getByRole('button', { name: 'Go' })).toHaveClass('bg-primary');
+    expect(screen.getByRole('button', { name: 'Delete' })).toHaveClass('bg-destructive');
+  });
+
+  it('loading disables, sets aria-busy and announces', () => {
+    render(<Button loading>Save</Button>);
+    const button = screen.getByRole('button', { name: /Save/ });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(screen.getByText('Loading')).toHaveClass('sr-only');
+  });
+
+  it('asChild ignores loading chrome', () => {
+    render(
+      <Button asChild loading>
+        <a href="/x">Link</a>
+      </Button>
+    );
+    expect(screen.getByRole('link', { name: 'Link' })).not.toHaveAttribute('aria-busy');
+  });
+});

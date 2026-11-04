@@ -34,6 +34,13 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
+| selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
+| onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |
+| isRowSelectable | `(row: T) => boolean` | — | no | Disable selection for individual rows. |
+| bulkActions | `ReactNode` | — | no | Rendered above the table while rows are selected. |
+| manualPagination | `boolean` | `false` | no | Server pagination: render data as-is, do not slice or sort. |
+| total | `number` | — | no | Total row count across pages (summary + derived page count). |
+| pageCount | `number` | — | no | Total page count (manual pagination). |
 
 ## Examples
 

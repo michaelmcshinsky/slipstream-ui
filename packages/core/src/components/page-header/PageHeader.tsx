@@ -10,6 +10,19 @@ export type PageHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   actions?: React.ReactNode;
   /** Small slot under the title row (tabs, filters). */
   children?: React.ReactNode;
+  /** Eyebrow/kicker above the title (category, date, overline). */
+  eyebrow?: React.ReactNode;
+  /** Heading scale — 'hero' is for marketing landing pages. */
+  size?: 'sm' | 'md' | 'lg' | 'hero';
+  /** Text alignment; hero marketing pages often center. */
+  align?: 'left' | 'center';
+};
+
+const sizeClasses: Record<NonNullable<PageHeaderProps['size']>, string> = {
+  sm: 'text-xl',
+  md: 'text-2xl',
+  lg: 'text-3xl',
+  hero: 'text-4xl sm:text-5xl lg:text-[3.4rem] lg:leading-[1.1]',
 };
 
 /**
@@ -18,16 +31,19 @@ export type PageHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
  * and heading hierarchy.
  */
 export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(function PageHeader(
-  { title, description, breadcrumbs, actions, className, children, ...props },
+  { title, description, breadcrumbs, actions, eyebrow, size = 'md', align = 'left', className, children, ...props },
   ref
 ) {
   return (
-    <div ref={ref} className={cn('flex flex-col gap-2', className)} {...props}>
+    <div ref={ref} className={cn('flex flex-col gap-2', align === 'center' && 'items-center text-center', className)} {...props}>
       {breadcrumbs && <div className="text-sm text-muted-foreground">{breadcrumbs}</div>}
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-          {description && <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{description}</p>}
+      {eyebrow && (
+        <p className="text-xs font-medium uppercase tracking-wide text-primary">{eyebrow}</p>
+      )}
+      <div className={cn('flex w-full flex-wrap items-start justify-between gap-3', align === 'center' && 'justify-center')}>
+        <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>
+          <h1 className={cn('font-semibold tracking-tight', sizeClasses[size])}>{title}</h1>
+          {description && <p className="mt-2 max-w-2xl text-base text-muted-foreground">{description}</p>}
         </div>
         {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
       </div>

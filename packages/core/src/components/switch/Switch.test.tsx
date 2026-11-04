@@ -64,3 +64,13 @@ describe('Switch', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('Switch form submission', () => {
+  it('renders a hidden input while checked when name is provided', () => {
+    const { container, rerender } = render(<Switch name="notify" aria-label="Notify" defaultChecked />);
+    expect(container.querySelector('input[type="hidden"][name="notify"]')).toHaveValue('on');
+    rerender(<Switch name="notify" aria-label="Notify" checked={false} onCheckedChange={() => undefined} />);
+    expect(container.querySelector('input[type="hidden"][name="notify"]')).toBeNull();
+  });
+});

@@ -30,6 +30,8 @@ export type SelectProps = Omit<
   value?: string | string[];
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
+  /** Alias for onChange — the value-based callback used by most codebases. */
+  onValueChange?: (value: string | string[]) => void;
 };
 
 /**
@@ -39,7 +41,7 @@ export type SelectProps = Omit<
  * placeholder rows and native multi-select (string[] contract).
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { options, groups, label, placeholder, multiple = false, value, defaultValue, onChange, id, className, ...props },
+  { options, groups, label, placeholder, multiple = false, value, defaultValue, onChange, onValueChange, id, className, ...props },
   ref,
 ) {
   const generatedId = React.useId();
@@ -69,17 +71,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
           multiple && 'min-h-32',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
           'disabled:cursor-not-allowed disabled:opacity-50',
+          'aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20',
           className
         )}
         value={value as string | string[] | undefined}
         defaultValue={defaultValue as string | string[] | undefined}
         onChange={(event) => {
-          if (!onChange) return;
-          if (multiple) {
-            onChange(Array.from(event.target.selectedOptions, (option) => option.value));
-            return;
-          }
-          onChange(event.target.value);
+          const next = multiple
+            ? Array.from(event.target.selectedOptions, (option) => option.value)
+            : event.target.value;
+          onChange?.(next);
+          onValueChange?.(next);
         }}
         {...props}
       >

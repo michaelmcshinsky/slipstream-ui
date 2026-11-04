@@ -107,3 +107,19 @@ describe('Breadcrumb onItemClick', () => {
   });
 });
 
+
+
+describe('Breadcrumb linkComponent', () => {
+  it('renders items with a custom router link', () => {
+    function RouterLink({ href, children, ...props }: React.ComponentProps<'a'>) {
+      return (
+        <a data-router href={href} {...props}>
+          {children}
+        </a>
+      );
+    }
+    render(<Breadcrumb linkComponent={RouterLink} items={[{ label: 'Home', href: '/' }, { label: 'Docs' }]} />);
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('data-router');
+    expect(screen.getByText('Docs')).toHaveAttribute('aria-current', 'page');
+  });
+});

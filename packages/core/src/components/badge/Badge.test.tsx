@@ -72,3 +72,24 @@ describe('Badge asChild', () => {
     expect(link).toHaveClass('inline-flex', 'bg-primary');
   });
 });
+
+
+describe('Badge semantic and alias variants', () => {
+  it('renders success, warning, info, primary and danger surfaces', () => {
+    const { container } = render(
+      <>
+        <Badge variant="success">ok</Badge>
+        <Badge variant="warning">warn</Badge>
+        <Badge variant="info">info</Badge>
+        <Badge variant="primary">primary</Badge>
+        <Badge variant="danger">danger</Badge>
+      </>
+    );
+    expect(screen.getByText('ok')).toHaveClass('bg-success');
+    expect(screen.getByText('warn')).toHaveClass('bg-warning');
+    expect(screen.getByText('info')).toHaveClass('bg-info');
+    expect(screen.getByText('primary')).toHaveClass('bg-primary');
+    expect(screen.getByText('danger')).toHaveClass('bg-destructive');
+    expect(container.querySelectorAll('div')).toHaveLength(5);
+  });
+});

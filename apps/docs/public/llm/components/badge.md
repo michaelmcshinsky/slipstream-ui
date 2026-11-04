@@ -14,10 +14,10 @@ The Badge component is used to display small pieces of information like status i
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'secondary' | 'destructive' | 'outline'` | `default` | no | Visual style variant of the badge |
+| variant | `'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'success' | 'warning' | 'info'` | `default` | no | Semantic surface; primary/danger are aliases for default/destructive. |
 | children | `ReactNode` | — | no | Content to display inside the badge |
 | className | `string` | — | no | Additional CSS classes to apply |
-| asChild | `boolean` | `false` | no | Render the child element (e.g. a router Link) with badge styling. |
+| asChild | `boolean` | `false` | no | Render the child element with badge styling. |
 
 ## Examples
 

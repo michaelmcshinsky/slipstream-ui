@@ -8,7 +8,7 @@ The AI-first React component library — your AI already knows how to use it.
 [![Known vulnerabilities](https://img.shields.io/badge/audit-0%20known%20vulnerabilities-brightgreen.svg)](https://github.com/michaelmcshinsky/slipstream-ui/security/dependabot)
 
 <!-- generated:stats:start -->
-**73 components** · 73 machine-readable specs · MCP `validate_usage` · MIT
+**75 components** · 75 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
 [Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)

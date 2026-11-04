@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 import { DataTable, type DataTableColumn } from './DataTable';
@@ -140,5 +141,96 @@ describe('DataTable loading and zebra', () => {
       />
     );
     expect(screen.getByText('updown')).toBeInTheDocument();
+  });
+});
+
+
+describe('DataTable selection', () => {
+  const rows: Row[] = [
+    { id: '1', name: 'Alpha', messages: 1 },
+    { id: '2', name: 'Beta', messages: 2 },
+    { id: '3', name: 'Gamma', messages: 3 },
+  ];
+  const cols: DataTableColumn<Row>[] = [
+    { key: 'name', header: 'Name' },
+    { key: 'messages', header: 'Messages' },
+  ];
+
+  it('renders selection checkboxes and select-all', async () => {
+    const user = userEvent.setup();
+    const onSelectedRowIdsChange = vi.fn();
+    render(
+      <DataTable
+        columns={cols}
+        data={rows}
+        rowId={(row) => row.id}
+        selectedRowIds={[]}
+        onSelectedRowIdsChange={onSelectedRowIdsChange}
+        caption="Runs"
+      />
+    );
+    expect(screen.getByRole('checkbox', { name: 'Select all rows' })).toBeInTheDocument();
+    await user.click(screen.getByRole('checkbox', { name: 'Select row 2' }));
+    expect(onSelectedRowIdsChange).toHaveBeenCalledWith(['2']);
+  });
+
+  it('selects all visible rows and shows bulk actions', async () => {
+    const user = userEvent.setup();
+    const onSelectedRowIdsChange = vi.fn();
+    render(
+      <DataTable
+        columns={cols}
+        data={rows}
+        rowId={(row) => row.id}
+        selectedRowIds={['2']}
+        onSelectedRowIdsChange={onSelectedRowIdsChange}
+        bulkActions={<button type="button">Archive</button>}
+        caption="Runs"
+      />
+    );
+    expect(screen.getByText('1 selected')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Archive' })).toBeInTheDocument();
+    await user.click(screen.getByRole('checkbox', { name: 'Select all rows' }));
+    expect(onSelectedRowIdsChange).toHaveBeenCalledWith(['2', '1', '3']);
+  });
+
+  it('respects isRowSelectable', () => {
+    render(
+      <DataTable
+        columns={cols}
+        data={rows}
+        rowId={(row) => row.id}
+        selectedRowIds={[]}
+        onSelectedRowIdsChange={() => undefined}
+        isRowSelectable={(row) => row.id !== '2'}
+        caption="Runs"
+      />
+    );
+    expect(screen.getByRole('checkbox', { name: 'Select row 2' })).toBeDisabled();
+  });
+});
+
+describe('DataTable manual pagination', () => {
+  const rows: Row[] = [
+    { id: '1', name: 'Alpha', messages: 1 },
+    { id: '2', name: 'Beta', messages: 2 },
+  ];
+  const cols: DataTableColumn<Row>[] = [{ key: 'name', header: 'Name' }];
+
+  it('renders the current page as-is and uses total for the summary', () => {
+    render(
+      <DataTable
+        columns={cols}
+        data={rows}
+        rowId={(row) => row.id}
+        pageSize={25}
+        page={2}
+        total={312}
+        manualPagination
+        caption="Runs"
+      />
+    );
+    expect(document.body.textContent).toContain('26–50 of 312');
+    expect(screen.getAllByRole('row')).toHaveLength(3); // header + 2
   });
 });

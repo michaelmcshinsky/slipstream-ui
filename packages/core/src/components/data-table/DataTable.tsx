@@ -4,6 +4,7 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Pagination } from '../pagination/Pagination';
 import { Skeleton } from '../skeleton/Skeleton';
+import { Checkbox } from '../checkbox/Checkbox';
 
 export type DataTableColumn<T> = {
   /** Unique column key; also the value passed to onSortChange when sortable. */
@@ -51,6 +52,20 @@ export type DataTableProps<T> = {
   pageSize?: number;
   /** Controlled page (1-based) when pageSize is set. */
   page?: number;
+  /** Total page count (manual/server pagination). */
+  pageCount?: number;
+  /** Total row count across all pages (summary + derived page count). */
+  total?: number;
+  /** Server pagination: render `data` as-is; don't slice or sort client-side. */
+  manualPagination?: boolean;
+  /** Selected row ids (controlled). Enables the leading selection column. */
+  selectedRowIds?: string[];
+  /** Fires with the full selection after a row or select-all toggle. */
+  onSelectedRowIdsChange?: (ids: string[]) => void;
+  /** Disable selection for individual rows. */
+  isRowSelectable?: (row: T) => boolean;
+  /** Rendered above the table while at least one row is selected. */
+  bulkActions?: React.ReactNode;
   /** Fires on page change (controlled or not). */
   onPageChange?: (page: number) => void;
   /** Click/keyboard activation on a row. */
@@ -103,6 +118,13 @@ export function DataTable<T>({
   pageSize,
   page,
   onPageChange,
+  pageCount: pageCountProp,
+  total,
+  manualPagination = false,
+  selectedRowIds,
+  onSelectedRowIdsChange,
+  isRowSelectable,
+  bulkActions,
   onRowClick,
   emptyMessage = 'No results.',
   stickyHeader,
@@ -154,11 +176,41 @@ export function DataTable<T>({
     return copy;
   }, [data, sort, columns]);
 
-  const pageCount = pageSize ? Math.max(1, Math.ceil(sorted.length / pageSize)) : 0;
+  const effectiveTotal = total ?? sorted.length;
+  const computedPageCount = pageSize ? Math.max(1, Math.ceil(effectiveTotal / pageSize)) : 0;
+  const pageCount = pageCountProp ?? computedPageCount;
   const safePage = Math.min(currentPage, pageCount || 1);
-  const visible = pageSize
-    ? sorted.slice((safePage - 1) * pageSize, safePage * pageSize)
-    : sorted;
+  const visible = manualPagination
+    ? data
+    : pageSize
+      ? sorted.slice((safePage - 1) * pageSize, safePage * pageSize)
+      : sorted;
+
+  // ----- Row selection (controlled or uncontrolled) -----
+  const [internalSelected, setInternalSelected] = React.useState<string[]>([]);
+  const selectionEnabled = selectedRowIds !== undefined || onSelectedRowIdsChange !== undefined;
+  const selectedIds = selectedRowIds ?? internalSelected;
+  const selectedSet = React.useMemo(() => new Set(selectedIds), [selectedIds]);
+  const selectableVisible = isRowSelectable ? visible.filter(isRowSelectable) : visible;
+  const allSelected = selectableVisible.length > 0 && selectableVisible.every((row) => selectedSet.has(rowId(row)));
+  const someSelected = selectableVisible.some((row) => selectedSet.has(rowId(row)));
+
+  const commitSelection = (next: string[]) => {
+    if (selectedRowIds === undefined) setInternalSelected(next);
+    onSelectedRowIdsChange?.(next);
+  };
+  const toggleAll = () => {
+    if (allSelected) {
+      const visibleIds = new Set(selectableVisible.map((row) => rowId(row)));
+      commitSelection(selectedIds.filter((id) => !visibleIds.has(id)));
+      return;
+    }
+    const merged = new Set([...selectedIds, ...selectableVisible.map((row) => rowId(row))]);
+    commitSelection([...merged]);
+  };
+  const toggleRow = (id: string) => {
+    commitSelection(selectedSet.has(id) ? selectedIds.filter((entry) => entry !== id) : [...selectedIds, id]);
+  };
 
   const cellValue = (row: T, column: DataTableColumn<T>, index: number): React.ReactNode => {
     if (column.cell) return column.cell(row, index);
@@ -173,6 +225,12 @@ export function DataTable<T>({
 
   return (
     <div className={cn('w-full space-y-3', className)}>
+      {selectionEnabled && selectedIds.length > 0 && bulkActions && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm">
+          <span className="font-medium">{selectedIds.length} selected</span>
+          <div className="flex flex-wrap items-center gap-2">{bulkActions}</div>
+        </div>
+      )}
       <div className="w-full overflow-x-auto rounded-lg border border-border">
         <table
           className={cn('w-full caption-bottom', density === 'compact' ? 'text-xs' : 'text-sm')}
@@ -180,6 +238,18 @@ export function DataTable<T>({
           {caption && <caption className="px-3 py-2 text-left text-xs text-muted-foreground">{caption}</caption>}
           <thead className={cn('bg-muted/50', stickyHeader && 'sticky top-0 z-10 bg-background')}>
             <tr>
+              {selectionEnabled && (
+                <th scope="col" className="w-10 border-b border-border px-3 py-2">
+                  <Checkbox
+                    aria-label="Select all rows"
+                    checked={allSelected}
+                    ref={(node) => {
+                      if (node) node.indeterminate = someSelected && !allSelected;
+                    }}
+                    onCheckedChange={toggleAll}
+                  />
+                </th>
+              )}
               {columns.map((column) => {
                 const isSorted = sort?.key === column.key;
                 const ariaSort = !column.sortable
@@ -231,6 +301,11 @@ export function DataTable<T>({
                 { length: (loadingRows ?? pageSize ?? Math.min(visible.length, 5)) || 5 },
                 (_, skeletonRow) => (
                   <tr key={`skeleton-${skeletonRow}`}>
+                    {selectionEnabled && (
+                      <td className={cn('px-3 py-2', density === 'compact' && 'px-2 py-1')}>
+                        <Skeleton className="h-4 w-4" />
+                      </td>
+                    )}
                     {columns.map((column) => (
                       <td key={column.key} className={cn('px-3 py-2', density === 'compact' && 'px-2 py-1')}>
                         {/* Height tracks density so skeleton rows match real row
@@ -244,7 +319,7 @@ export function DataTable<T>({
             ) : visible.length === 0 ? (
               <tr>
                 <td
-                  colSpan={columns.length}
+                  colSpan={columns.length + (selectionEnabled ? 1 : 0)}
                   className="px-3 py-8 text-center text-sm text-muted-foreground"
                 >
                   {emptyMessage}
@@ -273,6 +348,19 @@ export function DataTable<T>({
                       'cursor-pointer transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'
                   )}
                 >
+                  {selectionEnabled && (
+                    <td
+                      className={cn('align-middle', density === 'compact' ? 'px-2 py-1' : 'px-3 py-2')}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <Checkbox
+                        aria-label={`Select row ${rowId(row)}`}
+                        checked={selectedSet.has(rowId(row))}
+                        disabled={isRowSelectable ? !isRowSelectable(row) : undefined}
+                        onCheckedChange={() => toggleRow(rowId(row))}
+                      />
+                    </td>
+                  )}
                   {columns.map((column) => (
                     <td
                       key={column.key}
@@ -308,8 +396,8 @@ export function DataTable<T>({
             className="min-h-8 leading-none text-xs text-muted-foreground"
             aria-live="polite"
           >
-            {(safePage - 1) * pageSize + 1}–{Math.min(safePage * pageSize, sorted.length)} of{' '}
-            {sorted.length}
+            {(safePage - 1) * pageSize + 1}–{Math.min(safePage * pageSize, effectiveTotal)} of{' '}
+            {effectiveTotal}
           </p>
           <Pagination page={safePage} pageCount={pageCount} onPageChange={setPage} />
         </div>

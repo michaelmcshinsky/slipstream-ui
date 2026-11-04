@@ -59,6 +59,12 @@
       "required": false,
       "defaultValue": "false",
       "description": "Native multi-select; value/defaultValue/onChange switch to string[]."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string | string[]) => void",
+      "required": false,
+      "description": "Alias for onChange — value-based callback."
     }
   ],
   "examples": [

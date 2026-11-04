@@ -29,6 +29,12 @@
       "type": "(item: BreadcrumbItem, index: number) => void",
       "required": false,
       "description": "Receives every link click with default navigation prevented — route programmatically."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers (preserves prefetch/modified clicks)."
     }
   ],
   "examples": [

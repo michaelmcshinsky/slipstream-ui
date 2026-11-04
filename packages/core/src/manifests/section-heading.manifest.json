@@ -1,0 +1,108 @@
+{
+  "id": "section-heading",
+  "name": "SectionHeading",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "section-heading",
+  "exportName": "SectionHeading",
+  "description": "Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.",
+  "designIntent": "Marketing and content pages repeat the same eyebrow/title/description/actions cluster for every section. SectionHeading standardizes it without claiming the page h1 (that is PageHeader's job).",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Section title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting copy."
+    },
+    {
+      "name": "eyebrow",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Kicker above the title."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Right-aligned actions."
+    },
+    {
+      "name": "level",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "2",
+      "description": "Heading level rendered for the title."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "description": "Text and action alignment."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Title scale."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Marketing section",
+      "code": "<SectionHeading\n  eyebrow=\"Components\"\n  title=\"Built for agents\"\n  description=\"Every component ships a spec.\"\n  actions={<Link href=\"/docs\">All docs</Link>}\n/>",
+      "description": "Eyebrow + title + copy + action link."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for the page title",
+      "explanation": "PageHeader owns the single h1; SectionHeading defaults to h2.",
+      "example": "// Avoid two h1s\n<SectionHeading level={1} />\n\n// Prefer\n<PageHeader title=\"Page\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Configurable heading level",
+      "implementation": "Renders h2/h3/h4 via the level prop",
+      "userRequirements": "Keep the hierarchy sequential under the page h1"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Titles",
+      "guidelines": [
+        "Noun phrases",
+        "Sentence case",
+        "Parallel across sections"
+      ],
+      "goodExamples": [
+        "Built for agents"
+      ],
+      "badExamples": [
+        "Section 2"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "PageHeader",
+      "relationship": "PageHeader for the h1; SectionHeading for h2+ sections",
+      "example": "<PageHeader title=\"…\" /><SectionHeading title=\"…\" />"
+    }
+  ],
+  "relatedComponents": [
+    "PageHeader",
+    "Heading",
+    "Text"
+  ]
+}

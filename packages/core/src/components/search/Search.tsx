@@ -18,6 +18,8 @@ export type SearchOption = {
 export type SearchProps = {
   /** The full option set; filtered client-side as the user types. */
   options: SearchOption[];
+  /** Controlled selected value (display follows it). null clears the selection. */
+  value?: string | null;
   /** Initially selected option value. Selection is reported via onValueChange. */
   defaultValue?: string;
   /** Called with the selected option's value. */
@@ -41,6 +43,7 @@ export type SearchProps = {
  */
 export function Search({
   options,
+  value,
   defaultValue,
   onValueChange,
   placeholder = 'Search…',
@@ -51,11 +54,17 @@ export function Search({
   className,
   'aria-label': ariaLabel,
 }: SearchProps) {
+  const activeValue = value === undefined ? defaultValue : value ?? undefined;
   const selected = React.useMemo(
-    () => options.find((option) => option.value === defaultValue),
-    [options, defaultValue]
+    () => options.find((option) => option.value === activeValue),
+    [options, activeValue]
   );
   const [query, setQuery] = React.useState(selected?.label ?? '');
+
+  // Controlled usage: follow the parent's value (including external clears).
+  React.useEffect(() => {
+    if (value !== undefined) setQuery(selected?.label ?? '');
+  }, [value, selected]);
 
   const filtered = React.useMemo(() => {
     if (!query.trim()) return options;

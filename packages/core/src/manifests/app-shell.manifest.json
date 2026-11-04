@@ -68,6 +68,56 @@
       "required": false,
       "defaultValue": "Primary",
       "description": "Accessible name of the nav landmark (Sidebar)."
+    },
+    {
+      "name": "children",
+      "type": "SidebarItem[]",
+      "required": false,
+      "description": "Nested items — renders a collapsible group with aria-expanded (SidebarItem)."
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows the collapse/expand control (Sidebar)."
+    },
+    {
+      "name": "defaultCollapsed",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Initial collapsed state (Sidebar)."
+    },
+    {
+      "name": "collapsed",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled collapsed state (Sidebar)."
+    },
+    {
+      "name": "onCollapsedChange",
+      "type": "(collapsed: boolean) => void",
+      "required": false,
+      "description": "Fires when the rail collapses/expands (Sidebar)."
+    },
+    {
+      "name": "defaultExpanded",
+      "type": "string[]",
+      "required": false,
+      "description": "SidebarItem hrefs of groups open initially (Sidebar)."
+    },
+    {
+      "name": "mobileBreakpoint",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Breakpoint where the rail becomes a drawer (AppShell).",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
     }
   ],
   "examples": [

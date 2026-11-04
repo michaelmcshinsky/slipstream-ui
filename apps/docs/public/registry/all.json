@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "0cb1839",
-  "count": 73,
+  "sourceRevision": "505ba61",
+  "count": 75,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -310,6 +310,14 @@
       "registry": "/registry/label.json"
     },
     {
+      "id": "link",
+      "name": "Link",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.",
+      "registry": "/registry/link.json"
+    },
+    {
       "id": "list",
       "name": "List / ListItem",
       "package": "@slipstream-ui/core",
@@ -428,6 +436,14 @@
       "tier": "molecule",
       "description": "Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.",
       "registry": "/registry/search.json"
+    },
+    {
+      "id": "section-heading",
+      "name": "SectionHeading",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.",
+      "registry": "/registry/section-heading.json"
     },
     {
       "id": "select",

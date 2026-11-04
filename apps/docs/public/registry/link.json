@@ -1,0 +1,132 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "link",
+  "name": "link",
+  "tier": "atom",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "link",
+  "exportName": "Link",
+  "description": "Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.",
+  "designIntent": "Every codebase re-implements inline links with inconsistent variants and unsafe target=_blank. Link centralizes the variants, keeps a real <a href> (SEO, modified clicks) and adds rel=noopener plus a screen-reader note for external URLs.",
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Destination URL (pass through or via asChild)."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'muted' | 'underline' | 'arrow' | 'external'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Visual style.",
+      "enum": [
+        "default",
+        "muted",
+        "underline",
+        "arrow",
+        "external"
+      ]
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Render the child (router Link) with link styling."
+    },
+    {
+      "name": "external",
+      "type": "boolean",
+      "required": false,
+      "description": "Force external handling; absolute http(s) URLs are auto-detected, mailto/tel never open a new tab."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Inline link",
+      "code": "<Link href=\"/docs\">Read the docs</Link>\n<Link href=\"https://github.com\" variant=\"external\">GitHub</Link>",
+      "description": "Internal links stay client-side; absolute URLs open safely in a new tab."
+    },
+    {
+      "title": "Router link",
+      "code": "<Link asChild variant=\"underline\"><RouterLink href=\"/posts\">Posts</RouterLink></Link>",
+      "description": "Preserves prefetch and modified-click behavior."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Link for buttons",
+      "explanation": "Actions belong in Button; Link is for navigation.",
+      "example": "// Avoid\n<Link href=\"#\" onClick={save}>Save</Link>\n\n// Prefer\n<Button onClick={save}>Save</Button>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Real anchors",
+      "implementation": "Renders <a href> so middle-click/modified clicks work",
+      "userRequirements": "Pass descriptive link text, not 'click here'"
+    },
+    {
+      "feature": "External notice",
+      "implementation": "External links get rel=noopener noreferrer and a screen-reader note",
+      "userRequirements": "Keep the sr-only note when overriding rows"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Link text",
+      "guidelines": [
+        "Describe the destination",
+        "2-5 words"
+      ],
+      "goodExamples": [
+        "Read the docs",
+        "View on GitHub"
+      ],
+      "badExamples": [
+        "Click here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card / List",
+      "relationship": "asChild makes whole-card links safe",
+      "example": "<Card asChild><Link href=\"/post\">…</Link></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "Button",
+    "Breadcrumb",
+    "Card"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "@radix-ui/react-slot"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/link/index.ts",
+      "content": "export * from './Link';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/link/Link.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { Slot } from '@radix-ui/react-slot';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nconst linkVariants = cva('inline-flex items-center gap-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm', {\n  variants: {\n    variant: {\n      default: 'text-primary hover:underline underline-offset-4',\n      muted: 'text-muted-foreground hover:text-foreground',\n      underline: 'underline underline-offset-4 hover:text-primary',\n      arrow: 'font-medium text-primary hover:underline underline-offset-4',\n      external: 'text-primary hover:underline underline-offset-4',\n    },\n  },\n  defaultVariants: { variant: 'default' },\n});\n\nexport type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &\n  VariantProps<typeof linkVariants> & {\n    /** Render the child element (router Link) with link styling. */\n    asChild?: boolean;\n    /**\n     * Force external handling (target=_blank + rel). Absolute http(s) hrefs\n     * are detected automatically; mailto:/tel: links never open a new tab.\n     */\n    external?: boolean;\n  };\n\nconst ABSOLUTE = /^https?:\\/\\//i;\n\n/**\n * Inline link primitive with the project's link variants. Keeps a real\n * `<a href>` (SEO, modified clicks, middle-click) and adds safe external\n * handling: absolute URLs get target=\"_blank\" + rel=\"noopener noreferrer\"\n * and a screen-reader note, unless `external={false}`.\n *\n * For client-side routing, wrap your router's link: `<Link asChild><RouterLink …/></Link>`.\n */\nexport const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(\n  { className, variant, asChild = false, external, target, rel, children, ...props },\n  ref\n) {\n  const isAbsolute = typeof props.href === 'string' && ABSOLUTE.test(props.href);\n  const isExternal = external ?? isAbsolute;\n  const Comp = asChild ? Slot : 'a';\n\n  if (asChild) {\n    return (\n      <Comp\n        ref={ref}\n        className={cn(linkVariants({ variant }), className)}\n        target={isExternal ? target ?? '_blank' : target}\n        rel={isExternal ? rel ?? 'noopener noreferrer' : rel}\n        {...props}\n      >\n        {children}\n      </Comp>\n    );\n  }\n\n  return (\n    <Comp\n      ref={ref}\n      className={cn(linkVariants({ variant }), className)}\n      target={isExternal ? target ?? '_blank' : target}\n      rel={isExternal ? rel ?? 'noopener noreferrer' : rel}\n      {...props}\n    >\n      {children}\n      {isExternal && variant !== 'muted' && (\n        <>\n          <span aria-hidden=\"true\" className=\"text-[0.75em]\">\n            ↗\n          </span>\n          <span className=\"sr-only\">(opens in a new tab)</span>\n        </>\n      )}\n    </Comp>\n  );\n});\n\nexport type LinkVariant = NonNullable<VariantProps<typeof linkVariants>['variant']>;\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/link.manifest.json",
+      "content": "{\n  \"id\": \"link\",\n  \"name\": \"Link\",\n  \"tier\": \"atom\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"link\",\n  \"exportName\": \"Link\",\n  \"description\": \"Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.\",\n  \"designIntent\": \"Every codebase re-implements inline links with inconsistent variants and unsafe target=_blank. Link centralizes the variants, keeps a real <a href> (SEO, modified clicks) and adds rel=noopener plus a screen-reader note for external URLs.\",\n  \"props\": [\n    {\n      \"name\": \"href\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Destination URL (pass through or via asChild).\"\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'default' | 'muted' | 'underline' | 'arrow' | 'external'\",\n      \"required\": false,\n      \"defaultValue\": \"default\",\n      \"description\": \"Visual style.\",\n      \"enum\": [\n        \"default\",\n        \"muted\",\n        \"underline\",\n        \"arrow\",\n        \"external\"\n      ]\n    },\n    {\n      \"name\": \"asChild\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Render the child (router Link) with link styling.\"\n    },\n    {\n      \"name\": \"external\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Force external handling; absolute http(s) URLs are auto-detected, mailto/tel never open a new tab.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Inline link\",\n      \"code\": \"<Link href=\\\"/docs\\\">Read the docs</Link>\\n<Link href=\\\"https://github.com\\\" variant=\\\"external\\\">GitHub</Link>\",\n      \"description\": \"Internal links stay client-side; absolute URLs open safely in a new tab.\"\n    },\n    {\n      \"title\": \"Router link\",\n      \"code\": \"<Link asChild variant=\\\"underline\\\"><RouterLink href=\\\"/posts\\\">Posts</RouterLink></Link>\",\n      \"description\": \"Preserves prefetch and modified-click behavior.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use Link for buttons\",\n      \"explanation\": \"Actions belong in Button; Link is for navigation.\",\n      \"example\": \"// Avoid\\n<Link href=\\\"#\\\" onClick={save}>Save</Link>\\n\\n// Prefer\\n<Button onClick={save}>Save</Button>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Real anchors\",\n      \"implementation\": \"Renders <a href> so middle-click/modified clicks work\",\n      \"userRequirements\": \"Pass descriptive link text, not 'click here'\"\n    },\n    {\n      \"feature\": \"External notice\",\n      \"implementation\": \"External links get rel=noopener noreferrer and a screen-reader note\",\n      \"userRequirements\": \"Keep the sr-only note when overriding rows\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Link text\",\n      \"guidelines\": [\n        \"Describe the destination\",\n        \"2-5 words\"\n      ],\n      \"goodExamples\": [\n        \"Read the docs\",\n        \"View on GitHub\"\n      ],\n      \"badExamples\": [\n        \"Click here\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Card / List\",\n      \"relationship\": \"asChild makes whole-card links safe\",\n      \"example\": \"<Card asChild><Link href=\\\"/post\\\">…</Link></Card>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Button\",\n    \"Breadcrumb\",\n    \"Card\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

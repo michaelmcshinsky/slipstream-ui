@@ -10,6 +10,8 @@ export type SwitchProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'o
   defaultChecked?: boolean;
   /** Fired when the user toggles the switch. */
   onCheckedChange?: (checked: boolean) => void;
+  /** Name for form submission — renders a hidden "on" input while checked. */
+  name?: string;
 };
 
 /**
@@ -18,7 +20,7 @@ export type SwitchProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'o
  * on/off state and keyboard users toggle with Enter or Space.
  */
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ className, checked, defaultChecked, onCheckedChange, disabled, ...props }, ref) => {
+  ({ className, checked, defaultChecked, onCheckedChange, disabled, name, ...props }, ref) => {
     const [internalChecked, setInternalChecked] = React.useState(defaultChecked ?? false);
     const isOn = checked ?? internalChecked;
 
@@ -28,7 +30,9 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     };
 
     return (
-      <button
+      <>
+        {name && isOn && <input type="hidden" name={name} value="on" />}
+        <button
         type="button"
         role="switch"
         aria-checked={isOn}
@@ -51,7 +55,8 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
             isOn ? 'translate-x-4' : 'translate-x-0'
           )}
         />
-      </button>
+        </button>
+      </>
     );
   }
 );

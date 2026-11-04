@@ -28,7 +28,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 56
+## Core components (@slipstream-ui/core) — 58
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -60,6 +60,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Input — A text input field with support for various input types and standard HTML input attributes
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
+- Link — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - List / ListItem — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -70,6 +71,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Progress — A determinate progress bar with role=progressbar and exact value semantics
 - Radio — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 - Search — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
+- SectionHeading — Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
 - Select — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 - SelectMenu — Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 - Separator — A visual divider between content blocks, decorative or semantic

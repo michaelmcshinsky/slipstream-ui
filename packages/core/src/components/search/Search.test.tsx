@@ -70,3 +70,19 @@ describe('Search', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('Search controlled value', () => {
+  it('follows the controlled value and clears when set to null', () => {
+    const options = [
+      { value: 'a', label: 'Alpha' },
+      { value: 'b', label: 'Beta' },
+    ];
+    const { rerender } = render(<Search options={options} value="a" aria-label="Pick" />);
+    expect(screen.getByRole('combobox')).toHaveValue('Alpha');
+    rerender(<Search options={options} value="b" aria-label="Pick" />);
+    expect(screen.getByRole('combobox')).toHaveValue('Beta');
+    rerender(<Search options={options} value={null} aria-label="Pick" />);
+    expect(screen.getByRole('combobox')).toHaveValue('');
+  });
+});

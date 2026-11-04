@@ -1,0 +1,106 @@
+{
+  "id": "link",
+  "name": "Link",
+  "tier": "atom",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "link",
+  "exportName": "Link",
+  "description": "Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.",
+  "designIntent": "Every codebase re-implements inline links with inconsistent variants and unsafe target=_blank. Link centralizes the variants, keeps a real <a href> (SEO, modified clicks) and adds rel=noopener plus a screen-reader note for external URLs.",
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Destination URL (pass through or via asChild)."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'muted' | 'underline' | 'arrow' | 'external'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Visual style.",
+      "enum": [
+        "default",
+        "muted",
+        "underline",
+        "arrow",
+        "external"
+      ]
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Render the child (router Link) with link styling."
+    },
+    {
+      "name": "external",
+      "type": "boolean",
+      "required": false,
+      "description": "Force external handling; absolute http(s) URLs are auto-detected, mailto/tel never open a new tab."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Inline link",
+      "code": "<Link href=\"/docs\">Read the docs</Link>\n<Link href=\"https://github.com\" variant=\"external\">GitHub</Link>",
+      "description": "Internal links stay client-side; absolute URLs open safely in a new tab."
+    },
+    {
+      "title": "Router link",
+      "code": "<Link asChild variant=\"underline\"><RouterLink href=\"/posts\">Posts</RouterLink></Link>",
+      "description": "Preserves prefetch and modified-click behavior."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Link for buttons",
+      "explanation": "Actions belong in Button; Link is for navigation.",
+      "example": "// Avoid\n<Link href=\"#\" onClick={save}>Save</Link>\n\n// Prefer\n<Button onClick={save}>Save</Button>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Real anchors",
+      "implementation": "Renders <a href> so middle-click/modified clicks work",
+      "userRequirements": "Pass descriptive link text, not 'click here'"
+    },
+    {
+      "feature": "External notice",
+      "implementation": "External links get rel=noopener noreferrer and a screen-reader note",
+      "userRequirements": "Keep the sr-only note when overriding rows"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Link text",
+      "guidelines": [
+        "Describe the destination",
+        "2-5 words"
+      ],
+      "goodExamples": [
+        "Read the docs",
+        "View on GitHub"
+      ],
+      "badExamples": [
+        "Click here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card / List",
+      "relationship": "asChild makes whole-card links safe",
+      "example": "<Card asChild><Link href=\"/post\">…</Link></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "Button",
+    "Breadcrumb",
+    "Card"
+  ]
+}

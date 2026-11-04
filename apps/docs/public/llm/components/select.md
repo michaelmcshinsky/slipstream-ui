@@ -22,6 +22,7 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 | groups | `SelectOptionGroup[]` | — | no | Optgroups: [{ label, options }] rendered with a heading per section. |
 | placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
 | multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue/onChange switch to string[]. |
+| onValueChange | `(value: string | string[]) => void` | — | no | Alias for onChange — value-based callback. |
 
 ## Examples
 

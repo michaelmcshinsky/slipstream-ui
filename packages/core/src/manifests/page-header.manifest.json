@@ -34,6 +34,36 @@
       "type": "ReactNode",
       "required": false,
       "description": "Sub-row under the title (tabs, filters)."
+    },
+    {
+      "name": "eyebrow",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Kicker above the title."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg' | 'hero'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Heading scale; hero is for marketing pages.",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "hero"
+      ]
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "description": "Text alignment.",
+      "enum": [
+        "left",
+        "center"
+      ]
     }
   ],
   "examples": [

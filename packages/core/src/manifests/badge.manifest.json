@@ -7,15 +7,20 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'secondary' | 'destructive' | 'outline'",
+      "type": "'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'success' | 'warning' | 'info'",
       "defaultValue": "default",
       "required": false,
-      "description": "Visual style variant of the badge",
+      "description": "Semantic surface; primary/danger are aliases for default/destructive.",
       "enum": [
         "default",
         "secondary",
         "destructive",
-        "outline"
+        "outline",
+        "primary",
+        "danger",
+        "success",
+        "warning",
+        "info"
       ],
       "examples": [
         "default",
@@ -46,7 +51,7 @@
       "type": "boolean",
       "required": false,
       "defaultValue": "false",
-      "description": "Render the child element (e.g. a router Link) with badge styling."
+      "description": "Render the child element with badge styling."
     }
   ],
   "examples": [

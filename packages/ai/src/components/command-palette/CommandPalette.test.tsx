@@ -72,3 +72,24 @@ describe('CommandPalette', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('CommandPalette async commands', () => {
+  it('loads commands from loadCommands', async () => {
+    const user = userEvent.setup();
+    const loadCommands = vi.fn(async () => [{ id: 'remote', label: 'Remote result' }]);
+    render(
+      <CommandPalette
+        open
+        onOpenChange={() => undefined}
+        commands={[]}
+        onSelect={() => undefined}
+        loadCommands={loadCommands}
+        debounceMs={1}
+      />
+    );
+    expect(await screen.findByText('Remote result')).toBeInTheDocument();
+    expect(loadCommands).toHaveBeenCalled();
+    expect(user).toBeTruthy();
+  });
+});

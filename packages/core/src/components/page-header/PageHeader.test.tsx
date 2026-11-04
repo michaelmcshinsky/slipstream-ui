@@ -29,3 +29,20 @@ describe('PageHeader', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('PageHeader hero options', () => {
+  it('renders eyebrow, hero size and centered alignment', () => {
+    render(
+      <PageHeader
+        title="Your AI knows the system"
+        eyebrow="AI-first"
+        size="hero"
+        align="center"
+        description="Ship correct UI the first time."
+      />
+    );
+    expect(screen.getByText('AI-first')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1 })).toHaveClass('text-4xl');
+  });
+});

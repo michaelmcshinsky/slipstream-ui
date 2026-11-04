@@ -19,6 +19,9 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 | breadcrumbs | `ReactNode` | — | no | Trail rendered above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions (buttons, menus). |
 | children | `ReactNode` | — | no | Sub-row under the title (tabs, filters). |
+| eyebrow | `ReactNode` | — | no | Kicker above the title. |
+| size | `'sm' | 'md' | 'lg' | 'hero'` | `md` | no | Heading scale; hero is for marketing pages. |
+| align | `'left' | 'center'` | `left` | no | Text alignment. |
 
 ## Examples
 

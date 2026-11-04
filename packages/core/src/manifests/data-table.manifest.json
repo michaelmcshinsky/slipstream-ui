@@ -170,6 +170,49 @@
       "type": "string",
       "required": false,
       "description": "Additional classes for the table wrapper."
+    },
+    {
+      "name": "selectedRowIds",
+      "type": "string[]",
+      "required": false,
+      "description": "Selected row ids (controlled) — enables the leading selection column."
+    },
+    {
+      "name": "onSelectedRowIdsChange",
+      "type": "(ids: string[]) => void",
+      "required": false,
+      "description": "Fires after a row or select-all toggle."
+    },
+    {
+      "name": "isRowSelectable",
+      "type": "(row: T) => boolean",
+      "required": false,
+      "description": "Disable selection for individual rows."
+    },
+    {
+      "name": "bulkActions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Rendered above the table while rows are selected."
+    },
+    {
+      "name": "manualPagination",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Server pagination: render data as-is, do not slice or sort."
+    },
+    {
+      "name": "total",
+      "type": "number",
+      "required": false,
+      "description": "Total row count across pages (summary + derived page count)."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": false,
+      "description": "Total page count (manual pagination)."
     }
   ],
   "examples": [

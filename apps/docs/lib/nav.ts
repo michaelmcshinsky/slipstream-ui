@@ -73,6 +73,8 @@ export const NAV_SECTIONS: NavSection[] = [
         items: [
           { href: '/docs/components/heading', label: 'Heading' },
           { href: '/docs/components/text', label: 'Text' },
+          { href: '/docs/components/section-heading', label: 'SectionHeading' },
+          { href: '/docs/components/link', label: 'Link' },
         ],
       },
       {

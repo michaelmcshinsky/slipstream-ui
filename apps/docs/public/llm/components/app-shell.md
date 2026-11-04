@@ -24,6 +24,13 @@ Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mob
 | activeHref | `string` | — | no | Current route; matching items get aria-current=page (Sidebar). |
 | linkComponent | `React.ElementType` | `a` | no | Router link component (react-router Link, Next Link) (Sidebar). |
 | label | `string` | `Primary` | no | Accessible name of the nav landmark (Sidebar). |
+| children | `SidebarItem[]` | — | no | Nested items — renders a collapsible group with aria-expanded (SidebarItem). |
+| collapsible | `boolean` | `false` | no | Shows the collapse/expand control (Sidebar). |
+| defaultCollapsed | `boolean` | `false` | no | Initial collapsed state (Sidebar). |
+| collapsed | `boolean` | — | no | Controlled collapsed state (Sidebar). |
+| onCollapsedChange | `(collapsed: boolean) => void` | — | no | Fires when the rail collapses/expands (Sidebar). |
+| defaultExpanded | `string[]` | — | no | SidebarItem hrefs of groups open initially (Sidebar). |
+| mobileBreakpoint | `'sm' | 'md' | 'lg'` | `md` | no | Breakpoint where the rail becomes a drawer (AppShell). |
 
 ## Examples
 

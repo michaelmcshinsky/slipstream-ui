@@ -75,6 +75,8 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'List', href: '/docs/components/list', content: 'list ul li rows settings results selected pressable leading trailing divider', group: 'Components' },
   { title: 'Form', href: '/docs/components/form', content: 'form semantic submit validation stack card inline gap fields noValidate', group: 'Components' },
   { title: 'FormLayout', href: '/docs/components/form-layout', content: 'form layout stack row grid columns spacing fieldset legend grouping', group: 'Components' },
+  { title: 'Link', href: '/docs/components/link', content: 'link anchor inline href external target rel noopener asChild router underline arrow muted', group: 'Components' },
+  { title: 'SectionHeading', href: '/docs/components/section-heading', content: 'section heading eyebrow title description actions marketing h2 level align', group: 'Components' },
   { title: 'SelectMenu', href: '/docs/components/select-menu', content: 'custom select listbox rich options descriptions icons groups multiple multi select form hidden input renderItem', group: 'Components' },
   { title: 'TableCard', href: '/docs/components/table-card', content: 'table card shell header actions toolbar footer pagination data table list page', group: 'Components' },
   { title: 'DatePicker', href: '/docs/components/date-picker', content: 'date picker calendar iso yyyy-mm-dd min max clear scheduling form', group: 'Components' },
