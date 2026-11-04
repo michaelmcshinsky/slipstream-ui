@@ -14,12 +14,10 @@ const separatorVariants = cva('shrink-0 bg-border', {
   },
 });
 
-export interface SeparatorProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof separatorVariants> {
+export type SeparatorProps = React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof separatorVariants> & {
   /** Accessible label for the dividing line (e.g. "section break"). */
   label?: string;
-}
+};
 
 /**
  * Visual divider between content blocks. Decorative by default

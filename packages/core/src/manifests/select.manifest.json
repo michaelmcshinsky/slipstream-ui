@@ -2,15 +2,20 @@
   "id": "select",
   "name": "Select",
   "tier": "atom",
-  "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
-  "designIntent": "Most dropdown needs are satisfied by the platform select: it brings complete keyboard, screen-reader and mobile behavior for free and never strands focus. This primitive adds consistent styling and a typed options API without re-implementing a listbox.",
+  "description": "Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.",
+  "designIntent": "Native selects keep platform keyboard, mobile picker and screen-reader behavior for free. Groups cover coarse categorization, placeholder renders the 'choose one' affordance, and multiple switches the contract to string[] for tag-picker use cases without reimplementing a listbox.",
   "props": [
     {
       "name": "options",
       "type": "SelectOption[]",
-      "required": true,
-      "description": "Options to render; each is { value, label, disabled? }",
-      "examples": [{ "value": "sm", "label": "Small" }]
+      "required": false,
+      "description": "Flat options ({ value, label, disabled? }). Ignored when groups is provided.",
+      "examples": [
+        {
+          "value": "sm",
+          "label": "Small"
+        }
+      ]
     },
     {
       "name": "label",
@@ -20,24 +25,53 @@
     },
     {
       "name": "value",
-      "type": "string",
+      "type": "string | string[]",
       "required": false,
-      "description": "Controlled selected value"
+      "description": "Controlled value (string, or string[] when multiple)."
     },
     {
       "name": "defaultValue",
-      "type": "string",
+      "type": "string | string[]",
       "required": false,
-      "description": "Uncontrolled initial value"
+      "description": "Initial value when uncontrolled."
     },
     {
       "name": "onChange",
-      "type": "(value: string) => void",
+      "type": "(value: string | string[]) => void",
       "required": false,
-      "description": "Called with the newly selected value"
+      "description": "Fired with the new value; string[] when multiple."
+    },
+    {
+      "name": "groups",
+      "type": "SelectOptionGroup[]",
+      "required": false,
+      "description": "Optgroups: [{ label, options }] rendered with a heading per section."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Renders a disabled empty option as the 'choose one' affordance."
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Native multi-select; value/defaultValue/onChange switch to string[]."
     }
   ],
   "examples": [
+    {
+      "title": "Grouped options",
+      "code": "<Select\n  label=\"Plan\"\n  placeholder=\"Choose a plan\"\n  groups={[\n    { label: 'Individual', options: [{ value: 'free', label: 'Free' }] },\n    { label: 'Business', options: [{ value: 'team', label: 'Team' }] },\n  ]}\n/>",
+      "description": "Optgroups with a placeholder row."
+    },
+    {
+      "title": "Multi-select",
+      "code": "<Select\n  label=\"Channels\"\n  multiple\n  value={channels}\n  onChange={setChannels}\n  options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}\n/>",
+      "description": "Native listbox with a string[] contract."
+    },
     {
       "title": "Controlled select",
       "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
@@ -66,7 +100,10 @@
       "relationship": "Pair Select with Button in filter toolbars; Button submits, Select filters."
     }
   ],
-  "relatedComponents": ["Button", "Input"],
+  "relatedComponents": [
+    "Button",
+    "Input"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.0.1",

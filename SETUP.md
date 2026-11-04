@@ -287,7 +287,7 @@ Use the `createTheme()` function from `@slipstream-ui/themes`:
 import { createTheme } from '@slipstream-ui/themes'
 
 const customTheme = createTheme({
-  brandColor: '210 100% 50%',  // HSL values
+  brandColor: '224 89% 58%',  // HSL values
   borderRadius: '0.5rem',
   darkMode: false
 })
@@ -301,7 +301,7 @@ Add new preset themes to `packages/themes/src/presets/`:
 import { createTheme } from '../create-theme'
 
 export const customTheme = createTheme({
-  brandColor: '210 100% 50%',
+  brandColor: '224 89% 58%',
   borderRadius: '0.5rem',
   darkMode: false
 })

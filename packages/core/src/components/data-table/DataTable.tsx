@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Pagination } from '../pagination/Pagination';
+import { Skeleton } from '../skeleton/Skeleton';
 
-export interface DataTableColumn<T> {
+export type DataTableColumn<T> = {
   /** Unique column key; also the value passed to onSortChange when sortable. */
   key: string;
   /** Header cell content. */
@@ -19,9 +20,13 @@ export interface DataTableColumn<T> {
   align?: 'left' | 'center' | 'right';
   /** Extra classes for the th/td cells (e.g. 'w-40', 'hidden sm:table-cell'). */
   className?: string;
-}
+  /** Per-cell click callback — the cell content renders as a button. */
+  onClick?: (row: T) => void;
+};
 
-export interface DataTableProps<T> {
+export type SortIconState = 'none' | 'asc' | 'desc';
+
+export type DataTableProps<T> = {
   /** Column configuration — everything about the table's shape. */
   columns: DataTableColumn<T>[];
   /** Row data. */
@@ -35,8 +40,13 @@ export interface DataTableProps<T> {
   /** Controlled sort. */
   sortKey?: string | null;
   sortDir?: 'asc' | 'desc';
-  /** Fires when the sort changes (controlled or not). */
+  /**
+   * Fires when the sort changes (controlled or not) — wire it to a server
+   * query to sort at the database while DataTable renders aria-sort.
+   */
   onSortChange?: (key: string, dir: 'asc' | 'desc') => void;
+  /** Replace the default ▲/▼/↕ header glyphs. */
+  renderSortIcon?: (state: SortIconState) => React.ReactNode;
   /** Rows per page; enables pagination when set. */
   pageSize?: number;
   /** Controlled page (1-based) when pageSize is set. */
@@ -47,8 +57,22 @@ export interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   /** Message shown when data is empty. */
   emptyMessage?: string;
+  /** Pin the header while the body scrolls (needs a max-height on the wrapper via className). */
+  stickyHeader?: boolean;
+  /** Compact row density. */
+  density?: 'default' | 'compact';
+  /** Zebra-striped rows. */
+  zebra?: boolean;
+  /** Render skeleton placeholder rows (announced via aria-busy). */
+  loading?: boolean;
+  /**
+   * Skeleton row count while loading (defaults to the page size, else 5).
+   * Match it to your visible data length so rows don't jump when real
+   * data replaces the placeholders.
+   */
+  loadingRows?: number;
   className?: string;
-}
+};
 
 type SortState = { key: string; dir: 'asc' | 'desc' } | null;
 
@@ -75,11 +99,17 @@ export function DataTable<T>({
   sortKey,
   sortDir,
   onSortChange,
+  renderSortIcon,
   pageSize,
   page,
   onPageChange,
   onRowClick,
   emptyMessage = 'No results.',
+  stickyHeader,
+  density = 'default',
+  zebra,
+  loading,
+  loadingRows,
   className,
 }: DataTableProps<T>) {
   const [internalSort, setInternalSort] = React.useState<SortState>(defaultSort);
@@ -144,9 +174,11 @@ export function DataTable<T>({
   return (
     <div className={cn('w-full space-y-3', className)}>
       <div className="w-full overflow-x-auto rounded-lg border border-border">
-        <table className="w-full caption-bottom text-sm">
+        <table
+          className={cn('w-full caption-bottom', density === 'compact' ? 'text-xs' : 'text-sm')}
+        >
           {caption && <caption className="px-3 py-2 text-left text-xs text-muted-foreground">{caption}</caption>}
-          <thead className="bg-muted/50">
+          <thead className={cn('bg-muted/50', stickyHeader && 'sticky top-0 z-10 bg-background')}>
             <tr>
               {columns.map((column) => {
                 const isSorted = sort?.key === column.key;
@@ -176,7 +208,13 @@ export function DataTable<T>({
                       >
                         {column.header}
                         <span aria-hidden="true" className="text-[10px] text-muted-foreground">
-                          {isSorted ? (sort!.dir === 'asc' ? '▲' : '▼') : '↕'}
+                          {renderSortIcon
+                            ? renderSortIcon(isSorted ? (sort!.dir === 'asc' ? 'asc' : 'desc') : 'none')
+                            : isSorted
+                              ? sort!.dir === 'asc'
+                                ? '▲'
+                                : '▼'
+                              : '↕'}
                         </span>
                       </button>
                     ) : (
@@ -187,8 +225,23 @@ export function DataTable<T>({
               })}
             </tr>
           </thead>
-          <tbody>
-            {visible.length === 0 ? (
+          <tbody aria-busy={loading || undefined}>
+            {loading ? (
+              Array.from(
+                { length: (loadingRows ?? pageSize ?? Math.min(visible.length, 5)) || 5 },
+                (_, skeletonRow) => (
+                  <tr key={`skeleton-${skeletonRow}`}>
+                    {columns.map((column) => (
+                      <td key={column.key} className={cn('px-3 py-2', density === 'compact' && 'px-2 py-1')}>
+                        {/* Height tracks density so skeleton rows match real row
+                            height and replacing them doesn't shift the table. */}
+                        <Skeleton className={density === 'compact' ? 'h-3 w-full' : 'h-4 w-full'} />
+                      </td>
+                    ))}
+                  </tr>
+                )
+              )
+            ) : visible.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length}
@@ -215,6 +268,7 @@ export function DataTable<T>({
                   }
                   className={cn(
                     'border-b border-border last:border-0',
+                    zebra && '[&:nth-child(odd)]:bg-muted/30',
                     onRowClick &&
                       'cursor-pointer transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'
                   )}
@@ -222,9 +276,24 @@ export function DataTable<T>({
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className={cn('px-3 py-2 align-middle', alignClass(column.align), column.className)}
+                      className={cn(
+                        'align-middle',
+                        density === 'compact' ? 'px-2 py-1' : 'px-3 py-2',
+                        alignClass(column.align),
+                        column.className
+                      )}
                     >
-                      {cellValue(row, column, index)}
+                      {column.onClick ? (
+                        <button
+                          type="button"
+                          onClick={() => column.onClick!(row)}
+                          className="block w-full rounded px-1.5 py-0.5 text-left transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          {cellValue(row, column, index)}
+                        </button>
+                      ) : (
+                        cellValue(row, column, index)
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -234,8 +303,11 @@ export function DataTable<T>({
         </table>
       </div>
       {pageSize && pageCount > 1 && (
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground" aria-live="polite">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <p
+            className="min-h-8 leading-none text-xs text-muted-foreground"
+            aria-live="polite"
+          >
             {(safePage - 1) * pageSize + 1}–{Math.min(safePage * pageSize, sorted.length)} of{' '}
             {sorted.length}
           </p>

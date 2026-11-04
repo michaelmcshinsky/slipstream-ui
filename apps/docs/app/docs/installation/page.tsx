@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CodeBlock } from '@slipstream-ui/ai';
 
 export const metadata: Metadata = {
   title: 'Installation',
@@ -42,9 +43,7 @@ export default function InstallationPage() {
         <p className="text-muted-foreground mb-4">
           The fastest way to get started is using the Slipstream UI CLI:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>npx slipstream-ui@latest init</code>
-        </pre>
+        <CodeBlock language="bash" code={`npx slipstream-ui@latest init`} />
         <p className="text-muted-foreground mb-4">
           This will:
         </p>
@@ -61,16 +60,13 @@ export default function InstallationPage() {
         </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">1. Install packages</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>pnpm add @slipstream-ui/core @slipstream-ui/ai @slipstream-ui/themes</code>
-        </pre>
+        <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai @slipstream-ui/themes`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">2. Configure Tailwind CSS</h3>
         <p className="text-muted-foreground mb-4">
           Extend your Tailwind config with the Slipstream UI theme:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// tailwind.config.js
+        <CodeBlock language="bash" code={`// tailwind.config.js
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -122,73 +118,81 @@ module.exports = {
     },
   },
   plugins: [require('tailwindcss-animate')],
-}`}</code>
-        </pre>
+}`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">3. Add CSS variables</h3>
         <p className="text-muted-foreground mb-4">
           Add the CSS variables to your global CSS file:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`@tailwind base;
+        <CodeBlock language="css" code={`@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 222 85% 7%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 85% 7%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 100% 50%;
+    --popover-foreground: 222 85% 7%;
+    --primary: 224 89% 58%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 210 100% 50%;
-    --radius: 0.5rem;
+    --secondary: 214 45% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 40% 96%;
+    --muted-foreground: 219 12% 42%;
+    --accent: 214 45% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 348 68% 44%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 63% 32%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 26 83% 14%;
+    --info: 190 76% 38%;
+    --info-foreground: 222 75% 10%;
+    --border: 214 28% 89%;
+    --input: 214 28% 89%;
+    --ring: 224 89% 58%;
+    --radius: 0.375rem;
   }
 
   .dark {
     color-scheme: dark;
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 100% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 210 100% 50%;
+    --background: 222 42% 5%;
+    --foreground: 210 40% 96%;
+    --card: 222 36% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 36% 11%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 224 90% 70%;
+    --primary-foreground: 222 75% 10%;
+    --secondary: 217 26% 15%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 26% 15%;
+    --muted-foreground: 215 16% 62%;
+    --accent: 217 26% 15%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 76% 58%;
+    --destructive-foreground: 222 75% 10%;
+    --success: 142 62% 52%;
+    --success-foreground: 222 75% 10%;
+    --warning: 38 92% 60%;
+    --warning-foreground: 26 83% 14%;
+    --info: 190 80% 58%;
+    --info-foreground: 222 75% 10%;
+    --border: 217 20% 24%;
+    --input: 217 18% 32%;
+    --ring: 224 90% 70%;
   }
-}`}</code>
-        </pre>
+}`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">4. Import components</h3>
         <p className="text-muted-foreground mb-4">
           Start using components in your app:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`import { Button } from '@slipstream-ui/core'
+        <CodeBlock language="tsx" code={`import { Button } from '@slipstream-ui/core'
 import { Message, Conversation } from '@slipstream-ui/ai'
 
 function App() {
@@ -198,8 +202,7 @@ function App() {
       <Conversation messages={messages} />
     </div>
   )
-}`}</code>
-        </pre>
+}`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Package Managers</h2>
         <p className="text-muted-foreground mb-4">
@@ -207,19 +210,13 @@ function App() {
         </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">pnpm (recommended)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>pnpm add @slipstream-ui/core @slipstream-ui/ai</code>
-        </pre>
+        <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">npm</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>npm install @slipstream-ui/core @slipstream-ui/ai</code>
-        </pre>
+        <CodeBlock language="bash" code={`npm install @slipstream-ui/core @slipstream-ui/ai`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">yarn</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>yarn add @slipstream-ui/core @slipstream-ui/ai</code>
-        </pre>
+        <CodeBlock language="bash" code={`yarn add @slipstream-ui/core @slipstream-ui/ai`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Framework Setup</h2>
         <p className="text-muted-foreground mb-4">
@@ -230,8 +227,7 @@ function App() {
         <p className="text-muted-foreground mb-4">
           Add the CSS variables to your global stylesheet, then import components in client components:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// app/globals.css
+        <CodeBlock language="bash" code={`// app/globals.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -244,10 +240,8 @@ function App() {
     color-scheme: dark;
     /* ... dark CSS variables ... */
   }
-}`}</code>
-        </pre>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// app/layout.tsx
+}`} />
+        <CodeBlock language="bash" code={`// app/layout.tsx
 import './globals.css';
 
 // Pre-paint theme script (avoids flash of wrong theme)
@@ -266,8 +260,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>{children}</body>
     </html>
   );
-}`}</code>
-        </pre>
+}`} />
         <p className="text-muted-foreground mb-4">
           Components use <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">&apos;use client&apos;</code> internally,
           so they work as client components within server layouts. No additional configuration is needed.
@@ -277,38 +270,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <p className="text-muted-foreground mb-4">
           Import the CSS variables in your entry file and add the Tailwind content paths:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// src/main.tsx
+        <CodeBlock language="bash" code={`// src/main.tsx
 import './index.css';
 import App from './App';
 
 // src/index.css — same CSS variables as above
 // tailwind.config.js — content paths include:
 //   './src/**/*.{ts,tsx}',
-//   './node_modules/@slipstream-ui/**/*.{js,ts,tsx}'`}</code>
-        </pre>
+//   './node_modules/@slipstream-ui/**/*.{js,ts,tsx}'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Remix</h3>
         <p className="text-muted-foreground mb-4">
           Add the CSS via your root route&apos;s <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">links</code> export:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// app/root.tsx
+        <CodeBlock language="bash" code={`// app/root.tsx
 import stylesheet from '~/tailwind.css';
 
 export const links = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
 
-// Same CSS variables + Tailwind content paths as above`}</code>
-        </pre>
+// Same CSS variables + Tailwind content paths as above`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Astro</h3>
         <p className="text-muted-foreground mb-4">
           Use a React integration for interactive components. Static markup works without it:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`# Install the React integration
+        <CodeBlock language="bash" code={`# Install the React integration
 npx astro add react
 
 // Then use components in .astro files with client:load
@@ -316,8 +304,7 @@ npx astro add react
 ---
 import { Button } from '@slipstream-ui/core';
 ---
-<Button client:load>Click me</Button>`}</code>
-        </pre>
+<Button client:load>Click me</Button>`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Any other React setup</h3>
         <p className="text-muted-foreground mb-4">

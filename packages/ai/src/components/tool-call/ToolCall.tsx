@@ -4,11 +4,11 @@ import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { ToolCall as ToolCallType } from '../../types';
 
-export interface ToolCallProps {
+export type ToolCallProps = {
   toolCall: ToolCallType;
   className?: string;
   showResult?: boolean;
-}
+};
 
 const statusChipClasses: Record<ToolCallType['status'], string> = {
   pending: 'bg-warning/10 text-warning border-warning/20',

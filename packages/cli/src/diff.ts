@@ -3,24 +3,24 @@ import { createHash } from 'node:crypto';
 import fs from 'fs-extra';
 import type { RegistryEntry } from './registry';
 
-export interface InstalledManifest {
+export type InstalledManifest = {
   id: string;
   version?: string;
-}
+};
 
-export interface FileDelta {
+export type FileDelta = {
   file: string;
   status: 'missing' | 'modified' | 'extra';
-}
+};
 
-export interface ComponentDiff {
+export type ComponentDiff = {
   id: string;
   status: 'ok' | 'outdated' | 'unknown';
   installedVersion?: string;
   registryVersion?: string;
   versionOutdated: boolean;
   files: FileDelta[];
-}
+};
 
 function hashFile(file: string): string {
   return createHash('sha256').update(fs.readFileSync(file)).digest('hex');

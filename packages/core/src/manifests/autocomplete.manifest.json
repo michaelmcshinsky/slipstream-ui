@@ -2,14 +2,14 @@
   "id": "autocomplete",
   "name": "Autocomplete",
   "tier": "molecule",
-  "description": "Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.",
-  "designIntent": "Form fields often need both freedom and guidance — usernames, tags, city names. Autocomplete extends the native autocomplete spec: the input stays a normal controlled input (native autoComplete hints keep working), and an ARIA combobox listbox overlays suggestions. Unlike Search, no option constrains the result.",
+  "description": "Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
+  "designIntent": "Free text stays first-class: any value may be typed, while matching options accelerate entry. Async sources are debounced with stale-response guards; grouped headings and custom rows cover searchable-select patterns; Escape/arrow keys follow the combobox model.",
   "props": [
     {
       "name": "suggestions",
       "type": "string[]",
-      "required": true,
-      "description": "Suggestion labels offered while typing; any value may still be entered free-form.",
+      "required": false,
+      "description": "Deprecated — use options.",
       "examples": [
         "['react', 'remix', 'astro']"
       ]
@@ -43,13 +43,61 @@
       "name": "emptyText",
       "type": "string",
       "required": false,
-      "description": "Shown when no suggestion matches (optional; defaults to 'No suggestions').",
+      "description": "Shown when no option matches.",
       "examples": [
         "'No matches — press Enter to use your text'"
       ]
+    },
+    {
+      "name": "options",
+      "type": "Array<string | AutocompleteOption>",
+      "required": false,
+      "description": "Static options; strings or { value, label?, group?, description? }."
+    },
+    {
+      "name": "loadOptions",
+      "type": "(query: string) => Promise<Array<string | AutocompleteOption>>",
+      "required": false,
+      "description": "Async option source; debounced and guarded against stale responses."
+    },
+    {
+      "name": "renderOption",
+      "type": "(option, state: { active: boolean }) => ReactNode",
+      "required": false,
+      "description": "Custom row renderer."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a clear button once the field has text."
+    },
+    {
+      "name": "loadingText",
+      "type": "string",
+      "required": false,
+      "description": "Shown while async options load."
+    },
+    {
+      "name": "debounceMs",
+      "type": "number",
+      "required": false,
+      "defaultValue": "200",
+      "description": "Debounce for loadOptions in ms."
     }
   ],
   "examples": [
+    {
+      "title": "Async search",
+      "code": "<Autocomplete\n  aria-label=\"Search people\"\n  clearable\n  loadOptions={async (query) => searchPeople(query)}\n/>",
+      "description": "Debounced async source with stale-response guard and clear."
+    },
+    {
+      "title": "Grouped options with descriptions",
+      "code": "<Autocomplete\n  aria-label=\"Search\"\n  options={[\n    { value: 'ada', label: 'Ada Lovelace', group: 'People', description: 'Mathematician' },\n    { value: 'rust', label: 'Rust', group: 'Languages' },\n  ]}\n/>",
+      "description": "Section headings plus a supporting line per row."
+    },
     {
       "title": "Controlled form field",
       "code": "const [framework, setFramework] = useState('');\n\n<FormField id=\"framework\" label=\"Primary framework\" hint=\"Type or pick a suggestion\">\n  <Autocomplete\n    suggestions={['react', 'remix', 'next', 'vite']}\n    value={framework}\n    onValueChange={setFramework}\n    name=\"framework\"\n    autoComplete=\"off\"\n  />\n</FormField>",

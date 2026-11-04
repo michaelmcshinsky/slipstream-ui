@@ -5,14 +5,14 @@ import type { Message as MessageData } from '../types';
 import { toSlipstreamMessages } from './messages';
 import type { AiSdkMessage, AiSdkStatus } from './types';
 
-export interface UseSlipstreamMessagesOptions {
+export type UseSlipstreamMessagesOptions = {
   /** `messages` from the AI SDK's useChat()/useCompletion() state. */
   messages: AiSdkMessage[];
 }
 
-export interface UseSlipstreamMessagesResult {
+export type UseSlipstreamMessagesResult = {
   messages: MessageData[];
-}
+};
 
 /**
  * Bridge AI SDK chat messages to Slipstream `<Conversation>`/`<Message>`
@@ -24,7 +24,7 @@ export function useSlipstreamMessages({ messages }: UseSlipstreamMessagesOptions
   return { messages: mapped };
 }
 
-export interface UseSlipstreamStreamOptions {
+export type UseSlipstreamStreamOptions = {
   /** `status` from the AI SDK chat state. */
   status?: AiSdkStatus;
   /** `error` from the AI SDK chat state. */
@@ -33,14 +33,14 @@ export interface UseSlipstreamStreamOptions {
   onRetry?: () => void;
   /** Messages from the SDK chat state; used to locate the streaming id. */
   messages?: AiSdkMessage[];
-}
+};
 
-export interface UseSlipstreamStreamResult {
+export type UseSlipstreamStreamResult = {
   isLoading: boolean;
   streamingMessageId?: string;
   messageErrors?: Record<string, string>;
   onRetryMessage?: (messageId: string) => void;
-}
+};
 
 /**
  * Bridge AI SDK stream status/error to Slipstream Conversation props:

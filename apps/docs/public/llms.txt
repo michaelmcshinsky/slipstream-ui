@@ -28,38 +28,63 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 31
+## Core components (@slipstream-ui/core) — 56
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
-- Autocomplete — Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.
+- AppShell — Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
+- AuthLayout — Centered authentication surface: brand, title/description, form card and footer, with size presets.
+- Autocomplete — Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 - Avatar — A user profile image component with fallback support and accessible image loading
 - Badge — A small status indicator component for displaying tags, counts, or status information
+- Block — Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
 - Breadcrumb — Navigation breadcrumb trail with links and current-page indicator
 - Button — A clickable button component with variants for different visual styles and sizes
+- ButtonGroup — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 - Card — A content container with header, body, and footer sections for grouping related information
-- Checkbox — A native checkbox input styled to match the design system, with controlled and uncontrolled support
+- Checkbox — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
-- Dialog — Accessible modal dialog with focus trapping, escape-to-close and focus restoration
+- DatePicker — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
+- Dialog — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
+- Drawer — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
+- EmptyState — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
 - Fieldset — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
+- FileUpload — Drag-and-drop file picker with a removable file list and per-file progress bars.
+- FilterBar — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
+- Flex / FlexItem — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
+- Form — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 - FormField — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
+- FormLayout — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
+- Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
+- Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - Input — A text input field with support for various input types and standard HTML input attributes
+- InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
+- List / ListItem — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
-- Pagination — Numeric pagination with prev/next, ellipsis, and aria-current on the active page
+- MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- PageHeader — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
+- Pagination — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
+- PasswordInput — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - Popover — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - Progress — A determinate progress bar with role=progressbar and exact value semantics
 - Radio — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 - Search — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
-- Select — Accessible select primitive built on the native select element with controlled and uncontrolled modes
+- Select — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
+- SelectMenu — Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 - Separator — A visual divider between content blocks, decorative or semantic
 - Skeleton — A loading placeholder that mirrors the shape of upcoming content
 - Spinner — Indeterminate loading indicator with accessible status semantics.
+- Stepper — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
 - Switch — A toggle switch for binary settings, with role=switch and aria-checked
 - Table — Semantic data table with headers, body, footer, and accessible caption
+- TableCard — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
 - Tabs — Tabbed content container with ARIA tablist semantics and keyboard navigation
+- Text — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - Textarea — A multi-line text input styled to match Input, wrapping the native textarea
-- Toast — Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions
+- TimePicker — Native time field with an HH:MM contract and an optional clear button.
+- Timeline — Vertical chronology for experience, activity and audit trails, built on an ordered list.
+- Toast — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 - Tooltip — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 <!-- generated:core:end -->
 

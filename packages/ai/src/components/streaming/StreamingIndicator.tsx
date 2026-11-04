@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface StreamingIndicatorProps {
+export type StreamingIndicatorProps = {
   isStreaming: boolean;
   className?: string;
   text?: string;
-}
+};
 
 /**
  * Animated three-dot streaming indicator. Announces the streaming state

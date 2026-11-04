@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, ToastProvider, useToast } from '@slipstream-ui/core';
+import { Button, Toaster, ToastProvider, toast, useToast } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
@@ -35,6 +35,29 @@ function ToastPlayground() {
   );
 }
 
+function ImperativeToasts() {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button variant="outline-success" onClick={() => toast.success('Saved', 'Your changes are live')}>
+        success()
+      </Button>
+      <Button variant="outline-destructive" onClick={() => toast.error('Upload failed', 'Check your connection')}>
+        error()
+      </Button>
+      <Button variant="outline-warning" onClick={() => toast.warning('Slow network', 'Retrying in 3s')}>
+        warning()
+      </Button>
+      <Button variant="outline-info" onClick={() => toast.info('Heads up', 'New version available')}>
+        info()
+      </Button>
+      <Button variant="ghost" onClick={() => toast({ title: 'Sticky', description: 'Dismiss me manually', duration: 0 })}>
+        sticky
+      </Button>
+      <Toaster position="bottom-right" richColors />
+    </div>
+  );
+}
+
 export default function ToastPage() {
   return (
     <ComponentPage
@@ -54,6 +77,32 @@ export default function ToastPage() {
         'Actions and dismiss controls are regular keyboard-reachable buttons',
       ]}
     >
+      <DemoCard
+        title="Imperative API (sonner-style)"
+        preview={<ImperativeToasts />}
+        code={`import { Toaster, toast } from '@slipstream-ui/core';
+
+<Toaster position="bottom-right" richColors />
+
+toast.success('Saved', 'Your changes are live');
+toast.error('Upload failed', 'Check your connection');
+toast.warning('Slow network', 'Retrying in 3s');
+toast.info('Heads up', 'New version available');
+toast({ title: 'Sticky', duration: 0 });`}
+        usage={`// Call from event handlers, data layers, or catch blocks — no hook,
+// no provider required. Mount <Toaster /> once near the app root.
+//
+// Variant helpers: toast.success / error / warning / info
+// Control the queue: toast.dismiss(id) · toast.dismiss() · toast.clear()`}
+        types={`type ToastOptions = {
+  title: string;
+  description?: string;
+  variant?: 'default' | 'success' | 'error' | 'warning' | 'info';
+  action?: { label: string; onClick: () => void };
+  duration?: number; // 0 = sticky, default 5000ms
+};`}
+      />
+
       <DemoCard
         title="Playground"
         preview={

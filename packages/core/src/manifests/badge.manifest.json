@@ -40,9 +40,21 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Render the child element (e.g. a router Link) with badge styling."
     }
   ],
   "examples": [
+    {
+      "title": "Tag linking to a filter",
+      "code": "<Badge asChild>\n  <Link href=\"/tags/react\">React</Link>\n</Badge>",
+      "description": "Tag that navigates."
+    },
     {
       "title": "Default badge",
       "code": "<Badge>New</Badge>",

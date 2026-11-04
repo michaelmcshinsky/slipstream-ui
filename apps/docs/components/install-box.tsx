@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface InstallBoxProps {
+export type InstallBoxProps = {
   componentId: string;
   npmPackages?: string;
   className?: string;
-}
+};
 
 /**
  * Tabbed installer box (AI Elements style): package install, CLI copy,

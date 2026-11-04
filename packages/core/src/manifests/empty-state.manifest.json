@@ -1,0 +1,108 @@
+{
+  "id": "empty-state",
+  "name": "EmptyState",
+  "tier": "molecule",
+  "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
+  "designIntent": "Empty states are where users decide what to do next. A consistent icon/title/description/action hierarchy beats ad-hoc 'No data' strings, and a stable structure is easier for screen readers and tests.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Primary message.",
+      "examples": [
+        "No classes yet"
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line explaining the next step."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Decorative icon/illustration above the title."
+    },
+    {
+      "name": "action",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Primary action (Button or link)."
+    },
+    {
+      "name": "secondaryAction",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Secondary action beside the primary one."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Compact padding for panels/table bodies.",
+      "enum": [
+        "sm",
+        "md"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Empty collection",
+      "code": "<EmptyState\n  title=\"No classes yet\"\n  description=\"Create your first class to get started.\"\n  action={<Button>New class</Button>}\n/>",
+      "description": "Title, explanation and one primary action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for errors",
+      "explanation": "Empty is a normal state; failures need Alert/ErrorAlert with retry affordances.",
+      "example": "// Avoid\n<EmptyState title=\"Failed to load\" />\n\n// Prefer\n<Alert variant=\"destructive\">Failed to load. <Button>Retry</Button></Alert>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Action targets",
+      "implementation": "Actions are whatever you pass — use Button/link components so they stay focusable and announced",
+      "userRequirements": "Always provide a real control, not a bare sentence"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Copy",
+      "guidelines": [
+        "Say what is missing",
+        "Say what to do next",
+        "Avoid blaming the user"
+      ],
+      "goodExamples": [
+        "No classes yet — create your first class"
+      ],
+      "badExamples": [
+        "Empty",
+        "Nothing here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "Often rendered inside a Card body or a DataTable empty slot",
+      "example": "<Card><CardContent><EmptyState … /></CardContent></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "Alert",
+    "Card",
+    "DataTable"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "empty-state",
+  "exportName": "EmptyState"
+}

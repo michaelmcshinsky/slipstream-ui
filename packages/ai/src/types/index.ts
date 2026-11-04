@@ -6,15 +6,15 @@
 
 export type MessageRole = 'user' | 'assistant' | 'system' | 'tool';
 
-export interface Message {
+export type Message = {
   id: string;
   role: MessageRole;
   content: string;
   timestamp?: Date;
   metadata?: Record<string, unknown>;
-}
+};
 
-export interface ToolCall {
+export type ToolCall = {
   id: string;
   name: string;
   arguments: Record<string, unknown>;
@@ -22,19 +22,19 @@ export interface ToolCall {
   status: 'pending' | 'running' | 'completed' | 'failed';
   /** Error detail rendered when status is failed. */
   error?: string;
-}
+};
 
-export interface ReasoningStep {
+export type ReasoningStep = {
   id: string;
   content: string;
   timestamp?: Date;
-}
+};
 
 
 /** A single citation or reference attached to an AI response. */
-export interface SourceItem {
+export type SourceItem = {
   id: string;
   title: string;
   url?: string;
   snippet?: string;
-}
+};

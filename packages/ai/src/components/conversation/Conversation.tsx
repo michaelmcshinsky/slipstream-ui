@@ -5,7 +5,7 @@ import { cn } from '@slipstream-ui/core';
 import { Message } from '../message';
 import type { Message as MessageType } from '../../types';
 
-export interface ConversationProps {
+export type ConversationProps = {
   messages: MessageType[];
   className?: string;
   showAvatars?: boolean;
@@ -48,7 +48,7 @@ export interface ConversationProps {
   isLoadingMore?: boolean;
   /** Called when the user requests older history. */
   onLoadMore?: () => void;
-}
+};
 
 /** Distance (px) from the bottom within which the view counts as "pinned". */
 const PINNED_THRESHOLD = 80;

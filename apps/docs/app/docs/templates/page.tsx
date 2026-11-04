@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { CodeBlock } from '@/components/code-block';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { StreamingChatDemo } from '@/components/streaming-chat-demo';
 import { AgentDashboardDemo } from '@/components/agent-dashboard-demo';
 import { RagCitationsDemo } from '@/components/rag-citations-demo';
@@ -22,12 +22,12 @@ const DEMOS: Record<number, ReactNode> = {
   4: <MultiThreadDemo />,
 };
 
-interface Template {
+type Template = {
   name: string;
   description: string;
   features: string[];
   code: string;
-}
+};
 
 const templates: Template[] = [
   {
@@ -171,11 +171,11 @@ export function AgentActivity({ toolCall }: { toolCall: ToolCallType }) {
 } from '@slipstream-ui/ai';
 import type { SourceItem } from '@slipstream-ui/ai';
 
-interface GroundedAnswer {
+type GroundedAnswer = {
   answer: string;       // markdown with {{citation:N}} markers
   sources: SourceItem[];
   followUps: { id: string; text: string }[];
-}
+};
 
 // Resolve citation markers to InlineCitation chips at render time.
 function renderAnswer(answer: string, sources: SourceItem[]) {
@@ -219,10 +219,10 @@ export function GroundedResponse({ result }: { result: GroundedAnswer }) {
       '  Textarea,',
       "} from '@slipstream-ui/core';",
       '',
-      'interface FormErrors {',
+      'type FormErrors = {',
       '  email?: string;',
       '  password?: string;',
-      '}',
+      '};',
       '',
       'export function SignupForm() {',
       "  const [email, setEmail] = useState('');",
@@ -414,7 +414,7 @@ export default function TemplatesPage() {
                 {DEMOS[index]}
               </div>
             )}
-            <CodeBlock>{template.code}</CodeBlock>
+              <CodeBlock language="tsx" code={template.code} />
           </section>
         ))}
       </div>

@@ -20,9 +20,7 @@ const alertVariants = cva(
   }
 );
 
-export interface AlertProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof alertVariants> {}
+export type AlertProps = React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>;
 
 /**
  * Inline alert for status messages and notifications. Supports
@@ -41,7 +39,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 );
 Alert.displayName = 'Alert';
 
-export interface AlertTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+export type AlertTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 /** Title heading inside an Alert. */
 const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(
@@ -55,7 +53,7 @@ const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(
 );
 AlertTitle.displayName = 'AlertTitle';
 
-export interface AlertDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export type AlertDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 /** Description text inside an Alert. */
 const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescriptionProps>(

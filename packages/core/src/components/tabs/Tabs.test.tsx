@@ -74,3 +74,103 @@ describe('Tabs', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Tabs variants, sizes, and arrow navigation', () => {
+  it('moves and activates with ArrowRight/ArrowLeft (wrapping)', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<BasicTabs defaultValue="a" onValueChange={onValueChange} />);
+    await user.tab();
+    expect(screen.getByRole('tab', { name: 'Tab A' })).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(onValueChange).toHaveBeenCalledWith('b');
+    expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveFocus();
+    await user.keyboard('{ArrowLeft}');
+    expect(onValueChange).toHaveBeenLastCalledWith('a');
+  });
+
+  it('jumps with Home and End', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<BasicTabs defaultValue="b" onValueChange={onValueChange} />);
+    await user.tab();
+    await user.keyboard('{Home}');
+    expect(onValueChange).toHaveBeenCalledWith('a');
+    await user.keyboard('{End}');
+    expect(onValueChange).toHaveBeenLastCalledWith('c');
+  });
+
+  it('underline variant renders a borderless track with bordered triggers', () => {
+    const { container } = render(
+      <Tabs defaultValue="a" variant="underline">
+        <TabsList>
+          <TabsTrigger value="a">Tab A</TabsTrigger>
+          <TabsTrigger value="b">Tab B</TabsTrigger>
+        </TabsList>
+      </Tabs>
+    );
+    const list = screen.getByRole('tablist');
+    expect(list.className).toContain('border-b');
+    expect(list.className).not.toContain('bg-muted');
+    const active = screen.getByRole('tab', { name: 'Tab A' });
+    expect(active.className).toContain('border-primary');
+    expect(container).toBeTruthy();
+  });
+
+  it('size sm tightens the trigger padding', () => {
+    render(
+      <Tabs defaultValue="a" size="sm">
+        <TabsList>
+          <TabsTrigger value="a">Tab A</TabsTrigger>
+        </TabsList>
+      </Tabs>
+    );
+    expect(screen.getByRole('tab', { name: 'Tab A' }).className).toContain('text-xs');
+  });
+});
+
+describe('Tabs rounded variant', () => {
+  it('rounded turns the track and triggers into pills', () => {
+    render(
+      <Tabs variant="rounded" defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+          <TabsTrigger value="b">Beta</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+        <TabsContent value="b">B</TabsContent>
+      </Tabs>
+    );
+    expect(screen.getByRole('tab', { name: 'Alpha' }).className).toContain('rounded-full');
+    expect(screen.getByRole('tablist').className).toContain('rounded-full');
+  });
+
+  it('default variant keeps the square track', () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+      </Tabs>
+    );
+    expect(screen.getByRole('tablist').className).not.toContain('rounded-full');
+  });
+
+  it('rounded remains keyboard operable', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tabs variant="rounded" defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+          <TabsTrigger value="b">Beta</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+        <TabsContent value="b">B</TabsContent>
+      </Tabs>
+    );
+    await user.click(screen.getByRole('tab', { name: 'Beta' }));
+    expect(screen.getByRole('tab', { name: 'Beta' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByText('B')).toBeInTheDocument();
+  });
+});

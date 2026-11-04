@@ -77,3 +77,62 @@ describe('FormField', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('FormField extensions', () => {
+  it('renders the tooltip info button with an accessible name after the label', () => {
+    render(
+      <FormField id="tw" label="Work email" tooltip="Use your work email.">
+        <Input />
+      </FormField>
+    );
+    expect(screen.getByRole('button', { name: 'Work email information' })).toBeInTheDocument();
+  });
+
+  it('keeps the label to the left in labelPlacement="left"', () => {
+    const { container } = render(
+      <FormField id="left" label="API key" labelPlacement="left">
+        <Input />
+      </FormField>
+    );
+    expect(screen.getByLabelText('API key')).toBeInTheDocument();
+    expect(container.firstElementChild?.firstElementChild).toHaveClass('flex', 'items-start');
+    expect(screen.getByText('API key').closest('div')?.className).toContain('w-40');
+  });
+
+  it('renders the trailing slot on the label row', () => {
+    render(
+      <FormField id="trail" label="Rank" trailing={<span data-testid="trailing">Pro</span>}>
+        <Input />
+      </FormField>
+    );
+    expect(screen.getByTestId('trailing')).toBeInTheDocument();
+    expect(screen.getByLabelText('Rank')).toBeInTheDocument();
+  });
+
+  it('keeps error wiring in both placements', () => {
+    render(
+      <FormField id="err-left" label="Env" labelPlacement="left" error="Required field">
+        <Input />
+      </FormField>
+    );
+    expect(screen.getByRole('alert')).toHaveTextContent('Required field');
+    expect(screen.getByLabelText('Env')).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('has no accessibility violations with tooltip and trailing', async () => {
+    const { container } = render(
+      <FormField
+        id="axe"
+        label="Work email"
+        tooltip="Use your work email."
+        hint="Never shared."
+        trailing={<span>Badge</span>}
+        required
+      >
+        <Input type="email" />
+      </FormField>
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+

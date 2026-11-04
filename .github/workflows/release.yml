@@ -6,11 +6,18 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+# changesets/action needs to push version commits, tags, releases, and PRs.
+# id-token lets `changeset publish --provenance` sign the npm attestation.
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     # Only publish when the push actually contains version-bumping changeset commits.
-    if: github.repository == 'slipstream-ui/slipstream-ui'
+    if: github.repository == 'michaelmcshinsky/slipstream-ui'
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +29,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 

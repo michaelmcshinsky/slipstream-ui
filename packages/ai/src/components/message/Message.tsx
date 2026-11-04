@@ -5,7 +5,7 @@ import { Avatar, AvatarImage, AvatarFallback, Button } from '@slipstream-ui/core
 import { cn } from '@slipstream-ui/core';
 import type { Message as MessageType } from '../../types';
 
-export interface MessageProps {
+export type MessageProps = {
   message: MessageType;
   className?: string;
   showAvatar?: boolean;
@@ -40,7 +40,7 @@ export interface MessageProps {
    * that swaps content into an inline textarea and calls `onEditContent`.
    */
   onEditContent?: (content: string) => void;
-}
+};
 
 const Message = React.forwardRef<HTMLDivElement, MessageProps>(
   (

@@ -3,18 +3,18 @@
 import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 
-interface Member {
+type Member = {
   id: string;
   role: string;
   user: { id: string; email: string; name: string | null };
-}
+};
 
-interface Invite {
+type Invite = {
   id: string;
   email: string;
   role: string;
   expiresAt: string;
-}
+};
 
 export default function TeamPage() {
   const [teams, setTeams] = useState<{ id: string; name: string; role: string }[]>([]);

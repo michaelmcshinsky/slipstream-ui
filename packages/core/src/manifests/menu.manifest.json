@@ -35,9 +35,21 @@
       "defaultValue": "false",
       "required": false,
       "type": "boolean"
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Render the child element (e.g. an <a>) as the menu item (MenuItem)."
     }
   ],
   "examples": [
+    {
+      "title": "Link menu item",
+      "code": "<MenuItem asChild>\n  <a href=\"/settings\">Settings</a>\n</MenuItem>",
+      "description": "Navigation items keep menuitem semantics."
+    },
     {
       "title": "Actions menu",
       "code": "<Menu>\n  <MenuTrigger>Options</MenuTrigger>\n  <MenuContent>\n    <MenuLabel>Actions</MenuLabel>\n    <MenuItem>Profile</MenuItem>\n    <MenuItem>Settings</MenuItem>\n    <MenuSeparator />\n    <MenuItem destructive>Sign out</MenuItem>\n  </MenuContent>\n</Menu>",

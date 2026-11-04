@@ -1,11 +1,11 @@
-export interface SearchEntry {
+export type SearchEntry = {
   title: string;
   href: string;
   /** Keywords/content used for full-text matching. */
   content: string;
   /** Section grouping shown in the palette. */
   group: string;
-}
+};
 
 export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Introduction', href: '/docs', content: 'what makes slipstream different component manifest AI-first agents', group: 'Getting Started' },
@@ -67,6 +67,35 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Search', href: '/docs/components/search', content: 'select with search filter combobox listbox type to filter options keyboard', group: 'Components' },
   { title: 'Autocomplete', href: '/docs/components/autocomplete', content: 'type-ahead suggestions free text combobox datalist autofill autoComplete form', group: 'Components' },
   { title: 'DataTable', href: '/docs/components/data-table', content: 'config table columns sort pagination row click empty state aria-sort generic', group: 'Components' },
+  { title: 'Heading', href: '/docs/components/heading', content: 'heading h1 h2 h3 semantic level size override outline accessibility', group: 'Components' },
+  { title: 'Text', href: '/docs/components/text', content: 'paragraph p text inline span type scale size weight muted prose', group: 'Components' },
+  { title: 'Block', href: '/docs/components/block', content: 'div container semantic section article figure inline span wrapper', group: 'Components' },
+  { title: 'Flex', href: '/docs/components/flex', content: 'flexbox row column align justify wrap gap toolbar layout FlexItem grow shrink basis', group: 'Components' },
+  { title: 'Grid', href: '/docs/components/grid', content: 'grid columns responsive auto-fit minmax cards layout GridItem span', group: 'Components' },
+  { title: 'List', href: '/docs/components/list', content: 'list ul li rows settings results selected pressable leading trailing divider', group: 'Components' },
+  { title: 'Form', href: '/docs/components/form', content: 'form semantic submit validation stack card inline gap fields noValidate', group: 'Components' },
+  { title: 'FormLayout', href: '/docs/components/form-layout', content: 'form layout stack row grid columns spacing fieldset legend grouping', group: 'Components' },
+  { title: 'SelectMenu', href: '/docs/components/select-menu', content: 'custom select listbox rich options descriptions icons groups multiple multi select form hidden input renderItem', group: 'Components' },
+  { title: 'TableCard', href: '/docs/components/table-card', content: 'table card shell header actions toolbar footer pagination data table list page', group: 'Components' },
+  { title: 'DatePicker', href: '/docs/components/date-picker', content: 'date picker calendar iso yyyy-mm-dd min max clear scheduling form', group: 'Components' },
+  { title: 'TimePicker', href: '/docs/components/time-picker', content: 'time picker hh:mm 24 hour scheduling form clear', group: 'Components' },
+  { title: 'Stepper', href: '/docs/components/stepper', content: 'stepper wizard steps onboarding progress current completed aria-current form flow', group: 'Components' },
+  { title: 'FileUpload', href: '/docs/components/file-upload', content: 'file upload drag drop attachments progress remove accept multiple form', group: 'Components' },
+  { title: 'Timeline', href: '/docs/components/timeline', content: 'timeline chronology experience history activity audit trail period', group: 'Components' },
+  { title: 'EmptyState', href: '/docs/components/empty-state', content: 'empty state placeholder no results zero data onboarding action illustration', group: 'Components' },
+  { title: 'PageHeader', href: '/docs/components/page-header', content: 'page header title description breadcrumbs actions heading h1 layout', group: 'Components' },
+  { title: 'MetricCard', href: '/docs/components/metric-card', content: 'metric kpi stat card delta trend up down dashboard numbers', group: 'Components' },
+  { title: 'PasswordInput', href: '/docs/components/password-input', content: 'password field show hide reveal toggle aria-pressed sign in auth', group: 'Components' },
+  { title: 'AuthLayout', href: '/docs/components/auth-layout', content: 'auth layout sign in signup login reset centered card brand footer', group: 'Components' },
+  { title: 'FilterBar', href: '/docs/components/filter-bar', content: 'filter bar search reset list page toolbar controls data table', group: 'Components' },
+  { title: 'AppShell', href: '/docs/components/app-shell', content: 'app shell layout sidebar navigation rail sticky header main drawer mobile admin dashboard router link active aria-current', group: 'Components' },
+  { title: 'Drawer', href: '/docs/components/drawer', content: 'drawer side sheet edge panel filters mobile nav left right top bottom modal focus trap', group: 'Components' },
+  { title: 'Input', href: '/docs/components/input', content: 'input text field single line form control type password number placeholder focus disabled', group: 'Components' },
+  { title: 'Button', href: '/docs/components/button', content: 'button action submit click variants destructive ghost outline link sizes loading success warning info', group: 'Components' },
+  { title: 'Badge', href: '/docs/components/badge', content: 'badge pill status tag label count secondary destructive outline compact', group: 'Components' },
+  { title: 'InputGroup', href: '/docs/components/input-group', content: 'input group addon prefix suffix affix icon unit currency flush border outline search url combined field', group: 'Components' },
+  { title: 'CheckboxGroup', href: '/docs/components/checkbox-group', content: 'checkbox group multi select fieldset legend orientation horizontal vertical error validation string array', group: 'Components' },
+  { title: 'ButtonGroup', href: '/docs/components/button-group', content: 'button group joined segmented toolbar toggle border collapse orientation stepper zoom view mode', group: 'Components' },
   { title: 'AI chat UI guide', href: '/docs/guides/ai-chat-ui', content: 'guide react ai chat components streaming markdown stop generation production walkthrough', group: 'Guides' },
   { title: 'Agent integration guide', href: '/docs/guides/agent-integration', content: 'guide MCP component library claude cursor validate_usage tools llms.txt zero hallucination', group: 'Guides' },
   { title: 'Migrating from shadcn', href: '/docs/guides/migrating-from-shadcn', content: 'guide shadcn alternative AI UI migration coexist registry comparison switch', group: 'Guides' },

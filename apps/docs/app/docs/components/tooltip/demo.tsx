@@ -104,12 +104,12 @@ export default function TooltipPage() {
 <Tooltip content="Save your changes" side="top" delay={200}>
   <Button>Save</Button>
 </Tooltip>`}
-        types={`interface TooltipProps {
+        types={`type TooltipProps = {
   content: string;
   side?: 'top' | 'bottom' | 'left' | 'right';
   delay?: number;
   children: ReactElement;
-}`}
+};`}
       />
     </ComponentPage>
   );

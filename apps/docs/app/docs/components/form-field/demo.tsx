@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { FormField, Input, Textarea } from '@slipstream-ui/core';
+import { Badge, FormField, Input, Textarea } from '@slipstream-ui/core';
 
 export default function FormFieldPage() {
   return (
@@ -16,6 +16,9 @@ export default function FormFieldPage() {
         { name: 'error', type: 'string', description: 'Validation error; replaces the hint, sets aria-invalid, announced via role=alert.' },
         { name: 'required', type: 'boolean', defaultValue: 'false', description: 'Renders the required marker next to the label.' },
         { name: 'labelHidden', type: 'boolean', defaultValue: 'false', description: 'Keeps the label sr-only while hiding it visually.' },
+        { name: 'labelPlacement', type: "'top' | 'left'", defaultValue: "'top'", description: 'Stack the label above the control or inline it to the left (fixed label column).' },
+        { name: 'tooltip', type: 'string', description: 'Info icon rendered after the label; opens a tooltip with this text.' },
+        { name: 'trailing', type: 'ReactNode', description: "Slot pinned to the far right of the label row (badge, link, action)." },
         { name: 'children', type: 'ReactNode', description: 'Exactly one control element — id/aria wiring is cloned onto it.' },
       ]}
       accessibility={[
@@ -70,7 +73,7 @@ export default function FormFieldPage() {
 <FormField id="email" label="Email" error={errors.email} required>
   <Input value={email} onChange={(e) => setEmail(e.target.value)} />
 </FormField>`}
-        types={`interface FormFieldProps {
+        types={`type FormFieldProps = {
   id: string;
   label: string;
   hint?: string;
@@ -78,7 +81,7 @@ export default function FormFieldPage() {
   required?: boolean;
   labelHidden?: boolean;
   children: React.ReactNode;
-}`}
+};`}
       />
 
       <DemoCard
@@ -116,6 +119,87 @@ export default function FormFieldPage() {
   </FormField>
   <button type="submit">Save profile</button>
 </form>`}
+      />
+
+      <DemoCard
+        title="Label placement, tooltip, trailing slot"
+        preview={
+          <div className="w-full space-y-6">
+            <FormField
+              id="ff-tooltip"
+              label="Work email"
+              tooltip="Use your work email so teammates can find you in the directory."
+              hint="We never share your email."
+              required
+            >
+              <Input type="email" placeholder="you@company.com" />
+            </FormField>
+
+            <FormField
+              id="ff-left"
+              label="API key"
+              labelPlacement="left"
+              labelHidden={false}
+              hint="Rotated automatically every 90 days."
+              trailing={
+                <Badge variant="outline" className="whitespace-nowrap">
+                  rotates in 90d
+                </Badge>
+              }
+            >
+              <Input defaultValue="sk_live_••••4f2a" readOnly />
+            </FormField>
+
+            <FormField
+              id="ff-left-plain"
+              label="Environment"
+              labelPlacement="left"
+              tooltip="Where deploys are released."
+            >
+              <Input defaultValue="production" />
+            </FormField>
+          </div>
+        }
+        code={`import { Badge, FormField, Input } from '@slipstream-ui/core';
+
+{/* Info icon beside the label opens a tooltip */}
+<FormField
+  id="email"
+  label="Work email"
+  tooltip="Use your work email so teammates can find you."
+  hint="We never share your email."
+  required
+>
+  <Input type="email" />
+</FormField>
+
+{/* Inline label column + trailing slot on the right of the row */}
+<FormField
+  id="key"
+  label="API key"
+  labelPlacement="left"
+  hint="Rotated automatically every 90 days."
+  trailing={<Badge variant="outline">rotates in 90d</Badge>}
+>
+  <Input readOnly value="sk_live_••••4f2a" />
+</FormField>`}
+        usage={`import { FormField, Input } from '@slipstream-ui/core';
+
+// Compact settings rows read better with the label on the left
+<FormField id="env" label="Environment" labelPlacement="left" tooltip="Where deploys go.">
+  <Input defaultValue="production" />
+</FormField>`}
+        types={`type FormFieldProps = {
+  id: string;
+  label: string;
+  hint?: string;
+  error?: string;
+  required?: boolean;
+  labelHidden?: boolean;
+  labelPlacement?: 'top' | 'left';
+  tooltip?: string;
+  trailing?: ReactNode;
+};`}
       />
     </ComponentPage>
   );

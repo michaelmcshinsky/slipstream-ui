@@ -5,7 +5,7 @@ import { Card } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 
-interface AdminUser {
+type AdminUser = {
   id: string;
   email: string;
   name: string | null;
@@ -13,7 +13,7 @@ interface AdminUser {
   suspendedAt: string | null;
   createdAt: string;
   _count: { memberships: number; licenseKeys: number };
-}
+};
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);

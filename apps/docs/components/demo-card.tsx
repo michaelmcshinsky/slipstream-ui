@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { cn } from '@slipstream-ui/core';
 
-export interface DemoCardProps {
+export type DemoCardProps = {
   /** Rendered live preview. */
   preview: React.ReactNode;
   /** Source code shown in the Code tab. */
@@ -19,7 +19,7 @@ export interface DemoCardProps {
   className?: string;
   /** Start on the code tab instead of the preview. */
   defaultTab?: DemoTab;
-}
+};
 
 type DemoTab = 'preview' | 'code' | 'usage' | 'types';
 
@@ -77,11 +77,11 @@ export function DemoCard({
         {title && <span className="shrink-0 text-xs text-muted-foreground">{title}</span>}
       </div>
       {activeTab === 'preview' ? (
-        // Scroll instead of clip: the card is overflow-hidden, so a wide
-        // preview must be able to scroll horizontally on small screens.
-        // w-max + min-w-full keeps previews centered when they fit.
+        // Block layout (not flex): children with w-full must resolve against
+        // the full preview width. The old flex+w-max shrink-wrapped wrappers
+        // so Progress collapsed to 0px and Accordions sized to closed content.
         <div className="overflow-x-auto p-6">
-          <div className="flex min-h-24 w-max min-w-full items-center justify-center">{preview}</div>
+          <div className="min-h-24 w-full">{preview}</div>
         </div>
       ) : (
         <CodeBlock

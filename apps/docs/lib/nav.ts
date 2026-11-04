@@ -1,20 +1,20 @@
-export interface NavItem {
+export type NavItem = {
   href: string;
   label: string;
-}
+};
 
-export interface NavGroup {
+export type NavGroup = {
   title: string;
   items: NavItem[];
-}
+};
 
-export interface NavSection {
+export type NavSection = {
   title: string;
   /** Flat items rendered directly under the section (optional when groups cover it). */
   items?: NavItem[];
   /** Nested groups rendered as collapsible sub-sections (sidebar accordion). */
   groups?: NavGroup[];
-}
+};
 
 /** First href in a section across items and groups — used by the mobile pills. */
 export function sectionFirstHref(section: NavSection): string {
@@ -64,21 +64,49 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Actions',
         items: [
           { href: '/docs/components/button', label: 'Button' },
+          { href: '/docs/components/button-group', label: 'ButtonGroup' },
           { href: '/docs/components/command-palette', label: 'CommandPalette' },
+        ],
+      },
+      {
+        title: 'Typography',
+        items: [
+          { href: '/docs/components/heading', label: 'Heading' },
+          { href: '/docs/components/text', label: 'Text' },
+        ],
+      },
+      {
+        title: 'Layout',
+        items: [
+          { href: '/docs/components/flex', label: 'Flex' },
+          { href: '/docs/components/grid', label: 'Grid' },
+          { href: '/docs/components/block', label: 'Block' },
+          { href: '/docs/components/page-header', label: 'PageHeader' },
+          { href: '/docs/components/auth-layout', label: 'AuthLayout' },
         ],
       },
       {
         title: 'Forms',
         items: [
           { href: '/docs/components/input', label: 'Input' },
+          { href: '/docs/components/input-group', label: 'InputGroup' },
+          { href: '/docs/components/password-input', label: 'PasswordInput' },
+          { href: '/docs/components/date-picker', label: 'DatePicker' },
+          { href: '/docs/components/time-picker', label: 'TimePicker' },
+          { href: '/docs/components/stepper', label: 'Stepper' },
+          { href: '/docs/components/file-upload', label: 'FileUpload' },
           { href: '/docs/components/textarea', label: 'Textarea' },
           { href: '/docs/components/label', label: 'Label' },
           { href: '/docs/components/form-field', label: 'FormField' },
           { href: '/docs/components/fieldset', label: 'Fieldset' },
+          { href: '/docs/components/form', label: 'Form' },
+          { href: '/docs/components/form-layout', label: 'FormLayout' },
           { href: '/docs/components/checkbox', label: 'Checkbox' },
+          { href: '/docs/components/checkbox-group', label: 'CheckboxGroup' },
           { href: '/docs/components/radio', label: 'Radio' },
           { href: '/docs/components/switch', label: 'Switch' },
           { href: '/docs/components/select', label: 'Select' },
+          { href: '/docs/components/select-menu', label: 'SelectMenu' },
           { href: '/docs/components/search', label: 'Search' },
           { href: '/docs/components/autocomplete', label: 'Autocomplete' },
         ],
@@ -100,8 +128,14 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/badge', label: 'Badge' },
           { href: '/docs/components/avatar', label: 'Avatar' },
           { href: '/docs/components/card', label: 'Card' },
+          { href: '/docs/components/list', label: 'List' },
+          { href: '/docs/components/empty-state', label: 'EmptyState' },
+          { href: '/docs/components/metric-card', label: 'MetricCard' },
+          { href: '/docs/components/filter-bar', label: 'FilterBar' },
+          { href: '/docs/components/timeline', label: 'Timeline' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },
+          { href: '/docs/components/table-card', label: 'TableCard' },
           { href: '/docs/components/separator', label: 'Separator' },
         ],
       },
@@ -109,6 +143,7 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Overlays',
         items: [
           { href: '/docs/components/dialog', label: 'Dialog' },
+          { href: '/docs/components/drawer', label: 'Drawer' },
           { href: '/docs/components/menu', label: 'Menu' },
           { href: '/docs/components/popover', label: 'Popover' },
         ],
@@ -116,6 +151,7 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         title: 'Navigation & disclosure',
         items: [
+          { href: '/docs/components/app-shell', label: 'AppShell' },
           { href: '/docs/components/breadcrumb', label: 'Breadcrumb' },
           { href: '/docs/components/pagination', label: 'Pagination' },
           { href: '/docs/components/tabs', label: 'Tabs' },

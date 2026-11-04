@@ -54,7 +54,19 @@ export function Sidebar() {
   const [toggled, setToggled] = useState<Record<string, boolean>>({});
 
   const toggle = (key: string, next: boolean) =>
-    setToggled((prev) => ({ ...prev, [key]: next }));
+    setToggled((prev) => {
+      const isSection = !key.includes('/');
+      const updated: Record<string, boolean> = { ...prev };
+      if (next) {
+        // Accordion behavior (item 0): opening one closes the others at the
+        // same level — sections close sections, groups close groups.
+        for (const existing of Object.keys(updated)) {
+          if (existing !== key && !existing.includes('/') === isSection) delete updated[existing];
+        }
+      }
+      updated[key] = next;
+      return updated;
+    });
 
   const isOpen = (key: string, fallback: boolean) => (key in toggled ? toggled[key] : fallback);
 

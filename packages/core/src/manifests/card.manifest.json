@@ -5,10 +5,32 @@
   "description": "A content container with header, body, and footer sections for grouping related information",
   "designIntent": "Card groups related content into a scannable container. Use it for settings panels, feature highlights, user profiles, and any content that benefits from visual grouping.",
   "props": [
-    { "name": "children", "type": "ReactNode", "required": true, "description": "Card sub-components (CardHeader, CardContent, CardFooter)" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Card sub-components (CardHeader, CardContent, CardFooter)"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Render the child element (router Link, <a>) with card styling instead of a div."
+    }
   ],
   "examples": [
+    {
+      "title": "Card as a link",
+      "code": "<Card asChild>\n  <Link href=\"/writing/hello\">\n    <CardHeader><CardTitle>Hello</CardTitle></CardHeader>\n  </Link>\n</Card>",
+      "description": "Whole card becomes a semantic link without losing styling."
+    },
     {
       "title": "Basic card",
       "code": "<Card>\n  <CardHeader>\n    <CardTitle>Profile</CardTitle>\n    <CardDescription>Manage your account settings</CardDescription>\n  </CardHeader>\n  <CardContent>Form fields here</CardContent>\n  <CardFooter>\n    <Button>Save</Button>\n  </CardFooter>\n</Card>",
@@ -28,15 +50,40 @@
     }
   ],
   "accessibility": [
-    { "feature": "Heading hierarchy", "implementation": "CardTitle renders as h3", "userRequirements": "Maintain logical heading order in your page" }
+    {
+      "feature": "Heading hierarchy",
+      "implementation": "CardTitle renders as h3",
+      "userRequirements": "Maintain logical heading order in your page"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Card titles", "guidelines": ["Keep titles short (2-5 words)", "Use sentence case"], "goodExamples": ["Profile settings", "Billing overview"], "badExamples": ["Card title", "Section"] }
+    {
+      "contentType": "Card titles",
+      "guidelines": [
+        "Keep titles short (2-5 words)",
+        "Use sentence case"
+      ],
+      "goodExamples": [
+        "Profile settings",
+        "Billing overview"
+      ],
+      "badExamples": [
+        "Card title",
+        "Section"
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "Button", "relationship": "Place primary actions in CardFooter", "example": "<CardFooter><Button>Save</Button></CardFooter>" }
+    {
+      "component": "Button",
+      "relationship": "Place primary actions in CardFooter",
+      "example": "<CardFooter><Button>Save</Button></CardFooter>"
+    }
   ],
-  "relatedComponents": ["Separator", "Tabs"],
+  "relatedComponents": [
+    "Separator",
+    "Tabs"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

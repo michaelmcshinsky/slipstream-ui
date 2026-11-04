@@ -48,7 +48,12 @@ describe('Toast', () => {
 
   it('throws when useToast is used outside the provider', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    // React 18 re-reports render errors asynchronously via jsdom's error
+    // event; swallow them so they cannot leak into the next test file.
+    const swallow = (event: ErrorEvent) => event.preventDefault();
+    window.addEventListener('error', swallow);
     expect(() => render(<Trigger options={{ title: 'x' }} />)).toThrow(/ToastProvider/);
+    window.removeEventListener('error', swallow);
     spy.mockRestore();
   });
 });

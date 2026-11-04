@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
+export type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
 /**
  * Accessible form label. Associates with its control via `htmlFor`

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
 import { cn } from '@slipstream-ui/core';
 
-export interface CodeBlockProps {
+export type CodeBlockProps = {
   /** Raw code to display (no trailing newline needed). */
   code: string;
   /** Language identifier used for Prism highlighting. */
@@ -12,7 +12,7 @@ export interface CodeBlockProps {
   /** Show a copy-to-clipboard button (default true). */
   showCopyButton?: boolean;
   className?: string;
-}
+};
 
 /** Tracks whether the `.dark` class is present on `<html>`, staying in sync with toggles. */
 function useIsDark(): boolean {
@@ -50,7 +50,9 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
       <div
         ref={ref}
         className={cn(
-          'relative group rounded-md border border-border bg-muted/50 overflow-hidden',
+          // bg-background (not muted): Prism light themes assume a white
+          // surface — on gray the comment/keyword tokens fall below AA.
+          'relative group rounded-md border border-border bg-background overflow-hidden',
           className
         )}
         {...props}

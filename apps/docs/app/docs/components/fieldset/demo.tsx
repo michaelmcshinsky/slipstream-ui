@@ -65,12 +65,12 @@ export default function FieldsetPage() {
     <RadioGroupItem value="team" label="Team" />
   </RadioGroup>
 </Fieldset>`}
-        types={`interface FieldsetProps {
+        types={`type FieldsetProps = {
   legend?: string;
   description?: string;
   error?: string;
   children?: ReactNode;
-}`}
+};`}
       />
 
       <DemoCard

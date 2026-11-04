@@ -1,0 +1,94 @@
+{
+  "id": "form",
+  "name": "Form",
+  "tier": "molecule",
+  "description": "Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.",
+  "designIntent": "Forms need two things the DOM gives you: a real <form> (submit, Enter, validation) and even, tokenized spacing between fields. Form bakes the layout into variants so field rhythm stays consistent without wrapper divs or one-off gap classes.",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'default' | 'card' | 'inline'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Visual container: plain vertical stack, bordered card, or inline row with aligned ends.",
+      "enum": ["default", "card", "inline"],
+      "examples": ["card", "inline"]
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | number",
+      "required": false,
+      "description": "Even spacing between children — token ('md' default) or exact pixels (16).",
+      "examples": ["lg", "16"]
+    },
+    {
+      "name": "onSubmit",
+      "type": "(event: React.FormEvent<HTMLFormElement>) => void",
+      "required": false,
+      "description": "Native submit handler — Enter in a text input submits like any form."
+    },
+    {
+      "name": "noValidate",
+      "type": "boolean",
+      "required": false,
+      "description": "Skip native validation when you drive errors through FormField error props.",
+      "defaultValue": "false",
+      "examples": ["true"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Stacked settings form",
+      "code": "<Form onSubmit={save} noValidate className=\"max-w-md\">\n  <FormField id=\"name\" label=\"Display name\" error={errors.name} required>\n    <Input value={name} onChange={(e) => setName(e.target.value)} />\n  </FormField>\n  <FormField id=\"email\" label=\"Email\" error={errors.email}>\n    <Input type=\"email\" value={email} onChange={(e) => setEmail(e.target.value)} />\n  </FormField>\n  <Button type=\"submit\">Save settings</Button>\n</Form>",
+      "description": "Fields space evenly on the md token; errors come from FormField."
+    },
+    {
+      "title": "Card and inline variants",
+      "code": "<Form variant=\"card\" gap={16}>…</Form>\n\n<Form variant=\"inline\" onSubmit={search}>\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</Form>"}
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest forms",
+      "explanation": "Nested <form> elements are invalid HTML — browsers drop the inner form's submit association. Compose with FormLayout sections instead.",
+      "example": "<Form>…<Form>…</Form>…</Form>  // avoid"
+    },
+    {
+      "title": "Don't fight native validation blindly",
+      "explanation": "Passing noValidate means YOU own every error message — pair it with FormField error props or keep native validation on.",
+      "example": "<Form noValidate>  // only with client-side validation wired"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native form semantics",
+      "implementation": "Renders <form> — Enter-to-submit, browser validation, and autocomplete all work",
+      "userRequirements": "Every control needs an accessible name (FormField provides it)"
+    },
+    {
+      "feature": "Even spacing is tokenized",
+      "implementation": "gap defaults to the md token and accepts exact pixels — rhythm stays consistent across forms",
+      "userRequirements": "Keep related fields closer (smaller gap) than unrelated groups (use FormLayout/Fieldset to group)"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Each field is a FormField; Form spaces them evenly",
+      "example": "<Form onSubmit={save}><FormField …>…</FormField></Form>"
+    },
+    {
+      "component": "FormLayout",
+      "relationship": "Multi-column or grouped sections inside a form"
+    },
+    {
+      "component": "Button",
+      "relationship": "Submit button with type=\"submit\" — native Enter handling comes free"
+    }
+  ],
+  "relatedComponents": ["FormField", "FormLayout", "Fieldset", "Input"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "form",
+  "exportName": "Form"
+}

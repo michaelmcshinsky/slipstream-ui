@@ -65,6 +65,12 @@ type Drift = {
 function extractTsProps(source: string, interfaceName: string): Map<string, boolean> {
   const props = new Map<string, boolean>();
 
+  // Strip comments before scanning: an apostrophe inside prose (e.g.
+  // "/** The tab's value */") toggles the quote state and makes the body
+  // scan run past the type into component code, reporting phantom props
+  // like "focus-visible" from class strings.
+  source = source.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
+
   // Find the declaration start.
   const declPattern = new RegExp(`(?:interface|type)\\s+${interfaceName}\\b`);
   const declMatch = source.match(declPattern);

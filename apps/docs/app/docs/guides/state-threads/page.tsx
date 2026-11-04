@@ -25,13 +25,13 @@ export default function StateThreadsGuidePage() {
       <div className="mt-4">
         <CodeBlock
           language="typescript"
-          code={`interface Message {
+          code={`type Message = {
   id: string;                    // stable — used as React key, streaming target, error map key
   role: 'user' | 'assistant' | 'system' | 'tool';
   content: string;               // markdown is fine — Response renders it
   timestamp?: Date;
   metadata?: Record<string, unknown>;   // toolCalls, sources, branch info…
-}`}
+};`}
         />
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">

@@ -7,24 +7,25 @@ export default function TabsPage() {
     <ComponentPage
       id="tabs"
       title="Tabs"
-      description="Tabbed content container with ARIA tablist semantics and keyboard navigation."
+      description="Tabbed content container with ARIA tablist semantics, size variants, and underline/default strip designs."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'value', type: 'string', description: 'Controlled active tab value.' },
         { name: 'defaultValue', type: 'string', description: 'Initial tab value when uncontrolled.' },
         { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the active tab changes.' },
-        { name: 'TabsList className', type: 'string', description: 'Restyles the tab strip (pill, underline, plain — see designs below).' },
-        { name: 'TabsTrigger / TabsContent className', type: 'string', description: 'Per-trigger/per-panel styling; content panels stack and hide inactive ones.' },
+        { name: 'variant', type: "'default' | 'underline' | 'rounded'", defaultValue: "'default'", description: 'Strip design: enclosed pill track, background-free underline, or fully-rounded pills.' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Density for strip and triggers.' },
+        { name: 'TabsTrigger className', type: 'string', description: 'Per-trigger overrides (twMerge resolves conflicts with variant/size).' },
       ]}
       accessibility={[
         'role=tablist/tab/tabpanel with aria-selected and aria-controls.',
         'Roving tabindex: only the active tab is tabbable.',
-        'Arrow keys move between tabs; Home/End jump to first/last (WAI-ARIA tabs pattern).',
-        'Keep panel content short-circuitable: each TabsContent owns its heading order.',
+        'Full keyboard operation: ArrowLeft/Right + ArrowUp/Down move AND activate (wrapping), Home/End jump to first/last, Enter/Space activate.',
+        'Underline variant keeps a 2px border indicator so state is not color-only.',
       ]}
     >
       <DemoCard
-        title="Default (pill) design"
+        title="Default (pill track)"
         preview={
           <div className="w-full max-w-md">
             <Tabs defaultValue="overview">
@@ -59,26 +60,11 @@ export default function TabsPage() {
         title="Underline design"
         preview={
           <div className="w-full max-w-md">
-            <Tabs defaultValue="code">
-              <TabsList className="gap-6 rounded-none border-b border-border bg-transparent p-0">
-                <TabsTrigger
-                  value="code"
-                  className="rounded-none border-b-2 border-transparent px-1 pb-3 data-[state=active]:border-primary data-[state=active]:shadow-none"
-                >
-                  Code
-                </TabsTrigger>
-                <TabsTrigger
-                  value="preview"
-                  className="rounded-none border-b-2 border-transparent px-1 pb-3 data-[state=active]:border-primary data-[state=active]:shadow-none"
-                >
-                  Preview
-                </TabsTrigger>
-                <TabsTrigger
-                  value="notes"
-                  className="rounded-none border-b-2 border-transparent px-1 pb-3 data-[state=active]:border-primary data-[state=active]:shadow-none"
-                >
-                  Notes
-                </TabsTrigger>
+            <Tabs defaultValue="code" variant="underline">
+              <TabsList>
+                <TabsTrigger value="code">Code</TabsTrigger>
+                <TabsTrigger value="preview">Preview</TabsTrigger>
+                <TabsTrigger value="notes">Notes</TabsTrigger>
               </TabsList>
               <TabsContent value="code" className="pt-4 text-sm text-muted-foreground">
                 Source snippet for the current example.
@@ -92,47 +78,75 @@ export default function TabsPage() {
             </Tabs>
           </div>
         }
-        code={`{/* Tabs are unstyled at the strip level: design them with className.
-    Underline style = transparent list, active border on the trigger. */}
-<TabsList className="gap-6 rounded-none border-b border-border bg-transparent p-0">
-  <TabsTrigger
-    value="code"
-    className="rounded-none border-b-2 border-transparent px-1 pb-3 data-[state=active]:border-primary data-[state=active]:shadow-none"
-  >
-    Code
-  </TabsTrigger>
+        code={`{/* variant="underline": no strip background — the 2px border
+    alone marks the active tab (item 18) */}
+<Tabs defaultValue="code" variant="underline">
+  <TabsList>
+    <TabsTrigger value="code">Code</TabsTrigger>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+  </TabsList>
   …
-</TabsList>`}
+</Tabs>`}
       />
 
       <DemoCard
-        title="Segmented (enclosed) design"
+        title="Sizes"
         preview={
-          <div className="w-full max-w-md">
-            <Tabs defaultValue="s">
-              <TabsList className="h-auto gap-1 rounded-lg bg-muted p-1">
-                <TabsTrigger value="s" className="h-8 rounded-md px-4 text-xs">Small</TabsTrigger>
-                <TabsTrigger value="m" className="h-8 rounded-md px-4 text-xs">Medium</TabsTrigger>
-                <TabsTrigger value="l" className="h-8 rounded-md px-4 text-xs">Large</TabsTrigger>
-              </TabsList>
-              <TabsContent value="s" className="pt-3 text-sm text-muted-foreground">
-                Compact controls for dense toolbars.
-              </TabsContent>
-              <TabsContent value="m" className="pt-3 text-sm text-muted-foreground">
-                The default sizing that matches Button sm.
-              </TabsContent>
-              <TabsContent value="l" className="pt-3 text-sm text-muted-foreground">
-                Comfortable targets for touch-first interfaces.
-              </TabsContent>
-            </Tabs>
+          <div className="w-full space-y-5">
+            {(['sm', 'md', 'lg'] as const).map((size) => (
+              <div key={size} className="flex items-center gap-4">
+                <span className="w-8 shrink-0 font-mono text-xs text-muted-foreground">{size}</span>
+                <Tabs defaultValue="a" size={size}>
+                  <TabsList>
+                    <TabsTrigger value="a">First</TabsTrigger>
+                    <TabsTrigger value="b">Second</TabsTrigger>
+                    <TabsTrigger value="c">Third</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+            ))}
+            <div className="flex items-center gap-4">
+              <span className="w-8 shrink-0 font-mono text-xs text-muted-foreground">sm+ul</span>
+              <Tabs defaultValue="a" variant="underline" size="sm">
+                <TabsList>
+                  <TabsTrigger value="a">One</TabsTrigger>
+                  <TabsTrigger value="b">Two</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="w-8 shrink-0 font-mono text-xs text-muted-foreground">rounded</span>
+              <Tabs defaultValue="a" variant="rounded">
+                <TabsList>
+                  <TabsTrigger value="a">Overview</TabsTrigger>
+                  <TabsTrigger value="b">Activity</TabsTrigger>
+                  <TabsTrigger value="c">Usage</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
           </div>
         }
-        code={`{/* Segmented control: pills inside a muted track, tighter sizing */}
-<TabsList className="h-auto gap-1 rounded-lg bg-muted p-1">
-  <TabsTrigger value="s" className="h-8 rounded-md px-4 text-xs">Small</TabsTrigger>
-  <TabsTrigger value="m" className="h-8 rounded-md px-4 text-xs">Medium</TabsTrigger>
-  <TabsTrigger value="l" className="h-8 rounded-md px-4 text-xs">Large</TabsTrigger>
-</TabsList>`}
+        code={`{/* size applies to strip + triggers; combines with variant */}
+<Tabs size="sm">…</Tabs>
+<Tabs size="md">…</Tabs>   {/* default */}
+<Tabs size="lg">…</Tabs>
+<Tabs variant="underline" size="sm">…</Tabs>
+
+{/* fully-rounded pill track */}
+<Tabs variant="rounded">…</Tabs>`}
+        usage={`import { Tabs, TabsList, TabsTrigger } from '@slipstream-ui/core';
+
+// Controlled with explicit design + density
+<Tabs value={tab} onValueChange={setTab} variant="underline" size="lg">
+  <TabsList>…</TabsList>
+</Tabs>`}
+        types={`type TabsProps = {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  variant?: 'default' | 'underline' | 'rounded';
+  size?: 'sm' | 'md' | 'lg';
+};`}
       />
     </ComponentPage>
   );

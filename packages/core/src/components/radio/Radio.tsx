@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
   /** Controlled checked state; omit for uncontrolled usage. */
   checked?: boolean;
   /** Fired when the user selects this radio. */
   onCheckedChange?: (checked: boolean) => void;
-}
+};
 
 /**
  * Accessible radio built on the native input, to be used inside a
@@ -35,7 +35,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 );
 Radio.displayName = 'Radio';
 
-export interface RadioGroupProps {
+export type RadioGroupProps = {
   /** Shared name applied to every radio in the group. */
   name: string;
   /** Accessible group label; rendered as <legend> inside a fieldset. */
@@ -46,9 +46,13 @@ export interface RadioGroupProps {
   defaultValue?: string;
   /** Called with the newly selected value. */
   onValueChange?: (value: string) => void;
+  /** Stack options (default) or lay them out in a wrapping row. */
+  orientation?: 'vertical' | 'horizontal';
+  /** Group-level validation message; announced via role=alert. */
+  error?: string;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Groups related radios with a shared name and accessible legend.
@@ -56,7 +60,7 @@ export interface RadioGroupProps {
  * group context alongside each option.
  */
 const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(
-  ({ name, legend, value, defaultValue, onValueChange, className, children }, ref) => {
+  ({ name, legend, value, defaultValue, onValueChange, orientation = 'vertical', error, className, children }, ref) => {
     const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');
     const currentValue = value ?? internalValue;
 
@@ -66,11 +70,22 @@ const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(
     };
 
     return (
-      <fieldset ref={ref} className={cn('space-y-2', className)}>
+      <fieldset
+        ref={ref}
+        className={cn(
+          orientation === 'vertical' ? 'space-y-2' : 'flex flex-row flex-wrap gap-x-4 gap-y-2',
+          className
+        )}
+      >
         {legend && <legend className="text-sm font-medium">{legend}</legend>}
         <RadioGroupContext.Provider value={{ name, value: currentValue, onChange: handleChange }}>
           {children}
         </RadioGroupContext.Provider>
+        {error && (
+          <p role="alert" className="text-xs text-destructive">
+            {error}
+          </p>
+        )}
       </fieldset>
     );
   }
@@ -83,18 +98,19 @@ type RadioGroupContextValue = {
   onChange: (value: string) => void;
 };
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue>({
+/** Shared group state — exported so custom option controls (RadioCard) can join a RadioGroup. */
+export const RadioGroupContext = React.createContext<RadioGroupContextValue>({
   name: '',
   value: '',
   onChange: () => {},
 });
 
-export interface RadioGroupItemProps extends Omit<RadioProps, 'name' | 'checked' | 'onCheckedChange' | 'value'> {
+export type RadioGroupItemProps = Omit<RadioProps, 'name' | 'checked' | 'onCheckedChange' | 'value'> & {
   /** The value this item contributes to the group. */
   value: string;
   /** Visible label rendered next to the radio. */
   label?: string;
-}
+};
 
 /** A single radio option inside a `RadioGroup`. */
 const RadioGroupItem = React.forwardRef<HTMLInputElement, RadioGroupItemProps>(

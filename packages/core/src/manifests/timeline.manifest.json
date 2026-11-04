@@ -1,0 +1,69 @@
+{
+  "id": "timeline",
+  "name": "Timeline",
+  "tier": "molecule",
+  "description": "Vertical chronology for experience, activity and audit trails, built on an ordered list.",
+  "designIntent": "Chronologies communicate order. Rendering them as an ordered list keeps the sequence structural for assistive tech, while the connector rule and dots provide the visual rhythm.",
+  "props": [
+    {
+      "name": "items",
+      "type": "{ title: string; period?: string; description?: string; icon?: ReactNode; muted?: boolean }[]",
+      "required": true,
+      "description": "Ordered timeline entries."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Experience",
+      "code": "<Timeline\n  items={[\n    { title: 'Senior Engineer', period: '2023 — Present', description: 'Platform team' },\n    { title: 'Engineer', period: '2020 — 2023' },\n  ]}\n/>",
+      "description": "Period label, title and supporting line per entry."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't reverse the DOM order for newest-first",
+      "explanation": "Reverse the array instead so reading order matches visual order.",
+      "example": "// Avoid: flex-col-reverse\n// Prefer: items={items.slice().reverse()}"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Sequence",
+      "implementation": "Ordered list semantics",
+      "userRequirements": "Keep entries in chronological order in the array"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Periods",
+      "guidelines": [
+        "Use a consistent format",
+        "State Present for ongoing"
+      ],
+      "goodExamples": [
+        "2023 — Present",
+        "Jan 2024"
+      ],
+      "badExamples": [
+        "Some time ago"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "Often embedded in profile/about cards",
+      "example": "<Card><CardContent><Timeline items={roles} /></CardContent></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "List",
+    "Card",
+    "Separator"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "timeline",
+  "exportName": "Timeline"
+}
