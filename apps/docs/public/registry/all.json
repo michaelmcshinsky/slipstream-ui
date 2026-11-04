@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "b734ffe",
-  "count": 71,
+  "sourceRevision": "e6aec11",
+  "count": 73,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -438,6 +438,14 @@
       "registry": "/registry/select.json"
     },
     {
+      "id": "select-menu",
+      "name": "SelectMenu",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.",
+      "registry": "/registry/select-menu.json"
+    },
+    {
       "id": "separator",
       "name": "Separator",
       "package": "@slipstream-ui/core",
@@ -508,6 +516,14 @@
       "tier": "molecule",
       "description": "Semantic data table with headers, body, footer, and accessible caption",
       "registry": "/registry/table.json"
+    },
+    {
+      "id": "table-card",
+      "name": "TableCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.",
+      "registry": "/registry/table-card.json"
     },
     {
       "id": "tabs",

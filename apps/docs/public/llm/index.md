@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 71 components, each shipping a
+The AI-first React component library. 73 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 54
+## Core components (@slipstream-ui/core) — 56
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -50,12 +50,14 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 - [Search](https://slipstreamui.com/llm/components/search.md) — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
 - [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
+- [SelectMenu](https://slipstreamui.com/llm/components/select-menu.md) — Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
 - [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
 - [Switch](https://slipstreamui.com/llm/components/switch.md) — A toggle switch for binary settings, with role=switch and aria-checked
 - [Table](https://slipstreamui.com/llm/components/table.md) — Semantic data table with headers, body, footer, and accessible caption
+- [TableCard](https://slipstreamui.com/llm/components/table-card.md) — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea

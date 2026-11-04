@@ -75,6 +75,8 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'List', href: '/docs/components/list', content: 'list ul li rows settings results selected pressable leading trailing divider', group: 'Components' },
   { title: 'Form', href: '/docs/components/form', content: 'form semantic submit validation stack card inline gap fields noValidate', group: 'Components' },
   { title: 'FormLayout', href: '/docs/components/form-layout', content: 'form layout stack row grid columns spacing fieldset legend grouping', group: 'Components' },
+  { title: 'SelectMenu', href: '/docs/components/select-menu', content: 'custom select listbox rich options descriptions icons groups multiple multi select form hidden input renderItem', group: 'Components' },
+  { title: 'TableCard', href: '/docs/components/table-card', content: 'table card shell header actions toolbar footer pagination data table list page', group: 'Components' },
   { title: 'DatePicker', href: '/docs/components/date-picker', content: 'date picker calendar iso yyyy-mm-dd min max clear scheduling form', group: 'Components' },
   { title: 'TimePicker', href: '/docs/components/time-picker', content: 'time picker hh:mm 24 hour scheduling form clear', group: 'Components' },
   { title: 'Stepper', href: '/docs/components/stepper', content: 'stepper wizard steps onboarding progress current completed aria-current form flow', group: 'Components' },

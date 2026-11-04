@@ -14,6 +14,8 @@ export * from './components/toast';
 export * from './components/dialog';
 export * from './components/drawer';
 export * from './components/select';
+export * from './components/table-card';
+export * from './components/select-menu';
 export * from './components/search';
 export * from './components/autocomplete';
 export * from './components/checkbox';
