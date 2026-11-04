@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { resolveGap, type GapValue } from '../../utils/gap';
 
 type AccordionContextValue = {
   openItems: Set<string>;
@@ -25,7 +26,12 @@ export type AccordionProps = {
   onValueChange?: (value: string[]) => void;
   /** When true (default), opening an item closes the others. */
   collapsible?: boolean;
+  /** 'default' = bordered card with dividers; 'borderless' = plain stacked sections. */
+  variant?: 'default' | 'borderless';
+  /** Token gap ('lg') or exact pixels (16) between items. */
+  gap?: GapValue;
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 };
 
@@ -34,7 +40,20 @@ export type AccordionProps = {
  * Each item's trigger announces its expanded state and controls its panel.
  */
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  ({ value, defaultValue = [], onValueChange, collapsible = true, className, children }, ref) => {
+  (
+    {
+      value,
+      defaultValue = [],
+      onValueChange,
+      collapsible = true,
+      variant = 'default',
+      gap,
+      className,
+      style,
+      children,
+    },
+    ref
+  ) => {
     const [internalOpen, setInternalOpen] = React.useState<string[]>(defaultValue);
     const current = value ?? internalOpen;
 
@@ -51,8 +70,21 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       [current, collapsible, value, onValueChange]
     );
 
+    const gapResolved = resolveGap(gap);
+
     return (
-      <div ref={ref} className={cn('w-full divide-y divide-border rounded-lg border border-border', className)}>
+      <div
+        ref={ref}
+        className={cn(
+          // flex-col so token/px gaps apply (gap is a flex property);
+          // divide-y rides along in the default variant.
+          'flex w-full flex-col',
+          variant === 'default' && 'rounded-lg border border-border divide-y divide-border',
+          gapResolved.className,
+          className
+        )}
+        style={{ ...gapResolved.style, ...style }}
+      >
         <AccordionContext.Provider value={{ openItems: new Set(current), toggle, collapsible }}>
           {children}
         </AccordionContext.Provider>

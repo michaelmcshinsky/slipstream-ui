@@ -146,6 +146,16 @@
       ]
     },
     {
+      "name": "loadingRows",
+      "type": "number",
+      "required": false,
+      "description": "Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump.",
+      "examples": [
+        "10",
+        "25"
+      ]
+    },
+    {
       "name": "emptyMessage",
       "type": "string",
       "required": false,

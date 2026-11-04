@@ -128,3 +128,49 @@ describe('Tabs variants, sizes, and arrow navigation', () => {
     expect(screen.getByRole('tab', { name: 'Tab A' }).className).toContain('text-xs');
   });
 });
+
+describe('Tabs rounded variant', () => {
+  it('rounded turns the track and triggers into pills', () => {
+    render(
+      <Tabs variant="rounded" defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+          <TabsTrigger value="b">Beta</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+        <TabsContent value="b">B</TabsContent>
+      </Tabs>
+    );
+    expect(screen.getByRole('tab', { name: 'Alpha' }).className).toContain('rounded-full');
+    expect(screen.getByRole('tablist').className).toContain('rounded-full');
+  });
+
+  it('default variant keeps the square track', () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+      </Tabs>
+    );
+    expect(screen.getByRole('tablist').className).not.toContain('rounded-full');
+  });
+
+  it('rounded remains keyboard operable', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tabs variant="rounded" defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Alpha</TabsTrigger>
+          <TabsTrigger value="b">Beta</TabsTrigger>
+        </TabsList>
+        <TabsContent value="a">A</TabsContent>
+        <TabsContent value="b">B</TabsContent>
+      </Tabs>
+    );
+    await user.click(screen.getByRole('tab', { name: 'Beta' }));
+    expect(screen.getByRole('tab', { name: 'Beta' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByText('B')).toBeInTheDocument();
+  });
+});

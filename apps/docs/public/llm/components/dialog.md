@@ -1,6 +1,6 @@
 # Dialog
 
-Accessible modal dialog with focus trapping, escape-to-close and focus restoration
+Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 
 > Import: `import { Dialog } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/dialog.json
@@ -16,12 +16,18 @@ Modals interrupt the task flow on purpose: confirmations, small forms, and destr
 |---|---|---|---|---|
 | open | `boolean` | — | yes | Whether the dialog is visible (controlled) |
 | onOpenChange | `(open: boolean) => void` | — | yes | Called when the user requests open/close (escape, backdrop, close button) |
-| title | `string` | — | yes | Accessible dialog name, wired via aria-labelledby |
+| title | `string` | — | no | Accessible name + default header title. Optional when composing a custom header with ariaLabel. |
 | description | `string` | — | no | Optional supporting text, wired via aria-describedby |
 | closeOnBackdrop | `boolean` | `true` | no | Whether clicking the backdrop closes the dialog |
 | initialFocusRef | `React.RefObject<HTMLElement | null>` | — | no | Element focused on open; defaults to the first focusable element |
 | ariaLabel | `string` | — | no | Accessible label for the dialog (required for screen readers) |
-| showClose | `boolean` | `true` | no | Hide the close (✕) button in the header; Escape and backdrop still close. |
+| showClose | `boolean` | `true` | no | Hide the close (?) button in the header; Escape and backdrop still close. |
+| animate | `boolean` | `false` | no | Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected). |
+| size | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `md` | no | Panel max-width preset. |
+| header | `ReactNode` | — | no | Replaces the default header row — compose with DialogHeader/DialogTitle/DialogDescription (ids wire automatically). |
+| footer | `ReactNode` | — | no | Action row pinned under the body. |
+| scrollable | `boolean` | `false` | no | Caps the body height and scrolls inside the panel. |
+| bodyClassName | `string` | — | no | Extra classes for the body wrapper. |
 
 ## Examples
 
@@ -59,5 +65,5 @@ const [open, setOpen] = useState(false);
   ```tsx
   <Dialog ...><Button onClick={onConfirm}>Confirm</Button></Dialog>
   ```
-- Related: Button, Toast
+- Related: Button, Toast, Drawer, Confirmation
 

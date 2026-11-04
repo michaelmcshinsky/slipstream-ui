@@ -2,8 +2,8 @@
   "id": "checkbox",
   "name": "Checkbox",
   "tier": "atom",
-  "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
-  "designIntent": "The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes.",
+  "description": "A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend",
+  "designIntent": "The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes. CheckboxGroup is the multi-select counterpart of RadioGroup: shared name, fieldset/legend context, and the selection as a string[].",
   "props": [
     {
       "name": "checked",
@@ -37,6 +37,33 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "legend",
+      "type": "string",
+      "required": false,
+      "description": "Accessible group label; rendered as <legend> inside a fieldset (CheckboxGroup component)"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": false,
+      "description": "Called with the full selection after a toggle (CheckboxGroup component)"
+    },
+    {
+      "name": "orientation",
+      "type": "'vertical' | 'horizontal'",
+      "required": false,
+      "description": "Stack options (default) or lay them out in a wrapping row (CheckboxGroup component)",
+      "defaultValue": "vertical",
+      "examples": ["vertical", "horizontal"]
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Group-level validation message; announced via role=alert (CheckboxGroup component)",
+      "examples": ["Choose at least one option"]
     }
   ],
   "examples": [
@@ -54,6 +81,11 @@
       "title": "Controlled checkbox",
       "code": "<Checkbox\n  checked={agreed}\n  onCheckedChange={setAgreed}\n  aria-label=\"Accept terms\"\n/>",
       "description": "Checkbox driven by parent state"
+    },
+    {
+      "title": "Multi-select group",
+      "code": "<CheckboxGroup\n  name=\"langs\"\n  legend=\"Languages\"\n  defaultValue={[\"ts\"]}\n  onValueChange={setLangs}\n>\n  <CheckboxGroupItem value=\"ts\" label=\"TypeScript\" />\n  <CheckboxGroupItem value=\"go\" label=\"Go\" />\n</CheckboxGroup>",
+      "description": "Shared name, legend context, selection as string[]"
     }
   ],
   "antiPatterns": [
@@ -97,6 +129,11 @@
       "component": "Label",
       "relationship": "Always pair with a Label or aria-label for accessibility",
       "example": "<Checkbox id=\"x\" /><Label htmlFor=\"x\">Accept</Label>"
+    },
+    {
+      "component": "CheckboxGroup",
+      "relationship": "Wrap related checkboxes so they share a name and an announced group label",
+      "example": "<CheckboxGroup name=\"x\" legend=\"Options\"><CheckboxGroupItem value=\"a\" label=\"A\" /></CheckboxGroup>"
     }
   ],
   "relatedComponents": ["Radio", "Switch", "Label"],

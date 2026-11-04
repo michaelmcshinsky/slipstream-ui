@@ -1,5 +1,56 @@
 # @slipstream-ui/ai
 
+## 0.4.0
+
+### Patch Changes
+
+- Updated dependencies [[`d2b9f4a`](https://github.com/michaelmcshinsky/slipstream-ui/commit/d2b9f4a90368b8ab7b844c9e4fb656c7894a6b7c), [`e6aec11`](https://github.com/michaelmcshinsky/slipstream-ui/commit/e6aec115a75f17b232d2d92d5fef83f88176f595), [`7bc8808`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7bc8808cadabac03460a263dcde5bbde789ca640)]:
+  - @slipstream-ui/core@0.4.0
+
+## 0.3.0
+
+### Minor Changes
+
+- [`ed44685`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ed44685ac64fc8656560ffc9af19a64ad9c3bf8b) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Minor release prep: grouping components, overlay motion, and theme polish.
+
+  New components (core):
+
+  - InputGroup + InputGroupAddon — flush left/right addons (ghost/muted
+    surfaces) behind one outer border; FormField wiring forwards to the
+    nested field; addon padding on both sides so affixes breathe next to
+    the input
+  - CheckboxGroup + CheckboxGroupItem — multi-select counterpart of
+    RadioGroup (shared name, legend, string[] selection)
+  - ButtonGroup — joined segments with collapsed borders
+  - RadioCard — whole clickable section per option: native circle hidden
+    (sr-only), selection via has-[:checked] border+tint, optional rounded
+    corners (rounded=false for square tiles)
+
+  New props (core):
+
+  - Dialog/Drawer `animate` — optional fade (dialog) / side-aware slide
+    (drawer) in+out via usePresence exit window; reduced motion respected;
+    off by default
+  - RadioGroup/CheckboxGroup `orientation` (vertical|horizontal) and
+    group-level `error` (role=alert inside the single fieldset)
+  - Button semantic variants success/warning/info with audited AA
+    foregrounds; Tabs rounded variant; Accordion borderless+gap; DataTable
+    loadingRows; Confirmation approveVariant/rejectVariant/showActions (ai)
+  - GapValue accepts tokens or exact pixels across Flex/Grid/Form/
+    FormLayout/Accordion
+
+  Theme:
+
+  - Info color retuned from sky (198) to teal (176) in both modes —
+    light-mode info now passes WCAG AA (4.04 → 6.36 against ink);
+    updated in docs/app/playground globals, themes create-theme, CLI init
+    template, and installation docs
+
+### Patch Changes
+
+- Updated dependencies [[`ed44685`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ed44685ac64fc8656560ffc9af19a64ad9c3bf8b)]:
+  - @slipstream-ui/core@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes

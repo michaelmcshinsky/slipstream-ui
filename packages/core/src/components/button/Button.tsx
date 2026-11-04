@@ -10,7 +10,22 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/90',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        // Semantic status variants — foregrounds are the paired AA tokens
+        // (white on dark green, ink on amber/cyan) in both themes.
+        success: 'bg-success text-success-foreground hover:bg-success/90',
+        warning: 'bg-warning text-warning-foreground hover:bg-warning/90',
+        info: 'bg-info text-info-foreground hover:bg-info/90',
         outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        // Colored outlines: semantic border + label on the page surface, with
+        // a faint tint on hover — mirrors the Alert variant recipe.
+        'outline-destructive':
+          'border border-destructive/50 bg-background text-destructive hover:border-destructive hover:bg-destructive/10',
+        'outline-success':
+          'border border-success/50 bg-background text-success hover:border-success hover:bg-success/10',
+        'outline-warning':
+          'border border-warning/50 bg-background text-warning hover:border-warning hover:bg-warning/10',
+        'outline-info':
+          'border border-info/50 bg-background text-info hover:border-info hover:bg-info/10',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',

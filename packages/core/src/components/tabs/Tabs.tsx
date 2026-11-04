@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../utils/cn';
 
-type TabsVariant = 'default' | 'underline';
+type TabsVariant = 'default' | 'underline' | 'rounded';
 type TabsSize = 'sm' | 'md' | 'lg';
 
 type TabsContextValue = {
@@ -78,6 +78,8 @@ const tabsListVariants = cva('inline-flex items-center justify-center text-muted
       // Item 18: underline strips carry no background — the underline alone
       // marks the active tab.
       underline: 'gap-1 rounded-none border-b border-border bg-transparent p-0',
+      // Item 9: fully-rounded pill track with pill triggers.
+      rounded: 'rounded-full bg-muted p-1',
     },
     size: {
       sm: 'gap-0.5',
@@ -113,6 +115,7 @@ const tabsTriggerVariants = cva(
       variant: {
         default: 'rounded-sm px-3 py-1.5 text-sm',
         underline: 'rounded-none border-b-2 border-transparent px-3 pb-2 pt-1.5 text-sm',
+        rounded: 'rounded-full px-3 py-1.5 text-sm',
       },
       size: {
         sm: 'px-2 py-1 text-xs',
@@ -127,11 +130,13 @@ const tabsTriggerVariants = cva(
 const triggerActiveByVariant: Record<TabsVariant, string> = {
   default: 'bg-background text-foreground shadow-sm',
   underline: 'border-primary text-foreground',
+  rounded: 'bg-background text-foreground shadow-sm',
 };
 
 const triggerInactiveByVariant: Record<TabsVariant, string> = {
   default: 'hover:text-foreground',
   underline: 'border-transparent text-muted-foreground hover:border-border hover:text-foreground',
+  rounded: 'hover:text-foreground',
 };
 
 export type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

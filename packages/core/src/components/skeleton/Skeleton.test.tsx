@@ -25,3 +25,25 @@ describe('Skeleton', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Skeleton sizing props', () => {
+  it('applies height, width, and rounded presets', () => {
+    const { container } = render(<Skeleton height="h-4" width="w-48" rounded="full" />);
+    expect(container.firstChild).toHaveClass('h-4', 'w-48', 'rounded-full');
+  });
+
+  it('defaults to rounded-md when no preset is given', () => {
+    const { container } = render(<Skeleton />);
+    expect(container.firstChild).toHaveClass('rounded-md');
+  });
+
+  it('keeps className as the escape hatch alongside props', () => {
+    const { container } = render(<Skeleton height="h-6" className="mt-2" />);
+    expect(container.firstChild).toHaveClass('h-6', 'mt-2');
+  });
+
+  it('always hides from assistive tech', () => {
+    const { container } = render(<Skeleton height="h-4" />);
+    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
+  });
+});

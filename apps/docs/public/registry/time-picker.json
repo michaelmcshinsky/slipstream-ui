@@ -1,0 +1,111 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "time-picker",
+  "name": "time-picker",
+  "tier": "molecule",
+  "description": "Native time field with an HH:MM contract and an optional clear button.",
+  "designIntent": "Like DatePicker: the platform time control is already accessible and locale-aware. TimePicker standardizes the HH:MM contract and clear affordance.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "\"HH:MM\" (24h), controlled."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "\"HH:MM\", initial value."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the time string; '' when cleared."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a clear button once a value exists."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Time field",
+      "code": "<TimePicker aria-label=\"Starts at\" value={start} onValueChange={setStart} clearable />",
+      "description": "Controlled HH:MM value."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't mix 12h display with 24h state",
+      "explanation": "State stays HH:MM; format for display with Intl.",
+      "example": "// Avoid: '9:30 PM' in state\n// Prefer: '21:30'"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Platform input",
+      "implementation": "Renders input[type=time]",
+      "userRequirements": "Provide a label describing the moment"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Describe the moment (Starts at / Ends by)"
+      ],
+      "goodExamples": [
+        "Starts at"
+      ],
+      "badExamples": [
+        "Time"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "DatePicker",
+      "relationship": "Pair for date+time scheduling",
+      "example": "<DatePicker aria-label=\"Date\" /><TimePicker aria-label=\"Time\" />"
+    }
+  ],
+  "relatedComponents": [
+    "DatePicker",
+    "FormField",
+    "Input"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "time-picker",
+  "exportName": "TimePicker",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/time-picker/index.ts",
+      "content": "export * from './TimePicker';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/time-picker/TimePicker.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Input, type InputProps } from '../input/Input';\n\nexport type TimePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {\n  /** \"HH:MM\" (24h) — controlled. */\n  value?: string;\n  /** \"HH:MM\" — initial value when uncontrolled. */\n  defaultValue?: string;\n  /** Fired with the time string ('' when cleared). */\n  onValueChange?: (value: string) => void;\n  /** Show a clear button once a time is selected. */\n  clearable?: boolean;\n};\n\n/**\n * Native time field with an \"HH:MM\" contract. The platform supplies the\n * picker, keyboard editing and locale behavior.\n */\nexport const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(function TimePicker(\n  { value, defaultValue, onValueChange, clearable = false, className, ...props },\n  ref\n) {\n  const [internal, setInternal] = React.useState(defaultValue ?? '');\n  const current = value ?? internal;\n\n  const commit = (next: string) => {\n    if (value === undefined) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  return (\n    <div className={cn('relative flex items-center', className)}>\n      <Input\n        ref={ref}\n        type=\"time\"\n        value={current}\n        onChange={(event) => commit(event.target.value)}\n        className={clearable && current ? 'pr-9' : undefined}\n        {...props}\n      />\n      {clearable && current && (\n        <button\n          type=\"button\"\n          onClick={() => commit('')}\n          aria-label=\"Clear time\"\n          className=\"absolute right-2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n        >\n          ✕\n        </button>\n      )}\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/time-picker.manifest.json",
+      "content": "{\n  \"id\": \"time-picker\",\n  \"name\": \"TimePicker\",\n  \"tier\": \"molecule\",\n  \"description\": \"Native time field with an HH:MM contract and an optional clear button.\",\n  \"designIntent\": \"Like DatePicker: the platform time control is already accessible and locale-aware. TimePicker standardizes the HH:MM contract and clear affordance.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"\\\"HH:MM\\\" (24h), controlled.\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"\\\"HH:MM\\\", initial value.\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Fired with the time string; '' when cleared.\"\n    },\n    {\n      \"name\": \"clearable\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Shows a clear button once a value exists.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Time field\",\n      \"code\": \"<TimePicker aria-label=\\\"Starts at\\\" value={start} onValueChange={setStart} clearable />\",\n      \"description\": \"Controlled HH:MM value.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't mix 12h display with 24h state\",\n      \"explanation\": \"State stays HH:MM; format for display with Intl.\",\n      \"example\": \"// Avoid: '9:30 PM' in state\\n// Prefer: '21:30'\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Platform input\",\n      \"implementation\": \"Renders input[type=time]\",\n      \"userRequirements\": \"Provide a label describing the moment\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\n        \"Describe the moment (Starts at / Ends by)\"\n      ],\n      \"goodExamples\": [\n        \"Starts at\"\n      ],\n      \"badExamples\": [\n        \"Time\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"DatePicker\",\n      \"relationship\": \"Pair for date+time scheduling\",\n      \"example\": \"<DatePicker aria-label=\\\"Date\\\" /><TimePicker aria-label=\\\"Time\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"DatePicker\",\n    \"FormField\",\n    \"Input\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"time-picker\",\n  \"exportName\": \"TimePicker\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

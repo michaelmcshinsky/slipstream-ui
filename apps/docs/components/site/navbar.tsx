@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CommandPalette } from './command-palette';
 
-const REPO_URL = 'https://github.com/slipstream-ui';
+const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
 /**
  * Sticky top navigation shared by the marketing site and docs.
@@ -47,10 +47,14 @@ export function Navbar() {
         {/* Full-bleed header: no container cap so navigation spans the viewport. */}
         <nav className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-              {/* eslint-disable-next-line @next/next/no-img-element -- local brand SVG, unoptimized by design */}
-              <img src="/logo.svg" alt="" width={24} height={24} className="h-6 w-6" />
-              Slipstream<span className="text-primary">UI</span>
+            <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
+              {/* eslint-disable-next-line @next/next/no-img-element -- local brand lockup, unoptimized by design */}
+              <img
+                src="/slipstream-lockup.png"
+                alt="Slipstream UI"
+                height={44}
+                className="h-11 w-auto"
+              />
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">
               <Link href="/docs" className="text-muted-foreground transition-colors hover:text-foreground">Docs</Link>

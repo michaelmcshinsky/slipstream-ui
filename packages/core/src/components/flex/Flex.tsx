@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
-
-const gapClasses = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
-} as const;
+import { resolveGap, type GapValue } from '../../utils/gap';
 
 export type FlexProps = React.HTMLAttributes<HTMLElement> & {
   /** Main axis direction. */
@@ -18,8 +11,8 @@ export type FlexProps = React.HTMLAttributes<HTMLElement> & {
   justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
   /** Allow items to wrap onto multiple lines. */
   wrap?: boolean;
-  /** Token gap between children. */
-  gap?: keyof typeof gapClasses;
+  /** Token gap ('md') or exact pixels (16) between children. */
+  gap?: GapValue;
   /** Semantic element (default 'div'; 'span' keeps inline flow). */
   as?: 'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer';
 };
@@ -47,8 +40,12 @@ const alignClasses = {
  * FlexItem for per-child grow/shrink/basis overrides.
  */
 const Flex = React.forwardRef<HTMLElement, FlexProps>(
-  ({ direction = 'row', align, justify, wrap, gap = 'md', as = 'div', className, ...props }, ref) => {
+  (
+    { direction = 'row', align, justify, wrap, gap = 'md', as = 'div', className, style, ...props },
+    ref
+  ) => {
     const Tag = as as 'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer';
+    const gapResolved = resolveGap(gap);
     return (
       <Tag
         ref={ref as never}
@@ -58,9 +55,10 @@ const Flex = React.forwardRef<HTMLElement, FlexProps>(
           wrap && 'flex-wrap',
           align && alignClasses[align],
           justify && justifyClasses[justify],
-          gapClasses[gap],
+          gapResolved.className,
           className
         )}
+        style={{ ...gapResolved.style, ...style }}
         {...props}
       />
     );

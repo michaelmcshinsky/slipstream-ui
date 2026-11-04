@@ -65,6 +65,54 @@
       "type": "object",
       "required": false,
       "description": "Overrides for approve/reject/approved/rejected labels."
+    },
+    {
+      "name": "approveVariant",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Button variant for the approve action.",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "examples": [
+        "destructive",
+        "default"
+      ]
+    },
+    {
+      "name": "rejectVariant",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "defaultValue": "outline",
+      "required": false,
+      "description": "Button variant for the reject action.",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "examples": [
+        "ghost"
+      ]
+    },
+    {
+      "name": "showActions",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Hide the action buttons (controlled-only gate; status drives the chip).",
+      "examples": [
+        "true",
+        "false"
+      ]
     }
   ],
   "examples": [

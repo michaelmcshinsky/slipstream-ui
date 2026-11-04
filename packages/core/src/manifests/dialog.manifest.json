@@ -2,7 +2,7 @@
   "id": "dialog",
   "name": "Dialog",
   "tier": "molecule",
-  "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+  "description": "Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
   "designIntent": "Modals interrupt the task flow on purpose: confirmations, small forms, and destructive-action guards. The Dialog implements the full modal contract — aria-modal labelling, initial focus, a Tab focus trap, Escape and backdrop dismissal, and focus restoration to the opener — so consumers never hand-roll focus management.",
   "props": [
     {
@@ -20,8 +20,8 @@
     {
       "name": "title",
       "type": "string",
-      "required": true,
-      "description": "Accessible dialog name, wired via aria-labelledby"
+      "required": false,
+      "description": "Accessible name + default header title. Optional when composing a custom header with ariaLabel."
     },
     {
       "name": "description",
@@ -53,11 +53,65 @@
       "type": "boolean",
       "defaultValue": "true",
       "required": false,
-      "description": "Hide the close (✕) button in the header; Escape and backdrop still close.",
+      "description": "Hide the close (?) button in the header; Escape and backdrop still close.",
       "examples": [
         "true",
         "false"
       ]
+    },
+    {
+      "name": "animate",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected).",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Panel max-width preset.",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl"
+      ],
+      "examples": [
+        "lg",
+        "2xl"
+      ]
+    },
+    {
+      "name": "header",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Replaces the default header row — compose with DialogHeader/DialogTitle/DialogDescription (ids wire automatically)."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Action row pinned under the body."
+    },
+    {
+      "name": "scrollable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Caps the body height and scrolls inside the panel."
+    },
+    {
+      "name": "bodyClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the body wrapper."
     }
   ],
   "examples": [
@@ -96,7 +150,9 @@
   ],
   "relatedComponents": [
     "Button",
-    "Toast"
+    "Toast",
+    "Drawer",
+    "Confirmation"
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",

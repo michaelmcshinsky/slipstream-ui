@@ -31,6 +31,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | density | `'default' | 'compact'` | `default` | no | Row density — compact shrinks text and cell padding. |
 | zebra | `boolean` | `false` | no | Zebra-striped rows for long tables. |
 | loading | `boolean` | `false` | no | Render skeleton placeholder rows (tbody is aria-busy while loading). |
+| loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 

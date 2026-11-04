@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "fa9ea84",
-  "count": 54,
+  "sourceRevision": "7bc8808",
+  "count": 73,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -22,6 +22,14 @@
       "registry": "/registry/alert.json"
     },
     {
+      "id": "app-shell",
+      "name": "AppShell",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "registry": "/registry/app-shell.json"
+    },
+    {
       "id": "attachment",
       "name": "Attachment / AttachmentList",
       "package": "@slipstream-ui/ai",
@@ -30,11 +38,19 @@
       "registry": "/registry/attachment.json"
     },
     {
+      "id": "auth-layout",
+      "name": "AuthLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "registry": "/registry/auth-layout.json"
+    },
+    {
       "id": "autocomplete",
       "name": "Autocomplete",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.",
+      "description": "Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
       "registry": "/registry/autocomplete.json"
     },
     {
@@ -86,6 +102,14 @@
       "registry": "/registry/button.json"
     },
     {
+      "id": "button-group",
+      "name": "ButtonGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.",
+      "registry": "/registry/button-group.json"
+    },
+    {
       "id": "card",
       "name": "Card",
       "package": "@slipstream-ui/core",
@@ -106,7 +130,7 @@
       "name": "Checkbox",
       "package": "@slipstream-ui/core",
       "tier": "atom",
-      "description": "A native checkbox input styled to match the design system, with controlled and uncontrolled support",
+      "description": "A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend",
       "registry": "/registry/checkbox.json"
     },
     {
@@ -150,12 +174,36 @@
       "registry": "/registry/data-table.json"
     },
     {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
+      "registry": "/registry/date-picker.json"
+    },
+    {
       "id": "dialog",
       "name": "Dialog",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Accessible modal dialog with focus trapping, escape-to-close and focus restoration",
+      "description": "Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
       "registry": "/registry/dialog.json"
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
+      "registry": "/registry/drawer.json"
+    },
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
+      "registry": "/registry/empty-state.json"
     },
     {
       "id": "fieldset",
@@ -166,6 +214,22 @@
       "registry": "/registry/fieldset.json"
     },
     {
+      "id": "file-upload",
+      "name": "FileUpload",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Drag-and-drop file picker with a removable file list and per-file progress bars.",
+      "registry": "/registry/file-upload.json"
+    },
+    {
+      "id": "filter-bar",
+      "name": "FilterBar",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "List-page filter strip: search field, filter controls, reset affordance and trailing actions.",
+      "registry": "/registry/filter-bar.json"
+    },
+    {
       "id": "flex",
       "name": "Flex / FlexItem",
       "package": "@slipstream-ui/core",
@@ -174,12 +238,28 @@
       "registry": "/registry/flex.json"
     },
     {
+      "id": "form",
+      "name": "Form",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.",
+      "registry": "/registry/form.json"
+    },
+    {
       "id": "form-field",
       "name": "FormField",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
       "registry": "/registry/form-field.json"
+    },
+    {
+      "id": "form-layout",
+      "name": "FormLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.",
+      "registry": "/registry/form-layout.json"
     },
     {
       "id": "grid",
@@ -212,6 +292,14 @@
       "tier": "atom",
       "description": "A text input field with support for various input types and standard HTML input attributes",
       "registry": "/registry/input.json"
+    },
+    {
+      "id": "input-group",
+      "name": "InputGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.",
+      "registry": "/registry/input-group.json"
     },
     {
       "id": "label",
@@ -254,12 +342,36 @@
       "registry": "/registry/message-actions.json"
     },
     {
+      "id": "metric-card",
+      "name": "MetricCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "KPI tile: label, value, directional delta (arrow + color) and supporting hint.",
+      "registry": "/registry/metric-card.json"
+    },
+    {
+      "id": "page-header",
+      "name": "PageHeader",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.",
+      "registry": "/registry/page-header.json"
+    },
+    {
       "id": "pagination",
       "name": "Pagination",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+      "description": "Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.",
       "registry": "/registry/pagination.json"
+    },
+    {
+      "id": "password-input",
+      "name": "PasswordInput",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Password field with an accessible show/hide toggle (aria-pressed), built on Input.",
+      "registry": "/registry/password-input.json"
     },
     {
       "id": "popover",
@@ -322,8 +434,16 @@
       "name": "Select",
       "package": "@slipstream-ui/core",
       "tier": "atom",
-      "description": "Accessible select primitive built on the native select element with controlled and uncontrolled modes",
+      "description": "Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.",
       "registry": "/registry/select.json"
+    },
+    {
+      "id": "select-menu",
+      "name": "SelectMenu",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.",
+      "registry": "/registry/select-menu.json"
     },
     {
       "id": "separator",
@@ -358,6 +478,14 @@
       "registry": "/registry/spinner.json"
     },
     {
+      "id": "stepper",
+      "name": "Stepper",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+      "registry": "/registry/stepper.json"
+    },
+    {
       "id": "streaming-indicator",
       "name": "StreamingIndicator",
       "package": "@slipstream-ui/ai",
@@ -390,6 +518,14 @@
       "registry": "/registry/table.json"
     },
     {
+      "id": "table-card",
+      "name": "TableCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.",
+      "registry": "/registry/table-card.json"
+    },
+    {
       "id": "tabs",
       "name": "Tabs",
       "package": "@slipstream-ui/core",
@@ -414,11 +550,27 @@
       "registry": "/registry/textarea.json"
     },
     {
+      "id": "time-picker",
+      "name": "TimePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Native time field with an HH:MM contract and an optional clear button.",
+      "registry": "/registry/time-picker.json"
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Vertical chronology for experience, activity and audit trails, built on an ordered list.",
+      "registry": "/registry/timeline.json"
+    },
+    {
       "id": "toast",
       "name": "Toast",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions",
+      "description": "Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.",
       "registry": "/registry/toast.json"
     },
     {

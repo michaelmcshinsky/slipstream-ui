@@ -1,0 +1,105 @@
+{
+  "id": "metric-card",
+  "name": "MetricCard",
+  "tier": "molecule",
+  "description": "KPI tile: label, value, directional delta (arrow + color) and supporting hint.",
+  "designIntent": "Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta direction (never color-only) and the label/value/hint hierarchy so rows of KPIs align.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Metric name."
+    },
+    {
+      "name": "value",
+      "type": "string | number",
+      "required": true,
+      "description": "Primary number/value; rendered tabular."
+    },
+    {
+      "name": "delta",
+      "type": "string",
+      "required": false,
+      "description": "Signed change, e.g. +12.4%."
+    },
+    {
+      "name": "trend",
+      "type": "'up' | 'down' | 'flat'",
+      "required": false,
+      "defaultValue": "flat",
+      "description": "Delta direction color + arrow glyph.",
+      "enum": [
+        "up",
+        "down",
+        "flat"
+      ]
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "description": "Comparison context (vs last month)."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Decorative icon."
+    }
+  ],
+  "examples": [
+    {
+      "title": "KPI row",
+      "code": "<div className=\"grid gap-4 sm:grid-cols-3\">\n  <MetricCard label=\"Revenue\" value=\"$12,480\" delta=\"+12.4%\" trend=\"up\" hint=\"vs last month\" />\n  <MetricCard label=\"Churn\" value=\"2.1%\" delta=\"-0.4\" trend=\"down\" />\n</div>",
+      "description": "Deltas carry arrows as well as color."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't encode meaning in color alone",
+      "explanation": "Always pass trend so the arrow glyph accompanies the color.",
+      "example": "// Avoid\n<MetricCard label=\"Churn\" value=\"2.1%\" delta=\"-0.4\" />\n\n// Prefer\n<MetricCard label=\"Churn\" value=\"2.1%\" delta=\"-0.4\" trend=\"down\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Color-independent direction",
+      "implementation": "Delta renders ↑/↓/→ glyphs alongside color",
+      "userRequirements": "Include the sign in the delta string"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Short metric names",
+        "State the unit in value or hint"
+      ],
+      "goodExamples": [
+        "Revenue",
+        "Active students"
+      ],
+      "badExamples": [
+        "Total revenue generated across all locations"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Lay KPI rows out with Grid for even columns",
+      "example": "<Grid columns={3} gap=\"md\"><MetricCard … /></Grid>"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Grid",
+    "Progress"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "metric-card",
+  "exportName": "MetricCard"
+}

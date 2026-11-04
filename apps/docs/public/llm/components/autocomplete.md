@@ -1,6 +1,6 @@
 # Autocomplete
 
-Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox.
+Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 
 > Import: `import { Autocomplete } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/autocomplete.json
@@ -8,19 +8,51 @@ Type-ahead input following the HTML autocomplete model: any value is allowed whi
 
 ## Design intent
 
-Form fields often need both freedom and guidance — usernames, tags, city names. Autocomplete extends the native autocomplete spec: the input stays a normal controlled input (native autoComplete hints keep working), and an ARIA combobox listbox overlays suggestions. Unlike Search, no option constrains the result.
+Free text stays first-class: any value may be typed, while matching options accelerate entry. Async sources are debounced with stale-response guards; grouped headings and custom rows cover searchable-select patterns; Escape/arrow keys follow the combobox model.
 
 ## Props
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| suggestions | `string[]` | — | yes | Suggestion labels offered while typing; any value may still be entered free-form. |
+| suggestions | `string[]` | — | no | Deprecated — use options. |
 | value | `string` | — | no | Current text — standard controlled-input contract (wire onValueChange to update it). |
 | defaultValue | `string` | `''` | no | Initial text when uncontrolled. |
 | onValueChange | `(value: string) => void` | — | no | Fires on every keystroke AND on suggestion selection (like a native input's onChange). |
-| emptyText | `string` | — | no | Shown when no suggestion matches (optional; defaults to 'No suggestions'). |
+| emptyText | `string` | — | no | Shown when no option matches. |
+| options | `Array<string | AutocompleteOption>` | — | no | Static options; strings or { value, label?, group?, description? }. |
+| loadOptions | `(query: string) => Promise<Array<string | AutocompleteOption>>` | — | no | Async option source; debounced and guarded against stale responses. |
+| renderOption | `(option, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer. |
+| clearable | `boolean` | `false` | no | Shows a clear button once the field has text. |
+| loadingText | `string` | — | no | Shown while async options load. |
+| debounceMs | `number` | `200` | no | Debounce for loadOptions in ms. |
 
 ## Examples
+
+### Async search
+
+Debounced async source with stale-response guard and clear.
+
+```tsx
+<Autocomplete
+  aria-label="Search people"
+  clearable
+  loadOptions={async (query) => searchPeople(query)}
+/>
+```
+
+### Grouped options with descriptions
+
+Section headings plus a supporting line per row.
+
+```tsx
+<Autocomplete
+  aria-label="Search"
+  options={[
+    { value: 'ada', label: 'Ada Lovelace', group: 'People', description: 'Mathematician' },
+    { value: 'rust', label: 'Rust', group: 'Languages' },
+  ]}
+/>
+```
 
 ### Controlled form field
 

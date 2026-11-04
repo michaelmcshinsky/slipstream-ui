@@ -59,3 +59,39 @@ describe('Confirmation', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Confirmation action variants and visibility', () => {
+  it('showActions={false} hides both action buttons but keeps the status chip', () => {
+    render(
+      <Confirmation title="Delete" description="This cannot be undone." showActions={false} />
+    );
+    expect(screen.getByText('Delete')).toBeInTheDocument();
+    expect(screen.getByText('Pending')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Approve' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Reject' })).not.toBeInTheDocument();
+  });
+
+  it('approveVariant/rejectVariant control button themes', () => {
+    render(
+      <Confirmation
+        title="Terminate run"
+        description="The run is still active."
+        labels={{ approve: 'Terminate', reject: 'Keep running' }}
+        approveVariant="destructive"
+        rejectVariant="ghost"
+      />
+    );
+    expect(screen.getByRole('button', { name: 'Terminate' })).toHaveClass('bg-destructive');
+    expect(screen.getByRole('button', { name: 'Keep running' })).toHaveClass('hover:bg-accent');
+  });
+
+  it('rejecting flips the chip to Rejected and calls onReject', async () => {
+    const user = userEvent.setup();
+    const onReject = vi.fn();
+    render(<Confirmation title="Confirm" description="Sure?" onReject={onReject} />);
+    await user.click(screen.getByRole('button', { name: 'Reject' }));
+    expect(onReject).toHaveBeenCalledOnce();
+    expect(screen.getByText('Rejected')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Reject' })).not.toBeInTheDocument();
+  });
+});

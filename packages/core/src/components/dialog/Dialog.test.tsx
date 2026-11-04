@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
-import { Dialog } from './Dialog';
+import { Dialog, DialogBody, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from './Dialog';
 
 function Harness(props: { onOpenChange?: (open: boolean) => void; closeOnBackdrop?: boolean }) {
   const [open, setOpen] = useState(true);
@@ -131,5 +131,119 @@ describe('Dialog showClose', () => {
       </Dialog>
     );
     expect(screen.getByRole('button', { name: 'Close dialog' })).toBeInTheDocument();
+  });
+});
+
+describe('Dialog animate (optional fade)', () => {
+  it('applies enter motion classes and reduced-motion opt-out when animate is on', () => {
+    render(
+      <Dialog open animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-in');
+    expect(dialog.className).toContain('fade-in-0');
+    expect(dialog.className).toContain('motion-reduce:animate-none');
+    // The backdrop fades with the panel.
+    const backdrop = document.querySelector('.fixed.inset-0')!;
+    expect(backdrop.className).toContain('fade-in-0');
+  });
+
+  it('keeps the dialog mounted for the exit window, then unmounts', async () => {
+    const { rerender } = render(
+      <Dialog open animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    rerender(
+      <Dialog open={false} animate onOpenChange={vi.fn()} title="Fading">
+        body
+      </Dialog>
+    );
+    // Exit classes need a mounted target.
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('animate-out');
+    expect(dialog.className).toContain('fade-out-0');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument(), {
+      timeout: 1500,
+    });
+  });
+
+  it('unmounts immediately when animate is off (default)', () => {
+    const { rerender } = render(
+      <Dialog open onOpenChange={vi.fn()} title="Instant">
+        body
+      </Dialog>
+    );
+    rerender(
+      <Dialog open={false} onOpenChange={vi.fn()} title="Instant">
+        body
+      </Dialog>
+    );
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+});
+
+
+describe('Dialog sizes, slots and compound parts', () => {
+  it('applies size presets', () => {
+    const { rerender } = render(
+      <Dialog open onOpenChange={vi.fn()} title="Sized" size="2xl">
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('max-w-2xl');
+    rerender(
+      <Dialog open onOpenChange={vi.fn()} title="Sized" size="sm">
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('dialog')).toHaveClass('max-w-sm');
+  });
+
+  it('wires a composed header through DialogTitle/DialogDescription', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={vi.fn()}
+        header={
+          <DialogHeader>
+            <DialogTitle>Publish release</DialogTitle>
+          </DialogHeader>
+        }
+      >
+        <DialogDescription>Tag and publish the workspace.</DialogDescription>
+        <DialogBody>Body content</DialogBody>
+      </Dialog>
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Publish release' });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByText('Body content')).toBeInTheDocument();
+  });
+
+  it('renders the footer slot inside the panel', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={vi.fn()}
+        title="Confirm"
+        footer={<DialogFooter><button type="button">Save</button></DialogFooter>}
+      >
+        body
+      </Dialog>
+    );
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
+
+  it('caps and scrolls the body when scrollable', () => {
+    render(
+      <Dialog open onOpenChange={vi.fn()} title="Long" scrollable>
+        <p>scrollable body</p>
+      </Dialog>
+    );
+    const body = screen.getByText('scrollable body').parentElement!;
+    expect(body.className).toContain('max-h-[60vh]');
+    expect(body.className).toContain('overflow-y-auto');
   });
 });

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "stepper",
+  "name": "stepper",
+  "tier": "molecule",
+  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "{ label: string; description?: string }[]",
+      "required": true,
+      "description": "Ordered step definitions."
+    },
+    {
+      "name": "current",
+      "type": "number",
+      "required": true,
+      "description": "Zero-based index of the active step."
+    },
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "required": false,
+      "defaultValue": "horizontal",
+      "description": "Layout direction.",
+      "enum": [
+        "horizontal",
+        "vertical"
+      ]
+    },
+    {
+      "name": "onStepClick",
+      "type": "(index: number) => void",
+      "required": false,
+      "description": "Makes steps clickable (for revisit flows)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Onboarding wizard",
+      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n/>",
+      "description": "Current step is announced; completed steps show a check."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for progress percentage",
+      "explanation": "Use Progress for measurable 0-100 progress; Stepper is discrete stages.",
+      "example": "// Avoid: 7 steps for an upload\n// Prefer: <Progress value={42} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Sequence + state",
+      "implementation": "Ordered list with aria-current=step and sr-only state text",
+      "userRequirements": "Keep step labels short and parallel"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Step labels",
+      "guidelines": [
+        "Verb or noun phrase",
+        "Parallel grammar",
+        "3-5 steps max"
+      ],
+      "goodExamples": [
+        "Account",
+        "Studio details",
+        "Review"
+      ],
+      "badExamples": [
+        "Step 1",
+        "Now do this"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Form",
+      "relationship": "One Form (or Form step) per Stepper stage",
+      "example": "<Stepper current={1} steps={steps} />"
+    }
+  ],
+  "relatedComponents": [
+    "Progress",
+    "Tabs",
+    "Form"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "stepper",
+  "exportName": "Stepper",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/stepper/index.ts",
+      "content": "export * from './Stepper';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/stepper/Stepper.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type StepperStep = {\n  label: string;\n  description?: string;\n};\n\nexport type StepperProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, 'onClick'> & {\n  steps: StepperStep[];\n  /** Zero-based index of the active step. */\n  current: number;\n  orientation?: 'horizontal' | 'vertical';\n  /** Makes completed/upcoming steps clickable. */\n  onStepClick?: (index: number) => void;\n};\n\n/**\n * Progress through a multi-step flow with proper semantics: an ordered list\n * where the active step carries aria-current=\"step\" and each marker states\n * complete/current/upcoming in text, not only color.\n */\nexport const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function Stepper(\n  { steps, current, orientation = 'horizontal', onStepClick, className, ...props },\n  ref\n) {\n  return (\n    <ol\n      ref={ref}\n      className={cn(\n        'flex gap-4',\n        orientation === 'vertical' ? 'flex-col' : 'flex-wrap items-start',\n        className\n      )}\n      {...props}\n    >\n      {steps.map((step, index) => {\n        const state = index < current ? 'complete' : index === current ? 'current' : 'upcoming';\n        const interactive = Boolean(onStepClick);\n        const content = (\n          <>\n            <span\n              aria-hidden=\"true\"\n              className={cn(\n                'flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-medium',\n                state === 'complete' && 'border-primary bg-primary text-primary-foreground',\n                state === 'current' && 'border-primary text-primary',\n                state === 'upcoming' && 'border-border text-muted-foreground'\n              )}\n            >\n              {state === 'complete' ? '✓' : index + 1}\n            </span>\n            <span className=\"min-w-0\">\n              <span className={cn('block text-sm', state === 'upcoming' ? 'text-muted-foreground' : 'font-medium')}>\n                {step.label}\n              </span>\n              {step.description && (\n                <span className=\"block text-xs text-muted-foreground\">{step.description}</span>\n              )}\n              <span className=\"sr-only\">\n                {state === 'complete' ? ' (completed)' : state === 'current' ? ' (current step)' : ' (upcoming)'}\n              </span>\n            </span>\n          </>\n        );\n\n        return (\n          <li key={step.label} className=\"flex min-w-0 items-start gap-2\">\n            {interactive ? (\n              <button\n                type=\"button\"\n                onClick={() => onStepClick?.(index)}\n                aria-current={state === 'current' ? 'step' : undefined}\n                className=\"flex items-start gap-2 rounded-md text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n              >\n                {content}\n              </button>\n            ) : (\n              <div aria-current={state === 'current' ? 'step' : undefined} className=\"flex items-start gap-2\">\n                {content}\n              </div>\n            )}\n            {orientation === 'horizontal' && index < steps.length - 1 && (\n              <span aria-hidden=\"true\" className=\"mt-3.5 hidden h-px w-8 bg-border sm:block\" />\n            )}\n          </li>\n        );\n      })}\n    </ol>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/stepper.manifest.json",
+      "content": "{\n  \"id\": \"stepper\",\n  \"name\": \"Stepper\",\n  \"tier\": \"molecule\",\n  \"description\": \"Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.\",\n  \"designIntent\": \"Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"{ label: string; description?: string }[]\",\n      \"required\": true,\n      \"description\": \"Ordered step definitions.\"\n    },\n    {\n      \"name\": \"current\",\n      \"type\": \"number\",\n      \"required\": true,\n      \"description\": \"Zero-based index of the active step.\"\n    },\n    {\n      \"name\": \"orientation\",\n      \"type\": \"'horizontal' | 'vertical'\",\n      \"required\": false,\n      \"defaultValue\": \"horizontal\",\n      \"description\": \"Layout direction.\",\n      \"enum\": [\n        \"horizontal\",\n        \"vertical\"\n      ]\n    },\n    {\n      \"name\": \"onStepClick\",\n      \"type\": \"(index: number) => void\",\n      \"required\": false,\n      \"description\": \"Makes steps clickable (for revisit flows).\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Onboarding wizard\",\n      \"code\": \"<Stepper\\n  current={step}\\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\\n/>\",\n      \"description\": \"Current step is announced; completed steps show a check.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for progress percentage\",\n      \"explanation\": \"Use Progress for measurable 0-100 progress; Stepper is discrete stages.\",\n      \"example\": \"// Avoid: 7 steps for an upload\\n// Prefer: <Progress value={42} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Sequence + state\",\n      \"implementation\": \"Ordered list with aria-current=step and sr-only state text\",\n      \"userRequirements\": \"Keep step labels short and parallel\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Step labels\",\n      \"guidelines\": [\n        \"Verb or noun phrase\",\n        \"Parallel grammar\",\n        \"3-5 steps max\"\n      ],\n      \"goodExamples\": [\n        \"Account\",\n        \"Studio details\",\n        \"Review\"\n      ],\n      \"badExamples\": [\n        \"Step 1\",\n        \"Now do this\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Form\",\n      \"relationship\": \"One Form (or Form step) per Stepper stage\",\n      \"example\": \"<Stepper current={1} steps={steps} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Progress\",\n    \"Tabs\",\n    \"Form\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"stepper\",\n  \"exportName\": \"Stepper\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

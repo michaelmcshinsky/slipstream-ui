@@ -1,6 +1,11 @@
 {
   "name": "@slipstream-ui/ai",
-  "version": "0.2.0",
+  "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelmcshinsky/slipstream-ui.git",
+    "directory": "packages/ai"
+  },
   "description": "AI interaction components for Slipstream UI",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,6 +21,10 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\"",
     "dev": "tsup --watch",

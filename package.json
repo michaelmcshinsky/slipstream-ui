@@ -15,7 +15,7 @@
     "validate:manifests": "tsx scripts/validate-manifests.ts && tsx scripts/check-manifest-sync.ts",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish --provenance",
+    "release": "turbo run build && node scripts/publish.cjs",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "generate:llm-docs": "tsx scripts/generate-llm-docs.ts",
     "audit:packages": "tsx scripts/audit-packages.ts"
@@ -31,7 +31,7 @@
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.9.0",
     "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@8.15.0",

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { createPortal } from 'react-dom';
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from '../../utils/cn';
 
 type MenuContextValue = {
@@ -214,16 +215,20 @@ MenuContent.displayName = 'MenuContent';
 export type MenuItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Renders the item in a destructive style. */
   destructive?: boolean;
+  /** Render the child element (e.g. an <a>) as the menu item. */
+  asChild?: boolean;
 };
 
 /** A single action item in the menu. */
 const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(
-  ({ className, destructive, onClick, ...props }, ref) => {
+  ({ className, destructive, asChild = false, onClick, ...props }, ref) => {
     const { setOpen } = React.useContext(MenuContext);
+    const Comp = asChild ? Slot : 'button';
+    const typeProp = asChild ? {} : { type: 'button' as const };
     return (
-      <button
+      <Comp
         ref={ref}
-        type="button"
+        {...typeProp}
         role="menuitem"
         onClick={(event) => {
           onClick?.(event);

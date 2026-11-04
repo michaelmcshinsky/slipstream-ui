@@ -1,0 +1,123 @@
+{
+  "id": "table-card",
+  "name": "TableCard",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "table-card",
+  "exportName": "TableCard",
+  "description": "Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.",
+  "designIntent": "Every list page rebuilds the same chrome around Table/DataTable: heading, count, actions, filter row, pagination. TableCard standardizes that shell so pages only supply the table.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Card heading."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the heading."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Right-aligned header actions."
+    },
+    {
+      "name": "toolbar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Row between header and table (filters, bulk actions)."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Table or DataTable content."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Footer row (pagination, summary)."
+    },
+    {
+      "name": "flush",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Remove inner padding so the table reaches the card edges."
+    }
+  ],
+  "examples": [
+    {
+      "title": "List page table",
+      "code": "<TableCard\n  title=\"Classes\"\n  description=\"12 active\"\n  actions={<Button>New class</Button>}\n  toolbar={<FilterBar … />}\n  footer={<Pagination … />}\n>\n  <DataTable columns={columns} data={rows} />\n</TableCard>",
+      "description": "Header, toolbar, table and pagination in one surface."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest another bordered card",
+      "explanation": "TableCard is the surface; wrapping it in Card double-borders the content.",
+      "example": "// Avoid\n<Card><TableCard>…</TableCard></Card>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading semantics",
+      "implementation": "Title renders an h2 (page owns the h1 via PageHeader)",
+      "userRequirements": "Don't skip heading levels"
+    },
+    {
+      "feature": "Table labelling",
+      "implementation": "The table keeps its own caption/aria-label",
+      "userRequirements": "Always label the table inside"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Titles",
+      "guidelines": [
+        "Plural noun",
+        "Sentence case",
+        "Pair with a count in description"
+      ],
+      "goodExamples": [
+        "Classes · 12 active"
+      ],
+      "badExamples": [
+        "Data"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "DataTable",
+      "relationship": "Body content; use flush for edge-to-edge rows",
+      "example": "<TableCard flush><DataTable … /></TableCard>"
+    },
+    {
+      "component": "FilterBar",
+      "relationship": "Pass as toolbar for list filtering",
+      "example": "<TableCard toolbar={<FilterBar … />}>…</TableCard>"
+    },
+    {
+      "component": "Pagination",
+      "relationship": "Pass as footer",
+      "example": "<TableCard footer={<Pagination … />}>…</TableCard>"
+    }
+  ],
+  "relatedComponents": [
+    "DataTable",
+    "Table",
+    "FilterBar",
+    "Pagination",
+    "Card"
+  ]
+}

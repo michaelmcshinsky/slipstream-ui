@@ -86,3 +86,51 @@ describe('RadioGroup', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('RadioGroup orientation', () => {
+  it('stacks vertically by default', () => {
+    const { container } = render(
+      <RadioGroup name="plan" legend="Plan">
+        <RadioGroupItem value="free" label="Free" />
+      </RadioGroup>
+    );
+    expect(container.querySelector('fieldset')).toHaveClass('space-y-2');
+  });
+
+  it('horizontal orientation lays radios out in a wrapping row', () => {
+    const { container } = render(
+      <RadioGroup name="plan" legend="Plan" orientation="horizontal">
+        <RadioGroupItem value="free" label="Free" />
+        <RadioGroupItem value="pro" label="Pro" />
+      </RadioGroup>
+    );
+    expect(container.querySelector('fieldset')).toHaveClass('flex-row', 'flex-wrap');
+  });
+
+  it('arrow-key radio semantics still select the clicked option', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <RadioGroup name="plan" onValueChange={onValueChange} orientation="horizontal">
+        <RadioGroupItem value="free" label="Free" />
+        <RadioGroupItem value="pro" label="Pro" />
+      </RadioGroup>
+    );
+    await user.click(screen.getByRole('radio', { name: 'Pro' }));
+    expect(onValueChange).toHaveBeenCalledWith('pro');
+    expect(screen.getByRole('radio', { name: 'Pro' })).toBeChecked();
+  });
+});
+
+describe('RadioGroup group-level error', () => {
+  it('announces the error via role=alert inside the fieldset', () => {
+    const { container } = render(
+      <RadioGroup name="plan" legend="Plan" error="Choose one option">
+        <RadioGroupItem value="free" label="Free" />
+      </RadioGroup>
+    );
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveTextContent('Choose one option');
+    expect(container.querySelector('fieldset')!.contains(alert)).toBe(true);
+  });
+});

@@ -1,0 +1,174 @@
+{
+  "id": "drawer",
+  "name": "Drawer",
+  "tier": "molecule",
+  "description": "Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
+  "designIntent": "Filters, detail panes, and mobile navigation need more room than a popover but shouldn't hijack the whole screen like a dialog. Drawer is an edge-anchored sheet with the SAME a11y contract as Dialog — portal, aria-modal, focus trap, Escape, focus restore — so swapping between them never regresses keyboard or screen-reader behavior.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the drawer is visible (controlled).",
+      "examples": ["true", "false"]
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": true,
+      "description": "Close requests (✕, Escape, backdrop, your own triggers)."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Accessible dialog name rendered as the header title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the title (wired via aria-describedby)."
+    },
+    {
+      "name": "side",
+      "type": "'left' | 'right' | 'top' | 'bottom'",
+      "defaultValue": "right",
+      "required": false,
+      "description": "Edge the drawer slides from.",
+      "enum": ["left", "right", "top", "bottom"],
+      "examples": ["left", "bottom"]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+      "defaultValue": "md",
+      "required": false,
+      "description": "Preset extent along the side axis (width for left/right, height for top/bottom).",
+      "enum": ["sm", "md", "lg", "xl", "2xl"],
+      "examples": ["lg", "xl"]
+    },
+    {
+      "name": "width",
+      "type": "number | string",
+      "required": false,
+      "description": "Custom extent for left/right drawers: pixels (480) or any CSS length (\"70vw\"). Overrides size.",
+      "examples": [480, "70vw"]
+    },
+    {
+      "name": "height",
+      "type": "number | string",
+      "required": false,
+      "description": "Custom extent for top/bottom drawers: pixels (320) or any CSS length (\"60vh\"). Overrides size.",
+      "examples": [320, "60vh"]
+    },
+    {
+      "name": "closeOnBackdrop",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Clicking the backdrop closes the drawer.",
+      "examples": ["true", "false"]
+    },
+    {
+      "name": "showClose",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Hide the header ✕ button (Escape and backdrop still close).",
+      "examples": ["false"]
+    },
+    {
+      "name": "initialFocusRef",
+      "type": "RefObject<HTMLElement | null>",
+      "required": false,
+      "description": "Element focused on open (defaults to the first focusable element)."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Overrides the accessible name (defaults to the title)."
+    },
+    {
+      "name": "animate",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected).",
+      "examples": ["true", "false"]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Filter panel from the right",
+      "code": "<Button onClick={() => setFiltersOpen(true)}>Filters</Button>\n<Drawer\n  open={filtersOpen}\n  onOpenChange={setFiltersOpen}\n  title=\"Filter results\"\n  description=\"Narrow by status and date\"\n  side=\"right\"\n  size=\"md\"\n>\n  <FilterControls />\n</Drawer>",
+      "description": "The workhorse: side panel that keeps context visible."
+    },
+    {
+      "title": "Mobile navigation from the bottom",
+      "code": "<Drawer open={open} onOpenChange={setOpen} title=\"Jump to\" side=\"bottom\" size=\"sm\">\n  <nav className=\"flex flex-col gap-2\">\n    <a href=\"/docs\">Docs</a>\n    <a href=\"/docs/components\">Components</a>\n  </nav>\n</Drawer>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a Drawer for a single decision",
+      "explanation": "One-question gates belong in Confirmation (alertdialog) — a whole sheet for approve/reject buries the decision.",
+      "example": "// avoid: drawer around a yes/no\n// prefer: <Confirmation title=\"Delete?\" … />"
+    },
+    {
+      "title": "Don't stack sheets",
+      "explanation": "Two open drawers fight for focus and z-index. Close the first (or render one container) before opening another.",
+      "example": "<Drawer open={a} … /><Drawer open={b} … />  // avoid"
+    },
+    {
+      "title": "Don't hide critical actions in a closed drawer",
+      "explanation": "Drawers are secondary flows — the primary action must stay visible on the page.",
+      "example": "// filters live in the drawer; the Apply button on the page is fine"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Modal dialog semantics",
+      "implementation": "role=dialog + aria-modal, labelled by title, described by description; portal to body",
+      "userRequirements": "Pass a title — it becomes both header text and accessible name"
+    },
+    {
+      "feature": "Focus management",
+      "implementation": "Focus moves to the first focusable element on open, is trapped with Tab/Shift+Tab, and restores to the opener on close",
+      "userRequirements": "None"
+    },
+    {
+      "feature": "Dismissal parity with Dialog",
+      "implementation": "Escape closes; backdrop click closes when closeOnBackdrop (default)",
+      "userRequirements": "Use showClose={false} only when the body owns an explicit close action"
+    },
+    {
+      "feature": "Scroll containment",
+      "implementation": "Body region scrolls internally (overflow-y-auto) — the page behind never scrolls",
+      "userRequirements": "None"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Button",
+      "relationship": "The trigger that opens the drawer (aria-haspopup optional)",
+      "example": "<Button onClick={() => setOpen(true)}>Filters</Button>"
+    },
+    {
+      "component": "Form / FormLayout / FormField",
+      "relationship": "Drawers commonly host forms — spacing and wiring come from the form family",
+      "example": "<Drawer …><FormLayout layout=\"stack\">…</FormLayout></Drawer>"
+    },
+    {
+      "component": "Dialog",
+      "relationship": "Dialog for centered modal decisions; Drawer for edge-anchored secondary flows"
+    }
+  ],
+  "relatedComponents": ["Dialog", "Popover", "Form"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "drawer",
+  "exportName": "Drawer"
+}

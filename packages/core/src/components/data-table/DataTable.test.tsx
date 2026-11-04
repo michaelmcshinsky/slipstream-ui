@@ -91,3 +91,54 @@ describe('DataTable', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('DataTable loading and zebra', () => {
+  const loadingColumns: DataTableColumn<Row>[] = [
+    { key: 'name', header: 'Name' },
+    { key: 'messages', header: 'Messages' },
+  ];
+  const loadingRows: Row[] = [{ id: '1', name: 'Alpha', messages: 3 }];
+
+  it('loadingRows controls how many skeleton rows appear', () => {
+    const { container } = render(
+      <DataTable columns={loadingColumns} data={loadingRows} loading loadingRows={4} caption="Runs" rowId={(row) => row.id} />
+    );
+    const skeletons = container.querySelectorAll('tbody .animate-pulse');
+    expect(skeletons.length).toBeGreaterThanOrEqual(4);
+  });
+
+  it('compact density shrinks skeleton heights to match rows', () => {
+    const { container } = render(
+      <DataTable columns={loadingColumns} data={loadingRows} loading loadingRows={2} density="compact" caption="Runs" rowId={(row) => row.id} />
+    );
+    const skeleton = container.querySelector('tbody .animate-pulse');
+    expect(skeleton).not.toBeNull();
+    expect(skeleton!.className).toContain('h-3');
+  });
+
+  it('zebra striping marks rows with the nth-child variant class', () => {
+    const { container } = render(
+      <DataTable columns={loadingColumns} data={loadingRows} zebra caption="Runs" rowId={(row) => row.id} />
+    );
+    const firstRow = container.querySelector('tbody tr');
+    expect(firstRow!.className).toContain('bg-muted/30');
+    const { container: plain } = render(
+      <DataTable columns={loadingColumns} data={loadingRows} caption="Runs" rowId={(row) => row.id} />
+    );
+    expect(plain.querySelector('tbody tr')!.className).not.toContain('bg-muted/30');
+  });
+
+  it('renderSortIcon customises the sort affordance', () => {
+    const sortable: DataTableColumn<Row>[] = [{ key: 'name', header: 'Name', sortable: true }];
+    render(
+      <DataTable
+        columns={sortable}
+        data={loadingRows}
+        caption="Runs"
+        rowId={(row) => row.id}
+        renderSortIcon={() => <span aria-hidden="true">updown</span>}
+      />
+    );
+    expect(screen.getByText('updown')).toBeInTheDocument();
+  });
+});

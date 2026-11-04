@@ -2,81 +2,109 @@
   "id": "pagination",
   "name": "Pagination",
   "tier": "molecule",
-  "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+  "description": "Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.",
   "designIntent": "Pagination lets users navigate through paged content. It shows page numbers with ellipsis for large ranges, prev/next buttons, and marks the current page with aria-current=page.",
   "props": [
     {
       "name": "page",
       "type": "number",
-      "required": true,
-      "description": "Current page number (1-based)"
+      "required": false,
+      "defaultValue": "1",
+      "description": "Current page (1-based). Alias: currentPage."
     },
     {
       "name": "pageCount",
       "type": "number",
-      "required": true,
-      "description": "Total number of pages"
+      "required": false,
+      "description": "Total pages. Alias: totalPages, or derived from total/pageSize."
+    },
+    {
+      "name": "currentPage",
+      "type": "number",
+      "required": false,
+      "description": "Alias for page (migration-friendly)."
+    },
+    {
+      "name": "totalPages",
+      "type": "number",
+      "required": false,
+      "description": "Alias for pageCount."
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "Rows per page; with total enables the summary and derives pageCount."
+    },
+    {
+      "name": "total",
+      "type": "number",
+      "required": false,
+      "description": "Total item count for the summary."
+    },
+    {
+      "name": "itemLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "items",
+      "description": "Noun used in the summary."
+    },
+    {
+      "name": "showSummary",
+      "type": "boolean",
+      "required": false,
+      "description": "Force the summary on/off (defaults on when total and pageSize are set)."
     },
     {
       "name": "onPageChange",
       "type": "(page: number) => void",
       "required": false,
-      "description": "Called with the new page number"
+      "description": "Called with the new page number."
     },
     {
       "name": "siblings",
       "type": "number",
-      "defaultValue": "1",
       "required": false,
-      "description": "How many page buttons to show around the current page"
+      "defaultValue": "1",
+      "description": "Page buttons shown around the current page."
     },
     {
       "name": "showBoundaries",
       "type": "boolean",
+      "required": false,
       "defaultValue": "false",
-      "required": false,
-      "description": "Show « / » jump-to-first/last buttons around prev/next",
-      "examples": [
-        "true",
-        "false"
-      ]
-    },
-    {
-      "name": "className",
-      "type": "string",
-      "required": false,
-      "description": "Additional CSS classes to apply"
+      "description": "Show first/last jump buttons."
     },
     {
       "name": "showFirst",
       "type": "boolean",
-      "defaultValue": "showBoundaries",
       "required": false,
-      "description": "Force-show the first-page button; defaults to showBoundaries.",
-      "examples": [
-        "true",
-        "false"
-      ]
+      "description": "Force-show the first-page button."
     },
     {
       "name": "showLast",
       "type": "boolean",
-      "defaultValue": "showBoundaries",
       "required": false,
-      "description": "Force-show the last-page button; defaults to showBoundaries.",
-      "examples": [
-        "true",
-        "false"
-      ]
+      "description": "Force-show the last-page button."
     },
     {
       "name": "icons",
-      "type": "{ first?: ReactNode; previous?: ReactNode; next?: ReactNode; last?: ReactNode }",
+      "type": "PaginationIcons",
       "required": false,
-      "description": "Replace the default ‹ › « » glyphs with custom markup."
+      "description": "Replace the default glyphs."
     }
   ],
   "examples": [
+    {
+      "title": "Summary + derived pages",
+      "code": "<Pagination\n  page={page}\n  pageSize={25}\n  total={312}\n  itemLabel=\"students\"\n  onPageChange={setPage}\n/>",
+      "description": "Renders \"Showing 26–50 of 312 students\" and derives 13 pages."
+    },
+    {
+      "title": "Migration aliases",
+      "code": "<Pagination currentPage={page} totalPages={pages} onPageChange={setPage} />",
+      "description": "currentPage/totalPages map onto page/pageCount."
+    },
     {
       "title": "Basic pagination",
       "code": "<Pagination page={3} pageCount={10} onPageChange={setPage} />",

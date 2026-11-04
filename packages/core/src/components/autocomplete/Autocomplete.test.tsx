@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 import { Autocomplete } from './Autocomplete';
@@ -73,5 +74,57 @@ describe('Autocomplete', () => {
     const { container } = render(<Autocomplete suggestions={['react', 'remix']} aria-label="Framework" />);
     fireEvent.focus(screen.getByRole('combobox'));
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+
+describe('Autocomplete options, groups, async and clear', () => {
+  it('renders grouped headings and descriptions', async () => {
+    const user = userEvent.setup();
+    render(
+      <Autocomplete
+        aria-label="Search"
+        options={[
+          { value: 'ada', label: 'Ada Lovelace', group: 'People', description: 'Mathematician' },
+          { value: 'alan', label: 'Alan Turing', group: 'People' },
+          { value: 'rust', label: 'Rust', group: 'Languages' },
+        ]}
+      />
+    );
+    await user.click(screen.getByRole('combobox', { name: 'Search' }));
+    expect(screen.getByText('People')).toBeInTheDocument();
+    expect(screen.getByText('Languages')).toBeInTheDocument();
+    expect(screen.getByText('Mathematician')).toBeInTheDocument();
+  });
+
+  it('uses a custom row renderer', async () => {
+    const user = userEvent.setup();
+    render(
+      <Autocomplete
+        aria-label="Search"
+        options={[{ value: 'x', label: 'Custom row' }]}
+        renderOption={(option) => <span>★ {option.label}</span>}
+      />
+    );
+    await user.click(screen.getByRole('combobox', { name: 'Search' }));
+    expect(screen.getByText('★ Custom row')).toBeInTheDocument();
+  });
+
+  it('loads options asynchronously with a loading row', async () => {
+    const user = userEvent.setup();
+    const loadOptions = vi.fn(async () => [{ value: 'remote', label: 'Remote result' }]);
+    render(<Autocomplete aria-label="Search" loadOptions={loadOptions} debounceMs={1} />);
+    await user.click(screen.getByRole('combobox', { name: 'Search' }));
+    expect(await screen.findByText('Remote result')).toBeInTheDocument();
+    expect(loadOptions).toHaveBeenCalled();
+  });
+
+  it('clears the field with the clear button', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Autocomplete aria-label="Search" clearable defaultValue="draft" onValueChange={onValueChange} />);
+    await user.click(screen.getByRole('button', { name: 'Clear input' }));
+    expect(onValueChange).toHaveBeenCalledWith('');
+    expect(screen.getByRole('combobox', { name: 'Search' })).toHaveValue('');
   });
 });

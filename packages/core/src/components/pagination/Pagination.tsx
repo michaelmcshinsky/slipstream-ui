@@ -15,10 +15,22 @@ export type PaginationIcons = {
 };
 
 export type PaginationProps = React.HTMLAttributes<HTMLElement> & {
-  /** Current page number (1-based). */
-  page: number;
-  /** Total number of pages. */
-  pageCount: number;
+  /** Current page number (1-based). Alias: currentPage. */
+  page?: number;
+  /** Total number of pages. Alias: totalPages (or derived from total/pageSize). */
+  pageCount?: number;
+  /** Alias for page (migration-friendly). */
+  currentPage?: number;
+  /** Alias for pageCount. */
+  totalPages?: number;
+  /** Rows per page — with `total`, enables the item-count summary. */
+  pageSize?: number;
+  /** Total item count — with `pageSize`, enables the summary and derives pageCount. */
+  total?: number;
+  /** Noun used in the summary ("Showing 26–50 of 312 classes"). Default "items". */
+  itemLabel?: string;
+  /** Force the summary on/off; defaults to on when total and pageSize are set. */
+  showSummary?: boolean;
   /** Called with the new page number. */
   onPageChange?: (page: number) => void;
   /** How many page buttons to show around the current page (default 1). */
@@ -38,16 +50,22 @@ const controlClass =
 
 /**
  * Numeric pagination with prev/next and optional boundary jumps. Renders
- * as a nav landmark with aria-current="page" on the active button. Each
- * control is a real <button> with an accessible name; glyphs are
- * swappable and each boundary button can be shown or hidden independently
- * (e.g. hide — instead of disabling — once you reach the list edge).
+ * as a nav landmark with aria-current="page" on the active button. Accepts
+ * either page/pageCount or the currentPage/totalPages aliases, and can
+ * derive the page count (plus a "Showing X–Y of Z" summary) from
+ * total/pageSize.
  */
 const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
   (
     {
-      page,
-      pageCount,
+      page: pageProp,
+      pageCount: pageCountProp,
+      currentPage,
+      totalPages,
+      pageSize,
+      total,
+      itemLabel = 'items',
+      showSummary,
       onPageChange,
       siblings = 1,
       showBoundaries = false,
@@ -59,6 +77,11 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     },
     ref
   ) => {
+    const page = pageProp ?? currentPage ?? 1;
+    const derivedPageCount =
+      total !== undefined && pageSize !== undefined && pageSize > 0 ? Math.ceil(total / pageSize) : undefined;
+    const pageCount = Math.max(1, pageCountProp ?? totalPages ?? derivedPageCount ?? 1);
+
     // Build the page number list with ellipsis markers.
     const pages: (number | 'ellipsis')[] = [];
     const start = Math.max(2, page - siblings);
@@ -73,11 +96,16 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     const withFirst = showFirst ?? showBoundaries;
     const withLast = showLast ?? showBoundaries;
 
-    return (
+    const summaryEnabled = showSummary ?? (total !== undefined && pageSize !== undefined);
+    const rangeStart = pageSize !== undefined ? (page - 1) * pageSize + 1 : undefined;
+    const rangeEnd =
+      pageSize !== undefined && total !== undefined ? Math.min(total, page * pageSize) : undefined;
+
+    const nav = (
       <nav
         ref={ref}
         aria-label="Pagination"
-        className={cn('flex items-center justify-center gap-1', className)}
+        className={cn('flex items-center justify-center gap-1', summaryEnabled ? undefined : className)}
         {...props}
       >
         {withFirst && (
@@ -149,6 +177,19 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           </button>
         )}
       </nav>
+    );
+
+    if (!summaryEnabled) return nav;
+
+    return (
+      <div className={cn('flex flex-wrap items-center justify-between gap-3', className)}>
+        <p className="text-sm text-muted-foreground">
+          {rangeStart !== undefined && rangeEnd !== undefined && total !== undefined
+            ? `Showing ${rangeStart}–${rangeEnd} of ${total} ${itemLabel}`
+            : `Page ${page} of ${pageCount}`}
+        </p>
+        {nav}
+      </div>
     );
   }
 );

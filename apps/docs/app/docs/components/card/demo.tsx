@@ -20,6 +20,7 @@ export default function CardPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'children', type: 'ReactNode', description: 'Card sub-components: CardHeader, CardTitle, CardDescription, CardContent, CardFooter.' },
+        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child element (router Link, <a>) with card styling instead of a div.' },
         { name: 'className', type: 'string', description: 'Variants: borderless (border-0 shadow-sm), compact (p-4), raised (shadow-md), etc.' },
         { name: 'CardHeader / CardContent / CardFooter className', type: 'string', description: 'Per-section spacing overrides for compact or custom layouts.' },
       ]}

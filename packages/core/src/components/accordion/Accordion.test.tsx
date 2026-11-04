@@ -86,3 +86,44 @@ describe('Accordion', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Accordion variant and gap', () => {
+  it('borderless variant drops the border/dividers', () => {
+    const { container } = render(
+      <Accordion variant="borderless">
+        <AccordionItem id="a">
+          <AccordionTrigger>One</AccordionTrigger>
+          <AccordionContent>Body</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+    const root = container.querySelector('[data-slot="accordion-root"]') ?? container.firstChild as HTMLElement;
+    expect(root).not.toHaveClass('rounded-lg', 'border');
+  });
+
+  it('token gap applies a literal gap class', () => {
+    const { container } = render(
+      <Accordion gap="lg">
+        <AccordionItem id="a">
+          <AccordionTrigger>One</AccordionTrigger>
+          <AccordionContent>Body</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+    const root = container.querySelector('[data-slot="accordion-root"]') ?? container.firstChild as HTMLElement;
+    expect(root).toHaveClass('gap-6');
+  });
+
+  it('numeric gap applies exact pixels', () => {
+    const { container } = render(
+      <Accordion gap={10}>
+        <AccordionItem id="a">
+          <AccordionTrigger>One</AccordionTrigger>
+          <AccordionContent>Body</AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+    const root = container.querySelector('[data-slot="accordion-root"]') ?? container.firstChild as HTMLElement;
+    expect(root).toHaveStyle({ gap: '10px' });
+  });
+});
