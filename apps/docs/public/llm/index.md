@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 66 components, each shipping a
+The AI-first React component library. 71 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 49
+## Core components (@slipstream-ui/core) — 54
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -23,10 +23,12 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
+- [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
+- [FileUpload](https://slipstreamui.com/llm/components/file-upload.md) — Drag-and-drop file picker with a removable file list and per-file progress bars.
 - [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
 - [Flex / FlexItem](https://slipstreamui.com/llm/components/flex.md) — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 - [Form](https://slipstreamui.com/llm/components/form.md) — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
@@ -51,11 +53,14 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
+- [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
 - [Switch](https://slipstreamui.com/llm/components/switch.md) — A toggle switch for binary settings, with role=switch and aria-checked
 - [Table](https://slipstreamui.com/llm/components/table.md) — Semantic data table with headers, body, footer, and accessible caption
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea
+- [TimePicker](https://slipstreamui.com/llm/components/time-picker.md) — Native time field with an HH:MM contract and an optional clear button.
+- [Timeline](https://slipstreamui.com/llm/components/timeline.md) — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - [Toast](https://slipstreamui.com/llm/components/toast.md) — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 - [Tooltip](https://slipstreamui.com/llm/components/tooltip.md) — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 

@@ -121,6 +121,42 @@ const brandTheme = createTheme({
   --brand: 217 91% 60%;  /* #3B82F6 */
 }`} />
 
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Layering (z-index scale)</h2>
+        <p className="text-muted-foreground mb-4">
+          Components use a small, documented ladder instead of ad-hoc numbers. Extend it rather than
+          inventing new values — stacking bugs come from stray <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">z-[500]</code>s.
+        </p>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Layer</th>
+                <th className="p-3 text-left font-medium">Value</th>
+                <th className="p-3 text-left font-medium">Used by</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Docked / in-page', 'z-10', 'Sticky toolbars inside a page section'],
+                ['Sticky headers', 'z-30', 'AppShell header, table headers'],
+                ['Site chrome', 'z-40', 'Marketing navbar, doc banner'],
+                ['Overlays', 'z-50', 'Dialog, Drawer, Menu, Popover, Tooltip, Autocomplete listbox'],
+                ['Notifications', 'z-60', 'Toaster — always above overlays'],
+              ].map(([layer, value, usedBy]) => (
+                <tr key={layer} className="border-t border-border">
+                  <td className="p-3">{layer}</td>
+                  <td className="p-3 font-mono text-xs">{value}</td>
+                  <td className="p-3 text-muted-foreground">{usedBy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Keep app-level chrome at or below 60. If a page needs a higher layer (onboarding tours,
+          devtools), reserve a single documented value instead of escalating per component.
+        </p>
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>

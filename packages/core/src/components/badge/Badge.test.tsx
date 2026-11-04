@@ -58,3 +58,17 @@ describe('Badge variants and sizing escape hatches', () => {
     expect(container.firstChild).toHaveClass('text-foreground', 'gap-1', 'px-3');
   });
 });
+
+
+describe('Badge asChild', () => {
+  it('renders a link with badge styling', () => {
+    render(
+      <Badge asChild>
+        <a href="/tags/react">React</a>
+      </Badge>
+    );
+    const link = screen.getByRole('link', { name: 'React' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveClass('inline-flex', 'bg-primary');
+  });
+});

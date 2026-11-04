@@ -19,8 +19,19 @@ Menu presents a list of actions in a floating panel anchored to a trigger. Suppo
 | children | `ReactNode` | — | yes | MenuTrigger and MenuContent children |
 | className | `string` | — | no | Additional CSS classes to apply |
 | destructive | `boolean` | `false` | no | Renders the item in a destructive style (MenuItem component) |
+| asChild | `boolean` | `false` | no | Render the child element (e.g. an <a>) as the menu item (MenuItem). |
 
 ## Examples
+
+### Link menu item
+
+Navigation items keep menuitem semantics.
+
+```tsx
+<MenuItem asChild>
+  <a href="/settings">Settings</a>
+</MenuItem>
+```
 
 ### Actions menu
 

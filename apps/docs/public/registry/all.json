@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "559d7bc",
-  "count": 66,
+  "sourceRevision": "b734ffe",
+  "count": 71,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -174,6 +174,14 @@
       "registry": "/registry/data-table.json"
     },
     {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
+      "registry": "/registry/date-picker.json"
+    },
+    {
       "id": "dialog",
       "name": "Dialog",
       "package": "@slipstream-ui/core",
@@ -204,6 +212,14 @@
       "tier": "atom",
       "description": "Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
       "registry": "/registry/fieldset.json"
+    },
+    {
+      "id": "file-upload",
+      "name": "FileUpload",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Drag-and-drop file picker with a removable file list and per-file progress bars.",
+      "registry": "/registry/file-upload.json"
     },
     {
       "id": "filter-bar",
@@ -454,6 +470,14 @@
       "registry": "/registry/spinner.json"
     },
     {
+      "id": "stepper",
+      "name": "Stepper",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+      "registry": "/registry/stepper.json"
+    },
+    {
       "id": "streaming-indicator",
       "name": "StreamingIndicator",
       "package": "@slipstream-ui/ai",
@@ -508,6 +532,22 @@
       "tier": "atom",
       "description": "A multi-line text input styled to match Input, wrapping the native textarea",
       "registry": "/registry/textarea.json"
+    },
+    {
+      "id": "time-picker",
+      "name": "TimePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Native time field with an HH:MM contract and an optional clear button.",
+      "registry": "/registry/time-picker.json"
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Vertical chronology for experience, activity and audit trails, built on an ordered list.",
+      "registry": "/registry/timeline.json"
     },
     {
       "id": "toast",

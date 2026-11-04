@@ -1,0 +1,95 @@
+{
+  "id": "stepper",
+  "name": "Stepper",
+  "tier": "molecule",
+  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "{ label: string; description?: string }[]",
+      "required": true,
+      "description": "Ordered step definitions."
+    },
+    {
+      "name": "current",
+      "type": "number",
+      "required": true,
+      "description": "Zero-based index of the active step."
+    },
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "required": false,
+      "defaultValue": "horizontal",
+      "description": "Layout direction.",
+      "enum": [
+        "horizontal",
+        "vertical"
+      ]
+    },
+    {
+      "name": "onStepClick",
+      "type": "(index: number) => void",
+      "required": false,
+      "description": "Makes steps clickable (for revisit flows)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Onboarding wizard",
+      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n/>",
+      "description": "Current step is announced; completed steps show a check."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for progress percentage",
+      "explanation": "Use Progress for measurable 0-100 progress; Stepper is discrete stages.",
+      "example": "// Avoid: 7 steps for an upload\n// Prefer: <Progress value={42} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Sequence + state",
+      "implementation": "Ordered list with aria-current=step and sr-only state text",
+      "userRequirements": "Keep step labels short and parallel"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Step labels",
+      "guidelines": [
+        "Verb or noun phrase",
+        "Parallel grammar",
+        "3-5 steps max"
+      ],
+      "goodExamples": [
+        "Account",
+        "Studio details",
+        "Review"
+      ],
+      "badExamples": [
+        "Step 1",
+        "Now do this"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Form",
+      "relationship": "One Form (or Form step) per Stepper stage",
+      "example": "<Stepper current={1} steps={steps} />"
+    }
+  ],
+  "relatedComponents": [
+    "Progress",
+    "Tabs",
+    "Form"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "stepper",
+  "exportName": "Stepper"
+}
