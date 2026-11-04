@@ -1,99 +1,91 @@
-# Slipstream UI - Agent Guidelines
+# Slipstream UI — Agent Guidelines
 
-This document contains rules and guidelines for AI agents working in this repository.
+Rules for AI agents working **in this repository** (not consuming the library).
 
-## Project Overview
+## Project overview
 
-Slipstream UI is an AI-first React component library. Every component ships a machine-readable `COMPONENT_MANIFEST` so coding agents can generate correct UI the first time.
+Slipstream UI is an AI-first React component library. Every component ships a machine-readable `COMPONENT_MANIFEST`; the same manifests power the docs, the shadcn-compatible registry, the LLM markdown routes and the MCP server.
 
-## Architecture
+## Repository architecture
 
-- **Monorepo**: Uses pnpm workspaces + Turborepo
-- **Packages**:
-  - `@slipstream-ui/core` - Base atoms and molecules
-  - `@slipstream-ui/ai` - AI interaction components
-  - `@slipstream-ui/themes` - Theming system
-  - `@slipstream-ui/mcp-server` - MCP server for agents
-  - `@slipstream-ui/cli` - CLI tool
-- **Apps**:
-  - `docs` - Next.js documentation site
-  - `playground` - Vite playground for testing
+pnpm workspace + Turborepo. **Never** edit `D:/Projects/_modernization/slipstream-ui`; this repo is `D:/Documents/Projects/slipstream-ui`.
 
-## Component Development Rules
+- `packages/core` (`@slipstream-ui/core`) — 63 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography
+- `packages/ai` (`@slipstream-ui/ai`) — 17 AI chat/agent components
+- `packages/themes` (`@slipstream-ui/themes`) — `createTheme()` + presets + CSS-variable contract
+- `packages/cli` (`@slipstream-ui/cli`) — `init` / `add` / `list` / `diff`
+- `packages/registry` (`@slipstream-ui/registry`) — manifest-registry resolution used by CLI + MCP
+- `packages/mcp-server` (`@slipstream-ui/mcp-server`) — five MCP tools
+- `apps/docs` — Next.js 16 App Router docs + marketing site (built with the library)
+- `apps/app` — reference dashboard (auth, billing, admin)
+- `apps/playground` — Vite sandbox
+- `tooling/*` — shared Tailwind preset, ESLint, TypeScript, Vitest configs (private)
+- `scripts/*` — manifest validation, registry/LLM generation, package audit, publish wrapper
 
-1. **Every component must have a COMPONENT_MANIFEST**
-   - Manifests live in `packages/core/src/manifests/` or `packages/ai/src/manifests/`
-   - Run `pnpm validate:manifests` to validate all manifests (schema, prop structure, unique IDs, and registry installability)
-   - Schema defined in `packages/core/src/types/manifest.ts`
+## Adding a component (the pipeline)
 
-2. **Component structure**:
-   - Use Radix UI primitives for accessibility
-   - Follow atomic design principles (atom, molecule, organism)
-   - Export from `index.ts` in component directory
-   - Include proper TypeScript types and JSDoc
+1. **Source** — `packages/<pkg>/src/components/<dir>/<Name>.tsx`
+   - `type`, never `interface`; no `any` (use `unknown` + guards)
+   - `'use client'` only when the component uses hooks/handlers
+   - export from the directory's `index.ts` and add `export * from './components/<dir>'` to `src/index.ts`
+2. **Manifest** — `src/manifests/<id>.manifest.json`
+   - Must document **every non-inherited prop** declared by any `*Props` type in that directory (the drift checker is directory-scoped)
+   - Sections: description, designIntent, props, examples, antiPatterns, accessibility, contentGuidelines, compositionRules, relatedComponents
+3. **Tests** — colocated `<Name>.test.tsx`: behavior, keyboard/interaction where relevant, and a `jest-axe` assertion
+4. **Docs** — `apps/docs/app/docs/components/<slug>/page.tsx` (server, exports metadata) + `demo.tsx` (`'use client'` when interactive)
+   - add the entry to `apps/docs/lib/nav.ts` and `apps/docs/lib/search-index.ts`
+5. **Generate** — `pnpm generate:registry` and `pnpm generate:llm-docs` (updates `/registry`, `/llm`, `llms.txt`, README stats, `lib/component-count.ts`)
+6. **Verify** — `pnpm validate:manifests` (schema + TS↔manifest drift), then the full gate below
 
-3. **Styling**:
-   - Use Tailwind CSS v3 with the shared config from `tooling/tailwind-config`
-   - Support dark mode via CSS variables (`darkMode: ['class']`)
-   - Follow theming system from `@slipstream-ui/themes`
+## Commands
 
-4. **Testing**:
-   - Add unit tests for all components (vitest + @testing-library/react)
-   - Test accessibility with jest-axe
-   - Test dark mode variants
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm validate:manifests
+pnpm generate:registry
+pnpm generate:llm-docs
+```
 
-## Build Commands
+Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), so `--filter` needs the real name.
 
-- `pnpm install` - Install all dependencies
-- `pnpm dev` - Run all packages in dev mode
-- `pnpm build` - Build all packages
-- `pnpm typecheck` - Type check all packages
-- `pnpm lint` - Lint all packages
-- `pnpm validate:manifests` - Validate all component manifests
+## Styling and theming
 
-## MCP Server
+- Tailwind CSS **3.4** with `tooling/tailwind-config`; dark mode via `.dark` and CSS variables
+- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`, `text-info`…). Never hardcode palette colors.
+- Dynamic class names are purged: use literal class maps or inline `style` (see `Grid`/`Drawer` size maps).
+- Status colors: `success`, `warning`, `info` (teal-cyan), `destructive`; ink/white foregrounds are pre-audited.
+- Layering: 10 docked · 30 sticky · 40 chrome · 50 overlays · **60 toasts**. Don't exceed the ladder.
+- Motion is opt-in (`animate` props) and must include `motion-reduce` safety.
 
-The MCP server (`packages/mcp-server`) provides tools for agents to:
-- List all available components
-- Get component manifests
-- Query component properties
-- Get usage examples
+## Accessibility
 
-## CLI Development
+- keyboard operation for every interactive component; visible focus rings
+- correct roles/aria (`aria-current`, `aria-expanded`, `aria-activedescendant`, labels)
+- jest-axe must pass; reduced-motion respected
+- focus restore/trap for overlays
 
-The CLI (`packages/cli`) should support:
-- `slipstream-ui init` - Initialize in a new project
-- `slipstream-ui add <component>` - Add a specific component
-- `slipstream-ui list` - List available components
+## Docs site specifics
 
-## Documentation
+- Metadata per route (server components export `metadata`; client pages get a one-line layout)
+- Component pages pair `page.tsx` + `demo.tsx`; keep them in sync with the manifest
+- Site config (contact email/address) lives in `apps/docs/lib/site.ts`
+- Analytics is consent-gated via `NEXT_PUBLIC_ANALYTICS_SRC`; never load before consent
 
-- Docs site uses Next.js 14 with App Router
-- Content lives in `apps/docs/content/docs/**/*.mdx`
-- Component pages should be auto-generated from manifests where possible
-- Always include live, interactive examples
+## MCP server
 
-## Code Style
+`packages/mcp-server` exposes: `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage`. Keep tool schemas and manifests consistent.
 
-- Use TypeScript strict mode
-- Follow existing code patterns
-- Prefer composition over inheritance
-- Keep components focused and single-purpose
-- Document intent, not mechanics
+## Releases
 
-## When Adding New Components
+Changesets with a linked `core`/`ai`/`themes` group. Add a changeset for any published-package change; CI publishes on version commits with provenance.
 
-1. Create component in appropriate package (core or ai)
-2. Add TypeScript types with proper JSDoc
-3. Create COMPONENT_MANIFEST in the package's `src/manifests/` directory
-4. Add unit tests
-5. Add to component index
-6. Update documentation (add page + sidebar entry in `apps/docs/app/docs/layout.tsx`)
-7. Run `pnpm validate:manifests` to verify the manifest
+## Priority order
 
-## Priority Order
-
-When making decisions:
 1. Correctness and robustness
 2. Maintainability and readability
 3. Performance

@@ -70,10 +70,13 @@ export function TableOfContents({
  */
 export function useScrollSpy(ids: string[], options?: { rootMargin?: string }): string | undefined {
   const [activeId, setActiveId] = React.useState<string | undefined>();
+  const idKey = ids.join('|');
+  const rootMargin = options?.rootMargin ?? '0px 0px -70% 0px';
 
   React.useEffect(() => {
-    if (ids.length === 0 || typeof IntersectionObserver === 'undefined') return;
-    const elements = ids
+    if (idKey.length === 0 || typeof IntersectionObserver === 'undefined') return;
+    const elements = idKey
+      .split('|')
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
     if (elements.length === 0) return;
@@ -86,12 +89,12 @@ export function useScrollSpy(ids: string[], options?: { rootMargin?: string }): 
         if (visible[0]) setActiveId(visible[0].target.id);
         return;
       },
-      { rootMargin: options?.rootMargin ?? '0px 0px -70% 0px', threshold: 0 }
+      { rootMargin, threshold: 0 }
     );
 
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, [ids.join('|'), options?.rootMargin]);
+  }, [idKey, rootMargin]);
 
   return activeId;
 }

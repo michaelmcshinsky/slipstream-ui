@@ -33,9 +33,10 @@ export default function InstallationPage() {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-          <li>Node.js 18 or higher</li>
+          <li>Node.js 20.9 or higher</li>
           <li>pnpm 8 or higher (recommended)</li>
-          <li>React 18 or higher</li>
+          <li>React 18 or 19</li>
+          <li>Tailwind CSS 3.4 (v4 is not supported yet)</li>
           <li>TypeScript (recommended)</li>
         </ul>
 

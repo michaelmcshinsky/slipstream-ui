@@ -14,25 +14,25 @@ const QUICK_LINKS = [
     href: '/docs/installation',
     title: 'Installation',
     body: 'Packages, CLI, or shadcn-compatible registry — pick your workflow.',
-    icon: '⚡',
+    index: '01',
   },
   {
     href: '/docs/ai-manifests',
     title: 'COMPONENT_MANIFEST',
     body: 'The machine-readable spec behind every component: props, anti-patterns, a11y.',
-    icon: '📋',
+    index: '02',
   },
   {
     href: '/docs/components',
     title: 'Components',
     body: `${COMPONENT_COUNT} components across core and AI interaction surfaces.`,
-    icon: '🧩',
+    index: '03',
   },
   {
     href: '/docs/templates',
     title: 'Templates',
     body: 'Complete copy-paste patterns: streaming chat, agent dashboard, RAG citations.',
-    icon: '📦',
+    index: '04',
   },
 ];
 
@@ -71,6 +71,33 @@ export default function DocsPage() {
         their output before it ships.
       </p>
 
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Architecture</h2>
+      <p className="mt-3 leading-relaxed text-muted-foreground">
+        One monorepo ships six published packages and two reference apps. Components live in
+        <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">packages/core</code> and
+        <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">packages/ai</code>; theming lives in
+        <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">@slipstream-ui/themes</code>. Every component
+        flows through the same pipeline, and CI enforces it:
+      </p>
+      <div className="mt-4">
+        <CodeBlock
+          language="text"
+          code={`source + manifest + tests
+      │
+      ├─ pnpm validate:manifests   # schema + TypeScript↔manifest drift
+      ├─ pnpm generate:registry    # /registry/*.json (shadcn-compatible)
+      ├─ pnpm generate:llm-docs    # /llm/*.md, llms.txt, README stats
+      └─ MCP server                # queries the same manifests at runtime`}
+        />
+      </div>
+      <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
+        <li><strong className="text-foreground">@slipstream-ui/core</strong> — 63 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography</li>
+        <li><strong className="text-foreground">@slipstream-ui/ai</strong> — 17 AI chat and agent components (stateless; you own state and transport)</li>
+        <li><strong className="text-foreground">@slipstream-ui/themes</strong> — createTheme() and presets over a CSS-variable token contract</li>
+        <li><strong className="text-foreground">@slipstream-ui/cli · registry · mcp-server</strong> — install and agent tooling sharing the same manifests</li>
+        <li><strong className="text-foreground">apps/docs · apps/app · apps/playground</strong> — the docs you are reading and a reference dashboard, both built with this library</li>
+      </ul>
+
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Quick start</h2>
       <div className="mt-4">
         <CodeBlock language="bash" className="mb-4" code={`# Packages
@@ -91,7 +118,7 @@ npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
             href={link.href}
             className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:shadow-sm"
           >
-            <div aria-hidden="true" className="mb-2 text-xl">{link.icon}</div>
+            <div aria-hidden="true" className="mb-2 font-mono text-sm text-muted-foreground">{link.index}</div>
             <h3 className="font-semibold group-hover:text-primary">{link.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{link.body}</p>
           </Link>
@@ -107,7 +134,7 @@ npx shadcn@latest add https://slipstreamui.com/registry/message.json`} />
         </p>
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            <strong className="text-foreground">Patch (0.1.x):</strong> Bug fixes, accessibility improvements,
+            <strong className="text-foreground">Patch (0.x.y):</strong> Bug fixes, accessibility improvements,
             documentation updates. No API changes.
           </li>
           <li>

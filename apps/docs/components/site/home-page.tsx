@@ -14,7 +14,7 @@ import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
-import { COMPONENT_COUNT } from '@/lib/component-count';
+import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
@@ -44,7 +44,7 @@ const COMPARISON: {
   },
   {
     capability: 'Components shipped',
-    slipstream: `${COMPONENT_COUNT} (42 UI + 17 AI)`,
+    slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`,
     shadcn: 'UI primitives + AI Elements',
     assistantUi: 'Chat surface + primitives',
     mui: 'Broad UI set, no chat',

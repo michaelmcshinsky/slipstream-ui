@@ -113,6 +113,31 @@ get_component_manifest(componentId="button")
 // Get message manifest
 get_component_manifest(componentId="message")`} />
 
+        <h3 className="text-xl font-semibold mt-6 mb-3">get_usage_examples</h3>
+        <p className="text-muted-foreground mb-4">
+          Fetch runnable examples (basic, composition, edge cases) straight from the manifest, so the
+          agent copies patterns that actually compile.
+        </p>
+        <CodeBlock language="text" code={`get_usage_examples(componentId="select-menu")
+
+// Filter by example kind
+get_usage_examples(componentId="dialog", kind="composition")`} />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">validate_usage</h3>
+        <p className="text-muted-foreground mb-4">
+          Validate generated JSX against the component manifests before it ships: unknown props,
+          wrong enum values, missing required props and missing accessible names are reported with
+          file/line context. This is the tool that makes the library hallucination-proof.
+        </p>
+        <CodeBlock language="text" code={`// Ask the agent to run this before emitting code
+validate_usage(
+  file: "app/page.tsx",
+  code: '<Button variant="primry">Save</Button>'
+)
+
+// Returns errors like:
+// button.props.variant: "primry" is not one of default|destructive|…`} />
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
         <p className="text-muted-foreground mb-4">
           Here's how an AI agent might use the MCP server:
