@@ -127,7 +127,7 @@ describe('GET /api/v1/licenses', () => {
   });
 });
 
-describe('pagination traversal (KC-015)', () => {
+describe('pagination traversal', () => {
   it('walks teams pages without repeating the boundary item', async () => {
     for (let i = 0; i < 5; i++) {
       const created = await v1CreateTeam(

@@ -5,12 +5,12 @@ import { createTheme } from '../create-theme';
  */
 export const zincTheme = createTheme({
   brandColor: '240 5% 65%',
-  borderRadius: '0.5rem',
+  borderRadius: '0.375rem',
   darkMode: false,
 });
 
 export const zincDarkTheme = createTheme({
   brandColor: '240 5% 65%',
-  borderRadius: '0.5rem',
+  borderRadius: '0.375rem',
   darkMode: true,
 });

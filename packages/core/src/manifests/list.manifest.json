@@ -1,0 +1,123 @@
+{
+  "id": "list",
+  "name": "List / ListItem",
+  "tier": "molecule",
+  "description": "Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.",
+  "designIntent": "Row collections are lists, not tables or div stacks: screen readers announce item counts and navigate by item. List/ListItem keep that semantics while providing the layout vocabulary (slots, dividers, density, selection) that real product UIs need — and a pressable row wraps its content in a button so ul > li structure stays valid.",
+  "props": [
+    {
+      "name": "divided",
+      "type": "boolean",
+      "required": false,
+      "description": "Hairline dividers between rows (List).",
+      "defaultValue": "false",
+      "examples": ["true"]
+    },
+    {
+      "name": "bordered",
+      "type": "boolean",
+      "required": false,
+      "description": "Card-like surface and border around the list (List).",
+      "defaultValue": "false",
+      "examples": ["true"]
+    },
+    {
+      "name": "size",
+      "type": "'default' | 'compact'",
+      "required": false,
+      "description": "Row density (List).",
+      "defaultValue": "default",
+      "enum": ["default", "compact"],
+      "examples": ["compact"]
+    },
+    {
+      "name": "leading",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Leading slot: icon, avatar, status dot, or checkbox (ListItem)."
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Trailing slot: chevron, badge, meta, or action (ListItem)."
+    },
+    {
+      "name": "selected",
+      "type": "boolean",
+      "required": false,
+      "description": "Marks the row as the active/selected item (ListItem).",
+      "defaultValue": "false",
+      "examples": ["true"]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Secondary line under the main content (ListItem)."
+    },
+    {
+      "name": "onClick",
+      "type": "() => void",
+      "required": false,
+      "description": "Makes the row pressable — content renders inside a full-width button so list semantics stay intact (ListItem)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Settings rows with selection",
+      "code": "<List bordered divided>\n  <ListItem leading={<Icon />} trailing={<Badge>new</Badge>} selected>\n    Notifications\n  </ListItem>\n  <ListItem leading={<Icon />} description=\"Weekly digest every Monday\">\n    Digest\n  </ListItem>\n</List>",
+      "description": "selected highlights the active row; description adds a sub-line."
+    },
+    {
+      "title": "Pressable rows",
+      "code": "<List bordered>\n  {threads.map((t) => (\n    <ListItem key={t.id} onClick={() => open(t.id)} trailing={<Chevron />}>\n      {t.title}\n    </ListItem>\n  ))}\n</List>",
+      "description": "onClick renders the row content inside a <button> — keyboard and screen-reader behavior come free."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a table for non-tabular rows",
+      "explanation": "Tables imply column relationships. Rows of independent items are lists — assistive tech announces them as such.",
+      "example": "<table><tr><td>Settings</td></tr></table>  // avoid\n<List><ListItem>Settings</ListItem></List>  // prefer"
+    },
+    {
+      "title": "Don't put onClick on the li itself",
+      "explanation": "Let ListItem wrap content in a button (which it does automatically) — a click handler on li breaks list semantics for screen readers.",
+      "example": "// ListItem handles this: <ListItem onClick={…}> renders <li><button …>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native list structure",
+      "implementation": "Renders <ul>/<li>; screen readers announce item counts and per-item navigation",
+      "userRequirements": "Use ListItem for every row — arbitrary children break the list contract"
+    },
+    {
+      "feature": "Pressable rows are buttons",
+      "implementation": "onClick rows wrap content in a full-width <button> with focus ring and disabled support",
+      "userRequirements": "Provide an accessible name via the row's text content"
+    },
+    {
+      "feature": "Selection is visual only",
+      "implementation": "selected uses aria-current-less styling; add aria-current on the row via props when it marks location",
+      "userRequirements": "Pass aria-current=\"true\" for navigation lists where the row IS the current location"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Block",
+      "relationship": "Wrap a List in a Block section for titled groups"
+    },
+    {
+      "component": "Badge / Avatar",
+      "relationship": "Common leading/trailing slot content"
+    }
+  ],
+  "relatedComponents": ["Table", "Menu", "Card"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "list",
+  "exportName": "List"
+}

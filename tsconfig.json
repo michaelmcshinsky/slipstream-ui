@@ -1,12 +1,10 @@
 {
-  "include": ["src", "vitest.setup.ts", "vite.config.ts"],
-  "exclude": ["src/**/*.stories.tsx", "src/**/*.stories.ts"],
+  "include": ["scripts"],
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "react-jsx",
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -18,6 +16,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["vite/client", "node"]
+    "types": ["node"]
   }
 }

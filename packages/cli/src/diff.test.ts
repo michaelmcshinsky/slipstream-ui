@@ -30,7 +30,7 @@ afterAll(async () => {
   for (const root of tempRoots) await fs.remove(root);
 });
 
-describe('diffInstalledComponents (KC-027)', () => {
+describe('diffInstalledComponents', () => {
   it('reports ok for a fresh identical install', async () => {
     const entries = loadRegistryEntries();
     const button = entries.find((entry) => entry.manifest.id === 'button')!;

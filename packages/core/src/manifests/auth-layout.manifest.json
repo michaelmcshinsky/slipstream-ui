@@ -1,0 +1,99 @@
+{
+  "id": "auth-layout",
+  "name": "AuthLayout",
+  "tier": "organism",
+  "description": "Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+  "designIntent": "Sign-in, sign-up, reset and verify screens should look identical. AuthLayout owns the centered card, brand slot and footer so auth pages only supply the form.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Card heading (h1)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the heading."
+    },
+    {
+      "name": "brand",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Mark rendered above the card."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Links/legal copy under the card."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Card width preset.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Sign in",
+      "code": "<AuthLayout\n  title=\"Sign in\"\n  description=\"Welcome back.\"\n  brand={<Logo />}\n  footer={<a href=\"/signup\">Create account</a>}\n>\n  <SignInForm />\n</AuthLayout>",
+      "description": "Form lives inside the card."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest another full-height page",
+      "explanation": "AuthLayout already owns min-h-screen centering.",
+      "example": "// Avoid\n<div className=\"min-h-screen\"><AuthLayout … /></div>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "One h1",
+      "implementation": "Renders the page heading",
+      "userRequirements": "Don't add another h1 inside the form"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Titles",
+      "guidelines": [
+        "Action-oriented",
+        "Sentence case"
+      ],
+      "goodExamples": [
+        "Sign in",
+        "Create your account"
+      ],
+      "badExamples": [
+        "Login page"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Form",
+      "relationship": "Place the Form inside children",
+      "example": "<AuthLayout title=\"Sign in\"><Form onSubmit={…}>…</Form></AuthLayout>"
+    }
+  ],
+  "relatedComponents": [
+    "Form",
+    "PasswordInput",
+    "Button"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "auth-layout",
+  "exportName": "AuthLayout"
+}

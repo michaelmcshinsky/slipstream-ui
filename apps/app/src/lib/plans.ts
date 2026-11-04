@@ -17,7 +17,7 @@ export const PLANS = [
       'Everything in Free',
       'License key with 3 machine activations',
       'Self-service deactivation endpoint',
-      // Label upcoming deliverables explicitly; never sell them as available (KC-044).
+      // Label upcoming deliverables explicitly; never sell them as available.
       'Premium templates & blocks (coming soon)',
       'Priority issue queue (coming soon)',
     ],
@@ -45,7 +45,7 @@ export const PLANS = [
       'Everything in Team',
       '100 seats',
       'Admin audit log console',
-      // Label upcoming deliverables explicitly; never sell them as available (KC-044).
+      // Label upcoming deliverables explicitly; never sell them as available.
       'Audit log export (coming soon)',
       'SSO (coming soon)',
       'Support SLA & onboarding call (coming soon)',

@@ -3,12 +3,12 @@ import { cn } from '@slipstream-ui/core';
 import { Attachment } from './Attachment';
 import type { AttachmentItem } from './Attachment';
 
-export interface AttachmentListProps {
+export type AttachmentListProps = {
   attachments: AttachmentItem[];
   /** Passed through to every Attachment; omit to hide remove controls. */
   onRemove?: (attachment: AttachmentItem) => void;
   className?: string;
-}
+};
 
 const AttachmentList = React.forwardRef<HTMLDivElement, AttachmentListProps>(
   ({ attachments, onRemove, className, ...props }, ref) => {

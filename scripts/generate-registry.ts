@@ -22,7 +22,7 @@ const PACKAGES = [
 ];
 
 /** Runtime deps the generated code needs beyond react. */
-function dependenciesFor(manifest) {
+function dependenciesFor(manifest: { package: string }) {
   const deps = [];
   if (manifest.package === '@slipstream-ui/core') {
     deps.push(
@@ -53,7 +53,7 @@ function loadManifests() {
 }
 
 /** Map core exports to the registry item that provides them. */
-const CORE_EXPORT_SOURCES = {
+const CORE_EXPORT_SOURCES: Record<string, string> = {
   Button: 'button',
   buttonVariants: 'button',
   Input: 'input',
@@ -76,13 +76,13 @@ const CORE_EXPORT_SOURCES = {
  * - core component imports -> relative imports of previously-installed
  *   registry items, which are declared as registryDependencies.
  */
-function rewriteImports(content) {
+function rewriteImports(content: string) {
   let needsUtils = false;
-  const usedComponents = new Set();
+  const usedComponents = new Set<string>();
 
   content = content.replace(
     /import\s+(type\s+)?\{([^}]*)\}\s+from\s+'(@slipstream-ui\/core|\.\.\/\.\.\/utils\/cn)';/g,
-    (_match, typeModifier, specifiers, source) => {
+    (_match: string, typeModifier: string | undefined, specifiers: string, source: string) => {
       const names = specifiers.split(',').map((s) => s.trim()).filter(Boolean);
       const lines = [];
       if (source === '../../utils/cn') {
@@ -118,7 +118,7 @@ function rewriteImports(content) {
 }
 
 /** Collect the component's source files, rewriting workspace imports. */
-function collectSourceFiles(packageDir, sourceDir) {
+function collectSourceFiles(packageDir: string, sourceDir: string) {
   const componentDir = path.join(packageDir, 'src', 'components', sourceDir);
   if (!fs.existsSync(componentDir)) return [];
 
@@ -148,14 +148,14 @@ function collectSourceFiles(packageDir, sourceDir) {
   return files;
 }
 
-const SOURCE_DIR_TO_MANIFEST_ID = {
+const SOURCE_DIR_TO_MANIFEST_ID: Record<string, string> = {
   suggestion: 'suggestions',
   chainthought: 'chain-thought',
   streaming: 'streaming-indicator',
   messageactions: 'message-actions',
 };
 
-function sourceManifestName(sourceDir) {
+function sourceManifestName(sourceDir: string) {
   return SOURCE_DIR_TO_MANIFEST_ID[sourceDir] ?? sourceDir;
 }
 

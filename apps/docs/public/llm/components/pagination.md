@@ -1,6 +1,6 @@
 # Pagination
 
-Numeric pagination with prev/next, ellipsis, and aria-current on the active page
+Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 
 > Import: `import { Pagination } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/pagination.json
@@ -14,13 +14,44 @@ Pagination lets users navigate through paged content. It shows page numbers with
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| page | `number` | — | yes | Current page number (1-based) |
-| pageCount | `number` | — | yes | Total number of pages |
-| onPageChange | `(page: number) => void` | — | no | Called with the new page number |
-| siblings | `number` | `1` | no | How many page buttons to show around the current page |
-| className | `string` | — | no | Additional CSS classes to apply |
+| page | `number` | `1` | no | Current page (1-based). Alias: currentPage. |
+| pageCount | `number` | — | no | Total pages. Alias: totalPages, or derived from total/pageSize. |
+| currentPage | `number` | — | no | Alias for page (migration-friendly). |
+| totalPages | `number` | — | no | Alias for pageCount. |
+| pageSize | `number` | — | no | Rows per page; with total enables the summary and derives pageCount. |
+| total | `number` | — | no | Total item count for the summary. |
+| itemLabel | `string` | `items` | no | Noun used in the summary. |
+| showSummary | `boolean` | — | no | Force the summary on/off (defaults on when total and pageSize are set). |
+| onPageChange | `(page: number) => void` | — | no | Called with the new page number. |
+| siblings | `number` | `1` | no | Page buttons shown around the current page. |
+| showBoundaries | `boolean` | `false` | no | Show first/last jump buttons. |
+| showFirst | `boolean` | — | no | Force-show the first-page button. |
+| showLast | `boolean` | — | no | Force-show the last-page button. |
+| icons | `PaginationIcons` | — | no | Replace the default glyphs. |
 
 ## Examples
+
+### Summary + derived pages
+
+Renders "Showing 26–50 of 312 students" and derives 13 pages.
+
+```tsx
+<Pagination
+  page={page}
+  pageSize={25}
+  total={312}
+  itemLabel="students"
+  onPageChange={setPage}
+/>
+```
+
+### Migration aliases
+
+currentPage/totalPages map onto page/pageCount.
+
+```tsx
+<Pagination currentPage={page} totalPages={pages} onPageChange={setPage} />
+```
 
 ### Basic pagination
 

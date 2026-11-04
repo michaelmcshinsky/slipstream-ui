@@ -1,0 +1,94 @@
+{
+  "id": "page-header",
+  "name": "PageHeader",
+  "tier": "molecule",
+  "description": "Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.",
+  "designIntent": "Every list/detail page repeats breadcrumb + title + description + actions with drifting spacing. PageHeader fixes the hierarchy (one h1 per page) and the responsive wrap, so pages stay consistent.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Page heading rendered as h1."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting summary under the title."
+    },
+    {
+      "name": "breadcrumbs",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Trail rendered above the title."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Right-aligned actions (buttons, menus)."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Sub-row under the title (tabs, filters)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "List page header",
+      "code": "<PageHeader\n  title=\"Classes\"\n  description=\"Manage your weekly schedule.\"\n  breadcrumbs={<Breadcrumb … />}\n  actions={<Button>New class</Button>}\n/>",
+      "description": "One h1, one action cluster."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't stack multiple h1s",
+      "explanation": "PageHeader renders the page's h1; section headings inside the page should be h2 via Heading.",
+      "example": "// Avoid\n<PageHeader title=\"A\" /><PageHeader title=\"B\" />\n\n// Prefer one PageHeader per page"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading hierarchy",
+      "implementation": "Renders exactly one level-1 heading",
+      "userRequirements": "Use Heading level={2} for sections below"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Titles",
+      "guidelines": [
+        "Noun or noun phrase",
+        "Sentence case",
+        "Under 60 characters"
+      ],
+      "goodExamples": [
+        "Classes",
+        "Billing settings"
+      ],
+      "badExamples": [
+        "Here you can manage all of your classes"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Breadcrumb",
+      "relationship": "Pass a Breadcrumb as breadcrumbs for hierarchy context",
+      "example": "<PageHeader breadcrumbs={<Breadcrumb items={trail} />} title=\"Detail\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Breadcrumb",
+    "Heading",
+    "Tabs"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "page-header",
+  "exportName": "PageHeader"
+}

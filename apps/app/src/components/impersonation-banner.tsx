@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 /**
- * Persistent banner shown while an admin is impersonating a user (KC-040).
+ * Persistent banner shown while an admin is impersonating a user.
  * Stop restores the parked admin session via the audited stop endpoint.
  */
 export function ImpersonationBanner() {

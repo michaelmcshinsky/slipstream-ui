@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+export type ProgressProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Current value between 0 and `max`. */
   value?: number;
   /** Upper bound (default 100). */
   max?: number;
   /** Accessible label announced by screen readers. */
   label?: string;
-}
+};
 
 /**
  * Determinate progress bar. Exposes `role="progressbar"` with

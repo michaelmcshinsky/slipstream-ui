@@ -14,12 +14,10 @@ const separatorVariants = cva('shrink-0 bg-border', {
   },
 });
 
-export interface SeparatorProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof separatorVariants> {
+export type SeparatorProps = React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof separatorVariants> & {
   /** Accessible label for the dividing line (e.g. "section break"). */
   label?: string;
-}
+};
 
 /**
  * Visual divider between content blocks. Decorative by default
@@ -40,4 +38,11 @@ const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
 );
 Separator.displayName = 'Separator';
 
-export { Separator, separatorVariants };
+/**
+ * `Divider` is a semantic alias for the same primitive — either name works;
+ * `Separator` follows the ARIA role terminology, `Divider` reads better in
+ * layout code.
+ */
+const Divider = Separator;
+
+export { Separator, Divider, separatorVariants };

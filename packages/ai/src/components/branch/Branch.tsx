@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 
-export interface BranchProps {
+export type BranchProps = {
   /** Total number of message variants. Renders nothing when count < 2. */
   count: number;
   /** Zero-based index of the currently displayed variant. */
@@ -13,7 +13,7 @@ export interface BranchProps {
   onSelect?: (index: number) => void;
   labels?: { previous?: string; next?: string };
   className?: string;
-}
+};
 
 /**
  * Variant navigation for branched messages (`‹ 2 / 3 ›`).

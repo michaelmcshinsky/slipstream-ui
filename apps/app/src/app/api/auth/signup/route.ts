@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     if (existing) badRequest('An account with that email already exists.');
 
     // User + personal team + owner membership commit atomically: a failed
-    // team creation must not leave an account without its owner scope (KC-010).
+    // team creation must not leave an account without its owner scope.
     const passwordHash = hashPassword(body.password);
     const { user, team } = await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     });
 
     await createSession(user.id);
-    // Email verification lifecycle (KC-040): new accounts start unverified
+    // Email verification lifecycle: new accounts start unverified
     // and receive a signed confirmation link. A delivery outage must not
     // block signup — the resend endpoint retries later.
     let devVerifyToken: string | undefined;

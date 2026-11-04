@@ -5,7 +5,7 @@ import { cn } from '@slipstream-ui/core';
 import { Message } from '../message';
 import type { Message as MessageType } from '../../types';
 
-export interface ConversationProps {
+export type ConversationProps = {
   messages: MessageType[];
   className?: string;
   showAvatars?: boolean;
@@ -48,7 +48,7 @@ export interface ConversationProps {
   isLoadingMore?: boolean;
   /** Called when the user requests older history. */
   onLoadMore?: () => void;
-}
+};
 
 /** Distance (px) from the bottom within which the view counts as "pinned". */
 const PINNED_THRESHOLD = 80;
@@ -154,6 +154,10 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
     // Auto-scroll only when the user is already near the bottom, so reading
     // history is never yanked. During streaming use instant scrolls; smooth
     // animations restarted per token cause jank.
+    //
+    // Scroll the container itself (never scrollIntoView): scrollIntoView
+    // bubbles through every scrollable ancestor, including the document,
+    // which yanked the whole page when the demo/preview frames were small.
     React.useEffect(() => {
       const container = scrollRef.current;
       if (!container) return;
@@ -162,13 +166,16 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
         container.scrollHeight - container.scrollTop - container.clientHeight;
       if (distanceFromBottom > PINNED_THRESHOLD) return;
 
-      messagesEndRef.current?.scrollIntoView({
+      container.scrollTo?.({
+        top: container.scrollHeight,
         behavior: streamingMessageId ? 'auto' : 'smooth',
       });
     }, [messages, streamingMessageId]);
 
     const scrollToLatest = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      const container = scrollRef.current;
+      if (!container) return;
+      container.scrollTo?.({ top: container.scrollHeight, behavior: 'smooth' });
     };
 
     const handleDownload = () => {

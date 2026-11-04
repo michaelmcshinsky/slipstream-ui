@@ -5,11 +5,17 @@ import { useEffect, useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
-import { getNeighbors, NAV_SECTIONS } from '@/lib/nav';
+import { getNeighbors, FLAT_NAV } from '@/lib/nav';
 
-export interface ComponentPageProps {
-  /** Kebab-case registry/CLI id, e.g. "prompt-input". */
+export type ComponentPageProps = {
+  /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
   id: string;
+  /**
+   * COMPONENT_MANIFEST id when it differs from the route id — drives the
+   * registry fetch, install commands, and /llm markdown link
+   * (route "sources" -> manifest "source").
+   */
+  manifestId?: string;
   title: string;
   description: string;
   /** npm packages for the pnpm tab; defaults to core + ai. */
@@ -17,7 +23,9 @@ export interface ComponentPageProps {
   children: React.ReactNode;
   propsRows?: { name: string; type: string; defaultValue?: string; description: string }[];
   accessibility?: string[];
-}
+  /** Component-specific browser/progressive-enhancement notes. */
+  browserNotes?: string[];
+};
 
 /**
  * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json — only the
@@ -41,10 +49,34 @@ function toComponentId(name: string): string {
 
 /** Doc routes that exist today — related-component links are gated on this. */
 const COMPONENT_HREFS = new Set(
-  NAV_SECTIONS.flatMap((section) =>
-    section.items.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
-  )
+  FLAT_NAV.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
 );
+
+/**
+ * Fetches a component's manifest slice from /registry/<manifestId>.json.
+ * Returns null while loading or when the file is absent — sections derived
+ * from it simply do not render (graceful degradation).
+ */
+function useRegistryManifest(manifestId: string): RegistryManifest | null {
+  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/registry/${manifestId}.json`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: RegistryManifest | null) => {
+        if (!cancelled && data) setManifest(data);
+      })
+      .catch(() => {
+        // Registry file absent — render without the manifest-derived sections.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [manifestId]);
+
+  return manifest;
+}
 
 /**
  * Standardized component docs scaffold (elements.ai.sdk.dev pattern):
@@ -58,30 +90,17 @@ const COMPONENT_HREFS = new Set(
  */
 export function ComponentPage({
   id,
+  manifestId,
   title,
   description,
   npmPackages,
   children,
   propsRows,
   accessibility,
+  browserNotes,
 }: ComponentPageProps) {
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
-  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch(`/registry/${id}.json`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: RegistryManifest | null) => {
-        if (!cancelled && data) setManifest(data);
-      })
-      .catch(() => {
-        // Registry file absent — render without the manifest-derived sections.
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [id]);
+  const manifest = useRegistryManifest(manifestId ?? id);
 
   const antiPatterns = manifest?.antiPatterns ?? [];
   const compositionRules = manifest?.compositionRules ?? [];
@@ -95,11 +114,11 @@ export function ComponentPage({
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
         {/* Canonical markdown for agents — mirrors assistant-ui's .md convention. */}
         <a
-          href={`/llm/components/${id}.md`}
+          href={`/llm/components/${manifestId ?? id}.md`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          title={`Canonical markdown reference at /llm/components/${id}.md`}
+          title={`Canonical markdown reference at /llm/components/${manifestId ?? id}.md`}
         >
           <span aria-hidden="true">⧉</span> Markdown for agents
         </a>
@@ -107,7 +126,7 @@ export function ComponentPage({
       <p className="mt-2 text-lg text-muted-foreground">{description}</p>
 
       <div className="mt-6">
-        <InstallBox componentId={id} npmPackages={npmPackages} />
+        <InstallBox componentId={manifestId ?? id} npmPackages={npmPackages} />
       </div>
 
       <div className="mt-8 space-y-6">{children}</div>
@@ -191,6 +210,46 @@ export function ComponentPage({
           </div>
         </section>
       )}
+
+      <section className="mt-10">
+        <h2 className="mb-4 text-xl font-semibold">Browser support</h2>
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Browser</th>
+                <th className="p-3 text-left font-medium">Tested versions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Chrome', '111+ (Mar 2023)'],
+                ['Edge', '111+ (Mar 2023)'],
+                ['Firefox', '121+ (Dec 2023)'],
+                ['Safari', '17.2+ — macOS & iOS (Dec 2023)'],
+              ].map(([browser, versions]) => (
+                <tr key={browser} className="border-t border-border">
+                  <td className="p-3 font-medium">{browser}</td>
+                  <td className="p-3 text-muted-foreground">{versions}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Slipstream components rely only on CSS custom properties, Flexbox/Grid, and ARIA — the
+          everyday baseline of the last two years of evergreen releases. Anything newer is
+          progressive enhancement: unsupported browsers keep full functionality with static
+          behavior instead of animations.
+        </p>
+        {browserNotes && browserNotes.length > 0 && (
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+            {browserNotes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <nav aria-label="Pagination" className="mt-14 flex items-stretch justify-between gap-4 border-t border-border pt-6">
         {previous ? (

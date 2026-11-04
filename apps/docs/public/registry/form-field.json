@@ -1,0 +1,235 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "form-field",
+  "name": "form-field",
+  "tier": "molecule",
+  "description": "Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.",
+  "designIntent": "Every form control needs the same trio — label, hint or error, correct ARIA wiring — and hand-wiring it is where accessibility regressions start. FormField clones id/aria-describedby/aria-invalid onto a single-element child so the common case is one component and zero boilerplate.",
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The control's id — shared with the label's htmlFor and the hint/error ids.",
+      "examples": [
+        "email",
+        "signup-password"
+      ]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Visible label text (kept for screen readers even when labelHidden).",
+      "examples": [
+        "Email address"
+      ]
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "description": "Helper text under the control, wired via aria-describedby.",
+      "examples": [
+        "We never share your email"
+      ]
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert.",
+      "examples": [
+        "Enter a valid email address"
+      ]
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": "Renders the required marker next to the label.",
+      "defaultValue": "false",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "labelHidden",
+      "type": "boolean",
+      "required": false,
+      "description": "Keeps the label screen-reader visible but hides it visually (sr-only).",
+      "defaultValue": "false",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Slot pinned to the far right of the label row (badge, link, action)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Info icon rendered after the label; opens a tooltip with this text.",
+      "examples": [
+        "Use your work email so teammates can find you."
+      ]
+    },
+    {
+      "name": "labelPlacement",
+      "type": "'top' | 'left'",
+      "defaultValue": "top",
+      "required": false,
+      "description": "Stack the label above the control (default) or inline it to the left.",
+      "enum": [
+        "top",
+        "left"
+      ],
+      "examples": [
+        "top",
+        "left"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Text input with hint",
+      "code": "<FormField id=\"email\" label=\"Email address\" hint=\"We never share your email\" required>\n  <Input type=\"email\" autoComplete=\"email\" />\n</FormField>",
+      "description": "The cloned child receives id, aria-describedby, and the label pairs via htmlFor."
+    },
+    {
+      "title": "Error state",
+      "code": "<FormField id=\"email\" label=\"Email address\" error={errors.email} required>\n  <Input type=\"email\" value={email} onChange={(e) => setEmail(e.target.value)} />\n</FormField>",
+      "description": "Error replaces the hint, flips aria-invalid on the control, and announces via role=alert."
+    },
+    {
+      "title": "Search-style field",
+      "code": "<FormField id=\"assignee\" label=\"Assign to\" hint=\"Start typing to filter\">\n  <Search options={people} onValueChange={setAssignee} />\n</FormField>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't rely on placeholder as the label",
+      "explanation": "Placeholders disappear on input and fail color-contrast rules. FormField renders a real <Label>; use placeholder only for example format.",
+      "example": "// Avoid\n<FormField id=\"q\" label=\"\"> <Input placeholder=\"Search\" /> </FormField>\n\n// Prefer\n<FormField id=\"q\" label=\"Search documents\"> <Input /> </FormField>"
+    },
+    {
+      "title": "Don't nest multiple controls in one FormField",
+      "explanation": "The aria wiring (describedby/invalid) clones onto exactly one child element. For groups, use Fieldset or one FormField per control.",
+      "example": "// Avoid: two inputs, one field\n<FormField id=\"x\" label=\"Names\"><><Input /><Input /></></FormField>"
+    },
+    {
+      "title": "Don't duplicate ids across fields",
+      "explanation": "id keys the whole wiring — every FormField in a form must receive a unique id and the child must not override it with a different value.",
+      "example": "<FormField id=\"email-a\" …><Input id=\"something-else\" /></FormField> // broken pairing"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Label association",
+      "implementation": "Renders <Label htmlFor={id}> and clones the same id onto single-element children",
+      "userRequirements": "Pass the control's real id as the FormField id"
+    },
+    {
+      "feature": "Hint and error wiring",
+      "implementation": "aria-describedby points at the hint (or the error when present); errors render with role=alert",
+      "userRequirements": "Provide hint or error text — never both for the same state"
+    },
+    {
+      "feature": "Invalid state",
+      "implementation": "Sets aria-invalid on the cloned control when error is present",
+      "userRequirements": "Style the control with a destructive border/ring to match the announced state"
+    },
+    {
+      "feature": "Required marker",
+      "implementation": "The asterisk is aria-hidden; native required semantics come from the control's own required attribute",
+      "userRequirements": "Also pass required to the control for native validation"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use sentence case",
+        "Name the thing, not the action",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "Email address",
+        "Project name"
+      ],
+      "badExamples": [
+        "Enter your email",
+        "Name?"
+      ]
+    },
+    {
+      "contentType": "Errors",
+      "guidelines": [
+        "Say what failed and what to do",
+        "Lead with the fix",
+        "Avoid blaming the user"
+      ],
+      "goodExamples": [
+        "Enter a valid email address",
+        "Password must be at least 8 characters"
+      ],
+      "badExamples": [
+        "Invalid input",
+        "You messed up"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Input / Textarea / Select / Search / Autocomplete",
+      "relationship": "Wrap exactly one control — id/aria wiring is cloned onto it automatically",
+      "example": "<FormField id=\"email\" label=\"Email\"><Input type=\"email\" /></FormField>"
+    },
+    {
+      "component": "Fieldset",
+      "relationship": "Use Fieldset (not FormField) when the label names a GROUP of controls"
+    }
+  ],
+  "relatedComponents": [
+    "Label",
+    "Input",
+    "Fieldset",
+    "Search",
+    "Autocomplete"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "form-field",
+  "exportName": "FormField",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/form-field/FormField.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Label } from '../label/Label';\nimport { Tooltip } from '../tooltip/Tooltip';\n\nexport type FormFieldLabelPlacement = 'top' | 'left';\n\nexport type FormFieldProps = {\n  /**\n   * The control's id. The same value is applied to the label's htmlFor, the\n   * control (via clone), and the hint/error describedby wiring.\n   */\n  id: string;\n  /** Visible label text (screen-reader visible even when labelHidden). */\n  label: string;\n  /** Helper text rendered under the control and wired via aria-describedby. */\n  hint?: string;\n  /**\n   * Validation error; replaces the hint, sets aria-invalid on the control,\n   * announced via role=alert.\n   */\n  error?: string;\n  /** Renders the required marker and (via the cloned control) keeps the native required attribute. */\n  required?: boolean;\n  /** Keeps the label for assistive tech but hides it visually. */\n  labelHidden?: boolean;\n  /** Stack the label above the control (default) or inline it to the left. */\n  labelPlacement?: FormFieldLabelPlacement;\n  /** Info icon rendered after the label; opens a tooltip with this text. */\n  tooltip?: string;\n  /** Slot pinned to the far right of the label row (badge, link, action). */\n  trailing?: React.ReactNode;\n  className?: string;\n  /**\n   * The control. When it is a single React element (Slipstream inputs,\n   * native inputs…), id / aria-describedby / aria-invalid are cloned onto\n   * it automatically; wrapped or custom children must set them manually.\n   */\n  children: React.ReactNode;\n};\n\ntype CloneableProps = Record<string, unknown>;\n\n/**\n * Label + control + hint/error in one unit with the a11y wiring done for\n * you: htmlFor pairing, aria-describedby pointing at the hint (or error),\n * and aria-invalid when an error is present. Supports top or left label\n * placement, a label tooltip with info icon, and a trailing slot on the\n * right of the label row.\n */\nconst FormField = ({\n  id,\n  label,\n  hint,\n  error,\n  required,\n  labelHidden,\n  labelPlacement = 'top',\n  tooltip,\n  trailing,\n  className,\n  children,\n}: FormFieldProps) => {\n  const hintId = `${id}-hint`;\n  const errorId = `${id}-error`;\n  const describedBy = error ? errorId : hint ? hintId : undefined;\n\n  let control = children;\n  // Fragments/multi-children can't receive wired props — consumers must set\n  // id/aria-describedby on those children themselves (documented).\n  if (React.isValidElement<CloneableProps>(children) && children.type !== React.Fragment) {\n    control = React.cloneElement<CloneableProps>(children, {\n      id,\n      'aria-describedby': describedBy,\n      ...(error ? { 'aria-invalid': true } : {}),\n    });\n  }\n\n  const labelNode = (\n    <Label htmlFor={id} className={labelHidden ? 'sr-only' : undefined}>\n      {label}\n      {required && (\n        <>\n          {' '}\n          <span aria-hidden=\"true\" className=\"ml-0.5 text-destructive\">\n            *\n          </span>\n        </>\n      )}\n    </Label>\n  );\n\n  const tooltipNode = tooltip ? (\n    <Tooltip content={tooltip} side=\"top\">\n      <button\n        type=\"button\"\n        aria-label={`${label} information`}\n        className=\"ml-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n      >\n        <svg viewBox=\"0 0 16 16\" className=\"h-3.5 w-3.5\" fill=\"currentColor\" aria-hidden=\"true\">\n          <path d=\"M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 7a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 7Zm0-2.25a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z\" />\n        </svg>\n      </button>\n    </Tooltip>\n  ) : null;\n\n  const hintOrError = error ? (\n    <p id={errorId} role=\"alert\" className=\"text-xs text-destructive\">\n      {error}\n    </p>\n  ) : hint ? (\n    <p id={hintId} className=\"text-xs text-muted-foreground\">\n      {hint}\n    </p>\n  ) : null;\n\n  if (labelPlacement === 'left') {\n    return (\n      <div className={cn('flex min-w-0 flex-col gap-1.5', className)}>\n        <div className=\"flex items-start gap-3\">\n          <div className=\"flex w-40 shrink-0 items-center gap-1 pt-2\">\n            {labelNode}\n            {tooltipNode}\n          </div>\n          <div className=\"flex min-w-0 flex-1 flex-col gap-1.5\">\n            {/* Trailing sits inline with the control (vertically centered),\n                not floating above it — keeps the row reading as one field. */}\n            <div className=\"flex min-w-0 items-center gap-2\">\n              <div className=\"min-w-0 flex-1\">{control}</div>\n              {trailing && (\n                <span className=\"shrink-0 text-xs text-muted-foreground\">{trailing}</span>\n              )}\n            </div>\n            {hintOrError}\n          </div>\n        </div>\n      </div>\n    );\n  }\n\n  return (\n    <div className={cn('flex min-w-0 flex-col gap-1.5', className)}>\n      <div className=\"flex items-center justify-between gap-2\">\n        <span className=\"flex min-w-0 items-center\">\n          {labelNode}\n          {tooltipNode}\n        </span>\n        {trailing}\n      </div>\n      {control}\n      {hintOrError}\n    </div>\n  );\n};\nFormField.displayName = 'FormField';\n\nexport { FormField };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/form-field/index.ts",
+      "content": "export * from './FormField';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/form-field.manifest.json",
+      "content": "{\n  \"id\": \"form-field\",\n  \"name\": \"FormField\",\n  \"tier\": \"molecule\",\n  \"description\": \"Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.\",\n  \"designIntent\": \"Every form control needs the same trio — label, hint or error, correct ARIA wiring — and hand-wiring it is where accessibility regressions start. FormField clones id/aria-describedby/aria-invalid onto a single-element child so the common case is one component and zero boilerplate.\",\n  \"props\": [\n    {\n      \"name\": \"id\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"The control's id — shared with the label's htmlFor and the hint/error ids.\",\n      \"examples\": [\n        \"email\",\n        \"signup-password\"\n      ]\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Visible label text (kept for screen readers even when labelHidden).\",\n      \"examples\": [\n        \"Email address\"\n      ]\n    },\n    {\n      \"name\": \"hint\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Helper text under the control, wired via aria-describedby.\",\n      \"examples\": [\n        \"We never share your email\"\n      ]\n    },\n    {\n      \"name\": \"error\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Validation error; replaces the hint, sets aria-invalid on the control, announced via role=alert.\",\n      \"examples\": [\n        \"Enter a valid email address\"\n      ]\n    },\n    {\n      \"name\": \"required\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Renders the required marker next to the label.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\n        \"true\",\n        \"false\"\n      ]\n    },\n    {\n      \"name\": \"labelHidden\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Keeps the label screen-reader visible but hides it visually (sr-only).\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\n        \"true\",\n        \"false\"\n      ]\n    },\n    {\n      \"name\": \"trailing\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Slot pinned to the far right of the label row (badge, link, action).\"\n    },\n    {\n      \"name\": \"tooltip\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Info icon rendered after the label; opens a tooltip with this text.\",\n      \"examples\": [\n        \"Use your work email so teammates can find you.\"\n      ]\n    },\n    {\n      \"name\": \"labelPlacement\",\n      \"type\": \"'top' | 'left'\",\n      \"defaultValue\": \"top\",\n      \"required\": false,\n      \"description\": \"Stack the label above the control (default) or inline it to the left.\",\n      \"enum\": [\n        \"top\",\n        \"left\"\n      ],\n      \"examples\": [\n        \"top\",\n        \"left\"\n      ]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Text input with hint\",\n      \"code\": \"<FormField id=\\\"email\\\" label=\\\"Email address\\\" hint=\\\"We never share your email\\\" required>\\n  <Input type=\\\"email\\\" autoComplete=\\\"email\\\" />\\n</FormField>\",\n      \"description\": \"The cloned child receives id, aria-describedby, and the label pairs via htmlFor.\"\n    },\n    {\n      \"title\": \"Error state\",\n      \"code\": \"<FormField id=\\\"email\\\" label=\\\"Email address\\\" error={errors.email} required>\\n  <Input type=\\\"email\\\" value={email} onChange={(e) => setEmail(e.target.value)} />\\n</FormField>\",\n      \"description\": \"Error replaces the hint, flips aria-invalid on the control, and announces via role=alert.\"\n    },\n    {\n      \"title\": \"Search-style field\",\n      \"code\": \"<FormField id=\\\"assignee\\\" label=\\\"Assign to\\\" hint=\\\"Start typing to filter\\\">\\n  <Search options={people} onValueChange={setAssignee} />\\n</FormField>\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't rely on placeholder as the label\",\n      \"explanation\": \"Placeholders disappear on input and fail color-contrast rules. FormField renders a real <Label>; use placeholder only for example format.\",\n      \"example\": \"// Avoid\\n<FormField id=\\\"q\\\" label=\\\"\\\"> <Input placeholder=\\\"Search\\\" /> </FormField>\\n\\n// Prefer\\n<FormField id=\\\"q\\\" label=\\\"Search documents\\\"> <Input /> </FormField>\"\n    },\n    {\n      \"title\": \"Don't nest multiple controls in one FormField\",\n      \"explanation\": \"The aria wiring (describedby/invalid) clones onto exactly one child element. For groups, use Fieldset or one FormField per control.\",\n      \"example\": \"// Avoid: two inputs, one field\\n<FormField id=\\\"x\\\" label=\\\"Names\\\"><><Input /><Input /></></FormField>\"\n    },\n    {\n      \"title\": \"Don't duplicate ids across fields\",\n      \"explanation\": \"id keys the whole wiring — every FormField in a form must receive a unique id and the child must not override it with a different value.\",\n      \"example\": \"<FormField id=\\\"email-a\\\" …><Input id=\\\"something-else\\\" /></FormField> // broken pairing\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Label association\",\n      \"implementation\": \"Renders <Label htmlFor={id}> and clones the same id onto single-element children\",\n      \"userRequirements\": \"Pass the control's real id as the FormField id\"\n    },\n    {\n      \"feature\": \"Hint and error wiring\",\n      \"implementation\": \"aria-describedby points at the hint (or the error when present); errors render with role=alert\",\n      \"userRequirements\": \"Provide hint or error text — never both for the same state\"\n    },\n    {\n      \"feature\": \"Invalid state\",\n      \"implementation\": \"Sets aria-invalid on the cloned control when error is present\",\n      \"userRequirements\": \"Style the control with a destructive border/ring to match the announced state\"\n    },\n    {\n      \"feature\": \"Required marker\",\n      \"implementation\": \"The asterisk is aria-hidden; native required semantics come from the control's own required attribute\",\n      \"userRequirements\": \"Also pass required to the control for native validation\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\n        \"Use sentence case\",\n        \"Name the thing, not the action\",\n        \"Keep under 60 characters\"\n      ],\n      \"goodExamples\": [\n        \"Email address\",\n        \"Project name\"\n      ],\n      \"badExamples\": [\n        \"Enter your email\",\n        \"Name?\"\n      ]\n    },\n    {\n      \"contentType\": \"Errors\",\n      \"guidelines\": [\n        \"Say what failed and what to do\",\n        \"Lead with the fix\",\n        \"Avoid blaming the user\"\n      ],\n      \"goodExamples\": [\n        \"Enter a valid email address\",\n        \"Password must be at least 8 characters\"\n      ],\n      \"badExamples\": [\n        \"Invalid input\",\n        \"You messed up\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Input / Textarea / Select / Search / Autocomplete\",\n      \"relationship\": \"Wrap exactly one control — id/aria wiring is cloned onto it automatically\",\n      \"example\": \"<FormField id=\\\"email\\\" label=\\\"Email\\\"><Input type=\\\"email\\\" /></FormField>\"\n    },\n    {\n      \"component\": \"Fieldset\",\n      \"relationship\": \"Use Fieldset (not FormField) when the label names a GROUP of controls\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Label\",\n    \"Input\",\n    \"Fieldset\",\n    \"Search\",\n    \"Autocomplete\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"form-field\",\n  \"exportName\": \"FormField\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

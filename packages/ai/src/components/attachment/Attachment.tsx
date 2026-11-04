@@ -3,7 +3,7 @@ import { Spinner } from '@slipstream-ui/core';
 import { cn } from '@slipstream-ui/core';
 
 /** A single file attached to a message or prompt. Display-only; upload logic stays consumer-side. */
-export interface AttachmentItem {
+export type AttachmentItem = {
   id: string;
   /** File name, including extension. */
   name: string;
@@ -14,14 +14,14 @@ export interface AttachmentItem {
   /** Optional image thumbnail URL. */
   previewUrl?: string;
   status?: 'uploading' | 'done' | 'error';
-}
+};
 
-export interface AttachmentProps {
+export type AttachmentProps = {
   attachment: AttachmentItem;
   /** Called when the user removes the attachment; omit to hide the remove control. */
   onRemove?: (attachment: AttachmentItem) => void;
   className?: string;
-}
+};
 
 const Attachment = React.forwardRef<HTMLDivElement, AttachmentProps>(
   ({ attachment, onRemove, className, ...props }, ref) => {

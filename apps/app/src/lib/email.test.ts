@@ -14,7 +14,7 @@ import {
 import { generateToken, hashToken } from './tokens';
 
 /**
- * KC-039: email delivery boundary — success/failure/retry/dedup records,
+ * email delivery boundary — success/failure/retry/dedup records,
  * token hygiene (never persisted or logged raw), HTML escaping, and
  * production configuration validation.
  */

@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import { Card, inputClass } from '@/components/ui';
 
-interface AuditRow {
+type AuditRow = {
   id: string;
   action: string;
   targetType: string | null;
   targetId: string | null;
   createdAt: string;
   actor?: { email?: string | null };
-}
+};
 
 export default function AdminAuditPage() {
   const [logs, setLogs] = useState<AuditRow[]>([]);

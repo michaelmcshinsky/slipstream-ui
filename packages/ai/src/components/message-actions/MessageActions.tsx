@@ -6,7 +6,7 @@ import { cn } from '@slipstream-ui/core';
 /** User sentiment for an AI response. */
 export type FeedbackRating = 'up' | 'down';
 
-export interface MessageActionsProps {
+export type MessageActionsProps = {
   /**
    * Visibility rule:
    * - 'always': always visible (default)
@@ -34,7 +34,7 @@ export interface MessageActionsProps {
     regenerate?: string;
   };
   className?: string;
-}
+};
 
 const MessageActions = React.forwardRef<HTMLDivElement, MessageActionsProps>(
   (

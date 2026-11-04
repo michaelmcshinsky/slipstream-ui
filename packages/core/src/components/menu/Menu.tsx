@@ -1,6 +1,8 @@
 'use client';
 
 import * as React from 'react';
+import { createPortal } from 'react-dom';
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from '../../utils/cn';
 
 type MenuContextValue = {
@@ -8,6 +10,8 @@ type MenuContextValue = {
   setOpen: (open: boolean) => void;
   activeIndex: number;
   setActiveIndex: (index: number) => void;
+  /** The relative wrapper the menu is anchored to (measured for portal positioning). */
+  wrapperRef: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 const MenuContext = React.createContext<MenuContextValue>({
@@ -15,16 +19,17 @@ const MenuContext = React.createContext<MenuContextValue>({
   setOpen: () => {},
   activeIndex: -1,
   setActiveIndex: () => {},
+  wrapperRef: { current: null },
 });
 
-export interface MenuProps {
+export type MenuProps = {
   /** Controlled open state. */
   open?: boolean;
   /** Called when the open state changes. */
   onOpenChange?: (open: boolean) => void;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Dropdown menu with keyboard navigation (arrows, Home/End, Escape),
@@ -36,6 +41,15 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
     const [internalOpen, setInternalOpen] = React.useState(false);
     const [activeIndex, setActiveIndex] = React.useState(-1);
     const current = open ?? internalOpen;
+    const wrapperRef = React.useRef<HTMLDivElement | null>(null);
+    const setRefs = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        wrapperRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      },
+      [ref]
+    );
 
     const setOpen = React.useCallback(
       (next: boolean) => {
@@ -47,8 +61,10 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
     );
 
     return (
-      <div ref={ref} className={cn('relative inline-block', className)}>
-        <MenuContext.Provider value={{ open: current, setOpen, activeIndex, setActiveIndex }}>
+      <div ref={setRefs} className={cn('relative inline-block', className)}>
+        <MenuContext.Provider
+          value={{ open: current, setOpen, activeIndex, setActiveIndex, wrapperRef }}
+        >
           {children}
         </MenuContext.Provider>
       </div>
@@ -57,7 +73,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 );
 Menu.displayName = 'Menu';
 
-export interface MenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type MenuTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** The button that opens the menu. */
 const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(
@@ -84,13 +100,42 @@ const MenuTrigger = React.forwardRef<HTMLButtonElement, MenuTriggerProps>(
 );
 MenuTrigger.displayName = 'MenuTrigger';
 
-export interface MenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** The floating panel containing menu items. */
 const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
   ({ className, children, ...props }, ref) => {
-    const { open, setOpen, activeIndex, setActiveIndex } = React.useContext(MenuContext);
+    const { open, setOpen, activeIndex, setActiveIndex, wrapperRef } = React.useContext(MenuContext);
     const contentRef = React.useRef<HTMLDivElement | null>(null);
+    // Viewport coordinates measured from the wrapper; the panel portals to
+    // document.body with position:fixed so ancestor overflow (scrollable
+    // demo frames, clipped containers) can never cut it off.
+    const [pos, setPos] = React.useState<{ top: number; right: number } | null>(null);
+    const itemsRef = React.useRef<HTMLElement[]>([]);
+
+    React.useLayoutEffect(() => {
+      if (!open) {
+        setPos(null);
+        return;
+      }
+      const GAP = 4; // matches the previous mt-1 spacing
+      const measure = () => {
+        const rect = wrapperRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        setPos({ top: rect.bottom + GAP, right: Math.max(8, window.innerWidth - rect.right) });
+      };
+      measure();
+      // Close on any scroll (capture phase catches scrolling ancestors that
+      // do not bubble) so the fixed panel never drifts from its trigger;
+      // reposition on resize.
+      const onScroll = () => setOpen(false);
+      window.addEventListener('scroll', onScroll, true);
+      window.addEventListener('resize', measure);
+      return () => {
+        window.removeEventListener('scroll', onScroll, true);
+        window.removeEventListener('resize', measure);
+      };
+    }, [open, setOpen, wrapperRef]);
 
     // Close on outside click.
     React.useEffect(() => {
@@ -103,15 +148,17 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
     }, [open, setOpen]);
 
     // Collect items for keyboard navigation and move focus into the menu
-    // when it opens so arrow keys reach the onKeyDown handler.
-    const itemsRef = React.useRef<HTMLElement[]>([]);
+    // when it opens so arrow keys reach the onKeyDown handler. Depends on
+    // `pos` because the panel only mounts once measured.
     React.useEffect(() => {
-      if (open && contentRef.current) {
-        itemsRef.current = Array.from(contentRef.current.querySelectorAll('[role="menuitem"]:not([disabled])'));
+      if (open && pos && contentRef.current) {
+        itemsRef.current = Array.from(
+          contentRef.current.querySelectorAll('[role="menuitem"]:not([disabled])')
+        );
         itemsRef.current[0]?.focus();
         setActiveIndex(0);
       }
-    }, [open, setActiveIndex]);
+    }, [open, pos, setActiveIndex]);
 
     const onKeyDown = (event: React.KeyboardEvent) => {
       const items = itemsRef.current;
@@ -139,9 +186,9 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
       }
     };
 
-    if (!open) return null;
+    if (!open || !pos || typeof document === 'undefined') return null;
 
-    return (
+    return createPortal(
       <div
         ref={(node) => {
           contentRef.current = node;
@@ -150,32 +197,38 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
         }}
         role="menu"
         onKeyDown={onKeyDown}
+        style={{ position: 'fixed', top: pos.top, right: pos.right, zIndex: 50 }}
         className={cn(
-          'absolute right-0 z-50 mt-1 min-w-[10rem] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md',
+          'min-w-[10rem] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md',
           className
         )}
         {...props}
       >
         {children}
-      </div>
+      </div>,
+      document.body
     );
   }
 );
 MenuContent.displayName = 'MenuContent';
 
-export interface MenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type MenuItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Renders the item in a destructive style. */
   destructive?: boolean;
-}
+  /** Render the child element (e.g. an <a>) as the menu item. */
+  asChild?: boolean;
+};
 
 /** A single action item in the menu. */
 const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(
-  ({ className, destructive, onClick, ...props }, ref) => {
+  ({ className, destructive, asChild = false, onClick, ...props }, ref) => {
     const { setOpen } = React.useContext(MenuContext);
+    const Comp = asChild ? Slot : 'button';
+    const typeProp = asChild ? {} : { type: 'button' as const };
     return (
-      <button
+      <Comp
         ref={ref}
-        type="button"
+        {...typeProp}
         role="menuitem"
         onClick={(event) => {
           onClick?.(event);
@@ -194,7 +247,7 @@ const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(
 );
 MenuItem.displayName = 'MenuItem';
 
-export interface MenuSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuSeparatorProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Visual divider between menu items. */
 const MenuSeparator = React.forwardRef<HTMLDivElement, MenuSeparatorProps>(
@@ -204,7 +257,7 @@ const MenuSeparator = React.forwardRef<HTMLDivElement, MenuSeparatorProps>(
 );
 MenuSeparator.displayName = 'MenuSeparator';
 
-export interface MenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type MenuLabelProps = React.HTMLAttributes<HTMLDivElement>;
 
 /** Non-interactive label grouping related menu items. */
 const MenuLabel = React.forwardRef<HTMLDivElement, MenuLabelProps>(

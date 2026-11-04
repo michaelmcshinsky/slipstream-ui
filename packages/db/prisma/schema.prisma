@@ -34,7 +34,7 @@ model User {
   emailVerifications EmailVerificationToken[]
 }
 
-/// Single-use email verification tokens (KC-040). Raw tokens are never
+/// Single-use email verification tokens. Raw tokens are never
 /// stored; only their hash. Conditional claims prevent double-consumption.
 model EmailVerificationToken {
   id        String    @id @default(cuid())
@@ -239,7 +239,7 @@ model AuditLog {
   @@index([createdAt])
 }
 
-/// Outbound email delivery records (KC-039). `tokenHash` stores only a hash
+/// Outbound email delivery records. `tokenHash` stores only a hash
 /// for dedup/audit — never the raw token. `bodyText` is the delivered message
 /// content (which may include an action link); tokens are never LOGGED.
 model EmailDelivery {

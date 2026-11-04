@@ -21,7 +21,7 @@ export async function POST(request: Request, { params }: Params) {
 
     const store = await cookies();
     // Nested impersonation would overwrite the parked admin token and lose
-    // the original session (KC-040).
+    // the original session.
     if (store.get('slipstream_impersonator')) {
       badRequest('Stop the current impersonation before starting another.');
     }

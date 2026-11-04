@@ -1,0 +1,86 @@
+{
+  "id": "time-picker",
+  "name": "TimePicker",
+  "tier": "molecule",
+  "description": "Native time field with an HH:MM contract and an optional clear button.",
+  "designIntent": "Like DatePicker: the platform time control is already accessible and locale-aware. TimePicker standardizes the HH:MM contract and clear affordance.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "\"HH:MM\" (24h), controlled."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "\"HH:MM\", initial value."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the time string; '' when cleared."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a clear button once a value exists."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Time field",
+      "code": "<TimePicker aria-label=\"Starts at\" value={start} onValueChange={setStart} clearable />",
+      "description": "Controlled HH:MM value."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't mix 12h display with 24h state",
+      "explanation": "State stays HH:MM; format for display with Intl.",
+      "example": "// Avoid: '9:30 PM' in state\n// Prefer: '21:30'"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Platform input",
+      "implementation": "Renders input[type=time]",
+      "userRequirements": "Provide a label describing the moment"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Describe the moment (Starts at / Ends by)"
+      ],
+      "goodExamples": [
+        "Starts at"
+      ],
+      "badExamples": [
+        "Time"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "DatePicker",
+      "relationship": "Pair for date+time scheduling",
+      "example": "<DatePicker aria-label=\"Date\" /><TimePicker aria-label=\"Time\" />"
+    }
+  ],
+  "relatedComponents": [
+    "DatePicker",
+    "FormField",
+    "Input"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "time-picker",
+  "exportName": "TimePicker"
+}

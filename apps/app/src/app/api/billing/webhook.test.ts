@@ -58,7 +58,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('webhook trust boundary (KC-005)', () => {
+describe('webhook trust boundary', () => {
   it.each(['development', 'test', 'production'])('fails closed without configuration in %s', async (environment) => {
     vi.stubEnv('NODE_ENV', environment);
     vi.stubEnv('STRIPE_WEBHOOK_SECRET', undefined);
@@ -169,7 +169,7 @@ describe('webhook trust boundary (KC-005)', () => {
   });
 });
 
-describe('webhook billing transactions (KC-005)', () => {
+describe('webhook billing transactions', () => {
   it.each([
     'checkout.session.completed', 'customer.subscription.updated', 'invoice.paid',
     'invoice.payment_succeeded', 'invoice.payment_failed', 'customer.subscription.deleted',

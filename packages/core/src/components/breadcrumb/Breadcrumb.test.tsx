@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Breadcrumb } from './Breadcrumb';
 
 describe('Breadcrumb', () => {
@@ -67,3 +67,43 @@ describe('Breadcrumb', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('Breadcrumb onItemClick', () => {
+  it('intercepts the click, prevents default navigation, and reports item + index', () => {
+    const onItemClick = vi.fn();
+    render(
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Docs', href: '/docs' },
+          { label: 'Current' },
+        ]}
+        onItemClick={onItemClick}
+      />
+    );
+    const link = screen.getByRole('link', { name: 'Docs' });
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+    const preventDefault = vi.spyOn(event, 'preventDefault');
+    fireEvent(link, event);
+
+    expect(onItemClick).toHaveBeenCalledWith({ label: 'Docs', href: '/docs' }, 1);
+    expect(preventDefault).toHaveBeenCalled();
+  });
+
+  it('navigates normally when no callback is provided', () => {
+    render(
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Current' },
+        ]}
+      />
+    );
+    const link = screen.getByRole('link', { name: 'Home' });
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+    const preventDefault = vi.spyOn(event, 'preventDefault');
+    fireEvent(link, event);
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+});
+

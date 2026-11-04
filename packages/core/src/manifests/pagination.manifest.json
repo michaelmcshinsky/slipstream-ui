@@ -2,16 +2,109 @@
   "id": "pagination",
   "name": "Pagination",
   "tier": "molecule",
-  "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+  "description": "Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.",
   "designIntent": "Pagination lets users navigate through paged content. It shows page numbers with ellipsis for large ranges, prev/next buttons, and marks the current page with aria-current=page.",
   "props": [
-    { "name": "page", "type": "number", "required": true, "description": "Current page number (1-based)" },
-    { "name": "pageCount", "type": "number", "required": true, "description": "Total number of pages" },
-    { "name": "onPageChange", "type": "(page: number) => void", "required": false, "description": "Called with the new page number" },
-    { "name": "siblings", "type": "number", "defaultValue": "1", "required": false, "description": "How many page buttons to show around the current page" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "page",
+      "type": "number",
+      "required": false,
+      "defaultValue": "1",
+      "description": "Current page (1-based). Alias: currentPage."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": false,
+      "description": "Total pages. Alias: totalPages, or derived from total/pageSize."
+    },
+    {
+      "name": "currentPage",
+      "type": "number",
+      "required": false,
+      "description": "Alias for page (migration-friendly)."
+    },
+    {
+      "name": "totalPages",
+      "type": "number",
+      "required": false,
+      "description": "Alias for pageCount."
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "Rows per page; with total enables the summary and derives pageCount."
+    },
+    {
+      "name": "total",
+      "type": "number",
+      "required": false,
+      "description": "Total item count for the summary."
+    },
+    {
+      "name": "itemLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "items",
+      "description": "Noun used in the summary."
+    },
+    {
+      "name": "showSummary",
+      "type": "boolean",
+      "required": false,
+      "description": "Force the summary on/off (defaults on when total and pageSize are set)."
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": false,
+      "description": "Called with the new page number."
+    },
+    {
+      "name": "siblings",
+      "type": "number",
+      "required": false,
+      "defaultValue": "1",
+      "description": "Page buttons shown around the current page."
+    },
+    {
+      "name": "showBoundaries",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Show first/last jump buttons."
+    },
+    {
+      "name": "showFirst",
+      "type": "boolean",
+      "required": false,
+      "description": "Force-show the first-page button."
+    },
+    {
+      "name": "showLast",
+      "type": "boolean",
+      "required": false,
+      "description": "Force-show the last-page button."
+    },
+    {
+      "name": "icons",
+      "type": "PaginationIcons",
+      "required": false,
+      "description": "Replace the default glyphs."
+    }
   ],
   "examples": [
+    {
+      "title": "Summary + derived pages",
+      "code": "<Pagination\n  page={page}\n  pageSize={25}\n  total={312}\n  itemLabel=\"students\"\n  onPageChange={setPage}\n/>",
+      "description": "Renders \"Showing 26–50 of 312 students\" and derives 13 pages."
+    },
+    {
+      "title": "Migration aliases",
+      "code": "<Pagination currentPage={page} totalPages={pages} onPageChange={setPage} />",
+      "description": "currentPage/totalPages map onto page/pageCount."
+    },
     {
       "title": "Basic pagination",
       "code": "<Pagination page={3} pageCount={10} onPageChange={setPage} />",
@@ -34,17 +127,52 @@
     }
   ],
   "accessibility": [
-    { "feature": "Navigation landmark", "implementation": "nav[aria-label=Pagination]", "userRequirements": "Don't place multiple paginations on one page" },
-    { "feature": "Current page", "implementation": "Active button has aria-current=page", "userRequirements": "Update aria-current when the page changes" },
-    { "feature": "Disabled buttons", "implementation": "Prev/next are disabled at the boundaries", "userRequirements": "Disabled buttons are removed from tab order" }
+    {
+      "feature": "Navigation landmark",
+      "implementation": "nav[aria-label=Pagination]",
+      "userRequirements": "Don't place multiple paginations on one page"
+    },
+    {
+      "feature": "Current page",
+      "implementation": "Active button has aria-current=page",
+      "userRequirements": "Update aria-current when the page changes"
+    },
+    {
+      "feature": "Disabled buttons",
+      "implementation": "Prev/next are disabled at the boundaries",
+      "userRequirements": "Disabled buttons are removed from tab order"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Labels", "guidelines": ["Use aria-label for prev/next buttons", "Page numbers are self-explanatory"], "goodExamples": ["Previous page", "Next page", "Page 3"], "badExamples": ["<", ">", "..."] }
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use aria-label for prev/next buttons",
+        "Page numbers are self-explanatory"
+      ],
+      "goodExamples": [
+        "Previous page",
+        "Next page",
+        "Page 3"
+      ],
+      "badExamples": [
+        "<",
+        ">",
+        "..."
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "Table", "relationship": "Paginate long table data", "example": "<Table>...</Table><Pagination page={page} pageCount={total} onPageChange={setPage} />" }
+    {
+      "component": "Table",
+      "relationship": "Paginate long table data",
+      "example": "<Table>...</Table><Pagination page={page} pageCount={total} onPageChange={setPage} />"
+    }
   ],
-  "relatedComponents": ["Table", "Breadcrumb"],
+  "relatedComponents": [
+    "Table",
+    "Breadcrumb"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

@@ -14,12 +14,118 @@ import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { ThemeShowcase } from '@/components/theme-showcase';
 import { COMPONENT_COUNT } from '@/lib/component-count';
+import { VERSION } from '@/lib/version';
 
-const REPO_URL = 'https://github.com/slipstream-ui';
+const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
 const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components**, each with a machine-readable \`COMPONENT_MANIFEST\`.
 
 Your agent queries the manifest via MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
+
+/**
+ * Facts below reflect each project's public documentation and published
+ * packages as checked in November 2026. Key: ✅ provided · 🟡 partial or a
+ * different model · — not provided for this purpose.
+ */
+const COMPARISON: {
+  capability: string;
+  slipstream: string;
+  shadcn: string;
+  assistantUi: string;
+  mui: string;
+}[] = [
+  {
+    capability: 'Distribution model',
+    slipstream: 'npm packages (ESM + CJS)',
+    shadcn: 'copy-in source via CLI',
+    assistantUi: 'npm packages',
+    mui: 'npm packages',
+  },
+  {
+    capability: 'Components shipped',
+    slipstream: `${COMPONENT_COUNT} (42 UI + 17 AI)`,
+    shadcn: 'UI primitives + AI Elements',
+    assistantUi: 'Chat surface + primitives',
+    mui: 'Broad UI set, no chat',
+  },
+  {
+    capability: 'Per-component machine-readable spec',
+    slipstream: '✅ all, with props, a11y and anti-patterns',
+    shadcn: '🟡 registry.json: files, deps, description',
+    assistantUi: '—',
+    mui: '—',
+  },
+  {
+    capability: 'MCP server',
+    slipstream: '✅ 5 tools incl. validate_usage',
+    shadcn: '🟡 browse/search/install + install checklist',
+    assistantUi: '—',
+    mui: '🟡 agent skills (guidance, not a server)',
+  },
+  {
+    capability: 'Validates generated JSX against the spec',
+    slipstream: '✅ validate_usage',
+    shadcn: '—',
+    assistantUi: '—',
+    mui: '—',
+  },
+  {
+    capability: 'llms.txt',
+    slipstream: '✅',
+    shadcn: '✅',
+    assistantUi: '✅',
+    mui: '—',
+  },
+  {
+    capability: 'Canonical markdown per component/page',
+    slipstream: '✅ /llm/*.md',
+    shadcn: '🟡 MDX in the repo',
+    assistantUi: '✅ .md pages',
+    mui: '—',
+  },
+  {
+    capability: 'AI chat components',
+    slipstream: '✅ 17 built-in',
+    shadcn: '✅ AI Elements (separate install)',
+    assistantUi: '✅ core focus',
+    mui: '—',
+  },
+  {
+    capability: 'State & transport',
+    slipstream: '✅ stateless, bring your own',
+    shadcn: '✅ components only',
+    assistantUi: '✅ runtime adapters (AI SDK, LangGraph, ADK, custom)',
+    mui: 'n/a — no chat components',
+  },
+  {
+    capability: 'Styling',
+    slipstream: 'Tailwind + CSS variables',
+    shadcn: 'Tailwind + CSS variables',
+    assistantUi: 'Tailwind',
+    mui: 'Emotion + theme object',
+  },
+  {
+    capability: 'Theme presets',
+    slipstream: '4 (Default, Dark, Violet, Zinc)',
+    shadcn: 'CSS-variable themes',
+    assistantUi: 'CSS variables',
+    mui: 'theme object',
+  },
+  {
+    capability: 'Peer dependencies',
+    slipstream: 'react, react-dom',
+    shadcn: 'react',
+    assistantUi: 'react',
+    mui: 'react, @emotion/react, @emotion/styled',
+  },
+  {
+    capability: 'License',
+    slipstream: 'MIT',
+    shadcn: 'MIT',
+    assistantUi: 'MIT',
+    mui: 'MIT',
+  },
+];
 
 function LandingChatDemo() {
   const [messages, setMessages] = useState<MessageType[]>([
@@ -165,13 +271,16 @@ export default function LandingPage() {
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <Link
                 href="/changelog"
-                title="See what's new in v0.1.0"
+                title={`See what's new in v${VERSION}`}
                 className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
               >
-                v0.1.0 <span className="ml-1.5 text-primary">what&apos;s new →</span>
+                v{VERSION} <span className="ml-1.5 text-primary">what&apos;s new →</span>
               </Link>
               <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 AI-first · MIT
+              </span>
+              <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium">
+                React 18+
               </span>
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
@@ -301,35 +410,34 @@ export default function LandingPage() {
         <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">
           Other libraries document for humans. Slipstream documents for both of you.
         </p>
-        <div className="mx-auto max-w-3xl overflow-x-auto rounded-xl border border-border">
+        <div className="mx-auto max-w-5xl overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">
               <tr>
                 <th className="p-3 text-left font-medium">Capability</th>
                 <th className="p-3 text-center font-medium">Slipstream</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">shadcn / AI Elements</th>
+                <th className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
                 <th className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
+                <th className="p-3 text-center font-medium text-muted-foreground">MUI</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                ['Machine-readable component specs', '✅ Built-in', '❌', '❌'],
-                ['Usage-validation MCP tool', '✅ validate_usage', '❌', '❌'],
-                ['llms.txt + canonical .md routes', '✅', '🟡 llms.txt only', '✅ .md routes'],
-                ['shadcn-compatible registry', '✅', '✅ native', '✅'],
-                ['jest-axe tested components', '✅ All', '🟡 Partial', '✅'],
-                ['Stateless (bring your own state)', '✅', '✅', '❌ runtime lock-in'],
-              ].map(([capability, slipstream, shadcn, assistantUi]) => (
-                <tr key={capability} className="border-t border-border">
-                  <td className="p-3">{capability}</td>
-                  <td className="p-3 text-center">{slipstream}</td>
-                  <td className="p-3 text-center text-muted-foreground">{shadcn}</td>
-                  <td className="p-3 text-center text-muted-foreground">{assistantUi}</td>
+              {COMPARISON.map((row) => (
+                <tr key={row.capability} className="border-t border-border">
+                  <td className="p-3">{row.capability}</td>
+                  <td className="p-3 text-center">{row.slipstream}</td>
+                  <td className="p-3 text-center text-muted-foreground">{row.shadcn}</td>
+                  <td className="p-3 text-center text-muted-foreground">{row.assistantUi}</td>
+                  <td className="p-3 text-center text-muted-foreground">{row.mui}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-muted-foreground">
+          Reflects each project&apos;s public documentation and published packages as of November 2026 ·
+          ✅ provided · 🟡 partial or a different model · — not provided for this purpose
+        </p>
       </section>
 
       {/* Templates teaser */}
@@ -362,6 +470,33 @@ export default function LandingPage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Paths */}
+      <section className="container mx-auto px-4 pb-6 pt-4">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Link
+            href="/docs/guides/agent-integration"
+            className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <h3 className="font-semibold group-hover:text-primary">For agent builders →</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Wire the MCP server into Claude Code or Cursor, run{' '}
+              <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">validate_usage</code> before emit, or
+              serve llms.txt and markdown routes — five tools, three consumption paths.
+            </p>
+          </Link>
+          <Link
+            href="/docs/guides/ai-chat-ui"
+            className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <h3 className="font-semibold group-hover:text-primary">For product teams →</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Ship the production chat surface — streaming markdown, stop-generation, citations,
+              approvals — with stateless components, jest-axe coverage, and your own backend.
+            </p>
+          </Link>
         </div>
       </section>
 

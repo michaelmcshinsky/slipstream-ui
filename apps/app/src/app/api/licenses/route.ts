@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 /**
  * Self-service license issuance. Requires a paid, active subscription on the
  * target team and derives the plan from that subscription — a requested plan
- * can never exceed what the team actually pays for (KC-001). Comp issuance
+ * can never exceed what the team actually pays for. Comp issuance
  * (no entitlement) lives on POST /api/admin/licenses and is admin-only.
  */
 export async function POST(request: Request) {
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     }
 
     // Idempotent retries: an existing active key for this owner/team/plan is
-    // returned instead of minting a duplicate (KC-001 reissuance).
+    // returned instead of minting a duplicate (reissuance).
     const existing = await prisma.licenseKey.findFirst({
       where: {
         ownerId: user.id,

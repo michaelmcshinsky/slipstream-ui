@@ -16,8 +16,21 @@ Card groups related content into a scannable container. Use it for settings pane
 |---|---|---|---|---|
 | children | `ReactNode` | — | yes | Card sub-components (CardHeader, CardContent, CardFooter) |
 | className | `string` | — | no | Additional CSS classes to apply |
+| asChild | `boolean` | `false` | no | Render the child element (router Link, <a>) with card styling instead of a div. |
 
 ## Examples
+
+### Card as a link
+
+Whole card becomes a semantic link without losing styling.
+
+```tsx
+<Card asChild>
+  <Link href="/writing/hello">
+    <CardHeader><CardTitle>Hello</CardTitle></CardHeader>
+  </Link>
+</Card>
+```
 
 ### Basic card
 

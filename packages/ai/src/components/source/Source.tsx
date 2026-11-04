@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { SourceItem } from '../../types';
 
-export interface SourceProps {
+export type SourceProps = {
   source: SourceItem;
   /**
    * 1-based citation marker rendered as a `[n]` prefix.
@@ -10,7 +10,7 @@ export interface SourceProps {
    */
   index?: number;
   className?: string;
-}
+};
 
 const Source = React.forwardRef<HTMLDivElement, SourceProps>(
   ({ source, index, className, ...props }, ref) => {

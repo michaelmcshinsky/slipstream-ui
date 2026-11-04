@@ -44,3 +44,17 @@ describe('Card', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('Card asChild', () => {
+  it('renders the child element with card styling', () => {
+    render(
+      <Card asChild>
+        <a href="/post">Read post</a>
+      </Card>
+    );
+    const link = screen.getByRole('link', { name: 'Read post' });
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveClass('rounded-xl', 'border-border', 'bg-card');
+  });
+});

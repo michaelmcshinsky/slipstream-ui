@@ -1,0 +1,271 @@
+{
+  "id": "data-table",
+  "name": "DataTable",
+  "tier": "molecule",
+  "description": "Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
+  "designIntent": "Most tables are 90% configuration — columns, sortability, page size, row click. DataTable collapses that into a single columns config so application code describes WHAT the table shows, not HOW to render th/td/sort/paginate markup by hand, while keeping full control through cell renderers.",
+  "props": [
+    {
+      "name": "columns",
+      "type": "DataTableColumn<T>[]",
+      "required": true,
+      "description": "Column configuration: key, header, optional cell renderer, sortable flag, align, className. Each column may define onClick(row) to make the cell content a button (column-level callbacks); onSortChange wires server-side sorting.",
+      "examples": [
+        "[{ key: 'name', header: 'Name', sortable: true }, { key: 'age', header: 'Age', align: 'right' }]"
+      ]
+    },
+    {
+      "name": "data",
+      "type": "T[]",
+      "required": true,
+      "description": "Row data.",
+      "examples": [
+        "users"
+      ]
+    },
+    {
+      "name": "rowId",
+      "type": "(row: T) => string",
+      "required": true,
+      "description": "Stable id per row (React key + test hooks).",
+      "examples": [
+        "(row) => row.id"
+      ]
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "description": "Accessible table caption.",
+      "examples": [
+        "Recent conversations"
+      ]
+    },
+    {
+      "name": "defaultSort",
+      "type": "{ key: string; dir: 'asc' | 'desc' } | null",
+      "required": false,
+      "description": "Initial sort when uncontrolled.",
+      "examples": [
+        "{ key: 'name', dir: 'asc' }"
+      ]
+    },
+    {
+      "name": "sortKey",
+      "type": "string | null",
+      "required": false,
+      "description": "Controlled sort column (pair with sortDir and onSortChange)."
+    },
+    {
+      "name": "sortDir",
+      "type": "'asc' | 'desc'",
+      "required": false,
+      "description": "Controlled sort direction."
+    },
+    {
+      "name": "onSortChange",
+      "type": "(key: string, dir: 'asc' | 'desc') => void",
+      "required": false,
+      "description": "Fires when a sortable header is toggled (controlled or not)."
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "Rows per page; enables pagination with a count line when set.",
+      "examples": [
+        "10"
+      ]
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "required": false,
+      "description": "Controlled page number (1-based) when pageSize is set."
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": false,
+      "description": "Fires when the pagination control changes page."
+    },
+    {
+      "name": "onRowClick",
+      "type": "(row: T) => void",
+      "required": false,
+      "description": "Makes rows interactive: click plus Enter/Space activation with ring focus."
+    },
+    {
+      "name": "renderSortIcon",
+      "type": "(state: 'none' | 'asc' | 'desc') => ReactNode",
+      "required": false,
+      "description": "Replace the default ▲/▼/↕ header glyphs with custom markup."
+    },
+    {
+      "name": "stickyHeader",
+      "type": "boolean",
+      "required": false,
+      "description": "Pin the header while the body scrolls (add a max-height via className).",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "density",
+      "type": "'default' | 'compact'",
+      "required": false,
+      "description": "Row density — compact shrinks text and cell padding.",
+      "defaultValue": "default",
+      "enum": [
+        "default",
+        "compact"
+      ],
+      "examples": [
+        "compact"
+      ]
+    },
+    {
+      "name": "zebra",
+      "type": "boolean",
+      "required": false,
+      "description": "Zebra-striped rows for long tables.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Render skeleton placeholder rows (tbody is aria-busy while loading).",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "loadingRows",
+      "type": "number",
+      "required": false,
+      "description": "Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump.",
+      "examples": [
+        "10",
+        "25"
+      ]
+    },
+    {
+      "name": "emptyMessage",
+      "type": "string",
+      "required": false,
+      "description": "Shown when data is empty.",
+      "defaultValue": "'No results.'",
+      "examples": [
+        "'No conversations yet'"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional classes for the table wrapper."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Sortable, paginated table from one config",
+      "code": "<DataTable\n  caption=\"Recent conversations\"\n  columns={[\n    { key: 'title', header: 'Title', sortable: true },\n    { key: 'messages', header: 'Messages', align: 'right', sortable: true },\n    { key: 'updatedAt', header: 'Updated', cell: (row) => row.updatedAt.toLocaleDateString() },\n  ]}\n  data={conversations}\n  rowId={(row) => row.id}\n  pageSize={10}\n  onRowClick={(row) => router.push(`/c/${row.id}`)}\n/>",
+      "description": "Sorting, paging, empty state, and row interaction come from the config — no table markup."
+    },
+    {
+      "title": "Controlled sort (server-side)",
+      "code": "<DataTable\n  columns={columns}\n  data={rows}\n  rowId={(row) => row.id}\n  sortKey={sort.key}\n  sortDir={sort.dir}\n  onSortChange={(key, dir) => fetchSorted(key, dir)}\n/>",
+      "description": "Pass sort props + onSortChange to let the backend own ordering; DataTable renders aria-sort either way."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't sort server-owned data locally",
+      "explanation": "Local sorting runs on the rows you pass in. When data is paged by the API, wire onSortChange to a server query — sorting one page locally lies about global order.",
+      "example": "// Avoid: local sort over one API page\n<DataTable data={page1} columns={cols} rowId={id} /> // header sorts only these 10 rows\n\n// Prefer: controlled sort\n<DataTable sortKey={key} sortDir={dir} onSortChange={serverFetch} … />"
+    },
+    {
+      "title": "Don't put heavy interactions in onRowClick only",
+      "explanation": "Rows are keyboard-focusable when onRowClick is set (Enter/Space activate), but a row click is not a semantic action for assistive tech. Also provide a real link/button (e.g. in a cell) for primary navigation.",
+      "example": "{ key: 'title', cell: (row) => <a href={`/c/${row.id}`}>{row.title}</a> }"
+    },
+    {
+      "title": "Don't build nested tables for layout",
+      "explanation": "DataTable is for tabular DATA. Layout grids belong to Card/grid containers — nested tables degrade the table navigation story for screen readers.",
+      "example": "// Avoid\n<table><tr><td><table>…</table></td></tr></table>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Sortable headers",
+      "implementation": "Sortable th elements carry aria-sort (ascending/descending/none) and use a real button for the toggle",
+      "userRequirements": "Mark only data columns sortable"
+    },
+    {
+      "feature": "Caption",
+      "implementation": "Renders a native <caption> naming the table's purpose",
+      "userRequirements": "Provide a caption for tables longer than a few rows"
+    },
+    {
+      "feature": "Row interaction",
+      "implementation": "With onRowClick rows are tabIndex=0 and activate on Enter/Space with a visible ring",
+      "userRequirements": "Keep an in-cell link/button as the primary action path too"
+    },
+    {
+      "feature": "Pagination feedback",
+      "implementation": "The result count line is aria-live=polite and pagination reuses the Pagination nav (aria-current=page)",
+      "userRequirements": "None"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Headers",
+      "guidelines": [
+        "Short noun labels",
+        "Right-align numeric columns",
+        "State units in the header when relevant"
+      ],
+      "goodExamples": [
+        "Messages",
+        "Latency (ms)"
+      ],
+      "badExamples": [
+        "How many messages were sent?",
+        "ms latency number"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Pagination",
+      "relationship": "Used internally when pageSize is set — you never need to wire it yourself",
+      "example": "<DataTable pageSize={10} … /> // pagination + count render automatically"
+    },
+    {
+      "component": "Badge / Button",
+      "relationship": "Use column cell renderers for status pills and row actions",
+      "example": "{ key: 'status', header: 'Status', cell: (row) => <Badge variant={row.ok ? 'default' : 'destructive'}>{row.status}</Badge> }"
+    },
+    {
+      "component": "Table",
+      "relationship": "Prefer Table when you need fully custom markup or non-interactive static data"
+    }
+  ],
+  "relatedComponents": [
+    "Table",
+    "Pagination",
+    "Badge",
+    "Skeleton"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "data-table",
+  "exportName": "DataTable"
+}

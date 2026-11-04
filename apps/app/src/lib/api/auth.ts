@@ -22,7 +22,7 @@ export async function getPrincipal(request: Request): Promise<Principal | null> 
 
   if (presented) {
     // A presented credential must be a well-formed key; never fall back to
-    // cookie identity when the explicit credential is malformed (KC-043).
+    // cookie identity when the explicit credential is malformed.
     if (!presented.includes('.')) {
       throw errors.unauthorized('Malformed API key.');
     }

@@ -4,20 +4,20 @@ import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
-interface License {
+type License = {
   id: string;
   key: string;
   plan: string;
   status: string;
   maxActivations: number;
   activations: { id: string; machineId: string; lastSeenAt: string }[];
-}
+};
 
-interface ApiKeyRow {
+type ApiKeyRow = {
   id: string;
   name: string;
   prefix: string;
-}
+};
 
 export default function LicensesPage() {
   const [licenses, setLicenses] = useState<License[]>([]);
@@ -73,7 +73,7 @@ export default function LicensesPage() {
       return;
     }
     // Envelope wraps the plaintext key: { data: { key } } — read it before it
-    // is lost, since it is shown exactly once (KC-018).
+    // is lost, since it is shown exactly once.
     const plaintext = extractData<{ key?: string }>(data)?.key;
     if (!plaintext) {
       setError('Key created but the plaintext was not returned by the server.');

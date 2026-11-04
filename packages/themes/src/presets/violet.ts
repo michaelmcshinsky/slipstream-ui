@@ -5,12 +5,12 @@ import { createTheme } from '../create-theme';
  */
 export const violetTheme = createTheme({
   brandColor: '263 70% 50%',
-  borderRadius: '0.5rem',
+  borderRadius: '0.375rem',
   darkMode: false,
 });
 
 export const violetDarkTheme = createTheme({
   brandColor: '263 70% 50%',
-  borderRadius: '0.5rem',
+  borderRadius: '0.375rem',
   darkMode: true,
 });

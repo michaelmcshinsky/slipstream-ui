@@ -18,12 +18,10 @@ const spinnerVariants = cva(
   }
 );
 
-export interface SpinnerProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof spinnerVariants> {
+export type SpinnerProps = React.HTMLAttributes<HTMLSpanElement> & VariantProps<typeof spinnerVariants> & {
   /** Accessible label announced to screen readers; set aria-hidden when purely decorative. */
   label?: string;
-}
+};
 
 function Spinner({ className, size, label = 'Loading...', ...props }: SpinnerProps) {
   return (

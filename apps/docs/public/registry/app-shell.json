@@ -1,0 +1,181 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "app-shell",
+  "name": "app-shell",
+  "tier": "organism",
+  "description": "Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+  "designIntent": "Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mobile nav. AppShell owns the structure and responsive switch while staying presentational — you pass the active route and a router link component, so it works with React Router, Next Link, or plain anchors.",
+  "props": [
+    {
+      "name": "sidebar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Desktop rail content; also rendered inside the mobile drawer (AppShell)."
+    },
+    {
+      "name": "header",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Sticky top bar content (AppShell)."
+    },
+    {
+      "name": "hideMobileMenu",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Hide the built-in burger button when the header owns navigation (AppShell)."
+    },
+    {
+      "name": "sidebarWidth",
+      "type": "string",
+      "required": false,
+      "defaultValue": "w-64",
+      "description": "Tailwind width class for the desktop rail (AppShell)."
+    },
+    {
+      "name": "sections",
+      "type": "{ title?: string; items: SidebarItem[] }[]",
+      "required": true,
+      "description": "Grouped navigation items (Sidebar)."
+    },
+    {
+      "name": "heading",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Brand/mark at the top of the rail (Sidebar)."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Bottom area of the rail (Sidebar)."
+    },
+    {
+      "name": "activeHref",
+      "type": "string",
+      "required": false,
+      "description": "Current route; matching items get aria-current=page (Sidebar)."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "defaultValue": "a",
+      "description": "Router link component (react-router Link, Next Link) (Sidebar)."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Primary",
+      "description": "Accessible name of the nav landmark (Sidebar)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dashboard shell",
+      "code": "import { AppShell, Sidebar } from '@slipstream-ui/core';\n\n<AppShell\n  header={<h1 className=\"text-sm font-semibold\">Studio</h1>}\n  sidebar={\n    <Sidebar\n      activeHref={pathname}\n      linkComponent={RouterLink}\n      heading={<strong>Acme</strong>}\n      sections={[\n        { title: 'Workspace', items: [{ href: '/dashboard', label: 'Dashboard' }, { href: '/classes', label: 'Classes', badge: 4 }] },\n      ]}\n    />\n  }\n>\n  <Page />\n</AppShell>",
+      "description": "Router-agnostic: pass your Link component and the current path."
+    },
+    {
+      "title": "Header only",
+      "code": "<AppShell header={<TopBar />}>\n  <Page />\n</AppShell>",
+      "description": "Skip the sidebar when the product is a single surface."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest scroll containers",
+      "explanation": "AppShell's main is the scroll owner. Adding h-screen/overflow-hidden wrappers inside breaks sticky headers and mobile drawer focus.",
+      "example": "// Avoid\n<AppShell><div className=\"h-screen overflow-hidden\">…</div></AppShell>\n\n// Prefer\n<AppShell><Page /></AppShell>"
+    },
+    {
+      "title": "Don't hardcode anchors for SPA routes",
+      "explanation": "Plain <a href> triggers full page loads in client-side routers. Pass your router's Link via linkComponent.",
+      "example": "// Avoid (full reload in React Router)\n<Sidebar sections={sections} />\n\n// Prefer\n<Sidebar sections={sections} linkComponent={Link} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Nav landmark",
+      "implementation": "Sidebar renders nav with an accessible name (label prop)",
+      "userRequirements": "Keep one primary nav per page; use other labels for secondary rails"
+    },
+    {
+      "feature": "Current route",
+      "implementation": "aria-current=page on the active item",
+      "userRequirements": "Pass activeHref (or item.active) so the state is announced"
+    },
+    {
+      "feature": "Mobile drawer",
+      "implementation": "The rail becomes a Drawer with focus trap, Escape, focus restore and a labelled dialog",
+      "userRequirements": "Don't duplicate the nav in two places at once"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Item labels",
+      "guidelines": [
+        "Use nouns for destinations",
+        "Keep to 1-2 words",
+        "Group by workflow, not by component type"
+      ],
+      "goodExamples": [
+        "Dashboard",
+        "Classes",
+        "Settings"
+      ],
+      "badExamples": [
+        "Click here",
+        "List page component"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Drawer",
+      "relationship": "AppShell mounts the mobile navigation Drawer for you when a sidebar is provided",
+      "example": "<AppShell sidebar={<Sidebar sections={sections} />}>…</AppShell>"
+    },
+    {
+      "component": "Button",
+      "relationship": "Header actions live in the header slot",
+      "example": "<AppShell header={<Button>New</Button>}>…</AppShell>"
+    }
+  ],
+  "relatedComponents": [
+    "Drawer",
+    "Button",
+    "Breadcrumb",
+    "Menu"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "app-shell",
+  "exportName": "AppShell",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/app-shell/AppShell.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Drawer } from '../drawer/Drawer';\n\nexport type SidebarItem = {\n  href: string;\n  label: string;\n  icon?: React.ReactNode;\n  /** Trailing slot — count, status dot, shortcut. */\n  badge?: React.ReactNode;\n  /** Force the active state (otherwise activeHref is compared). */\n  active?: boolean;\n};\n\nexport type SidebarSection = {\n  title?: string;\n  items: SidebarItem[];\n};\n\nexport type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {\n  sections: SidebarSection[];\n  /** Brand/mark rendered at the top. */\n  heading?: React.ReactNode;\n  /** Rendered at the bottom (user menu, upgrade CTA). */\n  footer?: React.ReactNode;\n  /** Current route — items with a matching href get aria-current=\"page\". */\n  activeHref?: string;\n  /** Custom link element for routers (react-router `Link`, Next `Link`). */\n  linkComponent?: React.ElementType;\n  /** Accessible name of the nav landmark. Default 'Primary'. */\n  label?: string;\n};\n\n/**\n * Sectioned navigation rail. Purely presentational: you pass the active\n * route and a router link component, so it stays stateless and works with\n * any routing library.\n */\nexport function Sidebar({\n  sections,\n  heading,\n  footer,\n  activeHref,\n  linkComponent,\n  label = 'Primary',\n  className,\n  ...props\n}: SidebarProps) {\n  const Link = linkComponent ?? 'a';\n\n  return (\n    <div className={cn('flex h-full min-h-0 flex-col gap-6 p-4', className)} {...props}>\n      {heading && <div className=\"px-2\">{heading}</div>}\n      <nav aria-label={label} className=\"flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto\">\n        {sections.map((section, index) => (\n          <div key={section.title ?? `section-${index}`}>\n            {section.title && (\n              <p className=\"mb-1.5 px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground\">\n                {section.title}\n              </p>\n            )}\n            <ul className=\"space-y-0.5\">\n              {section.items.map((item) => {\n                const active = item.active ?? (activeHref !== undefined && item.href === activeHref);\n                return (\n                  <li key={item.href}>\n                    <Link\n                      href={item.href}\n                      aria-current={active ? 'page' : undefined}\n                      className={cn(\n                        'flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors',\n                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n                        active\n                          ? 'bg-primary/10 font-medium text-primary'\n                          : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'\n                      )}\n                    >\n                      {item.icon && <span className=\"shrink-0 [&_svg]:size-4\">{item.icon}</span>}\n                      <span className=\"min-w-0 flex-1 truncate\">{item.label}</span>\n                      {item.badge && <span className=\"shrink-0 text-xs\">{item.badge}</span>}\n                    </Link>\n                  </li>\n                );\n              })}\n            </ul>\n          </div>\n        ))}\n      </nav>\n      {footer && <div className=\"border-t border-border pt-4\">{footer}</div>}\n    </div>\n  );\n}\n\nexport type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Desktop rail; also rendered inside a mobile drawer. */\n  sidebar?: React.ReactNode;\n  /** Sticky top bar content. */\n  header?: React.ReactNode;\n  /** Hide the built-in mobile menu button (e.g. when the header owns one). */\n  hideMobileMenu?: boolean;\n  /** Tailwind width class for the desktop rail. Default 'w-64'. */\n  sidebarWidth?: string;\n};\n\n/**\n * Application frame: fixed-height sidebar, sticky header, scrolling main.\n * On small screens the sidebar becomes a left Drawer opened by a burger\n * button, so pages never need their own responsive nav wiring.\n */\nexport function AppShell({\n  sidebar,\n  header,\n  hideMobileMenu = false,\n  sidebarWidth = 'w-64',\n  className,\n  children,\n  ...props\n}: AppShellProps) {\n  const [mobileOpen, setMobileOpen] = React.useState(false);\n\n  return (\n    <div className={cn('flex min-h-screen bg-background text-foreground', className)} {...props}>\n      {sidebar && (\n        <aside className={cn('hidden shrink-0 border-r border-border md:block', sidebarWidth)}>\n          {sidebar}\n        </aside>\n      )}\n      <div className=\"flex min-w-0 flex-1 flex-col\">\n        {(header || (sidebar && !hideMobileMenu)) && (\n          <header className=\"sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60\">\n            {sidebar && !hideMobileMenu && (\n              <button\n                type=\"button\"\n                onClick={() => setMobileOpen(true)}\n                aria-label=\"Open navigation\"\n                className=\"rounded-md border border-border p-2 text-muted-foreground hover:bg-muted md:hidden\"\n              >\n                <span aria-hidden=\"true\">☰</span>\n              </button>\n            )}\n            <div className=\"min-w-0 flex-1\">{header}</div>\n          </header>\n        )}\n        <main className=\"min-w-0 flex-1\">{children}</main>\n      </div>\n      {sidebar && (\n        <Drawer\n          open={mobileOpen}\n          onOpenChange={setMobileOpen}\n          title=\"Navigation\"\n          side=\"left\"\n          size=\"sm\"\n          animate\n        >\n          {sidebar}\n        </Drawer>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/app-shell/index.ts",
+      "content": "export * from './AppShell';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/app-shell.manifest.json",
+      "content": "{\n  \"id\": \"app-shell\",\n  \"name\": \"AppShell\",\n  \"tier\": \"organism\",\n  \"description\": \"Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.\",\n  \"designIntent\": \"Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mobile nav. AppShell owns the structure and responsive switch while staying presentational — you pass the active route and a router link component, so it works with React Router, Next Link, or plain anchors.\",\n  \"props\": [\n    {\n      \"name\": \"sidebar\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Desktop rail content; also rendered inside the mobile drawer (AppShell).\"\n    },\n    {\n      \"name\": \"header\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Sticky top bar content (AppShell).\"\n    },\n    {\n      \"name\": \"hideMobileMenu\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Hide the built-in burger button when the header owns navigation (AppShell).\"\n    },\n    {\n      \"name\": \"sidebarWidth\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"w-64\",\n      \"description\": \"Tailwind width class for the desktop rail (AppShell).\"\n    },\n    {\n      \"name\": \"sections\",\n      \"type\": \"{ title?: string; items: SidebarItem[] }[]\",\n      \"required\": true,\n      \"description\": \"Grouped navigation items (Sidebar).\"\n    },\n    {\n      \"name\": \"heading\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Brand/mark at the top of the rail (Sidebar).\"\n    },\n    {\n      \"name\": \"footer\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Bottom area of the rail (Sidebar).\"\n    },\n    {\n      \"name\": \"activeHref\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Current route; matching items get aria-current=page (Sidebar).\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"defaultValue\": \"a\",\n      \"description\": \"Router link component (react-router Link, Next Link) (Sidebar).\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Primary\",\n      \"description\": \"Accessible name of the nav landmark (Sidebar).\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Dashboard shell\",\n      \"code\": \"import { AppShell, Sidebar } from '@slipstream-ui/core';\\n\\n<AppShell\\n  header={<h1 className=\\\"text-sm font-semibold\\\">Studio</h1>}\\n  sidebar={\\n    <Sidebar\\n      activeHref={pathname}\\n      linkComponent={RouterLink}\\n      heading={<strong>Acme</strong>}\\n      sections={[\\n        { title: 'Workspace', items: [{ href: '/dashboard', label: 'Dashboard' }, { href: '/classes', label: 'Classes', badge: 4 }] },\\n      ]}\\n    />\\n  }\\n>\\n  <Page />\\n</AppShell>\",\n      \"description\": \"Router-agnostic: pass your Link component and the current path.\"\n    },\n    {\n      \"title\": \"Header only\",\n      \"code\": \"<AppShell header={<TopBar />}>\\n  <Page />\\n</AppShell>\",\n      \"description\": \"Skip the sidebar when the product is a single surface.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't nest scroll containers\",\n      \"explanation\": \"AppShell's main is the scroll owner. Adding h-screen/overflow-hidden wrappers inside breaks sticky headers and mobile drawer focus.\",\n      \"example\": \"// Avoid\\n<AppShell><div className=\\\"h-screen overflow-hidden\\\">…</div></AppShell>\\n\\n// Prefer\\n<AppShell><Page /></AppShell>\"\n    },\n    {\n      \"title\": \"Don't hardcode anchors for SPA routes\",\n      \"explanation\": \"Plain <a href> triggers full page loads in client-side routers. Pass your router's Link via linkComponent.\",\n      \"example\": \"// Avoid (full reload in React Router)\\n<Sidebar sections={sections} />\\n\\n// Prefer\\n<Sidebar sections={sections} linkComponent={Link} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Nav landmark\",\n      \"implementation\": \"Sidebar renders nav with an accessible name (label prop)\",\n      \"userRequirements\": \"Keep one primary nav per page; use other labels for secondary rails\"\n    },\n    {\n      \"feature\": \"Current route\",\n      \"implementation\": \"aria-current=page on the active item\",\n      \"userRequirements\": \"Pass activeHref (or item.active) so the state is announced\"\n    },\n    {\n      \"feature\": \"Mobile drawer\",\n      \"implementation\": \"The rail becomes a Drawer with focus trap, Escape, focus restore and a labelled dialog\",\n      \"userRequirements\": \"Don't duplicate the nav in two places at once\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Item labels\",\n      \"guidelines\": [\n        \"Use nouns for destinations\",\n        \"Keep to 1-2 words\",\n        \"Group by workflow, not by component type\"\n      ],\n      \"goodExamples\": [\n        \"Dashboard\",\n        \"Classes\",\n        \"Settings\"\n      ],\n      \"badExamples\": [\n        \"Click here\",\n        \"List page component\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Drawer\",\n      \"relationship\": \"AppShell mounts the mobile navigation Drawer for you when a sidebar is provided\",\n      \"example\": \"<AppShell sidebar={<Sidebar sections={sections} />}>…</AppShell>\"\n    },\n    {\n      \"component\": \"Button\",\n      \"relationship\": \"Header actions live in the header slot\",\n      \"example\": \"<AppShell header={<Button>New</Button>}>…</AppShell>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Drawer\",\n    \"Button\",\n    \"Breadcrumb\",\n    \"Menu\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"app-shell\",\n  \"exportName\": \"AppShell\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

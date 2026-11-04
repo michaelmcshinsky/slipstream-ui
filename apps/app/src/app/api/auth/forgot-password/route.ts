@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     });
 
     // Deliver through the configured transport; failures are recorded and
-    // surface as a 500 so operators can retry (KC-039). The response never
+    // surface as a 500 so operators can retry. The response never
     // reveals whether the account exists.
     const appUrl = process.env.APP_URL ?? 'http://localhost:3000';
     await deliverEmail({
