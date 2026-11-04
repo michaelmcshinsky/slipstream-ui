@@ -1,0 +1,100 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "prose",
+  "name": "prose",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "prose",
+  "exportName": "Prose",
+  "description": "Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.",
+  "designIntent": "Content sites need consistent article typography without depending on the Tailwind typography plugin. Prose styles rendered HTML via child selectors, so any remark/MDX pipeline can drop output inside.",
+  "props": [
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Type scale for body and headings.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Article body",
+      "code": "<Prose size=\"md\">\n  {renderedMarkdown}\n</Prose>",
+      "description": "Wrap MDX/remark output; keep Shiki/KaTeX as-is."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use prose for app UI",
+      "explanation": "Prose targets article content; forms and dashboards use Text/Heading.",
+      "example": "// Avoid\n<Prose><Button /></Prose>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading anchors",
+      "implementation": "scroll-mt offsets headings under sticky headers",
+      "userRequirements": "Generate heading ids in your markdown pipeline"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Article copy",
+      "guidelines": [
+        "Sentence case headings",
+        "Short paragraphs"
+      ],
+      "goodExamples": [
+        "## Install the package"
+      ],
+      "badExamples": [
+        "## CLICK HERE"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "TableOfContents",
+      "relationship": "Pair long articles with a TOC + useScrollSpy",
+      "example": "<Prose>{content}</Prose><TableOfContents headings={headings} />"
+    }
+  ],
+  "relatedComponents": [
+    "TableOfContents",
+    "Heading",
+    "Text",
+    "CodeBlock"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/prose/index.ts",
+      "content": "export * from './Prose';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/prose/Prose.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ProseProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Type scale. Default 'md'. */\n  size?: 'sm' | 'md' | 'lg';\n};\n\nconst sizeClasses: Record<NonNullable<ProseProps['size']>, string> = {\n  sm: 'text-sm [&_h2]:text-xl [&_h3]:text-lg',\n  md: 'text-base [&_h2]:text-2xl [&_h3]:text-xl',\n  lg: 'text-lg [&_h2]:text-3xl [&_h3]:text-2xl',\n};\n\n/**\n * Long-form content typography for rendered markdown/MDX output.\n *\n * Self-contained (no @tailwindcss/typography dependency): element styles ride\n * on child selectors, so any MDX/remark renderer can drop its output inside.\n * Keeps the content pipeline (Shiki, KaTeX, Mermaid) untouched.\n */\nexport const Prose = React.forwardRef<HTMLDivElement, ProseProps>(function Prose(\n  { size = 'md', className, ...props },\n  ref\n) {\n  return (\n    <div\n      ref={ref}\n      className={cn(\n        'max-w-none text-foreground',\n        sizeClasses[size],\n        // Headings\n        '[&_h1]:mb-4 [&_h1]:mt-10 [&_h1]:scroll-mt-24 [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:tracking-tight',\n        '[&_h2]:mb-3 [&_h2]:mt-9 [&_h2]:scroll-mt-24 [&_h2]:font-semibold [&_h2]:tracking-tight',\n        '[&_h3]:mb-2 [&_h3]:mt-7 [&_h3]:scroll-mt-24 [&_h3]:font-semibold',\n        '[&_h4]:mb-2 [&_h4]:mt-6 [&_h4]:scroll-mt-24 [&_h4]:font-semibold',\n        // Body copy\n        '[&_p]:my-4 [&_p]:leading-7',\n        '[&_a]:text-primary [&_a]:underline [&_a]:decoration-primary/40 [&_a]:underline-offset-4 hover:[&_a]:decoration-primary',\n        '[&_strong]:font-semibold [&_strong]:text-foreground [&_em]:italic',\n        '[&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6',\n        '[&_ol]:my-4 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-6',\n        '[&_li]:leading-7 [&_li>p]:my-0',\n        '[&_blockquote]:my-6 [&_blockquote]:border-l-2 [&_blockquote]:border-primary/40 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground',\n        // Code\n        '[&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.875em]',\n        '[&_pre]:my-5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted/50 [&_pre]:p-4',\n        '[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm',\n        // Media, rules, tables\n        '[&_hr]:my-8 [&_hr]:border-border',\n        '[&_img]:my-6 [&_img]:rounded-lg [&_img]:border [&_img]:border-border',\n        '[&_figure]:my-6 [&_figcaption]:mt-2 [&_figcaption]:text-center [&_figcaption]:text-xs [&_figcaption]:text-muted-foreground',\n        '[&_table]:my-6 [&_table]:w-full [&_table]:border-collapse [&_table]:text-sm',\n        '[&_th]:border-b [&_th]:border-border [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold',\n        '[&_td]:border-b [&_td]:border-border [&_td]:px-3 [&_td]:py-2',\n        className\n      )}\n      {...props}\n    />\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/prose.manifest.json",
+      "content": "{\n  \"id\": \"prose\",\n  \"name\": \"Prose\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"prose\",\n  \"exportName\": \"Prose\",\n  \"description\": \"Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.\",\n  \"designIntent\": \"Content sites need consistent article typography without depending on the Tailwind typography plugin. Prose styles rendered HTML via child selectors, so any remark/MDX pipeline can drop output inside.\",\n  \"props\": [\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md' | 'lg'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"description\": \"Type scale for body and headings.\",\n      \"enum\": [\n        \"sm\",\n        \"md\",\n        \"lg\"\n      ]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Article body\",\n      \"code\": \"<Prose size=\\\"md\\\">\\n  {renderedMarkdown}\\n</Prose>\",\n      \"description\": \"Wrap MDX/remark output; keep Shiki/KaTeX as-is.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use prose for app UI\",\n      \"explanation\": \"Prose targets article content; forms and dashboards use Text/Heading.\",\n      \"example\": \"// Avoid\\n<Prose><Button /></Prose>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Heading anchors\",\n      \"implementation\": \"scroll-mt offsets headings under sticky headers\",\n      \"userRequirements\": \"Generate heading ids in your markdown pipeline\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Article copy\",\n      \"guidelines\": [\n        \"Sentence case headings\",\n        \"Short paragraphs\"\n      ],\n      \"goodExamples\": [\n        \"## Install the package\"\n      ],\n      \"badExamples\": [\n        \"## CLICK HERE\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"TableOfContents\",\n      \"relationship\": \"Pair long articles with a TOC + useScrollSpy\",\n      \"example\": \"<Prose>{content}</Prose><TableOfContents headings={headings} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"TableOfContents\",\n    \"Heading\",\n    \"Text\",\n    \"CodeBlock\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 75 components, each shipping a
+The AI-first React component library. 80 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 58
+## Core components (@slipstream-ui/core) — 63
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -22,6 +22,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
+- [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -48,18 +49,22 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
+- [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 - [Search](https://slipstreamui.com/llm/components/search.md) — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
 - [SectionHeading](https://slipstreamui.com/llm/components/section-heading.md) — Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
 - [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 - [SelectMenu](https://slipstreamui.com/llm/components/select-menu.md) — Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
+- [SiteFooter](https://slipstreamui.com/llm/components/site-footer.md) — Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.
+- [SiteHeader](https://slipstreamui.com/llm/components/site-header.md) — Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
 - [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
 - [Switch](https://slipstreamui.com/llm/components/switch.md) — A toggle switch for binary settings, with role=switch and aria-checked
 - [Table](https://slipstreamui.com/llm/components/table.md) — Semantic data table with headers, body, footer, and accessible caption
 - [TableCard](https://slipstreamui.com/llm/components/table-card.md) — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
+- [TableOfContents](https://slipstreamui.com/llm/components/table-of-contents.md) — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea

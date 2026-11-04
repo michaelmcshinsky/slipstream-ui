@@ -1,0 +1,75 @@
+{
+  "id": "prose",
+  "name": "Prose",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "prose",
+  "exportName": "Prose",
+  "description": "Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.",
+  "designIntent": "Content sites need consistent article typography without depending on the Tailwind typography plugin. Prose styles rendered HTML via child selectors, so any remark/MDX pipeline can drop output inside.",
+  "props": [
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Type scale for body and headings.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Article body",
+      "code": "<Prose size=\"md\">\n  {renderedMarkdown}\n</Prose>",
+      "description": "Wrap MDX/remark output; keep Shiki/KaTeX as-is."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use prose for app UI",
+      "explanation": "Prose targets article content; forms and dashboards use Text/Heading.",
+      "example": "// Avoid\n<Prose><Button /></Prose>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading anchors",
+      "implementation": "scroll-mt offsets headings under sticky headers",
+      "userRequirements": "Generate heading ids in your markdown pipeline"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Article copy",
+      "guidelines": [
+        "Sentence case headings",
+        "Short paragraphs"
+      ],
+      "goodExamples": [
+        "## Install the package"
+      ],
+      "badExamples": [
+        "## CLICK HERE"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "TableOfContents",
+      "relationship": "Pair long articles with a TOC + useScrollSpy",
+      "example": "<Prose>{content}</Prose><TableOfContents headings={headings} />"
+    }
+  ],
+  "relatedComponents": [
+    "TableOfContents",
+    "Heading",
+    "Text",
+    "CodeBlock"
+  ]
+}

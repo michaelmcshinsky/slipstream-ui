@@ -1,0 +1,155 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "site-header",
+  "name": "site-header",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "site-header",
+  "exportName": "SiteHeader",
+  "description": "Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.",
+  "designIntent": "Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active matching. SiteHeader standardizes the bar, handles /docs matching /docs/components, and stays router-agnostic via linkComponent.",
+  "props": [
+    {
+      "name": "brand",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Brand slot (logo/lockup), wrapped in a link to /."
+    },
+    {
+      "name": "items",
+      "type": "SiteNavItem[]",
+      "required": true,
+      "description": "Primary nav: { href, label, external? }."
+    },
+    {
+      "name": "activeHref",
+      "type": "string",
+      "required": false,
+      "description": "Current route for active styling (aria-current=page)."
+    },
+    {
+      "name": "match",
+      "type": "'prefix' | 'exact'",
+      "required": false,
+      "defaultValue": "prefix",
+      "description": "Prefix highlights parents of the current route; exact only identical hrefs.",
+      "enum": [
+        "prefix",
+        "exact"
+      ]
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Right-aligned actions (theme toggle, GitHub, CTA)."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Router link element."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Pin the bar to the top."
+    },
+    {
+      "name": "mobileLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Menu",
+      "description": "Title of the mobile navigation drawer."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Marketing header",
+      "code": "<SiteHeader\n  brand={<img src=\"/logo.svg\" alt=\"Acme\" className=\"h-8\" />}\n  items={[{ href: '/docs', label: 'Docs' }, { href: '/pricing', label: 'Pricing' }]}\n  activeHref={pathname}\n  linkComponent={RouterLink}\n  actions={<ThemeToggle />}\n/>",
+      "description": "Prefix-active nav with a mobile drawer."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for admin rails",
+      "explanation": "Vertical app navigation belongs in Sidebar + AppShell.",
+      "example": "// Avoid\n<SiteHeader items={adminNav} />\n\n// Prefer\n<AppShell sidebar={<Sidebar sections={sections} />}>…</AppShell>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Current page",
+      "implementation": "aria-current=page on the active link (prefix or exact matching)",
+      "userRequirements": "Pass activeHref on every route"
+    },
+    {
+      "feature": "Mobile navigation",
+      "implementation": "Burger opens a focus-trapped Drawer with the same items",
+      "userRequirements": "Keep the same item list for both breakpoints"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Nav labels",
+      "guidelines": [
+        "1-2 nouns",
+        "Parallel phrasing"
+      ],
+      "goodExamples": [
+        "Docs",
+        "Pricing",
+        "Changelog"
+      ],
+      "badExamples": [
+        "Click here for docs"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteFooter",
+      "relationship": "Pair header and footer for a complete marketing shell",
+      "example": "<SiteHeader … /><main /><SiteFooter … />"
+    },
+    {
+      "component": "Drawer",
+      "relationship": "The mobile menu is a Drawer automatically",
+      "example": "<SiteHeader … />"
+    }
+  ],
+  "relatedComponents": [
+    "SiteFooter",
+    "AppShell",
+    "Sidebar",
+    "Link"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/site-header/index.ts",
+      "content": "export * from './SiteHeader';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/site-header/SiteHeader.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Drawer } from '../drawer/Drawer';\n\nexport type SiteNavItem = {\n  href: string;\n  label: string;\n  /** Render with target=_blank + rel=noopener. */\n  external?: boolean;\n};\n\nexport type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & {\n  /** Brand slot — logo/lockup or wordmark. Wrapped in a link to \"/\". */\n  brand: React.ReactNode;\n  /** Primary navigation items. */\n  items: SiteNavItem[];\n  /** Current route for active styling (aria-current=\"page\"). */\n  activeHref?: string;\n  /**\n   * Active matching: 'prefix' highlights /docs when on /docs/installation\n   * (default — marketing), 'exact' only the identical href (app chrome).\n   */\n  match?: 'prefix' | 'exact';\n  /** Right-aligned actions (theme toggle, GitHub, CTA). */\n  actions?: React.ReactNode;\n  /** Custom link element for routers (Next Link, react-router Link). */\n  linkComponent?: React.ElementType;\n  /** Pin to the top (default true). */\n  sticky?: boolean;\n  /** Title of the mobile navigation drawer. Default 'Menu'. */\n  mobileLabel?: string;\n};\n\nfunction isActive(itemHref: string, activeHref: string | undefined, match: 'prefix' | 'exact'): boolean {\n  if (!activeHref) return false;\n  if (itemHref === activeHref) return true;\n  if (match === 'exact') return false;\n  // Prefix match on path boundaries: /docs matches /docs/components, not /docsx.\n  return activeHref === itemHref || activeHref.startsWith(itemHref.endsWith('/') ? itemHref : `${itemHref}/`);\n}\n\n/**\n * Marketing/site header: sticky bar with brand, horizontal navigation with\n * prefix-aware active states, right-aligned actions and a mobile drawer.\n * Router-agnostic through `linkComponent`.\n */\nexport function SiteHeader({\n  brand,\n  items,\n  activeHref,\n  match = 'prefix',\n  actions,\n  linkComponent,\n  sticky = true,\n  mobileLabel = 'Menu',\n  className,\n  ...props\n}: SiteHeaderProps) {\n  const [mobileOpen, setMobileOpen] = React.useState(false);\n  const Link = linkComponent ?? 'a';\n\n  const navLink = (item: SiteNavItem, extra?: string) => {\n    const active = isActive(item.href, activeHref, match);\n    return (\n      <Link\n        key={item.href}\n        href={item.href}\n        aria-current={active ? 'page' : undefined}\n        {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}\n        onClick={extra === 'mobile' ? () => setMobileOpen(false) : undefined}\n        className={cn(\n          'rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',\n          extra === 'mobile'\n            ? 'block rounded-md px-3 py-2 text-base hover:bg-accent'\n            : 'text-sm hover:text-foreground',\n          active ? 'font-medium text-foreground' : 'text-muted-foreground'\n        )}\n      >\n        {item.label}\n      </Link>\n    );\n  };\n\n  return (\n    <>\n      <header\n        className={cn(\n          'w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60',\n          sticky && 'sticky top-0 z-40',\n          className\n        )}\n        {...props}\n      >\n        <nav className=\"mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6\">\n          <div className=\"flex min-w-0 items-center gap-6\">\n            <Link href=\"/\" aria-label=\"Home\" className=\"flex shrink-0 items-center\">\n              {brand}\n            </Link>\n            <div className=\"hidden items-center gap-5 md:flex\">{items.map((item) => navLink(item))}</div>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            {actions}\n            <button\n              type=\"button\"\n              onClick={() => setMobileOpen(true)}\n              aria-label=\"Open menu\"\n              className=\"rounded-md border border-border p-2 text-muted-foreground hover:bg-muted md:hidden\"\n            >\n              <span aria-hidden=\"true\">☰</span>\n            </button>\n          </div>\n        </nav>\n      </header>\n      <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title={mobileLabel} side=\"right\" size=\"sm\" animate>\n        <nav aria-label=\"Mobile\" className=\"flex flex-col gap-1\">\n          {items.map((item) => navLink(item, 'mobile'))}\n        </nav>\n        {actions && <div className=\"mt-4 border-t border-border pt-4\">{actions}</div>}\n      </Drawer>\n    </>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/site-header.manifest.json",
+      "content": "{\n  \"id\": \"site-header\",\n  \"name\": \"SiteHeader\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"site-header\",\n  \"exportName\": \"SiteHeader\",\n  \"description\": \"Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.\",\n  \"designIntent\": \"Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active matching. SiteHeader standardizes the bar, handles /docs matching /docs/components, and stays router-agnostic via linkComponent.\",\n  \"props\": [\n    {\n      \"name\": \"brand\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"Brand slot (logo/lockup), wrapped in a link to /.\"\n    },\n    {\n      \"name\": \"items\",\n      \"type\": \"SiteNavItem[]\",\n      \"required\": true,\n      \"description\": \"Primary nav: { href, label, external? }.\"\n    },\n    {\n      \"name\": \"activeHref\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Current route for active styling (aria-current=page).\"\n    },\n    {\n      \"name\": \"match\",\n      \"type\": \"'prefix' | 'exact'\",\n      \"required\": false,\n      \"defaultValue\": \"prefix\",\n      \"description\": \"Prefix highlights parents of the current route; exact only identical hrefs.\",\n      \"enum\": [\n        \"prefix\",\n        \"exact\"\n      ]\n    },\n    {\n      \"name\": \"actions\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Right-aligned actions (theme toggle, GitHub, CTA).\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Router link element.\"\n    },\n    {\n      \"name\": \"sticky\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Pin the bar to the top.\"\n    },\n    {\n      \"name\": \"mobileLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Menu\",\n      \"description\": \"Title of the mobile navigation drawer.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Marketing header\",\n      \"code\": \"<SiteHeader\\n  brand={<img src=\\\"/logo.svg\\\" alt=\\\"Acme\\\" className=\\\"h-8\\\" />}\\n  items={[{ href: '/docs', label: 'Docs' }, { href: '/pricing', label: 'Pricing' }]}\\n  activeHref={pathname}\\n  linkComponent={RouterLink}\\n  actions={<ThemeToggle />}\\n/>\",\n      \"description\": \"Prefix-active nav with a mobile drawer.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for admin rails\",\n      \"explanation\": \"Vertical app navigation belongs in Sidebar + AppShell.\",\n      \"example\": \"// Avoid\\n<SiteHeader items={adminNav} />\\n\\n// Prefer\\n<AppShell sidebar={<Sidebar sections={sections} />}>…</AppShell>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Current page\",\n      \"implementation\": \"aria-current=page on the active link (prefix or exact matching)\",\n      \"userRequirements\": \"Pass activeHref on every route\"\n    },\n    {\n      \"feature\": \"Mobile navigation\",\n      \"implementation\": \"Burger opens a focus-trapped Drawer with the same items\",\n      \"userRequirements\": \"Keep the same item list for both breakpoints\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Nav labels\",\n      \"guidelines\": [\n        \"1-2 nouns\",\n        \"Parallel phrasing\"\n      ],\n      \"goodExamples\": [\n        \"Docs\",\n        \"Pricing\",\n        \"Changelog\"\n      ],\n      \"badExamples\": [\n        \"Click here for docs\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"SiteFooter\",\n      \"relationship\": \"Pair header and footer for a complete marketing shell\",\n      \"example\": \"<SiteHeader … /><main /><SiteFooter … />\"\n    },\n    {\n      \"component\": \"Drawer\",\n      \"relationship\": \"The mobile menu is a Drawer automatically\",\n      \"example\": \"<SiteHeader … />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"SiteFooter\",\n    \"AppShell\",\n    \"Sidebar\",\n    \"Link\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

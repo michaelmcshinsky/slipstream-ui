@@ -1,0 +1,157 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "confirm-dialog",
+  "name": "confirm-dialog",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "confirm-dialog",
+  "exportName": "ConfirmDialog",
+  "description": "Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
+  "designIntent": "Confirmations are copy-pasted per project (79 hand-rolled modals in the audited apps), usually without focus trapping or Escape. ConfirmDialog provides the accessible default plus a pending state for async actions.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Controlled visibility."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": true,
+      "description": "Open/close requests."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Dialog title (accessible name)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line under the title."
+    },
+    {
+      "name": "confirmLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Confirm",
+      "description": "Confirm button label."
+    },
+    {
+      "name": "cancelLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Cancel",
+      "description": "Cancel button label."
+    },
+    {
+      "name": "destructive",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Red confirm button for destructive actions."
+    },
+    {
+      "name": "onConfirm",
+      "type": "() => void | Promise<void>",
+      "required": true,
+      "description": "Confirm handler; a promise shows a pending state."
+    },
+    {
+      "name": "closeOnConfirm",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Close when the confirm handler resolves."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Extra body content above the actions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Delete confirmation",
+      "code": "<ConfirmDialog\n  open={open}\n  onOpenChange={setOpen}\n  title=\"Delete project\"\n  description=\"This cannot be undone.\"\n  destructive\n  confirmLabel=\"Delete\"\n  onConfirm={deleteProject}\n/>",
+      "description": "Async-safe destructive confirmation."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for multi-field forms",
+      "explanation": "ConfirmDialog is a yes/no gate; richer flows belong in Dialog.",
+      "example": "// Avoid\n<ConfirmDialog>…form…</ConfirmDialog>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Modal semantics",
+      "implementation": "Inherits Dialog's focus trap, Escape, backdrop and focus restoration",
+      "userRequirements": "Always provide a clear title"
+    },
+    {
+      "feature": "Pending state",
+      "implementation": "Confirm shows aria-busy while the promise runs; dismissal is blocked",
+      "userRequirements": "Return a promise for async actions"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Titles",
+      "guidelines": [
+        "State the action",
+        "Confirm label repeats the verb"
+      ],
+      "goodExamples": [
+        "Delete project",
+        "Publish release"
+      ],
+      "badExamples": [
+        "Are you sure?"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Dialog",
+      "relationship": "Built on Dialog; use Dialog directly for custom layouts",
+      "example": "<ConfirmDialog … />"
+    }
+  ],
+  "relatedComponents": [
+    "Dialog",
+    "Button",
+    "Alert"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/confirm-dialog/ConfirmDialog.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { Button } from '../button/Button';\nimport { Dialog, DialogFooter } from '../dialog/Dialog';\n\nexport type ConfirmDialogProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n  title: string;\n  description?: string;\n  /** Confirm button label. Default 'Confirm'. */\n  confirmLabel?: string;\n  /** Cancel button label. Default 'Cancel'. */\n  cancelLabel?: string;\n  /** Destructive confirmation (red confirm button + destructive panel accent). */\n  destructive?: boolean;\n  /**\n   * Confirm handler. Return a promise to show a pending state; the dialog\n   * closes automatically when it resolves unless `closeOnConfirm` is false.\n   */\n  onConfirm: () => void | Promise<void>;\n  closeOnConfirm?: boolean;\n  /** Extra body content above the actions. */\n  children?: React.ReactNode;\n};\n\n/**\n * Accessible confirmation dialog built on Dialog: focus trap, Escape,\n * backdrop dismissal and focus restoration come from the primitive, plus a\n * pending state for async confirmations (79 hand-rolled confirm modals in\n * the audited apps use this exact shape).\n */\nexport function ConfirmDialog({\n  open,\n  onOpenChange,\n  title,\n  description,\n  confirmLabel = 'Confirm',\n  cancelLabel = 'Cancel',\n  destructive = false,\n  onConfirm,\n  closeOnConfirm = true,\n  children,\n}: ConfirmDialogProps) {\n  const [pending, setPending] = React.useState(false);\n\n  const handleConfirm = async () => {\n    try {\n      setPending(true);\n      await onConfirm();\n      if (closeOnConfirm) onOpenChange(false);\n    } finally {\n      setPending(false);\n    }\n  };\n\n  return (\n    <Dialog\n      open={open}\n      onOpenChange={(next) => {\n        if (pending) return;\n        onOpenChange(next);\n      }}\n      title={title}\n      description={description}\n      size=\"sm\"\n      footer={\n        <DialogFooter>\n          <Button variant=\"ghost\" onClick={() => onOpenChange(false)} disabled={pending}>\n            {cancelLabel}\n          </Button>\n          <Button\n            variant={destructive ? 'destructive' : 'default'}\n            onClick={handleConfirm}\n            loading={pending}\n          >\n            {confirmLabel}\n          </Button>\n        </DialogFooter>\n      }\n    >\n      {children}\n    </Dialog>\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/confirm-dialog/index.ts",
+      "content": "export * from './ConfirmDialog';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/confirm-dialog.manifest.json",
+      "content": "{\n  \"id\": \"confirm-dialog\",\n  \"name\": \"ConfirmDialog\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"confirm-dialog\",\n  \"exportName\": \"ConfirmDialog\",\n  \"description\": \"Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.\",\n  \"designIntent\": \"Confirmations are copy-pasted per project (79 hand-rolled modals in the audited apps), usually without focus trapping or Escape. ConfirmDialog provides the accessible default plus a pending state for async actions.\",\n  \"props\": [\n    {\n      \"name\": \"open\",\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"description\": \"Controlled visibility.\"\n    },\n    {\n      \"name\": \"onOpenChange\",\n      \"type\": \"(open: boolean) => void\",\n      \"required\": true,\n      \"description\": \"Open/close requests.\"\n    },\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Dialog title (accessible name).\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Supporting line under the title.\"\n    },\n    {\n      \"name\": \"confirmLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Confirm\",\n      \"description\": \"Confirm button label.\"\n    },\n    {\n      \"name\": \"cancelLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Cancel\",\n      \"description\": \"Cancel button label.\"\n    },\n    {\n      \"name\": \"destructive\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Red confirm button for destructive actions.\"\n    },\n    {\n      \"name\": \"onConfirm\",\n      \"type\": \"() => void | Promise<void>\",\n      \"required\": true,\n      \"description\": \"Confirm handler; a promise shows a pending state.\"\n    },\n    {\n      \"name\": \"closeOnConfirm\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Close when the confirm handler resolves.\"\n    },\n    {\n      \"name\": \"children\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Extra body content above the actions.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Delete confirmation\",\n      \"code\": \"<ConfirmDialog\\n  open={open}\\n  onOpenChange={setOpen}\\n  title=\\\"Delete project\\\"\\n  description=\\\"This cannot be undone.\\\"\\n  destructive\\n  confirmLabel=\\\"Delete\\\"\\n  onConfirm={deleteProject}\\n/>\",\n      \"description\": \"Async-safe destructive confirmation.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for multi-field forms\",\n      \"explanation\": \"ConfirmDialog is a yes/no gate; richer flows belong in Dialog.\",\n      \"example\": \"// Avoid\\n<ConfirmDialog>…form…</ConfirmDialog>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Modal semantics\",\n      \"implementation\": \"Inherits Dialog's focus trap, Escape, backdrop and focus restoration\",\n      \"userRequirements\": \"Always provide a clear title\"\n    },\n    {\n      \"feature\": \"Pending state\",\n      \"implementation\": \"Confirm shows aria-busy while the promise runs; dismissal is blocked\",\n      \"userRequirements\": \"Return a promise for async actions\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Titles\",\n      \"guidelines\": [\n        \"State the action\",\n        \"Confirm label repeats the verb\"\n      ],\n      \"goodExamples\": [\n        \"Delete project\",\n        \"Publish release\"\n      ],\n      \"badExamples\": [\n        \"Are you sure?\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Dialog\",\n      \"relationship\": \"Built on Dialog; use Dialog directly for custom layouts\",\n      \"example\": \"<ConfirmDialog … />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Dialog\",\n    \"Button\",\n    \"Alert\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

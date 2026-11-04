@@ -1,0 +1,87 @@
+{
+  "id": "table-of-contents",
+  "name": "TableOfContents",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "table-of-contents",
+  "exportName": "TableOfContents",
+  "description": "Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
+  "designIntent": "Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.",
+  "props": [
+    {
+      "name": "headings",
+      "type": "TocHeading[]",
+      "required": true,
+      "description": "Headings: { id, text, level: 2 | 3 | 4 }."
+    },
+    {
+      "name": "activeId",
+      "type": "string",
+      "required": false,
+      "description": "Controlled active heading (pair with useScrollSpy)."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "On this page",
+      "description": "Accessible name of the nav landmark."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Stick while the article scrolls."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Article TOC",
+      "code": "const activeId = useScrollSpy(headings.map((h) => h.id));\n\n<TableOfContents headings={headings} activeId={activeId} />",
+      "description": "Scroll-spy driven active state."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hardcode the active id",
+      "explanation": "Compute it from scroll position so the highlight follows the reader.",
+      "example": "// Avoid\n<TableOfContents headings={h} activeId=\"intro\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Landmark + current item",
+      "implementation": "nav aria-label plus aria-current=location on the active link",
+      "userRequirements": "Keep heading levels sequential"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Heading text",
+      "guidelines": [
+        "Match the on-page heading text exactly"
+      ],
+      "goodExamples": [
+        "Installation"
+      ],
+      "badExamples": [
+        "Section 1"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Prose",
+      "relationship": "Pairs with article bodies",
+      "example": "<TableOfContents headings={headings} activeId={active} />"
+    }
+  ],
+  "relatedComponents": [
+    "Prose",
+    "Breadcrumb",
+    "List"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "505ba61",
-  "count": 75,
+  "sourceRevision": "768bac2",
+  "count": 80,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -148,6 +148,14 @@
       "tier": "organism",
       "description": "Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
       "registry": "/registry/command-palette.json"
+    },
+    {
+      "id": "confirm-dialog",
+      "name": "ConfirmDialog",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
+      "registry": "/registry/confirm-dialog.json"
     },
     {
       "id": "confirmation",
@@ -406,6 +414,14 @@
       "registry": "/registry/prompt-input.json"
     },
     {
+      "id": "prose",
+      "name": "Prose",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.",
+      "registry": "/registry/prose.json"
+    },
+    {
       "id": "radio",
       "name": "Radio",
       "package": "@slipstream-ui/core",
@@ -468,6 +484,22 @@
       "tier": "atom",
       "description": "A visual divider between content blocks, decorative or semantic",
       "registry": "/registry/separator.json"
+    },
+    {
+      "id": "site-footer",
+      "name": "SiteFooter",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.",
+      "registry": "/registry/site-footer.json"
+    },
+    {
+      "id": "site-header",
+      "name": "SiteHeader",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.",
+      "registry": "/registry/site-header.json"
     },
     {
       "id": "skeleton",
@@ -540,6 +572,14 @@
       "tier": "molecule",
       "description": "Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.",
       "registry": "/registry/table-card.json"
+    },
+    {
+      "id": "table-of-contents",
+      "name": "TableOfContents",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
+      "registry": "/registry/table-of-contents.json"
     },
     {
       "id": "tabs",

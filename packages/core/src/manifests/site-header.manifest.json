@@ -1,0 +1,130 @@
+{
+  "id": "site-header",
+  "name": "SiteHeader",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "site-header",
+  "exportName": "SiteHeader",
+  "description": "Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.",
+  "designIntent": "Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active matching. SiteHeader standardizes the bar, handles /docs matching /docs/components, and stays router-agnostic via linkComponent.",
+  "props": [
+    {
+      "name": "brand",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Brand slot (logo/lockup), wrapped in a link to /."
+    },
+    {
+      "name": "items",
+      "type": "SiteNavItem[]",
+      "required": true,
+      "description": "Primary nav: { href, label, external? }."
+    },
+    {
+      "name": "activeHref",
+      "type": "string",
+      "required": false,
+      "description": "Current route for active styling (aria-current=page)."
+    },
+    {
+      "name": "match",
+      "type": "'prefix' | 'exact'",
+      "required": false,
+      "defaultValue": "prefix",
+      "description": "Prefix highlights parents of the current route; exact only identical hrefs.",
+      "enum": [
+        "prefix",
+        "exact"
+      ]
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Right-aligned actions (theme toggle, GitHub, CTA)."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Router link element."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Pin the bar to the top."
+    },
+    {
+      "name": "mobileLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Menu",
+      "description": "Title of the mobile navigation drawer."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Marketing header",
+      "code": "<SiteHeader\n  brand={<img src=\"/logo.svg\" alt=\"Acme\" className=\"h-8\" />}\n  items={[{ href: '/docs', label: 'Docs' }, { href: '/pricing', label: 'Pricing' }]}\n  activeHref={pathname}\n  linkComponent={RouterLink}\n  actions={<ThemeToggle />}\n/>",
+      "description": "Prefix-active nav with a mobile drawer."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for admin rails",
+      "explanation": "Vertical app navigation belongs in Sidebar + AppShell.",
+      "example": "// Avoid\n<SiteHeader items={adminNav} />\n\n// Prefer\n<AppShell sidebar={<Sidebar sections={sections} />}>…</AppShell>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Current page",
+      "implementation": "aria-current=page on the active link (prefix or exact matching)",
+      "userRequirements": "Pass activeHref on every route"
+    },
+    {
+      "feature": "Mobile navigation",
+      "implementation": "Burger opens a focus-trapped Drawer with the same items",
+      "userRequirements": "Keep the same item list for both breakpoints"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Nav labels",
+      "guidelines": [
+        "1-2 nouns",
+        "Parallel phrasing"
+      ],
+      "goodExamples": [
+        "Docs",
+        "Pricing",
+        "Changelog"
+      ],
+      "badExamples": [
+        "Click here for docs"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteFooter",
+      "relationship": "Pair header and footer for a complete marketing shell",
+      "example": "<SiteHeader … /><main /><SiteFooter … />"
+    },
+    {
+      "component": "Drawer",
+      "relationship": "The mobile menu is a Drawer automatically",
+      "example": "<SiteHeader … />"
+    }
+  ],
+  "relatedComponents": [
+    "SiteFooter",
+    "AppShell",
+    "Sidebar",
+    "Link"
+  ]
+}

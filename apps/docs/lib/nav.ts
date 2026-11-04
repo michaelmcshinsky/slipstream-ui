@@ -75,6 +75,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/text', label: 'Text' },
           { href: '/docs/components/section-heading', label: 'SectionHeading' },
           { href: '/docs/components/link', label: 'Link' },
+          { href: '/docs/components/prose', label: 'Prose' },
         ],
       },
       {
@@ -148,12 +149,16 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/drawer', label: 'Drawer' },
           { href: '/docs/components/menu', label: 'Menu' },
           { href: '/docs/components/popover', label: 'Popover' },
+          { href: '/docs/components/confirm-dialog', label: 'ConfirmDialog' },
         ],
       },
       {
         title: 'Navigation & disclosure',
         items: [
           { href: '/docs/components/app-shell', label: 'AppShell' },
+          { href: '/docs/components/site-header', label: 'SiteHeader' },
+          { href: '/docs/components/site-footer', label: 'SiteFooter' },
+          { href: '/docs/components/table-of-contents', label: 'TableOfContents' },
           { href: '/docs/components/breadcrumb', label: 'Breadcrumb' },
           { href: '/docs/components/pagination', label: 'Pagination' },
           { href: '/docs/components/tabs', label: 'Tabs' },

@@ -1,0 +1,94 @@
+{
+  "id": "site-footer",
+  "name": "SiteFooter",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "site-footer",
+  "exportName": "SiteFooter",
+  "description": "Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.",
+  "designIntent": "Footers are copied between projects with inconsistent link handling. SiteFooter provides the standard multi-column layout, safe external links and a legal row.",
+  "props": [
+    {
+      "name": "brand",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Brand slot."
+    },
+    {
+      "name": "tagline",
+      "type": "string",
+      "required": false,
+      "description": "Short line under the brand."
+    },
+    {
+      "name": "columns",
+      "type": "SiteFooterColumn[]",
+      "required": true,
+      "description": "Link columns: { title, links: { label, href, external? }[] }."
+    },
+    {
+      "name": "legal",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Bottom bar (copyright, legal links)."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Router link element."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Standard footer",
+      "code": "<SiteFooter\n  brand={<img src=\"/logo.svg\" alt=\"Acme\" className=\"h-10\" />}\n  tagline=\"Ship UI your AI understands.\"\n  columns={[{ title: 'Docs', links: [{ label: 'Intro', href: '/docs' }] }]}\n  legal={<span>© 2026 Acme</span>}\n/>",
+      "description": "Brand, columns and legal row."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't duplicate the same links in two columns",
+      "explanation": "Keep each destination in exactly one column for predictable scanning.",
+      "example": "// Avoid: Docs in Product and Resources"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Landmark semantics",
+      "implementation": "Renders <footer> with headed link groups",
+      "userRequirements": "Give columns short, unique titles"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Column titles",
+      "guidelines": [
+        "Nouns",
+        "3-8 items per column"
+      ],
+      "goodExamples": [
+        "Product",
+        "Legal",
+        "Community"
+      ],
+      "badExamples": [
+        "Links"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteHeader",
+      "relationship": "Pair for a complete marketing shell",
+      "example": "<SiteHeader … />…<SiteFooter … />"
+    }
+  ],
+  "relatedComponents": [
+    "SiteHeader",
+    "Link",
+    "Separator"
+  ]
+}

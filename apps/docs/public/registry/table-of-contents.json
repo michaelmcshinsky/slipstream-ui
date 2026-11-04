@@ -1,0 +1,112 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "table-of-contents",
+  "name": "table-of-contents",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "table-of-contents",
+  "exportName": "TableOfContents",
+  "description": "Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
+  "designIntent": "Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.",
+  "props": [
+    {
+      "name": "headings",
+      "type": "TocHeading[]",
+      "required": true,
+      "description": "Headings: { id, text, level: 2 | 3 | 4 }."
+    },
+    {
+      "name": "activeId",
+      "type": "string",
+      "required": false,
+      "description": "Controlled active heading (pair with useScrollSpy)."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "On this page",
+      "description": "Accessible name of the nav landmark."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Stick while the article scrolls."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Article TOC",
+      "code": "const activeId = useScrollSpy(headings.map((h) => h.id));\n\n<TableOfContents headings={headings} activeId={activeId} />",
+      "description": "Scroll-spy driven active state."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hardcode the active id",
+      "explanation": "Compute it from scroll position so the highlight follows the reader.",
+      "example": "// Avoid\n<TableOfContents headings={h} activeId=\"intro\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Landmark + current item",
+      "implementation": "nav aria-label plus aria-current=location on the active link",
+      "userRequirements": "Keep heading levels sequential"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Heading text",
+      "guidelines": [
+        "Match the on-page heading text exactly"
+      ],
+      "goodExamples": [
+        "Installation"
+      ],
+      "badExamples": [
+        "Section 1"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Prose",
+      "relationship": "Pairs with article bodies",
+      "example": "<TableOfContents headings={headings} activeId={active} />"
+    }
+  ],
+  "relatedComponents": [
+    "Prose",
+    "Breadcrumb",
+    "List"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/table-of-contents/index.ts",
+      "content": "export * from './TableOfContents';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/table-of-contents/TableOfContents.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type TocHeading = {\n  id: string;\n  text: string;\n  level: 2 | 3 | 4;\n};\n\nexport type TableOfContentsProps = React.HTMLAttributes<HTMLElement> & {\n  headings: TocHeading[];\n  /** Controlled active heading id (otherwise use `useScrollSpy`). */\n  activeId?: string;\n  /** Accessible name. Default 'On this page'. */\n  label?: string;\n  /** Stick to the viewport while the article scrolls (default true). */\n  sticky?: boolean;\n};\n\n/**\n * \"On this page\" navigation for long-form content. Renders a nested list\n * with indentation per heading level and aria-current on the active item.\n * Pair with `useScrollSpy` (or your own scroll tracking) for the active id.\n */\nexport function TableOfContents({\n  headings,\n  activeId,\n  label = 'On this page',\n  sticky = true,\n  className,\n  ...props\n}: TableOfContentsProps) {\n  return (\n    <nav\n      aria-label={label}\n      className={cn('text-sm', sticky && 'sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto', className)}\n      {...props}\n    >\n      <p className=\"mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground\">{label}</p>\n      <ul className=\"space-y-1 border-l border-border\">\n        {headings.map((heading) => {\n          const active = heading.id === activeId;\n          return (\n            <li key={heading.id} style={{ paddingLeft: `${(heading.level - 2) * 0.75}rem` }}>\n              <a\n                href={`#${heading.id}`}\n                aria-current={active ? 'location' : undefined}\n                className={cn(\n                  '-ml-px block border-l py-1 pl-3 transition-colors',\n                  active\n                    ? 'border-primary font-medium text-primary'\n                    : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'\n                )}\n              >\n                {heading.text}\n              </a>\n            </li>\n          );\n        })}\n      </ul>\n    </nav>\n  );\n}\n\n/**\n * Tracks which of the given element ids is currently in view. Returns the\n * active id (the last heading scrolled past) and stays SSR-safe.\n */\nexport function useScrollSpy(ids: string[], options?: { rootMargin?: string }): string | undefined {\n  const [activeId, setActiveId] = React.useState<string | undefined>();\n\n  React.useEffect(() => {\n    if (ids.length === 0 || typeof IntersectionObserver === 'undefined') return;\n    const elements = ids\n      .map((id) => document.getElementById(id))\n      .filter((element): element is HTMLElement => element !== null);\n    if (elements.length === 0) return;\n\n    const observer = new IntersectionObserver(\n      (entries) => {\n        const visible = entries\n          .filter((entry) => entry.isIntersecting)\n          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);\n        if (visible[0]) setActiveId(visible[0].target.id);\n        return;\n      },\n      { rootMargin: options?.rootMargin ?? '0px 0px -70% 0px', threshold: 0 }\n    );\n\n    elements.forEach((element) => observer.observe(element));\n    return () => observer.disconnect();\n  }, [ids.join('|'), options?.rootMargin]);\n\n  return activeId;\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/table-of-contents.manifest.json",
+      "content": "{\n  \"id\": \"table-of-contents\",\n  \"name\": \"TableOfContents\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"table-of-contents\",\n  \"exportName\": \"TableOfContents\",\n  \"description\": \"Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.\",\n  \"designIntent\": \"Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.\",\n  \"props\": [\n    {\n      \"name\": \"headings\",\n      \"type\": \"TocHeading[]\",\n      \"required\": true,\n      \"description\": \"Headings: { id, text, level: 2 | 3 | 4 }.\"\n    },\n    {\n      \"name\": \"activeId\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Controlled active heading (pair with useScrollSpy).\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"On this page\",\n      \"description\": \"Accessible name of the nav landmark.\"\n    },\n    {\n      \"name\": \"sticky\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Stick while the article scrolls.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Article TOC\",\n      \"code\": \"const activeId = useScrollSpy(headings.map((h) => h.id));\\n\\n<TableOfContents headings={headings} activeId={activeId} />\",\n      \"description\": \"Scroll-spy driven active state.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't hardcode the active id\",\n      \"explanation\": \"Compute it from scroll position so the highlight follows the reader.\",\n      \"example\": \"// Avoid\\n<TableOfContents headings={h} activeId=\\\"intro\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Landmark + current item\",\n      \"implementation\": \"nav aria-label plus aria-current=location on the active link\",\n      \"userRequirements\": \"Keep heading levels sequential\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Heading text\",\n      \"guidelines\": [\n        \"Match the on-page heading text exactly\"\n      ],\n      \"goodExamples\": [\n        \"Installation\"\n      ],\n      \"badExamples\": [\n        \"Section 1\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Prose\",\n      \"relationship\": \"Pairs with article bodies\",\n      \"example\": \"<TableOfContents headings={headings} activeId={active} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Prose\",\n    \"Breadcrumb\",\n    \"List\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}
