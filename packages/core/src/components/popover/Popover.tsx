@@ -21,14 +21,14 @@ const PopoverContext = React.createContext<PopoverContextValue>({
   wrapperRef: { current: null },
 });
 
-export interface PopoverProps {
+export type PopoverProps = {
   /** Controlled open state. */
   open?: boolean;
   /** Called when the open state changes. */
   onOpenChange?: (open: boolean) => void;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 /**
  * Floating panel anchored to a trigger. Unlike Tooltip, the content is
@@ -72,7 +72,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
 );
 Popover.displayName = 'Popover';
 
-export interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type PopoverTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** The button that toggles the popover. */
 const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
@@ -104,7 +104,7 @@ const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
 );
 PopoverTrigger.displayName = 'PopoverTrigger';
 
-export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type PopoverContentProps = React.HTMLAttributes<HTMLDivElement>;
 
   /** The floating panel with interactive content. */
   const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(

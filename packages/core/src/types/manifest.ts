@@ -16,7 +16,7 @@
 
 export type ComponentTier = 'atom' | 'molecule' | 'organism' | 'pattern';
 
-export interface PropSchema {
+export type PropSchema = {
   /** Property name */
   name: string;
   /** TypeScript type */
@@ -34,41 +34,41 @@ export interface PropSchema {
   enum?: string[];
   /** Example values */
   examples?: unknown[];
-}
+};
 
-export interface UsageExample {
+export type UsageExample = {
   /** Title for this example */
   title: string;
   /** Code example */
   code: string;
   /** Description of when to use this pattern */
   description?: string;
-}
+};
 
 /**
  * An anti-pattern describes a misuse in prose rather than code: the title
  * names the mistake, the explanation says why it is wrong (and what to do
  * instead). `example` optionally shows the offending snippet.
  */
-export interface AntiPattern {
+export type AntiPattern = {
   /** Short name of the anti-pattern */
   title: string;
   /** Why this usage is wrong and what to do instead */
   explanation: string;
   /** Optional snippet of the offending usage */
   example?: string;
-}
+};
 
-export interface AccessibilityRequirement {
+export type AccessibilityRequirement = {
   /** A11y feature (e.g., "keyboard navigation", "screen reader support") */
   feature: string;
   /** How the component implements this */
   implementation: string;
   /** Any user requirements */
   userRequirements?: string;
-}
+};
 
-export interface ContentGuideline {
+export type ContentGuideline = {
   /** Type of content (e.g., "button text", "placeholder text") */
   contentType: string;
   /** Guidelines for AI when generating this content */
@@ -77,18 +77,18 @@ export interface ContentGuideline {
   goodExamples?: string[];
   /** Examples to avoid */
   badExamples?: string[];
-}
+};
 
-export interface CompositionRule {
+export type CompositionRule = {
   /** Related component that can be composed with this one */
   component: string;
   /** How they should be used together */
   relationship: string;
   /** Example composition */
   example?: string;
-}
+};
 
-export interface ComponentManifest {
+export type ComponentManifest = {
   /** Unique component identifier (kebab-case) */
   id: string;
   /** Display name */
@@ -119,7 +119,7 @@ export interface ComponentManifest {
   importPath: string;
   /** Version when this manifest was last updated */
   version: string;
-}
+};
 
 /**
  * Type guard to check if an object is a valid ComponentManifest

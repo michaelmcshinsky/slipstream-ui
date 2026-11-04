@@ -1,0 +1,112 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "date-picker",
+  "name": "date-picker",
+  "tier": "molecule",
+  "description": "Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
+  "designIntent": "A custom calendar is a large accessibility surface. The platform date picker already handles locale formatting, keyboard editing and mobile wheels, so DatePicker standardizes the ISO contract and a clear affordance instead of reimplementing a calendar.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "ISO date (YYYY-MM-DD), controlled."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "ISO date, initial value."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the ISO string; '' when cleared."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a clear button once a value exists."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ISO date field",
+      "code": "<DatePicker\n  aria-label=\"Start date\"\n  value={start}\n  onValueChange={setStart}\n  clearable\n/>",
+      "description": "Controlled ISO value with a clear button."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't store locale-formatted strings",
+      "explanation": "The contract is YYYY-MM-DD; format for display at the edge.",
+      "example": "// Avoid: '03/11/2026' in state\n// Prefer: '2026-11-03'"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Platform input",
+      "implementation": "Renders input[type=date] so OS pickers and keyboard editing apply",
+      "userRequirements": "Always provide a label (FormField or aria-label)"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Name the date's meaning, not 'Date'"
+      ],
+      "goodExamples": [
+        "Start date",
+        "Due on"
+      ],
+      "badExamples": [
+        "Date"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Wrap for label/hint/error wiring",
+      "example": "<FormField id=\"start\" label=\"Start date\"><DatePicker /></FormField>"
+    }
+  ],
+  "relatedComponents": [
+    "TimePicker",
+    "FormField",
+    "Input"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "date-picker",
+  "exportName": "DatePicker",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/date-picker/DatePicker.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Input, type InputProps } from '../input/Input';\n\nexport type DatePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {\n  /** ISO date string (YYYY-MM-DD) — controlled. */\n  value?: string;\n  /** ISO date string — initial value when uncontrolled. */\n  defaultValue?: string;\n  /** Fired with the ISO string ('' when cleared). */\n  onValueChange?: (value: string) => void;\n  /** Show a clear button once a date is selected. */\n  clearable?: boolean;\n};\n\n/**\n * Native date field with an ISO-string contract. Uses the platform picker\n * (mobile date wheels, keyboard editing, locale formatting) rather than a\n * custom calendar, so accessibility and input methods come for free.\n */\nexport const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(\n  { value, defaultValue, onValueChange, clearable = false, className, ...props },\n  ref\n) {\n  const [internal, setInternal] = React.useState(defaultValue ?? '');\n  const current = value ?? internal;\n\n  const commit = (next: string) => {\n    if (value === undefined) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  return (\n    <div className={cn('relative flex items-center', className)}>\n      <Input\n        ref={ref}\n        type=\"date\"\n        value={current}\n        onChange={(event) => commit(event.target.value)}\n        className={clearable && current ? 'pr-9' : undefined}\n        {...props}\n      />\n      {clearable && current && (\n        <button\n          type=\"button\"\n          onClick={() => commit('')}\n          aria-label=\"Clear date\"\n          className=\"absolute right-2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n        >\n          ✕\n        </button>\n      )}\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/date-picker/index.ts",
+      "content": "export * from './DatePicker';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/date-picker.manifest.json",
+      "content": "{\n  \"id\": \"date-picker\",\n  \"name\": \"DatePicker\",\n  \"tier\": \"molecule\",\n  \"description\": \"Native date field with an ISO-string contract, min/max passthrough and an optional clear button.\",\n  \"designIntent\": \"A custom calendar is a large accessibility surface. The platform date picker already handles locale formatting, keyboard editing and mobile wheels, so DatePicker standardizes the ISO contract and a clear affordance instead of reimplementing a calendar.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"ISO date (YYYY-MM-DD), controlled.\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"ISO date, initial value.\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Fired with the ISO string; '' when cleared.\"\n    },\n    {\n      \"name\": \"clearable\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Shows a clear button once a value exists.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"ISO date field\",\n      \"code\": \"<DatePicker\\n  aria-label=\\\"Start date\\\"\\n  value={start}\\n  onValueChange={setStart}\\n  clearable\\n/>\",\n      \"description\": \"Controlled ISO value with a clear button.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't store locale-formatted strings\",\n      \"explanation\": \"The contract is YYYY-MM-DD; format for display at the edge.\",\n      \"example\": \"// Avoid: '03/11/2026' in state\\n// Prefer: '2026-11-03'\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Platform input\",\n      \"implementation\": \"Renders input[type=date] so OS pickers and keyboard editing apply\",\n      \"userRequirements\": \"Always provide a label (FormField or aria-label)\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Labels\",\n      \"guidelines\": [\n        \"Name the date's meaning, not 'Date'\"\n      ],\n      \"goodExamples\": [\n        \"Start date\",\n        \"Due on\"\n      ],\n      \"badExamples\": [\n        \"Date\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"Wrap for label/hint/error wiring\",\n      \"example\": \"<FormField id=\\\"start\\\" label=\\\"Start date\\\"><DatePicker /></FormField>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"TimePicker\",\n    \"FormField\",\n    \"Input\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"date-picker\",\n  \"exportName\": \"DatePicker\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -68,13 +68,13 @@ export default function CheckboxPage() {
 
 // Controlled
 <Checkbox checked={agreed} onCheckedChange={setAgreed} />`}
-        types={`interface CheckboxProps {
+        types={`type CheckboxProps = {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
   required?: boolean;
-}`}
+};`}
       />
 
       <DemoCard

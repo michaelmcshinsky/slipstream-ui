@@ -2,8 +2,13 @@
 
 The AI-first React component library — your AI already knows how to use it.
 
+[![CI](https://github.com/michaelmcshinsky/slipstream-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/michaelmcshinsky/slipstream-ui/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
+[![Known vulnerabilities](https://img.shields.io/badge/audit-0%20known%20vulnerabilities-brightgreen.svg)](https://github.com/michaelmcshinsky/slipstream-ui/security/dependabot)
+
 <!-- generated:stats:start -->
-**48 components** · 48 machine-readable specs · MCP `validate_usage` · MIT
+**73 components** · 73 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
 [Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
@@ -72,6 +77,12 @@ pnpm lint               # lint
 pnpm test               # test
 pnpm validate:manifests # validate COMPONENT_MANIFESTs + TS↔manifest drift
 ```
+
+## Community
+
+- **Star history:** [stargazers](https://github.com/michaelmcshinsky/slipstream-ui/stargazers) — if Slipstream saves you a hallucinated-props debugging session, a star helps others find it.
+- **Used by:** _no public adopters yet — if you ship with Slipstream, open a PR adding your project here (or an issue and we will add it)._
+- **Decisions are public:** the [roadmap](https://slipstreamui.com/docs/roadmap) lists what lands in each minor and what 1.0 guarantees.
 
 ## Contributing
 

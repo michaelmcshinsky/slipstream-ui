@@ -1,0 +1,132 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "block",
+  "name": "block",
+  "tier": "atom",
+  "description": "Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+  "designIntent": "Layout wrappers should still mean something: section, article, figure. Block is a typed, discoverable div that picks the element matching the content's role, with an inline (span) variation for flow contexts — no default decoration, so it composes with any utilities.",
+  "props": [
+    {
+      "name": "as",
+      "type": "'div' | 'span' | 'section' | 'article' | 'figure' | 'header' | 'footer' | 'nav' | 'main' | 'aside'",
+      "required": false,
+      "description": "Semantic element to render.",
+      "defaultValue": "div",
+      "enum": [
+        "div",
+        "span",
+        "section",
+        "article",
+        "figure",
+        "header",
+        "footer",
+        "nav",
+        "main",
+        "aside"
+      ],
+      "examples": [
+        "section",
+        "article"
+      ]
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "required": false,
+      "description": "Shorthand for as=\"span\" — inline flow instead of a block box.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the muted-foreground token for the block's text.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic containers",
+      "code": "<Block as=\"section\" className=\"space-y-2\">\n  <Heading level={3}>Related</Heading>\n  <Text size=\"sm\" muted>Prose lives in Text, not Block.</Text>\n</Block>\n\n<Block as=\"figure\">…</Block>\n\n{/* Inline flow */}\n<Block inline>…</Block>"
+    },
+    {
+      "title": "Card-like surface via utilities",
+      "code": "<Block className=\"rounded-lg border border-border p-4\">…</Block>"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put paragraphs inside Block",
+      "explanation": "Copy belongs in Text (p). Block is structure — mixing them loses document semantics.",
+      "example": "<Block>Paragraph copy.</Block>  // avoid\n<Text>Paragraph copy.</Text>  // prefer"
+    },
+    {
+      "title": "Don't default to div when a landmark fits",
+      "explanation": "If the content is a section of page structure, as=\"section\"/\"article\" gives assistive tech navigable landmarks for free.",
+      "example": "<Block as=\"article\">…</Block>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Element choice is explicit",
+      "implementation": "as/inline map to real intrinsic elements (semantic by selection)",
+      "userRequirements": "Pick the element that matches the content role"
+    },
+    {
+      "feature": "No interactive defaults",
+      "implementation": "Block renders no focusable content of its own",
+      "userRequirements": "Interactive children carry their own keyboard/ARIA behavior"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Text / Heading",
+      "relationship": "Block wraps structure; Text and Heading provide the content semantics"
+    },
+    {
+      "component": "Flex / Grid",
+      "relationship": "Compose layout as Block → Flex/Grid → Text/Heading hierarchies"
+    }
+  ],
+  "relatedComponents": [
+    "Text",
+    "Heading",
+    "Flex",
+    "Grid"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "block",
+  "exportName": "Block",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/block/Block.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type BlockElement =\n  | 'div'\n  | 'span'\n  | 'section'\n  | 'article'\n  | 'figure'\n  | 'header'\n  | 'footer'\n  | 'nav'\n  | 'main'\n  | 'aside';\n\nexport type BlockProps = React.HTMLAttributes<HTMLElement> & {\n  /** Semantic element to render (default 'div'). */\n  as?: BlockElement;\n  /** Shorthand for as=\"span\" — inline flow instead of a block box. */\n  inline?: boolean;\n  /** Use the muted-foreground token for the block's text. */\n  muted?: boolean;\n};\n\n/**\n * Semantic container div — the structural counterpart to Text (p). Pick the\n * element that matches the content's meaning (section/article/figure…) and\n * use `inline` for span-level flow. No default styling beyond layout-safe\n * color tokens, so it composes with any Tailwind utilities.\n */\nconst Block = React.forwardRef<HTMLElement, BlockProps>(\n  ({ as = 'div', inline, muted, className, ...props }, ref) => {\n    const Tag = (inline ? 'span' : as) as BlockElement;\n    return (\n      <Tag\n        ref={ref as never}\n        className={cn(muted && 'text-muted-foreground', inline && 'inline', className)}\n        {...props}\n      />\n    );\n  }\n);\nBlock.displayName = 'Block';\n\nexport { Block };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/block/index.ts",
+      "content": "export * from './Block';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/block.manifest.json",
+      "content": "{\n  \"id\": \"block\",\n  \"name\": \"Block\",\n  \"tier\": \"atom\",\n  \"description\": \"Semantic container (div by default, swappable element) — the structural counterpart to Text (p).\",\n  \"designIntent\": \"Layout wrappers should still mean something: section, article, figure. Block is a typed, discoverable div that picks the element matching the content's role, with an inline (span) variation for flow contexts — no default decoration, so it composes with any utilities.\",\n  \"props\": [\n    {\n      \"name\": \"as\",\n      \"type\": \"'div' | 'span' | 'section' | 'article' | 'figure' | 'header' | 'footer' | 'nav' | 'main' | 'aside'\",\n      \"required\": false,\n      \"description\": \"Semantic element to render.\",\n      \"defaultValue\": \"div\",\n      \"enum\": [\"div\", \"span\", \"section\", \"article\", \"figure\", \"header\", \"footer\", \"nav\", \"main\", \"aside\"],\n      \"examples\": [\"section\", \"article\"]\n    },\n    {\n      \"name\": \"inline\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Shorthand for as=\\\"span\\\" — inline flow instead of a block box.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\"]\n    },\n    {\n      \"name\": \"muted\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Use the muted-foreground token for the block's text.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Semantic containers\",\n      \"code\": \"<Block as=\\\"section\\\" className=\\\"space-y-2\\\">\\n  <Heading level={3}>Related</Heading>\\n  <Text size=\\\"sm\\\" muted>Prose lives in Text, not Block.</Text>\\n</Block>\\n\\n<Block as=\\\"figure\\\">…</Block>\\n\\n{/* Inline flow */}\\n<Block inline>…</Block>\"},\n    {\n      \"title\": \"Card-like surface via utilities\",\n      \"code\": \"<Block className=\\\"rounded-lg border border-border p-4\\\">…</Block>\"}\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't put paragraphs inside Block\",\n      \"explanation\": \"Copy belongs in Text (p). Block is structure — mixing them loses document semantics.\",\n      \"example\": \"<Block>Paragraph copy.</Block>  // avoid\\n<Text>Paragraph copy.</Text>  // prefer\"\n    },\n    {\n      \"title\": \"Don't default to div when a landmark fits\",\n      \"explanation\": \"If the content is a section of page structure, as=\\\"section\\\"/\\\"article\\\" gives assistive tech navigable landmarks for free.\",\n      \"example\": \"<Block as=\\\"article\\\">…</Block>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Element choice is explicit\",\n      \"implementation\": \"as/inline map to real intrinsic elements (semantic by selection)\",\n      \"userRequirements\": \"Pick the element that matches the content role\"\n    },\n    {\n      \"feature\": \"No interactive defaults\",\n      \"implementation\": \"Block renders no focusable content of its own\",\n      \"userRequirements\": \"Interactive children carry their own keyboard/ARIA behavior\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Text / Heading\",\n      \"relationship\": \"Block wraps structure; Text and Heading provide the content semantics\"\n    },\n    {\n      \"component\": \"Flex / Grid\",\n      \"relationship\": \"Compose layout as Block → Flex/Grid → Text/Heading hierarchies\"\n    }\n  ],\n  \"relatedComponents\": [\"Text\", \"Heading\", \"Flex\", \"Grid\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"block\",\n  \"exportName\": \"Block\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

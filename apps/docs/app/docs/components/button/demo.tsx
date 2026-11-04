@@ -1,19 +1,40 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@slipstream-ui/core';
+import { Button, type ButtonProps } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+// Derived from the component so new variants/sizes appear here automatically.
+type ButtonVariant = NonNullable<ButtonProps['variant']>;
+type ButtonSize = NonNullable<ButtonProps['size']>;
 
-const VARIANTS: ButtonVariant[] = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'];
+const VARIANTS: ButtonVariant[] = [
+  'default',
+  'destructive',
+  'success',
+  'warning',
+  'info',
+  'outline',
+  'outline-destructive',
+  'outline-success',
+  'outline-warning',
+  'outline-info',
+  'secondary',
+  'ghost',
+  'link',
+];
 const SIZES: ButtonSize[] = ['sm', 'default', 'lg'];
+
+const variantLabel = (v: ButtonVariant) =>
+  v
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 
 const variantCode = VARIANTS.map(
   (v) =>
-    `<Button${v === 'default' ? '' : ` variant="${v}"`}>${v.charAt(0).toUpperCase() + v.slice(1)}</Button>`
+    `<Button${v === 'default' ? '' : ` variant="${v}"`}>${v.charAt(0).toUpperCase() + v.slice(1).replace('-', ' ')}</Button>`
 ).join('\n');
 
 export default function ButtonPage() {
@@ -27,7 +48,7 @@ export default function ButtonPage() {
       description="A clickable button component with variants for different visual styles and sizes."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'variant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant' },
+        { name: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant (solid and colored outline semantic colors pair with the status tokens)' },
         { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Renders the child element (e.g. <a>, <Link>) with button styling instead of a <button>.' },
@@ -56,7 +77,7 @@ export default function ButtonPage() {
                 className="w-full p-2 border rounded bg-background"
               >
                 {VARIANTS.map((v) => (
-                  <option key={v} value={v}>{v}</option>
+                  <option key={v} value={v}>{variantLabel(v)}</option>
                 ))}
               </select>
             </div>

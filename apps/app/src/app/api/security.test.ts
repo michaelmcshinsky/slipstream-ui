@@ -18,10 +18,10 @@ import { DELETE as deactivateRoute } from './licenses/[licenseId]/activations/[m
 import { POST as impersonateRoute } from './admin/users/[userId]/impersonate/route';
 
 /**
- * Security regression suite (KC-032): locks in the P1/P2 fixes for license
- * issuance authorization (KC-001), subscription-driven license lifecycle
- * (KC-008), seat limits (KC-013), token single-use (KC-014) and machine
- * deactivation (KC-021).
+ * Security regression suite: locks in the P1/P2 fixes for license
+ * issuance authorization, subscription-driven license lifecycle
+ *, seat limits, token single-use and machine
+ * deactivation.
  */
 
 const cookieStore = new Map<string, { name: string; value: string }>();
@@ -50,7 +50,7 @@ afterAll(async () => {
 });
 
 async function makeUser(email: string, role: 'USER' | 'ADMIN' = 'USER') {
-  // Grandfathered as verified (KC-040 migration semantics for pre-feature
+  // Grandfathered as verified (migration semantics for pre-feature
   // accounts); unverified-user cases set emailVerifiedAt explicitly.
   const user = await prisma.user.create({ data: { email, role, emailVerifiedAt: new Date() } });
   createdUserIds.push(user.id);
@@ -83,7 +83,7 @@ async function subscribe(teamId: string, plan: 'PRO' | 'TEAM' | 'ENTERPRISE', se
   });
 }
 
-describe('KC-001: self-service license issuance requires paid entitlement', () => {
+describe('self-service license issuance requires paid entitlement', () => {
   it('rejects unauthenticated requests', async () => {
     const response = await issueLicenseRoute(jsonRequest('http://localhost/api/licenses', { plan: 'PRO' }));
     expect(response.status).toBe(401);
@@ -146,7 +146,7 @@ describe('KC-001: self-service license issuance requires paid entitlement', () =
 
     const license = await prisma.licenseKey.findUniqueOrThrow({ where: { key } });
     expect(license).toMatchObject({ teamId: team.id, plan: 'PRO', ownerId: user.id });
-    expect(license.expiresAt).not.toBeNull(); // KC-008: expires with the billing period
+    expect(license.expiresAt).not.toBeNull(); // expires with the billing period
 
     // Retry returns the same key instead of minting a duplicate (idempotent).
     const second = await issueLicenseRoute(
@@ -184,7 +184,7 @@ describe('KC-001: self-service license issuance requires paid entitlement', () =
   });
 });
 
-describe('KC-008: cancellation ends subscription-bound licenses', () => {
+describe('cancellation ends subscription-bound licenses', () => {
   it('revokes active TEAM/ENTERPRISE licenses and keeps PRO licenses to expiry', async () => {
     const owner = await makeUser(`cancel-${suffix}@test.dev`);
     const team = await makeTeam(owner.id, 'Cancel Rights');
@@ -203,7 +203,7 @@ describe('KC-008: cancellation ends subscription-bound licenses', () => {
   });
 });
 
-describe('KC-013: seat limits', () => {
+describe('seat limits', () => {
   it('blocks invites on a free team (1 seat)', async () => {
     const owner = await makeUser(`seats-free-o-${suffix}@test.dev`);
     const team = await makeTeam(owner.id, 'Seats Free');
@@ -233,7 +233,7 @@ describe('KC-013: seat limits', () => {
   });
 });
 
-describe('KC-014: reset tokens are single-use under concurrency', () => {
+describe('reset tokens are single-use under concurrency', () => {
   it('only one of two concurrent resets consumes the token', async () => {
     const user = await makeUser(`reset-${suffix}@test.dev`, 'USER');
     await prisma.user.update({
@@ -258,7 +258,7 @@ describe('KC-014: reset tokens are single-use under concurrency', () => {
   });
 });
 
-describe('KC-021: machine deactivation frees activation slots', () => {
+describe('machine deactivation frees activation slots', () => {
   it('owner deactivates a machine and a new activation succeeds', async () => {
     const owner = await makeUser(`deact-${suffix}@test.dev`);
     const { key } = await issueLicense({ ownerId: owner.id, plan: 'PRO', maxActivations: 1 });
@@ -294,7 +294,7 @@ describe('KC-021: machine deactivation frees activation slots', () => {
   });
 });
 
-describe('KC-043: explicit credentials never fall back to cookie identity', () => {
+describe('explicit credentials never fall back to cookie identity', () => {
   it('rejects a malformed API key (no dot) instead of using the session', async () => {
     const user = await makeUser(`malformed-${suffix}@test.dev`);
     await createSession(user.id); // valid session exists…
@@ -308,7 +308,7 @@ describe('KC-043: explicit credentials never fall back to cookie identity', () =
   });
 });
 
-describe('KC-038: stripe billing configuration validation', () => {
+describe('stripe billing configuration validation', () => {
   it('lists every missing setting when stripe mode is misconfigured', () => {
     vi.stubEnv('BILLING_PROVIDER', 'stripe');
     vi.stubEnv('STRIPE_SECRET_KEY', '');
@@ -336,7 +336,7 @@ describe('KC-038: stripe billing configuration validation', () => {
   });
 });
 
-describe('KC-040: impersonation start guards', () => {
+describe('impersonation start guards', () => {
   it('rejects nested impersonation and suspended targets', async () => {
     const admin = await makeUser(`imp-admin-${suffix}@test.dev`, 'ADMIN');
     const suspended = await makeUser(`imp-suspended-${suffix}@test.dev`);
@@ -363,7 +363,7 @@ describe('KC-040: impersonation start guards', () => {
   });
 });
 
-describe('KC-039: email delivery wiring', () => {
+describe('email delivery wiring', () => {
   it('forgot-password records a SENT delivery and is enumeration-safe in production', async () => {
     const email = `kc039-fp-${suffix}@test.dev`;
     const missingEmail = `kc039-nobody-${suffix}@test.dev`;
@@ -418,7 +418,7 @@ describe('KC-039: email delivery wiring', () => {
   });
 });
 
-describe('KC-040: email verification lifecycle', () => {
+describe('email verification lifecycle', () => {
   it('signup starts unverified, delivers a verification email, and accepts the emailed token once', async () => {
     const email = `kc040-signup-${suffix}@test.dev`;
     const response = await signupRoute(

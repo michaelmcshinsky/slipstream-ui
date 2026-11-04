@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardTitle } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
-interface Payment {
+type Payment = {
   id: string;
   teamId: string;
   amountCents: number;
@@ -12,7 +12,7 @@ interface Payment {
   description: string;
   createdAt: string;
   team?: { name?: string } | null;
-}
+};
 
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<Payment[]>([]);

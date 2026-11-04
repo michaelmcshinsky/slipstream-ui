@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { ReasoningStep } from '../../types';
 
-export interface ReasoningProps {
+export type ReasoningProps = {
   steps: ReasoningStep[];
   className?: string;
   collapsible?: boolean;
@@ -13,7 +13,7 @@ export interface ReasoningProps {
   duration?: number | string;
   /** Marks reasoning as still arriving: animated header state. */
   isStreaming?: boolean;
-}
+};
 
 const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
   ({ steps, className, collapsible = true, defaultExpanded = false, duration, isStreaming = false, ...props }, ref) => {

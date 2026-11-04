@@ -7,7 +7,7 @@ import { parseBody } from '@/lib/api/core';
 
 /**
  * POST /api/admin/email/deliveries/retry — operator-triggered sweep of FAILED
- * email deliveries (KC-039). Cron/workers can call the same helper directly.
+ * email deliveries. Cron/workers can call the same helper directly.
  */
 export async function POST(request: Request) {
   return handle(request, async () => {

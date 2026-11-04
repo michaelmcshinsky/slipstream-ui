@@ -88,3 +88,24 @@ describe('Menu', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+
+describe('MenuItem asChild', () => {
+  it('renders a link with menuitem semantics', async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuTrigger>Options</MenuTrigger>
+        <MenuContent>
+          <MenuItem asChild>
+            <a href="/settings">Settings</a>
+          </MenuItem>
+        </MenuContent>
+      </Menu>
+    );
+    await user.click(screen.getByRole('button', { name: 'Options' }));
+    const item = screen.getByRole('menuitem', { name: 'Settings' });
+    expect(item.tagName).toBe('A');
+    expect(item).toHaveAttribute('href', '/settings');
+  });
+});

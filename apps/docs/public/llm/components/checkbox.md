@@ -1,6 +1,6 @@
 # Checkbox
 
-A native checkbox input styled to match the design system, with controlled and uncontrolled support
+A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 
 > Import: `import { Checkbox } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/checkbox.json
@@ -8,7 +8,7 @@ A native checkbox input styled to match the design system, with controlled and u
 
 ## Design intent
 
-The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes.
+The Checkbox component is the standard way to let users select zero or more options from a set. It wraps the native input so keyboard, form, and screen-reader behavior is identical to platform checkboxes. CheckboxGroup is the multi-select counterpart of RadioGroup: shared name, fieldset/legend context, and the selection as a string[].
 
 ## Props
 
@@ -19,6 +19,10 @@ The Checkbox component is the standard way to let users select zero or more opti
 | onCheckedChange | `(checked: boolean) => void` | — | no | Fired when the user toggles the checkbox |
 | disabled | `boolean` | `false` | no | Disables the checkbox |
 | className | `string` | — | no | Additional CSS classes to apply |
+| legend | `string` | — | no | Accessible group label; rendered as <legend> inside a fieldset (CheckboxGroup component) |
+| onValueChange | `(value: string[]) => void` | — | no | Called with the full selection after a toggle (CheckboxGroup component) |
+| orientation | `'vertical' | 'horizontal'` | `vertical` | no | Stack options (default) or lay them out in a wrapping row (CheckboxGroup component) |
+| error | `string` | — | no | Group-level validation message; announced via role=alert (CheckboxGroup component) |
 
 ## Examples
 
@@ -53,6 +57,22 @@ Checkbox driven by parent state
 />
 ```
 
+### Multi-select group
+
+Shared name, legend context, selection as string[]
+
+```tsx
+<CheckboxGroup
+  name="langs"
+  legend="Languages"
+  defaultValue={["ts"]}
+  onValueChange={setLangs}
+>
+  <CheckboxGroupItem value="ts" label="TypeScript" />
+  <CheckboxGroupItem value="go" label="Go" />
+</CheckboxGroup>
+```
+
 ## Anti-patterns
 
 - **Don't use Checkbox for mutually exclusive choices** — Checkbox is for multi-select. Use Radio (inside RadioGroup) when only one option can be chosen.
@@ -69,6 +89,11 @@ Checkbox driven by parent state
   
   ```tsx
   <Checkbox id="x" /><Label htmlFor="x">Accept</Label>
+  ```
+- Compose with **CheckboxGroup** — Wrap related checkboxes so they share a name and an announced group label
+  
+  ```tsx
+  <CheckboxGroup name="x" legend="Options"><CheckboxGroupItem value="a" label="A" /></CheckboxGroup>
   ```
 - Related: Radio, Switch, Label
 

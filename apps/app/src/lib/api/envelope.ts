@@ -2,7 +2,7 @@
  * Helpers for reading the standard API envelope produced by handle():
  * success `{ data, meta }`, errors `{ error: { code, message, details }, meta }`.
  * UI consumers must unwrap these instead of reading top-level properties
- * (KC-006 / KC-017–020).
+ *.
  */
 
 export function extractData<T>(body: unknown): T | undefined {

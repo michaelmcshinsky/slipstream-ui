@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CodeBlock } from '@/components/code-block';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 
@@ -12,9 +12,57 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
+    version: '0.4.0',
+    date: 'November 2026',
+    tag: 'current',
+    highlights: [
+      '15 new components — migration-readiness set: AppShell + Sidebar (responsive frame with mobile drawer), SelectMenu (custom listbox with rich options, groups and multi-select), TableCard (list-page table shell), EmptyState, PageHeader, MetricCard, PasswordInput, AuthLayout, FilterBar, DatePicker, TimePicker, Stepper, FileUpload and Timeline',
+      'Imperative toasts: toast.success / error / warning / info, toast.dismiss and toast.clear with <Toaster position richColors> — fire from event handlers and data layers without a provider; the existing provider + useToast pair is unchanged',
+      'Dialog: size presets (sm–2xl), footer and scrollable body, plus composed parts (DialogHeader/Title/Description/Body/Footer) that wire the aria ids automatically',
+      'Select: optgroups, placeholder row and native multi-select with a string[] contract; Autocomplete: option objects with descriptions, debounced async loadOptions with stale-response guard, grouped headings, custom rows and a clear button',
+      'Pagination: currentPage/totalPages aliases, pageCount derived from total + pageSize, and a "Showing 26–50 of 312 students" summary',
+      'asChild on Card, Badge and MenuItem for router links; theming docs gain the z-index ladder (10 docked · 30 sticky · 40 chrome · 50 overlays · 60 toasts)',
+      'Docs: 14 new component pages, nav and search index updated; registry + LLM docs regenerate to 73 components (56 core / 17 AI)',
+    ],
+  },
+  {
+    version: '0.3.0',
+    date: 'November 2026',
+    tag: 'previous',
+    highlights: [
+      'New components: Form + FormLayout (validated composition with even tokenized spacing), Drawer (edge sheet with Dialog-grade modal semantics), InputGroup (flush left/right addons behind one outer outline), ButtonGroup (joined segments, single border), CheckboxGroup (multi-select counterpart of RadioGroup), RadioCard (whole clickable sections, native circle hidden, optional square corners)',
+      'Optional overlay motion: Dialog animate (fade + zoom backdrop/panel) and Drawer animate (side-aware slide in/out) — opt-in, reduced-motion safe, exit window via usePresence with immediate focus restoration',
+      'RadioGroup/CheckboxGroup: orientation (vertical/horizontal) and group-level error wired through a single fieldset (role=alert, one legend)',
+      'Info color retuned from sky to teal in both themes — light-mode info now meets WCAG AA against its ink foreground (4.04 → 6.36); token updated across themes, CLI template, and docs',
+      'Button success/warning/info semantic variants; Tabs rounded variant; Accordion borderless variant + gap; DataTable loadingRows with density-matched skeleton heights; Confirmation approveVariant/rejectVariant/showActions',
+      'Gap props accept tokens or exact pixels across Flex, Grid, Form, FormLayout, and Accordion (shared GapValue)',
+      'FormField: trailing slot now sits inline with the control at label-placements left; InputGroup forwards FormField id/aria wiring to the nested field so labels target the editable control',
+      'Docs: brand banner in full for navbar/footer, On-This-Page TOC rescans per navigation, GitHub links fixed, Block moved to Layout, search index backfilled (Input/Button/Badge + new components)',
+      'Release pipeline: CI and Release workflows moved to Node 22 (Next 16 requires ≥20.9), release workflow gains contents/PR write plus id-token for npm provenance',
+    ],
+  },
+  {
+    version: '0.2.0',
+    date: 'November 2026',
+    tag: 'previous',
+    highlights: [
+      'Axial-inspired design pivot: dark surface ladder (background < card < popover), crisp navy borders, light-blue primary with WCAG AA contrast in both themes, 6px radii',
+      'Fixed invalid percent-hue success/warning/info tokens that silently dropped (status chips render correctly in both themes again)',
+      'New components: Fieldset, FormField (label placement + tooltip + trailing slot), Text, Heading, Block, Flex/FlexItem, Grid/GridItem, List/ListItem',
+      'DataTable: custom sort icons, sticky header, compact density, zebra rows, loading skeletons, row AND column click callbacks, server-side sort via onSortChange',
+      'Search + Autocomplete: full combobox (portalled listbox, keyboard-complete) — constrained picks vs free-form type-ahead',
+      'Tabs: underline variant (no strip background), sm/md/lg sizes, real Arrow/Home/End navigation with activation',
+      'Dialog showClose, Breadcrumb onItemClick, Pagination showFirst/showLast/custom icons, Accordion custom icon slot + full-width headers, Confirmation color variants, Skeleton sizing props',
+      'Tooltip portals with fixed positioning — overflowing a container no longer scrolls or clips the bubble',
+      'Docs: browser-support table on every component page, grouped accordion sidebar, full-width shell with centered reading column, nine guides, interactive MCP playground, five live templates',
+      'Every code example unified on CodeBlock with an AA-safe surface; per-page SEO metadata across all docs; codebase converted from interface to type',
+      'Repo hygiene: kittyclaw references removed, legacy root build cluster (src/stories/storybook/vite/vitest configs) deleted, typecheck covers the build scripts (43 pre-existing errors fixed)',
+    ],
+  },
+  {
     version: '0.1.0',
     date: 'October 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       '43 components across @slipstream-ui/core and @slipstream-ui/ai, each shipping a COMPONENT_MANIFEST',
       'Response: streaming-safe GFM markdown renderer with automatic repair of incomplete syntax',
@@ -81,11 +129,14 @@ export default function ChangelogPage() {
         ))}
 
         <h2 className="text-2xl font-semibold mb-4">Install</h2>
-        <CodeBlock>{`# Packages
+        <CodeBlock
+          language="bash"
+          code={`# Packages
 pnpm add @slipstream-ui/core @slipstream-ui/ai
 
 # Or install source copies via the shadcn-compatible registry
-npx shadcn@latest add https://slipstreamui.com/registry/message.json`}</CodeBlock>
+npx shadcn@latest add https://slipstreamui.com/registry/message.json`}
+        />
       </div>
       <Footer />
     </div>

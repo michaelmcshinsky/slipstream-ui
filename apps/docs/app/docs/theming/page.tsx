@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CodeBlock } from '@slipstream-ui/ai';
 import { ThemeShowcase } from '@/components/theme-showcase';
 
 export const metadata: Metadata = {
@@ -34,15 +35,13 @@ export default function ThemingPage() {
         <p className="text-muted-foreground mb-4">
           The <code className="bg-muted px-2 py-1 rounded">createTheme()</code> function lets you create custom themes from brand colors:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { createTheme } from '@slipstream-ui/themes'
+        <CodeBlock language="tsx" code={`import { createTheme } from '@slipstream-ui/themes'
 
 const customTheme = createTheme({
-  brandColor: '210 100% 50%',  // HSL values
+  brandColor: '224 89% 58%',  // HSL values
   borderRadius: '0.5rem',
   darkMode: false
-})`}</code>
-        </pre>
+})`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Preset Themes</h2>
         <p className="text-muted-foreground mb-4">
@@ -50,90 +49,113 @@ const customTheme = createTheme({
         </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Default (Blue)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { defaultTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { defaultTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Dark</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { darkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { darkTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Zinc (Neutral)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { zincTheme, zincDarkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { zincTheme, zincDarkTheme } from '@slipstream-ui/themes'`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Violet (Purple)</h3>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`import { violetTheme, violetDarkTheme } from '@slipstream-ui/themes'`}</code>
-        </pre>
+        <CodeBlock language="tsx" code={`import { violetTheme, violetDarkTheme } from '@slipstream-ui/themes'`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">CSS Variables</h2>
         <p className="text-muted-foreground mb-4">
           The theme system uses CSS variables that you can override in your global CSS:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`:root {
+        <CodeBlock language="css" code={`:root {
   --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --primary: 210 100% 50%;
+  --foreground: 222 85% 7%;
+  --primary: 224 89% 58%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 210 100% 50%;
-  --radius: 0.5rem;
+  --secondary: 214 45% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 214 40% 96%;
+  --muted-foreground: 219 12% 42%;
+  --accent: 214 45% 96%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 348 68% 44%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 28% 89%;
+  --input: 214 28% 89%;
+  --ring: 224 89% 58%;
+  --radius: 0.375rem;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --primary: 210 100% 50%;
-  --primary-foreground: 210 40% 98%;
+  --background: 222 42% 5%;
+  --card: 222 36% 9%;
+  --foreground: 210 40% 96%;
+  --primary: 224 90% 70%;
+  --primary-foreground: 222 75% 10%;
+  --border: 217 20% 24%;
+  --input: 217 18% 32%;
   /* ... and so on */
-}`}</code>
-        </pre>
+}`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Dark Mode</h2>
         <p className="text-muted-foreground mb-4">
           To enable dark mode, add the <code className="bg-muted px-2 py-1 rounded">dark</code> class to a parent element (typically the <code className="bg-muted px-2 py-1 rounded">html</code> or <code className="bg-muted px-2 py-1 rounded">body</code> tag):
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// Toggle dark mode
-document.documentElement.classList.toggle('dark')`}</code>
-        </pre>
+        <CodeBlock language="css" code={`// Toggle dark mode
+document.documentElement.classList.toggle('dark')`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
         <p className="text-muted-foreground mb-4">
           When creating a custom theme, provide your brand color in HSL format:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto mb-4">
-          <code>{`// Convert your brand color to HSL
+        <CodeBlock language="css" code={`// Convert your brand color to HSL
 // Example: #3B82F6 (blue) → 217 91% 60%
 const brandTheme = createTheme({
   brandColor: '217 91% 60%',
   borderRadius: '0.75rem'
-})`}</code>
-        </pre>
+})`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Converting Colors to HSL</h2>
         <p className="text-muted-foreground mb-4">
           You can use online tools or CSS to convert your brand colors to HSL:
         </p>
-        <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
-          <code>{`/* In CSS */
+        <CodeBlock language="css" code={`/* In CSS */
 :root {
   --brand: 217 91% 60%;  /* #3B82F6 */
-}`}</code>
-        </pre>
+}`} />
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Layering (z-index scale)</h2>
+        <p className="text-muted-foreground mb-4">
+          Components use a small, documented ladder instead of ad-hoc numbers. Extend it rather than
+          inventing new values — stacking bugs come from stray <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">z-[500]</code>s.
+        </p>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Layer</th>
+                <th className="p-3 text-left font-medium">Value</th>
+                <th className="p-3 text-left font-medium">Used by</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Docked / in-page', 'z-10', 'Sticky toolbars inside a page section'],
+                ['Sticky headers', 'z-30', 'AppShell header, table headers'],
+                ['Site chrome', 'z-40', 'Marketing navbar, doc banner'],
+                ['Overlays', 'z-50', 'Dialog, Drawer, Menu, Popover, Tooltip, Autocomplete listbox'],
+                ['Notifications', 'z-60', 'Toaster — always above overlays'],
+              ].map(([layer, value, usedBy]) => (
+                <tr key={layer} className="border-t border-border">
+                  <td className="p-3">{layer}</td>
+                  <td className="p-3 font-mono text-xs">{value}</td>
+                  <td className="p-3 text-muted-foreground">{usedBy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Keep app-level chrome at or below 60. If a page needs a higher layer (onboarding tours,
+          devtools), reserve a single documented value instead of escalating per component.
+        </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">

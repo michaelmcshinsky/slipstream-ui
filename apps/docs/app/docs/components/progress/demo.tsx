@@ -30,7 +30,7 @@ export default function ProgressPage() {
         }
         code={"import { Progress } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Progress value={25} label=\"Upload progress\" />\n        <Progress value={66} label=\"Setup progress\" />\n        <Progress value={100} label=\"Complete\" />\n    </>\n  );\n}"}
         usage={"import { Progress } from '@slipstream-ui/core';\n\n// Basic usage\n<Progress />"}
-        types={"interface ProgressProps {\n  value: number;\n  max: number;\n  label: string;\n}"}
+        types={"type ProgressProps = {\n  value: number;\n  max: number;\n  label: string;\n};"}
       />
     </ComponentPage>
   );

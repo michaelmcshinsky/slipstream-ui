@@ -15,6 +15,9 @@ Skeleton reduces perceived loading time by showing the layout shape before data 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | className | `string` | — | no | Shape and size classes (e.g. h-4 w-32, rounded-full) |
+| height | `string` | — | no | Tailwind height class for the block (e.g. 'h-4'). |
+| width | `string` | `w-full` | no | Tailwind width class for the block (e.g. 'w-48'). |
+| rounded | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `md` | no | Corner preset — full for avatars/dots, none for tables. |
 
 ## Examples
 

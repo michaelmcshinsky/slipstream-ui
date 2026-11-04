@@ -65,6 +65,12 @@ type Drift = {
 function extractTsProps(source: string, interfaceName: string): Map<string, boolean> {
   const props = new Map<string, boolean>();
 
+  // Strip comments before scanning: an apostrophe inside prose (e.g.
+  // "/** The tab's value */") toggles the quote state and makes the body
+  // scan run past the type into component code, reporting phantom props
+  // like "focus-visible" from class strings.
+  source = source.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
+
   // Find the declaration start.
   const declPattern = new RegExp(`(?:interface|type)\\s+${interfaceName}\\b`);
   const declMatch = source.match(declPattern);
@@ -186,25 +192,6 @@ function loadManifests(dir: string): { manifest: Record<string, unknown>; file: 
       manifest: JSON.parse(fs.readFileSync(path.join(manifestDir, file), 'utf8')) as Record<string, unknown>,
       file,
     }));
-}
-
-function findSourceFile(sourceDir: string, exportName: string): string | undefined {
-  // Prefer the exact component file, then any non-barrel .tsx, then barrels.
-  const exact = [`${exportName}.tsx`, `${exportName}.ts`];
-  for (const candidate of exact) {
-    const filePath = path.join(sourceDir, candidate);
-    if (fs.existsSync(filePath)) return filePath;
-  }
-  const components = fs
-    .readdirSync(sourceDir)
-    .filter((f) => (f.endsWith('.tsx') || f.endsWith('.ts')) && !f.startsWith('index.') && !f.includes('.test.'));
-  if (components.length > 0) return path.join(sourceDir, components[0]);
-  // Barrel fallback.
-  for (const candidate of ['index.tsx', 'index.ts']) {
-    const filePath = path.join(sourceDir, candidate);
-    if (fs.existsSync(filePath)) return filePath;
-  }
-  return undefined;
 }
 
 function main(): void {

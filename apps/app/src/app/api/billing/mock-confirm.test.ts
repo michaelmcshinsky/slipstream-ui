@@ -96,7 +96,7 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
-describe('mock checkout (KC-002)', () => {
+describe('mock checkout', () => {
   it('rejects the legacy mutable GET without creating billing state', async () => {
     const { team } = await fixture();
     const response = await GET(new Request(`${base}/api/billing/mock-confirm?teamId=${team.id}&plan=PRO`));

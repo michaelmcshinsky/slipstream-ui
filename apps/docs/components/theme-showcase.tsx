@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, Badge, Button, Input, Spinner } from '@slipstream-ui/core';
+import { VERSION } from '@/lib/version';
 import {
   defaultTheme,
   darkTheme,
@@ -110,7 +111,7 @@ export function ThemeShowcase() {
         <Button>Get started</Button>
         <Button variant="outline">Docs</Button>
         <Badge>Streaming</Badge>
-        <Badge variant="secondary">v0.1.0</Badge>
+        <Badge variant="secondary">v{VERSION}</Badge>
         <Avatar>
           <AvatarFallback>AI</AvatarFallback>
         </Avatar>

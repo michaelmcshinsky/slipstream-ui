@@ -10,7 +10,7 @@ type Params = { params: Promise<{ licenseId: string; machineId: string }> };
 /**
  * DELETE /api/licenses/[licenseId]/activations/[machineId]
  * Owner removes one of their license's machine activations, freeing the slot
- * (KC-021). Idempotent: unknown machines succeed as no-ops.
+ *. Idempotent: unknown machines succeed as no-ops.
  */
 export async function DELETE(request: Request, { params }: Params) {
   return handle(request, async () => {

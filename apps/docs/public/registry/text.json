@@ -1,0 +1,138 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "text",
+  "name": "text",
+  "tier": "atom",
+  "description": "Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).",
+  "designIntent": "Body copy should be a paragraph element, not a styled div — reader modes, screen readers, and document outline all depend on semantics. Text gives you the type scale, weight, and muted tone as typed props so spacing and color stay tokenized instead of ad-hoc utilities.",
+  "props": [
+    {
+      "name": "inline",
+      "type": "boolean",
+      "required": false,
+      "description": "Render as an inline span instead of a block p (the inline-block variation).",
+      "defaultValue": "false",
+      "examples": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'xs' | 'sm' | 'base' | 'lg' | 'xl'",
+      "required": false,
+      "description": "Type scale step.",
+      "defaultValue": "base",
+      "enum": [
+        "xs",
+        "sm",
+        "base",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "sm",
+        "lg"
+      ]
+    },
+    {
+      "name": "weight",
+      "type": "'normal' | 'medium' | 'semibold' | 'bold'",
+      "required": false,
+      "description": "Font weight.",
+      "enum": [
+        "normal",
+        "medium",
+        "semibold",
+        "bold"
+      ],
+      "examples": [
+        "medium"
+      ]
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the muted-foreground token instead of the primary text color.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Paragraph and inline text",
+      "code": "<Text>Default body paragraph.</Text>\n<Text size=\"sm\" muted>Secondary helper copy.</Text>\n<Text weight=\"semibold\">Emphasized lead-in.</Text>\n\n{/* Inline flow — renders a <span> */}\n<Text inline size=\"sm\">Read the </Text>\n<Link href=\"/docs\">docs</Link>",
+      "description": "block by default; inline for span-level flow."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use divs for copy",
+      "explanation": "A div with text classes is invisible to document outline, reader mode, and search extraction. Use Text (p) for paragraphs and Heading for titles.",
+      "example": "<div className=\"text-sm\">Paragraph copy.</div>  // avoid\n<Text size=\"sm\">Paragraph copy.</Text>  // prefer"
+    },
+    {
+      "title": "Don't skip headings for visual size",
+      "explanation": "Pick the Heading LEVEL that matches the document structure and use size for visual override — never a large Text.",
+      "example": "// avoid\n<Text size=\"2xl\" weight=\"bold\">Section title</Text>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Real text elements",
+      "implementation": "Renders <p>/<span>, so assistive tech and reader modes treat content as text",
+      "userRequirements": "Keep one h1 per page and never skip heading levels above Text"
+    },
+    {
+      "feature": "Muted tone is tokenized",
+      "implementation": "muted uses --muted-foreground, which meets AA in both themes",
+      "userRequirements": "Do not pass arbitrary color classes for body copy"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Heading",
+      "relationship": "Headings structure the document; Text carries the prose between them"
+    },
+    {
+      "component": "Block",
+      "relationship": "Use Block (div) for layout wrappers around Text, not instead of it"
+    }
+  ],
+  "relatedComponents": [
+    "Heading",
+    "Block"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "text",
+  "exportName": "Text",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/text/index.ts",
+      "content": "export * from './Text';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/text/Text.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nconst sizeClasses = {\n  xs: 'text-xs',\n  sm: 'text-sm',\n  base: 'text-base',\n  lg: 'text-lg',\n  xl: 'text-xl',\n} as const;\n\nconst weightClasses = {\n  normal: 'font-normal',\n  medium: 'font-medium',\n  semibold: 'font-semibold',\n  bold: 'font-bold',\n} as const;\n\nexport type TextProps = React.HTMLAttributes<HTMLElement> & {\n  /** Render as an inline <span> instead of a block <p> (\"inline block\" variation). */\n  inline?: boolean;\n  /** Type scale (default 'base'). */\n  size?: keyof typeof sizeClasses;\n  /** Font weight (default 'normal'). */\n  weight?: keyof typeof weightClasses;\n  /** Use the muted-foreground token instead of the primary text color. */\n  muted?: boolean;\n};\n\n/**\n * Semantic paragraph text with a controlled type scale. Renders a real\n * <p> for document structure (or <span> with inline) — never a styled\n * div — so copy, screen readers, and reader-mode all treat it as text.\n */\nconst Text = React.forwardRef<HTMLElement, TextProps>(\n  ({ inline, size = 'base', weight, muted, className, ...props }, ref) => {\n    const Tag = (inline ? 'span' : 'p') as 'span' | 'p';\n    return (\n      <Tag\n        ref={ref as React.Ref<HTMLParagraphElement>}\n        className={cn(\n          sizeClasses[size],\n          weight && weightClasses[weight],\n          muted && 'text-muted-foreground',\n          inline ? 'inline' : 'block',\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nText.displayName = 'Text';\n\nexport { Text };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/text.manifest.json",
+      "content": "{\n  \"id\": \"text\",\n  \"name\": \"Text\",\n  \"tier\": \"atom\",\n  \"description\": \"Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).\",\n  \"designIntent\": \"Body copy should be a paragraph element, not a styled div — reader modes, screen readers, and document outline all depend on semantics. Text gives you the type scale, weight, and muted tone as typed props so spacing and color stay tokenized instead of ad-hoc utilities.\",\n  \"props\": [\n    {\n      \"name\": \"inline\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Render as an inline span instead of a block p (the inline-block variation).\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\", \"false\"]\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'xs' | 'sm' | 'base' | 'lg' | 'xl'\",\n      \"required\": false,\n      \"description\": \"Type scale step.\",\n      \"defaultValue\": \"base\",\n      \"enum\": [\"xs\", \"sm\", \"base\", \"lg\", \"xl\"],\n      \"examples\": [\"sm\", \"lg\"]\n    },\n    {\n      \"name\": \"weight\",\n      \"type\": \"'normal' | 'medium' | 'semibold' | 'bold'\",\n      \"required\": false,\n      \"description\": \"Font weight.\",\n      \"enum\": [\"normal\", \"medium\", \"semibold\", \"bold\"],\n      \"examples\": [\"medium\"]\n    },\n    {\n      \"name\": \"muted\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Use the muted-foreground token instead of the primary text color.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Paragraph and inline text\",\n      \"code\": \"<Text>Default body paragraph.</Text>\\n<Text size=\\\"sm\\\" muted>Secondary helper copy.</Text>\\n<Text weight=\\\"semibold\\\">Emphasized lead-in.</Text>\\n\\n{/* Inline flow — renders a <span> */}\\n<Text inline size=\\\"sm\\\">Read the </Text>\\n<Link href=\\\"/docs\\\">docs</Link>\",\n      \"description\": \"block by default; inline for span-level flow.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use divs for copy\",\n      \"explanation\": \"A div with text classes is invisible to document outline, reader mode, and search extraction. Use Text (p) for paragraphs and Heading for titles.\",\n      \"example\": \"<div className=\\\"text-sm\\\">Paragraph copy.</div>  // avoid\\n<Text size=\\\"sm\\\">Paragraph copy.</Text>  // prefer\"\n    },\n    {\n      \"title\": \"Don't skip headings for visual size\",\n      \"explanation\": \"Pick the Heading LEVEL that matches the document structure and use size for visual override — never a large Text.\",\n      \"example\": \"// avoid\\n<Text size=\\\"2xl\\\" weight=\\\"bold\\\">Section title</Text>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Real text elements\",\n      \"implementation\": \"Renders <p>/<span>, so assistive tech and reader modes treat content as text\",\n      \"userRequirements\": \"Keep one h1 per page and never skip heading levels above Text\"\n    },\n    {\n      \"feature\": \"Muted tone is tokenized\",\n      \"implementation\": \"muted uses --muted-foreground, which meets AA in both themes\",\n      \"userRequirements\": \"Do not pass arbitrary color classes for body copy\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Heading\",\n      \"relationship\": \"Headings structure the document; Text carries the prose between them\"\n    },\n    {\n      \"component\": \"Block\",\n      \"relationship\": \"Use Block (div) for layout wrappers around Text, not instead of it\"\n    }\n  ],\n  \"relatedComponents\": [\"Heading\", \"Block\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"text\",\n  \"exportName\": \"Text\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

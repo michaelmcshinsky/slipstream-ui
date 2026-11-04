@@ -2,11 +2,11 @@ import { prisma, Prisma } from '@slipstream-ui/db';
 import { generateLicenseKey } from './tokens';
 import { audit } from './audit';
 
-export interface ValidationResult {
+export type ValidationResult = {
   valid: boolean;
   reason?: string;
   plan?: string;
-}
+};
 
 class ActivationLimitReached extends Error {}
 
@@ -19,7 +19,7 @@ const ACTIVATION_CLAIM_ATTEMPTS = 2;
  *
  * The activation claim (count + insert) runs in one transaction so
  * concurrent machines cannot exceed the limit; the unique
- * (licenseId, machineId) constraint collapses same-machine races (KC-014).
+ * (licenseId, machineId) constraint collapses same-machine races.
  */
 export async function validateLicense(key: string, machineId: string): Promise<ValidationResult> {
   const license = await prisma.licenseKey.findUnique({
@@ -88,7 +88,7 @@ export async function issueLicense(params: {
   maxActivations?: number;
   note?: string;
   actorId?: string;
-  /** Subscription-bound licenses expire with the billing period (KC-008). */
+  /** Subscription-bound licenses expire with the billing period. */
   expiresAt?: Date | null;
 }, transaction?: Prisma.TransactionClient): Promise<{ key: string }> {
   if (!transaction) return prisma.$transaction((tx) => issueLicense(params, tx));
@@ -141,7 +141,7 @@ export async function revokeLicense(licenseId: string, actorId: string): Promise
 }
 
 /**
- * Deactivate a single machine against a license, freeing its slot (KC-021).
+ * Deactivate a single machine against a license, freeing its slot.
  * Idempotent: deactivating an unknown machine is a no-op success.
  */
 export async function deactivateMachine(licenseId: string, machineId: string, actorId: string): Promise<boolean> {
@@ -164,7 +164,7 @@ export async function deactivateMachine(licenseId: string, machineId: string, ac
 
 /**
  * Remaining activation capacity for a team under its plan budget. Issuance
- * must not push the team's aggregate maxActivations over this budget (KC-001).
+ * must not push the team's aggregate maxActivations over this budget.
  */
 export async function remainingTeamActivationBudget(teamId: string, plan: string): Promise<number> {
   const budget = planActivationBudget(plan);
@@ -177,7 +177,7 @@ export async function remainingTeamActivationBudget(teamId: string, plan: string
 
 /**
  * Revoke every active TEAM/ENTERPRISE license bound to a team. Called when a
- * team's paid subscription ends so out-standing licenses stop validating (KC-008).
+ * team's paid subscription ends so out-standing licenses stop validating.
  */
 export async function revokeSubscriptionLicenses(teamId: string, actorId: string, transaction?: Prisma.TransactionClient): Promise<number> {
   const db = transaction ?? prisma;

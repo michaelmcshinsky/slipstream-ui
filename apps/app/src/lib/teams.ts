@@ -22,7 +22,7 @@ const SLUG_MAX_ATTEMPTS = 5;
 /**
  * Create a team with a collision-resistant slug. Slugs are allocated by
  * attempting inserts and retrying on unique-constraint conflicts — never by
- * check-then-insert, which cannot survive concurrent signups (KC-010).
+ * check-then-insert, which cannot survive concurrent signups.
  * Accepts a transaction client so callers can compose user+team creation
  * atomically.
  */
@@ -65,7 +65,7 @@ function normalizeEmail(email: string): string {
 
 /**
  * Seats are a hard cap on memberships: FREE defaults to 1, paid plans use the
- * subscription's seat count (KC-013). Checked at invite time (promise) and
+ * subscription's seat count. Checked at invite time (promise) and
  * again at acceptance (the authoritative fill).
  */
 async function assertSeatAvailable(db: Prisma.TransactionClient, teamId: string): Promise<void> {
@@ -152,7 +152,7 @@ export async function acceptInvite(token: string, userId: string): Promise<{ tea
     const user = await db.user.findUnique({ where: { id: userId }, select: { email: true, emailVerifiedAt: true } });
     if (!user) throw new TeamError(401, 'Authentication required.');
     // Invitations bind identity to an email address; acceptance therefore
-    // requires a verified address (KC-040). Pre-feature accounts are
+    // requires a verified address. Pre-feature accounts are
     // grandfathered by the seed backfill (emailVerifiedAt = createdAt).
     if (!user.emailVerifiedAt) {
       throw new TeamError(403, 'Verify your email address before accepting invitations.');

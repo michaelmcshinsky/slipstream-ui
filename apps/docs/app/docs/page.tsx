@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { COMPONENT_COUNT } from '@/lib/component-count';
+import { VERSION } from '@/lib/version';
 
 export const metadata: Metadata = {
   title: 'Documentation',
@@ -40,7 +41,7 @@ export default function DocsPage() {
       <div>
       <div className="mb-8 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
         <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 font-mono text-xs font-medium text-primary">
-          v0.1.0
+          v{VERSION}
         </span>
         <span className="text-muted-foreground">
           {COMPONENT_COUNT} components, MCP{' '}

@@ -1,19 +1,25 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface BreadcrumbItem {
+export type BreadcrumbItem = {
   /** Display label. */
   label: string;
   /** Destination href; omit for the current page (renders as plain text). */
   href?: string;
-}
+};
 
-export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
+export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
   /** Ordered list of breadcrumb items; the last item is the current page. */
   items: BreadcrumbItem[];
   /** Separator character between items (default '/'). */
   separator?: React.ReactNode;
-}
+  /**
+   * Receives every link click with the item and its index. When provided,
+   * default navigation is prevented so you can route programmatically
+   * (e.g. via a router, state machine, or analytics wrapper).
+   */
+  onItemClick?: (item: BreadcrumbItem, index: number) => void;
+};
 
 /**
  * Navigation breadcrumb trail. The last item is rendered as the current
@@ -21,7 +27,7 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
  * announce the navigation landmark and current location.
  */
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, separator = '/', className, ...props }, ref) => (
+  ({ items, separator = '/', onItemClick, className, ...props }, ref) => (
     <nav
       ref={ref}
       aria-label="Breadcrumb"
@@ -42,6 +48,14 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                 <a
                   href={item.href}
                   className="transition-colors hover:text-foreground"
+                  onClick={
+                    onItemClick
+                      ? (event) => {
+                          event.preventDefault();
+                          onItemClick(item, index);
+                        }
+                      : undefined
+                  }
                 >
                   {item.label}
                 </a>

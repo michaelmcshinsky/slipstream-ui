@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
-interface LicenseRow {
+type LicenseRow = {
   id: string;
   key: string;
   plan: string;
@@ -12,7 +12,7 @@ interface LicenseRow {
   maxActivations: number;
   activations: { id: string; machineId: string }[];
   owner?: { email?: string };
-}
+};
 
 export default function AdminLicensesPage() {
   const [licenses, setLicenses] = useState<LicenseRow[]>([]);
@@ -47,7 +47,7 @@ export default function AdminLicensesPage() {
       setError(extractErrorMessage(data));
       return;
     }
-    // Envelope wraps the plaintext comp key: { data: { key } } (KC-018 pattern).
+    // Envelope wraps the plaintext comp key: { data: { key } } (pattern).
     setIssuedKey(extractData<{ key?: string }>(data)?.key ?? null);
     await load();
   }

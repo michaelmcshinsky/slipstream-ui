@@ -10,6 +10,7 @@ export default function BadgePage() {
       description="A small status indicator component for displaying tags, counts, or status information."
       npmPackages="@slipstream-ui/core"
       propsRows={[
+        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child (e.g. a router Link) with badge styling.' },
         { name: 'variant', type: "'default' | 'secondary' | 'destructive' | 'outline'", defaultValue: "'default'", description: 'Visual style variant' },
         { name: 'children', type: 'ReactNode', defaultValue: 'required', description: 'Content to display' },
       ]}

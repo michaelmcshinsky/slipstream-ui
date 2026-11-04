@@ -1,0 +1,87 @@
+{
+  "id": "date-picker",
+  "name": "DatePicker",
+  "tier": "molecule",
+  "description": "Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
+  "designIntent": "A custom calendar is a large accessibility surface. The platform date picker already handles locale formatting, keyboard editing and mobile wheels, so DatePicker standardizes the ISO contract and a clear affordance instead of reimplementing a calendar.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "ISO date (YYYY-MM-DD), controlled."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "ISO date, initial value."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the ISO string; '' when cleared."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Shows a clear button once a value exists."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ISO date field",
+      "code": "<DatePicker\n  aria-label=\"Start date\"\n  value={start}\n  onValueChange={setStart}\n  clearable\n/>",
+      "description": "Controlled ISO value with a clear button."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't store locale-formatted strings",
+      "explanation": "The contract is YYYY-MM-DD; format for display at the edge.",
+      "example": "// Avoid: '03/11/2026' in state\n// Prefer: '2026-11-03'"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Platform input",
+      "implementation": "Renders input[type=date] so OS pickers and keyboard editing apply",
+      "userRequirements": "Always provide a label (FormField or aria-label)"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Name the date's meaning, not 'Date'"
+      ],
+      "goodExamples": [
+        "Start date",
+        "Due on"
+      ],
+      "badExamples": [
+        "Date"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Wrap for label/hint/error wiring",
+      "example": "<FormField id=\"start\" label=\"Start date\"><DatePicker /></FormField>"
+    }
+  ],
+  "relatedComponents": [
+    "TimePicker",
+    "FormField",
+    "Input"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "date-picker",
+  "exportName": "DatePicker"
+}

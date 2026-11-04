@@ -72,21 +72,21 @@ const options: SearchOption[] = [
   onValueChange={(id) => router.push(\`/c/\${id}\`)}
   emptyText="No components found"
 />`}
-        types={`interface SearchOption {
+        types={`type SearchOption = {
   value: string;
   label: string;
   description?: string;
   keywords?: string;
-}
+};
 
-interface SearchProps {
+type SearchProps = {
   options: SearchOption[];
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   emptyText?: string;
   disabled?: boolean;
-}`}
+};`}
       />
     </ComponentPage>
   );

@@ -58,12 +58,12 @@ export default function SwitchPage() {
 
 // Controlled
 <Switch checked={dark} onCheckedChange={setDark} />`}
-        types={`interface SwitchProps {
+        types={`type SwitchProps = {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
-}`}
+};`}
       />
 
       <DemoCard

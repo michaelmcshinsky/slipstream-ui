@@ -5,9 +5,31 @@
   "description": "Navigation breadcrumb trail with links and current-page indicator",
   "designIntent": "Breadcrumb shows the user's location in a hierarchy and lets them navigate back to parent levels. The last item is the current page, marked with aria-current=page.",
   "props": [
-    { "name": "items", "type": "BreadcrumbItem[]", "required": true, "description": "Ordered breadcrumb items; the last is the current page" },
-    { "name": "separator", "type": "ReactNode", "defaultValue": "'/'", "required": false, "description": "Separator character between items" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "items",
+      "type": "BreadcrumbItem[]",
+      "required": true,
+      "description": "Ordered breadcrumb items; the last is the current page"
+    },
+    {
+      "name": "separator",
+      "type": "ReactNode",
+      "defaultValue": "'/'",
+      "required": false,
+      "description": "Separator character between items"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "onItemClick",
+      "type": "(item: BreadcrumbItem, index: number) => void",
+      "required": false,
+      "description": "Receives every link click with default navigation prevented — route programmatically."
+    }
   ],
   "examples": [
     {
@@ -32,16 +54,48 @@
     }
   ],
   "accessibility": [
-    { "feature": "Navigation landmark", "implementation": "nav[aria-label=Breadcrumb] so screen readers announce the landmark", "userRequirements": "Don't place multiple breadcrumbs on one page" },
-    { "feature": "Current page", "implementation": "Last item has aria-current=page", "userRequirements": "Only one item should have aria-current" }
+    {
+      "feature": "Navigation landmark",
+      "implementation": "nav[aria-label=Breadcrumb] so screen readers announce the landmark",
+      "userRequirements": "Don't place multiple breadcrumbs on one page"
+    },
+    {
+      "feature": "Current page",
+      "implementation": "Last item has aria-current=page",
+      "userRequirements": "Only one item should have aria-current"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Labels", "guidelines": ["Use short nouns", "Match the page title of each level", "Avoid abbreviations"], "goodExamples": ["Home", "Documentation", "Components"], "badExamples": ["H", "Docs / Components / Button page", "Click here"] }
+    {
+      "contentType": "Labels",
+      "guidelines": [
+        "Use short nouns",
+        "Match the page title of each level",
+        "Avoid abbreviations"
+      ],
+      "goodExamples": [
+        "Home",
+        "Documentation",
+        "Components"
+      ],
+      "badExamples": [
+        "H",
+        "Docs / Components / Button page",
+        "Click here"
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "Link", "relationship": "Non-last items should be links", "example": "<Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Current' }]} />" }
+    {
+      "component": "Link",
+      "relationship": "Non-last items should be links",
+      "example": "<Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Current' }]} />"
+    }
   ],
-  "relatedComponents": ["Menu", "Tabs"],
+  "relatedComponents": [
+    "Menu",
+    "Tabs"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
   "version": "0.1.0",

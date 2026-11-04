@@ -52,13 +52,13 @@ async function inviteState(teamId: string) {
 
 async function makeUser(email: string) {
   // emailVerifiedAt stamps these fixtures as grandfathered/migrated accounts
-  // (KC-040): direct-DB fixtures predate the verification requirement.
+  //: direct-DB fixtures predate the verification requirement.
   const user = await prisma.user.create({ data: { email, emailVerifiedAt: new Date() } });
   createdUserIds.push(user.id);
   return user;
 }
 
-/** Invite/acceptance flows need seat capacity (KC-013); grant a TEAM plan. */
+/** Invite/acceptance flows need seat capacity; grant a TEAM plan. */
 async function createSeatedTeamForUser(userId: string, name: string) {
   const team = await createTeamForUser(userId, name);
   await activateSubscription(team.id, 'TEAM');
@@ -151,7 +151,7 @@ describe('teams', () => {
     });
   });
 
-  describe('reissued invitations (KC-012/KC-022)', () => {
+  describe('reissued invitations ()', () => {
     async function reusableFixture(state: 'expired' | 'accepted') {
       const fixture = await inviteFixture();
       if (state === 'expired') {
@@ -317,7 +317,7 @@ describe('teams', () => {
     });
   });
 
-  describe('recipient-bound invitations (KC-011)', () => {
+  describe('recipient-bound invitations', () => {
     it('rejects another persisted account without changing membership or consuming the invite', async () => {
       const fixture = await inviteFixture();
       const before = await inviteState(fixture.team.id);

@@ -1,0 +1,214 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "flex",
+  "name": "flex",
+  "tier": "molecule",
+  "description": "Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.",
+  "designIntent": "Layout utilities should be discoverable and tokenized: Flex turns display:flex into named props with token gaps, so spacing comes from the design system instead of scattered arbitrary classes. FlexItem handles per-child flex values through style (not runtime-built classes) so nothing gets purged from the stylesheet.",
+  "props": [
+    {
+      "name": "direction",
+      "type": "'row' | 'column'",
+      "required": false,
+      "description": "Main axis direction.",
+      "defaultValue": "row",
+      "enum": [
+        "row",
+        "column"
+      ],
+      "examples": [
+        "column"
+      ]
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'center' | 'end' | 'stretch' | 'baseline'",
+      "required": false,
+      "description": "Cross-axis alignment (align-items; align-self on FlexItem).",
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "stretch",
+        "baseline"
+      ],
+      "examples": [
+        "center"
+      ]
+    },
+    {
+      "name": "justify",
+      "type": "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'",
+      "required": false,
+      "description": "Main-axis distribution (justify-content).",
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "between",
+        "around",
+        "evenly"
+      ],
+      "examples": [
+        "between"
+      ]
+    },
+    {
+      "name": "wrap",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow items to wrap onto multiple lines.",
+      "defaultValue": "false",
+      "examples": [
+        "true"
+      ]
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
+      "required": false,
+      "description": "Token gap between children.",
+      "defaultValue": "md",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "lg"
+      ]
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer' | 'li'",
+      "required": false,
+      "description": "Semantic element (FlexItem also supports 'li', Flex supports the structural elements).",
+      "enum": [
+        "div",
+        "span",
+        "section",
+        "article",
+        "nav",
+        "header",
+        "footer",
+        "li"
+      ],
+      "examples": [
+        "section",
+        "li"
+      ]
+    },
+    {
+      "name": "grow",
+      "type": "boolean | string",
+      "required": false,
+      "description": "flex-grow for this FlexItem (true = 1, or a numeric string).",
+      "examples": [
+        "true",
+        "2"
+      ]
+    },
+    {
+      "name": "shrink",
+      "type": "boolean | string",
+      "required": false,
+      "description": "flex-shrink for this FlexItem (false = 0, or a numeric string).",
+      "examples": [
+        "false",
+        "0"
+      ]
+    },
+    {
+      "name": "basis",
+      "type": "string",
+      "required": false,
+      "description": "flex-basis for this FlexItem (e.g. '0', '200px', 'auto').",
+      "examples": [
+        "200px",
+        "auto"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Toolbar row",
+      "code": "<Flex align=\"center\" justify=\"between\" gap=\"sm\">\n  <Text size=\"sm\" weight=\"medium\">Title</Text>\n  <Flex gap=\"sm\">\n    <Button size=\"sm\" variant=\"ghost\">Cancel</Button>\n    <Button size=\"sm\">Save</Button>\n  </Flex>\n</Flex>",
+      "description": "Token gaps keep spacing on the design system grid."
+    },
+    {
+      "title": "Sidebar + content",
+      "code": "<Flex gap=\"lg\">\n  <FlexItem basis=\"240px\" shrink={false}>\n    <SidebarNav />\n  </FlexItem>\n  <FlexItem grow>\n    <Article />\n  </FlexItem>\n</Flex>",
+      "description": "FlexItem values render via inline style — arbitrary numeric utilities would be purged."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't rebuild layout primitives with arbitrary classes",
+      "explanation": "Runtime-built class strings (grow-[${value}]) never make it into the compiled CSS. Use Flex/FlexItem props — they emit style values where Tailwind can't.",
+      "example": "<div className={`grow-[${n}]`}>  // purged at build\n<FlexItem grow={n}>  // works"
+    },
+    {
+      "title": "Don't wrap a single child",
+      "explanation": "A Flex with one child adds a pointless layout layer — use Block with utilities instead.",
+      "example": "<Flex gap=\"md\"><Card /></Flex>  // avoid"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Layout-only semantics",
+      "implementation": "Renders div/span/section… — no interactive or live behavior is added",
+      "userRequirements": "Interactive children keep their own keyboard/ARIA contracts"
+    },
+    {
+      "feature": "Wrap keeps reading order",
+      "implementation": "flex-wrap reflows visually; DOM order (reading order) never changes",
+      "userRequirements": "Put items in logical reading order regardless of visual layout"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Flex for one-axis alignment; Grid for two-axis layout"
+    },
+    {
+      "component": "Block",
+      "relationship": "Blocks are the semantic wrappers Flex arranges"
+    }
+  ],
+  "relatedComponents": [
+    "Grid",
+    "Block",
+    "List"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "flex",
+  "exportName": "Flex",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/flex/Flex.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { resolveGap, type GapValue } from '../../utils/gap';\n\nexport type FlexProps = React.HTMLAttributes<HTMLElement> & {\n  /** Main axis direction. */\n  direction?: 'row' | 'column';\n  /** Cross-axis alignment (align-items). */\n  align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';\n  /** Main-axis distribution (justify-content). */\n  justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';\n  /** Allow items to wrap onto multiple lines. */\n  wrap?: boolean;\n  /** Token gap ('md') or exact pixels (16) between children. */\n  gap?: GapValue;\n  /** Semantic element (default 'div'; 'span' keeps inline flow). */\n  as?: 'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer';\n};\n\nconst justifyClasses = {\n  start: 'justify-start',\n  center: 'justify-center',\n  end: 'justify-end',\n  between: 'justify-between',\n  around: 'justify-around',\n  evenly: 'justify-evenly',\n} as const;\n\nconst alignClasses = {\n  start: 'items-start',\n  center: 'items-center',\n  end: 'items-end',\n  stretch: 'items-stretch',\n  baseline: 'items-baseline',\n} as const;\n\n/**\n * Layout flex container — a typed, discoverable wrapper around\n * `display: flex` with token gaps. Children are plain elements; use\n * FlexItem for per-child grow/shrink/basis overrides.\n */\nconst Flex = React.forwardRef<HTMLElement, FlexProps>(\n  (\n    { direction = 'row', align, justify, wrap, gap = 'md', as = 'div', className, style, ...props },\n    ref\n  ) => {\n    const Tag = as as 'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer';\n    const gapResolved = resolveGap(gap);\n    return (\n      <Tag\n        ref={ref as never}\n        className={cn(\n          'flex min-w-0',\n          direction === 'column' ? 'flex-col' : 'flex-row',\n          wrap && 'flex-wrap',\n          align && alignClasses[align],\n          justify && justifyClasses[justify],\n          gapResolved.className,\n          className\n        )}\n        style={{ ...gapResolved.style, ...style }}\n        {...props}\n      />\n    );\n  }\n);\nFlex.displayName = 'Flex';\n\nexport type FlexItemProps = React.HTMLAttributes<HTMLElement> & {\n  /** flex-grow — number or CSS-ish string (e.g. '1', '2'). */\n  grow?: boolean | string;\n  /** flex-shrink — number or CSS-ish string (e.g. '0'). */\n  shrink?: boolean | string;\n  /** flex-basis (e.g. '0', '200px', 'auto'). */\n  basis?: string;\n  /** Cross-axis alignment for this item (align-self). */\n  align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';\n  /** Semantic element (default 'div'). */\n  as?: 'div' | 'span' | 'li' | 'figure';\n};\n\nconst selfAlignClasses = {\n  start: 'self-start',\n  center: 'self-center',\n  end: 'self-end',\n  stretch: 'self-stretch',\n  baseline: 'self-baseline',\n} as const;\n\n/** Per-child flex controls for a Flex container. */\nconst FlexItem = React.forwardRef<HTMLElement, FlexItemProps>(\n  ({ grow, shrink, basis, align, as = 'div', className, ...props }, ref) => {\n    const Tag = as as 'div' | 'span' | 'li' | 'figure';\n    // Numeric/arb flex values go through style — Tailwind cannot compile\n    // runtime-built arbitrary classes (grow-[${grow}]) they would be purged.\n    const style: React.CSSProperties = {\n      ...(grow === true ? { flexGrow: 1 } : typeof grow === 'string' && grow ? { flexGrow: grow } : {}),\n      ...(shrink === false ? { flexShrink: 0 } : typeof shrink === 'string' && shrink ? { flexShrink: Number(shrink) || shrink } : {}),\n      ...(basis ? { flexBasis: basis } : {}),\n    };\n    return (\n      <Tag\n        ref={ref as never}\n        className={cn(align && selfAlignClasses[align], className)}\n        style={Object.keys(style).length > 0 ? style : undefined}\n        {...props}\n      />\n    );\n  }\n);\nFlexItem.displayName = 'FlexItem';\n\nexport { Flex, FlexItem };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/flex/index.ts",
+      "content": "export * from './Flex';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/flex.manifest.json",
+      "content": "{\n  \"id\": \"flex\",\n  \"name\": \"Flex / FlexItem\",\n  \"tier\": \"molecule\",\n  \"description\": \"Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.\",\n  \"designIntent\": \"Layout utilities should be discoverable and tokenized: Flex turns display:flex into named props with token gaps, so spacing comes from the design system instead of scattered arbitrary classes. FlexItem handles per-child flex values through style (not runtime-built classes) so nothing gets purged from the stylesheet.\",\n  \"props\": [\n    {\n      \"name\": \"direction\",\n      \"type\": \"'row' | 'column'\",\n      \"required\": false,\n      \"description\": \"Main axis direction.\",\n      \"defaultValue\": \"row\",\n      \"enum\": [\"row\", \"column\"],\n      \"examples\": [\"column\"]\n    },\n    {\n      \"name\": \"align\",\n      \"type\": \"'start' | 'center' | 'end' | 'stretch' | 'baseline'\",\n      \"required\": false,\n      \"description\": \"Cross-axis alignment (align-items; align-self on FlexItem).\",\n      \"enum\": [\"start\", \"center\", \"end\", \"stretch\", \"baseline\"],\n      \"examples\": [\"center\"]\n    },\n    {\n      \"name\": \"justify\",\n      \"type\": \"'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'\",\n      \"required\": false,\n      \"description\": \"Main-axis distribution (justify-content).\",\n      \"enum\": [\"start\", \"center\", \"end\", \"between\", \"around\", \"evenly\"],\n      \"examples\": [\"between\"]\n    },\n    {\n      \"name\": \"wrap\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Allow items to wrap onto multiple lines.\",\n      \"defaultValue\": \"false\",\n      \"examples\": [\"true\"]\n    },\n    {\n      \"name\": \"gap\",\n      \"type\": \"'none' | 'sm' | 'md' | 'lg' | 'xl'\",\n      \"required\": false,\n      \"description\": \"Token gap between children.\",\n      \"defaultValue\": \"md\",\n      \"enum\": [\"none\", \"sm\", \"md\", \"lg\", \"xl\"],\n      \"examples\": [\"lg\"]\n    },\n    {\n      \"name\": \"as\",\n      \"type\": \"'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer' | 'li'\",\n      \"required\": false,\n      \"description\": \"Semantic element (FlexItem also supports 'li', Flex supports the structural elements).\",\n      \"enum\": [\"div\", \"span\", \"section\", \"article\", \"nav\", \"header\", \"footer\", \"li\"],\n      \"examples\": [\"section\", \"li\"]\n    },\n    {\n      \"name\": \"grow\",\n      \"type\": \"boolean | string\",\n      \"required\": false,\n      \"description\": \"flex-grow for this FlexItem (true = 1, or a numeric string).\",\n      \"examples\": [\"true\", \"2\"]\n    },\n    {\n      \"name\": \"shrink\",\n      \"type\": \"boolean | string\",\n      \"required\": false,\n      \"description\": \"flex-shrink for this FlexItem (false = 0, or a numeric string).\",\n      \"examples\": [\"false\", \"0\"]\n    },\n    {\n      \"name\": \"basis\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"flex-basis for this FlexItem (e.g. '0', '200px', 'auto').\",\n      \"examples\": [\"200px\", \"auto\"]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Toolbar row\",\n      \"code\": \"<Flex align=\\\"center\\\" justify=\\\"between\\\" gap=\\\"sm\\\">\\n  <Text size=\\\"sm\\\" weight=\\\"medium\\\">Title</Text>\\n  <Flex gap=\\\"sm\\\">\\n    <Button size=\\\"sm\\\" variant=\\\"ghost\\\">Cancel</Button>\\n    <Button size=\\\"sm\\\">Save</Button>\\n  </Flex>\\n</Flex>\",\n      \"description\": \"Token gaps keep spacing on the design system grid.\"\n    },\n    {\n      \"title\": \"Sidebar + content\",\n      \"code\": \"<Flex gap=\\\"lg\\\">\\n  <FlexItem basis=\\\"240px\\\" shrink={false}>\\n    <SidebarNav />\\n  </FlexItem>\\n  <FlexItem grow>\\n    <Article />\\n  </FlexItem>\\n</Flex>\",\n      \"description\": \"FlexItem values render via inline style — arbitrary numeric utilities would be purged.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't rebuild layout primitives with arbitrary classes\",\n      \"explanation\": \"Runtime-built class strings (grow-[${value}]) never make it into the compiled CSS. Use Flex/FlexItem props — they emit style values where Tailwind can't.\",\n      \"example\": \"<div className={`grow-[${n}]`}>  // purged at build\\n<FlexItem grow={n}>  // works\"\n    },\n    {\n      \"title\": \"Don't wrap a single child\",\n      \"explanation\": \"A Flex with one child adds a pointless layout layer — use Block with utilities instead.\",\n      \"example\": \"<Flex gap=\\\"md\\\"><Card /></Flex>  // avoid\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Layout-only semantics\",\n      \"implementation\": \"Renders div/span/section… — no interactive or live behavior is added\",\n      \"userRequirements\": \"Interactive children keep their own keyboard/ARIA contracts\"\n    },\n    {\n      \"feature\": \"Wrap keeps reading order\",\n      \"implementation\": \"flex-wrap reflows visually; DOM order (reading order) never changes\",\n      \"userRequirements\": \"Put items in logical reading order regardless of visual layout\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Flex for one-axis alignment; Grid for two-axis layout\"\n    },\n    {\n      \"component\": \"Block\",\n      \"relationship\": \"Blocks are the semantic wrappers Flex arranges\"\n    }\n  ],\n  \"relatedComponents\": [\"Grid\", \"Block\", \"List\"],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"flex\",\n  \"exportName\": \"Flex\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

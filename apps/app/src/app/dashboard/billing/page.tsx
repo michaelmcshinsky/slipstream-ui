@@ -6,14 +6,14 @@ import { Card, CardTitle, inputClass } from '@/components/ui';
 import { useBilling } from './use-billing';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
-interface PaymentRow {
+type PaymentRow = {
   id: string;
   amountCents: number;
   currency: string;
   status: string;
   description: string;
   createdAt: string;
-}
+};
 
 export default function BillingPage() {
   const searchParams = useSearchParams();

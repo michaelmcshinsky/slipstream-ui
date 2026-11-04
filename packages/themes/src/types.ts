@@ -4,7 +4,7 @@
  * Type definitions for the theming system
  */
 
-export interface ThemeColors {
+export type ThemeColors = {
   background: string;
   foreground: string;
   primary: string;
@@ -30,9 +30,9 @@ export interface ThemeColors {
   'card-foreground': string;
   popover: string;
   'popover-foreground': string;
-}
+};
 
-export interface Theme {
+export type Theme = {
   name: string;
   colors: ThemeColors;
   borderRadius?: string;
@@ -63,11 +63,11 @@ export interface Theme {
     /** Spring-like easing for emphasis (default 'cubic-bezier(0.34, 1.56, 0.64, 1)'). */
     easeOut: string;
   };
-}
+};
 
-export interface ThemeConfig {
+export type ThemeConfig = {
   /**
-   * Brand color in HSL format (e.g., "210 100% 50%")
+   * Brand color in HSL format (e.g., "224 89% 58%")
    */
   brandColor?: string;
   /**
@@ -82,4 +82,4 @@ export interface ThemeConfig {
    * Spacing density: 'compact' | 'normal' | 'relaxed'
    */
   density?: 'compact' | 'normal' | 'relaxed';
-}
+};

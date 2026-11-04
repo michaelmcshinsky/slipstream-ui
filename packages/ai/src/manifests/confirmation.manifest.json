@@ -31,6 +31,24 @@
       "description": "Controlled outcome; omit for uncontrolled."
     },
     {
+      "name": "variant",
+      "type": "'default' | 'warning' | 'destructive' | 'info' | 'success'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Accent color of the pending card; outcome chips always follow the result.",
+      "enum": [
+        "default",
+        "warning",
+        "destructive",
+        "info",
+        "success"
+      ],
+      "examples": [
+        "destructive",
+        "info"
+      ]
+    },
+    {
       "name": "onApprove",
       "type": "() => void",
       "required": false,
@@ -47,6 +65,54 @@
       "type": "object",
       "required": false,
       "description": "Overrides for approve/reject/approved/rejected labels."
+    },
+    {
+      "name": "approveVariant",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Button variant for the approve action.",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "examples": [
+        "destructive",
+        "default"
+      ]
+    },
+    {
+      "name": "rejectVariant",
+      "type": "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+      "defaultValue": "outline",
+      "required": false,
+      "description": "Button variant for the reject action.",
+      "enum": [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link"
+      ],
+      "examples": [
+        "ghost"
+      ]
+    },
+    {
+      "name": "showActions",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Hide the action buttons (controlled-only gate; status drives the chip).",
+      "examples": [
+        "true",
+        "false"
+      ]
     }
   ],
   "examples": [

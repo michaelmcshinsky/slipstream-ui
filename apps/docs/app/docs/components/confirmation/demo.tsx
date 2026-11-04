@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Confirmation } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
+import { VERSION } from '@/lib/version';
 
 export default function ConfirmationPage() {
   const [decisions, setDecisions] = useState<string[]>([]);
@@ -18,6 +19,11 @@ export default function ConfirmationPage() {
         { name: 'description', type: 'string', description: 'Detail: affected resource or risk note.' },
         { name: 'toolName', type: 'string', description: 'Tool name shown as mono text.' },
         { name: 'status', type: "'pending' | 'approved' | 'rejected'", defaultValue: "'pending'", description: 'Controlled outcome; omit for uncontrolled.' },
+        { name: 'variant', type: "'default' | 'warning' | 'destructive' | 'info' | 'success'", defaultValue: "'default'", description: 'Accent color of the pending card; outcome chips always follow the result.' },
+        { name: 'approveVariant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Button variant for the approve action.' },
+        { name: 'rejectVariant', type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'", defaultValue: "'outline'", description: 'Button variant for the reject action.' },
+        { name: 'showActions', type: 'boolean', defaultValue: 'true', description: 'Hide the action buttons (controlled-only gate; status drives the chip).' },
+        { name: 'labels', type: '{ approve?, reject?, approved?, rejected? }', description: 'Wording overrides for the buttons and outcome chips.' },
         { name: 'onApprove', type: '() => void', description: 'Called on approval.' },
         { name: 'onReject', type: '() => void', description: 'Called on rejection.' },
         { name: 'labels', type: 'object', description: 'Label overrides for localization.' },
@@ -51,6 +57,92 @@ export default function ConfirmationPage() {
   onApprove={() => approve()}
   onReject={() => reject()}
 />`}
+      />
+
+      <DemoCard
+        title="Color variants"
+        preview={
+          <div className="grid w-full gap-4 md:grid-cols-2">
+            <Confirmation
+              title="Destructive action"
+              description="Variant sets the pending card accent; the result chip still encodes the outcome."
+              variant="destructive"
+            />
+            <Confirmation title="Info gate" description="Neutral blue accent for non-risky pauses." variant="info" />
+            <Confirmation title="Success flow" description="Green accent for confirm-to-continue steps." variant="success" />
+            <Confirmation title="Warning (default)" description="The default amber accent — same as omitting variant." />
+          </div>
+        }
+        code={`import { Confirmation } from '@slipstream-ui/ai';
+
+{/* Accent the pending card by risk profile */}
+<Confirmation title="Delete all files" variant="destructive" … />
+<Confirmation title="Publish to production" variant="info" … />
+<Confirmation title="Activate license" variant="success" … />
+<Confirmation title="Publish release" variant="warning" … />   {/* default */}`}
+        usage={`import { Confirmation } from '@slipstream-ui/ai';
+
+// Controlled outcome with a color hint
+<Confirmation
+  title="Send to all 2,400 users?"
+  variant="destructive"
+  status={decision}
+  onApprove={approve}
+  onReject={reject}
+/>`}
+        types={`type ConfirmationVariant =
+  | 'default'
+  | 'warning'
+  | 'destructive'
+  | 'info'
+  | 'success';`}
+      />
+
+      <DemoCard
+        title="Buttons: wording, styling, visibility"
+        preview={
+          <div className="grid w-full gap-4 md:grid-cols-2">
+            <Confirmation
+              title={`Publish release v${VERSION}?`}
+              description="Custom wording and destructive approve styling."
+              variant="info"
+              approveVariant="destructive"
+              rejectVariant="ghost"
+              labels={{ approve: 'Ship it', reject: 'Not yet', approved: 'Shipped', rejected: 'Held' }}
+            />
+            <Confirmation
+              title="Read-only gate"
+              description="showActions hides the buttons — pair with a controlled status driven by your own UI."
+              showActions={false}
+            />
+          </div>
+        }
+        code={`{/* Custom wording + button variants */}
+<Confirmation
+  title="Publish release v${VERSION}?"
+  variant="info"
+  approveVariant="destructive"
+  rejectVariant="ghost"
+  labels={{ approve: 'Ship it', reject: 'Not yet', approved: 'Shipped', rejected: 'Held' }}
+  onApprove={ship}
+/>
+
+{/* Controlled-only gate: no inline buttons */}
+<Confirmation title="Read-only gate" showActions={false} status={status} />`}
+        usage={`import { Confirmation } from '@slipstream-ui/ai';
+
+// Destructive actions get destructive approve styling
+<Confirmation
+  title="Delete the workspace?"
+  variant="destructive"
+  approveVariant="destructive"
+  labels={{ approve: 'Delete everything' }}
+  onApprove={destroy}
+  onReject={cancel}
+/>`}
+        types={`type ConfirmationActionVariant =
+  | 'default' | 'destructive' | 'outline'
+  | 'secondary' | 'ghost' | 'link';`}
       />
     </ComponentPage>
   );

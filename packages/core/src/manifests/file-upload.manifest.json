@@ -1,0 +1,103 @@
+{
+  "id": "file-upload",
+  "name": "FileUpload",
+  "tier": "organism",
+  "description": "Drag-and-drop file picker with a removable file list and per-file progress bars.",
+  "designIntent": "File inputs are hard to style and easy to make inaccessible. FileUpload keeps the native input as the real control, adds a drop zone as an enhancement, and exposes plain File objects so the transport and progress stay yours.",
+  "props": [
+    {
+      "name": "files",
+      "type": "File[]",
+      "required": false,
+      "description": "Controlled selection."
+    },
+    {
+      "name": "defaultFiles",
+      "type": "File[]",
+      "required": false,
+      "description": "Initial selection when uncontrolled."
+    },
+    {
+      "name": "onFilesChange",
+      "type": "(files: File[]) => void",
+      "required": false,
+      "description": "Fired on add, drop, remove."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Drop files here or click to browse",
+      "description": "Drop-zone copy."
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "required": false,
+      "description": "Helper line under the drop zone."
+    },
+    {
+      "name": "progress",
+      "type": "Record<string, number>",
+      "required": false,
+      "description": "Per-file progress 0-100 keyed by file name; renders progress bars."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Attachments with progress",
+      "code": "<FileUpload\n  aria-label=\"Attachments\"\n  accept=\".pdf,.csv\"\n  progress={{ 'report.pdf': 42 }}\n  onFilesChange={setFiles}\n/>",
+      "description": "Native input + drop zone + progress."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hide the input from the a11y tree",
+      "explanation": "The label targets the real input, keeping keyboard and mobile file dialogs working.",
+      "example": "// Avoid: tabIndex={-1} display:none input\n// Prefer: <FileUpload /> (input is sr-only but focusable)"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native control",
+      "implementation": "Visible label targets a real (sr-only) file input",
+      "userRequirements": "Provide aria-label or wrap in FormField"
+    },
+    {
+      "feature": "Progress",
+      "implementation": "Each uploading file exposes role=progressbar with a name",
+      "userRequirements": "Keep progress keyed by file name"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Hints",
+      "guidelines": [
+        "State accepted types and size limits"
+      ],
+      "goodExamples": [
+        "PDF or CSV, up to 10 MB"
+      ],
+      "badExamples": [
+        "Upload"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FormField",
+      "relationship": "Wrap for label/error wiring",
+      "example": "<FormField id=\"files\" label=\"Attachments\"><FileUpload /></FormField>"
+    }
+  ],
+  "relatedComponents": [
+    "Attachment",
+    "FormField",
+    "Progress"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "file-upload",
+  "exportName": "FileUpload"
+}

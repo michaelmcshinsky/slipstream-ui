@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     });
 
     // Paginate on membership rows (the query's sort key) so nextCursor is a
-    // membership id; items are then mapped to their public team shape (KC-015).
+    // membership id; items are then mapped to their public team shape.
     const { items: page, meta } = paginate(rows, query.limit, { cursorOf: (m) => m.id });
     const items = page.map((m) => ({
       id: m.team.id,

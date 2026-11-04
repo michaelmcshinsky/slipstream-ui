@@ -17,8 +17,19 @@ The Badge component is used to display small pieces of information like status i
 | variant | `'default' | 'secondary' | 'destructive' | 'outline'` | `default` | no | Visual style variant of the badge |
 | children | `ReactNode` | — | no | Content to display inside the badge |
 | className | `string` | — | no | Additional CSS classes to apply |
+| asChild | `boolean` | `false` | no | Render the child element (e.g. a router Link) with badge styling. |
 
 ## Examples
+
+### Tag linking to a filter
+
+Tag that navigates.
+
+```tsx
+<Badge asChild>
+  <Link href="/tags/react">React</Link>
+</Badge>
+```
 
 ### Default badge
 

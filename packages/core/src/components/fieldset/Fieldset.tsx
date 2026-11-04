@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export interface FieldsetProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
+export type FieldsetProps = React.FieldsetHTMLAttributes<HTMLFieldSetElement> & {
   /** Legend rendered as the group's accessible name. */
   legend?: string;
   /** Muted supporting line rendered under the legend. */
   description?: string;
   /** Error line rendered under the controls; announced via role=alert. */
   error?: string;
-}
+};
 
 /**
  * Groups related form controls in a native <fieldset> with a legend,

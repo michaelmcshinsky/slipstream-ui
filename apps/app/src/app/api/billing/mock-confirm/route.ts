@@ -88,7 +88,7 @@ async function consumeCheckout(id: string, initiatingUserId: string): Promise<st
       });
       const existing = await tx.licenseKey.findFirst({ where: { teamId, plan: plan.id, status: 'ACTIVE' } });
       if (!existing) {
-        // Subscription-issued licenses expire with the billing period (KC-008).
+        // Subscription-issued licenses expire with the billing period.
         await issueLicense({ ownerId: owner.userId, teamId, plan: plan.id, actorId: user.id, note: `Auto-issued with ${plan.id} subscription`, expiresAt: subscription.currentPeriodEnd }, tx);
       }
       await audit({

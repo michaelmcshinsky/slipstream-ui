@@ -1,10 +1,10 @@
 import { getManifest } from '../registry';
 import type { McpTool } from './types';
 
-interface UsageIssue {
+type UsageIssue = {
   severity: 'error' | 'warning';
   message: string;
-}
+};
 
 /**
  * Extract attribute names from JSX usages of the component, e.g. every

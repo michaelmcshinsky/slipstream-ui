@@ -2,13 +2,13 @@ import * as React from 'react';
 import { cn } from '@slipstream-ui/core';
 import type { SourceItem } from '../../types';
 
-export interface InlineCitationProps {
+export type InlineCitationProps = {
   /** The cited source; powers the hover/focus preview card. */
   source: SourceItem;
   /** Citation text to wrap (defaults to the source title). */
   children?: React.ReactNode;
   className?: string;
-}
+};
 
 /**
  * Perplexity-style inline citation: a superscript chip that reveals the

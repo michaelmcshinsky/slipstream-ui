@@ -5,7 +5,7 @@ import { cancelSubscription, refundPayment } from './billing';
 import { makeUser } from '../test/helpers';
 
 /**
- * KC-038 stripe-mode behavior with a mocked SDK: provider calls happen
+ * stripe-mode behavior with a mocked SDK: provider calls happen
  * before any local state change, and failures never report success.
  */
 
@@ -73,7 +73,7 @@ async function teamWithStripeSubscription() {
   return { owner, team };
 }
 
-describe('stripe-mode cancel (KC-038/KC-007)', () => {
+describe('stripe-mode cancel ()', () => {
   it('calls Stripe cancel-at-period-end and records it only after success', async () => {
     const { owner, team } = await teamWithStripeSubscription();
     await cancelSubscription(team.id, owner.id);
@@ -94,7 +94,7 @@ describe('stripe-mode cancel (KC-038/KC-007)', () => {
   });
 });
 
-describe('stripe-mode refund (KC-038/KC-007)', () => {
+describe('stripe-mode refund ()', () => {
   it('refunds a pi_ payment and marks it refunded only after confirmation', async () => {
     const { team } = await teamWithStripeSubscription();
     const payment = await prisma.payment.create({

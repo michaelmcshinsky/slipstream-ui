@@ -1,11 +1,11 @@
-interface PropsTableProps {
+type PropsTableProps = {
   rows: {
     name: string;
     type: string;
     defaultValue?: string;
     description: string;
   }[];
-}
+};
 
 /** Shared props reference table used by every component docs page. */
 export function PropsTable({ rows }: PropsTableProps) {

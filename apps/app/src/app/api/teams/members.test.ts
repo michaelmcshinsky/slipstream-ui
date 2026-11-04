@@ -1,5 +1,5 @@
 /**
- * KC-004 / KC-023 — Team member RBAC boundary tests driving the real
+ * — Team member RBAC boundary tests driving the real
  * PATCH/DELETE route handlers: owners cannot be demoted or removed by
  * admins, admins cannot be removed by admins, and the last owner can
  * never be demoted or removed.
@@ -158,7 +158,7 @@ async function memberState() {
   };
 }
 
-describe('concurrent owner changes (KC-023)', () => {
+describe('concurrent owner changes', () => {
   it.each([
     ['PATCH', 'PATCH', 'self'],
     ['PATCH', 'PATCH', 'other'],

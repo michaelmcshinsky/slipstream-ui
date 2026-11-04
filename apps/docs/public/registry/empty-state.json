@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "empty-state",
+  "name": "empty-state",
+  "tier": "molecule",
+  "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
+  "designIntent": "Empty states are where users decide what to do next. A consistent icon/title/description/action hierarchy beats ad-hoc 'No data' strings, and a stable structure is easier for screen readers and tests.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Primary message.",
+      "examples": [
+        "No classes yet"
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting line explaining the next step."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Decorative icon/illustration above the title."
+    },
+    {
+      "name": "action",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Primary action (Button or link)."
+    },
+    {
+      "name": "secondaryAction",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Secondary action beside the primary one."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Compact padding for panels/table bodies.",
+      "enum": [
+        "sm",
+        "md"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Empty collection",
+      "code": "<EmptyState\n  title=\"No classes yet\"\n  description=\"Create your first class to get started.\"\n  action={<Button>New class</Button>}\n/>",
+      "description": "Title, explanation and one primary action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for errors",
+      "explanation": "Empty is a normal state; failures need Alert/ErrorAlert with retry affordances.",
+      "example": "// Avoid\n<EmptyState title=\"Failed to load\" />\n\n// Prefer\n<Alert variant=\"destructive\">Failed to load. <Button>Retry</Button></Alert>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Action targets",
+      "implementation": "Actions are whatever you pass — use Button/link components so they stay focusable and announced",
+      "userRequirements": "Always provide a real control, not a bare sentence"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Copy",
+      "guidelines": [
+        "Say what is missing",
+        "Say what to do next",
+        "Avoid blaming the user"
+      ],
+      "goodExamples": [
+        "No classes yet — create your first class"
+      ],
+      "badExamples": [
+        "Empty",
+        "Nothing here"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "Often rendered inside a Card body or a DataTable empty slot",
+      "example": "<Card><CardContent><EmptyState … /></CardContent></Card>"
+    }
+  ],
+  "relatedComponents": [
+    "Alert",
+    "Card",
+    "DataTable"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "empty-state",
+  "exportName": "EmptyState",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/empty-state/EmptyState.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Icon or illustration shown above the title. */\n  icon?: React.ReactNode;\n  title: string;\n  description?: string;\n  /** Primary action (button/link). */\n  action?: React.ReactNode;\n  /** Secondary action shown beside the primary one. */\n  secondaryAction?: React.ReactNode;\n  /** Compact padding for use inside panels and table bodies. */\n  size?: 'sm' | 'md';\n};\n\n/**\n * Placeholder for empty collections, zero-result searches and unconfigured\n * features. Keeps the title/description/action hierarchy consistent across\n * the product.\n */\nexport const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(function EmptyState(\n  { icon, title, description, action, secondaryAction, size = 'md', className, children, ...props },\n  ref\n) {\n  return (\n    <div\n      ref={ref}\n      className={cn(\n        'flex flex-col items-center justify-center rounded-lg border border-dashed border-border text-center',\n        size === 'md' ? 'gap-3 px-6 py-12' : 'gap-2 px-4 py-6',\n        className\n      )}\n      {...props}\n    >\n      {icon && <div className=\"text-muted-foreground [&_svg]:size-8\">{icon}</div>}\n      <p className={cn('font-semibold', size === 'md' ? 'text-base' : 'text-sm')}>{title}</p>\n      {description && <p className=\"max-w-sm text-sm text-muted-foreground\">{description}</p>}\n      {children}\n      {(action || secondaryAction) && (\n        <div className=\"mt-1 flex flex-wrap items-center justify-center gap-2\">\n          {action}\n          {secondaryAction}\n        </div>\n      )}\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/empty-state/index.ts",
+      "content": "export * from './EmptyState';\r\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/empty-state.manifest.json",
+      "content": "{\n  \"id\": \"empty-state\",\n  \"name\": \"EmptyState\",\n  \"tier\": \"molecule\",\n  \"description\": \"Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.\",\n  \"designIntent\": \"Empty states are where users decide what to do next. A consistent icon/title/description/action hierarchy beats ad-hoc 'No data' strings, and a stable structure is easier for screen readers and tests.\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Primary message.\",\n      \"examples\": [\n        \"No classes yet\"\n      ]\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Supporting line explaining the next step.\"\n    },\n    {\n      \"name\": \"icon\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Decorative icon/illustration above the title.\"\n    },\n    {\n      \"name\": \"action\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Primary action (Button or link).\"\n    },\n    {\n      \"name\": \"secondaryAction\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Secondary action beside the primary one.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"description\": \"Compact padding for panels/table bodies.\",\n      \"enum\": [\n        \"sm\",\n        \"md\"\n      ]\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Empty collection\",\n      \"code\": \"<EmptyState\\n  title=\\\"No classes yet\\\"\\n  description=\\\"Create your first class to get started.\\\"\\n  action={<Button>New class</Button>}\\n/>\",\n      \"description\": \"Title, explanation and one primary action.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for errors\",\n      \"explanation\": \"Empty is a normal state; failures need Alert/ErrorAlert with retry affordances.\",\n      \"example\": \"// Avoid\\n<EmptyState title=\\\"Failed to load\\\" />\\n\\n// Prefer\\n<Alert variant=\\\"destructive\\\">Failed to load. <Button>Retry</Button></Alert>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Action targets\",\n      \"implementation\": \"Actions are whatever you pass — use Button/link components so they stay focusable and announced\",\n      \"userRequirements\": \"Always provide a real control, not a bare sentence\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Copy\",\n      \"guidelines\": [\n        \"Say what is missing\",\n        \"Say what to do next\",\n        \"Avoid blaming the user\"\n      ],\n      \"goodExamples\": [\n        \"No classes yet — create your first class\"\n      ],\n      \"badExamples\": [\n        \"Empty\",\n        \"Nothing here\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Card\",\n      \"relationship\": \"Often rendered inside a Card body or a DataTable empty slot\",\n      \"example\": \"<Card><CardContent><EmptyState … /></CardContent></Card>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Alert\",\n    \"Card\",\n    \"DataTable\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.1.0\",\n  \"sourceDir\": \"empty-state\",\n  \"exportName\": \"EmptyState\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ import { cn } from '@slipstream-ui/core';
 import { CodeBlock } from '../code-block';
 import { closeIncompleteMarkdown } from './close-incomplete-markdown';
 
-export interface ResponseProps {
+export type ResponseProps = {
   /** Markdown content to render. */
   children: string;
   /**
@@ -16,7 +16,7 @@ export interface ResponseProps {
    */
   parseIncompleteMarkdown?: boolean;
   className?: string;
-}
+};
 
 /**
  * Streaming-optimized markdown renderer for AI responses.

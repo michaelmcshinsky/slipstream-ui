@@ -20,11 +20,11 @@ export type RegistryManifest = {
   [key: string]: unknown;
 };
 
-export interface RegistryEntry {
+export type RegistryEntry = {
   manifest: RegistryManifest;
   /** Directory containing the package that ships this manifest. */
   packageDir: string;
-}
+};
 
 const PACKAGE_NAMES = ['@slipstream-ui/core', '@slipstream-ui/ai'] as const;
 

@@ -1,4 +1,4 @@
-# Competitor research (KC-045)
+# Competitor research
 
 Recorded 2026-10-19 from official sources. Findings inform the acceptance
 criteria for Slipstream UI features; public behavior may be reimplemented,
@@ -69,16 +69,16 @@ project.
 - **Model**: Tailwind CSS component classes (plugin, no runtime JS), theme system,
   npm distribution.
 
-## Differentiated acceptance criteria (applied to KC-025–031)
+## Differentiated acceptance criteria
 
 1. **Runtime-independent AI conversion** — `@slipstream-ui/ai/adapter` maps structural
-   AI-SDK-shaped state to Slipstream types with zero SDK dependency (KC-025 tests).
+   AI-SDK-shaped state to Slipstream types with zero SDK dependency (tests).
 2. **Deterministic capability search with explanation** — MCP `search_components` is
-   lexical, scores deterministically, and reports matched fields (KC-026 tests).
+   lexical, scores deterministically, and reports matched fields (tests).
 3. **Non-destructive content-based CLI diff** — `slipstream-ui diff` compares file
-   hashes, never writes, exits 1 on drift for CI (KC-027 tests).
+   hashes, never writes, exits 1 on drift for CI (tests).
 4. **Accessible composable primitives** — Toast/Dialog/Select/CommandPalette ship with
-   axe + keyboard/focus tests, controlled and uncontrolled states (KC-028–031 tests).
+   axe + keyboard/focus tests, controlled and uncontrolled states.
 5. **Search stays lexical** until semantic ranking is actually implemented.
 6. **No proprietary assets copied** — all implementations are original; MIT/Apache-2.0
    projects informed behavior only, and their license texts require no action for us
