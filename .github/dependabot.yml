@@ -11,6 +11,10 @@ updates:
       # regression pass. See the closed "Bump tailwindcss 3.4 -> 4.x" PR.
       - dependency-name: "tailwindcss"
         versions: [">=4.0.0"]
+      # Prisma 7 drops datasource url from schema.prisma and requires
+      # prisma.config.ts + driver adapters; needs a dedicated migration.
+      - dependency-name: "prisma"
+        versions: [">=7.0.0"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:

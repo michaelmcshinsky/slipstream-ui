@@ -155,12 +155,14 @@ describe('Drawer sizes and custom extents', () => {
   });
 
   it('accepts a CSS length height for top/bottom drawers', () => {
+    // Use an absolute length: jsdom 30 drops relative units (vh/vw) from the
+    // CSSStyleDeclaration, so a vh assertion tests jsdom rather than us.
     render(
-      <Drawer open onOpenChange={vi.fn()} title="Custom" side="top" height="60vh">
+      <Drawer open onOpenChange={vi.fn()} title="Custom" side="top" height="320px">
         body
       </Drawer>
     );
-    expect(screen.getByRole('dialog')).toHaveStyle({ height: '60vh' });
+    expect(screen.getByRole('dialog')).toHaveStyle({ height: '320px' });
   });
 
   it('ignores width/height that do not match the side axis', () => {
