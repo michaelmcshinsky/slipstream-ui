@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "sourceRevision": "e6aec11",
+  "sourceRevision": "d2b9f4a",
   "count": 73,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
@@ -362,7 +362,7 @@
       "name": "Pagination",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Numeric pagination with prev/next, ellipsis, and aria-current on the active page",
+      "description": "Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.",
       "registry": "/registry/pagination.json"
     },
     {

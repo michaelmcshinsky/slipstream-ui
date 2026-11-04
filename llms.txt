@@ -64,7 +64,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 - PageHeader — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
-- Pagination — Numeric pagination with prev/next, ellipsis, and aria-current on the active page
+- Pagination — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - PasswordInput — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - Popover — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - Progress — A determinate progress bar with role=progressbar and exact value semantics

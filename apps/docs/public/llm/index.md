@@ -43,7 +43,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
-- [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next, ellipsis, and aria-current on the active page
+- [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
