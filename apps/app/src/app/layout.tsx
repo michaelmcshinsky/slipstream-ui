@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
-  title: { default: 'Slipstream Dashboard', template: '%s · Slipstream' },
+  title: { default: 'Slipstream Dashboard', template: '%s | Slipstream' },
+  description: 'Manage your Slipstream UI license, team, and billing.',
+  // Private product surface: never index it.
+  robots: { index: false, follow: false },
 };
 
 /**

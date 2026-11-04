@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getSessionUser } from '@/lib/session';
 
+
+export const metadata: Metadata = {
+  title: 'Slipstream Dashboard',
+  description: 'Manage your license, team, and billing for Slipstream UI Pro.',
+};
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {

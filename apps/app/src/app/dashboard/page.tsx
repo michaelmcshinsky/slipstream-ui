@@ -1,8 +1,14 @@
+import type { Metadata } from 'next';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser } from '@/lib/session';
 import { Stat } from '@/components/ui';
 import Link from 'next/link';
 
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Your Slipstream UI license, usage and billing at a glance.',
+};
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {

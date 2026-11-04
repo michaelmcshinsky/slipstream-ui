@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import { prisma } from '@slipstream-ui/db';
 import { Stat } from '@/components/ui';
 
+
+export const metadata: Metadata = {
+  title: 'Admin',
+  description: 'Account-wide administration for Slipstream UI.',
+};
 const PLAN_PRICES: Record<string, number> = { PRO: 2900, TEAM: 9900, ENTERPRISE: 49900 };
 
 export const dynamic = 'force-dynamic';

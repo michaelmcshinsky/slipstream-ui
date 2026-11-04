@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { COMPONENT_COUNT } from '@/lib/component-count';
+import { Analytics } from '@/components/site/analytics';
+import { CookieBanner } from '@/components/site/cookie-banner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://slipstreamui.com'),
@@ -12,18 +14,21 @@ export const metadata: Metadata = {
     'Your AI already knows your design system. Every component ships a machine-readable manifest so Claude, Cursor, and Copilot generate correct UI the first time.',
   keywords: ['AI components', 'React', 'component system', 'MCP', 'shadcn', 'chat UI', 'Tailwind', 'design system'],
   authors: [{ name: 'Slipstream UI' }],
+  creator: 'Slipstream UI',
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     siteName: 'Slipstream UI',
+    url: '/',
     title: 'Slipstream UI - The AI-first React Component Library',
     description:
       `${COMPONENT_COUNT} AI-native React components, each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator that keeps agents honest.`,
     images: [
       {
         url: '/og.png',
-        width: 892,
-        height: 300,
-        alt: 'Slipstream UI — Your AI already knows your design system',
+        width: 1200,
+        height: 630,
+        alt: 'Slipstream UI — the AI-first React component library',
       },
     ],
   },
@@ -33,6 +38,7 @@ export const metadata: Metadata = {
     description: 'The AI-first React component library — your AI reads the spec, not the source.',
     images: ['/og.png'],
   },
+  robots: { index: true, follow: true },
 };
 
 /**
@@ -58,7 +64,17 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[80] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+        >
+          Skip to content
+        </a>
+        {children}
+        <CookieBanner />
+        <Analytics />
+      </body>
     </html>
   );
 }

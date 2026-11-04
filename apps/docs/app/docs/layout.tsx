@@ -17,7 +17,7 @@ export default function DocsLayout({
       <div className="w-full px-4 sm:px-6">
         <div className="flex gap-8 xl:gap-10">
           <Sidebar />
-          <main className="min-w-0 flex-1 py-8 lg:py-10">
+          <main id="main" className="min-w-0 flex-1 py-8 lg:py-10">
             <MobileNav />
             {/* Centered reading column inside the full-width shell. */}
             <div className="mx-auto mt-4 w-full max-w-4xl lg:mt-0">

@@ -38,6 +38,9 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
       { label: 'Contributing', href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, external: true },
       { label: 'License (MIT)', href: `${REPO_URL}/blob/main/LICENSE`, external: true },
       { label: 'Report an issue', href: `${REPO_URL}/issues`, external: true },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Terms', href: '/terms' },
     ],
   },
 ];
