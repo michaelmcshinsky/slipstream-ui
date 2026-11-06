@@ -13,9 +13,26 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
-    version: '0.4.0',
+    version: '0.5.0',
     date: 'November 2026',
     tag: 'current',
+    highlights: [
+      'Validation benchmark: 100 cases across 7 defect classes and 4 conditions, with a published baseline of 65.7% structural recall, 100% precision and 0 false positives on valid cases',
+      'Tailwind CSS v4: a CSS-first theme contract in @slipstream-ui/themes plus a cross-platform compile fixture that verifies semantic utilities against the real component sources',
+      'New @slipstream-ui/i18n 0.2.0: typed English/Arabic/Spanish catalogs, RTL direction, plural selection, Intl number/date formatters and a client-only React entry',
+      'AI Chat Starter: streaming, reasoning, tool calls, human approvals, citations, local history and consent-gated analytics, fully localized in en/ar/es',
+      'Localized labels for Button, Pagination, DataTable, Dialog, Drawer, Reasoning and ToolCall; no component is forced into a client boundary for i18n',
+      'Manifest parity: 8 real TypeScript/manifest drifts fixed; a component coverage gate now verifies tests, examples, accessibility notes and docs for all 80 components',
+      'Deterministic registry generation across Windows and Linux (sorted files, LF-normalized embedded content, no commit SHA) plus an LLM documentation audit',
+      'MCP registry metadata: server.json, matching mcpName, and @slipstream-ui/mcp-server 0.3.0; registry payloads at 0.2.1',
+      'Docs, dashboard and playground locale shells with a shared language switcher; compatibility matrix and Tailwind v4 migration guide',
+      'Verified: typecheck 17/17, lint 10/10, tests 13/13, build 12/12, axe 26/26 page runs, and 7 installable package tarballs',
+    ],
+  },
+  {
+    version: '0.4.0',
+    date: 'November 2026',
+    tag: 'previous',
     highlights: [
       '15 new components — migration-readiness set: AppShell + Sidebar (responsive frame with mobile drawer), SelectMenu (custom listbox with rich options, groups and multi-select), TableCard (list-page table shell), EmptyState, PageHeader, MetricCard, PasswordInput, AuthLayout, FilterBar, DatePicker, TimePicker, Stepper, FileUpload and Timeline',
       'Imperative toasts: toast.success / error / warning / info, toast.dismiss and toast.clear with <Toaster position richColors> — fire from event handlers and data layers without a provider; the existing provider + useToast pair is unchanged',
