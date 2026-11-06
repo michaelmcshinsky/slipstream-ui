@@ -3,8 +3,9 @@
 **Date:** 2026-11-06
 **Scope:** `apps/docs`, `apps/app`, `apps/starters/ai-chat`, `apps/playground`,
 `packages/core`, `packages/ai`, `packages/cli`, MCP/registry surfaces
-**Status:** shared runtime shipped; AI Chat Starter fully localized (en, ar, es);
-docs, dashboard and playground have locale providers, switchers and shell copy.
+**Status:** shared runtime shipped with seven locales (en, ar, es, ko, ja, ru, zh);
+AI Chat Starter and the changelog page are fully localized. Docs, dashboard and
+playground have locale providers, switchers and shell copy.
 Content, path-prefixed docs URLs, dashboard flows and emails remain.
 
 ---
