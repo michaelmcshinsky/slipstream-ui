@@ -1,5 +1,14 @@
 # @slipstream-ui/themes
 
+## 0.5.0
+
+### Minor Changes
+
+- [#66](https://github.com/michaelmcshinsky/slipstream-ui/pull/66) [`09d41c1`](https://github.com/michaelmcshinsky/slipstream-ui/commit/09d41c16a4fc6b1c08abae9bb74267efd34a6876) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add the Tailwind v4 theme contract, manifest metadata for seven AI components,
+  enum-value validation and JSX-children handling in `validate_usage`, and MCP
+  registry metadata (`server.json` + `mcpName`). Also adds the 100-case
+  validation benchmark and the AI Chat Starter.
+
 ## 0.3.0
 
 ### Minor Changes
