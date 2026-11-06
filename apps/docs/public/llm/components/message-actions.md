@@ -18,6 +18,7 @@ Collect user trust signals (copy, rating, regeneration) with minimal API surface
 | onCopy | `(content: string) => void` | — | no | Called after copy with the copied text. |
 | onFeedback | `(rating: 'up' | 'down' | undefined) => void` | — | no | Rating callback; selecting the active rating again passes undefined. |
 | onRegenerate | `() => void` | — | no | Regeneration request; omit to hide the action. |
+| autohide | `'always' | 'on-hover' | 'not-last'` | `always` | no | Controls visibility: always visible, visible on hover/focus, or hidden until hover for non-latest messages. |
 | labels | `{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }` | — | no | Overrides for all visible labels; enables localization. |
 
 ## Examples

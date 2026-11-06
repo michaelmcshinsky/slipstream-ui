@@ -14,7 +14,14 @@ export type RegistryManifest = {
   /** Manifest version (semver string). */
   version?: string;
   /** Prop schema entries read by validation tools. */
-  props?: { name: string; required?: boolean }[];
+  props?: {
+    name: string;
+    required?: boolean;
+    type?: string;
+    enum?: string[];
+    defaultValue?: unknown;
+    description?: string;
+  }[];
   /** Anti-patterns read by validation and docs tools. */
   antiPatterns?: { title: string; explanation: string; example?: string }[];
   [key: string]: unknown;

@@ -18,7 +18,7 @@ AI-assisted and power-user apps expose many actions; a command palette keeps the
 | onOpenChange | `(open: boolean) => void` | — | yes | Called when the user opens or dismisses the palette |
 | commands | `Command[]` | — | yes | Available commands: { id, label, section?, keywords?, shortcut? } |
 | onSelect | `(command: Command) => void` | — | yes | Invoked with the chosen command before the palette closes |
-| placeholder | `string` | `Type a command…` | no | Input placeholder text |
+| placeholder | `string` | `Type a command.` | no | Input placeholder text |
 | loadCommands | `(query: string) => Promise<Command[]>` | — | no | Async command source; debounced and stale-response guarded. |
 | debounceMs | `number` | `200` | no | Debounce for loadCommands in ms. |
 | renderCommand | `(command, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer (icons, type badges). |

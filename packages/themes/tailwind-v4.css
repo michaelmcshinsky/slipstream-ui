@@ -1,0 +1,100 @@
+/*
+ * Slipstream UI — Tailwind CSS v4 theme contract.
+ *
+ * Usage (v4, CSS-first):
+ *
+ *   @import "tailwindcss";
+ *   @import "@slipstream-ui/themes/tailwind-v4.css";
+ *   @source "../../node_modules/@slipstream-ui/core/dist";
+ *   @source "../../node_modules/@slipstream-ui/ai/dist";
+ *
+ * The `--color-*` mappings read the same HSL channel variables that
+ * `createTheme()` emits, so presets, dark mode and runtime theme switching
+ * keep working without a tailwind.config.js.
+ *
+ * Animated overlays use the `tailwindcss-animate` utilities
+ * (`animate-in`, `fade-in-0`, `slide-in-from-*`, …). With v4, load the
+ * plugin with `@plugin "tailwindcss-animate";` or import `tw-animate-css`
+ * before this file. Overlays still render without it; only motion is lost.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-warning-ink: hsl(var(--warning-ink));
+
+  --color-info: hsl(var(--info));
+  --color-info-foreground: hsl(var(--info-foreground));
+  --color-info-ink: hsl(var(--info-ink));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --radius-lg: var(--radius-lg);
+  --radius-md: var(--radius-md);
+  --radius-sm: var(--radius-sm);
+
+  --spacing-density: var(--density-space);
+  --spacing-control-height: var(--density-control-height);
+
+  --transition-duration-fast: var(--motion-fast);
+  --transition-duration-normal: var(--motion-normal);
+  --transition-duration-slow: var(--motion-slow);
+
+  --ease-standard: var(--motion-ease);
+  --ease-in: var(--motion-ease-in);
+  --ease-out: var(--motion-ease-out);
+}
+
+@theme {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}

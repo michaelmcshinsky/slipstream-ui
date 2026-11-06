@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.michaelmcshinsky/slipstream-ui",
+  "title": "Slipstream UI",
+  "description": "Discover, read and validate Slipstream UI component manifests over MCP.",
+  "websiteUrl": "https://slipstreamui.com/docs/mcp",
+  "repository": {
+    "url": "https://github.com/michaelmcshinsky/slipstream-ui",
+    "source": "github"
+  },
+  "version": "0.2.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@slipstream-ui/mcp-server",
+      "version": "0.2.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

@@ -5,6 +5,11 @@ node_modules
 
 # Testing
 coverage
+.vitest-cache
+
+# Generated reports (see pnpm report:manifests)
+reports/
+benchmarks/results/
 
 # Databases (generated locally by prisma db push / seed)
 *.db

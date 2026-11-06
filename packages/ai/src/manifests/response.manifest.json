@@ -45,6 +45,8 @@
       "implementation": "Routed through CodeBlock with accessible copy button."
     }
   ],
+  "sourceDir": "response",
+  "exportName": "Response",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

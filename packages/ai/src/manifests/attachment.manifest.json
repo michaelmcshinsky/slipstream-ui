@@ -27,6 +27,8 @@
     { "feature": "Upload status", "implementation": "Uploading state is announced via role=status." },
     { "feature": "Decorative thumbnails", "implementation": "Preview images are aria-hidden; the file name carries the meaning." }
   ],
+  "sourceDir": "attachment",
+  "exportName": "Attachment",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

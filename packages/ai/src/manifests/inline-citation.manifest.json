@@ -40,6 +40,8 @@
       "implementation": "Card has role=tooltip linked via aria-describedby."
     }
   ],
+  "sourceDir": "inline-citation",
+  "exportName": "InlineCitation",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

@@ -39,7 +39,7 @@
     {
       "name": "placeholder",
       "type": "string",
-      "defaultValue": "Type a command…",
+      "defaultValue": "Type a command.",
       "required": false,
       "description": "Input placeholder text"
     },

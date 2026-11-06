@@ -59,6 +59,8 @@
       "implementation": "N/M indicator uses aria-live=polite."
     }
   ],
+  "sourceDir": "branch",
+  "exportName": "Branch",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

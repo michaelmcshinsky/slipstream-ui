@@ -1,0 +1,1006 @@
+{
+  "version": 1,
+  "count": 100,
+  "cases": [
+    {
+      "id": "valid-accordion",
+      "componentId": "accordion",
+      "prompt": "Create a correct Accordion usage. Collapsible content sections with ARIA accordion semantics and keyboard navigation",
+      "candidateCode": "<Accordion>Content</Accordion>",
+      "fixedCode": "<Accordion>Content</Accordion>",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-alert",
+      "componentId": "alert",
+      "prompt": "Create a correct Alert usage. Inline alert for status messages with semantic variants (destructive, success, warning, info)",
+      "candidateCode": "<Alert>Content</Alert>",
+      "fixedCode": "<Alert>Content</Alert>",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-app-shell",
+      "componentId": "app-shell",
+      "prompt": "Create a correct AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "candidateCode": "<AppShell sections={[]} />",
+      "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-attachment",
+      "componentId": "attachment",
+      "prompt": "Create a correct Attachment / AttachmentList usage. File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
+      "candidateCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-auth-layout",
+      "componentId": "auth-layout",
+      "prompt": "Create a correct AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "candidateCode": "<AuthLayout title=\"example\" />",
+      "fixedCode": "<AuthLayout title=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-autocomplete",
+      "componentId": "autocomplete",
+      "prompt": "Create a correct Autocomplete usage. Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
+      "candidateCode": "<Autocomplete />",
+      "fixedCode": "<Autocomplete />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-avatar",
+      "componentId": "avatar",
+      "prompt": "Create a correct Avatar usage. A user profile image component with fallback support and accessible image loading",
+      "candidateCode": "<Avatar />",
+      "fixedCode": "<Avatar />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-badge",
+      "componentId": "badge",
+      "prompt": "Create a correct Badge usage. A small status indicator component for displaying tags, counts, or status information",
+      "candidateCode": "<Badge />",
+      "fixedCode": "<Badge />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-block",
+      "componentId": "block",
+      "prompt": "Create a correct Block usage. Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+      "candidateCode": "<Block />",
+      "fixedCode": "<Block />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-branch",
+      "componentId": "branch",
+      "prompt": "Create a correct Branch usage. Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
+      "candidateCode": "<Branch count={1} />",
+      "fixedCode": "<Branch count={1} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-breadcrumb",
+      "componentId": "breadcrumb",
+      "prompt": "Create a correct Breadcrumb usage. Navigation breadcrumb trail with links and current-page indicator",
+      "candidateCode": "<Breadcrumb items={[]} />",
+      "fixedCode": "<Breadcrumb items={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-button",
+      "componentId": "button",
+      "prompt": "Create a correct Button usage. A clickable button component with variants for different visual styles and sizes",
+      "candidateCode": "<Button />",
+      "fixedCode": "<Button />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-button-group",
+      "componentId": "button-group",
+      "prompt": "Create a correct ButtonGroup usage. Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.",
+      "candidateCode": "<ButtonGroup />",
+      "fixedCode": "<ButtonGroup />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-card",
+      "componentId": "card",
+      "prompt": "Create a correct Card usage. A content container with header, body, and footer sections for grouping related information",
+      "candidateCode": "<Card>Content</Card>",
+      "fixedCode": "<Card>Content</Card>",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-chain-thought",
+      "componentId": "chain-thought",
+      "prompt": "Create a correct ChainThought usage. Displays ordered reasoning steps with status indicators.",
+      "candidateCode": "<ChainThought steps={[]} />",
+      "fixedCode": "<ChainThought steps={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-checkbox",
+      "componentId": "checkbox",
+      "prompt": "Create a correct Checkbox usage. A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend",
+      "candidateCode": "<Checkbox />",
+      "fixedCode": "<Checkbox />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-code-block",
+      "componentId": "code-block",
+      "prompt": "Create a correct CodeBlock usage. Syntax-highlighted code block with language label and copy-to-clipboard button.",
+      "candidateCode": "<CodeBlock code=\"example\" />",
+      "fixedCode": "<CodeBlock code=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-command-palette",
+      "componentId": "command-palette",
+      "prompt": "Create a correct CommandPalette usage. Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+      "candidateCode": "<CommandPalette open={true} onOpenChange={true} commands={[]} onSelect={() => {}} />",
+      "fixedCode": "<CommandPalette open={true} onOpenChange={true} commands={[]} onSelect={() => {}} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-confirm-dialog",
+      "componentId": "confirm-dialog",
+      "prompt": "Create a correct ConfirmDialog usage. Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
+      "candidateCode": "<ConfirmDialog open={true} onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
+      "fixedCode": "<ConfirmDialog open={true} onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-confirmation",
+      "componentId": "confirmation",
+      "prompt": "Create a correct Confirmation usage. Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
+      "candidateCode": "<Confirmation title=\"example\" />",
+      "fixedCode": "<Confirmation title=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-conversation",
+      "componentId": "conversation",
+      "prompt": "Create a correct Conversation usage. A container for displaying a list of chat messages with auto-scroll and loading states",
+      "candidateCode": "<Conversation messages={[]} />",
+      "fixedCode": "<Conversation messages={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-data-table",
+      "componentId": "data-table",
+      "prompt": "Create a correct DataTable usage. Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
+      "candidateCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
+      "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-date-picker",
+      "componentId": "date-picker",
+      "prompt": "Create a correct DatePicker usage. Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
+      "candidateCode": "<DatePicker />",
+      "fixedCode": "<DatePicker />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-dialog",
+      "componentId": "dialog",
+      "prompt": "Create a correct Dialog usage. Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
+      "candidateCode": "<Dialog open={true} onOpenChange={true} />",
+      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-drawer",
+      "componentId": "drawer",
+      "prompt": "Create a correct Drawer usage. Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
+      "candidateCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
+      "fixedCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-empty-state",
+      "componentId": "empty-state",
+      "prompt": "Create a correct EmptyState usage. Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
+      "candidateCode": "<EmptyState title=\"example\" />",
+      "fixedCode": "<EmptyState title=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-fieldset",
+      "componentId": "fieldset",
+      "prompt": "Create a correct Fieldset usage. Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
+      "candidateCode": "<Fieldset />",
+      "fixedCode": "<Fieldset />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-file-upload",
+      "componentId": "file-upload",
+      "prompt": "Create a correct FileUpload usage. Drag-and-drop file picker with a removable file list and per-file progress bars.",
+      "candidateCode": "<FileUpload />",
+      "fixedCode": "<FileUpload />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-filter-bar",
+      "componentId": "filter-bar",
+      "prompt": "Create a correct FilterBar usage. List-page filter strip: search field, filter controls, reset affordance and trailing actions.",
+      "candidateCode": "<FilterBar />",
+      "fixedCode": "<FilterBar />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-flex",
+      "componentId": "flex",
+      "prompt": "Create a correct Flex / FlexItem usage. Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.",
+      "candidateCode": "<Flex />",
+      "fixedCode": "<Flex />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "unknown-prop-accordion",
+      "componentId": "accordion",
+      "prompt": "Create a Accordion usage. Collapsible content sections with ARIA accordion semantics and keyboard navigation",
+      "candidateCode": "<Accordion data-hallucinated=\"true\" >Content</Accordion>",
+      "fixedCode": "<Accordion>Content</Accordion>",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-alert",
+      "componentId": "alert",
+      "prompt": "Create a Alert usage. Inline alert for status messages with semantic variants (destructive, success, warning, info)",
+      "candidateCode": "<Alert data-hallucinated=\"true\" >Content</Alert>",
+      "fixedCode": "<Alert>Content</Alert>",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-app-shell",
+      "componentId": "app-shell",
+      "prompt": "Create a AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "candidateCode": "<AppShell sections={[]}  data-hallucinated=\"true\" />",
+      "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-attachment",
+      "componentId": "attachment",
+      "prompt": "Create a Attachment / AttachmentList usage. File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
+      "candidateCode": "<Attachment attachment=\"example\" attachments={[]}  data-hallucinated=\"true\" />",
+      "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-auth-layout",
+      "componentId": "auth-layout",
+      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "candidateCode": "<AuthLayout title=\"example\"  data-hallucinated=\"true\" />",
+      "fixedCode": "<AuthLayout title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-autocomplete",
+      "componentId": "autocomplete",
+      "prompt": "Create a Autocomplete usage. Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
+      "candidateCode": "<Autocomplete  data-hallucinated=\"true\" />",
+      "fixedCode": "<Autocomplete />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-avatar",
+      "componentId": "avatar",
+      "prompt": "Create a Avatar usage. A user profile image component with fallback support and accessible image loading",
+      "candidateCode": "<Avatar  data-hallucinated=\"true\" />",
+      "fixedCode": "<Avatar />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-badge",
+      "componentId": "badge",
+      "prompt": "Create a Badge usage. A small status indicator component for displaying tags, counts, or status information",
+      "candidateCode": "<Badge  data-hallucinated=\"true\" />",
+      "fixedCode": "<Badge />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-block",
+      "componentId": "block",
+      "prompt": "Create a Block usage. Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+      "candidateCode": "<Block  data-hallucinated=\"true\" />",
+      "fixedCode": "<Block />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-branch",
+      "componentId": "branch",
+      "prompt": "Create a Branch usage. Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
+      "candidateCode": "<Branch count={1}  data-hallucinated=\"true\" />",
+      "fixedCode": "<Branch count={1} />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "missing-required-app-shell",
+      "componentId": "app-shell",
+      "prompt": "Create a AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "candidateCode": "<AppShell />",
+      "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop sections."
+    },
+    {
+      "id": "missing-required-attachment",
+      "componentId": "attachment",
+      "prompt": "Create a Attachment / AttachmentList usage. File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
+      "candidateCode": "<Attachment attachments={[]} />",
+      "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop attachment."
+    },
+    {
+      "id": "missing-required-auth-layout",
+      "componentId": "auth-layout",
+      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "candidateCode": "<AuthLayout />",
+      "fixedCode": "<AuthLayout title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop title."
+    },
+    {
+      "id": "missing-required-branch",
+      "componentId": "branch",
+      "prompt": "Create a Branch usage. Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
+      "candidateCode": "<Branch />",
+      "fixedCode": "<Branch count={1} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop count."
+    },
+    {
+      "id": "missing-required-breadcrumb",
+      "componentId": "breadcrumb",
+      "prompt": "Create a Breadcrumb usage. Navigation breadcrumb trail with links and current-page indicator",
+      "candidateCode": "<Breadcrumb />",
+      "fixedCode": "<Breadcrumb items={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop items."
+    },
+    {
+      "id": "missing-required-chain-thought",
+      "componentId": "chain-thought",
+      "prompt": "Create a ChainThought usage. Displays ordered reasoning steps with status indicators.",
+      "candidateCode": "<ChainThought />",
+      "fixedCode": "<ChainThought steps={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop steps."
+    },
+    {
+      "id": "missing-required-code-block",
+      "componentId": "code-block",
+      "prompt": "Create a CodeBlock usage. Syntax-highlighted code block with language label and copy-to-clipboard button.",
+      "candidateCode": "<CodeBlock />",
+      "fixedCode": "<CodeBlock code=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop code."
+    },
+    {
+      "id": "missing-required-command-palette",
+      "componentId": "command-palette",
+      "prompt": "Create a CommandPalette usage. Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
+      "candidateCode": "<CommandPalette onOpenChange={true} commands={[]} onSelect={() => {}} />",
+      "fixedCode": "<CommandPalette open={true} onOpenChange={true} commands={[]} onSelect={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop open."
+    },
+    {
+      "id": "missing-required-confirm-dialog",
+      "componentId": "confirm-dialog",
+      "prompt": "Create a ConfirmDialog usage. Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
+      "candidateCode": "<ConfirmDialog onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
+      "fixedCode": "<ConfirmDialog open={true} onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop open."
+    },
+    {
+      "id": "missing-required-confirmation",
+      "componentId": "confirmation",
+      "prompt": "Create a Confirmation usage. Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
+      "candidateCode": "<Confirmation />",
+      "fixedCode": "<Confirmation title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop title."
+    },
+    {
+      "id": "invalid-enum-accordion",
+      "componentId": "accordion",
+      "prompt": "Create a Accordion usage. Collapsible content sections with ARIA accordion semantics and keyboard navigation",
+      "candidateCode": "<Accordion variant=\"__invalid__\" >Content</Accordion>",
+      "fixedCode": "<Accordion>Content</Accordion>",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for variant."
+    },
+    {
+      "id": "invalid-enum-app-shell",
+      "componentId": "app-shell",
+      "prompt": "Create a AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
+      "candidateCode": "<AppShell sections={[]}  mobileBreakpoint=\"__invalid__\" />",
+      "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for mobileBreakpoint."
+    },
+    {
+      "id": "invalid-enum-auth-layout",
+      "componentId": "auth-layout",
+      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "candidateCode": "<AuthLayout title=\"example\"  size=\"__invalid__\" />",
+      "fixedCode": "<AuthLayout title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for size."
+    },
+    {
+      "id": "invalid-enum-badge",
+      "componentId": "badge",
+      "prompt": "Create a Badge usage. A small status indicator component for displaying tags, counts, or status information",
+      "candidateCode": "<Badge  variant=\"__invalid__\" />",
+      "fixedCode": "<Badge />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for variant."
+    },
+    {
+      "id": "invalid-enum-block",
+      "componentId": "block",
+      "prompt": "Create a Block usage. Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
+      "candidateCode": "<Block  as=\"__invalid__\" />",
+      "fixedCode": "<Block />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for as."
+    },
+    {
+      "id": "invalid-enum-button",
+      "componentId": "button",
+      "prompt": "Create a Button usage. A clickable button component with variants for different visual styles and sizes",
+      "candidateCode": "<Button  variant=\"__invalid__\" />",
+      "fixedCode": "<Button />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for variant."
+    },
+    {
+      "id": "invalid-enum-confirmation",
+      "componentId": "confirmation",
+      "prompt": "Create a Confirmation usage. Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
+      "candidateCode": "<Confirmation title=\"example\"  variant=\"__invalid__\" />",
+      "fixedCode": "<Confirmation title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for variant."
+    },
+    {
+      "id": "invalid-enum-data-table",
+      "componentId": "data-table",
+      "prompt": "Create a DataTable usage. Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
+      "candidateCode": "<DataTable columns={[]} data={[]} rowId={() = density=\"__invalid__\" > {}} />",
+      "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for density."
+    },
+    {
+      "id": "invalid-enum-dialog",
+      "componentId": "dialog",
+      "prompt": "Create a Dialog usage. Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
+      "candidateCode": "<Dialog open={true} onOpenChange={true}  size=\"__invalid__\" />",
+      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for size."
+    },
+    {
+      "id": "invalid-enum-drawer",
+      "componentId": "drawer",
+      "prompt": "Create a Drawer usage. Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
+      "candidateCode": "<Drawer open={true} onOpenChange={true} title=\"example\"  side=\"__invalid__\" />",
+      "fixedCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for side."
+    },
+    {
+      "id": "curated-invalid-composition-accordion",
+      "componentId": "accordion",
+      "prompt": "Build an accordion with one item.",
+      "candidateCode": "<AccordionItem value=\"a\"><AccordionTrigger>Title</AccordionTrigger><AccordionContent>Body</AccordionContent></AccordionItem>",
+      "fixedCode": "<Accordion>Content</Accordion>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "AccordionItem rendered without an Accordion root."
+    },
+    {
+      "id": "curated-invalid-composition-tabs",
+      "componentId": "tabs",
+      "prompt": "Build a tab set.",
+      "candidateCode": "<TabList><Tab value=\"a\">A</Tab></TabList><TabPanel value=\"a\">A</TabPanel>",
+      "fixedCode": "<Tabs>Content</Tabs>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "Tabs parts rendered without a Tabs root."
+    },
+    {
+      "id": "curated-invalid-composition-dialog",
+      "componentId": "dialog",
+      "prompt": "Build a confirmation dialog.",
+      "candidateCode": "<DialogContent><DialogTitle>Confirm</DialogTitle></DialogContent>",
+      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "DialogContent rendered without a Dialog root."
+    },
+    {
+      "id": "curated-invalid-composition-menu",
+      "componentId": "menu",
+      "prompt": "Build a menu.",
+      "candidateCode": "<MenuItem>Open</MenuItem>",
+      "fixedCode": "<Menu>Content</Menu>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "MenuItem rendered without a Menu root."
+    },
+    {
+      "id": "curated-invalid-composition-popover",
+      "componentId": "popover",
+      "prompt": "Build a popover.",
+      "candidateCode": "<PopoverContent>Details</PopoverContent>",
+      "fixedCode": "<Popover>Content</Popover>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "PopoverContent rendered without a Popover root."
+    },
+    {
+      "id": "curated-invalid-composition-select",
+      "componentId": "select",
+      "prompt": "Build a select.",
+      "candidateCode": "<SelectItem value=\"a\">A</SelectItem>",
+      "fixedCode": "<Select />",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "SelectItem rendered without a Select root."
+    },
+    {
+      "id": "curated-invalid-composition-table",
+      "componentId": "table",
+      "prompt": "Build a table row.",
+      "candidateCode": "<TableRow><TableCell>A</TableCell></TableRow>",
+      "fixedCode": "<Table>Content</Table>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "TableRow rendered without a Table root."
+    },
+    {
+      "id": "curated-invalid-composition-breadcrumb",
+      "componentId": "breadcrumb",
+      "prompt": "Build a breadcrumb trail.",
+      "candidateCode": "<BreadcrumbItem>Home</BreadcrumbItem>",
+      "fixedCode": "<Breadcrumb items={[]} />",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "BreadcrumbItem rendered without a Breadcrumb root."
+    },
+    {
+      "id": "curated-invalid-composition-form-field",
+      "componentId": "form-field",
+      "prompt": "Build a form field.",
+      "candidateCode": "<Input placeholder=\"Email\" />",
+      "fixedCode": "<FormField id=\"example\" label=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "Input rendered without a FormField label wrapper."
+    },
+    {
+      "id": "curated-invalid-composition-tooltip",
+      "componentId": "tooltip",
+      "prompt": "Build a tooltip.",
+      "candidateCode": "<TooltipContent>Tip</TooltipContent>",
+      "fixedCode": "<Tooltip content=\"example\">Content</Tooltip>",
+      "expectedValid": false,
+      "defectClass": "invalid-composition",
+      "expectedIssue": "TooltipContent rendered without a Tooltip root."
+    },
+    {
+      "id": "curated-invalid-a11y-button",
+      "componentId": "button",
+      "prompt": "Build an icon-only button.",
+      "candidateCode": "<Button size=\"icon\"><PlusIcon /></Button>",
+      "fixedCode": "<Button />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Icon-only button has no accessible name."
+    },
+    {
+      "id": "curated-invalid-a11y-dialog",
+      "componentId": "dialog",
+      "prompt": "Build a dialog.",
+      "candidateCode": "<Dialog open><DialogContent>Confirm</DialogContent></Dialog>",
+      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Dialog has no accessible title."
+    },
+    {
+      "id": "curated-invalid-a11y-input",
+      "componentId": "input",
+      "prompt": "Build an email input.",
+      "candidateCode": "<Input placeholder=\"Email\" />",
+      "fixedCode": "<Input />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Input is labelled only by placeholder text."
+    },
+    {
+      "id": "curated-invalid-a11y-form-field",
+      "componentId": "form-field",
+      "prompt": "Build a form field.",
+      "candidateCode": "<FormField id=\"email\" label=\" \"><Input id=\"email\" /></FormField>",
+      "fixedCode": "<FormField id=\"example\" label=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "FormField label is empty."
+    },
+    {
+      "id": "curated-invalid-a11y-select",
+      "componentId": "select",
+      "prompt": "Build a select.",
+      "candidateCode": "<Select options={[]} />",
+      "fixedCode": "<Select />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Select has no label."
+    },
+    {
+      "id": "curated-invalid-a11y-progress",
+      "componentId": "progress",
+      "prompt": "Build a progress bar.",
+      "candidateCode": "<Progress value={40} />",
+      "fixedCode": "<Progress />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Progress has no accessible label."
+    },
+    {
+      "id": "curated-invalid-a11y-switch",
+      "componentId": "switch",
+      "prompt": "Build a toggle.",
+      "candidateCode": "<Switch checked />",
+      "fixedCode": "<Switch />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Switch has no accessible label."
+    },
+    {
+      "id": "curated-invalid-a11y-toast",
+      "componentId": "toast",
+      "prompt": "Build a success toast.",
+      "candidateCode": "<Toast title=\"\" description=\"Saved\" />",
+      "fixedCode": "<ToastProvider title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Toast has an empty title."
+    },
+    {
+      "id": "curated-invalid-a11y-command-palette",
+      "componentId": "command-palette",
+      "prompt": "Build a command palette.",
+      "candidateCode": "<CommandPalette open onOpenChange={() => {}} commands={[]} onSelect={() => {}} />",
+      "fixedCode": "<CommandPalette open={true} onOpenChange={true} commands={[]} onSelect={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Command palette has no accessible label."
+    },
+    {
+      "id": "curated-invalid-a11y-attachment",
+      "componentId": "attachment",
+      "prompt": "Build a file attachment chip.",
+      "candidateCode": "<Attachment attachment={{ id: \"1\", name: \"\", status: \"done\" }} />",
+      "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "expectedValid": false,
+      "defectClass": "invalid-a11y",
+      "expectedIssue": "Attachment has no file name and no remove label."
+    },
+    {
+      "id": "curated-unsupported-state-message",
+      "componentId": "message",
+      "prompt": "Build a streaming assistant message.",
+      "candidateCode": "<Message message={{ id: \"1\", role: \"assistant\", content: \"\" }} isStreaming error=\"Network error\" />",
+      "fixedCode": "<Message message=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Message is streaming and errored at the same time."
+    },
+    {
+      "id": "curated-unsupported-state-tool-call",
+      "componentId": "tool-call",
+      "prompt": "Build a completed tool call.",
+      "candidateCode": "<ToolCall toolCall={{ id: \"1\", name: \"search\", state: \"output-available\" }} />",
+      "fixedCode": "<ToolCall toolCall=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Tool call is output-available without an output."
+    },
+    {
+      "id": "curated-unsupported-state-reasoning",
+      "componentId": "reasoning",
+      "prompt": "Build a reasoning block.",
+      "candidateCode": "<Reasoning steps={[]} isStreaming duration={1200} />",
+      "fixedCode": "<Reasoning steps={[]} />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Reasoning reports a duration while still streaming."
+    },
+    {
+      "id": "curated-unsupported-state-conversation",
+      "componentId": "conversation",
+      "prompt": "Build a conversation.",
+      "candidateCode": "<Conversation messages={[]} isLoading streamingMessageId=\"m1\" />",
+      "fixedCode": "<Conversation messages={[]} />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Conversation is loading and streaming an id that does not exist."
+    },
+    {
+      "id": "curated-unsupported-state-streaming-indicator",
+      "componentId": "streaming-indicator",
+      "prompt": "Build a streaming indicator.",
+      "candidateCode": "<StreamingIndicator isStreaming={false} text=\"Streaming…\" />",
+      "fixedCode": "<StreamingIndicator isStreaming={true} />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Indicator says streaming in text while isStreaming is false."
+    },
+    {
+      "id": "curated-unsupported-state-prompt-input",
+      "componentId": "prompt-input",
+      "prompt": "Build a prompt input.",
+      "candidateCode": "<PromptInput onSubmit={() => {}} isLoading hasError />",
+      "fixedCode": "<PromptInput onSubmit={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Prompt input is loading and in an error state."
+    },
+    {
+      "id": "curated-unsupported-state-confirmation",
+      "componentId": "confirmation",
+      "prompt": "Build a confirmation.",
+      "candidateCode": "<Confirmation title=\"Delete?\" status=\"approved\" showActions />",
+      "fixedCode": "<Confirmation title=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Confirmation shows actions after approval."
+    },
+    {
+      "id": "curated-unsupported-state-response",
+      "componentId": "response",
+      "prompt": "Build an assistant response.",
+      "candidateCode": "<Response>{\"\"}</Response>",
+      "fixedCode": "<Response>Content</Response>",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Response has empty content."
+    },
+    {
+      "id": "curated-unsupported-state-select",
+      "componentId": "select",
+      "prompt": "Build a multi-select.",
+      "candidateCode": "<Select options={[]} multiple value=\"a\" />",
+      "fixedCode": "<Select />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Multi-select receives a string value instead of an array."
+    },
+    {
+      "id": "curated-unsupported-state-data-table",
+      "componentId": "data-table",
+      "prompt": "Build a data table.",
+      "candidateCode": "<DataTable columns={[]} data={[]} loading emptyMessage=\"No results\" />",
+      "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
+      "expectedValid": false,
+      "defectClass": "unsupported-state",
+      "expectedIssue": "Data table is loading and simultaneously empty."
+    },
+    {
+      "id": "curated-streaming-state-message",
+      "componentId": "message",
+      "prompt": "Build a streaming assistant message.",
+      "candidateCode": "<Message message={{ id: \"1\", role: \"assistant\", content: \"\" }} isStreaming />",
+      "fixedCode": "<Message message=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Streaming message has no content."
+    },
+    {
+      "id": "curated-streaming-state-tool-call",
+      "componentId": "tool-call",
+      "prompt": "Build a failed tool call.",
+      "candidateCode": "<ToolCall toolCall={{ id: \"1\", name: \"search\", state: \"output-error\" }} />",
+      "fixedCode": "<ToolCall toolCall=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Tool call is output-error without an error payload."
+    },
+    {
+      "id": "curated-streaming-state-reasoning",
+      "componentId": "reasoning",
+      "prompt": "Build streaming reasoning.",
+      "candidateCode": "<Reasoning steps={[]} isStreaming />",
+      "fixedCode": "<Reasoning steps={[]} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Streaming reasoning has no steps."
+    },
+    {
+      "id": "curated-streaming-state-conversation",
+      "componentId": "conversation",
+      "prompt": "Build a streaming conversation.",
+      "candidateCode": "<Conversation messages={[]} streamingMessageId=\"missing\" />",
+      "fixedCode": "<Conversation messages={[]} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "streamingMessageId does not match any message."
+    },
+    {
+      "id": "curated-streaming-state-streaming-indicator",
+      "componentId": "streaming-indicator",
+      "prompt": "Build a streaming indicator.",
+      "candidateCode": "<StreamingIndicator isStreaming text=\"\" />",
+      "fixedCode": "<StreamingIndicator isStreaming={true} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Streaming indicator has no label."
+    },
+    {
+      "id": "curated-streaming-state-response",
+      "componentId": "response",
+      "prompt": "Build a streaming response.",
+      "candidateCode": "<Response>{null}</Response>",
+      "fixedCode": "<Response>Content</Response>",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Response children are null during streaming."
+    },
+    {
+      "id": "curated-streaming-state-inline-citation",
+      "componentId": "inline-citation",
+      "prompt": "Build an inline citation.",
+      "candidateCode": "<InlineCitation source={{ id: \"\", title: \"\", url: \"\" }} />",
+      "fixedCode": "<InlineCitation source=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Inline citation has an empty source."
+    },
+    {
+      "id": "curated-streaming-state-source",
+      "componentId": "source",
+      "prompt": "Build a source list.",
+      "candidateCode": "<Source index={1} source={{ id: \"\", title: \"\", url: \"\" }} sources={[]} />",
+      "fixedCode": "<Source source=\"example\" sources={[]} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Source has an empty source and an empty list."
+    },
+    {
+      "id": "curated-streaming-state-branch",
+      "componentId": "branch",
+      "prompt": "Build a branch selector.",
+      "candidateCode": "<Branch count={0} />",
+      "fixedCode": "<Branch count={1} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Branch has no branches."
+    },
+    {
+      "id": "curated-streaming-state-attachment",
+      "componentId": "attachment",
+      "prompt": "Build an uploading attachment.",
+      "candidateCode": "<Attachment attachment={{ id: \"1\", name: \"\", status: \"uploading\" }} />",
+      "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
+      "expectedValid": false,
+      "defectClass": "streaming-state",
+      "expectedIssue": "Uploading attachment has no file name."
+    }
+  ]
+}

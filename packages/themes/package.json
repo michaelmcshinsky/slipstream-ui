@@ -15,11 +15,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./tailwind-v4.css": "./tailwind-v4.css"
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "tailwind-v4.css"
   ],
   "publishConfig": {
     "access": "public",

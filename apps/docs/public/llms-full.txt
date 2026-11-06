@@ -348,7 +348,7 @@ Skip the sidebar when the product is a single surface.
 
 File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.
 
-> Import: `import { Attachment/AttachmentList } from '@slipstream-ui/ai'`
+> Import: `import { Attachment } from '@slipstream-ui/ai'`
 > Registry: https://slipstreamui.com/registry/attachment.json
 > Tier: molecule · Package: @slipstream-ui/ai
 
@@ -1389,7 +1389,7 @@ AI-assisted and power-user apps expose many actions; a command palette keeps the
 | onOpenChange | `(open: boolean) => void` | — | yes | Called when the user opens or dismisses the palette |
 | commands | `Command[]` | — | yes | Available commands: { id, label, section?, keywords?, shortcut? } |
 | onSelect | `(command: Command) => void` | — | yes | Invoked with the chosen command before the palette closes |
-| placeholder | `string` | `Type a command…` | no | Input placeholder text |
+| placeholder | `string` | `Type a command.` | no | Input placeholder text |
 | loadCommands | `(query: string) => Promise<Command[]>` | — | no | Async command source; debounced and stale-response guarded. |
 | debounceMs | `number` | `200` | no | Debounce for loadCommands in ms. |
 | renderCommand | `(command, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer (icons, type badges). |
@@ -3314,6 +3314,7 @@ Collect user trust signals (copy, rating, regeneration) with minimal API surface
 | onCopy | `(content: string) => void` | — | no | Called after copy with the copied text. |
 | onFeedback | `(rating: 'up' | 'down' | undefined) => void` | — | no | Rating callback; selecting the active rating again passes undefined. |
 | onRegenerate | `() => void` | — | no | Regeneration request; omit to hide the action. |
+| autohide | `'always' | 'on-hover' | 'not-last'` | `always` | no | Controls visibility: always visible, visible on hover/focus, or hidden until hover for non-latest messages. |
 | labels | `{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }` | — | no | Overrides for all visible labels; enables localization. |
 
 ## Examples

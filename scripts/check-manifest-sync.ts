@@ -29,7 +29,7 @@ const PACKAGES = [
 ] as const;
 
 /** Props inherited from HTML element types that manifests may reasonably omit. */
-const INHERITED_HTML_PROPS = new Set([
+export const INHERITED_HTML_PROPS = new Set([
   'className', 'style', 'id', 'role', 'tabIndex', 'children',
   'aria-label', 'aria-labelledby', 'aria-describedby', 'aria-hidden',
   'aria-invalid', 'aria-busy', 'aria-live',
@@ -62,7 +62,7 @@ type Drift = {
  * Robust against complex extends clauses (Omit<..., 'a' | 'b'> etc.) by
  * scanning for the first brace outside generic brackets and quotes.
  */
-function extractTsProps(source: string, interfaceName: string): Map<string, boolean> {
+export function extractTsProps(source: string, interfaceName: string): Map<string, boolean> {
   const props = new Map<string, boolean>();
 
   // Strip comments before scanning: an apostrophe inside prose (e.g.
@@ -142,7 +142,7 @@ function extractTsProps(source: string, interfaceName: string): Map<string, bool
  * Find the props interface name for a component source file.
  * Prefers `<ExportName>Props`, falls back to any `*Props` interface.
  */
-function findPropsInterface(source: string, exportName: string): string | undefined {
+export function findPropsInterface(source: string, exportName: string): string | undefined {
   const preferred = `${exportName}Props`;
   if (new RegExp(`(?:interface|type)\\s+${preferred}\\b`).test(source)) return preferred;
   const anyProps = source.match(/(?:interface|type)\s+(\w+Props)\b/);
@@ -154,7 +154,7 @@ function findPropsInterface(source: string, exportName: string): string | undefi
  * component API. Handles multi-export directories (Source + Sources) without
  * over-matching internal context/compound types (TabsContextValue etc.).
  */
-function extractAllTsProps(source: string): Map<string, boolean> {
+export function extractAllTsProps(source: string): Map<string, boolean> {
   const all = new Map<string, boolean>();
   const interfaceNames = [...source.matchAll(/(?:interface|type)\s+(\w+Props)\b/g)].map((m) => m[1]);
   for (const name of interfaceNames) {
@@ -170,7 +170,7 @@ function extractAllTsProps(source: string): Map<string, boolean> {
  * `function X({ suggestions, maxDisplay }: XProps)`. Catches inline prop
  * declarations in components that don't name a separate interface.
  */
-function extractDestructuredParams(source: string): Set<string> {
+export function extractDestructuredParams(source: string): Set<string> {
   const names = new Set<string>();
   const pattern = /\(\s*\{\s*([^}]+)\s*\}\s*[:)]/g;
   for (const m of source.matchAll(pattern)) {
@@ -182,7 +182,7 @@ function extractDestructuredParams(source: string): Set<string> {
   return names;
 }
 
-function loadManifests(dir: string): { manifest: Record<string, unknown>; file: string }[] {
+export function loadManifests(dir: string): { manifest: Record<string, unknown>; file: string }[] {
   const manifestDir = path.join(dir, 'src', 'manifests');
   if (!fs.existsSync(manifestDir)) return [];
   return fs
@@ -272,4 +272,4 @@ function main(): void {
   process.exit(1);
 }
 
-main();
+if (require.main === module) main();
