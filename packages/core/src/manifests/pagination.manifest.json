@@ -92,6 +92,12 @@
       "type": "PaginationIcons",
       "required": false,
       "description": "Replace the default glyphs."
+    },
+    {
+      "name": "labels",
+      "type": "{ pagination?: string; first?: string; previous?: string; next?: string; last?: string; page?: (page: number) => string }",
+      "required": false,
+      "description": "Localized landmark and control labels."
     }
   ],
   "examples": [

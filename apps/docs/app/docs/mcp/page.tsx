@@ -13,7 +13,7 @@ export default function MCPPage() {
     <div>
       <h1 className="text-4xl font-bold mb-6">MCP Server</h1>
       <p className="text-lg text-muted-foreground mb-8">
-        Set up the Slipstream UI MCP server to give AI agents zero-hallucination access to component specifications.
+        Set up the Slipstream UI MCP server to give AI agents validated access to component specifications.
       </p>
 
       <div className="mb-10">

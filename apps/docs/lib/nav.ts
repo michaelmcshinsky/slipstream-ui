@@ -28,6 +28,8 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       { href: '/docs', label: 'Introduction' },
       { href: '/docs/installation', label: 'Installation' },
+      { href: '/docs/tailwind-v4', label: 'Tailwind v4' },
+      { href: '/docs/compatibility', label: 'Compatibility' },
       { href: '/docs/theming', label: 'Theming' },
       { href: '/docs/roadmap', label: 'Roadmap' },
     ],

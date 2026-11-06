@@ -44,6 +44,8 @@
       "implementation": "Icon-labeled button with aria-label that flips to Copied."
     }
   ],
+  "sourceDir": "code-block",
+  "exportName": "CodeBlock",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

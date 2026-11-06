@@ -30,6 +30,12 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "labels",
+      "type": "{ pending?: string; running?: string; completed?: string; failed?: string; arguments?: string; result?: string; error?: string }",
+      "required": false,
+      "description": "Localized status and section labels."
     }
   ],
   "examples": [

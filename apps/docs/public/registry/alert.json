@@ -110,7 +110,7 @@
     },
     {
       "path": "components/slipstream/alert/index.ts",
-      "content": "export * from './Alert';\r\n",
+      "content": "export * from './Alert';\n",
       "type": "registry:component"
     },
     {

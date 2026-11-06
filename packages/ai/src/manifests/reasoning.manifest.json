@@ -53,6 +53,12 @@
       "type": "boolean",
       "required": false,
       "description": "Shows a streaming indicator while reasoning is in progress"
+    },
+    {
+      "name": "labels",
+      "type": "{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }",
+      "required": false,
+      "description": "Localized header, count and step labels."
     }
   ],
   "examples": [

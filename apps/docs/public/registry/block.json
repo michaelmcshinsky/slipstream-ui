@@ -120,7 +120,7 @@
     },
     {
       "path": "components/slipstream/block/index.ts",
-      "content": "export * from './Block';\r\n",
+      "content": "export * from './Block';\n",
       "type": "registry:component"
     },
     {

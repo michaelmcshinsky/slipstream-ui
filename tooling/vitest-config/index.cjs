@@ -1,3 +1,4 @@
+const path = require('node:path');
 const react = require('@vitejs/plugin-react').default ?? require('@vitejs/plugin-react');
 
 /**
@@ -7,6 +8,7 @@ const react = require('@vitejs/plugin-react').default ?? require('@vitejs/plugin
 function createTestConfig({ setupFiles = [] } = {}) {
   return {
     plugins: [react()],
+    cacheDir: path.join(process.cwd(), '.vitest-cache'),
     test: {
       environment: 'jsdom',
       globals: true,

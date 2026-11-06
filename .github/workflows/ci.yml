@@ -41,8 +41,30 @@ jobs:
       - name: Validate manifests
         run: pnpm validate:manifests
 
+      - name: Manifest gap report
+        run: pnpm report:manifests
+
+      - name: Upload manifest gap report
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-gaps
+          path: reports/
+          if-no-files-found: error
+
       - name: Generate registry payload
         run: pnpm generate:registry
 
       - name: Generate LLM docs (llms.txt + /llm routes)
         run: pnpm generate:llm-docs
+
+      - name: Check generated files are committed
+        run: git diff --exit-code -- README.md apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llm apps/docs/public/registry
+
+      - name: Check LLM documentation surfaces
+        run: pnpm check:llm
+
+      - name: Check component coverage
+        run: pnpm check:components
+
+      - name: Verify Tailwind v4 theme compiles
+        run: pnpm verify:tailwind-v4

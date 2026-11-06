@@ -112,7 +112,7 @@
     },
     {
       "path": "components/slipstream/auth-layout/index.ts",
-      "content": "export * from './AuthLayout';\r\n",
+      "content": "export * from './AuthLayout';\n",
       "type": "registry:component"
     },
     {

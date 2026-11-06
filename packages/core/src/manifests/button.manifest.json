@@ -113,6 +113,13 @@
       "required": false,
       "defaultValue": "false",
       "description": "Shows a spinner, disables the button and sets aria-busy."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "'Loading'",
+      "description": "Screen-reader text while loading; localize this for non-English apps."
     }
   ],
   "examples": [

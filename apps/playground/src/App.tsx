@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Input, Badge, Avatar, AvatarFallback, Spinner } from '@slipstream-ui/core';
 import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message, Response, CodeBlock, Confirmation, Branch, InlineCitation } from '@slipstream-ui/ai';
 import { defaultTheme, darkTheme, violetTheme, violetDarkTheme } from '@slipstream-ui/themes';
+import { LocaleSwitcher } from '@slipstream-ui/i18n/react';
 
 function App() {
   const [messages, setMessages] = useState([
@@ -96,6 +97,7 @@ function App() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div><h1 className="text-4xl font-bold mb-2">Slipstream UI Playground</h1><p className="text-muted-foreground">Interactive demo of Slipstream UI components</p></div>
             <div className="flex items-center gap-3">
+              <LocaleSwitcher />
               <button
                 type="button"
                 onClick={toggleDark}

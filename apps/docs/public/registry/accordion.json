@@ -151,7 +151,7 @@
     },
     {
       "path": "components/slipstream/accordion/index.ts",
-      "content": "export * from './Accordion';\r\n",
+      "content": "export * from './Accordion';\n",
       "type": "registry:component"
     },
     {

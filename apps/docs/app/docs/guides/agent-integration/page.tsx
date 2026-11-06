@@ -74,7 +74,7 @@ export default function AgentIntegrationGuidePage() {
       </div>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
-        The zero-hallucination loop
+        The validation loop
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         The point of the library: the agent checks itself <em>before</em> code lands in your diff.

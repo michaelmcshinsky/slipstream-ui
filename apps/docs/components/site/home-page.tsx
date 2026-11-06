@@ -145,7 +145,7 @@ function CopyInstallPill() {
 
 const FEATURES = [
   { index: '01', title: 'Machine-readable manifests', body: 'Every component ships a COMPONENT_MANIFEST: exact prop schema, defaults, anti-patterns, accessibility requirements, composition rules.' },
-  { index: '02', title: 'validate_usage MCP tool', body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds are caught, not shipped.' },
+  { index: '02', title: 'validate_usage MCP tool', body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds can be caught, not shipped.' },
   { index: '03', title: 'shadcn-compatible registry', body: 'Install real source files through any shadcn-compatible CLI, or use packages. Your codebase, your rules.' },
   { index: '04', title: 'Fully stateless', body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.' },
   { index: '05', title: 'Accessibility, tested', body: 'jest-axe suites on every component, aria-busy streaming states, polite completion announcements, reduced-motion variants.' },
@@ -514,7 +514,7 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-24 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          {COMPONENT_COUNT} components · {COMPONENT_COUNT} machine-readable specs · zero hallucinated props.
+          {COMPONENT_COUNT} components · {COMPONENT_COUNT} machine-readable specs · validate generated usage before it ships.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link

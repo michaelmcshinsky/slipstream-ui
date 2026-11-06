@@ -7,6 +7,7 @@
     "directory": "packages/mcp-server"
   },
   "description": "MCP server for Slipstream UI component manifests",
+  "mcpName": "io.github.michaelmcshinsky/slipstream-ui",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
@@ -14,7 +15,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "server.json"
   ],
   "publishConfig": {
     "access": "public",

@@ -6,22 +6,51 @@ type UsageIssue = {
   message: string;
 };
 
+type ComponentAttribute = {
+  name: string;
+  value?: string;
+};
+
+type ComponentUsage = {
+  attributes: ComponentAttribute[];
+  selfClosing: boolean;
+  hasChildren: boolean;
+};
+
 /**
  * Extract attribute names from JSX usages of the component, e.g. every
  * `name=` inside a <Message ... /> opening tag. Heuristic but effective for
  * catching hallucinated props — the failure mode this tool exists to prevent.
  */
-function findComponentUsages(code: string, exportName: string): string[][] {
-  const usages: string[][] = [];
+function findComponentUsages(code: string, exportName: string): ComponentUsage[] {
+  const usages: ComponentUsage[] = [];
   const tagPattern = new RegExp(`<${exportName}\\b([^>]*?)/?>`, 'gs');
   for (const match of code.matchAll(tagPattern)) {
     // Strip string literals and brace expressions so only the attribute
     // skeleton remains, then read each identifier token.
-    const stripped = match[1].replace(/"[^"]*"|'[^']*'|\{[^{}]*\}/g, ' ');
-    const attributes = [...stripped.matchAll(/(?:^|\s)([A-Za-z_][\w-]*)/g)]
+    const raw = match[1];
+    const stripped = raw.replace(/"[^"]*"|'[^']*'|\{[^{}]*\}/g, ' ');
+
+    const values = new Map<string, string>();
+    for (const valueMatch of raw.matchAll(/([A-Za-z_][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g)) {
+      const value = valueMatch[2] ?? valueMatch[3];
+      if (value !== undefined) values.set(valueMatch[1], value);
+    }
+
+    const attributes: ComponentAttribute[] = [...stripped.matchAll(/(?:^|\s)([A-Za-z_][\w-]*)/g)]
       .map((attrMatch) => attrMatch[1])
-      .filter((name) => !['true', 'false'].includes(name));
-    usages.push(attributes);
+      .filter((name) => !['true', 'false'].includes(name))
+      .map((name) => ({ name, value: values.get(name) }));
+
+    const selfClosing = /\/\s*>$/.test(match[0].trimEnd());
+    let hasChildren = false;
+    if (!selfClosing && match.index !== undefined) {
+      const after = code.slice(match.index + match[0].length);
+      const closing = new RegExp(`</${exportName}\\s*>`).exec(after);
+      hasChildren = closing !== null && after.slice(0, closing.index).trim().length > 0;
+    }
+
+    usages.push({ attributes, selfClosing, hasChildren });
   }
   return usages;
 }
@@ -64,22 +93,34 @@ export const validateUsageTool: McpTool = {
       issues.push({ severity: 'error', message: `No <${exportName}> usage found in the provided code.` });
     }
 
-    for (const [index, attributes] of usages.entries()) {
+    for (const [index, usage] of usages.entries()) {
       const where = usages.length > 1 ? `usage #${index + 1}` : 'usage';
-      for (const attribute of attributes) {
-        if (!schemaByName.has(attribute)) {
+      for (const attribute of usage.attributes) {
+        const schema = schemaByName.get(attribute.name);
+        if (!schema) {
           // Spread props cannot be validated.
-          if (attribute === '...') continue;
+          if (attribute.name === '...') continue;
           issues.push({
             severity: 'error',
-            message: `Unknown prop "${attribute}" on <${exportName}> (${where}). This prop does not exist in the manifest.`,
+            message: `Unknown prop "${attribute.name}" on <${exportName}> (${where}). This prop does not exist in the manifest.`,
+          });
+          continue;
+        }
+
+        if (schema.enum && attribute.value !== undefined && !schema.enum.includes(attribute.value)) {
+          issues.push({
+            severity: 'error',
+            message: `Invalid value "${attribute.value}" for prop "${attribute.name}" on <${exportName}> (${where}). Allowed values: ${schema.enum.join(', ')}.`,
           });
         }
       }
 
       const missingRequired = (manifest.props ?? [])
         .filter((prop) => prop.required)
-        .filter((prop) => !attributes.includes(prop.name))
+        .filter((prop) => {
+          if (prop.name === 'children') return !usage.hasChildren && !usage.attributes.some((attribute) => attribute.name === prop.name);
+          return !usage.attributes.some((attribute) => attribute.name === prop.name);
+        })
         .map((prop) => `"${prop.name}"`);
       if (missingRequired.length > 0) {
         issues.push({

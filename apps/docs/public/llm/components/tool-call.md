@@ -17,6 +17,7 @@ The ToolCall component visualizes when an AI agent uses tools or functions. It s
 | toolCall | `ToolCall` | — | yes | The tool call object containing name, arguments, status, and result |
 | showResult | `boolean` | `true` | no | Whether to display the tool result |
 | className | `string` | — | no | Additional CSS classes to apply |
+| labels | `{ pending?: string; running?: string; completed?: string; failed?: string; arguments?: string; result?: string; error?: string }` | — | no | Localized status and section labels. |
 
 ## Examples
 

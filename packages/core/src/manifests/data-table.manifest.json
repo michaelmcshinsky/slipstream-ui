@@ -166,6 +166,13 @@
       ]
     },
     {
+      "name": "selectAllLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "'Select all rows'",
+      "description": "Accessible label for the select-all checkbox."
+    },
+    {
       "name": "className",
       "type": "string",
       "required": false,

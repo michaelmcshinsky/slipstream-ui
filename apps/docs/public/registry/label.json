@@ -97,13 +97,13 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "components/slipstream/label/index.ts",
-      "content": "export * from './Label';\r\n",
+      "path": "components/slipstream/label/Label.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;\n\n/**\n * Accessible form label. Associates with its control via `htmlFor`\n * (or wraps it) so screen readers announce the field name together\n * with its value and state.\n */\nconst Label = React.forwardRef<HTMLLabelElement, LabelProps>(\n  ({ className, ...props }, ref) => (\n    <label\n      ref={ref}\n      className={cn(\n        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nLabel.displayName = 'Label';\n\nexport { Label };\n",
       "type": "registry:component"
     },
     {
-      "path": "components/slipstream/label/Label.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;\n\n/**\n * Accessible form label. Associates with its control via `htmlFor`\n * (or wraps it) so screen readers announce the field name together\n * with its value and state.\n */\nconst Label = React.forwardRef<HTMLLabelElement, LabelProps>(\n  ({ className, ...props }, ref) => (\n    <label\n      ref={ref}\n      className={cn(\n        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',\n        className\n      )}\n      {...props}\n    />\n  )\n);\nLabel.displayName = 'Label';\n\nexport { Label };\n",
+      "path": "components/slipstream/label/index.ts",
+      "content": "export * from './Label';\n",
       "type": "registry:component"
     },
     {

@@ -45,6 +45,8 @@
       "implementation": "Icon-labeled button with aria-label that flips to Copied."
     }
   ],
+  "sourceDir": "code-block",
+  "exportName": "CodeBlock",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1",
@@ -68,7 +70,7 @@
     },
     {
       "path": "components/slipstream/manifests/code-block.manifest.json",
-      "content": "{\n  \"id\": \"code-block\",\n  \"name\": \"CodeBlock\",\n  \"tier\": \"atom\",\n  \"description\": \"Syntax-highlighted code block with language label and copy-to-clipboard button.\",\n  \"designIntent\": \"Display AI-generated or referenced code readably with one-click copy.\",\n  \"props\": [\n    {\n      \"name\": \"code\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Raw code to display.\"\n    },\n    {\n      \"name\": \"language\",\n      \"type\": \"string\",\n      \"defaultValue\": \"tsx\",\n      \"required\": false,\n      \"description\": \"Prism language identifier.\"\n    },\n    {\n      \"name\": \"showCopyButton\",\n      \"type\": \"boolean\",\n      \"defaultValue\": true,\n      \"required\": false,\n      \"description\": \"Show/hide the copy control.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic\",\n      \"code\": \"<CodeBlock code={sourceCode} language=\\\"ts\\\" />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not nest CodeBlock in Response code fences manually\",\n      \"explanation\": \"Response already routes fenced code to CodeBlock.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Copy button\",\n      \"implementation\": \"Icon-labeled button with aria-label that flips to Copied.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
+      "content": "{\n  \"id\": \"code-block\",\n  \"name\": \"CodeBlock\",\n  \"tier\": \"atom\",\n  \"description\": \"Syntax-highlighted code block with language label and copy-to-clipboard button.\",\n  \"designIntent\": \"Display AI-generated or referenced code readably with one-click copy.\",\n  \"props\": [\n    {\n      \"name\": \"code\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Raw code to display.\"\n    },\n    {\n      \"name\": \"language\",\n      \"type\": \"string\",\n      \"defaultValue\": \"tsx\",\n      \"required\": false,\n      \"description\": \"Prism language identifier.\"\n    },\n    {\n      \"name\": \"showCopyButton\",\n      \"type\": \"boolean\",\n      \"defaultValue\": true,\n      \"required\": false,\n      \"description\": \"Show/hide the copy control.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic\",\n      \"code\": \"<CodeBlock code={sourceCode} language=\\\"ts\\\" />\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Do not nest CodeBlock in Response code fences manually\",\n      \"explanation\": \"Response already routes fenced code to CodeBlock.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Copy button\",\n      \"implementation\": \"Icon-labeled button with aria-label that flips to Copied.\"\n    }\n  ],\n  \"sourceDir\": \"code-block\",\n  \"exportName\": \"CodeBlock\",\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\"\n}\n",
       "type": "registry:item"
     }
   ]

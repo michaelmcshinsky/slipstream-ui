@@ -137,6 +137,8 @@
       "implementation": "Status chip text announces Approved/Rejected."
     }
   ],
+  "sourceDir": "confirmation",
+  "exportName": "Confirmation",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.0.1"

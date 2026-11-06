@@ -113,3 +113,11 @@ describe('Pagination contracts and summary', () => {
     expect(screen.getByText('Showing 11–20 of 40 rows')).toBeInTheDocument();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the landmark and control overrides', () => {
+    render(<Pagination page={1} pageCount={3} labels={{ pagination: 'Pagination FR', next: 'Suivant' }} />);
+    expect(screen.getByRole('navigation', { name: 'Pagination FR' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
+  });
+});
