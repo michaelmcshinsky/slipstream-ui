@@ -300,7 +300,7 @@ and accessibility notes, add a test that the override renders, and add an
 | Interpolation / plural | unit, per locale |
 | Locale resolution | cookie, BCP-47, Accept-Language q-values |
 | RTL render | provider sets `dir=rtl`; axe in `ar` |
-| Page smoke | every route in en/ar/es, no missing keys |
+| Page smoke | every route in en/ar/es/ko/ja/ru/zh, no missing keys |
 | Visual regression | header, footer, forms, tables, chat in LTR/RTL |
 | SEO | `hreflang`, canonical, sitemap per locale |
 | Emails | subject/body snapshot per locale |

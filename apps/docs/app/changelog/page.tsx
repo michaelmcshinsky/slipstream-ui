@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { resolveLocale } from '@slipstream-ui/i18n';
+import { getChangelogUi } from '@/lib/changelog-i18n';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
@@ -113,7 +116,9 @@ const releases = [
   },
 ];
 
-export default function ChangelogPage() {
+export default async function ChangelogPage() {
+  const locale = resolveLocale((await cookies()).get('slipstream-locale')?.value);
+  const ui = getChangelogUi(locale);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -122,31 +127,40 @@ export default function ChangelogPage() {
         <MobileNav />
       </div>
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-2">Changelog</h1>
+        <h1 className="text-4xl font-bold mb-2">{ui.title}</h1>
         <p className="text-lg text-muted-foreground mb-10">
-          Release notes for Slipstream UI. Versions follow semver.
+          {ui.intro}
         </p>
 
-        {releases.map((release) => (
-          <section key={release.version} className="mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <h2 className="text-2xl font-semibold">{release.version}</h2>
-              <span className="text-sm text-muted-foreground">{release.date}</span>
-              {release.tag === 'current' && (
-                <span className="text-xs px-2 py-0.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-medium">
-                  current
-                </span>
-              )}
-            </div>
-            <ul className="list-disc pl-5 space-y-2 text-sm">
-              {release.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          </section>
-        ))}
+        {releases.map((release) => {
+          const isCurrent = release.tag === 'current';
+          const highlights = release.version === '0.5.0' ? ui.release05 : release.highlights;
+          const date = release.version === '0.5.0' ? ui.date05 : release.date;
+          return (
+            <section key={release.version} className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-semibold">{release.version}</h2>
+                <span className="text-sm text-muted-foreground">{date}</span>
+                {isCurrent && (
+                  <span className="text-xs px-2 py-0.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-medium">
+                    {ui.current}
+                  </span>
+                )}
+              </div>
+              <ul className="list-disc pl-5 space-y-2 text-sm">
+                {highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
 
-        <h2 className="text-2xl font-semibold mb-4">Install</h2>
+        {locale !== 'en' && (
+          <p className="mb-10 text-sm text-muted-foreground">{ui.archiveNote}</p>
+        )}
+
+        <h2 className="text-2xl font-semibold mb-4">{ui.installHeading}</h2>
         <CodeBlock
           language="bash"
           code={`# Packages

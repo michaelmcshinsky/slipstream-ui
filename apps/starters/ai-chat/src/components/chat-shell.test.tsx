@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
+import type { Locale } from '@slipstream-ui/i18n';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
 import { ChatShell } from './chat-shell';
 
-function renderShell(locale: 'en' | 'ar' | 'es') {
+function renderShell(locale: Locale) {
   return render(
     <I18nProvider locale={locale}>
       <ChatShell />
@@ -32,5 +33,19 @@ describe('ChatShell localization', () => {
     renderShell('es');
     expect(screen.getByRole('heading', { name: /inicio de chat con ia/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/pide al agente/i)).toBeInTheDocument();
+  });
+
+  it('renders Korean, Japanese, Russian and Chinese copy', () => {
+    const titles: Record<string, RegExp> = {
+      ko: /AI 채팅 스타터/,
+      ja: /AIチャットスターター/,
+      ru: /AI-чат стартер/,
+      zh: /AI 聊天启动器/,
+    };
+    for (const [locale, title] of Object.entries(titles)) {
+      const { unmount } = renderShell(locale as Locale);
+      expect(screen.getByRole('heading', { name: title })).toBeInTheDocument();
+      unmount();
+    }
   });
 });

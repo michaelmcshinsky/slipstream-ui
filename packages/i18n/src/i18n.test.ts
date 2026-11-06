@@ -8,6 +8,10 @@ describe('locale resolution', () => {
   it('resolves base locales from BCP-47 tags and falls back to English', () => {
     expect(resolveLocale('ar-EG')).toBe('ar');
     expect(resolveLocale('es-MX')).toBe('es');
+    expect(resolveLocale('ko-KR')).toBe('ko');
+    expect(resolveLocale('ja-JP')).toBe('ja');
+    expect(resolveLocale('ru-RU')).toBe('ru');
+    expect(resolveLocale('zh-CN')).toBe('zh');
     expect(resolveLocale('fr-FR')).toBe('en');
     expect(resolveLocale(undefined)).toBe('en');
   });
@@ -45,10 +49,9 @@ describe('translations', () => {
 
   it('ships every key in every locale', () => {
     const en = getMessages('en');
-    const ar = getMessages('ar');
-    const es = getMessages('es');
-    expect(Object.keys(ar)).toEqual(Object.keys(en));
-    expect(Object.keys(es)).toEqual(Object.keys(en));
+    for (const locale of ['ar', 'es', 'ko', 'ja', 'ru', 'zh'] as const) {
+      expect(Object.keys(getMessages(locale))).toEqual(Object.keys(en));
+    }
   });
 
   it('translates the app title', () => {

@@ -1,4 +1,4 @@
-export const SUPPORTED_LOCALES = ['en', 'ar', 'es'] as const;
+export const SUPPORTED_LOCALES = ['en', 'ar', 'es', 'ko', 'ja', 'ru', 'zh'] as const;
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
@@ -8,12 +8,20 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'English',
   ar: 'العربية',
   es: 'Español',
+  ko: '한국어',
+  ja: '日本語',
+  ru: 'Русский',
+  zh: '中文',
 };
 
 export const DIRECTION: Record<Locale, 'ltr' | 'rtl'> = {
   en: 'ltr',
   ar: 'rtl',
   es: 'ltr',
+  ko: 'ltr',
+  ja: 'ltr',
+  ru: 'ltr',
+  zh: 'ltr',
 };
 
 export function isLocale(value: unknown): value is Locale {
