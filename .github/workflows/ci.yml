@@ -63,5 +63,8 @@ jobs:
       - name: Check LLM documentation surfaces
         run: pnpm check:llm
 
+      - name: Check component coverage
+        run: pnpm check:components
+
       - name: Verify Tailwind v4 theme compiles
         run: pnpm verify:tailwind-v4

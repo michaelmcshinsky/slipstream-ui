@@ -16,6 +16,7 @@
     "check:counts": "tsx scripts/check-component-counts.ts",
     "report:manifests": "tsx scripts/report-manifest-gaps.ts",
     "check:llm": "tsx scripts/check-llm-docs.ts",
+    "check:components": "tsx scripts/check-component-coverage.ts",
     "verify:tailwind-v4": "node scripts/verify-tailwind-v4.mjs",
     "bench:generate": "tsx benchmarks/generate-cases.ts",
     "bench:check": "tsx benchmarks/generate-cases.ts --check",
