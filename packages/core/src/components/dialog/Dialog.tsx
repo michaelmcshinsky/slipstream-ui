@@ -30,6 +30,8 @@ export type DialogProps = {
   closeOnBackdrop?: boolean;
   /** Hide the close (✕) button in the header; Escape and backdrop still close. */
   showClose?: boolean;
+  /** Accessible label for the close button (default "Close dialog"). */
+  closeLabel?: string;
   /** Focused when the dialog opens; defaults to the first focusable element. */
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   /** Accessible name when `title` is omitted (required with a custom header). */
@@ -114,6 +116,7 @@ export function Dialog({
   bodyClassName,
   closeOnBackdrop = true,
   showClose = true,
+  closeLabel = 'Close dialog',
   initialFocusRef,
   ariaLabel,
   animate = false,
@@ -214,7 +217,7 @@ export function Dialog({
                 <button
                   type="button"
                   onClick={() => onOpenChange(false)}
-                  aria-label="Close dialog"
+                  aria-label={closeLabel}
                   className="rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   ✕

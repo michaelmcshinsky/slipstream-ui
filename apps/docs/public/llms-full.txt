@@ -954,6 +954,7 @@ The Button component is a fundamental interactive element that triggers actions 
 | onClick | `(event: MouseEvent<HTMLButtonElement>) => void` | — | no | Handler called when button is clicked |
 | type | `'button' | 'submit' | 'reset'` | `button` | no | HTML button type attribute |
 | loading | `boolean` | `false` | no | Shows a spinner, disables the button and sets aria-busy. |
+| loadingLabel | `string` | `'Loading'` | no | Screen-reader text while loading; localize this for non-English apps. |
 
 ## Examples
 
@@ -1705,6 +1706,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loading | `boolean` | `false` | no | Render skeleton placeholder rows (tbody is aria-busy while loading). |
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
+| selectAllLabel | `string` | `'Select all rows'` | no | Accessible label for the select-all checkbox. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 | selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
 | onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |
@@ -1859,6 +1861,7 @@ Modals interrupt the task flow on purpose: confirmations, small forms, and destr
 | initialFocusRef | `React.RefObject<HTMLElement | null>` | — | no | Element focused on open; defaults to the first focusable element |
 | ariaLabel | `string` | — | no | Accessible label for the dialog (required for screen readers) |
 | showClose | `boolean` | `true` | no | Hide the close (?) button in the header; Escape and backdrop still close. |
+| closeLabel | `string` | `'Close dialog'` | no | Accessible label for the close button. |
 | animate | `boolean` | `false` | no | Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected). |
 | size | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `md` | no | Panel max-width preset. |
 | header | `ReactNode` | — | no | Replaces the default header row — compose with DialogHeader/DialogTitle/DialogDescription (ids wire automatically). |
@@ -1932,6 +1935,7 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | height | `number | string` | — | no | Custom extent for top/bottom drawers: pixels (320) or any CSS length ("60vh"). Overrides size. |
 | closeOnBackdrop | `boolean` | `true` | no | Clicking the backdrop closes the drawer. |
 | showClose | `boolean` | `true` | no | Hide the header ✕ button (Escape and backdrop still close). |
+| closeLabel | `string` | `'Close drawer'` | no | Accessible label for the close button. |
 | initialFocusRef | `RefObject<HTMLElement | null>` | — | no | Element focused on open (defaults to the first focusable element). |
 | ariaLabel | `string` | — | no | Overrides the accessible name (defaults to the title). |
 | animate | `boolean` | `false` | no | Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected). |
@@ -3487,6 +3491,7 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | showFirst | `boolean` | — | no | Force-show the first-page button. |
 | showLast | `boolean` | — | no | Force-show the last-page button. |
 | icons | `PaginationIcons` | — | no | Replace the default glyphs. |
+| labels | `{ pagination?: string; first?: string; previous?: string; next?: string; last?: string; page?: (page: number) => string }` | — | no | Localized landmark and control labels. |
 
 ## Examples
 

@@ -60,6 +60,13 @@
       ]
     },
     {
+      "name": "closeLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "'Close dialog'",
+      "description": "Accessible label for the close button."
+    },
+    {
       "name": "animate",
       "type": "boolean",
       "defaultValue": "false",

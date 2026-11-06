@@ -22,6 +22,7 @@ The Button component is a fundamental interactive element that triggers actions 
 | onClick | `(event: MouseEvent<HTMLButtonElement>) => void` | — | no | Handler called when button is clicked |
 | type | `'button' | 'submit' | 'reset'` | `button` | no | HTML button type attribute |
 | loading | `boolean` | `false` | no | Shows a spinner, disables the button and sets aria-busy. |
+| loadingLabel | `string` | `'Loading'` | no | Screen-reader text while loading; localize this for non-English apps. |
 
 ## Examples
 

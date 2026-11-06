@@ -43,6 +43,15 @@ export type PaginationProps = React.HTMLAttributes<HTMLElement> & {
   showLast?: boolean;
   /** Replace the default ‹ › « » glyphs. */
   icons?: PaginationIcons;
+  /** Localized landmark and control labels. */
+  labels?: {
+    pagination?: string;
+    first?: string;
+    previous?: string;
+    next?: string;
+    last?: string;
+    page?: (page: number) => string;
+  };
 };
 
 const controlClass =
@@ -72,6 +81,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
       showFirst,
       showLast,
       icons,
+      labels,
       className,
       ...props
     },
@@ -104,7 +114,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     const nav = (
       <nav
         ref={ref}
-        aria-label="Pagination"
+        aria-label={labels?.pagination ?? 'Pagination'}
         className={cn('flex items-center justify-center gap-1', summaryEnabled ? undefined : className)}
         {...props}
       >
@@ -113,7 +123,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
             type="button"
             onClick={() => onPageChange?.(1)}
             disabled={page <= 1}
-            aria-label="First page"
+            aria-label={labels?.first ?? 'First page'}
             className={controlClass}
           >
             {icons?.first ?? '«'}
@@ -123,7 +133,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           type="button"
           onClick={() => onPageChange?.(page - 1)}
           disabled={page <= 1}
-          aria-label="Previous page"
+          aria-label={labels?.previous ?? 'Previous page'}
           className={controlClass}
         >
           {icons?.previous ?? '‹'}
@@ -143,7 +153,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
               type="button"
               onClick={() => onPageChange?.(entry)}
               aria-current={entry === page ? 'page' : undefined}
-              aria-label={`Page ${entry}`}
+              aria-label={labels?.page?.(entry) ?? `Page ${entry}`}
               className={cn(
                 'inline-flex h-8 w-8 items-center justify-center rounded-md border text-sm transition-colors',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
@@ -160,7 +170,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
           type="button"
           onClick={() => onPageChange?.(page + 1)}
           disabled={page >= pageCount}
-          aria-label="Next page"
+          aria-label={labels?.next ?? 'Next page'}
           className={controlClass}
         >
           {icons?.next ?? '›'}
@@ -170,7 +180,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
             type="button"
             onClick={() => onPageChange?.(pageCount)}
             disabled={page >= pageCount}
-            aria-label="Last page"
+            aria-label={labels?.last ?? 'Last page'}
             className={controlClass}
           >
             {icons?.last ?? '»'}

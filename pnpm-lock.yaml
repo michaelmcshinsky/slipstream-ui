@@ -118,6 +118,9 @@ importers:
       '@slipstream-ui/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@slipstream-ui/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       jose:
         specifier: ^6.2.14
         version: 6.2.15
@@ -188,6 +191,9 @@ importers:
       '@slipstream-ui/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@slipstream-ui/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@slipstream-ui/themes':
         specifier: workspace:*
         version: link:../../packages/themes
@@ -267,6 +273,9 @@ importers:
       '@slipstream-ui/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@slipstream-ui/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@slipstream-ui/themes':
         specifier: workspace:*
         version: link:../../packages/themes

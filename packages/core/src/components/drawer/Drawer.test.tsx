@@ -174,3 +174,10 @@ describe('Drawer sizes and custom extents', () => {
     expect(screen.getByRole('dialog')).not.toHaveAttribute('style');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the closeLabel override', () => {
+    render(<Drawer open onOpenChange={() => undefined} title="Title" closeLabel="Fermer">Body</Drawer>);
+    expect(screen.getByRole('button', { name: 'Fermer' })).toBeInTheDocument();
+  });
+});

@@ -1,6 +1,7 @@
 ---
 "@slipstream-ui/i18n": minor
 "@slipstream-ui/ai": patch
+"@slipstream-ui/core": patch
 ---
 
 Add the typed i18n runtime with English, Arabic and Spanish catalogs, RTL

@@ -28,6 +28,7 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | showFirst | `boolean` | — | no | Force-show the first-page button. |
 | showLast | `boolean` | — | no | Force-show the last-page button. |
 | icons | `PaginationIcons` | — | no | Replace the default glyphs. |
+| labels | `{ pagination?: string; first?: string; previous?: string; next?: string; last?: string; page?: (page: number) => string }` | — | no | Localized landmark and control labels. |
 
 ## Examples
 

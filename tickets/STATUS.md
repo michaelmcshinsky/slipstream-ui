@@ -54,6 +54,19 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 - `Reasoning` and `ToolCall` accept label overrides.
 - Plan for docs, dashboard, playground and remaining component labels: [`../docs/i18n-plan.md`](../docs/i18n-plan.md).
 - Tracking ticket: [`SLIP-060.md`](./SLIP-060.md).
+
+### i18n ticket status
+
+| ID | Status | Note |
+|---|---|---|
+| SLIP-061 | **Done** | Button, Pagination, DataTable, Dialog, Drawer label props + tests/manifests |
+| SLIP-062 | Pending | P1 labels (Autocomplete, Breadcrumb, DatePicker, FileUpload, Search, CommandPalette, Toast, Spinner/Skeleton) |
+| SLIP-063 | Pending | Message/Reasoning timestamp formatting |
+| SLIP-064 | **Partial** | Docs provider, `lang`/`dir`, navbar switcher and translated shell nav; path URLs/SEO/metadata pending |
+| SLIP-065 | Pending | Docs guides/component page translation |
+| SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
+| SLIP-067 | Pending | Transactional emails |
+| SLIP-068 | **Partial** | Playground provider + switcher; pseudo-locale/CI visual checks pending |
 ## Verification
 
 ```bash

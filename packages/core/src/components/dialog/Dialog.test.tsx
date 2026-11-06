@@ -247,3 +247,10 @@ describe('Dialog sizes, slots and compound parts', () => {
     expect(body.className).toContain('overflow-y-auto');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the closeLabel override', () => {
+    render(<Dialog open onOpenChange={() => undefined} title="Title" closeLabel="Fermer">Body</Dialog>);
+    expect(screen.getByRole('button', { name: 'Fermer' })).toBeInTheDocument();
+  });
+});

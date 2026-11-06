@@ -72,6 +72,8 @@ export type DataTableProps<T> = {
   onRowClick?: (row: T) => void;
   /** Message shown when data is empty. */
   emptyMessage?: string;
+  /** Accessible label for the select-all checkbox (default "Select all rows"). */
+  selectAllLabel?: string;
   /** Pin the header while the body scrolls (needs a max-height on the wrapper via className). */
   stickyHeader?: boolean;
   /** Compact row density. */
@@ -127,6 +129,7 @@ export function DataTable<T>({
   bulkActions,
   onRowClick,
   emptyMessage = 'No results.',
+  selectAllLabel = 'Select all rows',
   stickyHeader,
   density = 'default',
   zebra,
@@ -241,7 +244,7 @@ export function DataTable<T>({
               {selectionEnabled && (
                 <th scope="col" className="w-10 border-b border-border px-3 py-2">
                   <Checkbox
-                    aria-label="Select all rows"
+                    aria-label={selectAllLabel}
                     checked={allSelected}
                     ref={(node) => {
                       if (node) node.indeterminate = someSelected && !allSelected;

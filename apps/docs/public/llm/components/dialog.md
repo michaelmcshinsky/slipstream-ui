@@ -22,6 +22,7 @@ Modals interrupt the task flow on purpose: confirmations, small forms, and destr
 | initialFocusRef | `React.RefObject<HTMLElement | null>` | — | no | Element focused on open; defaults to the first focusable element |
 | ariaLabel | `string` | — | no | Accessible label for the dialog (required for screen readers) |
 | showClose | `boolean` | `true` | no | Hide the close (?) button in the header; Escape and backdrop still close. |
+| closeLabel | `string` | `'Close dialog'` | no | Accessible label for the close button. |
 | animate | `boolean` | `false` | no | Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected). |
 | size | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `md` | no | Panel max-width preset. |
 | header | `ReactNode` | — | no | Replaces the default header row — compose with DialogHeader/DialogTitle/DialogDescription (ids wire automatically). |

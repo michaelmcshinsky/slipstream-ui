@@ -14,13 +14,12 @@ import {
   ToolCall,
 } from '@slipstream-ui/ai';
 import { Badge, Button, Card, Separator } from '@slipstream-ui/core';
-import { useI18n } from '@slipstream-ui/i18n/react';
+import { LocaleSwitcher, useI18n } from '@slipstream-ui/i18n/react';
 import { runChat } from '@/src/lib/chat/runner';
 import { createFetchAdapter } from '@/src/lib/chat/sse-adapter';
 import { createAssistantMessage, type ChatApproval, type ChatMessage } from '@/src/lib/chat/types';
 import { createAnalytics } from '@/src/lib/analytics';
 import { clearHistory, loadHistory, saveHistory } from '@/src/lib/history';
-import { LocaleSwitcher } from './locale-switcher';
 
 function AssistantActivity({ message, onApproval }: { message: ChatMessage; onApproval: (status: ChatApproval['status']) => void }) {
   const { t, tPlural } = useI18n();

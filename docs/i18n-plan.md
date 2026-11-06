@@ -4,7 +4,8 @@
 **Scope:** `apps/docs`, `apps/app`, `apps/starters/ai-chat`, `apps/playground`,
 `packages/core`, `packages/ai`, `packages/cli`, MCP/registry surfaces
 **Status:** shared runtime shipped; AI Chat Starter fully localized (en, ar, es);
-docs/dashboard are planned, not translated.
+docs, dashboard and playground have locale providers, switchers and shell copy.
+Content, path-prefixed docs URLs, dashboard flows and emails remain.
 
 ---
 
@@ -130,6 +131,11 @@ Follow-ups:
 
 ### 4.2 Docs site — the largest effort
 
+**Implemented interim:** cookie locale, `I18nProvider`, navbar language switcher,
+translated primary nav/search/theme labels, and server `lang`/`dir`.
+**Remaining:** path-prefixed URLs, per-locale metadata/`hreflang`/sitemap,
+locale-keyed search index, and translated content.
+
 Recommended URL strategy: **path prefix**, not subdomain.
 
 ```
@@ -172,7 +178,12 @@ pages are translation/vendor work (~1–2 weeks of review) plus automation.
 
 ### 4.3 Dashboard app (`apps/app`)
 
-Scope: auth, billing, team, admin, emails.
+**Implemented interim:** root locale provider, dashboard language switcher,
+translated dashboard nav, sign-out, and suspended-account copy.
+
+**Remaining:** auth/billing/team/admin copy, validation/API errors, `User.locale`
+persistence, `Intl` currency/dates, emails and RTL audit. Scope: auth, billing,
+team, admin, emails.
 
 1. Add the same cookie/`lang`/`dir` root layout and a locale switcher in the
    dashboard header.
@@ -197,6 +208,9 @@ Scope: auth, billing, team, admin, emails.
 Effort: ~2–3 engineer-weeks plus translation and legal review.
 
 ### 4.4 Playground
+
+**Implemented interim:** provider + shared locale switcher. Remaining:
+pseudo-locale and CI/visual checks.
 
 Internal. Add a locale toggle that sets the provider and `dir`, plus an RTL
 layout stress switch. Do not translate the dev copy as a product requirement.
