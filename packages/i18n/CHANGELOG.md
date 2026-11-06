@@ -1,5 +1,12 @@
 # @slipstream-ui/i18n
 
+## 0.3.0
+
+### Minor Changes
+
+- [`61dd8ce`](https://github.com/michaelmcshinsky/slipstream-ui/commit/61dd8ce257b6c405908a033947c394e352c9a452) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add Korean, Japanese, Russian and Simplified Chinese catalogs, extend the
+  locale switcher to seven languages, and localize the changelog page content.
+
 ## 0.2.0
 
 ### Minor Changes
