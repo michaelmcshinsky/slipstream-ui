@@ -155,7 +155,7 @@
     },
     {
       "path": "components/slipstream/select-menu/index.ts",
-      "content": "export * from './SelectMenu';\r\n",
+      "content": "export * from './SelectMenu';\n",
       "type": "registry:component"
     },
     {

@@ -126,7 +126,7 @@
     },
     {
       "path": "components/slipstream/text/index.ts",
-      "content": "export * from './Text';\r\n",
+      "content": "export * from './Text';\n",
       "type": "registry:component"
     },
     {

@@ -137,7 +137,7 @@
     },
     {
       "path": "components/slipstream/page-header/index.ts",
-      "content": "export * from './PageHeader';\r\n",
+      "content": "export * from './PageHeader';\n",
       "type": "registry:component"
     },
     {

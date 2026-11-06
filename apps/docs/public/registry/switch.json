@@ -121,7 +121,7 @@
     },
     {
       "path": "components/slipstream/switch/index.ts",
-      "content": "export * from './Switch';\r\n",
+      "content": "export * from './Switch';\n",
       "type": "registry:component"
     },
     {

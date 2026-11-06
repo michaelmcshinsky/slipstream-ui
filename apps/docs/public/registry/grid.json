@@ -196,7 +196,7 @@
     },
     {
       "path": "components/slipstream/grid/index.ts",
-      "content": "export * from './Grid';\r\n",
+      "content": "export * from './Grid';\n",
       "type": "registry:component"
     },
     {

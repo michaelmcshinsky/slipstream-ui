@@ -97,7 +97,7 @@
     },
     {
       "path": "components/slipstream/table/index.ts",
-      "content": "export * from './Table';\r\n",
+      "content": "export * from './Table';\n",
       "type": "registry:component"
     },
     {

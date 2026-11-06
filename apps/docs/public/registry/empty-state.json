@@ -121,7 +121,7 @@
     },
     {
       "path": "components/slipstream/empty-state/index.ts",
-      "content": "export * from './EmptyState';\r\n",
+      "content": "export * from './EmptyState';\n",
       "type": "registry:component"
     },
     {

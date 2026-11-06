@@ -139,7 +139,7 @@
     },
     {
       "path": "components/slipstream/skeleton/index.ts",
-      "content": "export * from './Skeleton';\r\n",
+      "content": "export * from './Skeleton';\n",
       "type": "registry:component"
     },
     {

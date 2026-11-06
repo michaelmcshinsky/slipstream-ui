@@ -116,7 +116,7 @@
     },
     {
       "path": "components/slipstream/progress/index.ts",
-      "content": "export * from './Progress';\r\n",
+      "content": "export * from './Progress';\n",
       "type": "registry:component"
     },
     {

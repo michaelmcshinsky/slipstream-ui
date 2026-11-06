@@ -117,7 +117,7 @@
     },
     {
       "path": "components/slipstream/popover/index.ts",
-      "content": "export * from './Popover';\r\n",
+      "content": "export * from './Popover';\n",
       "type": "registry:component"
     },
     {

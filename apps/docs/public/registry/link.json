@@ -120,7 +120,7 @@
     },
     {
       "path": "components/slipstream/link/index.ts",
-      "content": "export * from './Link';\r\n",
+      "content": "export * from './Link';\n",
       "type": "registry:component"
     },
     {

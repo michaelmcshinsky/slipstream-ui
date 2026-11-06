@@ -100,7 +100,7 @@
     },
     {
       "path": "components/slipstream/table-of-contents/index.ts",
-      "content": "export * from './TableOfContents';\r\n",
+      "content": "export * from './TableOfContents';\n",
       "type": "registry:component"
     },
     {

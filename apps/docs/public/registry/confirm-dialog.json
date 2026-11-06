@@ -145,7 +145,7 @@
     },
     {
       "path": "components/slipstream/confirm-dialog/index.ts",
-      "content": "export * from './ConfirmDialog';\r\n",
+      "content": "export * from './ConfirmDialog';\n",
       "type": "registry:component"
     },
     {

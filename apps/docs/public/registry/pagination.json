@@ -200,7 +200,7 @@
     },
     {
       "path": "components/slipstream/pagination/index.ts",
-      "content": "export * from './Pagination';\r\n",
+      "content": "export * from './Pagination';\n",
       "type": "registry:component"
     },
     {

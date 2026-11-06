@@ -88,7 +88,7 @@
     },
     {
       "path": "components/slipstream/prose/index.ts",
-      "content": "export * from './Prose';\r\n",
+      "content": "export * from './Prose';\n",
       "type": "registry:component"
     },
     {

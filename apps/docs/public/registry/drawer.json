@@ -232,7 +232,7 @@
     },
     {
       "path": "components/slipstream/drawer/index.ts",
-      "content": "export * from './Drawer';\r\n",
+      "content": "export * from './Drawer';\n",
       "type": "registry:component"
     },
     {

@@ -140,7 +140,7 @@
     },
     {
       "path": "components/slipstream/menu/index.ts",
-      "content": "export * from './Menu';\r\n",
+      "content": "export * from './Menu';\n",
       "type": "registry:component"
     },
     {

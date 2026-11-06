@@ -149,7 +149,7 @@
     },
     {
       "path": "components/slipstream/form-layout/index.ts",
-      "content": "export * from './FormLayout';\r\n",
+      "content": "export * from './FormLayout';\n",
       "type": "registry:component"
     },
     {

@@ -99,7 +99,7 @@
     },
     {
       "path": "components/slipstream/time-picker/index.ts",
-      "content": "export * from './TimePicker';\r\n",
+      "content": "export * from './TimePicker';\n",
       "type": "registry:component"
     },
     {

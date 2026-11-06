@@ -121,7 +121,7 @@
     },
     {
       "path": "components/slipstream/textarea/index.ts",
-      "content": "export * from './Textarea';\r\n",
+      "content": "export * from './Textarea';\n",
       "type": "registry:component"
     },
     {

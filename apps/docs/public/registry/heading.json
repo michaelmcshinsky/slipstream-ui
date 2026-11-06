@@ -110,7 +110,7 @@
     },
     {
       "path": "components/slipstream/heading/index.ts",
-      "content": "export * from './Heading';\r\n",
+      "content": "export * from './Heading';\n",
       "type": "registry:component"
     },
     {

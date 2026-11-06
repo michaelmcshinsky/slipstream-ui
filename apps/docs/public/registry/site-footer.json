@@ -107,7 +107,7 @@
     },
     {
       "path": "components/slipstream/site-footer/index.ts",
-      "content": "export * from './SiteFooter';\r\n",
+      "content": "export * from './SiteFooter';\n",
       "type": "registry:component"
     },
     {

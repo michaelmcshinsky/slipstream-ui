@@ -118,7 +118,7 @@
     },
     {
       "path": "components/slipstream/metric-card/index.ts",
-      "content": "export * from './MetricCard';\r\n",
+      "content": "export * from './MetricCard';\n",
       "type": "registry:component"
     },
     {

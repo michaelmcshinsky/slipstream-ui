@@ -100,7 +100,7 @@
     },
     {
       "path": "components/slipstream/date-picker/index.ts",
-      "content": "export * from './DatePicker';\r\n",
+      "content": "export * from './DatePicker';\n",
       "type": "registry:component"
     },
     {

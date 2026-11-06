@@ -108,7 +108,7 @@
     },
     {
       "path": "components/slipstream/stepper/index.ts",
-      "content": "export * from './Stepper';\r\n",
+      "content": "export * from './Stepper';\n",
       "type": "registry:component"
     },
     {

@@ -151,7 +151,7 @@
     },
     {
       "path": "components/slipstream/list/index.ts",
-      "content": "export * from './List';\r\n",
+      "content": "export * from './List';\n",
       "type": "registry:component"
     },
     {

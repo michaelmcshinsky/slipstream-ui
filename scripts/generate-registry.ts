@@ -130,7 +130,7 @@ function collectSourceFiles(packageDir: string, sourceDir: string) {
     if (!entry.isFile() || !/\.(tsx|ts)$/.test(entry.name) || entry.name.endsWith('.test.tsx')) {
       continue;
     }
-    const { content } = rewriteImports(fs.readFileSync(path.join(componentDir, entry.name), 'utf8'));
+    const { content } = rewriteImports(fs.readFileSync(path.join(componentDir, entry.name), 'utf8').replace(/\r\n/g, '\n'));
     files.push({
       path: `components/slipstream/${sourceDir}/${entry.name}`,
       content,
@@ -144,7 +144,7 @@ function collectSourceFiles(packageDir: string, sourceDir: string) {
   if (fs.existsSync(manifestPath)) {
     files.push({
       path: `components/slipstream/manifests/${path.basename(manifestPath)}`,
-      content: fs.readFileSync(manifestPath, 'utf8'),
+      content: fs.readFileSync(manifestPath, 'utf8').replace(/\r\n/g, '\n'),
       type: 'registry:item',
     });
   }
@@ -217,7 +217,7 @@ function main() {
         files: [
           {
             path: 'lib/utils.ts',
-            content: fs.readFileSync(coreUtilsPath, 'utf8'),
+            content: fs.readFileSync(coreUtilsPath, 'utf8').replace(/\r\n/g, '\n'),
             type: 'registry:utils',
           },
         ],

@@ -123,7 +123,7 @@
     },
     {
       "path": "components/slipstream/breadcrumb/index.ts",
-      "content": "export * from './Breadcrumb';\r\n",
+      "content": "export * from './Breadcrumb';\n",
       "type": "registry:component"
     },
     {

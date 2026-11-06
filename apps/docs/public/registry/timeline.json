@@ -82,7 +82,7 @@
     },
     {
       "path": "components/slipstream/timeline/index.ts",
-      "content": "export * from './Timeline';\r\n",
+      "content": "export * from './Timeline';\n",
       "type": "registry:component"
     },
     {

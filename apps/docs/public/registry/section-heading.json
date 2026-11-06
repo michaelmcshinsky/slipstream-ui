@@ -121,7 +121,7 @@
     },
     {
       "path": "components/slipstream/section-heading/index.ts",
-      "content": "export * from './SectionHeading';\r\n",
+      "content": "export * from './SectionHeading';\n",
       "type": "registry:component"
     },
     {

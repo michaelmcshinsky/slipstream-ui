@@ -103,7 +103,7 @@
     },
     {
       "path": "components/slipstream/separator/index.ts",
-      "content": "export * from './Separator';\r\n",
+      "content": "export * from './Separator';\n",
       "type": "registry:component"
     },
     {

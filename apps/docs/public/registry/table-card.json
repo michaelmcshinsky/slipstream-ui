@@ -136,7 +136,7 @@
     },
     {
       "path": "components/slipstream/table-card/index.ts",
-      "content": "export * from './TableCard';\r\n",
+      "content": "export * from './TableCard';\n",
       "type": "registry:component"
     },
     {

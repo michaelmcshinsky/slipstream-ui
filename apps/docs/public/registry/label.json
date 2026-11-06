@@ -103,7 +103,7 @@
     },
     {
       "path": "components/slipstream/label/index.ts",
-      "content": "export * from './Label';\r\n",
+      "content": "export * from './Label';\n",
       "type": "registry:component"
     },
     {

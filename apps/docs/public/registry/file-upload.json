@@ -116,7 +116,7 @@
     },
     {
       "path": "components/slipstream/file-upload/index.ts",
-      "content": "export * from './FileUpload';\r\n",
+      "content": "export * from './FileUpload';\n",
       "type": "registry:component"
     },
     {
