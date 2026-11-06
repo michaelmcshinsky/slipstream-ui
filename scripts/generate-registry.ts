@@ -123,7 +123,10 @@ function collectSourceFiles(packageDir: string, sourceDir: string) {
   if (!fs.existsSync(componentDir)) return [];
 
   const files = [];
-  for (const entry of fs.readdirSync(componentDir, { withFileTypes: true })) {
+  const entries = fs
+    .readdirSync(componentDir, { withFileTypes: true })
+    .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  for (const entry of entries) {
     if (!entry.isFile() || !/\.(tsx|ts)$/.test(entry.name) || entry.name.endsWith('.test.tsx')) {
       continue;
     }
