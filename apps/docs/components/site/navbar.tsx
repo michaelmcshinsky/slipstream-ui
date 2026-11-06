@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import { LocaleSwitcher, useI18n } from '@slipstream-ui/i18n/react';
 import { track } from '@/lib/analytics';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
@@ -17,6 +18,7 @@ const CommandPalette = dynamic(() => import('./command-palette').then((mod) => m
  * Includes the ⌘K search trigger and dark-mode toggle.
  */
 export function Navbar() {
+  const { t } = useI18n();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
@@ -79,14 +81,15 @@ export function Navbar() {
               />
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">
-              <Link href="/docs" className="text-muted-foreground transition-colors hover:text-foreground">Docs</Link>
-              <Link href="/docs/components" className="text-muted-foreground transition-colors hover:text-foreground">Components</Link>
-              <Link href="/docs/templates" className="text-muted-foreground transition-colors hover:text-foreground">Templates</Link>
-              <Link href="/changelog" className="text-muted-foreground transition-colors hover:text-foreground">Changelog</Link>
+              <Link href="/docs" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.docs')}</Link>
+              <Link href="/docs/components" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.components')}</Link>
+              <Link href="/docs/templates" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.templates')}</Link>
+              <Link href="/changelog" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.changelog')}</Link>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
+            <LocaleSwitcher className="hidden items-center sm:flex" />
             <button
               type="button"
               onClick={() => {
@@ -94,17 +97,17 @@ export function Navbar() {
                 setPaletteOpen(true);
               }}
               className="flex h-11 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
-              aria-label="Search documentation (Ctrl+K)"
+              aria-label={t('shell.searchAria')}
             >
               <span aria-hidden="true">⌕</span>
-              <span className="hidden sm:inline">Search…</span>
+              <span className="hidden sm:inline">{t('shell.search')}</span>
               <kbd className="hidden rounded border border-border bg-background px-1.5 font-mono text-[10px] sm:inline">⌘K</kbd>
             </button>
             <button
               type="button"
               onClick={toggleDark}
               className="flex h-11 w-11 items-center justify-center rounded-md border border-border text-sm hover:bg-muted sm:h-9 sm:w-9"
-              aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
+              aria-label={dark ? t('shell.switchLight') : t('shell.switchDark')}
             >
               <span aria-hidden="true">{dark ? '☀' : '☾'}</span>
             </button>
@@ -114,12 +117,12 @@ export function Navbar() {
               rel="noopener noreferrer"
               onClick={() => track('github_click', { location: 'navbar' })}
               className="flex h-11 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:h-9"
-              aria-label="GitHub repository"
+              aria-label={t('shell.github')}
             >
               <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor" aria-hidden="true">
                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A7.995 7.995 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
               </svg>
-              <span className="hidden lg:inline">GitHub</span>
+              <span className="hidden lg:inline">{t('shell.github')}</span>
             </a>
           </div>
         </nav>

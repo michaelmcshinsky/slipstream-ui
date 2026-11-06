@@ -106,7 +106,7 @@
     },
     {
       "path": "components/slipstream/card/index.ts",
-      "content": "export * from './Card';\r\n",
+      "content": "export * from './Card';\n",
       "type": "registry:component"
     },
     {

@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { directionFor, getMessages, resolveLocale, translate } from '@slipstream-ui/i18n';
+import { I18nProvider } from '@slipstream-ui/i18n/react';
 import './globals.css';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 import { Analytics } from '@/components/site/analytics';
@@ -59,13 +62,16 @@ try {
 } catch {}
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies();
+  const locale = resolveLocale(cookieStore.get('slipstream-locale')?.value);
+  const messages = getMessages(locale);
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={directionFor(locale)} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <JsonLd data={organizationSchema()} />
@@ -76,9 +82,9 @@ export default function RootLayout({
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[80] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
         >
-          Skip to content
+          {translate(messages, 'shell.skipToContent')}
         </a>
-        {children}
+        <I18nProvider locale={locale} messages={messages}>{children}</I18nProvider>
         <CookieBanner />
         <Analytics />
       </body>

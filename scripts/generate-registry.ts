@@ -12,7 +12,6 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'registry');
@@ -123,11 +122,14 @@ function collectSourceFiles(packageDir: string, sourceDir: string) {
   if (!fs.existsSync(componentDir)) return [];
 
   const files = [];
-  for (const entry of fs.readdirSync(componentDir, { withFileTypes: true })) {
+  const entries = fs
+    .readdirSync(componentDir, { withFileTypes: true })
+    .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  for (const entry of entries) {
     if (!entry.isFile() || !/\.(tsx|ts)$/.test(entry.name) || entry.name.endsWith('.test.tsx')) {
       continue;
     }
-    const { content } = rewriteImports(fs.readFileSync(path.join(componentDir, entry.name), 'utf8'));
+    const { content } = rewriteImports(fs.readFileSync(path.join(componentDir, entry.name), 'utf8').replace(/\r\n/g, '\n'));
     files.push({
       path: `components/slipstream/${sourceDir}/${entry.name}`,
       content,
@@ -141,7 +143,7 @@ function collectSourceFiles(packageDir: string, sourceDir: string) {
   if (fs.existsSync(manifestPath)) {
     files.push({
       path: `components/slipstream/manifests/${path.basename(manifestPath)}`,
-      content: fs.readFileSync(manifestPath, 'utf8'),
+      content: fs.readFileSync(manifestPath, 'utf8').replace(/\r\n/g, '\n'),
       type: 'registry:item',
     });
   }
@@ -214,7 +216,7 @@ function main() {
         files: [
           {
             path: 'lib/utils.ts',
-            content: fs.readFileSync(coreUtilsPath, 'utf8'),
+            content: fs.readFileSync(coreUtilsPath, 'utf8').replace(/\r\n/g, '\n'),
             type: 'registry:utils',
           },
         ],
@@ -224,23 +226,9 @@ function main() {
     ) + '\n'
   );
 
-  // A build-time timestamp would make the committed output differ on every
-  // rebuild; the source revision keeps the payload byte-identical for a given
-  // tree while still recording which commit generated it.
-  const sourceRevision = (() => {
-    try {
-      return execSync('git rev-parse --short HEAD', { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
-        .toString()
-        .trim();
-    } catch {
-      return null;
-    }
-  })();
-
   const index = {
     name: 'slipstream-ui',
     schemaVersion: 1,
-    ...(sourceRevision ? { sourceRevision } : {}),
     count: entries.length,
     install: 'npx shadcn@latest add https://slipstreamui.com/registry/<id>.json',
     components: entries.map(({ manifest }) => ({

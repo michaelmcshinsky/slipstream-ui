@@ -133,13 +133,13 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "components/slipstream/skeleton/index.ts",
-      "content": "export * from './Skeleton';\r\n",
+      "path": "components/slipstream/skeleton/Skeleton.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nconst roundedClasses = {\n  none: 'rounded-none',\n  sm: 'rounded-sm',\n  md: 'rounded-md',\n  lg: 'rounded-lg',\n  full: 'rounded-full',\n} as const;\n\nexport type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Tailwind height class for the block (e.g. 'h-4'). */\n  height?: string;\n  /** Tailwind width class for the block (e.g. 'w-48', 'w-full'). */\n  width?: string;\n  /** Corner rounding preset (default 'md'). */\n  rounded?: keyof typeof roundedClasses;\n};\n\n/**\n * Loading placeholder that mirrors the shape of upcoming content.\n * Sizing lives on props (height/width/rounded) instead of ad-hoc\n * className strings. Marked `aria-hidden` so screen readers skip it —\n * pair with a live-region status elsewhere to announce loading.\n */\nconst Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(\n  ({ className, height, width, rounded = 'md', ...props }, ref) => (\n    <div\n      ref={ref}\n      aria-hidden=\"true\"\n      className={cn(\n        'animate-pulse bg-muted motion-reduce:animate-none',\n        roundedClasses[rounded],\n        height,\n        width,\n        className\n      )}\n      {...props}\n    />\n  )\n);\nSkeleton.displayName = 'Skeleton';\n\nexport { Skeleton };\n",
       "type": "registry:component"
     },
     {
-      "path": "components/slipstream/skeleton/Skeleton.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nconst roundedClasses = {\n  none: 'rounded-none',\n  sm: 'rounded-sm',\n  md: 'rounded-md',\n  lg: 'rounded-lg',\n  full: 'rounded-full',\n} as const;\n\nexport type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Tailwind height class for the block (e.g. 'h-4'). */\n  height?: string;\n  /** Tailwind width class for the block (e.g. 'w-48', 'w-full'). */\n  width?: string;\n  /** Corner rounding preset (default 'md'). */\n  rounded?: keyof typeof roundedClasses;\n};\n\n/**\n * Loading placeholder that mirrors the shape of upcoming content.\n * Sizing lives on props (height/width/rounded) instead of ad-hoc\n * className strings. Marked `aria-hidden` so screen readers skip it —\n * pair with a live-region status elsewhere to announce loading.\n */\nconst Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(\n  ({ className, height, width, rounded = 'md', ...props }, ref) => (\n    <div\n      ref={ref}\n      aria-hidden=\"true\"\n      className={cn(\n        'animate-pulse bg-muted motion-reduce:animate-none',\n        roundedClasses[rounded],\n        height,\n        width,\n        className\n      )}\n      {...props}\n    />\n  )\n);\nSkeleton.displayName = 'Skeleton';\n\nexport { Skeleton };\n",
+      "path": "components/slipstream/skeleton/index.ts",
+      "content": "export * from './Skeleton';\n",
       "type": "registry:component"
     },
     {

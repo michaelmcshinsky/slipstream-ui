@@ -113,7 +113,7 @@
     },
     {
       "path": "components/slipstream/filter-bar/index.ts",
-      "content": "export * from './FilterBar';\r\n",
+      "content": "export * from './FilterBar';\n",
       "type": "registry:component"
     },
     {

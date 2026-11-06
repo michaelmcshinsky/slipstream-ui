@@ -1,6 +1,6 @@
 {
   "name": "slipstream-ui-docs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",
     "@slipstream-ui/core": "workspace:*",
+    "@slipstream-ui/i18n": "workspace:*",
     "@slipstream-ui/themes": "workspace:*",
     "next": "^16.4.3",
     "react": "^18.2.0",

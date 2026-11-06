@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v5
         with:
           version: 8.15.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'pnpm'
@@ -41,8 +41,30 @@ jobs:
       - name: Validate manifests
         run: pnpm validate:manifests
 
+      - name: Manifest gap report
+        run: pnpm report:manifests
+
+      - name: Upload manifest gap report
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-gaps
+          path: reports/
+          if-no-files-found: error
+
       - name: Generate registry payload
         run: pnpm generate:registry
 
       - name: Generate LLM docs (llms.txt + /llm routes)
         run: pnpm generate:llm-docs
+
+      - name: Check generated files are committed
+        run: git diff --exit-code -- README.md apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llm apps/docs/public/registry
+
+      - name: Check LLM documentation surfaces
+        run: pnpm check:llm
+
+      - name: Check component coverage
+        run: pnpm check:components
+
+      - name: Verify Tailwind v4 theme compiles
+        run: pnpm verify:tailwind-v4

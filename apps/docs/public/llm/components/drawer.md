@@ -24,6 +24,7 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | height | `number | string` | — | no | Custom extent for top/bottom drawers: pixels (320) or any CSS length ("60vh"). Overrides size. |
 | closeOnBackdrop | `boolean` | `true` | no | Clicking the backdrop closes the drawer. |
 | showClose | `boolean` | `true` | no | Hide the header ✕ button (Escape and backdrop still close). |
+| closeLabel | `string` | `'Close drawer'` | no | Accessible label for the close button. |
 | initialFocusRef | `RefObject<HTMLElement | null>` | — | no | Element focused on open (defaults to the first focusable element). |
 | ariaLabel | `string` | — | no | Overrides the accessible name (defaults to the title). |
 | animate | `boolean` | `false` | no | Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected). |

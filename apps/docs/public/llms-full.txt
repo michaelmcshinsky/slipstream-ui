@@ -348,7 +348,7 @@ Skip the sidebar when the product is a single surface.
 
 File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.
 
-> Import: `import { Attachment/AttachmentList } from '@slipstream-ui/ai'`
+> Import: `import { Attachment } from '@slipstream-ui/ai'`
 > Registry: https://slipstreamui.com/registry/attachment.json
 > Tier: molecule · Package: @slipstream-ui/ai
 
@@ -954,6 +954,7 @@ The Button component is a fundamental interactive element that triggers actions 
 | onClick | `(event: MouseEvent<HTMLButtonElement>) => void` | — | no | Handler called when button is clicked |
 | type | `'button' | 'submit' | 'reset'` | `button` | no | HTML button type attribute |
 | loading | `boolean` | `false` | no | Shows a spinner, disables the button and sets aria-busy. |
+| loadingLabel | `string` | `'Loading'` | no | Screen-reader text while loading; localize this for non-English apps. |
 
 ## Examples
 
@@ -1389,7 +1390,7 @@ AI-assisted and power-user apps expose many actions; a command palette keeps the
 | onOpenChange | `(open: boolean) => void` | — | yes | Called when the user opens or dismisses the palette |
 | commands | `Command[]` | — | yes | Available commands: { id, label, section?, keywords?, shortcut? } |
 | onSelect | `(command: Command) => void` | — | yes | Invoked with the chosen command before the palette closes |
-| placeholder | `string` | `Type a command…` | no | Input placeholder text |
+| placeholder | `string` | `Type a command.` | no | Input placeholder text |
 | loadCommands | `(query: string) => Promise<Command[]>` | — | no | Async command source; debounced and stale-response guarded. |
 | debounceMs | `number` | `200` | no | Debounce for loadCommands in ms. |
 | renderCommand | `(command, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer (icons, type badges). |
@@ -1705,6 +1706,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loading | `boolean` | `false` | no | Render skeleton placeholder rows (tbody is aria-busy while loading). |
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
+| selectAllLabel | `string` | `'Select all rows'` | no | Accessible label for the select-all checkbox. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 | selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
 | onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |
@@ -1859,6 +1861,7 @@ Modals interrupt the task flow on purpose: confirmations, small forms, and destr
 | initialFocusRef | `React.RefObject<HTMLElement | null>` | — | no | Element focused on open; defaults to the first focusable element |
 | ariaLabel | `string` | — | no | Accessible label for the dialog (required for screen readers) |
 | showClose | `boolean` | `true` | no | Hide the close (?) button in the header; Escape and backdrop still close. |
+| closeLabel | `string` | `'Close dialog'` | no | Accessible label for the close button. |
 | animate | `boolean` | `false` | no | Fade the backdrop and panel in/out on open/close (needs tailwindcss-animate; reduced motion respected). |
 | size | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `md` | no | Panel max-width preset. |
 | header | `ReactNode` | — | no | Replaces the default header row — compose with DialogHeader/DialogTitle/DialogDescription (ids wire automatically). |
@@ -1932,6 +1935,7 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | height | `number | string` | — | no | Custom extent for top/bottom drawers: pixels (320) or any CSS length ("60vh"). Overrides size. |
 | closeOnBackdrop | `boolean` | `true` | no | Clicking the backdrop closes the drawer. |
 | showClose | `boolean` | `true` | no | Hide the header ✕ button (Escape and backdrop still close). |
+| closeLabel | `string` | `'Close drawer'` | no | Accessible label for the close button. |
 | initialFocusRef | `RefObject<HTMLElement | null>` | — | no | Element focused on open (defaults to the first focusable element). |
 | ariaLabel | `string` | — | no | Overrides the accessible name (defaults to the title). |
 | animate | `boolean` | `false` | no | Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected). |
@@ -3314,6 +3318,7 @@ Collect user trust signals (copy, rating, regeneration) with minimal API surface
 | onCopy | `(content: string) => void` | — | no | Called after copy with the copied text. |
 | onFeedback | `(rating: 'up' | 'down' | undefined) => void` | — | no | Rating callback; selecting the active rating again passes undefined. |
 | onRegenerate | `() => void` | — | no | Regeneration request; omit to hide the action. |
+| autohide | `'always' | 'on-hover' | 'not-last'` | `always` | no | Controls visibility: always visible, visible on hover/focus, or hidden until hover for non-latest messages. |
 | labels | `{ copy?, copied?, thumbUp?, thumbDown?, regenerate? }` | — | no | Overrides for all visible labels; enables localization. |
 
 ## Examples
@@ -3486,6 +3491,7 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | showFirst | `boolean` | — | no | Force-show the first-page button. |
 | showLast | `boolean` | — | no | Force-show the last-page button. |
 | icons | `PaginationIcons` | — | no | Replace the default glyphs. |
+| labels | `{ pagination?: string; first?: string; previous?: string; next?: string; last?: string; page?: (page: number) => string }` | — | no | Localized landmark and control labels. |
 
 ## Examples
 
@@ -4021,6 +4027,7 @@ The Reasoning component displays the step-by-step thought process of an AI agent
 | className | `string` | — | no | Additional CSS classes to apply |
 | duration | `number` | — | no | Elapsed reasoning time in seconds; renders a duration chip |
 | isStreaming | `boolean` | — | no | Shows a streaming indicator while reasoning is in progress |
+| labels | `{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }` | — | no | Localized header, count and step labels. |
 
 ## Examples
 
@@ -5585,6 +5592,7 @@ The ToolCall component visualizes when an AI agent uses tools or functions. It s
 | toolCall | `ToolCall` | — | yes | The tool call object containing name, arguments, status, and result |
 | showResult | `boolean` | `true` | no | Whether to display the tool result |
 | className | `string` | — | no | Additional CSS classes to apply |
+| labels | `{ pending?: string; running?: string; completed?: string; failed?: string; arguments?: string; result?: string; error?: string }` | — | no | Localized status and section labels. |
 
 ## Examples
 

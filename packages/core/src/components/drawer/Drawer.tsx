@@ -32,6 +32,8 @@ export type DrawerProps = {
   closeOnBackdrop?: boolean;
   /** Hide the close (✕) button in the header (default true). */
   showClose?: boolean;
+  /** Accessible label for the close button (default "Close drawer"). */
+  closeLabel?: string;
   /** Focused when the drawer opens; defaults to the first focusable element. */
   initialFocusRef?: React.RefObject<HTMLElement | null>;
   /** Overrides the accessible name (defaults to the title). */
@@ -116,6 +118,7 @@ export function Drawer({
   height,
   closeOnBackdrop = true,
   showClose = true,
+  closeLabel = 'Close drawer',
   initialFocusRef,
   ariaLabel,
   animate = false,
@@ -228,8 +231,8 @@ export function Drawer({
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              aria-label="Close drawer"
-              className="-mr-1 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-label={closeLabel}
+              className="-me-1 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               ✕
             </button>

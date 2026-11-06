@@ -7,11 +7,11 @@
     "index.js"
   ],
   "dependencies": {
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
-    "@typescript-eslint/parser": "^6.15.0"
+    "@typescript-eslint/parser": "^8.72.1"
   },
   "devDependencies": {
     "eslint": "^8.56.0"

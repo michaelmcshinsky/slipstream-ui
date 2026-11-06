@@ -50,10 +50,12 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & Varian
   asChild?: boolean;
   /** Shows a spinner, disables the button and sets aria-busy while an action runs. */
   loading?: boolean;
+  /** Screen-reader text while loading (default "Loading"). */
+  loadingLabel?: string;
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, loading = false, disabled, children, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, loading = false, loadingLabel = 'Loading', disabled, children, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     if (asChild) {
       return (
@@ -76,7 +78,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             className="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
           />
         )}
-        {loading && <span className="sr-only">Loading</span>}
+        {loading && <span className="sr-only">{loadingLabel}</span>}
         {children}
       </button>
     );

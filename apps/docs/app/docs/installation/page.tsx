@@ -36,7 +36,7 @@ export default function InstallationPage() {
           <li>Node.js 20.9 or higher</li>
           <li>pnpm 8 or higher (recommended)</li>
           <li>React 18 or 19</li>
-          <li>Tailwind CSS 3.4 (v4 is not supported yet)</li>
+          <li>Tailwind CSS 3.4 (tested) or 4.x (expected; see the Tailwind v4 guide)</li>
           <li>TypeScript (recommended)</li>
         </ul>
 

@@ -16,7 +16,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '..');
-const PACKAGES = ['core', 'ai', 'themes', 'cli', 'mcp-server', 'registry'];
+const PACKAGES = ['core', 'ai', 'themes', 'i18n', 'cli', 'mcp-server', 'registry'];
 
 interface Violation {
   pkg: string;

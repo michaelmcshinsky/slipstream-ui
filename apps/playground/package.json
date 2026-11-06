@@ -1,6 +1,6 @@
 {
   "name": "slipstream-ui-playground",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@slipstream-ui/core": "workspace:*",
+    "@slipstream-ui/i18n": "workspace:*",
     "@slipstream-ui/ai": "workspace:*",
     "@slipstream-ui/themes": "workspace:*",
     "react": "^18.2.0",

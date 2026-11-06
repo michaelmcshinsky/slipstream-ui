@@ -58,7 +58,7 @@ export function softwareApplicationSchema(): Record<string, unknown> {
     operatingSystem: 'Any (browser)',
     url: SITE.url,
     description:
-      `${COMPONENT_COUNT} AI-native React components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a validate_usage tool that catches hallucinated props before code ships.`,
+      `${COMPONENT_COUNT} AI-native React components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), each shipping a machine-readable COMPONENT_MANIFEST, an MCP server, and a validate_usage tool that can catch hallucinated props before code ships.`,
     softwareVersion: VERSION,
     license: 'https://opensource.org/licenses/MIT',
     codeRepository: SITE.repo,

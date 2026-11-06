@@ -161,3 +161,10 @@ describe('Button aliases and loading', () => {
     expect(screen.getByRole('link', { name: 'Link' })).not.toHaveAttribute('aria-busy');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the loadingLabel override', () => {
+    render(<Button loading loadingLabel="Chargement">Save</Button>);
+    expect(screen.getByText('Chargement')).toBeInTheDocument();
+  });
+});

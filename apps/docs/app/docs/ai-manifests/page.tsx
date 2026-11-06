@@ -243,7 +243,7 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-          <li><strong>Zero Hallucination:</strong> AI agents have exact prop specifications</li>
+          <li><strong>Validated usage:</strong> AI agents get exact prop specifications and a validator that checks generated JSX</li>
           <li><strong>Consistency:</strong> All AI-generated code follows the same patterns</li>
           <li><strong>Accessibility:</strong> Built-in a11y requirements for every component</li>
           <li><strong>Documentation:</strong> Manifests serve as living documentation</li>

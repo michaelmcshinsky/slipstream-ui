@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { directionFor, getMessages, resolveLocale } from '@slipstream-ui/i18n';
+import { I18nProvider } from '@slipstream-ui/i18n/react';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
@@ -21,13 +24,19 @@ try {
 } catch {}
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const locale = resolveLocale(cookieStore.get('slipstream-locale')?.value);
+  const messages = getMessages(locale);
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={directionFor(locale)} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased">{children}</body>
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        <I18nProvider locale={locale} messages={messages}>{children}</I18nProvider>
+      </body>
     </html>
   );
 }

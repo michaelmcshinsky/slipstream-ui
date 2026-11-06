@@ -10,6 +10,8 @@ export type SearchEntry = {
 export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Introduction', href: '/docs', content: 'what makes slipstream different component manifest AI-first agents', group: 'Getting Started' },
   { title: 'Installation', href: '/docs/installation', content: 'install setup npx init pnpm add core ai quick start shadcn registry', group: 'Getting Started' },
+  { title: 'Tailwind v4', href: '/docs/tailwind-v4', content: 'tailwind v4 css theme @source @theme createTheme migration setup', group: 'Getting Started' },
+  { title: 'Compatibility', href: '/docs/compatibility', content: 'react 18 19 next 16 vite tailwind 3.4 4 rsc radix supported tested expected', group: 'Getting Started' },
   { title: 'Theming', href: '/docs/theming', content: 'css variables createTheme presets dark mode violet zinc colors radius switcher', group: 'Getting Started' },
   { title: 'Roadmap', href: '/docs/roadmap', content: 'roadmap 1.0 stability guarantees release plan deprecation policy targets', group: 'Getting Started' },
   { title: 'COMPONENT_MANIFEST', href: '/docs/ai-manifests', content: 'manifest schema props anti-patterns accessibility composition rules json spec', group: 'AI-First' },
@@ -104,7 +106,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'CheckboxGroup', href: '/docs/components/checkbox-group', content: 'checkbox group multi select fieldset legend orientation horizontal vertical error validation string array', group: 'Components' },
   { title: 'ButtonGroup', href: '/docs/components/button-group', content: 'button group joined segmented toolbar toggle border collapse orientation stepper zoom view mode', group: 'Components' },
   { title: 'AI chat UI guide', href: '/docs/guides/ai-chat-ui', content: 'guide react ai chat components streaming markdown stop generation production walkthrough', group: 'Guides' },
-  { title: 'Agent integration guide', href: '/docs/guides/agent-integration', content: 'guide MCP component library claude cursor validate_usage tools llms.txt zero hallucination', group: 'Guides' },
+  { title: 'Agent integration guide', href: '/docs/guides/agent-integration', content: 'guide MCP component library claude cursor validate_usage tools llms.txt validated usage', group: 'Guides' },
   { title: 'Migrating from shadcn', href: '/docs/guides/migrating-from-shadcn', content: 'guide shadcn alternative AI UI migration coexist registry comparison switch', group: 'Guides' },
   { title: 'Streaming guide', href: '/docs/guides/streaming', content: 'guide streaming fetch reader SSE abort stop generation partial markdown scroll anchoring backpressure', group: 'Guides' },
   { title: 'State & threads guide', href: '/docs/guides/state-threads', content: 'guide stateless store messages persistence history prepend multi-thread branching zustand', group: 'Guides' },

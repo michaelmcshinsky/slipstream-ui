@@ -2,17 +2,19 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { LocaleSwitcher, useI18n } from '@slipstream-ui/i18n/react';
 import { ThemeToggle } from './theme-toggle';
 
 const LINKS = [
-  { href: '/dashboard', label: 'Overview' },
-  { href: '/dashboard/billing', label: 'Billing' },
-  { href: '/dashboard/licenses', label: 'Licenses & Keys' },
-  { href: '/dashboard/team', label: 'Team' },
-  { href: '/dashboard/settings', label: 'Settings' },
-];
+  { href: '/dashboard', labelKey: 'shell.dashboard' },
+  { href: '/dashboard/billing', labelKey: 'shell.billing' },
+  { href: '/dashboard/licenses', labelKey: 'shell.licenses' },
+  { href: '/dashboard/team', labelKey: 'shell.team' },
+  { href: '/dashboard/settings', labelKey: 'shell.settings' },
+] as const;
 
 export function DashboardNav({ isAdmin }: { isAdmin?: boolean }) {
+  const { t } = useI18n();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -36,7 +38,7 @@ export function DashboardNav({ isAdmin }: { isAdmin?: boolean }) {
                 active ? 'bg-muted font-medium' : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
               }`}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           );
         })}
@@ -50,13 +52,14 @@ export function DashboardNav({ isAdmin }: { isAdmin?: boolean }) {
         )}
       </nav>
       <div className="flex items-center gap-2">
+        <LocaleSwitcher className="flex items-center" />
         <ThemeToggle />
         <button
           type="button"
           onClick={signOut}
           className="rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
-          Sign out
+          {t('shell.signOut')}
         </button>
       </div>
     </div>

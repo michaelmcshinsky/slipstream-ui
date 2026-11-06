@@ -1,6 +1,6 @@
 {
   "name": "slipstream-app",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/db": "workspace:*",
+    "@slipstream-ui/i18n": "workspace:*",
     "jose": "^6.2.14",
     "next": "^16.4.3",
     "react": "^18.2.0",

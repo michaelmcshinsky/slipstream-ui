@@ -11,6 +11,7 @@ export default defineConfig({
     alias: { '@': path.resolve(rootDir, 'src') },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
+  cacheDir: path.join(rootDir, '.vitest-cache'),
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
