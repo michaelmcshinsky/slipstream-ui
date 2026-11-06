@@ -21,4 +21,12 @@ module.exports = {
       version: 'detect',
     },
   },
+  overrides: [
+    {
+      files: ['*.config.js', '*.config.cjs', 'tailwind.config.js', 'postcss.config.js'],
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
+      },
+    },
+  ],
 };
