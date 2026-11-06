@@ -16,6 +16,13 @@ describe('buy route', () => {
     expect(await response.text()).toContain('NEXT_PUBLIC_CHECKOUT_URL');
   });
 
+  it('localizes the configuration error from Accept-Language', async () => {
+    delete process.env.NEXT_PUBLIC_CHECKOUT_URL;
+    const response = await GET(new Request('https://example.com/buy', { headers: { 'accept-language': 'ar' } }));
+    expect(response.status).toBe(503);
+    expect(await response.text()).toContain('الدفع');
+  });
+
   it('redirects to the configured checkout URL', async () => {
     process.env.NEXT_PUBLIC_CHECKOUT_URL = 'https://example.com/checkout';
     const response = await GET();

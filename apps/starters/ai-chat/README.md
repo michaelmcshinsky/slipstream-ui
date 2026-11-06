@@ -50,6 +50,28 @@ data: {"type":"done"}
 data: {"type":"error","message":"..."}
 ```
 
+
+## Internationalization
+
+The starter ships English, Arabic (RTL) and Spanish. The server reads the
+`slipstream-locale` cookie and renders `<html lang dir>`; the client provider
+comes from `@slipstream-ui/i18n/react` so the pure runtime stays server-safe.
+
+- Catalogs: `packages/i18n/src/messages/{en,ar,es}.ts` (typed; `en` is the source)
+- Runtime: `translate`, `translatePlural`, `formatNumber`, `formatDate`,
+  `formatRelativeTime`
+- Switching: the header select writes the cookie, sets `lang`/`dir`, and reloads
+- Mock backend and checkout errors are localized too
+
+To add a locale:
+
+1. Add the code to `SUPPORTED_LOCALES` and `LOCALE_LABELS` in
+   `packages/i18n/src/locales.ts`.
+2. Add `packages/i18n/src/messages/<code>.ts` (`satisfies Messages`).
+3. Register it in `packages/i18n/src/messages/index.ts`.
+4. Run `pnpm --filter @slipstream-ui/i18n test` and add a catalog key parity test.
+
+Do not hardcode user-facing strings in the app; add a key to every catalog.
 ## Tests
 
 ```bash

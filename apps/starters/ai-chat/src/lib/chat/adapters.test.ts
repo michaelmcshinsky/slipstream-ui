@@ -27,6 +27,15 @@ describe('mock adapter', () => {
     expect(deploy.some((event) => event.type === 'approval')).toBe(true);
     expect(readOnly.some((event) => event.type === 'approval')).toBe(false);
   });
+
+  it('localizes the approval and citation copy', async () => {
+    const events = await collect(streamMock('Deploy to production', { delayMs: 0, locale: 'ar' }));
+    const approval = events.find((event) => event.type === 'approval');
+    const citation = events.find((event) => event.type === 'citation');
+    if (approval?.type !== 'approval' || citation?.type !== 'citation') throw new Error('Missing localized events');
+    expect(approval.approval.title).toContain('النشر');
+    expect(citation.citation.title).toContain('Slipstream');
+  });
 });
 
 describe('applyEvent', () => {

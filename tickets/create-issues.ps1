@@ -28,7 +28,7 @@ function Read-Frontmatter([string]$path) {
 
 $milestones = @(
   'M0 Truth & baseline', 'M1 Validation benchmark', 'M2 Competitor test',
-  'M3 Tailwind v4', 'M4 AI Chat Starter', 'M5 Distribution'
+  'M3 Tailwind v4', 'M4 AI Chat Starter', 'M5 Distribution', 'M6 Internationalization'
 )
 $existingMilestones = @(gh api "repos/{owner}/{repo}/milestones?state=all&per_page=100" --jq '.[].title' 2>$null)
 foreach ($m in $milestones) {
@@ -44,6 +44,7 @@ $labels = @(
   @{ Name = 'epic:tailwind'; Color = 'FBCA04' },
   @{ Name = 'epic:starter'; Color = 'D93F0B' },
   @{ Name = 'epic:growth'; Color = '006B75' },
+  @{ Name = 'epic:i18n'; Color = 'C2E0C6' },
   @{ Name = 'type:research'; Color = 'C5DEF5' },
   @{ Name = 'type:feature'; Color = 'A2EEEF' },
   @{ Name = 'type:test'; Color = 'BFD4F2' },

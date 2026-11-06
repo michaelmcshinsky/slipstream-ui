@@ -1,7 +1,9 @@
+import { DEFAULT_LOCALE, getMessages, translate, type Locale } from '@slipstream-ui/i18n';
 import type { ChatEvent } from './types';
 
 type MockOptions = {
   delayMs?: number;
+  locale?: Locale;
 };
 
 function splitWords(text: string): string[] {
@@ -15,15 +17,18 @@ function sleep(ms: number): Promise<void> {
 /**
  * Deterministic SSE source used when no provider key is configured.
  * Emits reasoning, streamed text, a tool call, a citation, and (for deploy
- * requests) a human approval gate.
+ * requests) a human approval gate. Strings are localized via the same catalog
+ * as the client.
  */
 export async function* streamMock(prompt: string, options: MockOptions = {}): AsyncGenerator<ChatEvent> {
   const delay = options.delayMs ?? 18;
+  const locale = options.locale ?? DEFAULT_LOCALE;
+  const messages = getMessages(locale);
   const wantsDeploy = /\b(deploy|delete|drop|production)\b/i.test(prompt);
 
-  yield { type: 'reasoning', delta: 'Reading the request. ' };
+  yield { type: 'reasoning', delta: translate(messages, 'mock.reasoning1') };
   await sleep(delay);
-  yield { type: 'reasoning', delta: 'Selecting a response shape and checking the component contract.' };
+  yield { type: 'reasoning', delta: translate(messages, 'mock.reasoning2') };
   await sleep(delay);
   yield { type: 'reasoning-done' };
 
@@ -40,11 +45,11 @@ export async function* streamMock(prompt: string, options: MockOptions = {}): As
       name: 'search_docs',
       arguments: { query: prompt.slice(0, 80) },
       status: 'completed',
-      result: { matches: 3, top: 'Slipstream UI manifests and validation' },
+      result: { matches: 3, top: translate(messages, 'mock.toolResult') },
     },
   };
 
-  const answer = `This is the mock backend. You asked: "${prompt}". Replace it with your own adapter by setting OPENAI_API_KEY or pointing the SSE adapter at your endpoint. The surface is stateless: streaming, reasoning, tool calls, approvals and citations are all rendered from events.`;
+  const answer = translate(messages, 'mock.answer', { prompt });
   for (const word of splitWords(answer)) {
     yield { type: 'text', delta: word };
     await sleep(Math.max(4, delay / 2));
@@ -54,9 +59,9 @@ export async function* streamMock(prompt: string, options: MockOptions = {}): As
     type: 'citation',
     citation: {
       id: 'source-1',
-      title: 'Slipstream UI manifests',
+      title: translate(messages, 'mock.citationTitle'),
       url: 'https://slipstreamui.com/docs/ai-manifests',
-      snippet: 'Every component ships a machine-readable manifest with props, anti-patterns and accessibility requirements.',
+      snippet: translate(messages, 'mock.citationSnippet'),
     },
   };
 
@@ -65,8 +70,8 @@ export async function* streamMock(prompt: string, options: MockOptions = {}): As
       type: 'approval',
       approval: {
         id: `approval-${Date.now().toString(36)}`,
-        title: 'Deploy to production?',
-        description: 'The mock agent wants to run a production deployment. Approval is required before the action continues.',
+        title: translate(messages, 'mock.approvalTitle'),
+        description: translate(messages, 'mock.approvalDescription'),
         toolName: 'deploy',
         status: 'pending',
       },

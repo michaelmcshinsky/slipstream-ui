@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE, LOCALE_LABELS, type Locale } from '@slipstream-ui/i18n';
 import type { ChatEvent, ChatMessage } from './types';
 
 const DEFAULT_BASE_URL = 'https://api.openai.com/v1';
@@ -8,7 +9,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /** OpenAI-compatible streaming adapter (raw SSE, no SDK dependency). */
-export async function* streamOpenAI(messages: ChatMessage[], signal?: AbortSignal): AsyncGenerator<ChatEvent> {
+export async function* streamOpenAI(messages: ChatMessage[], signal?: AbortSignal, locale: Locale = DEFAULT_LOCALE): AsyncGenerator<ChatEvent> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     yield { type: 'error', message: 'OPENAI_API_KEY is not configured.' };
@@ -24,9 +25,12 @@ export async function* streamOpenAI(messages: ChatMessage[], signal?: AbortSigna
       model,
       stream: true,
       temperature: 0.2,
-      messages: messages
-        .filter((message) => message.role === 'user' || message.role === 'assistant')
-        .map((message) => ({ role: message.role, content: message.text })),
+      messages: [
+        { role: 'system', content: `Respond in ${LOCALE_LABELS[locale]}. Keep code identifiers unchanged.` },
+        ...messages
+          .filter((message) => message.role === 'user' || message.role === 'assistant')
+          .map((message) => ({ role: message.role, content: message.text })),
+      ],
     }),
     signal,
   });

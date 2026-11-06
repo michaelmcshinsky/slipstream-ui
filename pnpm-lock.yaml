@@ -319,6 +319,9 @@ importers:
       '@slipstream-ui/core':
         specifier: workspace:*
         version: link:../../../packages/core
+      '@slipstream-ui/i18n':
+        specifier: workspace:*
+        version: link:../../../packages/i18n
       '@slipstream-ui/themes':
         specifier: workspace:*
         version: link:../../../packages/themes
@@ -591,6 +594,42 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
+
+  packages/i18n:
+    devDependencies:
+      '@slipstream-ui/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint-config
+      '@slipstream-ui/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
+      '@slipstream-ui/vitest-config':
+        specifier: workspace:*
+        version: link:../../tooling/vitest-config
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.2.0
+        version: 18.3.7(@types/react@18.3.31)
+      eslint:
+        specifier: ^8.56.0
+        version: 8.57.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(postcss@8.5.32)(tsx@4.23.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^5.0.5
+        version: 5.0.5(@types/node@20.19.43)(jsdom@30.1.3)(vite@8.3.5)
 
   packages/mcp-server:
     dependencies:

@@ -14,13 +14,16 @@ import {
   ToolCall,
 } from '@slipstream-ui/ai';
 import { Badge, Button, Card, Separator } from '@slipstream-ui/core';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { runChat } from '@/src/lib/chat/runner';
 import { createFetchAdapter } from '@/src/lib/chat/sse-adapter';
 import { createAssistantMessage, type ChatApproval, type ChatMessage } from '@/src/lib/chat/types';
 import { createAnalytics } from '@/src/lib/analytics';
 import { clearHistory, loadHistory, saveHistory } from '@/src/lib/history';
+import { LocaleSwitcher } from './locale-switcher';
 
 function AssistantActivity({ message, onApproval }: { message: ChatMessage; onApproval: (status: ChatApproval['status']) => void }) {
+  const { t, tPlural } = useI18n();
   const hasActivity = message.reasoning.length > 0 || message.tools.length > 0 || message.approval || message.citations.length > 0;
   if (!hasActivity) return null;
 
@@ -31,10 +34,28 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
           steps={[{ id: `${message.id}-reasoning`, content: message.reasoning }]}
           isStreaming={message.reasoningStreaming}
           defaultExpanded={false}
+          labels={{
+            title: t('reasoning.title'),
+            count: (count) => tPlural('reasoning.step', count),
+            thinking: t('reasoning.thinking'),
+            step: (index) => t('reasoning.stepLabel', { index }),
+          }}
         />
       )}
       {message.tools.map((tool) => (
-        <ToolCall key={tool.id} toolCall={tool} />
+        <ToolCall
+          key={tool.id}
+          toolCall={tool}
+          labels={{
+            pending: t('tools.pending'),
+            running: t('tools.running'),
+            completed: t('tools.completed'),
+            failed: t('tools.failed'),
+            arguments: t('tool.arguments'),
+            result: t('tool.result'),
+            error: t('tool.error'),
+          }}
+        />
       ))}
       {message.approval && (
         <Confirmation
@@ -42,6 +63,12 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
           description={message.approval.description}
           toolName={message.approval.toolName}
           status={message.approval.status}
+          labels={{
+            approve: t('app.approve'),
+            reject: t('app.reject'),
+            approved: t('app.approved'),
+            rejected: t('app.rejected'),
+          }}
           onApprove={() => onApproval('approved')}
           onReject={() => onApproval('rejected')}
           showActions={message.approval.status === 'pending'}
@@ -49,7 +76,7 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
       )}
       {message.citations.length > 0 && (
         <Card className="p-4">
-          <h3 className="text-sm font-semibold">Sources</h3>
+          <h3 className="text-sm font-semibold">{t('citations.sources')}</h3>
           <div className="mt-3 space-y-2">
             {message.citations.map((citation, index) => (
               <Source key={citation.id} source={citation} index={index + 1} />
@@ -62,6 +89,7 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
 }
 
 export function ChatShell() {
+  const { t, tPlural } = useI18n();
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -168,21 +196,20 @@ export function ChatShell() {
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 py-8">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI Chat Starter</h1>
-          <p className="text-sm text-muted-foreground">
-            Streaming, reasoning, tool calls, approvals and citations. Bring your own backend.
-          </p>
+          <h1 className="text-2xl font-bold tracking-tight">{t('app.title')}</h1>
+          <p className="text-sm text-muted-foreground">{t('app.subtitle')}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary">stateless</Badge>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="secondary">{t('app.stateless')}</Badge>
+          <LocaleSwitcher />
           <a
             href="/buy"
             className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
           >
-            Buy licence
+            {t('app.buyLicence')}
           </a>
           <Button variant="outline" onClick={reset} disabled={busy || messages.length === 0}>
-            New chat
+            {t('app.newChat')}
           </Button>
         </div>
       </header>
@@ -192,10 +219,8 @@ export function ChatShell() {
           <div className="flex-1 space-y-6 overflow-y-auto p-4" aria-live="polite" aria-busy={busy}>
             {messages.length === 0 && (
               <div className="flex h-full flex-col items-center justify-center gap-2 py-16 text-center">
-                <h2 className="text-lg font-semibold">Ask anything</h2>
-                <p className="max-w-sm text-sm text-muted-foreground">
-                  The mock backend streams a complete response. Set <code>OPENAI_API_KEY</code> to use a real model.
-                </p>
+                <h2 className="text-lg font-semibold">{t('app.emptyTitle')}</h2>
+                <p className="max-w-sm text-sm text-muted-foreground">{t('app.emptyDescription')}</p>
               </div>
             )}
 
@@ -205,6 +230,14 @@ export function ChatShell() {
                   message={{ id: message.id, role: message.role, content: message.text }}
                   isStreaming={message.status === 'streaming' && message.role === 'assistant'}
                   error={message.error}
+                  userLabel={t('chat.you')}
+                  assistantLabel={t('chat.assistant')}
+                  labels={{
+                    retry: t('chat.retry'),
+                    edit: t('chat.edit'),
+                    save: t('chat.saveResend'),
+                    cancel: t('chat.cancel'),
+                  }}
                   renderContent={
                     message.role === 'assistant' ? (content) => <Response>{content}</Response> : undefined
                   }
@@ -212,9 +245,19 @@ export function ChatShell() {
                 {message.role === 'assistant' && (
                   <>
                     <AssistantActivity message={message} onApproval={(status) => setApproval(message.id, status)} />
-                    {message.status === 'streaming' && <StreamingIndicator isStreaming text="Generating..." />}
+                    {message.status === 'streaming' && <StreamingIndicator isStreaming text={t('app.generating')} />}
                     {message.status === 'complete' && message.text.length > 0 && (
-                      <MessageActions content={message.text} onFeedback={() => undefined} />
+                      <MessageActions
+                        content={message.text}
+                        onFeedback={() => undefined}
+                        labels={{
+                          copy: t('actions.copy'),
+                          copied: t('actions.copied'),
+                          thumbUp: t('actions.helpful'),
+                          thumbDown: t('actions.notHelpful'),
+                          regenerate: t('actions.regenerate'),
+                        }}
+                      />
                     )}
                   </>
                 )}
@@ -233,7 +276,9 @@ export function ChatShell() {
               onSubmit={(value) => void send(value)}
               onStop={stop}
               isLoading={busy}
-              placeholder="Ask the agent to build, search, or deploy..."
+              placeholder={t('app.placeholder')}
+              sendButtonText={t('prompt.send')}
+              stopButtonText={t('prompt.stop')}
               autoFocus
             />
           </div>
@@ -241,14 +286,12 @@ export function ChatShell() {
 
         <aside className="space-y-4">
           <Card className="p-4">
-            <h2 className="text-sm font-semibold">Agent activity</h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Reasoning, tool calls, approvals and citations from the latest response.
-            </p>
+            <h2 className="text-sm font-semibold">{t('app.activityTitle')}</h2>
+            <p className="mt-1 text-xs text-muted-foreground">{t('app.activityDescription')}</p>
             <Separator className="my-3" />
             {(() => {
               const latest = [...messages].reverse().find((message) => message.role === 'assistant');
-              if (!latest) return <p className="text-sm text-muted-foreground">No activity yet.</p>;
+              if (!latest) return <p className="text-sm text-muted-foreground">{t('app.noActivity')}</p>;
               return (
                 <div className="space-y-4">
                   {latest.approval && (
@@ -257,31 +300,56 @@ export function ChatShell() {
                         title={latest.approval.title}
                         description={latest.approval.description}
                         status={latest.approval.status}
+                        labels={{
+                          approve: t('app.approve'),
+                          reject: t('app.reject'),
+                          approved: t('app.approved'),
+                          rejected: t('app.rejected'),
+                        }}
                         showActions={false}
                       />
                       {latest.approval.status === 'pending' && (
                         <div className="flex gap-2">
                           <Button size="sm" onClick={() => setApproval(latest.id, 'approved')}>
-                            Approve
+                            {t('app.approve')}
                           </Button>
                           <Button size="sm" variant="outline" onClick={() => setApproval(latest.id, 'rejected')}>
-                            Reject
+                            {t('app.reject')}
                           </Button>
                         </div>
                       )}
                     </div>
                   )}
                   {latest.tools.length === 0 && latest.reasoning.length === 0 && !latest.approval && (
-                    <p className="text-sm text-muted-foreground">No activity yet.</p>
+                    <p className="text-sm text-muted-foreground">{t('app.noActivity')}</p>
                   )}
                   {latest.tools.map((tool) => (
-                    <ToolCall key={tool.id} toolCall={tool} showResult />
+                    <ToolCall
+                      key={tool.id}
+                      toolCall={tool}
+                      showResult
+                      labels={{
+                        pending: t('tools.pending'),
+                        running: t('tools.running'),
+                        completed: t('tools.completed'),
+                        failed: t('tools.failed'),
+                        arguments: t('tool.arguments'),
+                        result: t('tool.result'),
+                        error: t('tool.error'),
+                      }}
+                    />
                   ))}
                   {latest.reasoning.length > 0 && (
                     <Reasoning
                       steps={[{ id: 'reasoning', content: latest.reasoning }]}
                       isStreaming={latest.reasoningStreaming}
                       defaultExpanded
+                      labels={{
+                        title: t('reasoning.title'),
+                        count: (count) => tPlural('reasoning.step', count),
+                        thinking: t('reasoning.thinking'),
+                        step: (index) => t('reasoning.stepLabel', { index }),
+                      }}
                     />
                   )}
                   {latest.citations.map((citation, index) => (
@@ -293,20 +361,16 @@ export function ChatShell() {
           </Card>
 
           <Card className="p-4">
-            <h2 className="text-sm font-semibold">Backend</h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              The client speaks one SSE protocol. The server chooses the backend.
-            </p>
+            <h2 className="text-sm font-semibold">{t('app.backendTitle')}</h2>
+            <p className="mt-1 text-xs text-muted-foreground">{t('app.backendDescription')}</p>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               <li>
-                <code className="text-foreground">CHAT_BACKEND=mock</code> — deterministic streamed response.
+                <code className="text-foreground">CHAT_BACKEND=mock</code> — {t('app.backendMock')}
               </li>
               <li>
-                <code className="text-foreground">CHAT_BACKEND=openai</code> — raw SSE via <code>OPENAI_API_KEY</code>.
+                <code className="text-foreground">CHAT_BACKEND=openai</code> — {t('app.backendOpenAI')}
               </li>
-              <li>
-                Point <code className="text-foreground">createFetchAdapter</code> at any endpoint that emits the same events.
-              </li>
+              <li>{t('app.backendCustom')}</li>
             </ul>
             <label className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
               <input
@@ -318,18 +382,16 @@ export function ChatShell() {
                   analytics.setEnabled(event.target.checked);
                 }}
               />
-              Share anonymous usage events (no message content, no identifiers).
+              {t('app.analyticsConsent')}
             </label>
           </Card>
 
           <Card className="p-4">
-            <h2 className="text-sm font-semibold">Attachments</h2>
+            <h2 className="text-sm font-semibold">{t('app.attachmentsTitle')}</h2>
             <div className="mt-3 flex flex-wrap gap-2">
               <Attachment attachment={{ id: 'demo-1', name: 'spec.pdf', size: '2.4 MB', status: 'done' }} />
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              PromptInput manages its own attachment queue; wire uploads to your storage.
-            </p>
+            <p className="mt-3 text-xs text-muted-foreground">{t('app.attachmentsDescription')}</p>
           </Card>
         </aside>
       </div>

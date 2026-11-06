@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",
+    "@slipstream-ui/i18n": "workspace:*",
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/themes": "workspace:*",
     "next": "^16.4.3",

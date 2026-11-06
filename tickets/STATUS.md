@@ -46,6 +46,14 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-048 | Deployed demo URL + launch video (deploy docs shipped) |
 | SLIP-050 | MCP registry submission: `gh`/npm auth required (`server.json` + docs shipped) |
 
+
+## Internationalization (2026-11-06)
+
+- Shared `@slipstream-ui/i18n` runtime: en/ar/es, RTL, typed keys, plurals, Intl.
+- AI Chat Starter fully localized; server `lang`/`dir`, cookie switcher, localized mock/checkout.
+- `Reasoning` and `ToolCall` accept label overrides.
+- Plan for docs, dashboard, playground and remaining component labels: [`../docs/i18n-plan.md`](../docs/i18n-plan.md).
+- Tracking ticket: [`SLIP-060.md`](./SLIP-060.md).
 ## Verification
 
 ```bash

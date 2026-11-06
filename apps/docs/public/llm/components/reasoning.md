@@ -20,6 +20,7 @@ The Reasoning component displays the step-by-step thought process of an AI agent
 | className | `string` | — | no | Additional CSS classes to apply |
 | duration | `number` | — | no | Elapsed reasoning time in seconds; renders a duration chip |
 | isStreaming | `boolean` | — | no | Shows a streaming indicator while reasoning is in progress |
+| labels | `{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }` | — | no | Localized header, count and step labels. |
 
 ## Examples
 

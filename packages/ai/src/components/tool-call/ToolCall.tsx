@@ -8,6 +8,16 @@ export type ToolCallProps = {
   toolCall: ToolCallType;
   className?: string;
   showResult?: boolean;
+  /** Localized status and section labels. */
+  labels?: {
+    pending?: string;
+    running?: string;
+    completed?: string;
+    failed?: string;
+    arguments?: string;
+    result?: string;
+    error?: string;
+  };
 };
 
 const statusChipClasses: Record<ToolCallType['status'], string> = {
@@ -17,7 +27,7 @@ const statusChipClasses: Record<ToolCallType['status'], string> = {
   failed: 'bg-destructive/10 text-destructive border-destructive/20',
 };
 
-const statusLabels: Record<ToolCallType['status'], string> = {
+const defaultStatusLabels: Record<ToolCallType['status'], string> = {
   pending: 'Pending',
   running: 'Running',
   completed: 'Completed',
@@ -29,8 +39,7 @@ const statusLabels: Record<ToolCallType['status'], string> = {
  * arguments, optional result, and an error block on failure.
  */
 const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
-  ({ toolCall, className, showResult = true, ...props }, ref) => {
-    // Serialize once per tool-call change instead of on every render.
+  ({ toolCall, className, showResult = true, labels, ...props }, ref) => {
     const serializedArguments = React.useMemo(
       () => JSON.stringify(toolCall.arguments, null, 2),
       [toolCall.arguments]
@@ -41,6 +50,13 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
         ? toolCall.result
         : JSON.stringify(toolCall.result, null, 2);
     }, [toolCall.result]);
+
+    const statusLabels: Record<ToolCallType['status'], string> = {
+      pending: labels?.pending ?? defaultStatusLabels.pending,
+      running: labels?.running ?? defaultStatusLabels.running,
+      completed: labels?.completed ?? defaultStatusLabels.completed,
+      failed: labels?.failed ?? defaultStatusLabels.failed,
+    };
 
     return (
       <div
@@ -68,7 +84,7 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
 
         <div className="space-y-2">
           <div>
-            <div className="text-xs font-medium text-muted-foreground mb-1">Arguments</div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">{labels?.arguments ?? 'Arguments'}</div>
             <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
               <code>{serializedArguments}</code>
             </pre>
@@ -76,7 +92,7 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
 
           {showResult && serializedResult !== undefined && (
             <div>
-              <div className="text-xs font-medium text-muted-foreground mb-1">Result</div>
+              <div className="text-xs font-medium text-muted-foreground mb-1">{labels?.result ?? 'Result'}</div>
               <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
                 <code>{serializedResult}</code>
               </pre>
@@ -85,7 +101,7 @@ const ToolCall = React.forwardRef<HTMLDivElement, ToolCallProps>(
 
           {toolCall.status === 'failed' && toolCall.error && (
             <div role="alert">
-              <div className="text-xs font-medium text-destructive mb-1">Error</div>
+              <div className="text-xs font-medium text-destructive mb-1">{labels?.error ?? 'Error'}</div>
               <pre className="text-xs bg-destructive/10 text-destructive p-2 rounded overflow-x-auto whitespace-pre-wrap">
                 <code>{toolCall.error}</code>
               </pre>
