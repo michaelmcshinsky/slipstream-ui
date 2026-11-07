@@ -21,6 +21,11 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
   onItemClick?: (item: BreadcrumbItem, index: number) => void;
   /** Custom link element for routers (Next Link, react-router Link). */
   linkComponent?: React.ElementType;
+  /**
+   * Prop used to pass the destination to `linkComponent`. `href` covers
+   * anchors and Next.js Link; `to` covers react-router and similar routers.
+   */
+  linkHrefProp?: 'href' | 'to';
 };
 
 /**
@@ -29,7 +34,7 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
  * announce the navigation landmark and current location.
  */
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, separator = '/', onItemClick, linkComponent, className, ...props }, ref) => {
+  ({ items, separator = '/', onItemClick, linkComponent, linkHrefProp = 'href', className, ...props }, ref) => {
     const LinkEl = linkComponent ?? 'a';
     return (
     <nav
@@ -50,7 +55,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               )}
               {item.href && !isLast ? (
                 <LinkEl
-                  href={item.href}
+                  {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
                   className="transition-colors hover:text-foreground"
                   onClick={
                     onItemClick

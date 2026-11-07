@@ -23,6 +23,23 @@ describe('SiteFooter', () => {
     expect(screen.getByText('© 2026 Acme')).toBeInTheDocument();
   });
 
+  it('marks the active footer link and supports router `to` props', () => {
+    function RouterLink({ to, children, ...props }: { to: string; children?: React.ReactNode }) {
+      return <a href={to} data-to={to} {...props}>{children}</a>;
+    }
+    render(
+      <SiteFooter
+        columns={[{ title: 'Product', links: [{ label: 'Tools', href: '/tools' }] }]}
+        activeHref="/tools/sde-estimator"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    const tools = screen.getByRole('link', { name: 'Tools' });
+    expect(tools).toHaveAttribute('aria-current', 'page');
+    expect(tools).toHaveAttribute('data-to', '/tools');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<SiteFooter columns={[{ title: 'Docs', links: [{ label: 'Intro', href: '/docs' }] }]} />);
     expect(await axe(container)).toHaveNoViolations();

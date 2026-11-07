@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
@@ -37,6 +37,39 @@ describe('SiteHeader', () => {
     }
     render(<SiteHeader brand={<span>Acme</span>} items={items} linkComponent={RouterLink} />);
     expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-router');
+  });
+
+  it('passes a `to` prop for react-router style link components', () => {
+    function RouterLink({ to, children, ...props }: { to: string; children?: React.ReactNode }) {
+      return (
+        <a data-router data-to={to} href={to} {...props}>
+          {children}
+        </a>
+      );
+    }
+    render(
+      <SiteHeader brand={<span>Acme</span>} items={items} linkComponent={RouterLink} linkHrefProp="to" />
+    );
+    expect(screen.getByRole('link', { name: 'Docs' })).toHaveAttribute('data-to', '/docs');
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('data-to', '/');
+  });
+
+  it('supports a custom brand label and drawer actions', async () => {
+    const user = userEvent.setup();
+    render(
+      <SiteHeader
+        brand={<span>Acme</span>}
+        brandLabel="Acme home"
+        items={items}
+        actions={<button type="button">Header action</button>}
+        mobileActions={<button type="button">Mobile action</button>}
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Acme home' })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Open menu' }));
+    const drawer = screen.getByRole('dialog', { name: 'Menu' });
+    expect(within(drawer).getByRole('button', { name: 'Mobile action' })).toBeInTheDocument();
+    expect(within(drawer).queryByRole('button', { name: 'Header action' })).not.toBeInTheDocument();
   });
 
   it('opens the mobile drawer', async () => {

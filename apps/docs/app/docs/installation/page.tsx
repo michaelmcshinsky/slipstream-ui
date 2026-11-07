@@ -36,7 +36,7 @@ export default function InstallationPage() {
           <li>Node.js 20.9 or higher</li>
           <li>pnpm 8 or higher (recommended)</li>
           <li>React 18 or 19</li>
-          <li>Tailwind CSS 3.4 (tested) or 4.x (expected; see the Tailwind v4 guide)</li>
+          <li>Tailwind CSS 3.4 or 4.x, or no Tailwind at all via the prebuilt stylesheets</li>
           <li>TypeScript (recommended)</li>
         </ul>
 
@@ -44,7 +44,7 @@ export default function InstallationPage() {
         <p className="text-muted-foreground mb-4">
           The fastest way to get started is using the Slipstream UI CLI:
         </p>
-        <CodeBlock language="bash" code={`npx slipstream-ui@latest init`} />
+        <CodeBlock language="bash" code={`npx @slipstream-ui/cli@latest init`} />
         <p className="text-muted-foreground mb-4">
           This will:
         </p>
@@ -313,9 +313,12 @@ import { Button } from '@slipstream-ui/core';
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Any other React setup</h3>
         <p className="text-muted-foreground mb-4">
-          As long as you have React 18+, Tailwind CSS 3.4+, and the CSS variables in your global
-          stylesheet, Slipstream UI works. The components are plain React with no runtime
-          dependencies beyond React and Tailwind.
+          As long as you have React 18 or 19 and either Tailwind CSS 3.4+/4.x or the
+          prebuilt stylesheets (@slipstream-ui/core/styles.css plus
+          @slipstream-ui/themes/styles.css), Slipstream UI works. Components are plain
+          React; runtime dependencies are @radix-ui/react-slot,
+          @radix-ui/react-avatar, class-variance-authority, clsx, tailwind-merge, and
+          tailwindcss-animate, all installed automatically.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>

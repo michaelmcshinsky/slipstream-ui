@@ -24,6 +24,17 @@
       "description": "Router link element (Inertia Link, Next Link, react-router Link). Defaults to an anchor."
     },
     {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
       "name": "variant",
       "type": "'default' | 'underline' | 'rounded'",
       "required": false,

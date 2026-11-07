@@ -22,11 +22,29 @@ export type SiteFooterProps = React.HTMLAttributes<HTMLElement> & {
   legal?: React.ReactNode;
   /** Router link element. */
   linkComponent?: React.ElementType;
+  /**
+   * Prop used to pass the destination to `linkComponent`.
+   * `href` (default) covers anchors and Next.js Link; `to` covers
+   * react-router and other routers that use a `to` prop.
+   */
+  linkHrefProp?: 'href' | 'to';
+  /** Current route, used to mark the matching link with aria-current="page". */
+  activeHref?: string;
+  /** Prefix matching highlights /docs when on /docs/installation (default). */
+  match?: 'prefix' | 'exact';
 };
+
+function isActive(itemHref: string, activeHref: string | undefined, match: 'prefix' | 'exact'): boolean {
+  if (!activeHref) return false;
+  if (itemHref === activeHref) return true;
+  if (match === 'exact') return false;
+  return activeHref.startsWith(itemHref.endsWith('/') ? itemHref : `${itemHref}/`);
+}
 
 /**
  * Marketing footer: brand + tagline column, link columns, and a legal bar.
- * Router-agnostic through `linkComponent`; external links get safe rel.
+ * Router-agnostic through `linkComponent` + `linkHrefProp`; external links
+ * get safe rel, and the current route is marked with aria-current.
  */
 export function SiteFooter({
   brand,
@@ -34,10 +52,15 @@ export function SiteFooter({
   columns,
   legal,
   linkComponent,
+  linkHrefProp = 'href',
+  activeHref,
+  match = 'prefix',
   className,
   ...props
 }: SiteFooterProps) {
   const Link = linkComponent ?? 'a';
+  const destination = (href: string) =>
+    linkHrefProp === 'to' ? { to: href } : { href };
 
   return (
     <footer className={cn('border-t border-border bg-muted/30', className)} {...props}>
@@ -48,21 +71,28 @@ export function SiteFooter({
         </div>
         {columns.map((column) => (
           <div key={column.title}>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {column.title}
-            </h3>
-            <ul className="space-y-2 text-sm">
-              {column.links.map((link) => (
-                <li key={`${column.title}-${link.href}-${link.label}`}>
-                  <Link
-                    href={link.href}
-                    {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            </h2>
+            <ul className="m-0 list-none space-y-2 p-0 text-sm">
+              {column.links.map((link) => {
+                const active = isActive(link.href, activeHref, match);
+                return (
+                  <li key={`${column.title}-${link.href}-${link.label}`}>
+                    <Link
+                      {...destination(link.href)}
+                      aria-current={active ? 'page' : undefined}
+                      {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      className={cn(
+                        'transition-colors hover:text-foreground',
+                        active ? 'font-medium text-foreground' : 'text-muted-foreground'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}

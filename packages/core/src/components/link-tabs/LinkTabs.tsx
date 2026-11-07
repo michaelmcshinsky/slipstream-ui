@@ -27,6 +27,11 @@ export type LinkTabsProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> 
   activeHref?: string;
   /** Router link element (Inertia Link, Next Link, react-router Link). Defaults to `<a>`. */
   linkComponent?: React.ElementType;
+  /**
+   * Prop used to pass the destination to `linkComponent`. `href` covers
+   * anchors and Next.js Link; `to` covers react-router and similar routers.
+   */
+  linkHrefProp?: 'href' | 'to';
   /** Visual style. */
   variant?: LinkTabsVariant;
   /** Control density. */
@@ -91,6 +96,7 @@ export const LinkTabs = React.forwardRef<HTMLElement, LinkTabsProps>(function Li
     items,
     activeHref,
     linkComponent,
+    linkHrefProp = 'href',
     variant = 'default',
     size = 'md',
     label = 'Section',
@@ -128,7 +134,7 @@ export const LinkTabs = React.forwardRef<HTMLElement, LinkTabsProps>(function Li
         return (
           <Link
             key={item.href}
-            href={item.href}
+            {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
             aria-current={active ? 'page' : undefined}
             data-active={active ? 'true' : 'false'}
             className={itemVariants({ variant, size })}

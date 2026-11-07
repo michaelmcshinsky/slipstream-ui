@@ -39,6 +39,34 @@
       "type": "React.ElementType",
       "required": false,
       "description": "Router link element."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
+      "name": "activeHref",
+      "type": "string",
+      "required": false,
+      "description": "Current route, used to mark the matching link with aria-current=page."
+    },
+    {
+      "name": "match",
+      "type": "'prefix' | 'exact'",
+      "required": false,
+      "defaultValue": "prefix",
+      "description": "Prefix matching highlights parents of the current route; exact only identical hrefs.",
+      "enum": [
+        "prefix",
+        "exact"
+      ]
     }
   ],
   "examples": [

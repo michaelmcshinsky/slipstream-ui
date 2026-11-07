@@ -82,10 +82,34 @@ const GLOBAL_CSS_CANDIDATES = [
   'app/globals.css',
   'src/styles/globals.css',
   'styles/globals.css',
+  'src/globals.css',
   'src/index.css',
   'src/main.css',
+  'src/styles.css',
   'index.css',
 ];
+
+/** First line of the prebuilt stylesheets, used for duplicate detection. */
+const PREBUILT_STYLES_MARKERS = [
+  '@slipstream-ui/core/styles.css',
+  '@slipstream-ui/themes/styles.css',
+  '@slipstream-ui/themes/tailwind-v4.css',
+];
+
+function tailwindMajor(version: string | undefined): number | null {
+  if (!version) return null;
+  const match = version.match(/(\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
+/** Relative @source path from the stylesheet to the published package output. */
+function sourcePath(projectRoot: string, cssPath: string, pkg: string): string {
+  const relative = path.relative(
+    path.dirname(path.join(projectRoot, cssPath)),
+    path.join(projectRoot, 'node_modules', pkg, 'dist')
+  );
+  return relative.split(path.sep).join('/');
+}
 
 export const initCommand = new Command('init')
   .description('Initialize Slipstream UI in your project')
@@ -109,6 +133,7 @@ export const initCommand = new Command('init')
           ? 'vite'
           : 'unknown';
       const usesTailwind = Boolean(allDeps.tailwindcss);
+      const twMajor = tailwindMajor(allDeps.tailwindcss);
 
       const configPath = path.join(projectRoot, 'slipstream.config.json');
       if ((await fs.pathExists(configPath)) && !options.defaults) {
@@ -131,36 +156,78 @@ export const initCommand = new Command('init')
         console.log(chalk.yellow('\n  Install @slipstream-ui/core and @slipstream-ui/ai to use package imports in copied components.'));
       }
 
-      // Inject theme variables into an existing global stylesheet so copied
-      // components render correctly without manual setup.
+      // Wire the global stylesheet so the package actually renders.
+      // - Tailwind 4: import the v4 theme contract and point @source at the
+      //   published component output (utilities are generated from source).
+      // - Tailwind 3: the JS theme preset is not published; inject the CSS
+      //   variable contract and let the consumer's config map the tokens.
+      // - No Tailwind: use the prebuilt stylesheets that ship with the package.
       let cssInjected = false;
       let cssTarget: string | undefined;
-      if (usesTailwind) {
-        cssTarget = GLOBAL_CSS_CANDIDATES.find((candidate) =>
-          fs.pathExistsSync(path.join(projectRoot, candidate))
-        );
-        if (cssTarget && !options.defaults) {
-          const cssPath = path.join(projectRoot, cssTarget);
-          const existing = await fs.readFile(cssPath, 'utf8');
-          if (!existing.includes('--background:') && !existing.includes('--slipstream-theme')) {
-            const marker = '/* slipstream-ui theme */';
-            await fs.writeFile(cssPath, `${existing.trimEnd()}\n\n${marker}\n${THEME_VARIABLES}\n`);
-            cssInjected = true;
-          } else if (existing.includes('--background:')) {
-            console.log(chalk.gray('\n  Detected an existing CSS-variable theme; skipping variable injection.'));
+      let cssMode: 'tailwind-v4' | 'tailwind-v3' | 'prebuilt' = 'prebuilt';
+
+      cssTarget = GLOBAL_CSS_CANDIDATES.find((candidate) =>
+        fs.pathExistsSync(path.join(projectRoot, candidate))
+      );
+      if (!cssTarget && framework !== 'next') {
+        cssTarget = 'src/styles.css';
+        await fs.ensureDir(path.join(projectRoot, 'src'));
+        await fs.writeFile(path.join(projectRoot, cssTarget), '');
+      }
+
+      if (cssTarget) {
+        const cssPath = path.join(projectRoot, cssTarget);
+        const existing = await fs.readFile(cssPath, 'utf8');
+        const hasTheme = existing.includes('--background:') || existing.includes('--slipstream-theme');
+        const hasPrebuilt = PREBUILT_STYLES_MARKERS.some((marker) => existing.includes(marker));
+        let next = existing;
+
+        if (twMajor === 4) {
+          cssMode = 'tailwind-v4';
+          if (!/^@import\s+["']tailwindcss["']/m.test(next)) {
+            next = `@import "tailwindcss";\n${next}`;
           }
+          if (!next.includes('@slipstream-ui/themes/tailwind-v4.css')) {
+            next = next.replace(
+              /@import\s+["']tailwindcss["'];?\n/,
+              (line) => `${line}@import "@slipstream-ui/themes/tailwind-v4.css";\n`
+            );
+          }
+          if (!next.includes('tailwindcss-animate')) {
+            next = `${next.trimEnd()}\n\n@plugin "tailwindcss-animate";\n`;
+          }
+          if (!next.includes('@source') && !hasPrebuilt) {
+            next = `${next.trimEnd()}\n@source "${sourcePath(projectRoot, cssTarget, '@slipstream-ui/core')}";\n@source "${sourcePath(projectRoot, cssTarget, '@slipstream-ui/ai')}";\n`;
+          }
+        } else if (twMajor === 3) {
+          cssMode = 'tailwind-v3';
+          if (!hasTheme) {
+            next = `${next.trimEnd()}\n\n/* slipstream-ui theme */\n${THEME_VARIABLES}\n`;
+          }
+        } else {
+          cssMode = 'prebuilt';
+          if (!hasPrebuilt) {
+            next = `@import "@slipstream-ui/themes/styles.css";\n@import "@slipstream-ui/core/styles.css";\n\n${next}`;
+          }
+        }
+
+        if (next !== existing) {
+          await fs.writeFile(cssPath, next);
+          cssInjected = true;
+        } else if (hasTheme || hasPrebuilt) {
+          console.log(chalk.gray('\n  Detected existing Slipstream theme CSS; skipping stylesheet setup.'));
         }
       }
 
       spinner.succeed(chalk.green('Slipstream UI initialized successfully!'));
       console.log(`\nDetected setup: ${chalk.cyan(framework)} · Tailwind ${usesTailwind ? chalk.cyan('yes') : chalk.yellow('no')}`);
       console.log(chalk.gray(`  Config: slipstream.config.json`));
-      if (cssInjected && cssTarget) {
-        console.log(chalk.gray(`  Theme variables written to ${cssTarget}`));
+      if (cssTarget && cssInjected) {
+        console.log(chalk.gray(`  Stylesheet wired (${cssMode}) at ${cssTarget}`));
       }
       console.log('\nNext steps:');
       console.log(chalk.gray('  1. Import components from @slipstream-ui/core and @slipstream-ui/ai'));
-      console.log(chalk.gray('     or install source copies: npx slipstream-ui add <component>'));
+      console.log(chalk.gray('     or install source copies: npx @slipstream-ui/cli add <component>'));
       console.log(chalk.gray('  2. Customize the theme via @slipstream-ui/themes createTheme()'));
       console.log(chalk.gray('  3. Check the docs at https://slipstreamui.com/docs'));
     } catch (error) {

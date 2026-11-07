@@ -12,6 +12,12 @@ export type SectionHeadingProps = React.HTMLAttributes<HTMLDivElement> & {
   level?: 2 | 3 | 4;
   align?: 'left' | 'center';
   size?: 'sm' | 'md' | 'lg';
+  /** Extra classes for the title, for host typography (display fonts, scales). */
+  titleClassName?: string;
+  /** Extra classes for the description. */
+  descriptionClassName?: string;
+  /** Extra classes for the eyebrow. */
+  eyebrowClassName?: string;
 };
 
 const sizeClasses: Record<NonNullable<SectionHeadingProps['size']>, string> = {
@@ -26,7 +32,7 @@ const sizeClasses: Record<NonNullable<SectionHeadingProps['size']>, string> = {
  * PageHeader (which owns the page's single h1).
  */
 export const SectionHeading = React.forwardRef<HTMLDivElement, SectionHeadingProps>(function SectionHeading(
-  { title, description, eyebrow, actions, level = 2, align = 'left', size = 'md', className, ...props },
+  { title, description, eyebrow, actions, level = 2, align = 'left', size = 'md', titleClassName, descriptionClassName, eyebrowClassName, className, ...props },
   ref
 ) {
   const Heading = `h${level}` as 'h2' | 'h3' | 'h4';
@@ -42,10 +48,10 @@ export const SectionHeading = React.forwardRef<HTMLDivElement, SectionHeadingPro
       {...props}
     >
       <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>
-        {eyebrow && <p className="mb-1 text-xs font-medium uppercase tracking-wide text-primary">{eyebrow}</p>}
-        <Heading className={cn('font-semibold tracking-tight', sizeClasses[size])}>{title}</Heading>
+        {eyebrow && <div className={cn('mb-1 text-xs font-medium uppercase tracking-wide text-primary', eyebrowClassName)}>{eyebrow}</div>}
+        <Heading className={cn('font-semibold tracking-tight', sizeClasses[size], titleClassName)}>{title}</Heading>
         {description && (
-          <p className={cn('mt-2 max-w-2xl text-muted-foreground', align === 'center' ? 'mx-auto' : '')}>{description}</p>
+          <p className={cn('mt-2 max-w-2xl text-muted-foreground', align === 'center' ? 'mx-auto' : '', descriptionClassName)}>{description}</p>
         )}
       </div>
       {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}

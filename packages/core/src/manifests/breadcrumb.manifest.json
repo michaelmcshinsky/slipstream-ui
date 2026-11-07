@@ -35,6 +35,17 @@
       "type": "React.ElementType",
       "required": false,
       "description": "Custom link element for routers (preserves prefetch/modified clicks)."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router.",
+      "enum": [
+        "href",
+        "to"
+      ]
     }
   ],
   "examples": [
