@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "site-header",
   "exportName": "SiteHeader",
   "description": "Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.",
@@ -102,6 +102,30 @@
       "required": false,
       "defaultValue": "Menu",
       "description": "Title of the mobile navigation drawer."
+    },
+    {
+      "name": "showMobileTrigger",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Render the built-in mobile trigger and drawer. Set false when the host owns mobile navigation."
+    },
+    {
+      "name": "desktopBreakpoint",
+      "type": "'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": [
+        "md",
+        "lg"
+      ],
+      "description": "Breakpoint where the horizontal navigation appears."
+    },
+    {
+      "name": "navClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the inner nav row."
     }
   ],
   "examples": [

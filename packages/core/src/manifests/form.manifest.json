@@ -11,15 +11,25 @@
       "defaultValue": "default",
       "required": false,
       "description": "Visual container: plain vertical stack, bordered card, or inline row with aligned ends.",
-      "enum": ["default", "card", "inline"],
-      "examples": ["card", "inline"]
+      "enum": [
+        "default",
+        "card",
+        "inline"
+      ],
+      "examples": [
+        "card",
+        "inline"
+      ]
     },
     {
       "name": "gap",
       "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | number",
       "required": false,
       "description": "Even spacing between children — token ('md' default) or exact pixels (16).",
-      "examples": ["lg", "16"]
+      "examples": [
+        "lg",
+        "16"
+      ]
     },
     {
       "name": "onSubmit",
@@ -33,7 +43,9 @@
       "required": false,
       "description": "Skip native validation when you drive errors through FormField error props.",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     }
   ],
   "examples": [
@@ -44,7 +56,8 @@
     },
     {
       "title": "Card and inline variants",
-      "code": "<Form variant=\"card\" gap={16}>…</Form>\n\n<Form variant=\"inline\" onSubmit={search}>\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</Form>"}
+      "code": "<Form variant=\"card\" gap={16}>…</Form>\n\n<Form variant=\"inline\" onSubmit={search}>\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</Form>"
+    }
   ],
   "antiPatterns": [
     {
@@ -85,10 +98,15 @@
       "relationship": "Submit button with type=\"submit\" — native Enter handling comes free"
     }
   ],
-  "relatedComponents": ["FormField", "FormLayout", "Fieldset", "Input"],
+  "relatedComponents": [
+    "FormField",
+    "FormLayout",
+    "Fieldset",
+    "Input"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "form",
   "exportName": "Form"
 }

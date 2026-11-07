@@ -26,6 +26,10 @@ Landing pages repeat a headline cluster with an optional product shot. Hero stan
 | level | `1 | 2` | `1` | no | Heading level. Use 2 when the hero is nested under a page h1. |
 | variant | `'split' | 'centered'` | — | no | Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided. |
 | as | `'div' | 'section' | 'header'` | `div` | no | Semantic element to render. |
+| titleClassName | `string` | — | no | Extra classes for the headline, for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes for the description. |
+| eyebrowClassName | `string` | — | no | Extra classes for the eyebrow. |
+| badgeClassName | `string` | — | no | Extra classes for the badge wrapper. |
 
 ## Examples
 

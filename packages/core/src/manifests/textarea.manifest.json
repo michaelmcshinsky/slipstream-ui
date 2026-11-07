@@ -75,9 +75,18 @@
   "contentGuidelines": [
     {
       "contentType": "Placeholders",
-      "guidelines": ["Describe what to write", "Match the expected tone and length"],
-      "goodExamples": ["Describe the bug you encountered", "Tell us about your project"],
-      "badExamples": ["Text", "Type here"]
+      "guidelines": [
+        "Describe what to write",
+        "Match the expected tone and length"
+      ],
+      "goodExamples": [
+        "Describe the bug you encountered",
+        "Tell us about your project"
+      ],
+      "badExamples": [
+        "Text",
+        "Type here"
+      ]
     }
   ],
   "compositionRules": [
@@ -87,10 +96,13 @@
       "example": "<Label htmlFor=\"m\">Message</Label><Textarea id=\"m\" />"
     }
   ],
-  "relatedComponents": ["Input", "Label"],
+  "relatedComponents": [
+    "Input",
+    "Label"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "textarea",
   "exportName": "Textarea"
 }

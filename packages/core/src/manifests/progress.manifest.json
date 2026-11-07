@@ -82,9 +82,18 @@
   "contentGuidelines": [
     {
       "contentType": "Labels",
-      "guidelines": ["Name the task, not the bar", "Keep to 2-4 words"],
-      "goodExamples": ["Upload progress", "Profile setup"],
-      "badExamples": ["Loading bar", "Progress"]
+      "guidelines": [
+        "Name the task, not the bar",
+        "Keep to 2-4 words"
+      ],
+      "goodExamples": [
+        "Upload progress",
+        "Profile setup"
+      ],
+      "badExamples": [
+        "Loading bar",
+        "Progress"
+      ]
     }
   ],
   "compositionRules": [
@@ -94,10 +103,13 @@
       "example": "<Progress value={50} label=\"Upload\" />"
     }
   ],
-  "relatedComponents": ["Skeleton", "Spinner"],
+  "relatedComponents": [
+    "Skeleton",
+    "Spinner"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "progress",
   "exportName": "Progress"
 }

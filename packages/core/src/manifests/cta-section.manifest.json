@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "cta-section",
   "exportName": "CTASection",
   "description": "Full-width conversion band with eyebrow, headline, supporting copy and actions.",
@@ -39,7 +39,12 @@
       "type": "'default' | 'muted' | 'brand' | 'inverse'",
       "required": false,
       "defaultValue": "inverse",
-      "enum": ["default", "muted", "brand", "inverse"],
+      "enum": [
+        "default",
+        "muted",
+        "brand",
+        "inverse"
+      ],
       "description": "Surface treatment."
     },
     {
@@ -47,7 +52,10 @@
       "type": "'left' | 'center'",
       "required": false,
       "defaultValue": "center",
-      "enum": ["left", "center"],
+      "enum": [
+        "left",
+        "center"
+      ],
       "description": "Copy alignment."
     },
     {
@@ -55,7 +63,11 @@
       "type": "'sm' | 'md' | 'lg'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["sm", "md", "lg"],
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "description": "Vertical space."
     },
     {
@@ -63,7 +75,13 @@
       "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
       "required": false,
       "defaultValue": "lg",
-      "enum": ["sm", "md", "lg", "xl", "full"],
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "full"
+      ],
       "description": "Inner container width."
     }
   ],
@@ -101,9 +119,19 @@
   "contentGuidelines": [
     {
       "contentType": "CTA copy",
-      "guidelines": ["State the outcome", "Use one primary verb", "Keep the supporting line to one sentence"],
-      "goodExamples": ["Join the network", "Get matched with an advisor"],
-      "badExamples": ["Submit", "Click here"]
+      "guidelines": [
+        "State the outcome",
+        "Use one primary verb",
+        "Keep the supporting line to one sentence"
+      ],
+      "goodExamples": [
+        "Join the network",
+        "Get matched with an advisor"
+      ],
+      "badExamples": [
+        "Submit",
+        "Click here"
+      ]
     }
   ],
   "compositionRules": [
@@ -118,5 +146,9 @@
       "example": "<CTASection actions={<><Button>Start</Button><Button variant=\"outline\">Learn more</Button></>} />"
     }
   ],
-  "relatedComponents": ["Section", "Hero", "Button"]
+  "relatedComponents": [
+    "Section",
+    "Hero",
+    "Button"
+  ]
 }

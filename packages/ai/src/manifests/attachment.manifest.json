@@ -5,9 +5,24 @@
   "description": "File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
   "designIntent": "Show what files are part of a conversation turn (name, size, type, thumbnail, upload status) without coupling the library to any upload implementation.",
   "props": [
-    { "name": "attachment", "type": "AttachmentItem", "required": true, "description": "File descriptor: id, name, size, type, previewUrl, status." },
-    { "name": "attachments", "type": "AttachmentItem[]", "required": true, "description": "Files to display (AttachmentList)." },
-    { "name": "onRemove", "type": "(attachment) => void", "required": false, "description": "Remove callback; omit to hide remove controls." }
+    {
+      "name": "attachment",
+      "type": "AttachmentItem",
+      "required": true,
+      "description": "File descriptor: id, name, size, type, previewUrl, status."
+    },
+    {
+      "name": "attachments",
+      "type": "AttachmentItem[]",
+      "required": true,
+      "description": "Files to display (AttachmentList)."
+    },
+    {
+      "name": "onRemove",
+      "type": "(attachment) => void",
+      "required": false,
+      "description": "Remove callback; omit to hide remove controls."
+    }
   ],
   "examples": [
     {
@@ -20,16 +35,28 @@
     }
   ],
   "antiPatterns": [
-    { "title": "Do not use Attachment for drag-and-drop targets", "explanation": "The chip displays an existing item; build dropzones in the consumer and render AttachmentList once items exist." }
+    {
+      "title": "Do not use Attachment for drag-and-drop targets",
+      "explanation": "The chip displays an existing item; build dropzones in the consumer and render AttachmentList once items exist."
+    }
   ],
   "accessibility": [
-    { "feature": "Remove control", "implementation": "Icon-only remove button has an aria-label including the file name." },
-    { "feature": "Upload status", "implementation": "Uploading state is announced via role=status." },
-    { "feature": "Decorative thumbnails", "implementation": "Preview images are aria-hidden; the file name carries the meaning." }
+    {
+      "feature": "Remove control",
+      "implementation": "Icon-only remove button has an aria-label including the file name."
+    },
+    {
+      "feature": "Upload status",
+      "implementation": "Uploading state is announced via role=status."
+    },
+    {
+      "feature": "Decorative thumbnails",
+      "implementation": "Preview images are aria-hidden; the file name carries the meaning."
+    }
   ],
   "sourceDir": "attachment",
   "exportName": "Attachment",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.0.1"
+  "version": "0.5.0"
 }

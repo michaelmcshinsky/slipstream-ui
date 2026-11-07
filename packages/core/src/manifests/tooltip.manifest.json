@@ -81,9 +81,19 @@
   "contentGuidelines": [
     {
       "contentType": "Tooltip text",
-      "guidelines": ["Keep under 120 characters", "Write a sentence or a short label", "Don't repeat the trigger label"],
-      "goodExamples": ["Save your changes", "Copies the command to your clipboard"],
-      "badExamples": ["Click", "This button saves"]
+      "guidelines": [
+        "Keep under 120 characters",
+        "Write a sentence or a short label",
+        "Don't repeat the trigger label"
+      ],
+      "goodExamples": [
+        "Save your changes",
+        "Copies the command to your clipboard"
+      ],
+      "badExamples": [
+        "Click",
+        "This button saves"
+      ]
     }
   ],
   "compositionRules": [
@@ -93,10 +103,13 @@
       "example": "<Tooltip content=\"Close\"><Button aria-label=\"Close\">×</Button></Tooltip>"
     }
   ],
-  "relatedComponents": ["Button", "Label"],
+  "relatedComponents": [
+    "Button",
+    "Label"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "tooltip",
   "exportName": "Tooltip"
 }

@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "confirm-dialog",
   "exportName": "ConfirmDialog",
   "description": "Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",

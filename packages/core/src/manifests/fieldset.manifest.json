@@ -10,21 +10,28 @@
       "type": "string",
       "required": false,
       "description": "Legend rendered as the group's accessible name.",
-      "examples": ["Choose a plan", "Notification preferences"]
+      "examples": [
+        "Choose a plan",
+        "Notification preferences"
+      ]
     },
     {
       "name": "description",
       "type": "string",
       "required": false,
       "description": "Muted supporting line rendered under the legend.",
-      "examples": ["Applies to every project in this workspace"]
+      "examples": [
+        "Applies to every project in this workspace"
+      ]
     },
     {
       "name": "error",
       "type": "string",
       "required": false,
       "description": "Error line rendered under the controls; announced via role=alert.",
-      "examples": ["Select at least one option"]
+      "examples": [
+        "Select at least one option"
+      ]
     }
   ],
   "examples": [
@@ -66,9 +73,19 @@
   "contentGuidelines": [
     {
       "contentType": "Legends",
-      "guidelines": ["Use sentence case", "Phrase as the question or choice name", "Keep under 60 characters"],
-      "goodExamples": ["Choose a plan", "Billing interval"],
-      "badExamples": ["Options", "Click here"]
+      "guidelines": [
+        "Use sentence case",
+        "Phrase as the question or choice name",
+        "Keep under 60 characters"
+      ],
+      "goodExamples": [
+        "Choose a plan",
+        "Billing interval"
+      ],
+      "badExamples": [
+        "Options",
+        "Click here"
+      ]
     }
   ],
   "compositionRules": [
@@ -82,10 +99,15 @@
       "relationship": "For a single labeled control prefer FormField; Fieldset is for GROUPS of controls"
     }
   ],
-  "relatedComponents": ["Radio", "Checkbox", "FormField", "Label"],
+  "relatedComponents": [
+    "Radio",
+    "Checkbox",
+    "FormField",
+    "Label"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "fieldset",
   "exportName": "Fieldset"
 }

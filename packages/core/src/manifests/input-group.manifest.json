@@ -11,7 +11,10 @@
       "required": false,
       "description": "Edge the addon hugs (flush against the group outline).",
       "defaultValue": "left",
-      "examples": ["left", "right"]
+      "examples": [
+        "left",
+        "right"
+      ]
     },
     {
       "name": "variant",
@@ -19,7 +22,10 @@
       "required": false,
       "description": "Addon surface: ghost keeps the group background, muted paints a light gray.",
       "defaultValue": "ghost",
-      "examples": ["ghost", "muted"]
+      "examples": [
+        "ghost",
+        "muted"
+      ]
     }
   ],
   "examples": [
@@ -76,8 +82,16 @@
         "Use the same casing the user would type",
         "Prefer icons for actions, text for value parts"
       ],
-      "goodExamples": ["https://", ".com", "PLN", "/month"],
-      "badExamples": ["Enter the protocol here", "domain suffix"]
+      "goodExamples": [
+        "https://",
+        ".com",
+        "PLN",
+        "/month"
+      ],
+      "badExamples": [
+        "Enter the protocol here",
+        "domain suffix"
+      ]
     }
   ],
   "compositionRules": [
@@ -97,10 +111,15 @@
       "example": "<InputGroupAddon side=\"right\"><Button size=\"sm\">Go</Button></InputGroupAddon>"
     }
   ],
-  "relatedComponents": ["Input", "FormField", "Search", "Button"],
+  "relatedComponents": [
+    "Input",
+    "FormField",
+    "Search",
+    "Button"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "input-group",
   "exportName": "InputGroup"
 }

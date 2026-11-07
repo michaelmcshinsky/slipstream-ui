@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "section",
   "exportName": "Section",
   "description": "Full-width page section with a surface tone, vertical rhythm and an optional centered container.",
@@ -15,7 +15,13 @@
       "type": "'default' | 'muted' | 'subtle' | 'brand' | 'inverse'",
       "required": false,
       "defaultValue": "default",
-      "enum": ["default", "muted", "subtle", "brand", "inverse"],
+      "enum": [
+        "default",
+        "muted",
+        "subtle",
+        "brand",
+        "inverse"
+      ],
       "description": "Surface treatment. inverse flips background, foreground, card, border and muted tokens for its subtree."
     },
     {
@@ -23,7 +29,13 @@
       "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["none", "sm", "md", "lg", "xl"],
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
       "description": "Vertical rhythm. md is py-14 / sm:py-16."
     },
     {
@@ -31,7 +43,13 @@
       "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
       "required": false,
       "defaultValue": "lg",
-      "enum": ["sm", "md", "lg", "xl", "full"],
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "full"
+      ],
       "description": "Inner Container width."
     },
     {
@@ -94,9 +112,17 @@
   "contentGuidelines": [
     {
       "contentType": "Section rhythm",
-      "guidelines": ["One idea per band", "Alternate default and muted tones", "Use inverse once per page for the final CTA"],
-      "goodExamples": ["Default features, muted proof, inverse CTA"],
-      "badExamples": ["Five alternating dark bands in a row"]
+      "guidelines": [
+        "One idea per band",
+        "Alternate default and muted tones",
+        "Use inverse once per page for the final CTA"
+      ],
+      "goodExamples": [
+        "Default features, muted proof, inverse CTA"
+      ],
+      "badExamples": [
+        "Five alternating dark bands in a row"
+      ]
     }
   ],
   "compositionRules": [
@@ -111,5 +137,10 @@
       "example": "<Section tone=\"inverse\"><Hero title=\".\" /></Section>"
     }
   ],
-  "relatedComponents": ["Container", "Hero", "CTASection", "PageHeader"]
+  "relatedComponents": [
+    "Container",
+    "Hero",
+    "CTASection",
+    "PageHeader"
+  ]
 }

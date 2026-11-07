@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "contact-strip",
   "exportName": "ContactStrip",
   "description": "Compact labelled contact rows with optional icons and links.",
@@ -28,7 +28,10 @@
       "type": "'left' | 'center'",
       "required": false,
       "defaultValue": "left",
-      "enum": ["left", "center"],
+      "enum": [
+        "left",
+        "center"
+      ],
       "description": "Row alignment."
     },
     {
@@ -71,5 +74,9 @@
       "example": "<SiteFooter columns={columns} />"
     }
   ],
-  "relatedComponents": ["SiteFooter", "Link", "Text"]
+  "relatedComponents": [
+    "SiteFooter",
+    "Link",
+    "Text"
+  ]
 }

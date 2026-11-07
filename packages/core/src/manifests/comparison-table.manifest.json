@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "comparison-table",
   "exportName": "ComparisonTable",
   "description": "Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.",
@@ -77,9 +77,18 @@
   "contentGuidelines": [
     {
       "contentType": "Comparison rows",
-      "guidelines": ["One capability per row", "Parallel phrasing across columns", "Keep text cells to two or three words"],
-      "goodExamples": ["Accurate valuation", "Negotiation support"],
-      "badExamples": ["Miscellaneous benefits"]
+      "guidelines": [
+        "One capability per row",
+        "Parallel phrasing across columns",
+        "Keep text cells to two or three words"
+      ],
+      "goodExamples": [
+        "Accurate valuation",
+        "Negotiation support"
+      ],
+      "badExamples": [
+        "Miscellaneous benefits"
+      ]
     }
   ],
   "compositionRules": [
@@ -89,5 +98,9 @@
       "example": "<Section><ComparisonTable columns={columns} rows={rows} /></Section>"
     }
   ],
-  "relatedComponents": ["Table", "DataTable", "Section"]
+  "relatedComponents": [
+    "Table",
+    "DataTable",
+    "Section"
+  ]
 }

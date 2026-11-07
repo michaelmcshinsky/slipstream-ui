@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "feature-row",
   "exportName": "FeatureRow",
   "description": "Alternating media and copy row for mid-page feature sections.",
@@ -45,7 +45,10 @@
       "type": "'left' | 'right'",
       "required": false,
       "defaultValue": "right",
-      "enum": ["left", "right"],
+      "enum": [
+        "left",
+        "right"
+      ],
       "description": "Which side the media sits on at lg and up."
     },
     {
@@ -60,7 +63,10 @@
       "type": "'md' | 'lg'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["md", "lg"],
+      "enum": [
+        "md",
+        "lg"
+      ],
       "description": "Heading scale."
     }
   ],
@@ -97,5 +103,9 @@
       "example": "<Section><FeatureRow title=\".\" media={<Media />} /></Section>"
     }
   ],
-  "relatedComponents": ["Hero", "FeatureGrid", "Section"]
+  "relatedComponents": [
+    "Hero",
+    "FeatureGrid",
+    "Section"
+  ]
 }

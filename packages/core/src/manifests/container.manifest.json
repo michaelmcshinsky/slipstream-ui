@@ -4,7 +4,7 @@
   "tier": "atom",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "container",
   "exportName": "Container",
   "description": "Centered, width-constrained page container with shared gutters and four width presets.",
@@ -15,7 +15,13 @@
       "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
       "required": false,
       "defaultValue": "lg",
-      "enum": ["sm", "md", "lg", "xl", "full"],
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "full"
+      ],
       "description": "Maximum content width. lg is 80rem (1280px); xl is 1400px; full removes the cap."
     },
     {
@@ -23,7 +29,12 @@
       "type": "'none' | 'sm' | 'md' | 'lg'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["none", "sm", "md", "lg"],
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg"
+      ],
       "description": "Horizontal gutters. md is px-4 / sm:px-6; lg adds lg:px-8."
     },
     {
@@ -62,5 +73,9 @@
       "example": "<Section width=\"lg\"><Hero /></Section>"
     }
   ],
-  "relatedComponents": ["Section", "Block", "Grid"]
+  "relatedComponents": [
+    "Section",
+    "Block",
+    "Grid"
+  ]
 }

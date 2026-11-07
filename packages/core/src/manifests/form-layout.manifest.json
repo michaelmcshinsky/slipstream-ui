@@ -11,8 +11,15 @@
       "defaultValue": "stack",
       "required": false,
       "description": "Grouping layout: even vertical stack, horizontal row, or column grid.",
-      "enum": ["stack", "row", "grid"],
-      "examples": ["grid", "row"]
+      "enum": [
+        "stack",
+        "row",
+        "grid"
+      ],
+      "examples": [
+        "grid",
+        "row"
+      ]
     },
     {
       "name": "columns",
@@ -20,21 +27,29 @@
       "defaultValue": "2",
       "required": false,
       "description": "Grid column count (literal classes survive CSS purging).",
-      "examples": ["2", "4"]
+      "examples": [
+        "2",
+        "4"
+      ]
     },
     {
       "name": "gap",
       "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | number",
       "required": false,
       "description": "Even spacing between children — token or exact pixels (16).",
-      "examples": ["lg", "16"]
+      "examples": [
+        "lg",
+        "16"
+      ]
     },
     {
       "name": "legend",
       "type": "string",
       "required": false,
       "description": "Group label rendered as a semantic <legend> (fieldset mode).",
-      "examples": ["Billing details"]
+      "examples": [
+        "Billing details"
+      ]
     },
     {
       "name": "description",
@@ -48,8 +63,13 @@
       "defaultValue": "div",
       "required": false,
       "description": "Render as a semantic fieldset when the layout names a group of controls.",
-      "enum": ["div", "fieldset"],
-      "examples": ["fieldset"]
+      "enum": [
+        "div",
+        "fieldset"
+      ],
+      "examples": [
+        "fieldset"
+      ]
     }
   ],
   "examples": [
@@ -60,7 +80,8 @@
     },
     {
       "title": "Inline action row",
-      "code": "<FormLayout layout=\"row\" gap=\"sm\">\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</FormLayout>"}
+      "code": "<FormLayout layout=\"row\" gap=\"sm\">\n  <FormField id=\"q\" label=\"Search\"><Input type=\"search\" /></FormField>\n  <Button type=\"submit\">Go</Button>\n</FormLayout>"
+    }
   ],
   "antiPatterns": [
     {
@@ -101,10 +122,15 @@
       "relationship": "Fieldset when the legend/grouping IS the point; FormLayout when spacing/arrangement is"
     }
   ],
-  "relatedComponents": ["FormField", "Form", "Fieldset", "Grid"],
+  "relatedComponents": [
+    "FormField",
+    "Form",
+    "Fieldset",
+    "Grid"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "form-layout",
   "exportName": "FormLayout"
 }

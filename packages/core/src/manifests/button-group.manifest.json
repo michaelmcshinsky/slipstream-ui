@@ -11,7 +11,10 @@
       "required": false,
       "description": "Stacked segments share vertical edges; default lays them side by side.",
       "defaultValue": "horizontal",
-      "examples": ["horizontal", "vertical"]
+      "examples": [
+        "horizontal",
+        "vertical"
+      ]
     }
   ],
   "examples": [
@@ -68,8 +71,19 @@
         "Keep labels short enough for one line",
         "Lead with the noun or verb consistently (don't mix)"
       ],
-      "goodExamples": ["List", "Board", "Calendar", ["−", "+"]],
-      "badExamples": ["Show as list", "Calendar view now"]
+      "goodExamples": [
+        "List",
+        "Board",
+        "Calendar",
+        [
+          "−",
+          "+"
+        ]
+      ],
+      "badExamples": [
+        "Show as list",
+        "Calendar view now"
+      ]
     }
   ],
   "compositionRules": [
@@ -84,10 +98,14 @@
       "example": "<Tabs>…</Tabs>"
     }
   ],
-  "relatedComponents": ["Button", "Tabs", "Toolbar"],
+  "relatedComponents": [
+    "Button",
+    "Tabs",
+    "Toolbar"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "button-group",
   "exportName": "ButtonGroup"
 }

@@ -11,7 +11,10 @@
       "required": false,
       "description": "Render as an inline span instead of a block p (the inline-block variation).",
       "defaultValue": "false",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     },
     {
       "name": "size",
@@ -19,16 +22,32 @@
       "required": false,
       "description": "Type scale step.",
       "defaultValue": "base",
-      "enum": ["xs", "sm", "base", "lg", "xl"],
-      "examples": ["sm", "lg"]
+      "enum": [
+        "xs",
+        "sm",
+        "base",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "sm",
+        "lg"
+      ]
     },
     {
       "name": "weight",
       "type": "'normal' | 'medium' | 'semibold' | 'bold'",
       "required": false,
       "description": "Font weight.",
-      "enum": ["normal", "medium", "semibold", "bold"],
-      "examples": ["medium"]
+      "enum": [
+        "normal",
+        "medium",
+        "semibold",
+        "bold"
+      ],
+      "examples": [
+        "medium"
+      ]
     },
     {
       "name": "muted",
@@ -36,7 +55,9 @@
       "required": false,
       "description": "Use the muted-foreground token instead of the primary text color.",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     }
   ],
   "examples": [
@@ -80,10 +101,13 @@
       "relationship": "Use Block (div) for layout wrappers around Text, not instead of it"
     }
   ],
-  "relatedComponents": ["Heading", "Block"],
+  "relatedComponents": [
+    "Heading",
+    "Block"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "text",
   "exportName": "Text"
 }

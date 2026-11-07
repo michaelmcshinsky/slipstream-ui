@@ -44,8 +44,8 @@ export default function InstallationPage() {
             <tbody>
               <tr className="border-t border-border">
                 <td className="p-3 font-medium">Package imports</td>
-                <td className="p-3 text-muted-foreground">Install the npm packages and import from the root or subpath exports.</td>
-                <td className="p-3 text-muted-foreground">The current published bundle is one client boundary. Use it in client components or islands.</td>
+                <td className="p-3 text-muted-foreground">Install the npm packages and import from the root or a component subpath such as <code>@slipstream-ui/core/card</code>.</td>
+                <td className="p-3 text-muted-foreground">The root entry is one client bundle for compatibility. Subpaths keep each file's directive, so presentational components stay server-rendered.</td>
               </tr>
               <tr className="border-t border-border">
                 <td className="p-3 font-medium">Registry copy-in</td>
@@ -290,6 +290,27 @@ function App() {
 
         <h3 className="text-xl font-semibold mt-6 mb-3">yarn</h3>
         <CodeBlock language="bash" code={`yarn add @slipstream-ui/core @slipstream-ui/ai`} />
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Local checkout</h2>
+        <p className="mb-4 leading-relaxed text-muted-foreground">
+          When the package is linked from a local checkout through a pnpm workspace
+          or a <code>file:</code> dependency, Vite can resolve a second React copy
+          from the package's development dependencies. Dedupe React in the
+          consumer config:
+        </p>
+        <CodeBlock language="ts" code={`// vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  resolve: {
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime'],
+  },
+});`} />
+        <p className="mt-4 mb-8 text-sm leading-relaxed text-muted-foreground">
+          A repacked tarball reinstalled under the same name and version may come
+          from the package manager cache. Bump the version or clear the store
+          entry before reinstalling. Registry copies are unaffected.
+        </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Framework Setup</h2>
         <p className="text-muted-foreground mb-4">

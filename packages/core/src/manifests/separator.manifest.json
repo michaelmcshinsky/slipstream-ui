@@ -59,9 +59,17 @@
   "contentGuidelines": [
     {
       "contentType": "Labels",
-      "guidelines": ["Use only when the boundary is meaningful", "Keep to 2-3 words"],
-      "goodExamples": ["Section break", "Actions"],
-      "badExamples": ["This is a line separating sections"]
+      "guidelines": [
+        "Use only when the boundary is meaningful",
+        "Keep to 2-3 words"
+      ],
+      "goodExamples": [
+        "Section break",
+        "Actions"
+      ],
+      "badExamples": [
+        "This is a line separating sections"
+      ]
     }
   ],
   "compositionRules": [
@@ -71,10 +79,12 @@
       "example": "<h2>Settings</h2><Separator className=\"my-4\" />"
     }
   ],
-  "relatedComponents": ["Skeleton"],
+  "relatedComponents": [
+    "Skeleton"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "separator",
   "exportName": "Separator"
 }

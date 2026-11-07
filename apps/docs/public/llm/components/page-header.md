@@ -56,5 +56,10 @@ One h1, one action cluster.
   ```tsx
   <PageHeader breadcrumbs={<Breadcrumb items={trail} />} title="Detail" />
   ```
+- Compose with **documentHead** — Build title, description, canonical and robots once for the router's head adapter (Next generateMetadata, Inertia Head, React Router meta).
+  
+  ```tsx
+  const head = documentHead({ title, description, canonical, noindex });
+  ```
 - Related: Breadcrumb, Heading, Tabs
 

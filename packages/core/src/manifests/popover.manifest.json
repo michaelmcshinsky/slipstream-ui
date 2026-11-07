@@ -5,10 +5,30 @@
   "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
   "designIntent": "Popover displays interactive content (links, buttons, forms) in a floating panel. Unlike Tooltip, the content is focusable and actionable. Closes on outside click and Escape.",
   "props": [
-    { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
-    { "name": "onOpenChange", "type": "(open: boolean) => void", "required": false, "description": "Called when the open state changes" },
-    { "name": "children", "type": "ReactNode", "required": true, "description": "PopoverTrigger and PopoverContent children" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled open state"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "required": false,
+      "description": "Called when the open state changes"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "PopoverTrigger and PopoverContent children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
   ],
   "examples": [
     {
@@ -34,19 +54,51 @@
     }
   ],
   "accessibility": [
-    { "feature": "Dialog semantics", "implementation": "role=dialog with aria-labelledby linking to the trigger", "userRequirements": "Trigger must have a visible accessible name" },
-    { "feature": "Escape dismissal", "implementation": "Escape closes the popover", "userRequirements": "Keep the trigger focusable after close" }
+    {
+      "feature": "Dialog semantics",
+      "implementation": "role=dialog with aria-labelledby linking to the trigger",
+      "userRequirements": "Trigger must have a visible accessible name"
+    },
+    {
+      "feature": "Escape dismissal",
+      "implementation": "Escape closes the popover",
+      "userRequirements": "Keep the trigger focusable after close"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Popover content", "guidelines": ["Keep content brief", "Include at least one interactive element", "Avoid full-page forms"], "goodExamples": ["Settings quick-edit", "Color picker", "Filter options"], "badExamples": ["A full registration form", "A long article"] }
+    {
+      "contentType": "Popover content",
+      "guidelines": [
+        "Keep content brief",
+        "Include at least one interactive element",
+        "Avoid full-page forms"
+      ],
+      "goodExamples": [
+        "Settings quick-edit",
+        "Color picker",
+        "Filter options"
+      ],
+      "badExamples": [
+        "A full registration form",
+        "A long article"
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "PopoverTrigger", "relationship": "Every Popover needs a PopoverTrigger", "example": "<PopoverTrigger>Open</PopoverTrigger>" }
+    {
+      "component": "PopoverTrigger",
+      "relationship": "Every Popover needs a PopoverTrigger",
+      "example": "<PopoverTrigger>Open</PopoverTrigger>"
+    }
   ],
-  "relatedComponents": ["Tooltip", "Dialog", "Menu"],
+  "relatedComponents": [
+    "Tooltip",
+    "Dialog",
+    "Menu"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "popover",
   "exportName": "Popover"
 }

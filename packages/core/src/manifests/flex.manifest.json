@@ -11,24 +11,46 @@
       "required": false,
       "description": "Main axis direction.",
       "defaultValue": "row",
-      "enum": ["row", "column"],
-      "examples": ["column"]
+      "enum": [
+        "row",
+        "column"
+      ],
+      "examples": [
+        "column"
+      ]
     },
     {
       "name": "align",
       "type": "'start' | 'center' | 'end' | 'stretch' | 'baseline'",
       "required": false,
       "description": "Cross-axis alignment (align-items; align-self on FlexItem).",
-      "enum": ["start", "center", "end", "stretch", "baseline"],
-      "examples": ["center"]
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "stretch",
+        "baseline"
+      ],
+      "examples": [
+        "center"
+      ]
     },
     {
       "name": "justify",
       "type": "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'",
       "required": false,
       "description": "Main-axis distribution (justify-content).",
-      "enum": ["start", "center", "end", "between", "around", "evenly"],
-      "examples": ["between"]
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "between",
+        "around",
+        "evenly"
+      ],
+      "examples": [
+        "between"
+      ]
     },
     {
       "name": "wrap",
@@ -36,7 +58,9 @@
       "required": false,
       "description": "Allow items to wrap onto multiple lines.",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     },
     {
       "name": "gap",
@@ -44,37 +68,66 @@
       "required": false,
       "description": "Token gap between children.",
       "defaultValue": "md",
-      "enum": ["none", "sm", "md", "lg", "xl"],
-      "examples": ["lg"]
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "lg"
+      ]
     },
     {
       "name": "as",
       "type": "'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer' | 'li'",
       "required": false,
       "description": "Semantic element (FlexItem also supports 'li', Flex supports the structural elements).",
-      "enum": ["div", "span", "section", "article", "nav", "header", "footer", "li"],
-      "examples": ["section", "li"]
+      "enum": [
+        "div",
+        "span",
+        "section",
+        "article",
+        "nav",
+        "header",
+        "footer",
+        "li"
+      ],
+      "examples": [
+        "section",
+        "li"
+      ]
     },
     {
       "name": "grow",
       "type": "boolean | string",
       "required": false,
       "description": "flex-grow for this FlexItem (true = 1, or a numeric string).",
-      "examples": ["true", "2"]
+      "examples": [
+        "true",
+        "2"
+      ]
     },
     {
       "name": "shrink",
       "type": "boolean | string",
       "required": false,
       "description": "flex-shrink for this FlexItem (false = 0, or a numeric string).",
-      "examples": ["false", "0"]
+      "examples": [
+        "false",
+        "0"
+      ]
     },
     {
       "name": "basis",
       "type": "string",
       "required": false,
       "description": "flex-basis for this FlexItem (e.g. '0', '200px', 'auto').",
-      "examples": ["200px", "auto"]
+      "examples": [
+        "200px",
+        "auto"
+      ]
     }
   ],
   "examples": [
@@ -123,10 +176,14 @@
       "relationship": "Blocks are the semantic wrappers Flex arranges"
     }
   ],
-  "relatedComponents": ["Grid", "Block", "List"],
+  "relatedComponents": [
+    "Grid",
+    "Block",
+    "List"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "flex",
   "exportName": "Flex"
 }

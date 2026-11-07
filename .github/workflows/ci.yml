@@ -77,3 +77,6 @@ jobs:
 
       - name: Verify Tailwind 3 preset compiles
         run: pnpm verify:tailwind3
+
+      - name: Verify per-file modules and subpath exports
+        run: pnpm verify:modules

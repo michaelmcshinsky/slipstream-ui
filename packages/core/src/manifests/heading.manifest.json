@@ -10,15 +10,29 @@
       "type": "1 | 2 | 3 | 4 | 5 | 6",
       "required": true,
       "description": "Semantic level — renders the matching h1..h6 element.",
-      "examples": ["1", "2", "3"]
+      "examples": [
+        "1",
+        "2",
+        "3"
+      ]
     },
     {
       "name": "size",
       "type": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'",
       "required": false,
       "description": "Visual size override, independent of the semantic level.",
-      "enum": ["sm", "md", "lg", "xl", "2xl", "3xl"],
-      "examples": ["lg", "2xl"]
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ],
+      "examples": [
+        "lg",
+        "2xl"
+      ]
     },
     {
       "name": "muted",
@@ -26,16 +40,20 @@
       "required": false,
       "description": "Use the muted-foreground token instead of the primary text color.",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     }
   ],
   "examples": [
     {
       "title": "Structural heading with visual override",
-      "code": "<Heading level={2}>Section title</Heading>\n\n{/* h4 semantics (correct outline position) but large visual size) */}\n<Heading level={4} size=\"2xl\">Card headline</Heading>"},
+      "code": "<Heading level={2}>Section title</Heading>\n\n{/* h4 semantics (correct outline position) but large visual size) */}\n<Heading level={4} size=\"2xl\">Card headline</Heading>"
+    },
     {
       "title": "Muted subheading",
-      "code": "<Heading level={3} size=\"sm\" muted>Supporting label</Heading>"}
+      "code": "<Heading level={3} size=\"sm\" muted>Supporting label</Heading>"
+    }
   ],
   "antiPatterns": [
     {
@@ -67,10 +85,13 @@
       "relationship": "Headings introduce sections; Text carries the prose"
     }
   ],
-  "relatedComponents": ["Text", "Block"],
+  "relatedComponents": [
+    "Text",
+    "Block"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "heading",
   "exportName": "Heading"
 }

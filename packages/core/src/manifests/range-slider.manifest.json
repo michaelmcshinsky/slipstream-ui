@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "range-slider",
   "exportName": "RangeSlider",
   "description": "Dual-thumb numeric range slider with labeled native inputs and formatted values.",
@@ -117,9 +117,17 @@
   "contentGuidelines": [
     {
       "contentType": "Range values",
-      "guidelines": ["Use the same unit on both ends", "Format compactly", "Prefer 5/50/100 style milestones when exact values are not meaningful"],
-      "goodExamples": ["$5M to $100M"],
-      "badExamples": ["5 to 100000000"]
+      "guidelines": [
+        "Use the same unit on both ends",
+        "Format compactly",
+        "Prefer 5/50/100 style milestones when exact values are not meaningful"
+      ],
+      "goodExamples": [
+        "$5M to $100M"
+      ],
+      "badExamples": [
+        "5 to 100000000"
+      ]
     }
   ],
   "compositionRules": [
@@ -129,5 +137,9 @@
       "example": "<FilterBar><RangeSlider defaultValue={[5, 100]} /></FilterBar>"
     }
   ],
-  "relatedComponents": ["FilterChips", "FilterBar", "SegmentedControl"]
+  "relatedComponents": [
+    "FilterChips",
+    "FilterBar",
+    "SegmentedControl"
+  ]
 }

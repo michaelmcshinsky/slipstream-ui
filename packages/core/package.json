@@ -19,7 +19,12 @@
       "require": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
-    "./styles-full.css": "./dist/styles-full.css"
+    "./styles-full.css": "./dist/styles-full.css",
+    "./*": {
+      "types": "./dist/src/components/*/index.d.ts",
+      "import": "./dist/src/components/*/index.mjs",
+      "require": "./dist/src/components/*/index.js"
+    }
   },
   "files": [
     "dist",
@@ -30,7 +35,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\" && tailwindcss -c tailwind.config.js -i src/styles.css -o dist/styles.css --minify && tailwindcss -c tailwind.full.config.js -i src/styles-full.css -o dist/styles-full.css --minify",
+    "build": "tsup && tsup --config tsup.modules.config.ts && node scripts/fix-module-extensions.mjs && tsc -p tsconfig.build.json && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\" && tailwindcss -c tailwind.config.js -i src/styles.css -o dist/styles.css --minify && tailwindcss -c tailwind.full.config.js -i src/styles-full.css -o dist/styles-full.css --minify",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",

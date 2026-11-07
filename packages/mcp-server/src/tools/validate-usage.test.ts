@@ -71,6 +71,27 @@ describe('validate_usage tool', () => {
     expect(Array.isArray(payload.antiPatternsToCheck)).toBe(true);
   });
 
+  it('accepts the integration typography and accessibility props', async () => {
+    for (const [componentId, code] of [
+      [
+        'page-header',
+        '<PageHeader title="Services" eyebrow="Work" titleClassName="font-display" descriptionClassName="text-lg" eyebrowClassName="eyebrow" />',
+      ],
+      [
+        'table-of-contents',
+        '<TableOfContents headings={headings} label="On this page" ariaLabel="Table of contents" labelClassName="eyebrow" />',
+      ],
+      [
+        'breadcrumb',
+        '<Breadcrumb items={items} truncateCurrent linkComponent={Link} />',
+      ],
+    ] as const) {
+      const result = await validateUsageTool.handler({ componentId, code });
+      const payload = JSON.parse(result.content[0].text);
+      expect(payload.valid, `${componentId}: ${JSON.stringify(payload.issues)}`).toBe(true);
+    }
+  });
+
   it('errors when no usage of the component exists', async () => {
     const result = await validateUsageTool.handler({
       componentId: 'button',

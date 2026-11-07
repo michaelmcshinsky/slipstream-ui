@@ -6,8 +6,15 @@
 
 Add integration escape hatches and fix the registry install path.
 
+- Core: emit per-file ESM/CJS modules and component subpath exports
+  (`@slipstream-ui/core/card`) that preserve each file's `use client`
+  directive. The root import remains a client bundle for compatibility.
 - SectionHeading, PageHeader: `titleClassName`, `descriptionClassName` and
   `eyebrowClassName` for host display typography.
+- Hero: `titleClassName`, `descriptionClassName`, `eyebrowClassName` and
+  `badgeClassName`.
+- SiteHeader: `showMobileTrigger`, `desktopBreakpoint` and `navClassName` so
+  hosts can keep their own mobile navigation and header height.
 - TableOfContents: `ariaLabel` and `labelClassName`; active links are
   underlined.
 - Breadcrumb: `truncateCurrent` for long current-page labels.

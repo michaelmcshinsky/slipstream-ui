@@ -10,7 +10,10 @@
       "type": "'light' | 'dark'",
       "required": true,
       "description": "Current theme.",
-      "enum": ["light", "dark"]
+      "enum": [
+        "light",
+        "dark"
+      ]
     },
     {
       "name": "onThemeChange",
@@ -30,7 +33,10 @@
       "required": false,
       "defaultValue": "md",
       "description": "Control size.",
-      "enum": ["sm", "md"]
+      "enum": [
+        "sm",
+        "md"
+      ]
     },
     {
       "name": "className",
@@ -77,9 +83,20 @@
   "contentGuidelines": [
     {
       "contentType": "Labels",
-      "guidelines": ["Name the action", "Use sentence case", "Avoid 'Toggle'"],
-      "goodExamples": ["Switch to dark theme", "Switch to light theme"],
-      "badExamples": ["Theme", "Toggle", "Click"]
+      "guidelines": [
+        "Name the action",
+        "Use sentence case",
+        "Avoid 'Toggle'"
+      ],
+      "goodExamples": [
+        "Switch to dark theme",
+        "Switch to light theme"
+      ],
+      "badExamples": [
+        "Theme",
+        "Toggle",
+        "Click"
+      ]
     }
   ],
   "compositionRules": [
@@ -88,10 +105,14 @@
       "relationship": "Place in SiteHeader actions or the app shell header."
     }
   ],
-  "relatedComponents": ["Button", "SiteHeader", "AppShell"],
+  "relatedComponents": [
+    "Button",
+    "SiteHeader",
+    "AppShell"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.5.0",
   "sourceDir": "theme-toggle",
   "exportName": "ThemeToggle"
 }

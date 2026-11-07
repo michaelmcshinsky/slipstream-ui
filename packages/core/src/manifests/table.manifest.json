@@ -5,8 +5,18 @@
   "description": "Semantic data table with headers, body, footer, and accessible caption",
   "designIntent": "Table displays tabular data with proper semantics. TableHead uses scope=col, TableCaption provides an accessible summary, and rows support hover/selected states.",
   "props": [
-    { "name": "children", "type": "ReactNode", "required": true, "description": "TableHeader, TableBody, TableFooter, and TableCaption children" },
-    { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "TableHeader, TableBody, TableFooter, and TableCaption children"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply"
+    }
   ],
   "examples": [
     {
@@ -27,19 +37,48 @@
     }
   ],
   "accessibility": [
-    { "feature": "Semantic table", "implementation": "Native table/thead/tbody/tfoot with scope attributes on headers", "userRequirements": "Use scope=col on column headers, scope=row on row headers" },
-    { "feature": "Accessible caption", "implementation": "TableCaption describes the table contents", "userRequirements": "Always provide a caption" }
+    {
+      "feature": "Semantic table",
+      "implementation": "Native table/thead/tbody/tfoot with scope attributes on headers",
+      "userRequirements": "Use scope=col on column headers, scope=row on row headers"
+    },
+    {
+      "feature": "Accessible caption",
+      "implementation": "TableCaption describes the table contents",
+      "userRequirements": "Always provide a caption"
+    }
   ],
   "contentGuidelines": [
-    { "contentType": "Captions", "guidelines": ["Describe what the data shows", "Include the time period or unit"], "goodExamples": ["Monthly revenue (USD)", "Team members"], "badExamples": ["Table", "Data"] }
+    {
+      "contentType": "Captions",
+      "guidelines": [
+        "Describe what the data shows",
+        "Include the time period or unit"
+      ],
+      "goodExamples": [
+        "Monthly revenue (USD)",
+        "Team members"
+      ],
+      "badExamples": [
+        "Table",
+        "Data"
+      ]
+    }
   ],
   "compositionRules": [
-    { "component": "TableHeader", "relationship": "Place column headers in a TableHeader with TableRow", "example": "<TableHeader><TableRow><TableHead scope=\"col\">Name</TableHead></TableRow></TableHeader>" }
+    {
+      "component": "TableHeader",
+      "relationship": "Place column headers in a TableHeader with TableRow",
+      "example": "<TableHeader><TableRow><TableHead scope=\"col\">Name</TableHead></TableRow></TableHeader>"
+    }
   ],
-  "relatedComponents": ["Card", "Badge"],
+  "relatedComponents": [
+    "Card",
+    "Badge"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "table",
   "exportName": "Table"
 }

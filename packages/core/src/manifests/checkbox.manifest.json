@@ -10,14 +10,20 @@
       "type": "boolean",
       "required": false,
       "description": "Controlled checked state; omit for uncontrolled usage",
-      "examples": [true, false]
+      "examples": [
+        true,
+        false
+      ]
     },
     {
       "name": "defaultChecked",
       "type": "boolean",
       "required": false,
       "description": "Initial checked state when uncontrolled",
-      "examples": [true, false]
+      "examples": [
+        true,
+        false
+      ]
     },
     {
       "name": "onCheckedChange",
@@ -56,14 +62,19 @@
       "required": false,
       "description": "Stack options (default) or lay them out in a wrapping row (CheckboxGroup component)",
       "defaultValue": "vertical",
-      "examples": ["vertical", "horizontal"]
+      "examples": [
+        "vertical",
+        "horizontal"
+      ]
     },
     {
       "name": "error",
       "type": "string",
       "required": false,
       "description": "Group-level validation message; announced via role=alert (CheckboxGroup component)",
-      "examples": ["Choose at least one option"]
+      "examples": [
+        "Choose at least one option"
+      ]
     }
   ],
   "examples": [
@@ -120,8 +131,14 @@
         "Phrase as the thing being agreed to, not an action",
         "Keep under 60 characters where possible"
       ],
-      "goodExamples": ["Accept terms and conditions", "Email me product updates"],
-      "badExamples": ["Click here", "Check this"]
+      "goodExamples": [
+        "Accept terms and conditions",
+        "Email me product updates"
+      ],
+      "badExamples": [
+        "Click here",
+        "Check this"
+      ]
     }
   ],
   "compositionRules": [
@@ -136,10 +153,14 @@
       "example": "<CheckboxGroup name=\"x\" legend=\"Options\"><CheckboxGroupItem value=\"a\" label=\"A\" /></CheckboxGroup>"
     }
   ],
-  "relatedComponents": ["Radio", "Switch", "Label"],
+  "relatedComponents": [
+    "Radio",
+    "Switch",
+    "Label"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "checkbox",
   "exportName": "Checkbox"
 }

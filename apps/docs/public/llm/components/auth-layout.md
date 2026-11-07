@@ -1,6 +1,6 @@
 # AuthLayout
 
-Centered authentication surface: brand, title/description, form card and footer, with size presets.
+Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.
 
 > Import: `import { AuthLayout } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/auth-layout.json
@@ -8,7 +8,7 @@ Centered authentication surface: brand, title/description, form card and footer,
 
 ## Design intent
 
-Sign-in, sign-up, reset and verify screens should look identical. AuthLayout owns the centered card, brand slot and footer so auth pages only supply the form.
+Sign-in, sign-up, reset and verify screens should look identical. AuthLayout owns the centered card (or the split form/aside shell), brand slot and footer so auth pages only supply the form. The split variant keeps DOM order form then aside and stacks below the form on mobile.
 
 ## Props
 
@@ -19,6 +19,8 @@ Sign-in, sign-up, reset and verify screens should look identical. AuthLayout own
 | brand | `ReactNode` | — | no | Mark rendered above the card. |
 | footer | `ReactNode` | — | no | Links/legal copy under the card. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Card width preset. |
+| variant | `'centered' | 'split'` | `centered` | no | Layout preset. Split adds a branded aside beside the form card on desktop and below it on mobile. |
+| aside | `ReactNode` | — | no | Optional panel rendered beside the card in the split variant. Ignored when centered; omitting it falls back to centered. |
 
 ## Examples
 

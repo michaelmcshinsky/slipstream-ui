@@ -10,7 +10,10 @@
       "type": "boolean",
       "required": true,
       "description": "Whether the drawer is visible (controlled).",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     },
     {
       "name": "onOpenChange",
@@ -36,8 +39,16 @@
       "defaultValue": "right",
       "required": false,
       "description": "Edge the drawer slides from.",
-      "enum": ["left", "right", "top", "bottom"],
-      "examples": ["left", "bottom"]
+      "enum": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "examples": [
+        "left",
+        "bottom"
+      ]
     },
     {
       "name": "size",
@@ -45,22 +56,37 @@
       "defaultValue": "md",
       "required": false,
       "description": "Preset extent along the side axis (width for left/right, height for top/bottom).",
-      "enum": ["sm", "md", "lg", "xl", "2xl"],
-      "examples": ["lg", "xl"]
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl"
+      ],
+      "examples": [
+        "lg",
+        "xl"
+      ]
     },
     {
       "name": "width",
       "type": "number | string",
       "required": false,
       "description": "Custom extent for left/right drawers: pixels (480) or any CSS length (\"70vw\"). Overrides size.",
-      "examples": [480, "70vw"]
+      "examples": [
+        480,
+        "70vw"
+      ]
     },
     {
       "name": "height",
       "type": "number | string",
       "required": false,
       "description": "Custom extent for top/bottom drawers: pixels (320) or any CSS length (\"60vh\"). Overrides size.",
-      "examples": [320, "60vh"]
+      "examples": [
+        320,
+        "60vh"
+      ]
     },
     {
       "name": "closeOnBackdrop",
@@ -68,7 +94,10 @@
       "defaultValue": "true",
       "required": false,
       "description": "Clicking the backdrop closes the drawer.",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     },
     {
       "name": "showClose",
@@ -76,7 +105,9 @@
       "defaultValue": "true",
       "required": false,
       "description": "Hide the header ✕ button (Escape and backdrop still close).",
-      "examples": ["false"]
+      "examples": [
+        "false"
+      ]
     },
     {
       "name": "closeLabel",
@@ -103,7 +134,10 @@
       "defaultValue": "false",
       "required": false,
       "description": "Slide the panel in from its edge and out on close (needs tailwindcss-animate; reduced motion respected).",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     }
   ],
   "examples": [
@@ -172,10 +206,14 @@
       "relationship": "Dialog for centered modal decisions; Drawer for edge-anchored secondary flows"
     }
   ],
-  "relatedComponents": ["Dialog", "Popover", "Form"],
+  "relatedComponents": [
+    "Dialog",
+    "Popover",
+    "Form"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "drawer",
   "exportName": "Drawer"
 }

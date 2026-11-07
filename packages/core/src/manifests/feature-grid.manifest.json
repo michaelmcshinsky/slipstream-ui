@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "feature-grid",
   "exportName": "FeatureGrid",
   "description": "Grid of feature or benefit cards with an icon, title, copy and optional link.",
@@ -28,7 +28,10 @@
       "type": "'card' | 'plain'",
       "required": false,
       "defaultValue": "card",
-      "enum": ["card", "plain"],
+      "enum": [
+        "card",
+        "plain"
+      ],
       "description": "Card surface or a plain stack."
     },
     {
@@ -36,7 +39,10 @@
       "type": "'left' | 'center'",
       "required": false,
       "defaultValue": "left",
-      "enum": ["left", "center"],
+      "enum": [
+        "left",
+        "center"
+      ],
       "description": "Content alignment."
     },
     {
@@ -79,5 +85,9 @@
       "example": "<Section><FeatureGrid features={features} /></Section>"
     }
   ],
-  "relatedComponents": ["Card", "FeatureRow", "ProcessSteps"]
+  "relatedComponents": [
+    "Card",
+    "FeatureRow",
+    "ProcessSteps"
+  ]
 }

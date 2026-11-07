@@ -11,28 +11,37 @@
       "required": false,
       "description": "Base column count (1-6).",
       "defaultValue": "auto (minCol) or browser default",
-      "examples": ["2", "3"]
+      "examples": [
+        "2",
+        "3"
+      ]
     },
     {
       "name": "smCols",
       "type": "number",
       "required": false,
       "description": "Columns from the sm breakpoint up (1-6).",
-      "examples": ["3"]
+      "examples": [
+        "3"
+      ]
     },
     {
       "name": "mdCols",
       "type": "number",
       "required": false,
       "description": "Columns from the md breakpoint up (1-6).",
-      "examples": ["4"]
+      "examples": [
+        "4"
+      ]
     },
     {
       "name": "lgCols",
       "type": "number",
       "required": false,
       "description": "Columns from the lg breakpoint up (1-6).",
-      "examples": ["4"]
+      "examples": [
+        "4"
+      ]
     },
     {
       "name": "minCol",
@@ -40,7 +49,10 @@
       "required": false,
       "description": "Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)) — cards wrap responsively. Overrides the cols* props.",
       "defaultValue": "undefined",
-      "examples": ["16rem", "280px"]
+      "examples": [
+        "16rem",
+        "280px"
+      ]
     },
     {
       "name": "gap",
@@ -48,44 +60,68 @@
       "required": false,
       "description": "Token gap between cells.",
       "defaultValue": "md",
-      "enum": ["none", "sm", "md", "lg", "xl"],
-      "examples": ["lg"]
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "examples": [
+        "lg"
+      ]
     },
     {
       "name": "as",
       "type": "'div' | 'span' | 'section' | 'ul'",
       "required": false,
       "description": "Semantic element (use 'ul' with GridItem as=\"li\" for item grids).",
-      "enum": ["div", "span", "section", "ul"],
-      "examples": ["ul"]
+      "enum": [
+        "div",
+        "span",
+        "section",
+        "ul"
+      ],
+      "examples": [
+        "ul"
+      ]
     },
     {
       "name": "span",
       "type": "number",
       "required": false,
       "description": "GridItem column span at the base breakpoint (1-6).",
-      "examples": ["2", "3"]
+      "examples": [
+        "2",
+        "3"
+      ]
     },
     {
       "name": "smSpan",
       "type": "number",
       "required": false,
       "description": "GridItem column span from sm up (1-6).",
-      "examples": ["2"]
+      "examples": [
+        "2"
+      ]
     },
     {
       "name": "mdSpan",
       "type": "number",
       "required": false,
       "description": "GridItem column span from md up (1-6).",
-      "examples": ["3"]
+      "examples": [
+        "3"
+      ]
     },
     {
       "name": "lgSpan",
       "type": "number",
       "required": false,
       "description": "GridItem column span from lg up (1-6).",
-      "examples": ["4"]
+      "examples": [
+        "4"
+      ]
     }
   ],
   "examples": [
@@ -134,10 +170,14 @@
       "relationship": "The classic minCol grid cell — cards wrap responsively"
     }
   ],
-  "relatedComponents": ["Flex", "Card", "Block"],
+  "relatedComponents": [
+    "Flex",
+    "Card",
+    "Block"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "grid",
   "exportName": "Grid"
 }

@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "filter-chips",
   "exportName": "FilterChips",
   "description": "Active-filter summary with removable chips and a clear-all action.",
@@ -65,9 +65,17 @@
   "contentGuidelines": [
     {
       "contentType": "Filter labels",
-      "guidelines": ["Use the same labels as the controls", "Show the selected value, not the option list", "Use Any only when a filter is explicitly unbounded"],
-      "goodExamples": ["Industry: Technology"],
-      "badExamples": ["Filter 1: tech, software, SaaS"]
+      "guidelines": [
+        "Use the same labels as the controls",
+        "Show the selected value, not the option list",
+        "Use Any only when a filter is explicitly unbounded"
+      ],
+      "goodExamples": [
+        "Industry: Technology"
+      ],
+      "badExamples": [
+        "Filter 1: tech, software, SaaS"
+      ]
     }
   ],
   "compositionRules": [
@@ -82,5 +90,9 @@
       "example": "<SegmentedControl multiple /><FilterChips filters={chips} />"
     }
   ],
-  "relatedComponents": ["FilterBar", "SegmentedControl", "RangeSlider"]
+  "relatedComponents": [
+    "FilterBar",
+    "SegmentedControl",
+    "RangeSlider"
+  ]
 }

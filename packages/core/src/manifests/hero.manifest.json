@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "hero",
   "exportName": "Hero",
   "description": "Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
@@ -51,7 +51,10 @@
       "type": "'left' | 'right'",
       "required": false,
       "defaultValue": "right",
-      "enum": ["left", "right"],
+      "enum": [
+        "left",
+        "right"
+      ],
       "description": "Which side the media sits on at lg and up."
     },
     {
@@ -59,7 +62,10 @@
       "type": "'left' | 'center'",
       "required": false,
       "defaultValue": "left",
-      "enum": ["left", "center"],
+      "enum": [
+        "left",
+        "center"
+      ],
       "description": "Copy alignment. Centered is typically used without media."
     },
     {
@@ -67,7 +73,10 @@
       "type": "'md' | 'lg'",
       "required": false,
       "defaultValue": "lg",
-      "enum": ["md", "lg"],
+      "enum": [
+        "md",
+        "lg"
+      ],
       "description": "Headline scale."
     },
     {
@@ -88,8 +97,36 @@
       "type": "'div' | 'section' | 'header'",
       "required": false,
       "defaultValue": "div",
-      "enum": ["div", "section", "header"],
+      "enum": [
+        "div",
+        "section",
+        "header"
+      ],
       "description": "Semantic element to render."
+    },
+    {
+      "name": "titleClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the headline, for host display typography."
+    },
+    {
+      "name": "descriptionClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the description."
+    },
+    {
+      "name": "eyebrowClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the eyebrow."
+    },
+    {
+      "name": "badgeClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the badge wrapper."
     }
   ],
   "examples": [
@@ -131,9 +168,17 @@
   "contentGuidelines": [
     {
       "contentType": "Headlines",
-      "guidelines": ["Lead with the outcome", "Keep to one sentence", "Highlight at most one phrase"],
-      "goodExamples": ["Find your next buyer."],
-      "badExamples": ["Welcome to our website"]
+      "guidelines": [
+        "Lead with the outcome",
+        "Keep to one sentence",
+        "Highlight at most one phrase"
+      ],
+      "goodExamples": [
+        "Find your next buyer."
+      ],
+      "badExamples": [
+        "Welcome to our website"
+      ]
     }
   ],
   "compositionRules": [
@@ -148,5 +193,10 @@
       "example": "<Hero actions={<><Button>Start</Button><Button variant=\"outline\">Learn more</Button></>} />"
     }
   ],
-  "relatedComponents": ["Section", "PageHeader", "StatBand", "CTASection"]
+  "relatedComponents": [
+    "Section",
+    "PageHeader",
+    "StatBand",
+    "CTASection"
+  ]
 }

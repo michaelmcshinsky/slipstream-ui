@@ -40,7 +40,11 @@
       "required": false,
       "defaultValue": "default",
       "description": "Visual style of the tab strip.",
-      "enum": ["default", "underline", "rounded"]
+      "enum": [
+        "default",
+        "underline",
+        "rounded"
+      ]
     },
     {
       "name": "size",
@@ -48,7 +52,11 @@
       "required": false,
       "defaultValue": "md",
       "description": "Control density.",
-      "enum": ["sm", "md", "lg"]
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     {
       "name": "label",
@@ -107,9 +115,21 @@
   "contentGuidelines": [
     {
       "contentType": "Tab labels",
-      "guidelines": ["Use 1-3 words", "Be parallel in structure", "Avoid vague labels"],
-      "goodExamples": ["Overview", "Billing", "Members"],
-      "badExamples": ["Click here", "More", "Misc"]
+      "guidelines": [
+        "Use 1-3 words",
+        "Be parallel in structure",
+        "Avoid vague labels"
+      ],
+      "goodExamples": [
+        "Overview",
+        "Billing",
+        "Members"
+      ],
+      "badExamples": [
+        "Click here",
+        "More",
+        "Misc"
+      ]
     }
   ],
   "compositionRules": [
@@ -118,10 +138,15 @@
       "relationship": "Place LinkTabs directly below the page header for section navigation."
     }
   ],
-  "relatedComponents": ["Tabs", "Breadcrumb", "PageHeader", "Link"],
+  "relatedComponents": [
+    "Tabs",
+    "Breadcrumb",
+    "PageHeader",
+    "Link"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.5.0",
   "sourceDir": "link-tabs",
   "exportName": "LinkTabs"
 }

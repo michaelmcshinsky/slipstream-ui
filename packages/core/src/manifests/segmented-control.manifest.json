@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "segmented-control",
   "exportName": "SegmentedControl",
   "description": "Single- or multi-select segmented control for view and filter switches.",
@@ -46,7 +46,11 @@
       "type": "'sm' | 'md' | 'lg'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["sm", "md", "lg"],
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "description": "Control density."
     },
     {
@@ -101,9 +105,20 @@
   "contentGuidelines": [
     {
       "contentType": "Segment labels",
-      "guidelines": ["One or two words", "Parallel grammar", "No punctuation"],
-      "goodExamples": ["Investors", "Advisors", "Owners"],
-      "badExamples": ["Show me investors", "Advisors!"]
+      "guidelines": [
+        "One or two words",
+        "Parallel grammar",
+        "No punctuation"
+      ],
+      "goodExamples": [
+        "Investors",
+        "Advisors",
+        "Owners"
+      ],
+      "badExamples": [
+        "Show me investors",
+        "Advisors!"
+      ]
     }
   ],
   "compositionRules": [
@@ -118,5 +133,9 @@
       "example": "<Tabs defaultValue=\"overview\">...</Tabs>"
     }
   ],
-  "relatedComponents": ["Tabs", "FilterChips", "SelectMenu"]
+  "relatedComponents": [
+    "Tabs",
+    "FilterChips",
+    "SelectMenu"
+  ]
 }

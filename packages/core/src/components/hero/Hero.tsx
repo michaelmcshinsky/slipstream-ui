@@ -29,6 +29,14 @@ export type HeroProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
   variant?: 'split' | 'centered';
   /** Semantic element (default 'div'). */
   as?: 'div' | 'section' | 'header';
+  /** Extra classes for the headline, for host display typography. */
+  titleClassName?: string;
+  /** Extra classes for the description. */
+  descriptionClassName?: string;
+  /** Extra classes for the eyebrow. */
+  eyebrowClassName?: string;
+  /** Extra classes for the badge wrapper. */
+  badgeClassName?: string;
 };
 
 const titleSizes = {
@@ -56,6 +64,10 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(function Hero(
     level = 1,
     variant,
     as = 'div',
+    titleClassName,
+    descriptionClassName,
+    eyebrowClassName,
+    badgeClassName,
     className,
     ...props
   },
@@ -69,18 +81,18 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(function Hero(
   const copy = (
     <div className={cn('min-w-0', centered && 'mx-auto flex max-w-3xl flex-col items-center text-center')}>
       {badge && (
-        <div className="mb-5 inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+        <div className={cn('mb-5 inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary', badgeClassName)}>
           {badge}
         </div>
       )}
       {eyebrow && (
-        <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
+        <p className={cn('mb-3 text-xs font-semibold uppercase tracking-widest text-primary', eyebrowClassName)}>{eyebrow}</p>
       )}
-      <Heading className={cn('font-semibold tracking-tight text-balance', titleSizes[size])}>
+      <Heading className={cn('font-semibold tracking-tight text-balance', titleSizes[size], titleClassName)}>
         {title}
       </Heading>
       {description && (
-        <p className={cn('mt-5 text-lg leading-relaxed text-muted-foreground', centered ? 'max-w-2xl' : 'max-w-xl')}>
+        <p className={cn('mt-5 text-lg leading-relaxed text-muted-foreground', centered ? 'max-w-2xl' : 'max-w-xl', descriptionClassName)}>
           {description}
         </p>
       )}

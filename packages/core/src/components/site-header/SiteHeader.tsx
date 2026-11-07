@@ -45,6 +45,12 @@ export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & {
   sticky?: boolean;
   /** Title of the mobile navigation drawer. Default 'Menu'. */
   mobileLabel?: string;
+  /** Render the built-in mobile trigger and drawer (default true). Set false when the host owns mobile navigation. */
+  showMobileTrigger?: boolean;
+  /** Breakpoint where the horizontal navigation appears (default 'md'). */
+  desktopBreakpoint?: 'md' | 'lg';
+  /** Extra classes for the inner nav row (height, padding). */
+  navClassName?: string;
 };
 
 function isActive(itemHref: string, activeHref: string | undefined, match: 'prefix' | 'exact'): boolean {
@@ -74,6 +80,9 @@ export function SiteHeader({
   mobileNavLabel = 'Mobile',
   sticky = true,
   mobileLabel = 'Menu',
+  showMobileTrigger = true,
+  desktopBreakpoint = 'md',
+  navClassName,
   className,
   ...props
 }: SiteHeaderProps) {
@@ -119,7 +128,7 @@ export function SiteHeader({
       >
         <nav
           aria-label={navLabel}
-          className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6"
+          className={cn('mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6', navClassName)}
         >
           <div className="flex min-w-0 items-center gap-6">
             <Link
@@ -129,53 +138,62 @@ export function SiteHeader({
             >
               {brand}
             </Link>
-            <div className="hidden items-center gap-5 md:flex">{items.map((item) => navLink(item))}</div>
+            <div className={cn('hidden items-center gap-5', desktopBreakpoint === 'lg' ? 'lg:flex' : 'md:flex')}>
+              {items.map((item) => navLink(item))}
+            </div>
           </div>
           <div className="flex items-center gap-2">
             {actions}
-            <button
-              type="button"
-              onClick={() => setMobileOpen((open) => !open)}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileOpen}
-              aria-controls={menuId}
-              aria-haspopup="dialog"
-              className="rounded-md border border-border p-2 text-muted-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                {mobileOpen ? (
-                  <path d="M6 6l12 12M18 6L6 18" />
-                ) : (
-                  <path d="M4 7h16M4 12h16M4 17h16" />
+            {showMobileTrigger && (
+              <button
+                type="button"
+                onClick={() => setMobileOpen((open) => !open)}
+                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileOpen}
+                aria-controls={menuId}
+                aria-haspopup="dialog"
+                className={cn(
+                  'rounded-md border border-border p-2 text-muted-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  desktopBreakpoint === 'lg' ? 'lg:hidden' : 'md:hidden'
                 )}
-              </svg>
-            </button>
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  {mobileOpen ? (
+                    <path d="M6 6l12 12M18 6L6 18" />
+                  ) : (
+                    <path d="M4 7h16M4 12h16M4 17h16" />
+                  )}
+                </svg>
+              </button>
+            )}
           </div>
         </nav>
       </header>
-      <Drawer
-        open={mobileOpen}
-        onOpenChange={setMobileOpen}
-        title={mobileLabel}
-        side="right"
-        size="sm"
-        animate
-      >
-        <nav id={menuId} aria-label={mobileNavLabel} className="flex flex-col gap-1">
-          {items.map((item) => navLink(item, 'mobile'))}
-        </nav>
-        {(mobileActions ?? actions) && (
-          <div className="mt-4 border-t border-border pt-4">{mobileActions ?? actions}</div>
-        )}
-      </Drawer>
+      {showMobileTrigger && (
+        <Drawer
+          open={mobileOpen}
+          onOpenChange={setMobileOpen}
+          title={mobileLabel}
+          side="right"
+          size="sm"
+          animate
+        >
+          <nav id={menuId} aria-label={mobileNavLabel} className="flex flex-col gap-1">
+            {items.map((item) => navLink(item, 'mobile'))}
+          </nav>
+          {(mobileActions ?? actions) && (
+            <div className="mt-4 border-t border-border pt-4">{mobileActions ?? actions}</div>
+          )}
+        </Drawer>
+      )}
     </>
   );
 }

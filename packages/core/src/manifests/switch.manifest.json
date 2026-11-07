@@ -75,9 +75,18 @@
   "contentGuidelines": [
     {
       "contentType": "Labels",
-      "guidelines": ["Phrase as the setting, not the action", "Use sentence case"],
-      "goodExamples": ["Email notifications", "Auto-save"],
-      "badExamples": ["Click to enable", "Turn on"]
+      "guidelines": [
+        "Phrase as the setting, not the action",
+        "Use sentence case"
+      ],
+      "goodExamples": [
+        "Email notifications",
+        "Auto-save"
+      ],
+      "badExamples": [
+        "Click to enable",
+        "Turn on"
+      ]
     }
   ],
   "compositionRules": [
@@ -87,10 +96,13 @@
       "example": "<Label htmlFor=\"s\">Auto-save</Label><Switch id=\"s\" />"
     }
   ],
-  "relatedComponents": ["Checkbox", "Label"],
+  "relatedComponents": [
+    "Checkbox",
+    "Label"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "switch",
   "exportName": "Switch"
 }

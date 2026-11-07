@@ -15,12 +15,13 @@ export const listComponentsTool: McpTool = {
     },
   },
   handler: async (args) => {
-    let components = loadRegistry().map(({ id, name, package: packageName, tier, description }) => ({
+    let components = loadRegistry().map(({ id, name, package: packageName, tier, description, version }) => ({
       id,
       name,
       package: packageName,
       tier,
       description,
+      version,
     }));
     if (typeof args?.package === 'string') {
       components = components.filter((component) => component.package === args.package);

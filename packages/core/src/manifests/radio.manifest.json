@@ -47,14 +47,19 @@
       "type": "string",
       "required": false,
       "description": "Section heading (RadioCard component)",
-      "examples": ["Pro", "Free"]
+      "examples": [
+        "Pro",
+        "Free"
+      ]
     },
     {
       "name": "description",
       "type": "string",
       "required": false,
       "description": "Supporting line under the title (RadioCard component)",
-      "examples": ["For teams, with audit logs"]
+      "examples": [
+        "For teams, with audit logs"
+      ]
     },
     {
       "name": "rounded",
@@ -62,7 +67,10 @@
       "defaultValue": "true",
       "required": false,
       "description": "Outer border radius on the section; false gives square corners (RadioCard component)",
-      "examples": ["true", "false"]
+      "examples": [
+        "true",
+        "false"
+      ]
     },
     {
       "name": "legend",
@@ -82,14 +90,19 @@
       "type": "'vertical' | 'horizontal'",
       "description": "Stack options (default) or lay them out in a wrapping row (RadioGroup component)",
       "defaultValue": "vertical",
-      "examples": ["vertical", "horizontal"]
+      "examples": [
+        "vertical",
+        "horizontal"
+      ]
     },
     {
       "name": "error",
       "required": false,
       "type": "string",
       "description": "Group-level validation message; announced via role=alert (RadioGroup component)",
-      "examples": ["Choose one option"]
+      "examples": [
+        "Choose one option"
+      ]
     },
     {
       "name": "defaultValue",
@@ -168,7 +181,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "radio",
   "exportName": "Radio"
 }

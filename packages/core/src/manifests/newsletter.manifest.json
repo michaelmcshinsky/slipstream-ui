@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "newsletter",
   "exportName": "Newsletter",
   "description": "Email capture block with inline or stacked layout, pending state, success and failure feedback.",
@@ -74,7 +74,10 @@
       "type": "'inline' | 'stacked'",
       "required": false,
       "defaultValue": "inline",
-      "enum": ["inline", "stacked"],
+      "enum": [
+        "inline",
+        "stacked"
+      ],
       "description": "Inline on desktop or always stacked."
     },
     {
@@ -118,5 +121,10 @@
       "example": "<Section tone=\"muted\"><Newsletter title=\"Join\" /></Section>"
     }
   ],
-  "relatedComponents": ["Input", "Button", "Section", "Card"]
+  "relatedComponents": [
+    "Input",
+    "Button",
+    "Section",
+    "Card"
+  ]
 }

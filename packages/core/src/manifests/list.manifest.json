@@ -11,7 +11,9 @@
       "required": false,
       "description": "Hairline dividers between rows (List).",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     },
     {
       "name": "bordered",
@@ -19,7 +21,9 @@
       "required": false,
       "description": "Card-like surface and border around the list (List).",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     },
     {
       "name": "size",
@@ -27,8 +31,13 @@
       "required": false,
       "description": "Row density (List).",
       "defaultValue": "default",
-      "enum": ["default", "compact"],
-      "examples": ["compact"]
+      "enum": [
+        "default",
+        "compact"
+      ],
+      "examples": [
+        "compact"
+      ]
     },
     {
       "name": "leading",
@@ -48,7 +57,9 @@
       "required": false,
       "description": "Marks the row as the active/selected item (ListItem).",
       "defaultValue": "false",
-      "examples": ["true"]
+      "examples": [
+        "true"
+      ]
     },
     {
       "name": "description",
@@ -114,10 +125,14 @@
       "relationship": "Common leading/trailing slot content"
     }
   ],
-  "relatedComponents": ["Table", "Menu", "Card"],
+  "relatedComponents": [
+    "Table",
+    "Menu",
+    "Card"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "list",
   "exportName": "List"
 }

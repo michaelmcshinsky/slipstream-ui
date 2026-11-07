@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "stat-band",
   "exportName": "StatBand",
   "description": "Semantic description list of headline stats with labels, optional hints and column presets.",
@@ -28,7 +28,10 @@
       "type": "'left' | 'center'",
       "required": false,
       "defaultValue": "center",
-      "enum": ["left", "center"],
+      "enum": [
+        "left",
+        "center"
+      ],
       "description": "Copy alignment."
     },
     {
@@ -36,7 +39,11 @@
       "type": "'sm' | 'md' | 'lg'",
       "required": false,
       "defaultValue": "md",
-      "enum": ["sm", "md", "lg"],
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "description": "Value scale."
     },
     {
@@ -81,9 +88,17 @@
   "contentGuidelines": [
     {
       "contentType": "Stats",
-      "guidelines": ["Use one unit per stat", "Include a sign or plus when the number is a floor", "Keep labels to three words"],
-      "goodExamples": ["12,000+ deals annually"],
-      "badExamples": ["Lots of deals"]
+      "guidelines": [
+        "Use one unit per stat",
+        "Include a sign or plus when the number is a floor",
+        "Keep labels to three words"
+      ],
+      "goodExamples": [
+        "12,000+ deals annually"
+      ],
+      "badExamples": [
+        "Lots of deals"
+      ]
     }
   ],
   "compositionRules": [
@@ -93,5 +108,9 @@
       "example": "<Section tone=\"inverse\"><StatBand items={stats} /></Section>"
     }
   ],
-  "relatedComponents": ["MetricCard", "Hero", "Section"]
+  "relatedComponents": [
+    "MetricCard",
+    "Hero",
+    "Section"
+  ]
 }

@@ -53,9 +53,19 @@
   "contentGuidelines": [
     {
       "contentType": "Label text",
-      "guidelines": ["Use sentence case", "Be concise", "Describe the field, not the action"],
-      "goodExamples": ["Email address", "Full name"],
-      "badExamples": ["Enter name", "Click to type email"]
+      "guidelines": [
+        "Use sentence case",
+        "Be concise",
+        "Describe the field, not the action"
+      ],
+      "goodExamples": [
+        "Email address",
+        "Full name"
+      ],
+      "badExamples": [
+        "Enter name",
+        "Click to type email"
+      ]
     }
   ],
   "compositionRules": [
@@ -65,10 +75,16 @@
       "example": "<Label htmlFor=\"e\">Email</Label><Input id=\"e\" />"
     }
   ],
-  "relatedComponents": ["Input", "Textarea", "Select", "Checkbox", "Radio"],
+  "relatedComponents": [
+    "Input",
+    "Textarea",
+    "Select",
+    "Checkbox",
+    "Radio"
+  ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "label",
   "exportName": "Label"
 }
