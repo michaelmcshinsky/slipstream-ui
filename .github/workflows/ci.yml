@@ -41,6 +41,9 @@ jobs:
       - name: Verify packaged styles
         run: node scripts/test-packaged-styles.mjs
 
+      - name: Audit bundle sizes
+        run: node scripts/audit-sizes.mjs
+
       - name: Validate manifests
         run: pnpm validate:manifests
 

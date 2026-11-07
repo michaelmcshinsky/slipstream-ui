@@ -15,6 +15,7 @@ Run from the repository root before tagging or publishing.
 - [ ] `pnpm verify:tailwind-v4`
 - [ ] `pnpm verify:tailwind3`
 - [ ] `pnpm build`
+- [ ] `node scripts/audit-sizes.mjs` (budgets in `docs/bundle-size.md`)
 - [ ] `pnpm bench:check` when benchmark cases changed
 
 ## Packaging

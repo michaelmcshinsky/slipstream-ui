@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (28)
+## Completed (29)
 
 | ID | Deliverable |
 |---|---|
@@ -35,6 +35,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-095 | React Hook Form compatibility guide + Select callback docs |
 | SLIP-096 | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-100 | Registry and LLM docs regenerated at 100 components |
+| SLIP-094 | Bundle and stylesheet size audit + budgets |
 
 ## Blocked / not completed (11)
 
@@ -110,7 +111,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-091 | **Done** | AppShell rail is viewport-height; Sidebar parents stay active on nested routes (`a0b5723`) |
 | SLIP-092 | **Done** | SiteHeader `navLabel` / `mobileNavLabel` (`a0b5723`) |
 | SLIP-093 | Pending | Shell visual regression |
-| SLIP-094 | Pending | Prebuilt CSS/JS size audit |
+| SLIP-094 | **Done** | Prebuilt CSS/JS size audit + budgets (`docs/bundle-size.md`) |
 | SLIP-095 | **Done** | RHF compatibility docs |
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-097 | Pending | AuthLayout aside variant |
