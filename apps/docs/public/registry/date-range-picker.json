@@ -1,0 +1,128 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "date-range-picker",
+  "name": "date-range-picker",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "date-range-picker",
+  "exportName": "DateRangePicker",
+  "description": "Start/end date range with ISO strings and quick presets.",
+  "designIntent": "Dashboards filter by rolling periods and custom date ranges. DateRangePicker provides an ISO contract and preset shortcuts while using the native date fields for keyboard and platform behavior.",
+  "props": [
+    {
+      "name": "value",
+      "type": "DateRange",
+      "required": false,
+      "description": "Controlled range with ISO start/end strings."
+    },
+    {
+      "name": "defaultValue",
+      "type": "DateRange",
+      "required": false,
+      "description": "Initial range when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(range: DateRange) => void",
+      "required": false,
+      "description": "Fires with the next ISO range."
+    },
+    {
+      "name": "startLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "From",
+      "description": "Accessible label for the start field."
+    },
+    {
+      "name": "endLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "To",
+      "description": "Accessible label for the end field."
+    },
+    {
+      "name": "presets",
+      "type": "DateRangePreset[]",
+      "required": false,
+      "description": "Preset buttons. Defaults to 7 days, 30 days, 90 days and YTD."
+    },
+    {
+      "name": "showPresets",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show the preset row."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable the preset buttons and both date fields."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Rolling range",
+      "code": "<DateRangePicker\n  value={range}\n  onValueChange={setRange}\n  presets={[\n    { label: '7 days', days: 7 },\n    { label: 'YTD', ytd: true },\n  ]}\n/>",
+      "description": "A controlled range with two presets."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a single date field for a range",
+      "explanation": "A range needs two independent ends. Use DateRangePicker so partial ranges and ordering are handled.",
+      "example": "// Avoid\n<DatePicker />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Labelled date fields",
+      "implementation": "Each native date input has a visible associated label",
+      "userRequirements": "Keep the From/To labels or override them with the domain terms"
+    },
+    {
+      "feature": "Ordered range",
+      "implementation": "The end cannot precede the start; changing the start past the end moves the end",
+      "userRequirements": "Use ISO dates in the value contract"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Place DateRangePicker inside a FilterPanel section",
+      "example": "<FilterPanel sections={[{ title: 'Period', content: <DateRangePicker ... /> }]} />"
+    }
+  ],
+  "relatedComponents": [
+    "DatePicker",
+    "FilterPanel",
+    "AppliedFilters"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/date-range-picker/DateRangePicker.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Button } from '../button/Button';\nimport { DatePicker } from '../date-picker/DatePicker';\n\nexport type DateRange = {\n  /** ISO date (YYYY-MM-DD) or an empty string. */\n  start?: string;\n  end?: string;\n};\n\nexport type DateRangePreset = {\n  label: string;\n  /** Number of days back from today. */\n  days?: number;\n  /** Start at January 1 of the current year. */\n  ytd?: boolean;\n};\n\nexport type DateRangePickerProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'value' | 'defaultValue' | 'onChange'> & {\n  /** Controlled range. */\n  value?: DateRange;\n  /** Initial range when uncontrolled. */\n  defaultValue?: DateRange;\n  /** Fires with the next ISO range. */\n  onValueChange?: (range: DateRange) => void;\n  /** Accessible label for the start field. Default \"From\". */\n  startLabel?: string;\n  /** Accessible label for the end field. Default \"To\". */\n  endLabel?: string;\n  /** Preset buttons. Defaults to 7 days, 30 days, 90 days and YTD. */\n  presets?: DateRangePreset[];\n  /** Show the preset row. Default true. */\n  showPresets?: boolean;\n  disabled?: boolean;\n};\n\nconst DEFAULT_PRESETS: DateRangePreset[] = [\n  { label: '7 days', days: 7 },\n  { label: '30 days', days: 30 },\n  { label: '90 days', days: 90 },\n  { label: 'YTD', ytd: true },\n];\n\nfunction toIsoDate(date: Date): string {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  return `${year}-${month}-${day}`;\n}\n\n/**\n * Start/end date range with ISO strings and quick presets. Partial ranges are\n * allowed; when both ends are present the end can never precede the start.\n */\nexport const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(\n  function DateRangePicker(\n    {\n      value,\n      defaultValue,\n      onValueChange,\n      startLabel = 'From',\n      endLabel = 'To',\n      presets = DEFAULT_PRESETS,\n      showPresets = true,\n      disabled = false,\n      className,\n      ...props\n    },\n    ref\n  ) {\n    const startId = React.useId();\n    const endId = React.useId();\n    const [internal, setInternal] = React.useState<DateRange>(defaultValue ?? {});\n    const current = value ?? internal;\n\n    const commit = (next: DateRange) => {\n      if (value === undefined) setInternal(next);\n      onValueChange?.(next);\n    };\n\n    const setStart = (start: string) => {\n      const end = current.end && start && current.end < start ? start : current.end;\n      commit({ start, end });\n    };\n\n    const setEnd = (end: string) => {\n      const start = current.start && end && end < current.start ? end : current.start;\n      commit({ start, end });\n    };\n\n    const applyPreset = (preset: DateRangePreset) => {\n      const end = new Date();\n      const start = new Date();\n      if (preset.ytd) {\n        start.setMonth(0, 1);\n      } else {\n        start.setDate(start.getDate() - Math.max(0, (preset.days ?? 1) - 1));\n      }\n      commit({ start: toIsoDate(start), end: toIsoDate(end) });\n    };\n\n    return (\n      <div ref={ref} className={cn('flex flex-col gap-3', className)} {...props}>\n        {showPresets && presets.length > 0 && (\n          <div className=\"flex flex-wrap gap-2\">\n            {presets.map((preset) => (\n              <Button\n                key={preset.label}\n                type=\"button\"\n                variant=\"outline\"\n                size=\"sm\"\n                onClick={() => applyPreset(preset)}\n                disabled={disabled}\n              >\n                {preset.label}\n              </Button>\n            ))}\n          </div>\n        )}\n        <div className=\"grid gap-3 sm:grid-cols-2\">\n          <div>\n            <label htmlFor={startId} className=\"mb-1 block text-xs font-medium text-muted-foreground\">\n              {startLabel}\n            </label>\n            <DatePicker\n              id={startId}\n              value={current.start ?? ''}\n              onValueChange={setStart}\n              max={current.end || undefined}\n              disabled={disabled}\n              clearable\n            />\n          </div>\n          <div>\n            <label htmlFor={endId} className=\"mb-1 block text-xs font-medium text-muted-foreground\">\n              {endLabel}\n            </label>\n            <DatePicker\n              id={endId}\n              value={current.end ?? ''}\n              onValueChange={setEnd}\n              min={current.start || undefined}\n              disabled={disabled}\n              clearable\n            />\n          </div>\n        </div>\n      </div>\n    );\n  }\n);\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/date-range-picker/index.ts",
+      "content": "export { DateRangePicker } from './DateRangePicker';\nexport type { DateRange, DateRangePickerProps, DateRangePreset } from './DateRangePicker';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/date-range-picker.manifest.json",
+      "content": "{\n  \"id\": \"date-range-picker\",\n  \"name\": \"DateRangePicker\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"date-range-picker\",\n  \"exportName\": \"DateRangePicker\",\n  \"description\": \"Start/end date range with ISO strings and quick presets.\",\n  \"designIntent\": \"Dashboards filter by rolling periods and custom date ranges. DateRangePicker provides an ISO contract and preset shortcuts while using the native date fields for keyboard and platform behavior.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"DateRange\",\n      \"required\": false,\n      \"description\": \"Controlled range with ISO start/end strings.\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"DateRange\",\n      \"required\": false,\n      \"description\": \"Initial range when uncontrolled.\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(range: DateRange) => void\",\n      \"required\": false,\n      \"description\": \"Fires with the next ISO range.\"\n    },\n    {\n      \"name\": \"startLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"From\",\n      \"description\": \"Accessible label for the start field.\"\n    },\n    {\n      \"name\": \"endLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"To\",\n      \"description\": \"Accessible label for the end field.\"\n    },\n    {\n      \"name\": \"presets\",\n      \"type\": \"DateRangePreset[]\",\n      \"required\": false,\n      \"description\": \"Preset buttons. Defaults to 7 days, 30 days, 90 days and YTD.\"\n    },\n    {\n      \"name\": \"showPresets\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Show the preset row.\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Disable the preset buttons and both date fields.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Rolling range\",\n      \"code\": \"<DateRangePicker\\n  value={range}\\n  onValueChange={setRange}\\n  presets={[\\n    { label: '7 days', days: 7 },\\n    { label: 'YTD', ytd: true },\\n  ]}\\n/>\",\n      \"description\": \"A controlled range with two presets.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use a single date field for a range\",\n      \"explanation\": \"A range needs two independent ends. Use DateRangePicker so partial ranges and ordering are handled.\",\n      \"example\": \"// Avoid\\n<DatePicker />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Labelled date fields\",\n      \"implementation\": \"Each native date input has a visible associated label\",\n      \"userRequirements\": \"Keep the From/To labels or override them with the domain terms\"\n    },\n    {\n      \"feature\": \"Ordered range\",\n      \"implementation\": \"The end cannot precede the start; changing the start past the end moves the end\",\n      \"userRequirements\": \"Use ISO dates in the value contract\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FilterPanel\",\n      \"relationship\": \"Place DateRangePicker inside a FilterPanel section\",\n      \"example\": \"<FilterPanel sections={[{ title: 'Period', content: <DateRangePicker ... /> }]} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"DatePicker\",\n    \"FilterPanel\",\n    \"AppliedFilters\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

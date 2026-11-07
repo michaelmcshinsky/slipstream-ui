@@ -142,6 +142,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/autocomplete', label: 'Autocomplete' },
           { href: '/docs/components/segmented-control', label: 'SegmentedControl' },
           { href: '/docs/components/range-slider', label: 'RangeSlider' },
+          { href: '/docs/components/multi-select', label: 'MultiSelect' },
+          { href: '/docs/components/date-range-picker', label: 'DateRangePicker' },
         ],
       },
       {
@@ -166,6 +168,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/metric-card', label: 'MetricCard' },
           { href: '/docs/components/filter-bar', label: 'FilterBar' },
           { href: '/docs/components/filter-chips', label: 'FilterChips' },
+          { href: '/docs/components/filter-panel', label: 'FilterPanel' },
+          { href: '/docs/components/applied-filters', label: 'AppliedFilters' },
           { href: '/docs/components/timeline', label: 'Timeline' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },

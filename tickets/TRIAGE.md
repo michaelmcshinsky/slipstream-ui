@@ -45,7 +45,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 34 | SLIP-070 | P0 | 18h | Done | 9 marketing blocks shipped; 100 components |
 | 35 | SLIP-071 | P1 | 16h | Ready | Depends on SLIP-070 (done) |
 | 36 | SLIP-072 | P1 | 18h | Ready | Depends on SLIP-070 (done) |
-| 37 | SLIP-073 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
+| 37 | SLIP-073 | P0 | 18h | Done | 4 dashboard filter components shipped |
 | 38 | SLIP-074 | P0 | 28h | Ready | Depends on SLIP-070 (done); chart-library decision |
 | 39 | SLIP-075 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
 | 40 | SLIP-076 | P1 | 26h | Blocked | Depends on SLIP-075 |

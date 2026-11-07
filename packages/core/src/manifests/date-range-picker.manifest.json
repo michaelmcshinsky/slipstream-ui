@@ -1,0 +1,99 @@
+{
+  "id": "date-range-picker",
+  "name": "DateRangePicker",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "date-range-picker",
+  "exportName": "DateRangePicker",
+  "description": "Start/end date range with ISO strings and quick presets.",
+  "designIntent": "Dashboards filter by rolling periods and custom date ranges. DateRangePicker provides an ISO contract and preset shortcuts while using the native date fields for keyboard and platform behavior.",
+  "props": [
+    {
+      "name": "value",
+      "type": "DateRange",
+      "required": false,
+      "description": "Controlled range with ISO start/end strings."
+    },
+    {
+      "name": "defaultValue",
+      "type": "DateRange",
+      "required": false,
+      "description": "Initial range when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(range: DateRange) => void",
+      "required": false,
+      "description": "Fires with the next ISO range."
+    },
+    {
+      "name": "startLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "From",
+      "description": "Accessible label for the start field."
+    },
+    {
+      "name": "endLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "To",
+      "description": "Accessible label for the end field."
+    },
+    {
+      "name": "presets",
+      "type": "DateRangePreset[]",
+      "required": false,
+      "description": "Preset buttons. Defaults to 7 days, 30 days, 90 days and YTD."
+    },
+    {
+      "name": "showPresets",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show the preset row."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable the preset buttons and both date fields."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Rolling range",
+      "code": "<DateRangePicker\n  value={range}\n  onValueChange={setRange}\n  presets={[\n    { label: '7 days', days: 7 },\n    { label: 'YTD', ytd: true },\n  ]}\n/>",
+      "description": "A controlled range with two presets."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a single date field for a range",
+      "explanation": "A range needs two independent ends. Use DateRangePicker so partial ranges and ordering are handled.",
+      "example": "// Avoid\n<DatePicker />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Labelled date fields",
+      "implementation": "Each native date input has a visible associated label",
+      "userRequirements": "Keep the From/To labels or override them with the domain terms"
+    },
+    {
+      "feature": "Ordered range",
+      "implementation": "The end cannot precede the start; changing the start past the end moves the end",
+      "userRequirements": "Use ISO dates in the value contract"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Place DateRangePicker inside a FilterPanel section",
+      "example": "<FilterPanel sections={[{ title: 'Period', content: <DateRangePicker ... /> }]} />"
+    }
+  ],
+  "relatedComponents": ["DatePicker", "FilterPanel", "AppliedFilters"]
+}

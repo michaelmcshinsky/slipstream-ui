@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 100 components, each shipping a
+The AI-first React component library. 104 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,14 +8,15 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 83
+## Core components (@slipstream-ui/core) — 87
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
 - [AnnouncementBar](https://slipstreamui.com/llm/components/announcement-bar.md) — Dismissible announcement bar with optional action, tone and sticky positioning.
 - [AppShell](https://slipstreamui.com/llm/components/app-shell.md) — Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
+- [AppliedFilters](https://slipstreamui.com/llm/components/applied-filters.md) — Applied-filter summary with a live count, removable chips and an edit action.
 - [ArticleCard](https://slipstreamui.com/llm/components/article-card.md) — Linked article or resource card with media, eyebrow, title, summary and metadata.
-- [AuthLayout](https://slipstreamui.com/llm/components/auth-layout.md) — Centered authentication surface: brand, title/description, form card and footer, with size presets.
+- [AuthLayout](https://slipstreamui.com/llm/components/auth-layout.md) — Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.
 - [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
 - [Badge](https://slipstreamui.com/llm/components/badge.md) — A small status indicator component for displaying tags, counts, or status information
@@ -32,6 +33,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
+- [DateRangePicker](https://slipstreamui.com/llm/components/date-range-picker.md) — Start/end date range with ISO strings and quick presets.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
@@ -41,6 +43,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [FileUpload](https://slipstreamui.com/llm/components/file-upload.md) — Drag-and-drop file picker with a removable file list and per-file progress bars.
 - [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
 - [FilterChips](https://slipstreamui.com/llm/components/filter-chips.md) — Active-filter summary with removable chips and a clear-all action.
+- [FilterPanel](https://slipstreamui.com/llm/components/filter-panel.md) — Structured filter panel with collapsible sections and reset/apply actions.
 - [Flex / FlexItem](https://slipstreamui.com/llm/components/flex.md) — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 - [Form](https://slipstreamui.com/llm/components/form.md) — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 - [FormField](https://slipstreamui.com/llm/components/form-field.md) — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
@@ -57,6 +60,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- [MultiSelect](https://slipstreamui.com/llm/components/multi-select.md) — Searchable multi-select filter with visible removable chips and a checkbox panel.
 - [Newsletter](https://slipstreamui.com/llm/components/newsletter.md) — Email capture block with inline or stacked layout, pending state, success and failure feedback.
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
@@ -426,6 +430,65 @@ Skip the sidebar when the product is a single surface.
 
 ---
 
+# AppliedFilters
+
+Applied-filter summary with a live count, removable chips and an edit action.
+
+> Import: `import { AppliedFilters } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/applied-filters.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Filter panels close, collapse or move into a drawer. AppliedFilters keeps the active set visible outside the panel and gives the user one place to edit or clear it.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| filters | `FilterChip[]` | — | yes | Active filters to display. |
+| onClearAll | `() => void` | — | no | Clear-all action. |
+| onEdit | `() => void` | — | no | Opens the filter panel for editing. |
+| label | `string` | — | no | Optional summary text; defaults to N active. |
+| emptyLabel | `string` | — | no | Shown when there are no filters. |
+| editLabel | `string` | `Edit filters` | no | Edit action label. |
+
+## Examples
+
+### Applied dashboard filters
+
+A count, removable chip and edit action.
+
+```tsx
+<AppliedFilters
+  filters={[
+    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: remove },
+  ]}
+  onClearAll={clearAll}
+  onEdit={openPanel}
+/>
+```
+
+## Anti-patterns
+
+- **Don't duplicate FilterChips** — AppliedFilters already renders FilterChips. Use one summary per filter surface.
+
+## Accessibility
+
+- **Live summary**: The wrapper uses aria-live=polite so count changes are announced
+- **Remove and clear**: Delegates to FilterChips, which names each remove button and the clear action
+
+## Composition
+
+- Compose with **FilterPanel** — Pair AppliedFilters with the panel; onEdit opens the panel or drawer
+  
+  ```tsx
+  <AppliedFilters filters={chips} onEdit={() => setOpen(true)} />
+  ```
+- Related: FilterChips, FilterPanel, FilterBar
+
+---
+
 # ArticleCard
 
 Linked article or resource card with media, eyebrow, title, summary and metadata.
@@ -536,7 +599,7 @@ Show what files are part of a conversation turn (name, size, type, thumbnail, up
 
 # AuthLayout
 
-Centered authentication surface: brand, title/description, form card and footer, with size presets.
+Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.
 
 > Import: `import { AuthLayout } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/auth-layout.json
@@ -544,7 +607,7 @@ Centered authentication surface: brand, title/description, form card and footer,
 
 ## Design intent
 
-Sign-in, sign-up, reset and verify screens should look identical. AuthLayout owns the centered card, brand slot and footer so auth pages only supply the form.
+Sign-in, sign-up, reset and verify screens should look identical. AuthLayout owns the centered card (or the split form/aside shell), brand slot and footer so auth pages only supply the form. The split variant keeps DOM order form then aside and stacks below the form on mobile.
 
 ## Props
 
@@ -555,6 +618,8 @@ Sign-in, sign-up, reset and verify screens should look identical. AuthLayout own
 | brand | `ReactNode` | — | no | Mark rendered above the card. |
 | footer | `ReactNode` | — | no | Links/legal copy under the card. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Card width preset. |
+| variant | `'centered' | 'split'` | `centered` | no | Layout preset. Split adds a branded aside beside the form card on desktop and below it on mobile. |
+| aside | `ReactNode` | — | no | Optional panel rendered beside the card in the split variant. Ignored when centered; omitting it falls back to centered. |
 
 ## Examples
 
@@ -2232,6 +2297,68 @@ Controlled ISO value with a clear button.
 
 ---
 
+# DateRangePicker
+
+Start/end date range with ISO strings and quick presets.
+
+> Import: `import { DateRangePicker } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/date-range-picker.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Dashboards filter by rolling periods and custom date ranges. DateRangePicker provides an ISO contract and preset shortcuts while using the native date fields for keyboard and platform behavior.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| value | `DateRange` | — | no | Controlled range with ISO start/end strings. |
+| defaultValue | `DateRange` | — | no | Initial range when uncontrolled. |
+| onValueChange | `(range: DateRange) => void` | — | no | Fires with the next ISO range. |
+| startLabel | `string` | `From` | no | Accessible label for the start field. |
+| endLabel | `string` | `To` | no | Accessible label for the end field. |
+| presets | `DateRangePreset[]` | — | no | Preset buttons. Defaults to 7 days, 30 days, 90 days and YTD. |
+| showPresets | `boolean` | `true` | no | Show the preset row. |
+| disabled | `boolean` | — | no | Disable the preset buttons and both date fields. |
+
+## Examples
+
+### Rolling range
+
+A controlled range with two presets.
+
+```tsx
+<DateRangePicker
+  value={range}
+  onValueChange={setRange}
+  presets={[
+    { label: '7 days', days: 7 },
+    { label: 'YTD', ytd: true },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use a single date field for a range** — A range needs two independent ends. Use DateRangePicker so partial ranges and ordering are handled.
+
+## Accessibility
+
+- **Labelled date fields**: Each native date input has a visible associated label
+- **Ordered range**: The end cannot precede the start; changing the start past the end moves the end
+
+## Composition
+
+- Compose with **FilterPanel** — Place DateRangePicker inside a FilterPanel section
+  
+  ```tsx
+  <FilterPanel sections={[{ title: 'Period', content: <DateRangePicker ... /> }]} />
+  ```
+- Related: DatePicker, FilterPanel, AppliedFilters
+
+---
+
 # Dialog
 
 Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -2821,6 +2948,72 @@ A removable summary of two applied filters.
 
 ---
 
+# FilterPanel
+
+Structured filter panel with collapsible sections and reset/apply actions.
+
+> Import: `import { FilterPanel } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/filter-panel.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Dashboards and directories need a consistent filter surface that works in a sidebar and a mobile drawer. FilterPanel owns section expansion and footer actions while the caller keeps filter values.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| sections | `FilterSection[]` | — | yes | Filter groups: title, optional description, content and defaultOpen. |
+| title | `string` | `Filters` | no | Panel heading. |
+| description | `string` | — | no | Supporting copy under the panel heading. |
+| onReset | `() => void` | — | no | Reset action shown in the footer. |
+| onApply | `() => void` | — | no | Apply action shown in the footer. |
+| resetLabel | `string` | `Reset` | no | Reset button label. |
+| applyLabel | `string` | `Apply` | no | Apply button label. |
+| collapsible | `boolean` | `true` | no | Allow sections to collapse. |
+| defaultOpen | `string[]` | — | no | Section titles open on first render. |
+| actions | `ReactNode` | — | no | Extra footer content. |
+| as | `'div' | 'aside' | 'section'` | `div` | no | Semantic element to render. |
+
+## Examples
+
+### Deal filters
+
+A sidebar filter panel with collapsible sections.
+
+```tsx
+<FilterPanel
+  title="Deal filters"
+  onReset={reset}
+  onApply={apply}
+  sections={[
+    { title: 'Industry', content: <MultiSelect ... />, defaultOpen: true },
+    { title: 'Revenue', content: <RangeSlider ... /> },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't own filter values in the panel** — FilterPanel is layout and disclosure only. Keep values in the page or a filter hook so applied filters can be shared with the URL and chips.
+
+## Accessibility
+
+- **Disclosure**: Each section header is a button with aria-expanded and aria-controls
+- **Heading structure**: Panel title is h2 and section titles are h3
+
+## Composition
+
+- Compose with **Drawer** — Render the panel inside a Drawer on mobile
+  
+  ```tsx
+  <Drawer title="Filters"><FilterPanel ... /></Drawer>
+  ```
+- Related: MultiSelect, RangeSlider, DateRangePicker, AppliedFilters, FilterBar
+
+---
+
 # Flex / FlexItem
 
 Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
@@ -3273,6 +3466,10 @@ Landing pages repeat a headline cluster with an optional product shot. Hero stan
 | level | `1 | 2` | `1` | no | Heading level. Use 2 when the hero is nested under a page h1. |
 | variant | `'split' | 'centered'` | — | no | Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided. |
 | as | `'div' | 'section' | 'header'` | `div` | no | Semantic element to render. |
+| titleClassName | `string` | — | no | Extra classes for the headline, for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes for the description. |
+| eyebrowClassName | `string` | — | no | Extra classes for the eyebrow. |
+| badgeClassName | `string` | — | no | Extra classes for the badge wrapper. |
 
 ## Examples
 
@@ -4197,6 +4394,77 @@ Deltas carry arrows as well as color.
 
 ---
 
+# MultiSelect
+
+Searchable multi-select filter with visible removable chips and a checkbox panel.
+
+> Import: `import { MultiSelect } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/multi-select.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Dashboard filters need to show the selected set without opening the control. MultiSelect pairs a searchable checkbox panel with chips outside the trigger, so the applied filters stay visible and removable.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| options | `MultiSelectOption[]` | — | yes | Options to choose from: value, label, optional description, group and disabled. |
+| value | `string[]` | — | no | Controlled selected values. |
+| defaultValue | `string[]` | — | no | Initial selected values when uncontrolled. |
+| onValueChange | `(values: string[]) => void` | — | no | Fires with the full selection after every change. |
+| label | `string` | — | no | Visible field label; also names the trigger. |
+| triggerLabel | `string` | `Add` | no | Trigger text when nothing is selected. |
+| searchPlaceholder | `string` | `Search options` | no | Search placeholder and accessible name. |
+| emptyText | `string` | `No options` | no | Shown when no option matches. |
+| maxDisplay | `number` | `3` | no | Maximum chips shown before a +N more summary. |
+| disabled | `boolean` | — | no | Disable the trigger and chip removal. |
+
+## Examples
+
+### Industry filter
+
+Selected industries stay visible as chips.
+
+```tsx
+<MultiSelect
+  label="Industry"
+  value={industries}
+  onValueChange={setIndustries}
+  options={[
+    { value: 'technology', label: 'Technology' },
+    { value: 'healthcare', label: 'Healthcare' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't put the chips inside the trigger** — Chips carry remove buttons; nesting them in the trigger button creates invalid controls and conflicting click targets.
+
+## Accessibility
+
+- **Named trigger**: The trigger is named by the visible label and exposes aria-haspopup=dialog and aria-expanded
+- **Native checkboxes**: Options are native checkbox inputs with wrapping labels
+- **Chip removal**: Each chip has a Remove <option> button
+
+## Composition
+
+- Compose with **FilterPanel** — Place MultiSelect inside a FilterPanel section
+  
+  ```tsx
+  <FilterPanel sections={[{ title: 'Industry', content: <MultiSelect ... /> }]} />
+  ```
+- Compose with **AppliedFilters** — AppliedFilters summarizes the same state outside the panel
+  
+  ```tsx
+  <AppliedFilters filters={chips} />
+  ```
+- Related: FilterPanel, AppliedFilters, FilterChips, SelectMenu
+
+---
+
 # Newsletter
 
 Email capture block with inline or stacked layout, pending state, success and failure feedback.
@@ -4317,6 +4585,11 @@ One h1, one action cluster.
   
   ```tsx
   <PageHeader breadcrumbs={<Breadcrumb items={trail} />} title="Detail" />
+  ```
+- Compose with **documentHead** — Build title, description, canonical and robots once for the router's head adapter (Next generateMetadata, Inertia Head, React Router meta).
+  
+  ```tsx
+  const head = documentHead({ title, description, canonical, noindex });
   ```
 - Related: Breadcrumb, Heading, Tabs
 
@@ -5783,6 +6056,9 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | mobileNavLabel | `string` | `Mobile` | no | Accessible name for the mobile navigation landmark. |
 | sticky | `boolean` | `true` | no | Pin the bar to the top. |
 | mobileLabel | `string` | `Menu` | no | Title of the mobile navigation drawer. |
+| showMobileTrigger | `boolean` | `true` | no | Render the built-in mobile trigger and drawer. Set false when the host owns mobile navigation. |
+| desktopBreakpoint | `'md' | 'lg'` | `md` | no | Breakpoint where the horizontal navigation appears. |
+| navClassName | `string` | — | no | Extra classes for the inner nav row. |
 
 ## Examples
 

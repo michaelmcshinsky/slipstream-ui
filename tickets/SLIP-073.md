@@ -22,10 +22,12 @@ date-range, applied-filter chips, and a clear-all path.
 
 **Acceptance criteria**
 
-- [ ] All controls are keyboard operable and screen-reader labelled.
-- [ ] Date range returns ISO strings and handles empty/partial ranges.
-- [ ] Applied filters can be removed individually and all at once.
-- [ ] Works at 320px and inside a narrow sidebar.
-- [ ] Manifests, tests, axe, docs, registry/LLM output.
+- [x] All controls are keyboard operable and screen-reader labelled.
+- [x] Date range returns ISO strings and handles empty/partial ranges.
+- [x] Applied filters can be removed individually and all at once.
+- [x] Works at 320px and inside a narrow sidebar.
+- [x] Manifests, tests, axe, docs, registry/LLM output.
 
 **Out of scope.** Server-side query building.
+
+**Completed:** 2026-11-07. 4 components shipped: MultiSelect, FilterPanel, DateRangePicker and AppliedFilters. 104 components total (87 core + 17 AI); core 616 tests passed; docs build 144 routes.

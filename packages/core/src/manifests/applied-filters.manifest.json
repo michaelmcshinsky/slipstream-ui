@@ -1,0 +1,85 @@
+{
+  "id": "applied-filters",
+  "name": "AppliedFilters",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "applied-filters",
+  "exportName": "AppliedFilters",
+  "description": "Applied-filter summary with a live count, removable chips and an edit action.",
+  "designIntent": "Filter panels close, collapse or move into a drawer. AppliedFilters keeps the active set visible outside the panel and gives the user one place to edit or clear it.",
+  "props": [
+    {
+      "name": "filters",
+      "type": "FilterChip[]",
+      "required": true,
+      "description": "Active filters to display."
+    },
+    {
+      "name": "onClearAll",
+      "type": "() => void",
+      "required": false,
+      "description": "Clear-all action."
+    },
+    {
+      "name": "onEdit",
+      "type": "() => void",
+      "required": false,
+      "description": "Opens the filter panel for editing."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional summary text; defaults to N active."
+    },
+    {
+      "name": "emptyLabel",
+      "type": "string",
+      "required": false,
+      "description": "Shown when there are no filters."
+    },
+    {
+      "name": "editLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Edit filters",
+      "description": "Edit action label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Applied dashboard filters",
+      "code": "<AppliedFilters\n  filters={[\n    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: remove },\n  ]}\n  onClearAll={clearAll}\n  onEdit={openPanel}\n/>",
+      "description": "A count, removable chip and edit action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't duplicate FilterChips",
+      "explanation": "AppliedFilters already renders FilterChips. Use one summary per filter surface.",
+      "example": "// Avoid two chip rows with the same filters"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live summary",
+      "implementation": "The wrapper uses aria-live=polite so count changes are announced",
+      "userRequirements": "Keep the summary short"
+    },
+    {
+      "feature": "Remove and clear",
+      "implementation": "Delegates to FilterChips, which names each remove button and the clear action",
+      "userRequirements": "Provide stable filter keys"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Pair AppliedFilters with the panel; onEdit opens the panel or drawer",
+      "example": "<AppliedFilters filters={chips} onEdit={() => setOpen(true)} />"
+    }
+  ],
+  "relatedComponents": ["FilterChips", "FilterPanel", "FilterBar"]
+}

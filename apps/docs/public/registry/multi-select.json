@@ -1,0 +1,152 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "multi-select",
+  "name": "multi-select",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "multi-select",
+  "exportName": "MultiSelect",
+  "description": "Searchable multi-select filter with visible removable chips and a checkbox panel.",
+  "designIntent": "Dashboard filters need to show the selected set without opening the control. MultiSelect pairs a searchable checkbox panel with chips outside the trigger, so the applied filters stay visible and removable.",
+  "props": [
+    {
+      "name": "options",
+      "type": "MultiSelectOption[]",
+      "required": true,
+      "description": "Options to choose from: value, label, optional description, group and disabled."
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Controlled selected values."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string[]",
+      "required": false,
+      "description": "Initial selected values when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(values: string[]) => void",
+      "required": false,
+      "description": "Fires with the full selection after every change."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Visible field label; also names the trigger."
+    },
+    {
+      "name": "triggerLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Add",
+      "description": "Trigger text when nothing is selected."
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Search options",
+      "description": "Search placeholder and accessible name."
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "defaultValue": "No options",
+      "description": "Shown when no option matches."
+    },
+    {
+      "name": "maxDisplay",
+      "type": "number",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Maximum chips shown before a +N more summary."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable the trigger and chip removal."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Industry filter",
+      "code": "<MultiSelect\n  label=\"Industry\"\n  value={industries}\n  onValueChange={setIndustries}\n  options={[\n    { value: 'technology', label: 'Technology' },\n    { value: 'healthcare', label: 'Healthcare' },\n  ]}\n/>",
+      "description": "Selected industries stay visible as chips."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put the chips inside the trigger",
+      "explanation": "Chips carry remove buttons; nesting them in the trigger button creates invalid controls and conflicting click targets.",
+      "example": "// MultiSelect renders chips above the trigger by design."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named trigger",
+      "implementation": "The trigger is named by the visible label and exposes aria-haspopup=dialog and aria-expanded",
+      "userRequirements": "Provide a label that names the filter category"
+    },
+    {
+      "feature": "Native checkboxes",
+      "implementation": "Options are native checkbox inputs with wrapping labels",
+      "userRequirements": "Keep labels short and descriptive"
+    },
+    {
+      "feature": "Chip removal",
+      "implementation": "Each chip has a Remove <option> button",
+      "userRequirements": "Do not remove the only way to clear the selection; Select all and Clear remain in the panel"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Place MultiSelect inside a FilterPanel section",
+      "example": "<FilterPanel sections={[{ title: 'Industry', content: <MultiSelect ... /> }]} />"
+    },
+    {
+      "component": "AppliedFilters",
+      "relationship": "AppliedFilters summarizes the same state outside the panel",
+      "example": "<AppliedFilters filters={chips} />"
+    }
+  ],
+  "relatedComponents": [
+    "FilterPanel",
+    "AppliedFilters",
+    "FilterChips",
+    "SelectMenu"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/multi-select/MultiSelect.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Button } from '../button/Button';\nimport { Checkbox } from '../checkbox/Checkbox';\nimport { Input } from '../input/Input';\nimport { Popover, PopoverContent, PopoverTrigger } from '../popover/Popover';\n\nexport type MultiSelectOption = {\n  value: string;\n  label: string;\n  description?: string;\n  group?: string;\n  disabled?: boolean;\n};\n\nexport type MultiSelectProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'value' | 'onChange'> & {\n  /** Options to choose from. */\n  options: MultiSelectOption[];\n  /** Controlled selected values. */\n  value?: string[];\n  /** Initial selected values when uncontrolled. */\n  defaultValue?: string[];\n  /** Fires with the full selection after every change. */\n  onValueChange?: (values: string[]) => void;\n  /** Visible field label. */\n  label?: string;\n  /** Trigger text when nothing is selected. Default \"Add\". */\n  triggerLabel?: string;\n  /** Search placeholder. Default \"Search options\". */\n  searchPlaceholder?: string;\n  /** Shown when no option matches. */\n  emptyText?: string;\n  /** Maximum chips shown before a \"+N more\" summary. Default 3. */\n  maxDisplay?: number;\n  disabled?: boolean;\n};\n\n/**\n * Multi-select filter with removable chips, a searchable popover and native\n * checkbox options. Unlike SelectMenu's compact trigger, this exposes the\n * selection as chips so dashboards can show applied filters without opening\n * the panel.\n */\nexport const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(function MultiSelect(\n  {\n    options,\n    value,\n    defaultValue,\n    onValueChange,\n    label,\n    triggerLabel = 'Add',\n    searchPlaceholder = 'Search options',\n    emptyText = 'No options',\n    maxDisplay = 3,\n    disabled = false,\n    className,\n    ...props\n  },\n  ref\n) {\n  const labelId = React.useId();\n  const [internal, setInternal] = React.useState<string[]>(defaultValue ?? []);\n  const [query, setQuery] = React.useState('');\n  const [open, setOpen] = React.useState(false);\n  const selected = value ?? internal;\n\n  const commit = (next: string[]) => {\n    if (value === undefined) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  const toggle = (option: MultiSelectOption) => {\n    if (option.disabled) return;\n    commit(\n      selected.includes(option.value)\n        ? selected.filter((entry) => entry !== option.value)\n        : [...selected, option.value]\n    );\n  };\n\n  const selectedOptions = options.filter((option) => selected.includes(option.value));\n  const filtered = query.trim()\n    ? options.filter((option) => {\n        const q = query.trim().toLowerCase();\n        return (\n          option.label.toLowerCase().includes(q) ||\n          option.value.toLowerCase().includes(q) ||\n          option.description?.toLowerCase().includes(q) ||\n          option.group?.toLowerCase().includes(q)\n        );\n      })\n    : options;\n\n  const groups = React.useMemo(() => {\n    let last: string | undefined;\n    return filtered.map((option) => {\n      const heading = option.group && option.group !== last ? option.group : undefined;\n      last = option.group;\n      return { option, heading };\n    });\n  }, [filtered]);\n\n  const visibleChips = selectedOptions.slice(0, maxDisplay);\n  const hiddenCount = selectedOptions.length - visibleChips.length;\n\n  return (\n    <div ref={ref} className={cn('flex flex-col gap-2', className)} {...props}>\n      {label && (\n        <span id={labelId} className=\"text-sm font-medium\">\n          {label}\n        </span>\n      )}\n      {visibleChips.length > 0 && (\n        <div className=\"flex flex-wrap gap-1.5\">\n          {visibleChips.map((option) => (\n            <span\n              key={option.value}\n              className=\"inline-flex max-w-full items-center gap-1 rounded-full border border-border bg-muted/60 py-0.5 pl-2.5 pr-1 text-xs\"\n            >\n              <span className=\"truncate\">{option.label}</span>\n              <button\n                type=\"button\"\n                onClick={() => toggle(option)}\n                disabled={disabled}\n                aria-label={`Remove ${option.label}`}\n                className=\"rounded-full p-1 text-muted-foreground hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none\"\n              >\n                <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\" className=\"h-3 w-3\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\">\n                  <path d=\"m5 5 10 10M15 5 5 15\" />\n                </svg>\n              </button>\n            </span>\n          ))}\n          {hiddenCount > 0 && <span className=\"self-center text-xs text-muted-foreground\">+{hiddenCount} more</span>}\n        </div>\n      )}\n      <Popover open={open} onOpenChange={setOpen}>\n        <PopoverTrigger aria-labelledby={label ? labelId : undefined} disabled={disabled} className=\"w-full justify-between\">\n          <span>{selected.length > 0 ? `${selected.length} selected` : triggerLabel}</span>\n          <span aria-hidden=\"true\" className=\"text-muted-foreground\">⌄</span>\n        </PopoverTrigger>\n        <PopoverContent className=\"w-80 p-0\">\n          <div className=\"border-b border-border p-3\">\n            <Input\n              type=\"search\"\n              value={query}\n              onChange={(event) => setQuery(event.target.value)}\n              placeholder={searchPlaceholder}\n              aria-label={searchPlaceholder}\n              autoFocus\n            />\n          </div>\n          <div className=\"max-h-64 overflow-y-auto p-1\">\n            {groups.length === 0 ? (\n              <p className=\"px-3 py-3 text-sm text-muted-foreground\">{emptyText}</p>\n            ) : (\n              groups.map(({ option, heading }) => (\n                <React.Fragment key={option.value}>\n                  {heading && (\n                    <p className=\"px-3 pb-1 pt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground\">\n                      {heading}\n                    </p>\n                  )}\n                  <label\n                    className={cn(\n                      'flex cursor-pointer items-start gap-2.5 rounded-md px-3 py-2 text-sm hover:bg-accent/60',\n                      option.disabled && 'cursor-not-allowed opacity-50'\n                    )}\n                  >\n                    <Checkbox\n                      checked={selected.includes(option.value)}\n                      onCheckedChange={() => toggle(option)}\n                      disabled={option.disabled}\n                      className=\"mt-0.5\"\n                    />\n                    <span className=\"min-w-0\">\n                      <span className=\"block\">{option.label}</span>\n                      {option.description && (\n                        <span className=\"mt-0.5 block text-xs text-muted-foreground\">{option.description}</span>\n                      )}\n                    </span>\n                  </label>\n                </React.Fragment>\n              ))\n            )}\n          </div>\n          <div className=\"flex items-center justify-between gap-2 border-t border-border p-2\">\n            <Button\n              type=\"button\"\n              variant=\"ghost\"\n              size=\"sm\"\n              onClick={() => commit(options.filter((option) => !option.disabled).map((option) => option.value))}\n            >\n              Select all\n            </Button>\n            <Button type=\"button\" variant=\"ghost\" size=\"sm\" onClick={() => commit([])}>\n              Clear\n            </Button>\n          </div>\n        </PopoverContent>\n      </Popover>\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/multi-select/index.ts",
+      "content": "export { MultiSelect } from './MultiSelect';\nexport type { MultiSelectOption, MultiSelectProps } from './MultiSelect';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/multi-select.manifest.json",
+      "content": "{\n  \"id\": \"multi-select\",\n  \"name\": \"MultiSelect\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"multi-select\",\n  \"exportName\": \"MultiSelect\",\n  \"description\": \"Searchable multi-select filter with visible removable chips and a checkbox panel.\",\n  \"designIntent\": \"Dashboard filters need to show the selected set without opening the control. MultiSelect pairs a searchable checkbox panel with chips outside the trigger, so the applied filters stay visible and removable.\",\n  \"props\": [\n    {\n      \"name\": \"options\",\n      \"type\": \"MultiSelectOption[]\",\n      \"required\": true,\n      \"description\": \"Options to choose from: value, label, optional description, group and disabled.\"\n    },\n    {\n      \"name\": \"value\",\n      \"type\": \"string[]\",\n      \"required\": false,\n      \"description\": \"Controlled selected values.\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"string[]\",\n      \"required\": false,\n      \"description\": \"Initial selected values when uncontrolled.\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(values: string[]) => void\",\n      \"required\": false,\n      \"description\": \"Fires with the full selection after every change.\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Visible field label; also names the trigger.\"\n    },\n    {\n      \"name\": \"triggerLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Add\",\n      \"description\": \"Trigger text when nothing is selected.\"\n    },\n    {\n      \"name\": \"searchPlaceholder\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Search options\",\n      \"description\": \"Search placeholder and accessible name.\"\n    },\n    {\n      \"name\": \"emptyText\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"No options\",\n      \"description\": \"Shown when no option matches.\"\n    },\n    {\n      \"name\": \"maxDisplay\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"defaultValue\": \"3\",\n      \"description\": \"Maximum chips shown before a +N more summary.\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Disable the trigger and chip removal.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Industry filter\",\n      \"code\": \"<MultiSelect\\n  label=\\\"Industry\\\"\\n  value={industries}\\n  onValueChange={setIndustries}\\n  options={[\\n    { value: 'technology', label: 'Technology' },\\n    { value: 'healthcare', label: 'Healthcare' },\\n  ]}\\n/>\",\n      \"description\": \"Selected industries stay visible as chips.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't put the chips inside the trigger\",\n      \"explanation\": \"Chips carry remove buttons; nesting them in the trigger button creates invalid controls and conflicting click targets.\",\n      \"example\": \"// MultiSelect renders chips above the trigger by design.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Named trigger\",\n      \"implementation\": \"The trigger is named by the visible label and exposes aria-haspopup=dialog and aria-expanded\",\n      \"userRequirements\": \"Provide a label that names the filter category\"\n    },\n    {\n      \"feature\": \"Native checkboxes\",\n      \"implementation\": \"Options are native checkbox inputs with wrapping labels\",\n      \"userRequirements\": \"Keep labels short and descriptive\"\n    },\n    {\n      \"feature\": \"Chip removal\",\n      \"implementation\": \"Each chip has a Remove <option> button\",\n      \"userRequirements\": \"Do not remove the only way to clear the selection; Select all and Clear remain in the panel\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FilterPanel\",\n      \"relationship\": \"Place MultiSelect inside a FilterPanel section\",\n      \"example\": \"<FilterPanel sections={[{ title: 'Industry', content: <MultiSelect ... /> }]} />\"\n    },\n    {\n      \"component\": \"AppliedFilters\",\n      \"relationship\": \"AppliedFilters summarizes the same state outside the panel\",\n      \"example\": \"<AppliedFilters filters={chips} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"FilterPanel\",\n    \"AppliedFilters\",\n    \"FilterChips\",\n    \"SelectMenu\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

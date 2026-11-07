@@ -1,0 +1,120 @@
+{
+  "id": "filter-panel",
+  "name": "FilterPanel",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "filter-panel",
+  "exportName": "FilterPanel",
+  "description": "Structured filter panel with collapsible sections and reset/apply actions.",
+  "designIntent": "Dashboards and directories need a consistent filter surface that works in a sidebar and a mobile drawer. FilterPanel owns section expansion and footer actions while the caller keeps filter values.",
+  "props": [
+    {
+      "name": "sections",
+      "type": "FilterSection[]",
+      "required": true,
+      "description": "Filter groups: title, optional description, content and defaultOpen."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Filters",
+      "description": "Panel heading."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting copy under the panel heading."
+    },
+    {
+      "name": "onReset",
+      "type": "() => void",
+      "required": false,
+      "description": "Reset action shown in the footer."
+    },
+    {
+      "name": "onApply",
+      "type": "() => void",
+      "required": false,
+      "description": "Apply action shown in the footer."
+    },
+    {
+      "name": "resetLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Reset",
+      "description": "Reset button label."
+    },
+    {
+      "name": "applyLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Apply",
+      "description": "Apply button label."
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Allow sections to collapse."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "string[]",
+      "required": false,
+      "description": "Section titles open on first render."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Extra footer content."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'aside' | 'section'",
+      "required": false,
+      "defaultValue": "div",
+      "enum": ["div", "aside", "section"],
+      "description": "Semantic element to render."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal filters",
+      "code": "<FilterPanel\n  title=\"Deal filters\"\n  onReset={reset}\n  onApply={apply}\n  sections={[\n    { title: 'Industry', content: <MultiSelect ... />, defaultOpen: true },\n    { title: 'Revenue', content: <RangeSlider ... /> },\n  ]}\n/>",
+      "description": "A sidebar filter panel with collapsible sections."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't own filter values in the panel",
+      "explanation": "FilterPanel is layout and disclosure only. Keep values in the page or a filter hook so applied filters can be shared with the URL and chips.",
+      "example": "// Avoid duplicating state inside the panel"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Disclosure",
+      "implementation": "Each section header is a button with aria-expanded and aria-controls",
+      "userRequirements": "Keep section titles short"
+    },
+    {
+      "feature": "Heading structure",
+      "implementation": "Panel title is h2 and section titles are h3",
+      "userRequirements": "Place the panel under the page h1"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Drawer",
+      "relationship": "Render the panel inside a Drawer on mobile",
+      "example": "<Drawer title=\"Filters\"><FilterPanel ... /></Drawer>"
+    }
+  ],
+  "relatedComponents": ["MultiSelect", "RangeSlider", "DateRangePicker", "AppliedFilters", "FilterBar"]
+}

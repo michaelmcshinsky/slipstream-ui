@@ -1,0 +1,122 @@
+{
+  "id": "multi-select",
+  "name": "MultiSelect",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "multi-select",
+  "exportName": "MultiSelect",
+  "description": "Searchable multi-select filter with visible removable chips and a checkbox panel.",
+  "designIntent": "Dashboard filters need to show the selected set without opening the control. MultiSelect pairs a searchable checkbox panel with chips outside the trigger, so the applied filters stay visible and removable.",
+  "props": [
+    {
+      "name": "options",
+      "type": "MultiSelectOption[]",
+      "required": true,
+      "description": "Options to choose from: value, label, optional description, group and disabled."
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Controlled selected values."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string[]",
+      "required": false,
+      "description": "Initial selected values when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(values: string[]) => void",
+      "required": false,
+      "description": "Fires with the full selection after every change."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Visible field label; also names the trigger."
+    },
+    {
+      "name": "triggerLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Add",
+      "description": "Trigger text when nothing is selected."
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Search options",
+      "description": "Search placeholder and accessible name."
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "defaultValue": "No options",
+      "description": "Shown when no option matches."
+    },
+    {
+      "name": "maxDisplay",
+      "type": "number",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Maximum chips shown before a +N more summary."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable the trigger and chip removal."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Industry filter",
+      "code": "<MultiSelect\n  label=\"Industry\"\n  value={industries}\n  onValueChange={setIndustries}\n  options={[\n    { value: 'technology', label: 'Technology' },\n    { value: 'healthcare', label: 'Healthcare' },\n  ]}\n/>",
+      "description": "Selected industries stay visible as chips."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put the chips inside the trigger",
+      "explanation": "Chips carry remove buttons; nesting them in the trigger button creates invalid controls and conflicting click targets.",
+      "example": "// MultiSelect renders chips above the trigger by design."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named trigger",
+      "implementation": "The trigger is named by the visible label and exposes aria-haspopup=dialog and aria-expanded",
+      "userRequirements": "Provide a label that names the filter category"
+    },
+    {
+      "feature": "Native checkboxes",
+      "implementation": "Options are native checkbox inputs with wrapping labels",
+      "userRequirements": "Keep labels short and descriptive"
+    },
+    {
+      "feature": "Chip removal",
+      "implementation": "Each chip has a Remove <option> button",
+      "userRequirements": "Do not remove the only way to clear the selection; Select all and Clear remain in the panel"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Place MultiSelect inside a FilterPanel section",
+      "example": "<FilterPanel sections={[{ title: 'Industry', content: <MultiSelect ... /> }]} />"
+    },
+    {
+      "component": "AppliedFilters",
+      "relationship": "AppliedFilters summarizes the same state outside the panel",
+      "example": "<AppliedFilters filters={chips} />"
+    }
+  ],
+  "relatedComponents": ["FilterPanel", "AppliedFilters", "FilterChips", "SelectMenu"]
+}

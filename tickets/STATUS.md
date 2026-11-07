@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (30)
+## Completed (31)
 
 | ID | Deliverable |
 |---|---|
@@ -31,6 +31,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-053 | Consent-gated, PII-free analytics + tests |
 | SLIP-070 | Marketing blocks II: LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar |
 | SLIP-062 | P1 component labels (Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell) |
+| SLIP-073 | Dashboard filter layer: MultiSelect, FilterPanel, DateRangePicker, AppliedFilters |
 | SLIP-063 | AI timestamp `formatTime`/`locale` props + starter wiring |
 | SLIP-095 | React Hook Form compatibility guide + Select callback docs |
 | SLIP-096 | Packaged stylesheet smoke test + CI + release checklist |
@@ -62,10 +63,10 @@ Tickets: SLIP-070 through SLIP-087.
 
 | ID | Status | Note |
 |---|---|---|
-| SLIP-070 | **Done** | 9 marketing blocks II shipped; 100 components total (83 core + 17 AI) |
+| SLIP-070 | **Done** | 9 marketing blocks II shipped; 104 components total (87 core + 17 AI) |
 | SLIP-071 | Ready | Depends on 070; video/team/pricing/audio |
 | SLIP-072 | Ready | Depends on 070; content hub blocks |
-| SLIP-073 | Ready | Depends on 070; MultiSelect, FilterPanel, date range, useFilterState |
+| SLIP-073 | **Done** | MultiSelect, FilterPanel, DateRangePicker, AppliedFilters |
 | SLIP-074 | Ready | Depends on 070; charts package |
 | SLIP-075 | Ready | Depends on 070; marketplace cards |
 | SLIP-076 | Blocked | Depends on 075 |
@@ -116,6 +117,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-095 | **Done** | RHF compatibility docs |
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
+| SLIP-098 | **Done** | PageHeader `documentHead()` helper + docs |
 | SLIP-098 | Pending | PageHeader head helper |
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |
@@ -126,14 +128,14 @@ Tickets: SLIP-070 through SLIP-087.
 ```bash
 pnpm typecheck                  # 17 packages
 pnpm test                       # core 594, ai 148, app 375, mcp 11, starter 25
-pnpm validate:manifests         # 100 valid, 0 drift, counts match
-pnpm check:llm                  # 100 manifests ↔ markdown
+pnpm validate:manifests         # 104 valid, 0 drift, counts match
+pnpm check:llm                  # 104 manifests ↔ markdown
 pnpm report:manifests           # 100 components, 0 gaps
 pnpm bench:check                # 100 cases, no drift
 pnpm bench:test                 # 10 tests
 pnpm verify:tailwind-v4         # compile fixture
 pnpm --filter slipstream-ui-docs typecheck
-pnpm --filter slipstream-ui-docs build   # 139 routes
+pnpm --filter slipstream-ui-docs build   # 144 routes
 pnpm --filter slipstream-ai-chat-starter build
 ```
 

@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 100,
+  "count": 104,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -37,6 +37,14 @@
       "registry": "/registry/app-shell.json"
     },
     {
+      "id": "applied-filters",
+      "name": "AppliedFilters",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Applied-filter summary with a live count, removable chips and an edit action.",
+      "registry": "/registry/applied-filters.json"
+    },
+    {
       "id": "article-card",
       "name": "ArticleCard",
       "package": "@slipstream-ui/core",
@@ -57,7 +65,7 @@
       "name": "AuthLayout",
       "package": "@slipstream-ui/core",
       "tier": "organism",
-      "description": "Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "description": "Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
       "registry": "/registry/auth-layout.json"
     },
     {
@@ -237,6 +245,14 @@
       "registry": "/registry/date-picker.json"
     },
     {
+      "id": "date-range-picker",
+      "name": "DateRangePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Start/end date range with ISO strings and quick presets.",
+      "registry": "/registry/date-range-picker.json"
+    },
+    {
       "id": "dialog",
       "name": "Dialog",
       "package": "@slipstream-ui/core",
@@ -307,6 +323,14 @@
       "tier": "molecule",
       "description": "Active-filter summary with removable chips and a clear-all action.",
       "registry": "/registry/filter-chips.json"
+    },
+    {
+      "id": "filter-panel",
+      "name": "FilterPanel",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Structured filter panel with collapsible sections and reset/apply actions.",
+      "registry": "/registry/filter-panel.json"
     },
     {
       "id": "flex",
@@ -459,6 +483,14 @@
       "tier": "molecule",
       "description": "KPI tile: label, value, directional delta (arrow + color) and supporting hint.",
       "registry": "/registry/metric-card.json"
+    },
+    {
+      "id": "multi-select",
+      "name": "MultiSelect",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Searchable multi-select filter with visible removable chips and a checkbox panel.",
+      "registry": "/registry/multi-select.json"
     },
     {
       "id": "newsletter",

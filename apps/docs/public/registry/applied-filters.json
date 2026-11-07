@@ -1,0 +1,114 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "applied-filters",
+  "name": "applied-filters",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "applied-filters",
+  "exportName": "AppliedFilters",
+  "description": "Applied-filter summary with a live count, removable chips and an edit action.",
+  "designIntent": "Filter panels close, collapse or move into a drawer. AppliedFilters keeps the active set visible outside the panel and gives the user one place to edit or clear it.",
+  "props": [
+    {
+      "name": "filters",
+      "type": "FilterChip[]",
+      "required": true,
+      "description": "Active filters to display."
+    },
+    {
+      "name": "onClearAll",
+      "type": "() => void",
+      "required": false,
+      "description": "Clear-all action."
+    },
+    {
+      "name": "onEdit",
+      "type": "() => void",
+      "required": false,
+      "description": "Opens the filter panel for editing."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional summary text; defaults to N active."
+    },
+    {
+      "name": "emptyLabel",
+      "type": "string",
+      "required": false,
+      "description": "Shown when there are no filters."
+    },
+    {
+      "name": "editLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Edit filters",
+      "description": "Edit action label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Applied dashboard filters",
+      "code": "<AppliedFilters\n  filters={[\n    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: remove },\n  ]}\n  onClearAll={clearAll}\n  onEdit={openPanel}\n/>",
+      "description": "A count, removable chip and edit action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't duplicate FilterChips",
+      "explanation": "AppliedFilters already renders FilterChips. Use one summary per filter surface.",
+      "example": "// Avoid two chip rows with the same filters"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live summary",
+      "implementation": "The wrapper uses aria-live=polite so count changes are announced",
+      "userRequirements": "Keep the summary short"
+    },
+    {
+      "feature": "Remove and clear",
+      "implementation": "Delegates to FilterChips, which names each remove button and the clear action",
+      "userRequirements": "Provide stable filter keys"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Pair AppliedFilters with the panel; onEdit opens the panel or drawer",
+      "example": "<AppliedFilters filters={chips} onEdit={() => setOpen(true)} />"
+    }
+  ],
+  "relatedComponents": [
+    "FilterChips",
+    "FilterPanel",
+    "FilterBar"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/applied-filters/AppliedFilters.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Button } from '../button/Button';\nimport { FilterChips, type FilterChip } from '../filter-chips/FilterChips';\n\nexport type AppliedFiltersProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Active filters to display. */\n  filters: FilterChip[];\n  /** Clear-all action. */\n  onClearAll?: () => void;\n  /** Opens the filter panel for editing. */\n  onEdit?: () => void;\n  /** Optional summary text; defaults to \"N active\". */\n  label?: string;\n  /** Shown when there are no filters. */\n  emptyLabel?: string;\n  /** Edit action label. Default \"Edit filters\". */\n  editLabel?: string;\n};\n\n/**\n * Applied-filter summary for a dashboard or directory. Adds a live count and\n * an optional edit action around FilterChips, so the applied set stays visible\n * even when the filter panel is closed.\n */\nexport const AppliedFilters = React.forwardRef<HTMLDivElement, AppliedFiltersProps>(\n  function AppliedFilters(\n    {\n      filters,\n      onClearAll,\n      onEdit,\n      label,\n      emptyLabel,\n      editLabel = 'Edit filters',\n      className,\n      ...props\n    },\n    ref\n  ) {\n    const summary = label ?? `${filters.length} active`;\n\n    if (filters.length === 0) {\n      return emptyLabel ? (\n        <div ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props}>\n          {emptyLabel}\n        </div>\n      ) : null;\n    }\n\n    return (\n      <div\n        ref={ref}\n        aria-live=\"polite\"\n        className={cn('flex flex-wrap items-center gap-2', className)}\n        {...props}\n      >\n        <span className=\"text-xs font-medium uppercase tracking-wide text-muted-foreground\">{summary}</span>\n        <FilterChips filters={filters} onClearAll={onClearAll} />\n        {onEdit && (\n          <Button type=\"button\" variant=\"ghost\" size=\"sm\" onClick={onEdit}>\n            {editLabel}\n          </Button>\n        )}\n      </div>\n    );\n  }\n);\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/applied-filters/index.ts",
+      "content": "export { AppliedFilters } from './AppliedFilters';\nexport type { AppliedFiltersProps } from './AppliedFilters';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/applied-filters.manifest.json",
+      "content": "{\n  \"id\": \"applied-filters\",\n  \"name\": \"AppliedFilters\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"applied-filters\",\n  \"exportName\": \"AppliedFilters\",\n  \"description\": \"Applied-filter summary with a live count, removable chips and an edit action.\",\n  \"designIntent\": \"Filter panels close, collapse or move into a drawer. AppliedFilters keeps the active set visible outside the panel and gives the user one place to edit or clear it.\",\n  \"props\": [\n    {\n      \"name\": \"filters\",\n      \"type\": \"FilterChip[]\",\n      \"required\": true,\n      \"description\": \"Active filters to display.\"\n    },\n    {\n      \"name\": \"onClearAll\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Clear-all action.\"\n    },\n    {\n      \"name\": \"onEdit\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Opens the filter panel for editing.\"\n    },\n    {\n      \"name\": \"label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Optional summary text; defaults to N active.\"\n    },\n    {\n      \"name\": \"emptyLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Shown when there are no filters.\"\n    },\n    {\n      \"name\": \"editLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Edit filters\",\n      \"description\": \"Edit action label.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Applied dashboard filters\",\n      \"code\": \"<AppliedFilters\\n  filters={[\\n    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: remove },\\n  ]}\\n  onClearAll={clearAll}\\n  onEdit={openPanel}\\n/>\",\n      \"description\": \"A count, removable chip and edit action.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't duplicate FilterChips\",\n      \"explanation\": \"AppliedFilters already renders FilterChips. Use one summary per filter surface.\",\n      \"example\": \"// Avoid two chip rows with the same filters\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Live summary\",\n      \"implementation\": \"The wrapper uses aria-live=polite so count changes are announced\",\n      \"userRequirements\": \"Keep the summary short\"\n    },\n    {\n      \"feature\": \"Remove and clear\",\n      \"implementation\": \"Delegates to FilterChips, which names each remove button and the clear action\",\n      \"userRequirements\": \"Provide stable filter keys\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FilterPanel\",\n      \"relationship\": \"Pair AppliedFilters with the panel; onEdit opens the panel or drawer\",\n      \"example\": \"<AppliedFilters filters={chips} onEdit={() => setOpen(true)} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"FilterChips\",\n    \"FilterPanel\",\n    \"FilterBar\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}
