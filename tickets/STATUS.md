@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (31)
+## Completed (32)
 
 | ID | Deliverable |
 |---|---|
@@ -38,6 +38,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-100 | Registry and LLM docs regenerated at 100 components |
 | SLIP-094 | Bundle and stylesheet size audit + budgets |
 | SLIP-097 | AuthLayout `variant="split"` + aside slot |
+| SLIP-098 | PageHeader `documentHead()` helper + docs |
 
 ## Blocked / not completed (11)
 
@@ -118,7 +119,6 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
 | SLIP-098 | **Done** | PageHeader `documentHead()` helper + docs |
-| SLIP-098 | Pending | PageHeader head helper |
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |

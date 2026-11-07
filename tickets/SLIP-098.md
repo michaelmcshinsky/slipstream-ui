@@ -21,10 +21,22 @@ component to Next or Inertia.
 
 **Acceptance criteria**
 
-- [ ] The helper is optional; `PageHeader` alone behaves exactly as today.
-- [ ] The API is documented with Next, Inertia, and React Router examples.
-- [ ] No new runtime dependency is added.
-- [ ] Tests cover title, description, canonical, and robots output.
+- [x] The helper is optional; `PageHeader` alone behaves exactly as today.
+- [x] The API is documented with Next, Inertia, and React Router examples.
+- [x] No new runtime dependency is added.
+- [x] Tests cover title, description, canonical, and robots output.
+
+**Status: Done (2026-11-07).**
+
+- `documentHead()` is a pure, server-safe descriptor:
+  `{ title, description?, canonical?, robots }` with `noindex, nofollow` when
+  `noindex` is true and `index, follow` otherwise.
+- Exported from `@slipstream-ui/core` via the PageHeader directory; the
+  component itself is unchanged.
+- Docs page has a "Document head" card with Next `generateMetadata`, Inertia
+  `<Head>` and React Router examples, plus the helper's type.
+- Manifest composition rule documents the helper; tests cover title,
+  description, canonical and both robots outputs.
 
 **Files.** `packages/core/src/components/page-header/`, docs, manifest.
 

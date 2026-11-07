@@ -127,6 +127,11 @@
       "component": "Breadcrumb",
       "relationship": "Pass a Breadcrumb as breadcrumbs for hierarchy context",
       "example": "<PageHeader breadcrumbs={<Breadcrumb items={trail} />} title=\"Detail\" />"
+    },
+    {
+      "component": "documentHead",
+      "relationship": "Build title, description, canonical and robots once for the router's head adapter (Next generateMetadata, Inertia Head, React Router meta).",
+      "example": "const head = documentHead({ title, description, canonical, noindex });"
     }
   ],
   "relatedComponents": [
@@ -136,7 +141,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "page-header",
   "exportName": "PageHeader"
 }
