@@ -22,11 +22,13 @@ describe('ChatShell localization', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('renders Arabic in RTL with translated copy', () => {
-    renderShell('ar');
+  it('renders Arabic in RTL with translated copy and no axe violations', async () => {
+    const { container } = renderShell('ar');
     expect(screen.getByRole('heading', { name: /مُبدئ محادثة الذكاء الاصطناعي/ })).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/اطلب من الوكيل/)).toBeInTheDocument();
     expect(document.documentElement.dir).toBe('rtl');
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it('renders Spanish copy', () => {

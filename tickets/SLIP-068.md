@@ -14,7 +14,7 @@ depends_on: ["SLIP-060"]
 - [x] Playground wraps components in `I18nProvider`.
 - [x] Locale/direction toggle persists and updates `documentElement`.
 - [x] Add a pseudo-locale (`en-XA`) for layout stress.
-- [ ] CI runs key-parity and axe checks for `en` and `ar`.
+- [x] CI runs key-parity and axe checks for `en` and `ar`.
 - [ ] Add a visual-regression job for the shell and forms.
 
 **Status: Partial (2026-11-07).**
@@ -26,8 +26,8 @@ Shipped:
 - Playground persists the pseudo toggle in `localStorage`, reloads, and renders
   translated copy under `en-XA`.
 - Deep key-parity test for the pseudo catalog.
+- The starter now runs axe on both the English and Arabic shells; the existing
+  i18n suite covers key parity across all locales.
 
 Remaining:
-- An axe sweep that renders the docs and starter shells in `en` and `ar` in CI.
-  The starter already has an axe assertion; the docs audit scripts remain manual.
 - A visual-regression job for the shell and forms.

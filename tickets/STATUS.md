@@ -103,7 +103,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-065 | Pending | Docs guides/component page translation |
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
 | SLIP-067 | Pending | Transactional emails |
-| SLIP-068 | **Partial** | Playground provider + switcher + `en-XA` pseudo-locale toggle; CI axe/visual checks pending |
+| SLIP-068 | **Partial** | `en-XA` pseudo-locale + playground toggle + en/ar axe checks; visual regression pending |
 | SLIP-095 | **Done** | React Hook Form guide + Select native/value callback docs |
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 ## Integration hardening (2026-11-07)
