@@ -38,6 +38,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Verify packaged styles
+        run: node scripts/test-packaged-styles.mjs
+
       - name: Validate manifests
         run: pnpm validate:manifests
 

@@ -25,10 +25,21 @@ and asserts:
 
 **Acceptance criteria**
 
-- [ ] The test runs in CI.
-- [ ] A missing export or file fails the test.
-- [ ] The test uses `pnpm pack` or an equivalent tarball install.
-- [ ] The check is documented in the release checklist.
+- [x] The test runs in CI.
+- [x] A missing export or file fails the test.
+- [x] The test uses `pnpm pack` or an equivalent tarball install.
+- [x] The check is documented in the release checklist.
+
+**Status: Done (2026-11-07).**
+
+- New `scripts/test-packaged-styles.mjs` packs `core` and `themes`, extracts
+  the tarballs into a throwaway consumer, and resolves the stylesheet entry
+  points through the package export maps.
+- Asserts key utility classes, the theme variables and dark selector, the
+  export map entries, and that `styles.css` has no preflight while
+  `styles-full.css` does.
+- Wired in CI after the build as `node scripts/test-packaged-styles.mjs`.
+- Documented in `docs/release-checklist.md` and linked from `CONTRIBUTING.md`.
 
 **Files.** `packages/core/package.json`, `packages/themes/package.json`,
 new `scripts/test-packaged-styles.mjs`, CI.

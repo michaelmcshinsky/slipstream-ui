@@ -55,8 +55,10 @@ Use Changesets. Any change to a published package (`core`, `ai`, `themes`, `cli`
 pnpm changeset
 ```
 
-- **minor** — new components, new props, new tokens
-- **patch** — fixes, docs, internal changes
+- **minor** - new components, new props, new tokens
+- **patch** - fixes, docs, internal changes
+
+Release gates and packaging steps live in [docs/release-checklist.md](docs/release-checklist.md).
 
 ## Commits
 
