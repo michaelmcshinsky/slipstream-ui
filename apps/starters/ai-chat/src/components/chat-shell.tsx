@@ -22,7 +22,7 @@ import { createAnalytics } from '@/src/lib/analytics';
 import { clearHistory, loadHistory, saveHistory } from '@/src/lib/history';
 
 function AssistantActivity({ message, onApproval }: { message: ChatMessage; onApproval: (status: ChatApproval['status']) => void }) {
-  const { t, tPlural } = useI18n();
+  const { t, tPlural, locale } = useI18n();
   const hasActivity = message.reasoning.length > 0 || message.tools.length > 0 || message.approval || message.citations.length > 0;
   if (!hasActivity) return null;
 
@@ -33,6 +33,7 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
           steps={[{ id: `${message.id}-reasoning`, content: message.reasoning }]}
           isStreaming={message.reasoningStreaming}
           defaultExpanded={false}
+          locale={locale}
           labels={{
             title: t('reasoning.title'),
             count: (count) => tPlural('reasoning.step', count),
@@ -88,7 +89,7 @@ function AssistantActivity({ message, onApproval }: { message: ChatMessage; onAp
 }
 
 export function ChatShell() {
-  const { t, tPlural } = useI18n();
+  const { t, tPlural, locale } = useI18n();
   const [messages, setMessages] = React.useState<ChatMessage[]>([]);
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -229,6 +230,7 @@ export function ChatShell() {
                   message={{ id: message.id, role: message.role, content: message.text }}
                   isStreaming={message.status === 'streaming' && message.role === 'assistant'}
                   error={message.error}
+                  locale={locale}
                   userLabel={t('chat.you')}
                   assistantLabel={t('chat.assistant')}
                   labels={{
@@ -343,6 +345,7 @@ export function ChatShell() {
                       steps={[{ id: 'reasoning', content: latest.reasoning }]}
                       isStreaming={latest.reasoningStreaming}
                       defaultExpanded
+                      locale={locale}
                       labels={{
                         title: t('reasoning.title'),
                         count: (count) => tPlural('reasoning.step', count),

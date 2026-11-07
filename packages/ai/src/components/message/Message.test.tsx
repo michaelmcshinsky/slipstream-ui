@@ -78,3 +78,18 @@ describe('Message', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('timestamp formatting', () => {
+  const timestamp = new Date('2026-11-07T15:04:05.000Z');
+  const timedMessage: MessageType = { ...assistantMessage, timestamp };
+
+  it('uses a custom formatTime', () => {
+    render(<Message message={timedMessage} formatTime={(date) => `T:${date.toISOString()}`} />);
+    expect(screen.getByText('T:2026-11-07T15:04:05.000Z')).toBeInTheDocument();
+  });
+
+  it('defaults to the runtime locale formatter', () => {
+    render(<Message message={timedMessage} />);
+    expect(screen.getByText(timestamp.toLocaleTimeString())).toBeInTheDocument();
+  });
+});

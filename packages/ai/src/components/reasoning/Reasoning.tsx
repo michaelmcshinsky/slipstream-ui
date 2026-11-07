@@ -13,6 +13,10 @@ export type ReasoningProps = {
   duration?: number | string;
   /** Marks reasoning as still arriving: animated header state. */
   isStreaming?: boolean;
+  /** Formats step timestamps; defaults to the runtime's toLocaleTimeString(). */
+  formatTime?: (date: Date) => string;
+  /** BCP-47 locale used by the default timestamp formatter. */
+  locale?: string;
   /** Localized header, count and step labels. */
   labels?: {
     title?: string;
@@ -23,7 +27,7 @@ export type ReasoningProps = {
 };
 
 const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
-  ({ steps, className, collapsible = true, defaultExpanded = false, duration, isStreaming = false, labels, ...props }, ref) => {
+  ({ steps, className, collapsible = true, defaultExpanded = false, duration, isStreaming = false, labels, formatTime, locale, ...props }, ref) => {
     const [isExpanded, setIsExpanded] = React.useState(defaultExpanded);
     const contentId = React.useId();
 
@@ -75,7 +79,9 @@ const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
                   <div className="text-muted-foreground">{step.content}</div>
                   {step.timestamp && (
                     <div className="text-xs text-muted-foreground mt-1">
-                      {new Date(step.timestamp).toLocaleTimeString()}
+                      {formatTime
+                        ? formatTime(new Date(step.timestamp))
+                        : new Date(step.timestamp).toLocaleTimeString(locale)}
                     </div>
                   )}
                 </div>

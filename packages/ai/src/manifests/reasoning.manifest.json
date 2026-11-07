@@ -59,6 +59,18 @@
       "type": "{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }",
       "required": false,
       "description": "Localized header, count and step labels."
+    },
+    {
+      "name": "formatTime",
+      "type": "(date: Date) => string",
+      "required": false,
+      "description": "Formats message or step timestamps. Defaults to the runtime toLocaleTimeString()."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "BCP-47 locale used by the default timestamp formatter."
     }
   ],
   "examples": [

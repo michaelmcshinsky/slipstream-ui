@@ -56,3 +56,18 @@ describe('Reasoning', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('timestamp formatting', () => {
+  const timestamp = new Date('2026-11-07T15:04:05.000Z');
+  const timedSteps = [{ id: 's1', content: 'Parse the question', timestamp }];
+
+  it('uses a custom formatTime', () => {
+    render(<Reasoning steps={timedSteps} defaultExpanded formatTime={(date) => `T:${date.toISOString()}`} />);
+    expect(screen.getByText('T:2026-11-07T15:04:05.000Z')).toBeInTheDocument();
+  });
+
+  it('defaults to the runtime locale formatter', () => {
+    render(<Reasoning steps={timedSteps} defaultExpanded />);
+    expect(screen.getByText(timestamp.toLocaleTimeString())).toBeInTheDocument();
+  });
+});

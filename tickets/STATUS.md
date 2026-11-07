@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (23)
+## Completed (24)
 
 | ID | Deliverable |
 |---|---|
@@ -29,7 +29,9 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-051 | LLM doc audit (`scripts/check-llm-docs.ts`) |
 | SLIP-052 | Two technical articles (`docs/articles/`) |
 | SLIP-053 | Consent-gated, PII-free analytics + tests |
+| SLIP-070 | Marketing blocks II: LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar |
 | SLIP-062 | P1 component labels (Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell) |
+| SLIP-063 | AI timestamp `formatTime`/`locale` props + starter wiring |
 
 ## Blocked / not completed (11)
 
@@ -48,6 +50,32 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-050 | MCP registry submission: `gh`/npm auth required (`server.json` + docs shipped) |
 
 
+## Axial adoption (2026-11-07)
+
+Epic 7 implements the gaps in [`../reports/axial-adoption-gap-analysis.md`](../reports/axial-adoption-gap-analysis.md).
+Tickets: SLIP-070 through SLIP-087.
+
+| ID | Status | Note |
+|---|---|---|
+| SLIP-070 | **Done** | 9 marketing blocks II shipped; 100 components total (83 core + 17 AI) |
+| SLIP-071 | Ready | Depends on 070; video/team/pricing/audio |
+| SLIP-072 | Ready | Depends on 070; content hub blocks |
+| SLIP-073 | Ready | Depends on 070; MultiSelect, FilterPanel, date range, useFilterState |
+| SLIP-074 | Ready | Depends on 070; charts package |
+| SLIP-075 | Ready | Depends on 070; marketplace cards |
+| SLIP-076 | Blocked | Depends on 075 |
+| SLIP-077 | Ready | Depends on 070; forms conversion kit |
+| SLIP-078 | Ready | Independent SEO package |
+| SLIP-079 | Ready | Independent consent package |
+| SLIP-080 | Ready | Independent icons/media package |
+| SLIP-081 | Ready | Depends on 070; header/footer v2 |
+| SLIP-082 | Blocked | Depends on 070 and 081 |
+| SLIP-083 | Blocked | Depends on 070, 073, 075 and 081 |
+| SLIP-084 | Ready | Depends on 070; Storybook/visual regression |
+| SLIP-085 | Ready | Depends on 070; Tailwind v4 app certification |
+| SLIP-086 | Blocked | Depends on 084 |
+| SLIP-087 | Blocked | Depends on 070, 073 and 075 |
+
 ## Internationalization (2026-11-06)
 
 - Shared `@slipstream-ui/i18n` runtime: en/ar/es/ko/ja/ru/zh, RTL, typed keys, plurals, Intl.
@@ -63,7 +91,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 |---|---|---|
 | SLIP-061 | **Done** | Button, Pagination, DataTable, Dialog, Drawer label props + tests/manifests |
 | SLIP-062 | **Done** | Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell label props + tests/manifests |
-| SLIP-063 | Pending | Message/Reasoning timestamp formatting |
+| SLIP-063 | **Done** | Message/Reasoning `formatTime`/`locale` timestamp props + starter wiring |
 | SLIP-064 | **Partial** | Docs provider, `lang`/`dir`, navbar switcher, translated shell nav and changelog page; path URLs/SEO/metadata pending |
 | SLIP-065 | Pending | Docs guides/component page translation |
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
@@ -88,7 +116,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 ## Verification
 
 ```bash
-pnpm typecheck                  # 15 packages
+pnpm typecheck                  # 17 packages
 pnpm test                       # core 594, ai 148, app 375, mcp 11, starter 25
 pnpm validate:manifests         # 100 valid, 0 drift, counts match
 pnpm check:llm                  # 100 manifests ↔ markdown
@@ -97,6 +125,7 @@ pnpm bench:check                # 100 cases, no drift
 pnpm bench:test                 # 10 tests
 pnpm verify:tailwind-v4         # compile fixture
 pnpm --filter slipstream-ui-docs typecheck
+pnpm --filter slipstream-ui-docs build   # 139 routes
 pnpm --filter slipstream-ai-chat-starter build
 ```
 

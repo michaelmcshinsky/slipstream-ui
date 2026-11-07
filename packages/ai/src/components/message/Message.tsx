@@ -15,6 +15,10 @@ export type MessageProps = {
   userLabel?: string;
   /** Display name for the assistant role; override for localization. */
   assistantLabel?: string;
+  /** Formats the message timestamp; defaults to the runtime's toLocaleTimeString(). */
+  formatTime?: (date: Date) => string;
+  /** BCP-47 locale used by the default timestamp formatter. */
+  locale?: string;
   /**
    * Custom content renderer, e.g. for markdown/code blocks.
    * When provided, it fully replaces the default plain-text rendering.
@@ -52,6 +56,8 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       avatarFallback,
       userLabel = 'You',
       assistantLabel = 'Assistant',
+      formatTime,
+      locale,
       renderContent,
       isStreaming = false,
       error,
@@ -121,7 +127,9 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
             <span className="text-sm font-medium">{displayLabel}</span>
             {message.timestamp && (
               <span className="text-xs text-muted-foreground">
-                {new Date(message.timestamp).toLocaleTimeString()}
+                {formatTime
+                  ? formatTime(new Date(message.timestamp))
+                  : new Date(message.timestamp).toLocaleTimeString(locale)}
               </span>
             )}
           </div>
