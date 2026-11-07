@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (25)
+## Completed (26)
 
 | ID | Deliverable |
 |---|---|
@@ -99,6 +99,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-067 | Pending | Transactional emails |
 | SLIP-068 | **Partial** | Playground provider + switcher + `en-XA` pseudo-locale toggle; CI axe/visual checks pending |
 | SLIP-095 | **Done** | React Hook Form guide + Select native/value callback docs |
+| SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 ## Integration hardening (2026-11-07)
 
 | ID | Status | Note |
@@ -108,12 +109,13 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-092 | **Done** | SiteHeader `navLabel` / `mobileNavLabel` (`a0b5723`) |
 | SLIP-093 | Pending | Shell visual regression |
 | SLIP-094 | Pending | Prebuilt CSS/JS size audit |
-| SLIP-095 | Pending | RHF compatibility docs |
+| SLIP-095 | **Done** | RHF compatibility docs |
 | SLIP-096 | Pending | Packaged stylesheet smoke test |
 | SLIP-097 | Pending | AuthLayout aside variant |
 | SLIP-098 | Pending | PageHeader head helper |
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
 | SLIP-100 | Pending | Regenerate docs after concurrent component work |
+| SLIP-101 | **Done** | React dedupe note for linked checkouts |
 
 ## Verification
 

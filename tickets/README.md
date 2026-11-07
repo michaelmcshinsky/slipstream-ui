@@ -117,5 +117,6 @@ Consumer-integration fixes and follow-ups. These are outside the original
 | [SLIP-098](SLIP-098.md) | feat: add a PageHeader document-head helper | 6 | P3 | 3h | M6 Integration hardening |  |
 | [SLIP-099](SLIP-099.md) | chore: publish core, themes, and mcp-server after the integration fixes | 6 | P0 | 2h | M6 Integration hardening | SLIP-090, SLIP-091, SLIP-092 |
 | [SLIP-100](SLIP-100.md) | docs: regenerate registry and LLM docs after the concurrent component work | 6 | P1 | 1h | M6 Integration hardening |  |
+| [SLIP-101](SLIP-101.md) | docs: call out React dedupe when Slipstream is consumed from a linked checkout | 6 | P2 | 1h | M6 Integration hardening |  |
 
-**Integration total:** 11 tickets, 30h (3 done, 8 open).
+**Integration total:** 12 tickets, 31h (5 done, 7 open).

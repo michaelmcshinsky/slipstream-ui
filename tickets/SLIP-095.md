@@ -7,7 +7,7 @@ estimate_hours: 2
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:docs", "p1"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** `Input` and `Textarea` forward refs and work with RHF `register()`.

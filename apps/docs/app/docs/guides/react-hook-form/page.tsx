@@ -232,6 +232,14 @@ export function SelectField<T extends FieldValues>({
           controlled.
         </li>
         <li>
+          When consuming Slipstream from a linked local checkout during co-development, dedupe{' '}
+          <code>react</code>, <code>react-dom</code>, and <code>react/jsx-runtime</code> in the
+          consumer&apos;s bundler. A second React copy breaks Radix <code>Slot</code> (used by{' '}
+          <code>asChild</code>) because React 19 elements are not recognised by React 18. Published
+          packages dedupe through peer dependencies, so the override is only needed while the
+          packages are linked.
+        </li>
+        <li>
           <code className="text-foreground">FormField</code> is a client component; forms using it
           are client components too. Server actions can still receive the submitted values.
         </li>
