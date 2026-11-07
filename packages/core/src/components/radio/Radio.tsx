@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
+export type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & {
   /** Controlled checked state; omit for uncontrolled usage. */
   checked?: boolean;
   /** Fired when the user selects this radio. */
@@ -16,12 +16,15 @@ export type RadioProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type
  * navigation and form semantics come for free.
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  ({ className, checked, onCheckedChange, ...props }, ref) => (
+  ({ className, checked, onCheckedChange, onChange, ...props }, ref) => (
     <input
       type="radio"
       ref={ref}
       checked={checked}
-      onChange={(event) => onCheckedChange?.(event.target.checked)}
+      onChange={(event) => {
+        onCheckedChange?.(event.target.checked);
+        onChange?.(event);
+      }}
       className={cn(
         'h-4 w-4 shrink-0 rounded-full border border-primary',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',

@@ -18,6 +18,15 @@ describe('Radio', () => {
     expect(onCheckedChange).toHaveBeenCalledWith(true);
   });
 
+  it('calls the native change handler for react-hook-form compatibility', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Radio name="g" value="a" onChange={onChange} />);
+    await user.click(screen.getByRole('radio'));
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0].target.value).toBe('a');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Radio name="g" value="a" aria-label="Option A" />);
     expect(await axe(container)).toHaveNoViolations();

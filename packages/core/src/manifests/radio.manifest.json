@@ -30,6 +30,12 @@
       "description": "Fired when the user selects this radio (on Radio)"
     },
     {
+      "name": "onChange",
+      "type": "React.ChangeEventHandler<HTMLInputElement>",
+      "required": false,
+      "description": "Native change event, compatible with react-hook-form register(). Fires alongside onCheckedChange."
+    },
+    {
       "name": "disabled",
       "type": "boolean",
       "defaultValue": "false",
