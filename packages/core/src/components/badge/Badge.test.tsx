@@ -100,4 +100,3 @@ describe('Badge semantic and alias variants', () => {
     expect(container.querySelectorAll('span')).toHaveLength(7);
   });
 });
-
