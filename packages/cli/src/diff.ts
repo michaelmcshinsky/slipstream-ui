@@ -1,7 +1,7 @@
 import path from 'node:path';
-import { createHash } from 'node:crypto';
 import fs from 'fs-extra';
 import type { RegistryEntry } from './registry';
+import { normalizeSource } from './source';
 
 export type InstalledManifest = {
   id: string;
@@ -21,10 +21,6 @@ export type ComponentDiff = {
   versionOutdated: boolean;
   files: FileDelta[];
 };
-
-function hashFile(file: string): string {
-  return createHash('sha256').update(fs.readFileSync(file)).digest('hex');
-}
 
 function sourceFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -72,8 +68,10 @@ export async function diffInstalledComponents(options: {
       const installedFile = path.join(installedDir, file);
       if (!(await fs.pathExists(installedFile))) {
         files.push({ file, status: 'missing' });
-      } else if (hashFile(path.join(registryDir, file)) !== hashFile(installedFile)) {
-        files.push({ file, status: 'modified' });
+      } else {
+        const registrySource = normalizeSource(fs.readFileSync(path.join(registryDir, file), 'utf8'));
+        const installedSource = normalizeSource(fs.readFileSync(installedFile, 'utf8'));
+        if (registrySource !== installedSource) files.push({ file, status: 'modified' });
       }
     }
     for (const file of sourceFiles(installedDir)) {

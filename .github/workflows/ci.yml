@@ -68,3 +68,6 @@ jobs:
 
       - name: Verify Tailwind v4 theme compiles
         run: pnpm verify:tailwind-v4
+
+      - name: Verify Tailwind 3 preset compiles
+        run: pnpm verify:tailwind3

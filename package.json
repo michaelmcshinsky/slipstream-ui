@@ -18,6 +18,7 @@
     "check:llm": "tsx scripts/check-llm-docs.ts",
     "check:components": "tsx scripts/check-component-coverage.ts",
     "verify:tailwind-v4": "node scripts/verify-tailwind-v4.mjs",
+    "verify:tailwind3": "node scripts/verify-tailwind3.mjs",
     "bench:generate": "tsx benchmarks/generate-cases.ts",
     "bench:check": "tsx benchmarks/generate-cases.ts --check",
     "bench": "tsx benchmarks/src/run.ts",

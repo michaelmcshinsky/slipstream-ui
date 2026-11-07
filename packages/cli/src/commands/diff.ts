@@ -1,14 +1,15 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import path from 'node:path';
 import { loadRegistryEntries } from '../registry';
+import { resolveComponentsDir } from '../config';
 import { diffInstalledComponents, type ComponentDiff } from '../diff';
 
 export const diffCommand = new Command('diff')
   .description('Compare installed components against the registry (read-only)')
   .option('--json', 'Machine-readable output')
   .action(async (options: { json?: boolean }) => {
-    const installedRoot = path.resolve(process.cwd(), 'components', 'slipstream');
+    const projectRoot = process.cwd();
+    const installedRoot = resolveComponentsDir(projectRoot).absolute;
     const diffs = await diffInstalledComponents({ installedRoot, entries: loadRegistryEntries() });
 
     if (diffs.length === 0) {
@@ -16,7 +17,7 @@ export const diffCommand = new Command('diff')
         console.log(JSON.stringify({ components: [] }, null, 2));
         return;
       }
-      console.log(chalk.gray('No installed components found. Add one with: npx slipstream-ui add <component>'));
+      console.log(chalk.gray('No installed components found. Add one with: npx @slipstream-ui/cli@latest add <component>'));
       return;
     }
 
@@ -42,7 +43,7 @@ export const diffCommand = new Command('diff')
           console.log(chalk.gray(`      ${delta.file}: ${label}`));
         }
       }
-      console.log(chalk.gray(`\n${diffs.length - outdated.length} up to date, ${outdated.length} outdated. Run "npx slipstream-ui add <id> --overwrite" to update.`));
+      console.log(chalk.gray(`\n${diffs.length - outdated.length} up to date, ${outdated.length} outdated. Run "npx @slipstream-ui/cli@latest add <id> --overwrite" to update.`));
     }
 
     // Non-zero exit lets CI fail on drift without mutating the project.

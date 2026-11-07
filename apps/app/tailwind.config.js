@@ -80,9 +80,9 @@ module.exports = {
         slow: 'var(--motion-slow)',
       },
       transitionTimingFunction: {
-        'ease-standard': 'var(--motion-ease)',
-        'ease-in': 'var(--motion-ease-in)',
-        'ease-out': 'var(--motion-ease-out)',
+        'standard': 'var(--motion-ease)',
+        'in': 'var(--motion-ease-in)',
+        'out': 'var(--motion-ease-out)',
       },
       spacing: {
         'density': 'var(--density-space)',

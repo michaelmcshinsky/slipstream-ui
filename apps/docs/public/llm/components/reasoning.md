@@ -21,6 +21,8 @@ The Reasoning component displays the step-by-step thought process of an AI agent
 | duration | `number` | — | no | Elapsed reasoning time in seconds; renders a duration chip |
 | isStreaming | `boolean` | — | no | Shows a streaming indicator while reasoning is in progress |
 | labels | `{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }` | — | no | Localized header, count and step labels. |
+| formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
+| locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
 
 ## Examples
 

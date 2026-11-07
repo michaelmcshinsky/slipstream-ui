@@ -4,6 +4,7 @@ import os from 'node:os';
 import fs from 'fs-extra';
 import { loadRegistryEntries } from './registry';
 import { diffInstalledComponents } from './diff';
+import { normalizeSource } from './source';
 
 const tempRoots: string[] = [];
 
@@ -39,6 +40,22 @@ describe('diffInstalledComponents', () => {
     const files: Record<string, string> = {};
     for (const file of fs.readdirSync(registryDir).filter((f) => /\.(tsx|ts)$/.test(f) && !f.includes('.test.'))) {
       files[file] = fs.readFileSync(path.join(registryDir, file), 'utf8');
+    }
+    const { root } = await fakeInstall({ id: 'button', version: button.manifest.version!, files });
+
+    const diffs = await diffInstalledComponents({ installedRoot: root, entries });
+    expect(diffs).toHaveLength(1);
+    expect(diffs[0]).toMatchObject({ id: 'button', status: 'ok', versionOutdated: false });
+  });
+
+  it('reports ok for a copied install with rewritten support imports and CRLF', async () => {
+    const entries = loadRegistryEntries();
+    const button = entries.find((entry) => entry.manifest.id === 'button')!;
+    const sourceDirName = button.manifest.sourceDir ?? 'button';
+    const registryDir = path.join(button.packageDir, 'src', 'components', sourceDirName);
+    const files: Record<string, string> = {};
+    for (const file of fs.readdirSync(registryDir).filter((f) => /\.(tsx|ts)$/.test(f) && !f.includes('.test.'))) {
+      files[file] = normalizeSource(fs.readFileSync(path.join(registryDir, file), 'utf8')).replaceAll('\n', '\r\n');
     }
     const { root } = await fakeInstall({ id: 'button', version: button.manifest.version!, files });
 

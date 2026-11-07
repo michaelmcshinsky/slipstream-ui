@@ -27,6 +27,8 @@ The Message component renders individual chat messages with proper styling based
 | onRetry | `() => void` | — | no | Called when the user requests a retry after error; omit to hide the action |
 | labels | `{ retry?: string; edit?: string; save?: string; cancel?: string }` | — | no | Override button labels in the message actions |
 | onEditContent | `(content: string) => void` | — | no | Enables edit-and-resubmit; called with the edited content |
+| formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
+| locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
 
 ## Examples
 

@@ -31,6 +31,42 @@ export default function InstallationPage() {
           </p>
         </div>
 
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Choose an installation path</h2>
+        <div className="mb-6 overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Path</th>
+                <th className="p-3 text-left font-medium">How</th>
+                <th className="p-3 text-left font-medium">Server components</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t border-border">
+                <td className="p-3 font-medium">Package imports</td>
+                <td className="p-3 text-muted-foreground">Install the npm packages and import from the root or subpath exports.</td>
+                <td className="p-3 text-muted-foreground">The current published bundle is one client boundary. Use it in client components or islands.</td>
+              </tr>
+              <tr className="border-t border-border">
+                <td className="p-3 font-medium">Registry copy-in</td>
+                <td className="p-3 text-muted-foreground">Copy component source with <code>npx shadcn@latest add</code>. You own the files.</td>
+                <td className="p-3 text-muted-foreground">Per-file directives are preserved. Presentational components stay server-rendered.</td>
+              </tr>
+              <tr className="border-t border-border">
+                <td className="p-3 font-medium">CLI add</td>
+                <td className="p-3 text-muted-foreground"><code>npx @slipstream-ui/cli@latest add &lt;id&gt;</code> copies the component, its dependency closure, and shared utils.</td>
+                <td className="p-3 text-muted-foreground">Same as registry copy-in, with dependency resolution handled for you.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
+          Use package imports for a quick client-side integration. Use registry or
+          CLI copies when the host app renders server components, needs editable
+          source, or wants to avoid a package-wide client boundary. The
+          compatibility matrix and the consumer smoke build record what is tested.
+        </p>
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>Node.js 20.9 or higher</li>

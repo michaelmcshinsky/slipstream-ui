@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 91 components, each shipping a
+The AI-first React component library. 100 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,11 +8,13 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 74
+## Core components (@slipstream-ui/core) — 83
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
+- [AnnouncementBar](https://slipstreamui.com/llm/components/announcement-bar.md) — Dismissible announcement bar with optional action, tone and sticky positioning.
 - [AppShell](https://slipstreamui.com/llm/components/app-shell.md) — Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
+- [ArticleCard](https://slipstreamui.com/llm/components/article-card.md) — Linked article or resource card with media, eyebrow, title, summary and metadata.
 - [AuthLayout](https://slipstreamui.com/llm/components/auth-layout.md) — Centered authentication surface: brand, title/description, form card and footer, with size presets.
 - [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
@@ -25,6 +27,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 - [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
+- [ContactStrip](https://slipstreamui.com/llm/components/contact-strip.md) — Compact labelled contact rows with optional icons and links.
 - [Container](https://slipstreamui.com/llm/components/container.md) — Centered, width-constrained page container with shared gutters and four width presets.
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
@@ -32,6 +35,8 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- [FeatureGrid](https://slipstreamui.com/llm/components/feature-grid.md) — Grid of feature or benefit cards with an icon, title, copy and optional link.
+- [FeatureRow](https://slipstreamui.com/llm/components/feature-row.md) — Alternating media and copy row for mid-page feature sections.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 - [FileUpload](https://slipstreamui.com/llm/components/file-upload.md) — Drag-and-drop file picker with a removable file list and per-file progress bars.
 - [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
@@ -49,12 +54,15 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- [Newsletter](https://slipstreamui.com/llm/components/newsletter.md) — Email capture block with inline or stacked layout, pending state, success and failure feedback.
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+- [ProcessSteps](https://slipstreamui.com/llm/components/process-steps.md) — Ordered process cards with derived step numbers or custom icons.
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
@@ -77,6 +85,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [TableCard](https://slipstreamui.com/llm/components/table-card.md) — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
 - [TableOfContents](https://slipstreamui.com/llm/components/table-of-contents.md) — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
+- [Testimonial](https://slipstreamui.com/llm/components/testimonial.md) — Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea
 - [ThemeToggle](https://slipstreamui.com/llm/components/theme-toggle.md) — Presentational light/dark toggle with accessible labels and sun/moon state.
@@ -258,6 +267,66 @@ Confirmation of a completed action
 
 ---
 
+# AnnouncementBar
+
+Dismissible announcement bar with optional action, tone and sticky positioning.
+
+> Import: `import { AnnouncementBar } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/announcement-bar.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Launches, content hubs and network notices need a thin bar above the header. AnnouncementBar owns the message, action and dismissal without forcing the site header to grow more props.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| message | `ReactNode` | — | yes | Message shown in the bar. |
+| href | `string` | — | no | Optional destination for the action. |
+| actionLabel | `string` | — | no | Action text, shown when href is provided. |
+| dismissible | `boolean` | `true` | no | Show a close control. |
+| onDismiss | `() => void` | — | no | Called after the user dismisses the bar. |
+| tone | `'muted' | 'brand' | 'inverse'` | `muted` | no | Surface treatment. |
+| sticky | `boolean` | `false` | no | Pin the bar to the top of the viewport. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+
+## Examples
+
+### Content hub launch
+
+A branded announcement with a link and dismissal.
+
+```tsx
+<AnnouncementBar
+  message="The 2026 Middle Market Review is live"
+  href="/forum"
+  actionLabel="Read it"
+  tone="brand"
+/>
+```
+
+## Anti-patterns
+
+- **Don't stack multiple announcements** — One bar per page. Multiple messages compete and push the header down.
+
+## Accessibility
+
+- **Named region**: Renders role=region with aria-label Announcement
+- **Dismiss control**: The close button is named Dismiss announcement
+
+## Composition
+
+- Compose with **SiteHeader** — Place AnnouncementBar above the sticky header
+  
+  ```tsx
+  <AnnouncementBar message="." /><SiteHeader ... />
+  ```
+- Related: SiteHeader, Alert, Banner
+
+---
+
 # AppShell
 
 Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
@@ -291,6 +360,8 @@ Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mob
 | onCollapsedChange | `(collapsed: boolean) => void` | — | no | Fires when the rail collapses/expands (Sidebar). |
 | defaultExpanded | `string[]` | — | no | SidebarItem hrefs of groups open initially (Sidebar). |
 | mobileBreakpoint | `'sm' | 'md' | 'lg'` | `md` | no | Breakpoint where the rail becomes a drawer (AppShell). |
+| openNavigationLabel | `string` | `Open navigation` | no | Accessible label for the mobile menu button. |
+| navigationTitle | `string` | `Navigation` | no | Title of the mobile navigation drawer. |
 
 ## Examples
 
@@ -352,6 +423,68 @@ Skip the sidebar when the product is a single surface.
   <AppShell header={<Button>New</Button>}>…</AppShell>
   ```
 - Related: Drawer, Button, Breadcrumb, Menu
+
+---
+
+# ArticleCard
+
+Linked article or resource card with media, eyebrow, title, summary and metadata.
+
+> Import: `import { ArticleCard } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/article-card.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Content hubs repeat the same article tile. ArticleCard owns the image aspect, title hierarchy, excerpt clamp and metadata row so blog, resource and LOI pages do not each invent a card.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `string` | — | yes | Article title. |
+| description | `string` | — | no | Summary copy. |
+| href | `string` | — | yes | Destination URL. |
+| eyebrow | `string` | — | no | Category or content type. |
+| media | `ReactNode` | — | no | Image, illustration or video poster. |
+| meta | `ReactNode` | — | no | Date, read time, author or other metadata. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| variant | `'default' | 'compact'` | `default` | no | Standard card or a denser compact card. |
+
+## Examples
+
+### Resource card
+
+A linked article tile for a resource grid.
+
+```tsx
+<ArticleCard
+  href="/articles/exit-planning"
+  eyebrow="Advisors"
+  title="The 2026 exit planning guide"
+  description="What buyers are looking for."
+  meta="8 min read"
+  media={<img src="/cover.jpg" alt="" />}
+/>
+```
+
+## Anti-patterns
+
+- **Don't nest controls in the card** — The whole card is one link. Put save, share or menu actions outside the card or redesign the card as a non-link panel.
+
+## Accessibility
+
+- **Single link**: The card is one link containing the title, summary and metadata
+- **Decorative media**: Media is a slot
+
+## Composition
+
+- Compose with **Grid** — Place cards in a responsive Grid
+  
+  ```tsx
+  <Grid mdCols={3} gap="lg"><ArticleCard ... /></Grid>
+  ```
+- Related: Card, Grid, FeaturedPost, ResourceHub
 
 ---
 
@@ -486,6 +619,8 @@ Free text stays first-class: any value may be typed, while matching options acce
 | clearable | `boolean` | `false` | no | Shows a clear button once the field has text. |
 | loadingText | `string` | — | no | Shown while async options load. |
 | debounceMs | `number` | `200` | no | Debounce for loadOptions in ms. |
+| clearLabel | `string` | `Clear input` | no | Accessible label for the clear button. |
+| suggestionsLabel | `string` | `Suggestions` | no | Accessible label for the suggestion listbox. |
 
 ## Examples
 
@@ -896,6 +1031,7 @@ Breadcrumb shows the user's location in a hierarchy and lets them navigate back 
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers (preserves prefetch/modified clicks). |
 | linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
 | truncateCurrent | `boolean` | `false` | no | Truncate the current page label and expose the full text as a title. |
+| label | `string` | `Breadcrumb` | no | Accessible name of the navigation landmark. |
 
 ## Examples
 
@@ -1408,6 +1544,9 @@ AI-assisted and power-user apps expose many actions; a command palette keeps the
 | debounceMs | `number` | `200` | no | Debounce for loadCommands in ms. |
 | renderCommand | `(command, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer (icons, type badges). |
 | loadingText | `string` | — | no | Shown while async commands load. |
+| dialogLabel | `string` | `Command palette` | no | Accessible label for the combobox. |
+| listLabel | `string` | `Commands` | no | Accessible label for the command listbox. |
+| emptyText | `string` | `No matching commands.` | no | Shown when no command matches the query. |
 
 ## Examples
 
@@ -1625,6 +1764,62 @@ Make destructive or consequential tool calls require explicit user consent.
 
 - **Dialog semantics**: Pending state renders role=alertdialog labeled by the title.
 - **Outcome announcement**: Status chip text announces Approved/Rejected.
+
+---
+
+# ContactStrip
+
+Compact labelled contact rows with optional icons and links.
+
+> Import: `import { ContactStrip } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/contact-strip.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Marketing footers and contact sections repeat phone, email and address rows. ContactStrip keeps the label/value pairing consistent and gives phone and email links the right destination.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| items | `ContactItem[]` | — | yes | Contact rows: label, value, optional href and icon. |
+| columns | `2 | 3` | `2` | no | Desktop column count. |
+| align | `'left' | 'center'` | `left` | no | Row alignment. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+
+## Examples
+
+### Contact details
+
+Phone and email rows with links.
+
+```tsx
+<ContactStrip
+  items={[
+    { label: 'Call', value: '1.800.860.4519', href: 'tel:18008604519' },
+    { label: 'Email', value: 'info@axial.net', href: 'mailto:info@axial.net' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use a bare URL as the label** — The label should name the channel (Call, Email, Address), not repeat the value.
+
+## Accessibility
+
+- **List semantics**: Renders ul/li with a label and a value per row
+- **Contact links**: Phone uses tel: and email uses mailto: when provided
+
+## Composition
+
+- Compose with **SiteFooter** — Place ContactStrip in the footer contact column
+  
+  ```tsx
+  <SiteFooter columns={columns} />
+  ```
+- Related: SiteFooter, Link, Text
 
 ---
 
@@ -2001,6 +2196,7 @@ A custom calendar is a large accessibility surface. The platform date picker alr
 | defaultValue | `string` | — | no | ISO date, initial value. |
 | onValueChange | `(value: string) => void` | — | no | Fired with the ISO string; '' when cleared. |
 | clearable | `boolean` | `false` | no | Shows a clear button once a value exists. |
+| clearLabel | `string` | `Clear date` | no | Accessible label for the clear button. |
 
 ## Examples
 
@@ -2258,6 +2454,124 @@ Title, explanation and one primary action.
 
 ---
 
+# FeatureGrid
+
+Grid of feature or benefit cards with an icon, title, copy and optional link.
+
+> Import: `import { FeatureGrid } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/feature-grid.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Marketing pages repeat three- and six-card feature groups. FeatureGrid standardizes the card hierarchy, icon tile, grid and link affordance without forcing a separate Card composition on every page.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| features | `FeatureItem[]` | — | yes | Features to display: title, optional description, icon, href and actionLabel. |
+| columns | `2 | 3 | 4` | `3` | no | Desktop column count. |
+| variant | `'card' | 'plain'` | `card` | no | Card surface or a plain stack. |
+| align | `'left' | 'center'` | `left` | no | Content alignment. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+
+## Examples
+
+### Three benefits
+
+A two-column feature group with one linked card.
+
+```tsx
+<FeatureGrid
+  features={[
+    { title: 'Vetted advisors', description: 'Curated for your business', icon: <Shield /> },
+    { title: 'Buyer targeting', description: 'Reach the right investors', href: '/features/buyers', actionLabel: 'Learn more' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't put a button inside a linked card** — The whole card is a link when href is present. A nested button creates invalid interaction and conflicting targets.
+
+## Accessibility
+
+- **List semantics**: Renders ul/li so the group and item count are announced
+- **Linked cards**: The card is a single link; the action label is part of its accessible name
+
+## Composition
+
+- Compose with **Section** — Place FeatureGrid inside a Section band
+  
+  ```tsx
+  <Section><FeatureGrid features={features} /></Section>
+  ```
+- Related: Card, FeatureRow, ProcessSteps
+
+---
+
+# FeatureRow
+
+Alternating media and copy row for mid-page feature sections.
+
+> Import: `import { FeatureRow } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/feature-row.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Landing pages alternate a product shot with a short feature story. FeatureRow owns the two-column rhythm and media side without taking over the page h1, which belongs to Hero or PageHeader.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `ReactNode` | — | yes | Row heading. |
+| description | `ReactNode` | — | no | Supporting copy. |
+| eyebrow | `ReactNode` | — | no | Small overline above the heading. |
+| actions | `ReactNode` | — | no | Calls to action. |
+| media | `ReactNode` | — | yes | Image, mockup, video or form shown beside the copy. |
+| mediaPosition | `'left' | 'right'` | `right` | no | Which side the media sits on at lg and up. |
+| level | `2 | 3` | `2` | no | Heading level. |
+| size | `'md' | 'lg'` | `md` | no | Heading scale. |
+
+## Examples
+
+### Alternating feature
+
+A standard feature row with media on the right.
+
+```tsx
+<FeatureRow
+  eyebrow="For advisors"
+  title="Reach relevant investors"
+  description="Run a confidential, data-informed process."
+  media={<img src="/deal-flow.png" alt="Deal flow dashboard" />}
+  actions={<Button>Request access</Button>}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use FeatureRow for the page hero** — Use Hero for the opening story and h1. FeatureRow defaults to h2 and is intended for mid-page sections.
+
+## Accessibility
+
+- **Heading level**: Renders h2 by default and accepts level 3
+- **Media alternative**: Media is a slot; the consumer owns alt text
+
+## Composition
+
+- Compose with **Section** — Place FeatureRow inside a Section, usually three to five in sequence
+  
+  ```tsx
+  <Section><FeatureRow title="." media={<Media />} /></Section>
+  ```
+- Related: Hero, FeatureGrid, Section
+
+---
+
 # Fieldset
 
 Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
@@ -2346,6 +2660,9 @@ File inputs are hard to style and easy to make inaccessible. FileUpload keeps th
 | label | `string` | `Drop files here or click to browse` | no | Drop-zone copy. |
 | hint | `string` | — | no | Helper line under the drop zone. |
 | progress | `Record<string, number>` | — | no | Per-file progress 0-100 keyed by file name; renders progress bars. |
+| selectedFilesLabel | `string` | `Selected files` | no | Accessible label for the selected-files list. |
+| removeLabel | `(file: File) => string` | `Remove <name>` | no | Accessible label for a file remove button. |
+| uploadingLabel | `(file: File) => string` | `Uploading <name>` | no | Accessible label for a file upload progress bar. |
 
 ## Examples
 
@@ -3512,6 +3829,66 @@ onClick renders the row content inside a <button> — keyboard and screen-reader
 
 ---
 
+# LogoCloud
+
+Trust strip for member, customer or partner logos with captions, columns and optional links.
+
+> Import: `import { LogoCloud } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/logo-cloud.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Proof logos are repeated on every marketing page with inconsistent sizing, spacing and alt text. LogoCloud makes the strip a named list, keeps the logos decorative and supplies the accessible name once.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| items | `LogoItem[]` | — | yes | Logos to display: accessible name, decorative artwork and optional href. |
+| caption | `string` | — | no | Caption above the strip. |
+| columns | `3 | 4 | 5 | 6` | `4` | no | Desktop column count. |
+| grayscale | `boolean` | `true` | no | Desaturate logos until hover. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Logo box height. |
+| align | `'left' | 'center'` | `center` | no | Caption and grid alignment. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+
+## Examples
+
+### Member logo strip
+
+Decorative logo art with the name supplied as accessible text.
+
+```tsx
+<LogoCloud
+  caption="Trusted across the lower middle market"
+  items={[
+    { name: 'Peakstone', logo: <img src="/peakstone.svg" alt="" /> },
+    { name: 'North', logo: <img src="/north.svg" alt="" />, href: '/members/north' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't duplicate the name in alt text** — LogoCloud already renders the item name for assistive tech. Mark the image decorative so screen readers announce it once.
+
+## Accessibility
+
+- **Named logo list**: Each item is a list item with an sr-only name; logo artwork is aria-hidden
+- **Optional links**: Linked logos render as a single focusable link named by the item
+
+## Composition
+
+- Compose with **Section** — Place LogoCloud inside a Section so the band controls tone and spacing
+  
+  ```tsx
+  <Section tone="muted"><LogoCloud items={logos} /></Section>
+  ```
+- Related: Section, Testimonial, StatBand
+
+---
+
 # Menu
 
 Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
@@ -3620,6 +3997,8 @@ The Message component renders individual chat messages with proper styling based
 | onRetry | `() => void` | — | no | Called when the user requests a retry after error; omit to hide the action |
 | labels | `{ retry?: string; edit?: string; save?: string; cancel?: string }` | — | no | Override button labels in the message actions |
 | onEditContent | `(content: string) => void` | — | no | Enables edit-and-resubmit; called with the edited content |
+| formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
+| locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
 
 ## Examples
 
@@ -3815,6 +4194,69 @@ Deltas carry arrows as well as color.
   <Grid columns={3} gap="md"><MetricCard … /></Grid>
   ```
 - Related: Card, Grid, Progress
+
+---
+
+# Newsletter
+
+Email capture block with inline or stacked layout, pending state, success and failure feedback.
+
+> Import: `import { Newsletter } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/newsletter.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Resource hubs and articles all need a newsletter block with the same validation, consent copy and status feedback. Newsletter owns the field and state while the caller owns the CRM and double opt-in.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `string` | — | yes | Headline for the signup block. |
+| description | `string` | — | no | Supporting copy. |
+| placeholder | `string` | `you@example.com` | no | Email placeholder. |
+| buttonLabel | `string` | `Subscribe` | no | Submit button label. |
+| label | `string` | `Email address` | no | Visible or screen-reader label for the email field. |
+| successMessage | `string` | `Thanks. Check your inbox to confirm.` | no | Success message. |
+| errorMessage | `string` | `Something went wrong. Please try again.` | no | Failure message used when onSubmit rejects. |
+| consent | `ReactNode` | — | no | Consent or privacy copy shown under the form. |
+| onSubmit | `(email: string) => void | Promise<void>` | — | no | Submit handler. Omit for a presentational form. |
+| layout | `'inline' | 'stacked'` | `inline` | no | Inline on desktop or always stacked. |
+| level | `2 | 3` | `2` | no | Heading level. |
+
+## Examples
+
+### Owner newsletter
+
+Inline email capture with consent copy.
+
+```tsx
+<Newsletter
+  title="Weekly exit insights"
+  description="One email a week. No spam."
+  consent="By subscribing you agree to the privacy policy."
+  onSubmit={async (email) => subscribe(email)}
+/>
+```
+
+## Anti-patterns
+
+- **Don't put the transport in the component** — Newsletter owns the field and status only. Pass a submit handler so the caller controls the CRM, double opt-in and error mapping.
+
+## Accessibility
+
+- **Labelled email field**: The label is associated with the input and visible to screen readers
+- **Status announcements**: Success uses aria-live polite; errors use role alert
+
+## Composition
+
+- Compose with **Section** — Place Newsletter inside a Section or a Card
+  
+  ```tsx
+  <Section tone="muted"><Newsletter title="Join" /></Section>
+  ```
+- Related: Input, Button, Section, Card
 
 ---
 
@@ -4096,6 +4538,63 @@ Popover driven by parent state
 
 ---
 
+# ProcessSteps
+
+Ordered process cards with derived step numbers or custom icons.
+
+> Import: `import { ProcessSteps } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/process-steps.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordered list so the sequence is structural, derives the numbers from order and supports icons without turning the section into arbitrary divs.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| steps | `ProcessStep[]` | — | yes | Ordered steps: title, optional description and icon. |
+| columns | `2 | 3 | 4` | `3` | no | Desktop column count. |
+| numbered | `boolean` | `true` | no | Show step numbers when no icon is provided. |
+| align | `'left' | 'center'` | `left` | no | Content alignment. |
+
+## Examples
+
+### Advisor process
+
+Three numbered process steps.
+
+```tsx
+<ProcessSteps
+  steps={[
+    { title: 'Meet your consultant', description: 'Share your goals.' },
+    { title: 'Review advisors', description: 'Compare recommendations.' },
+    { title: 'Interview and hire', description: 'Choose with confidence.' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't hardcode step numbers** — Numbers come from the list order. Hardcoded numbers drift when steps are inserted or reordered.
+
+## Accessibility
+
+- **Ordered sequence**: Renders ol/li so the order is announced
+- **Icon or number**: The marker is visual; the list order carries the sequence
+
+## Composition
+
+- Compose with **Section** — Place ProcessSteps inside a Section band
+  
+  ```tsx
+  <Section><ProcessSteps steps={steps} /></Section>
+  ```
+- Related: Stepper, Timeline, FeatureGrid
+
+---
+
 # Progress
 
 A determinate progress bar with role=progressbar and exact value semantics
@@ -4369,6 +4868,7 @@ Radio lets users pick exactly one option from a visible set. RadioGroup provides
 | label | `string` | — | no | Visible label rendered next to the radio |
 | checked | `boolean` | — | no | Controlled checked state (on Radio) |
 | onCheckedChange | `(checked: boolean) => void` | — | no | Fired when the user selects this radio (on Radio) |
+| onChange | `React.ChangeEventHandler<HTMLInputElement>` | — | no | Native change event, compatible with react-hook-form register(). Fires alongside onCheckedChange. |
 | disabled | `boolean` | `false` | no | Disables the radio |
 | title | `string` | — | no | Section heading (RadioCard component) |
 | description | `string` | — | no | Supporting line under the title (RadioCard component) |
@@ -4519,6 +5019,8 @@ The Reasoning component displays the step-by-step thought process of an AI agent
 | duration | `number` | — | no | Elapsed reasoning time in seconds; renders a duration chip |
 | isStreaming | `boolean` | — | no | Shows a streaming indicator while reasoning is in progress |
 | labels | `{ title?: string; count?: (count: number) => string; thinking?: string; step?: (index: number) => string }` | — | no | Localized header, count and step labels. |
+| formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
+| locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
 
 ## Examples
 
@@ -4666,6 +5168,7 @@ A native <select> cannot filter and a free text input cannot constrain. Search c
 | emptyText | `string` | `'No matching results'` | no | Shown when no option matches the query. |
 | disabled | `boolean` | `false` | no | Disables the input and the dropdown. |
 | value | `string | null` | — | no | Controlled selected value; display follows it (null clears). |
+| listLabel | `string` | — | no | Accessible label for the results listbox. Defaults to the input aria-label, then "Search results". |
 
 ## Examples
 
@@ -5342,6 +5845,7 @@ Skeleton reduces perceived loading time by showing the layout shape before data 
 | height | `string` | — | no | Tailwind height class for the block (e.g. 'h-4'). |
 | width | `string` | `w-full` | no | Tailwind width class for the block (e.g. 'w-48'). |
 | rounded | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `md` | no | Corner preset — full for avatars/dots, none for tables. |
+| label | `string` | — | no | Optional loading announcement. When set, the block becomes a status region instead of decorative. |
 
 ## Examples
 
@@ -6011,6 +6515,67 @@ Tabs driven by parent state
 
 ---
 
+# Testimonial
+
+Semantic written testimonial with quote, person, role, company, avatar and logo slots.
+
+> Import: `import { Testimonial } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/testimonial.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Review and landing pages repeat the same quote hierarchy. Testimonial uses figure, blockquote and figcaption so the attribution is real structure instead of three styled paragraphs.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| quote | `string` | — | yes | Testimonial copy without quotation marks. |
+| name | `string` | — | yes | Person or company name. |
+| role | `string` | — | no | Role or title. |
+| company | `string` | — | no | Company name. |
+| avatar | `ReactNode` | — | no | Avatar slot, usually Avatar. |
+| logo | `ReactNode` | — | no | Brand or logo slot shown in the card header. |
+| variant | `'card' | 'plain'` | `card` | no | Card surface or plain quote. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Quote scale. |
+
+## Examples
+
+### Written testimonial
+
+A card testimonial with attribution.
+
+```tsx
+<Testimonial
+  quote="The right advisor changed the outcome."
+  name="Bob Falahee"
+  role="CEO"
+  company="Blind & Shade"
+  avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}
+/>
+```
+
+## Anti-patterns
+
+- **Don't add quotation marks in the quote prop** — The component renders the quotation marks. Duplicating them produces doubled punctuation.
+
+## Accessibility
+
+- **Quote semantics**: Renders figure, blockquote and figcaption
+- **Avatar alternative**: Avatar is a slot
+
+## Composition
+
+- Compose with **Grid** — Place several testimonials in a Grid for a quote wall
+  
+  ```tsx
+  <Grid mdCols={3} gap="lg"><Testimonial ... /></Grid>
+  ```
+- Related: Card, Avatar, Quote, Grid
+
+---
+
 # Text
 
 Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
@@ -6215,6 +6780,7 @@ Like DatePicker: the platform time control is already accessible and locale-awar
 | defaultValue | `string` | — | no | "HH:MM", initial value. |
 | onValueChange | `(value: string) => void` | — | no | Fired with the time string; '' when cleared. |
 | clearable | `boolean` | `false` | no | Shows a clear button once a value exists. |
+| clearLabel | `string` | `Clear time` | no | Accessible label for the clear button. |
 
 ## Examples
 
@@ -6321,6 +6887,7 @@ Toasts announce status changes without stealing focus. The provider/useToast pai
 | position | `'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'` | `bottom-right` | no | Toaster placement (Toaster component). |
 | richColors | `boolean` | `false` | no | Tint the toast surface with its status color (Toaster component). |
 | label | `string` | `Notifications` | no | Accessible name of the live region (Toaster component). |
+| dismissLabel | `string` | `Dismiss notification` | no | Accessible label for each dismiss button. |
 
 ## Examples
 

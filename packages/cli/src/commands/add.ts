@@ -4,6 +4,8 @@ import ora from 'ora';
 import path from 'node:path';
 import fs from 'fs-extra';
 import { loadRegistryEntries } from '../registry';
+import { resolveComponentsDir } from '../config';
+import { rewriteSupportImports } from '../source';
 
 type SourceFile = { absolute: string; relative: string; content: string };
 
@@ -34,7 +36,7 @@ function resolveImport(fromFile: string, specifier: string) {
   return candidates.find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile()) ?? null;
 }
 
-function collect(sourceRoot: string, entryId: string) {
+export function collectComponentSource(sourceRoot: string, entryId: string) {
   const components = new Set<string>();
   const files: SourceFile[] = [];
   const queue = [entryId];
@@ -76,13 +78,6 @@ function collect(sourceRoot: string, entryId: string) {
   return { components: [...components], files, support };
 }
 
-/** Rewrite support imports for the flat components/slipstream layout. */
-function rewrite(content: string) {
-  return content
-    .replaceAll("../../utils/", "../utils/")
-    .replaceAll("../../types/", "../types/");
-}
-
 export const addCommand = new Command('add')
   .description('Add a component to your project')
   .argument('<component>', 'Component name (e.g., button, message, conversation)')
@@ -103,8 +98,9 @@ export const addCommand = new Command('add')
       }
 
       const sourceRoot = path.join(entry.packageDir, 'src');
-      const { components, files, support } = collect(sourceRoot, sourceDirName);
-      const destinationRoot = path.resolve(process.cwd(), 'components', 'slipstream');
+      const { components, files, support } = collectComponentSource(sourceRoot, sourceDirName);
+      const componentsDir = resolveComponentsDir(process.cwd());
+      const destinationRoot = componentsDir.absolute;
 
       const written: string[] = [];
       const skipped: string[] = [];
@@ -121,13 +117,13 @@ export const addCommand = new Command('add')
       for (const file of files) {
         // components/<dir>/File.tsx -> components/slipstream/<dir>/File.tsx
         const relative = file.relative.replace(/^components\//, '');
-        write(file.absolute, relative, rewrite(file.content));
+        write(file.absolute, relative, rewriteSupportImports(file.content));
       }
 
       for (const [, groupFiles] of support) {
         for (const absolute of groupFiles) {
           const relative = path.relative(sourceRoot, absolute).split(path.sep).join('/');
-          write(absolute, relative, rewrite(fs.readFileSync(absolute, 'utf8')));
+          write(absolute, relative, rewriteSupportImports(fs.readFileSync(absolute, 'utf8')));
         }
       }
 
@@ -153,7 +149,7 @@ export const addCommand = new Command('add')
 
       spinner.succeed(chalk.green(`Added ${component} component successfully!`));
       console.log(
-        `\nImport: ${chalk.cyan(`import { ${manifest.exportName ?? manifest.name} } from './components/slipstream/${manifest.sourceDir}'`)}`
+        `\nImport: ${chalk.cyan(`import { ${manifest.exportName ?? manifest.name} } from './${componentsDir.relative}/${manifest.sourceDir}'`)}`
       );
       if (components.length > 1) {
         console.log(chalk.gray(`  Also copied: ${components.filter((candidate) => candidate !== id).join(', ')}`));

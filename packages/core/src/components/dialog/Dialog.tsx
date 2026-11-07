@@ -4,6 +4,7 @@ import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../utils/cn';
 import { usePresence } from '../../utils/presence';
+import { useModalLayer } from '../../utils/modal-layer';
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -126,6 +127,7 @@ export function Dialog({
   const titleId = React.useId();
   const descriptionId = React.useId();
   const { present, exiting } = usePresence(open, animate);
+  const isTopLayer = useModalLayer(open);
 
   // Capture the opener before the panel takes focus; restore the moment
   // open flips false — even while an exit animation keeps the DOM up.
@@ -152,6 +154,7 @@ export function Dialog({
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        if (!isTopLayer()) return;
         event.stopPropagation();
         onOpenChange(false);
         return;
@@ -174,7 +177,7 @@ export function Dialog({
     };
     document.addEventListener('keydown', onKeyDown, true);
     return () => document.removeEventListener('keydown', onKeyDown, true);
-  }, [open, onOpenChange]);
+  }, [open, onOpenChange, isTopLayer]);
 
   if (!present || typeof document === 'undefined') return null;
 
