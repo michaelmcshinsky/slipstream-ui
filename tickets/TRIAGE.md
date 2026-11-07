@@ -74,7 +74,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 7 | SLIP-100 | P1 | 1h | Done | Regenerate docs after concurrent work |
 | 8 | SLIP-093 | P2 | 4h | Ready | Shell visual regression |
 | 9 | SLIP-094 | P2 | 3h | Done | CSS/JS size audit |
-| 10 | SLIP-097 | P2 | 6h | Ready | AuthLayout aside variant |
+| 10 | SLIP-097 | P2 | 6h | Done | AuthLayout aside variant |
 | 11 | SLIP-098 | P3 | 3h | Ready | PageHeader head helper |
 | 12 | SLIP-101 | P2 | 1h | Done | React dedupe note for linked checkouts |
 

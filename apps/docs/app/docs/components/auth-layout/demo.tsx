@@ -9,7 +9,7 @@ export default function AuthLayoutPage() {
     <ComponentPage
       id="auth-layout"
       title="AuthLayout"
-      description="Centered authentication surface: brand, title/description, form card and footer, with size presets."
+      description="Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Card heading (h1).' },
@@ -17,8 +17,10 @@ export default function AuthLayoutPage() {
         { name: 'brand', type: 'ReactNode', description: 'Mark rendered above the card.' },
         { name: 'footer', type: 'ReactNode', description: 'Links/legal copy under the card.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Card width preset.' },
+        { name: 'variant', type: "'centered' | 'split'", defaultValue: "'centered'", description: 'Split renders the form beside an aside on desktop.' },
+        { name: 'aside', type: 'ReactNode', description: 'Optional panel for the split variant; omitting it falls back to centered.' },
       ]}
-      accessibility={['Owns the page h1; keep the form free of additional h1s.', 'Centered layout keeps the form reachable on small screens.']}
+      accessibility={['Owns the page h1; keep the form free of additional h1s.', 'Centered layout keeps the form reachable on small screens.', 'The split variant keeps DOM order form then aside, so keyboard order stays correct.']}
     >
       <DemoCard
         title="Sign in"
@@ -62,7 +64,66 @@ export default function AuthLayoutPage() {
   brand?: React.ReactNode;
   footer?: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'centered' | 'split';
+  aside?: React.ReactNode;
 };`}
+      />
+
+      <DemoCard
+        title="Split with an aside"
+        preview={
+          <div className="w-full overflow-hidden rounded-xl border border-border">
+            <div className="[&>div]:min-h-[28rem]">
+              <AuthLayout
+                variant="split"
+                title="Sign in"
+                description="Welcome back to Acme Studio."
+                aside={
+                  <div className="rounded-xl border border-border bg-card p-8">
+                    <p className="text-lg font-medium leading-relaxed">
+                      &ldquo;Slipstream cut our auth screens from a week to an afternoon.&rdquo;
+                    </p>
+                    <p className="mt-3 text-sm text-muted-foreground">Ada Lovelace, CTO at Acme</p>
+                    <dl className="mt-8 grid grid-cols-3 gap-4 text-center">
+                      <div>
+                        <dt className="text-xs text-muted-foreground">Teams</dt>
+                        <dd className="text-xl font-semibold">2,400</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted-foreground">Countries</dt>
+                        <dd className="text-xl font-semibold">38</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-muted-foreground">Uptime</dt>
+                        <dd className="text-xl font-semibold">99.9%</dd>
+                      </div>
+                    </dl>
+                  </div>
+                }
+              >
+                <form className="space-y-4" onSubmit={(event) => event.preventDefault()}>
+                  <FormField id="split-email" label="Email">
+                    <Input type="email" autoComplete="email" placeholder="you@example.com" />
+                  </FormField>
+                  <FormField id="split-password" label="Password">
+                    <PasswordInput autoComplete="current-password" />
+                  </FormField>
+                  <Button type="submit" className="w-full">Sign in</Button>
+                </form>
+              </AuthLayout>
+            </div>
+          </div>
+        }
+        code={`<AuthLayout
+  variant="split"
+  title="Sign in"
+  description="Welcome back to Acme Studio."
+  aside={<BrandAside />}
+>
+  <SignInForm />
+</AuthLayout>`}
+        usage={`// The aside sits beside the form at 1280 and below it at 390.
+// Omit the aside (or use variant="centered") for the single-column screen.`}
       />
     </ComponentPage>
   );

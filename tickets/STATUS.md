@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (29)
+## Completed (30)
 
 | ID | Deliverable |
 |---|---|
@@ -36,6 +36,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-096 | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-100 | Registry and LLM docs regenerated at 100 components |
 | SLIP-094 | Bundle and stylesheet size audit + budgets |
+| SLIP-097 | AuthLayout `variant="split"` + aside slot |
 
 ## Blocked / not completed (11)
 
@@ -114,7 +115,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-094 | **Done** | Prebuilt CSS/JS size audit + budgets (`docs/bundle-size.md`) |
 | SLIP-095 | **Done** | RHF compatibility docs |
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
-| SLIP-097 | Pending | AuthLayout aside variant |
+| SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
 | SLIP-098 | Pending | PageHeader head helper |
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |

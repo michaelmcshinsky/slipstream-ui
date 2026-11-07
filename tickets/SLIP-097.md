@@ -21,11 +21,23 @@ below it on mobile.
 
 **Acceptance criteria**
 
-- [ ] The default centered layout is unchanged.
-- [ ] The split variant is responsive at 390 and 1280.
-- [ ] The aside is optional; omitting it falls back to centered.
-- [ ] Keyboard order and focus are correct.
-- [ ] Manifest, tests, docs, registry, and LLM docs are updated.
+- [x] The default centered layout is unchanged.
+- [x] The split variant is responsive at 390 and 1280.
+- [x] The aside is optional; omitting it falls back to centered.
+- [x] Keyboard order and focus are correct.
+- [x] Manifest, tests, docs, registry, and LLM docs are updated.
+
+**Status: Done (2026-11-07).**
+
+- `variant?: 'centered' | 'split'` (default `centered`) and `aside?: ReactNode`.
+- Split uses a single-column grid below `lg` and a two-column grid at `lg`;
+  the form column respects the `size` preset.
+- Omitting `aside` (or using `centered`) keeps the original centered screen.
+- DOM order is form then aside, so keyboard and screen-reader order stay right.
+- Tests cover the aside placement, fallback, centered ignore, and axe.
+- Docs page has a split demo, props rows, accessibility notes, and type block;
+  manifest, registry, and LLM docs regenerate through the build.
+- Verified with the AuthLayout test file (7 pass), docs typecheck, and docs build.
 
 **Files.** `packages/core/src/components/auth-layout/`, manifest, docs page.
 
