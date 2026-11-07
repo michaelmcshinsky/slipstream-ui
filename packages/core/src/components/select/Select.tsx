@@ -18,9 +18,9 @@ export type SelectProps = Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   'value' | 'defaultValue' | 'multiple'
 > & {
-  /** Flat options. Ignored when `groups` is provided. */
+  /** Flat options. Ignored when `groups` is provided. Takes precedence over `children`. */
   options?: SelectOption[];
-  /** Optgroups with a heading per section. */
+  /** Optgroups with a heading per section. Takes precedence over `options` and `children`. */
   groups?: SelectOptionGroup[];
   label?: string;
   /** Renders a disabled empty option — the native "choose one" affordance. */
@@ -38,11 +38,12 @@ export type SelectProps = Omit<
 /**
  * Accessible select primitive built on the native <select>: full keyboard,
  * screen-reader and mobile platform behavior comes from the platform rather
- * than a re-implemented listbox. Supports flat options, optgroups,
- * placeholder rows and native multi-select (string[] contract).
+ * than a re-implemented listbox. Accepts flat `options`, `groups`, a
+ * `placeholder` row, native multi-select (string[] contract), or plain
+ * <option>/<optgroup> children for dynamic lists.
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { options, groups, label, placeholder, multiple = false, value, defaultValue, onChange, onValueChange, id, className, ...props },
+  { options, groups, label, placeholder, multiple = false, value, defaultValue, onChange, onValueChange, children, id, className, ...props },
   ref,
 ) {
   const generatedId = React.useId();
@@ -56,7 +57,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
   );
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex w-full flex-col gap-1.5">
       {label && (
         <label id={labelId} htmlFor={selectId} className="text-sm font-medium">
           {label}
@@ -68,7 +69,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
         multiple={multiple}
         aria-labelledby={label ? labelId : undefined}
         className={cn(
-          'rounded-md border border-input bg-background px-3 py-2 text-sm',
+          'w-full rounded-md border border-input bg-background px-3 py-2 text-sm',
           multiple && 'min-h-32',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
           'disabled:cursor-not-allowed disabled:opacity-50',
@@ -97,7 +98,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
                 {group.options.map(renderOption)}
               </optgroup>
             ))
-          : (options ?? []).map(renderOption)}
+          : options
+            ? options.map(renderOption)
+            : children}
       </select>
     </div>
   );

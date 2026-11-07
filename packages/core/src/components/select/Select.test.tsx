@@ -107,3 +107,34 @@ describe('Select groups, placeholder and multiple', () => {
     expect(onValueChange).toHaveBeenLastCalledWith(['email', 'slack']);
   });
 });
+
+describe('Select children, precedence and sizing', () => {
+  it('renders native option children when no options/groups are given', () => {
+    render(
+      <Select label="State" defaultValue="ut">
+        <option value="ut">Utah</option>
+        <option value="id">Idaho</option>
+      </Select>
+    );
+    const select = screen.getByRole('combobox', { name: 'State' });
+    expect(select).toHaveValue('ut');
+    expect(screen.getByRole('option', { name: 'Idaho' })).toBeInTheDocument();
+  });
+
+  it('lets options take precedence over children', () => {
+    render(
+      <Select label="State" options={[{ value: 'co', label: 'Colorado' }]}>
+        <option value="ut">Utah</option>
+      </Select>
+    );
+    expect(screen.getByRole('option', { name: 'Colorado' })).toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: 'Utah' })).not.toBeInTheDocument();
+  });
+
+  it('fills its container like Input does', () => {
+    render(<Select label="State" options={[{ value: 'ut', label: 'Utah' }]} />);
+    const select = screen.getByRole('combobox', { name: 'State' });
+    expect(select).toHaveClass('w-full');
+    expect(select.parentElement).toHaveClass('w-full');
+  });
+});

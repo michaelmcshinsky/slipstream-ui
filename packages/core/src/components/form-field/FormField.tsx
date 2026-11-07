@@ -22,7 +22,7 @@ export type FormFieldProps = {
    * announced via role=alert.
    */
   error?: string;
-  /** Renders the required marker and (via the cloned control) keeps the native required attribute. */
+  /** Renders the required marker next to the label. Pass `required` to the control for native validation. */
   required?: boolean;
   /** Keeps the label for assistive tech but hides it visually. */
   labelHidden?: boolean;

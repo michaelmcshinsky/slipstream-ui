@@ -65,6 +65,12 @@
       "type": "(value: string | string[]) => void",
       "required": false,
       "description": "Value-based callback for controlled usage; string[] when multiple."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Native <option>/<optgroup> children for dynamic lists. Used only when neither options nor groups is provided; options takes precedence, groups takes precedence over options."
     }
   ],
   "examples": [
@@ -82,6 +88,11 @@
       "title": "Controlled select",
       "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onValueChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
       "description": "Keep the selected value in state and render it back through value."
+    },
+    {
+      "title": "Native option children",
+      "code": "<Select label=\"State\" {...register('state')}>\n  {states.map((state) => (\n    <option key={state.value} value={state.value}>{state.label}</option>\n  ))}\n</Select>",
+      "description": "When the option list is already JSX (dynamic labels, optgroups from data), pass children instead of options; the native change event keeps react-hook-form register() working."
     }
   ],
   "antiPatterns": [
