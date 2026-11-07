@@ -18,7 +18,11 @@ Filter rows drift: some pages wrap, some scroll, resets appear inconsistently. F
 | onSearchChange | `(value: string) => void` | — | no | Fires on each keystroke; hides the search box when omitted. |
 | searchPlaceholder | `string` | `Search…` | no | Search input placeholder (also its accessible name). |
 | onReset | `() => void` | — | no | Shows a reset button when provided. |
-| activeCount | `number` | `0` | no | Active filter count appended to the reset label. |
+| activeCount | `number` | `0` | no | Active filter count appended to the reset and filter labels. |
+| onOpenFilters | `() => void` | — | no | Shows a Filters button and opens a filter panel or mobile drawer. |
+| filtersLabel | `string` | `Filters` | no | Filter button label. |
+| resultsCount | `number` | — | no | Result count shown before the trailing slot. |
+| resultsLabel | `string` | `results` | no | Noun for the result count. |
 | trailing | `ReactNode` | — | no | Far-right actions (bulk actions, column settings). |
 
 ## Examples
@@ -34,6 +38,8 @@ Search, filters, reset and count in one strip.
   searchPlaceholder="Search students"
   onReset={resetFilters}
   activeCount={activeFilters}
+  onOpenFilters={() => setPanelOpen(true)}
+  resultsCount={312}
 >
   <Select label="Status" options={statusOptions} />
 </FilterBar>

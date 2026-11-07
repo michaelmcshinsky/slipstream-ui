@@ -31,3 +31,5 @@ date-range, applied-filter chips, and a clear-all path.
 **Out of scope.** Server-side query building.
 
 **Completed:** 2026-11-07. 4 components shipped: MultiSelect, FilterPanel, DateRangePicker and AppliedFilters. 104 components total (87 core + 17 AI); core 616 tests passed; docs build 144 routes.
+
+**FilterBar integration:** onOpenFilters, iltersLabel, esultsCount and esultsLabel added to FilterBar; tests and docs updated.

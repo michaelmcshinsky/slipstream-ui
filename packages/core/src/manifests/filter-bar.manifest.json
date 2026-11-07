@@ -35,7 +35,33 @@
       "type": "number",
       "required": false,
       "defaultValue": "0",
-      "description": "Active filter count appended to the reset label."
+      "description": "Active filter count appended to the reset and filter labels."
+    },
+    {
+      "name": "onOpenFilters",
+      "type": "() => void",
+      "required": false,
+      "description": "Shows a Filters button and opens a filter panel or mobile drawer."
+    },
+    {
+      "name": "filtersLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Filters",
+      "description": "Filter button label."
+    },
+    {
+      "name": "resultsCount",
+      "type": "number",
+      "required": false,
+      "description": "Result count shown before the trailing slot."
+    },
+    {
+      "name": "resultsLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "results",
+      "description": "Noun for the result count."
     },
     {
       "name": "trailing",
@@ -47,7 +73,7 @@
   "examples": [
     {
       "title": "List filters",
-      "code": "<FilterBar\n  searchValue={query}\n  onSearchChange={setQuery}\n  searchPlaceholder=\"Search students\"\n  onReset={resetFilters}\n  activeCount={activeFilters}\n>\n  <Select label=\"Status\" options={statusOptions} />\n</FilterBar>",
+      "code": "<FilterBar\n  searchValue={query}\n  onSearchChange={setQuery}\n  searchPlaceholder=\"Search students\"\n  onReset={resetFilters}\n  activeCount={activeFilters}\n  onOpenFilters={() => setPanelOpen(true)}\n  resultsCount={312}\n>\n  <Select label=\"Status\" options={statusOptions} />\n</FilterBar>",
       "description": "Search, filters, reset and count in one strip."
     }
   ],
@@ -94,7 +120,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "filter-bar",
   "exportName": "FilterBar"
 }

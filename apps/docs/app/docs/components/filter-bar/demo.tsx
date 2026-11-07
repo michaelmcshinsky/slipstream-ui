@@ -21,7 +21,11 @@ export default function FilterBarPage() {
         { name: 'onSearchChange', type: '(value: string) => void', description: 'Fires on each keystroke; hides the search box when omitted.' },
         { name: 'searchPlaceholder', type: 'string', defaultValue: "'Search…'", description: 'Search placeholder (also its accessible name).' },
         { name: 'onReset', type: '() => void', description: 'Shows a reset button when provided.' },
-        { name: 'activeCount', type: 'number', defaultValue: '0', description: 'Active filter count appended to the reset label.' },
+        { name: 'activeCount', type: 'number', defaultValue: '0', description: 'Active filter count appended to the reset and filter labels.' },
+        { name: 'onOpenFilters', type: '() => void', description: 'Shows a Filters button and opens a filter panel or drawer.' },
+        { name: 'filtersLabel', type: 'string', defaultValue: "'Filters'", description: 'Filter button label.' },
+        { name: 'resultsCount', type: 'number', description: 'Result count shown before the trailing slot.' },
+        { name: 'resultsLabel', type: 'string', defaultValue: "'results'", description: 'Noun for the result count.' },
         { name: 'trailing', type: 'ReactNode', description: 'Far-right actions (bulk actions, column settings).' },
       ]}
       accessibility={['role=search wraps the controls; the search input is labelled by its placeholder.', 'Reset is a normal button with an updated accessible name.']}
@@ -74,6 +78,10 @@ export default function FilterBarPage() {
   searchPlaceholder?: string;
   onReset?: () => void;
   activeCount?: number;
+  onOpenFilters?: () => void;
+  filtersLabel?: string;
+  resultsCount?: number;
+  resultsLabel?: string;
   trailing?: React.ReactNode;
 };`}
       />

@@ -21,6 +21,22 @@ describe('FilterBar', () => {
     expect(onReset).toHaveBeenCalledOnce();
   });
 
+  it('opens a filter panel and shows the result count', async () => {
+    const user = userEvent.setup();
+    const onOpenFilters = vi.fn();
+    render(
+      <FilterBar
+        onOpenFilters={onOpenFilters}
+        activeCount={2}
+        resultsCount={312}
+        resultsLabel="deals"
+      />
+    );
+    await user.click(screen.getByRole('button', { name: 'Filters (2)' }));
+    expect(onOpenFilters).toHaveBeenCalledOnce();
+    expect(screen.getByText('312 deals')).toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(
       <FilterBar searchValue="" onSearchChange={() => undefined} onReset={() => undefined}>

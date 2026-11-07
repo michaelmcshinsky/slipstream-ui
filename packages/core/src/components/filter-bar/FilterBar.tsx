@@ -16,6 +16,14 @@ export type FilterBarProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Shows a reset button when provided (pass the active filter count for the label). */
   onReset?: () => void;
   activeCount?: number;
+  /** Opens a filter panel or mobile filter drawer. */
+  onOpenFilters?: () => void;
+  /** Filter button label. Default "Filters". */
+  filtersLabel?: string;
+  /** Result count shown before the trailing slot. */
+  resultsCount?: number;
+  /** Noun for the result count. Default "results". */
+  resultsLabel?: string;
   /** Rendered at the far right (bulk actions, column settings). */
   trailing?: React.ReactNode;
 };
@@ -32,6 +40,10 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(functi
     searchPlaceholder = 'Search…',
     onReset,
     activeCount = 0,
+    onOpenFilters,
+    filtersLabel = 'Filters',
+    resultsCount,
+    resultsLabel = 'results',
     trailing,
     className,
     children,
@@ -60,12 +72,23 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(functi
         />
       )}
       <div className="flex flex-wrap items-center gap-2">{children}</div>
+      {onOpenFilters && (
+        <Button type="button" variant="outline" size="sm" onClick={onOpenFilters}>
+          {filtersLabel}
+          {activeCount > 0 ? ` (${activeCount})` : ''}
+        </Button>
+      )}
       {onReset && (
         <Button type="button" variant="ghost" size="sm" onClick={onReset}>
           Reset{activeCount > 0 ? ` (${activeCount})` : ''}
         </Button>
       )}
-      {trailing && <div className="ml-auto flex items-center gap-2">{trailing}</div>}
+      {resultsCount !== undefined && (
+        <span className="ml-auto text-sm text-muted-foreground">
+          {resultsCount} {resultsLabel}
+        </span>
+      )}
+      {trailing && <div className={cn('flex items-center gap-2', resultsCount === undefined && 'ml-auto')}>{trailing}</div>}
     </div>
   );
 });
