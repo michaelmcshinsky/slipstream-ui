@@ -29,6 +29,7 @@ dist
 # Misc
 .DS_Store
 *.pem
+*.tgz
 
 # Debug
 npm-debug.log*
@@ -38,6 +39,12 @@ yarn-error.log*
 # Local env files
 .env
 .env*.local
+.dev.vars
+!.dev.vars.example
+
+# Cloudflare Workers / OpenNext
+.open-next/
+.wrangler/
 
 # Vercel
 .vercel

@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 /**
@@ -44,6 +48,12 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Resolve workspace packages from the monorepo root. Without this,
+  // Turbopack treats apps/docs as the root and cannot follow the
+  // workspace-linked core package imported by the built ai bundle.
+  turbopack: {
+    root: path.join(__dirname, '../..'),
+  },
   transpilePackages: ['@slipstream-ui/core', '@slipstream-ui/ai', '@slipstream-ui/themes'],
   async headers() {
     return [
@@ -61,4 +71,8 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
+
+// Cloudflare Workers (OpenNext): expose bindings to `next dev`.
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();

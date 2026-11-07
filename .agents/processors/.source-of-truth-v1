@@ -1,1 +1,0 @@
-processor.json is authoritative; SQLite stores only a runtime projection.

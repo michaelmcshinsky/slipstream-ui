@@ -6,6 +6,10 @@
     "dev": "next dev",
     "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && next build",
     "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "audit:a11y": "tsx scripts/audit-a11y.ts",
@@ -16,11 +20,12 @@
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/i18n": "workspace:*",
     "@slipstream-ui/themes": "workspace:*",
-    "next": "^16.4.3",
+    "next": "^16.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.16",
     "@slipstream-ui/eslint-config": "workspace:*",
     "@slipstream-ui/tailwind-config": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
@@ -39,6 +44,7 @@
     "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.23.15",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "wrangler": "^4.158.0"
   }
 }

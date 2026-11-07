@@ -87,7 +87,7 @@ Install MCP or point agent at llms.txt
 Agent queries manifests
 Generates correct props / layouts / content
 
-CLI / InstallBashnpx slipstream-ui@latest init
+CLI / InstallBashnpx @slipstream-ui/cli@latest init
 # or
 pnpm add @slipstream-ui/core @slipstream-ui/ai
 Comparison / “Why Slipstream” (optional, light)
