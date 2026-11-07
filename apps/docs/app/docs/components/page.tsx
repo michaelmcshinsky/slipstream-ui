@@ -78,6 +78,13 @@ export default function ComponentsOverviewPage() {
         live playground, props table, anti-patterns pulled from the manifest, accessibility notes,
         and a browser-support table.
       </p>
+      <p className="mb-8 text-sm text-muted-foreground">
+        Wiring a form? The{' '}
+        <Link href="/docs/guides/react-hook-form" className="text-primary underline underline-offset-2">
+          React Hook Form guide
+        </Link>{' '}
+        covers register(), Controller, and FormField error wiring.
+      </p>
       <p className="text-sm text-muted-foreground mb-8">
         Install any of them via{' '}
         <code className="bg-muted px-2 py-1 rounded">npx slipstream-ui add &lt;id&gt;</code> or the{' '}

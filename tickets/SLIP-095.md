@@ -23,10 +23,22 @@ and need a `Controller`. Consumers repeatedly rediscover this.
 
 **Acceptance criteria**
 
-- [ ] The guide is linked from the components index and the docs nav.
-- [ ] Examples typecheck.
-- [ ] The `Select` docs mention the native `onChange` event and `onValueChange`.
-- [ ] The guide names the RHF version tested.
+- [x] The guide is linked from the components index and the docs nav.
+- [x] Examples typecheck.
+- [x] The `Select` docs mention the native `onChange` event and `onValueChange`.
+- [x] The guide names the RHF version tested.
+
+**Status: Done (2026-11-07).**
+
+- New page: `apps/docs/app/docs/guides/react-hook-form`.
+- Added to `lib/nav.ts` and `lib/search-index.ts`, and linked from the
+  components overview.
+- Covers `register()` for Input/Textarea, `Controller` for
+  Select/Checkbox/DatePicker/TimePicker, a typed `SelectField` adapter, and
+  `FormField` error/`aria-invalid` wiring.
+- Select docs now list the native `onChange` event and `onValueChange`.
+- Version stated: react-hook-form 7.x, tested with 7.90.
+- Verified with docs typecheck, lint and production build.
 
 **Files.** `apps/docs/app/docs/guides/`, `apps/docs/lib/nav.ts`,
 `apps/docs/lib/search-index.ts`.

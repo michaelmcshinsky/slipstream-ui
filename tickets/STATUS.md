@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (24)
+## Completed (25)
 
 | ID | Deliverable |
 |---|---|
@@ -32,6 +32,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-070 | Marketing blocks II: LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar |
 | SLIP-062 | P1 component labels (Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell) |
 | SLIP-063 | AI timestamp `formatTime`/`locale` props + starter wiring |
+| SLIP-095 | React Hook Form compatibility guide + Select callback docs |
 
 ## Blocked / not completed (11)
 
@@ -97,6 +98,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
 | SLIP-067 | Pending | Transactional emails |
 | SLIP-068 | **Partial** | Playground provider + switcher + `en-XA` pseudo-locale toggle; CI axe/visual checks pending |
+| SLIP-095 | **Done** | React Hook Form guide + Select native/value callback docs |
 ## Integration hardening (2026-11-07)
 
 | ID | Status | Note |

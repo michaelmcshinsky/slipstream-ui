@@ -25,7 +25,8 @@ export default function SelectPage() {
         { name: 'label', type: 'string', defaultValue: '—', description: 'Visible, associated label' },
         { name: 'value', type: 'string', defaultValue: '—', description: 'Controlled selected value' },
         { name: 'defaultValue', type: 'string', defaultValue: '—', description: 'Uncontrolled initial value' },
-        { name: 'onChange', type: '(value: string) => void', defaultValue: '—', description: 'Selection change handler' },
+        { name: 'onChange', type: 'React.ChangeEventHandler<HTMLSelectElement>', defaultValue: '-', description: 'Native change event; compatible with react-hook-form register()' },
+        { name: 'onValueChange', type: '(value: string | string[]) => void', defaultValue: '-', description: 'Value-based callback for controlled usage' },
       ]}
       accessibility={[
         'Built on the native select: full keyboard, screen-reader and mobile support',

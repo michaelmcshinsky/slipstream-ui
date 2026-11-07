@@ -55,6 +55,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs/guides/agent-integration', label: 'Agent integration' },
       { href: '/docs/guides/ide-setup', label: 'IDE setup (Claude/Cursor)' },
       { href: '/docs/guides/testing', label: 'Testing' },
+      { href: '/docs/guides/react-hook-form', label: 'React Hook Form' },
       { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn' },
     ],
   },
