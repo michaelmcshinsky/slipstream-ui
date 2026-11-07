@@ -102,12 +102,64 @@ export function loadRegistryEntries(): RegistryEntry[] {
   return entries;
 }
 
-let cache: RegistryManifest[] | undefined;
+type RegistryCache = {
+  signature: string;
+  manifests: RegistryManifest[];
+};
 
-/** All manifests across component packages (cached per process). */
+let cache: RegistryCache | undefined;
+
+/**
+ * Fingerprint of the manifest files currently in use. A directory mtime does
+ * not change when a file is edited, so each file's mtime and size are hashed.
+ */
+function manifestSignature(): string {
+  const parts: string[] = [];
+
+  for (const packageName of PACKAGE_NAMES) {
+    const packageDir = resolvePackageDir(packageName) ?? monorepoPackageDir(packageName);
+    if (!packageDir) continue;
+
+    const sourceDir = path.join(packageDir, 'src', 'manifests');
+    const distDir = path.join(packageDir, 'dist', 'manifests');
+    const hasSource =
+      fs.existsSync(sourceDir) && fs.readdirSync(sourceDir).some((file) => file.endsWith('.json'));
+    const dir = hasSource ? sourceDir : distDir;
+
+    let files: string[];
+    try {
+      files = fs.readdirSync(dir).filter((file) => file.endsWith('.json')).sort();
+    } catch {
+      continue;
+    }
+
+    for (const file of files) {
+      try {
+        const stat = fs.statSync(path.join(dir, file));
+        parts.push(`${packageName}/${file}:${stat.mtimeMs}:${stat.size}`);
+      } catch {
+        // File vanished mid-scan; the next call sees the settled state.
+      }
+    }
+  }
+
+  return parts.join('|');
+}
+
+/**
+ * All manifests across component packages. Cached until a manifest file
+ * changes on disk, so a running MCP server or watch process sees edits
+ * without a restart.
+ */
 export function loadRegistry(): RegistryManifest[] {
-  if (!cache) cache = loadRegistryEntries().map((entry) => entry.manifest);
-  return cache;
+  const signature = manifestSignature();
+  if (!cache || cache.signature !== signature) {
+    cache = {
+      signature,
+      manifests: loadRegistryEntries().map((entry) => entry.manifest),
+    };
+  }
+  return cache.manifests;
 }
 
 export function getManifest(componentId: string) {

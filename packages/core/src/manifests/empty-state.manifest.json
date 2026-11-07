@@ -33,10 +33,23 @@
       "description": "Primary action (Button or link)."
     },
     {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Alias for `action` for codebases that pass a list of actions."
+    },
+    {
       "name": "secondaryAction",
       "type": "ReactNode",
       "required": false,
       "description": "Secondary action beside the primary one."
+    },
+    {
+      "name": "titleAs",
+      "type": "'p' | 'h2' | 'h3' | 'h4'",
+      "required": false,
+      "defaultValue": "p",
+      "description": "Heading level for the title. Defaults to a paragraph."
     },
     {
       "name": "size",

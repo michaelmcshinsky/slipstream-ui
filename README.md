@@ -9,7 +9,7 @@ The AI-first React component library — your AI already knows how to use it.
 [![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
 
 <!-- generated:stats:start -->
-**82 components** · 82 machine-readable specs · MCP `validate_usage` · MIT
+**91 components** · 91 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
 [Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
@@ -20,7 +20,7 @@ Slipstream UI is a React component library built for AI-assisted development. Ev
 
 - **AI reads the spec, not the source** — manifests over MCP, canonical markdown routes, and a `validate_usage` tool that rejects hallucinated props before they ship
 - **Stateless by design** — bring any backend (Vercel AI SDK, LangGraph, raw streams); components render, you own state and transport
-- **Complete surface** — 63 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
+- **Complete surface** - 65 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
 - **Accessible** — jest-axe suites on every component, keyboard and screen-reader behavior, reduced-motion variants
 - **Themeable to the token** — one `createTheme()` call emits every CSS variable; dark mode and presets switch instantly
 - **shadcn-compatible registry** — install real source files with `npx shadcn add`, or use the packages; your codebase, your rules
@@ -29,7 +29,7 @@ Slipstream UI is a React component library built for AI-assisted development. Ev
 
 ```bash
 # 1. Initialize (detects Next.js/Vite + Tailwind, writes config and theme variables)
-npx slipstream-ui@latest init
+npx @slipstream-ui/cli@latest init
 
 # 2. Or install the packages directly
 pnpm add @slipstream-ui/core @slipstream-ui/ai
@@ -38,7 +38,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 npx shadcn@latest add https://slipstreamui.com/registry/message.json
 ```
 
-Requirements: Node.js **>= 20.9**, Tailwind CSS **3.4**, React 18 or 19.
+Requirements: Node.js **>= 20.9**, React 18 or 19, and Tailwind CSS **3.4+ or 4.x** (or the prebuilt stylesheets, with no Tailwind at all).
 
 ## Architecture
 
@@ -46,7 +46,7 @@ pnpm workspace + Turborepo monorepo:
 
 | Path | Published as | Role |
 |---|---|---|
-| `packages/core` | `@slipstream-ui/core` | 63 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
+| `packages/core` | `@slipstream-ui/core` | 65 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
 | `packages/ai` | `@slipstream-ui/ai` | 17 AI components: chat, streaming markdown, tool calls, reasoning, approvals |
 | `packages/themes` | `@slipstream-ui/themes` | `createTheme()` + default/dark/violet/zinc presets and the CSS-variable contract |
 | `packages/cli` | `@slipstream-ui/cli` | `init` / `add` / `list` / `diff` |

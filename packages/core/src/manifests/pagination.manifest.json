@@ -62,6 +62,26 @@
       "description": "Called with the new page number."
     },
     {
+      "name": "pageHrefs",
+      "type": "Record<number, string>",
+      "required": false,
+      "description": "Page-number to href map. When provided, controls render as links instead of buttons for server-rendered pagination; the map is serializable so it can cross a React Server Component boundary."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers (Next Link, react-router Link) when pageHrefs is used."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "enum": ["href", "to"],
+      "description": "Prop used to pass the destination to linkComponent."
+    },
+    {
       "name": "siblings",
       "type": "number",
       "required": false,

@@ -7,24 +7,28 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link'",
+      "type": "'default' | 'primary' | 'destructive' | 'danger' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link' | 'contrast' | 'onDark'",
       "defaultValue": "default",
       "required": false,
       "description": "Visual style variant of the button",
       "enum": [
         "default",
+        "primary",
         "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
+        "danger",
         "success",
         "warning",
         "info",
+        "outline",
         "outline-destructive",
         "outline-success",
         "outline-warning",
-        "outline-info"
+        "outline-info",
+        "secondary",
+        "ghost",
+        "link",
+        "contrast",
+        "onDark"
       ],
       "examples": [
         "default",

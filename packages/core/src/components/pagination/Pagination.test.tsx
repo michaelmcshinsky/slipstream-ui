@@ -121,3 +121,33 @@ describe('localized labels', () => {
     expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
   });
 });
+
+describe('link mode', () => {
+  it('renders page links when pageHrefs is provided', () => {
+    render(
+      <Pagination
+        page={2}
+        pageCount={4}
+        pageHrefs={{ 1: '?page=1', 2: '?page=2', 3: '?page=3', 4: '?page=4' }}
+      />
+    );
+    expect(screen.getByLabelText('Page 2')).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Page 3' })).toHaveAttribute('href', '?page=3');
+    expect(screen.getByRole('link', { name: 'Next page' })).toHaveAttribute('href', '?page=3');
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('renders disabled boundary controls as non-links at the ends', () => {
+    render(
+      <Pagination
+        page={1}
+        pageCount={2}
+        pageHrefs={{ 1: '?p=1', 2: '?p=2' }}
+        showBoundaries
+      />
+    );
+    expect(screen.getByLabelText('Previous page')).toHaveAttribute('aria-disabled', 'true');
+    expect(screen.getByLabelText('First page')).toHaveAttribute('aria-disabled', 'true');
+    expect(screen.getByRole('link', { name: 'Next page' })).toHaveAttribute('href', '?p=2');
+  });
+});

@@ -11,7 +11,7 @@ describe('Badge', () => {
     expect(badge).toHaveClass('rounded-full');
   });
 
-  it.each(['secondary', 'destructive', 'outline'] as const)(
+  it.each(['secondary', 'destructive', 'outline', 'neutral', 'accent'] as const)(
     'applies the %s variant without the primary background',
     (variant) => {
       render(<Badge variant={variant}>{variant}</Badge>);
@@ -27,7 +27,7 @@ describe('Badge', () => {
 
 describe('Badge variants and sizing escape hatches', () => {
   it('renders each variant with its surface classes', () => {
-    const variants = ['default', 'secondary', 'destructive', 'outline'] as const;
+    const variants = ['default', 'secondary', 'destructive', 'outline', 'neutral', 'accent'] as const;
     const { container } = render(
       <>
         {variants.map((variant) => (
@@ -41,7 +41,10 @@ describe('Badge variants and sizing escape hatches', () => {
     expect(screen.getByText('secondary')).toHaveClass('bg-secondary');
     expect(screen.getByText('destructive')).toHaveClass('bg-destructive');
     expect(screen.getByText('outline')).toHaveClass('text-foreground');
-    expect(container.querySelectorAll('div').length).toBe(variants.length);
+    expect(screen.getByText('neutral')).toHaveClass('bg-muted');
+    expect(screen.getByText('accent')).toHaveClass('bg-accent');
+    expect(container.querySelectorAll('span').length).toBe(variants.length);
+    expect(container.querySelectorAll('div').length).toBe(0);
   });
 
   it('defaults to the primary surface when no variant is given', () => {
@@ -83,6 +86,8 @@ describe('Badge semantic and alias variants', () => {
         <Badge variant="info">info</Badge>
         <Badge variant="primary">primary</Badge>
         <Badge variant="danger">danger</Badge>
+        <Badge variant="neutral">neutral</Badge>
+        <Badge variant="accent">accent</Badge>
       </>
     );
     expect(screen.getByText('ok')).toHaveClass('bg-success');
@@ -90,6 +95,9 @@ describe('Badge semantic and alias variants', () => {
     expect(screen.getByText('info')).toHaveClass('bg-info');
     expect(screen.getByText('primary')).toHaveClass('bg-primary');
     expect(screen.getByText('danger')).toHaveClass('bg-destructive');
-    expect(container.querySelectorAll('div')).toHaveLength(5);
+    expect(screen.getByText('neutral')).toHaveClass('bg-muted');
+    expect(screen.getByText('accent')).toHaveClass('bg-accent');
+    expect(container.querySelectorAll('span')).toHaveLength(7);
   });
 });
+
