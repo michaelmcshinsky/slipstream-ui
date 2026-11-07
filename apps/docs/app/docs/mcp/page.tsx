@@ -74,6 +74,27 @@ export default function MCPPage() {
           Configure in your Windsurf settings file.
         </p>
 
+        <h3 className="text-xl font-semibold mt-6 mb-3">OpenCode and other stdio clients</h3>
+        <p className="text-muted-foreground mb-4">
+          Any client that speaks MCP over stdio can launch the published binary with
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono"> npx -y @slipstream-ui/mcp-server</code>.
+          OpenCode reads the server from <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">opencode.json</code>:
+        </p>
+        <CodeBlock language="text" code={`// opencode.json
+{
+  "mcp": {
+    "slipstream-ui": {
+      "type": "local",
+      "command": ["npx", "-y", "@slipstream-ui/mcp-server"],
+      "enabled": true
+    }
+  }
+}`} />
+        <p className="text-muted-foreground mb-4">
+          With the package installed in the project, point at the local binary instead to skip the
+          download: <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">node node_modules/@slipstream-ui/mcp-server/dist/index.js</code>.
+        </p>
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Available Tools</h2>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">list_components</h3>

@@ -65,14 +65,32 @@ export default function InstallationPage() {
 
         <h3 className="text-xl font-semibold mt-6 mb-3">2. Configure Tailwind CSS</h3>
         <p className="text-muted-foreground mb-4">
-          Extend your Tailwind config with the Slipstream UI theme:
+          Extend your Tailwind config with the Slipstream UI theme. Tailwind CSS 3
+          users can use the published preset, which carries every token mapping and
+          the animate plugin:
+        </p>
+        <CodeBlock language="js" code={`// tailwind.config.js
+module.exports = {
+  presets: [require('@slipstream-ui/themes/tailwind-preset')],
+  content: [
+    './src/**/*.{ts,tsx}',
+    './node_modules/@slipstream-ui/**/*.{js,ts,tsx}',
+  ],
+}`} />
+        <p className="text-muted-foreground mb-4">
+          If you already maintain your own token map, the longhand equivalent is below.
         </p>
         <CodeBlock language="bash" code={`// tailwind.config.js
+const path = require('node:path')
+// Resolve the real package directory: pnpm symlinks make a literal
+// ./node_modules/@slipstream-ui glob unreliable.
+const slipstreamDist = path.dirname(require.resolve('@slipstream-ui/core'))
+
 module.exports = {
   darkMode: ['class'],
   content: [
     './src/**/*.{ts,tsx}',
-    './node_modules/@slipstream-ui/**/*.{js,ts,tsx}',
+    \`\${slipstreamDist}/**/*.{js,mjs}\`,
   ],
   theme: {
     extend: {
@@ -93,6 +111,20 @@ module.exports = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+          ink: 'hsl(var(--warning-ink))',
+        },
+        info: {
+          DEFAULT: 'hsl(var(--info))',
+          foreground: 'hsl(var(--info-foreground))',
+          ink: 'hsl(var(--info-ink))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
