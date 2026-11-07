@@ -23,6 +23,9 @@ AI-assisted and power-user apps expose many actions; a command palette keeps the
 | debounceMs | `number` | `200` | no | Debounce for loadCommands in ms. |
 | renderCommand | `(command, state: { active: boolean }) => ReactNode` | — | no | Custom row renderer (icons, type badges). |
 | loadingText | `string` | — | no | Shown while async commands load. |
+| dialogLabel | `string` | `Command palette` | no | Accessible label for the combobox. |
+| listLabel | `string` | `Commands` | no | Accessible label for the command listbox. |
+| emptyText | `string` | `No matching commands.` | no | Shown when no command matches the query. |
 
 ## Examples
 

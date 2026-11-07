@@ -1,0 +1,108 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "process-steps",
+  "name": "process-steps",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "process-steps",
+  "exportName": "ProcessSteps",
+  "description": "Ordered process cards with derived step numbers or custom icons.",
+  "designIntent": "Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordered list so the sequence is structural, derives the numbers from order and supports icons without turning the section into arbitrary divs.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "ProcessStep[]",
+      "required": true,
+      "description": "Ordered steps: title, optional description and icon."
+    },
+    {
+      "name": "columns",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Desktop column count."
+    },
+    {
+      "name": "numbered",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show step numbers when no icon is provided."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "enum": [
+        "left",
+        "center"
+      ],
+      "description": "Content alignment."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Advisor process",
+      "code": "<ProcessSteps\n  steps={[\n    { title: 'Meet your consultant', description: 'Share your goals.' },\n    { title: 'Review advisors', description: 'Compare recommendations.' },\n    { title: 'Interview and hire', description: 'Choose with confidence.' },\n  ]}\n/>",
+      "description": "Three numbered process steps."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hardcode step numbers",
+      "explanation": "Numbers come from the list order. Hardcoded numbers drift when steps are inserted or reordered.",
+      "example": "// Avoid\nsteps={[{ title: '01. Meet' }]}"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Ordered sequence",
+      "implementation": "Renders ol/li so the order is announced",
+      "userRequirements": "Keep steps in the intended order"
+    },
+    {
+      "feature": "Icon or number",
+      "implementation": "The marker is visual; the list order carries the sequence",
+      "userRequirements": "Provide a title for every step"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place ProcessSteps inside a Section band",
+      "example": "<Section><ProcessSteps steps={steps} /></Section>"
+    }
+  ],
+  "relatedComponents": [
+    "Stepper",
+    "Timeline",
+    "FeatureGrid"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/process-steps/ProcessSteps.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ProcessStep = {\n  title: string;\n  description?: string;\n  icon?: React.ReactNode;\n};\n\nexport type ProcessStepsProps = React.HTMLAttributes<HTMLOListElement> & {\n  /** Ordered steps. */\n  steps: ProcessStep[];\n  /** Desktop column count (2-4). Default 3. */\n  columns?: 2 | 3 | 4;\n  /** Show step numbers when no icon is provided. Default true. */\n  numbered?: boolean;\n  /** Content alignment. Default 'left'. */\n  align?: 'left' | 'center';\n};\n\nconst columnClasses: Record<NonNullable<ProcessStepsProps['columns']>, string> = {\n  2: 'sm:grid-cols-2',\n  3: 'sm:grid-cols-2 lg:grid-cols-3',\n  4: 'sm:grid-cols-2 lg:grid-cols-4',\n};\n\n/**\n * Ordered process or onboarding steps. Numbers are derived from the list\n * order and announced as an ordered list, so the sequence survives without\n * relying on decorative connectors.\n */\nexport const ProcessSteps = React.forwardRef<HTMLOListElement, ProcessStepsProps>(function ProcessSteps(\n  { steps, columns = 3, numbered = true, align = 'left', className, ...props },\n  ref\n) {\n  return (\n    <ol ref={ref} className={cn('grid gap-8', columnClasses[columns], className)} {...props}>\n      {steps.map((step, index) => (\n        <li\n          key={step.title}\n          className={cn('flex min-w-0 flex-col gap-4', align === 'center' && 'items-center text-center')}\n        >\n          <span className=\"flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary [&_svg]:size-5\">\n            {step.icon ?? (numbered ? String(index + 1).padStart(2, '0') : null)}\n          </span>\n          <div className=\"min-w-0\">\n            <h3 className=\"text-base font-semibold tracking-tight\">{step.title}</h3>\n            {step.description && (\n              <p className=\"mt-1 text-sm leading-relaxed text-muted-foreground\">{step.description}</p>\n            )}\n          </div>\n        </li>\n      ))}\n    </ol>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/process-steps/index.ts",
+      "content": "export { ProcessSteps } from './ProcessSteps';\nexport type { ProcessStep, ProcessStepsProps } from './ProcessSteps';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/process-steps.manifest.json",
+      "content": "{\n  \"id\": \"process-steps\",\n  \"name\": \"ProcessSteps\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"process-steps\",\n  \"exportName\": \"ProcessSteps\",\n  \"description\": \"Ordered process cards with derived step numbers or custom icons.\",\n  \"designIntent\": \"Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordered list so the sequence is structural, derives the numbers from order and supports icons without turning the section into arbitrary divs.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"ProcessStep[]\",\n      \"required\": true,\n      \"description\": \"Ordered steps: title, optional description and icon.\"\n    },\n    {\n      \"name\": \"columns\",\n      \"type\": \"2 | 3 | 4\",\n      \"required\": false,\n      \"defaultValue\": \"3\",\n      \"description\": \"Desktop column count.\"\n    },\n    {\n      \"name\": \"numbered\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Show step numbers when no icon is provided.\"\n    },\n    {\n      \"name\": \"align\",\n      \"type\": \"'left' | 'center'\",\n      \"required\": false,\n      \"defaultValue\": \"left\",\n      \"enum\": [\n        \"left\",\n        \"center\"\n      ],\n      \"description\": \"Content alignment.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Advisor process\",\n      \"code\": \"<ProcessSteps\\n  steps={[\\n    { title: 'Meet your consultant', description: 'Share your goals.' },\\n    { title: 'Review advisors', description: 'Compare recommendations.' },\\n    { title: 'Interview and hire', description: 'Choose with confidence.' },\\n  ]}\\n/>\",\n      \"description\": \"Three numbered process steps.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't hardcode step numbers\",\n      \"explanation\": \"Numbers come from the list order. Hardcoded numbers drift when steps are inserted or reordered.\",\n      \"example\": \"// Avoid\\nsteps={[{ title: '01. Meet' }]}\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Ordered sequence\",\n      \"implementation\": \"Renders ol/li so the order is announced\",\n      \"userRequirements\": \"Keep steps in the intended order\"\n    },\n    {\n      \"feature\": \"Icon or number\",\n      \"implementation\": \"The marker is visual; the list order carries the sequence\",\n      \"userRequirements\": \"Provide a title for every step\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section\",\n      \"relationship\": \"Place ProcessSteps inside a Section band\",\n      \"example\": \"<Section><ProcessSteps steps={steps} /></Section>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Stepper\",\n    \"Timeline\",\n    \"FeatureGrid\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

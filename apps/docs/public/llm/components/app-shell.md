@@ -31,6 +31,8 @@ Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mob
 | onCollapsedChange | `(collapsed: boolean) => void` | — | no | Fires when the rail collapses/expands (Sidebar). |
 | defaultExpanded | `string[]` | — | no | SidebarItem hrefs of groups open initially (Sidebar). |
 | mobileBreakpoint | `'sm' | 'md' | 'lg'` | `md` | no | Breakpoint where the rail becomes a drawer (AppShell). |
+| openNavigationLabel | `string` | `Open navigation` | no | Accessible label for the mobile menu button. |
+| navigationTitle | `string` | `Navigation` | no | Title of the mobile navigation drawer. |
 
 ## Examples
 

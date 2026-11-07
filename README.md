@@ -9,7 +9,7 @@ The AI-first React component library — your AI already knows how to use it.
 [![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
 
 <!-- generated:stats:start -->
-**91 components** · 91 machine-readable specs · MCP `validate_usage` · MIT
+**100 components** · 100 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
 [Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
@@ -20,7 +20,7 @@ Slipstream UI is a React component library built for AI-assisted development. Ev
 
 - **AI reads the spec, not the source** — manifests over MCP, canonical markdown routes, and a `validate_usage` tool that rejects hallucinated props before they ship
 - **Stateless by design** — bring any backend (Vercel AI SDK, LangGraph, raw streams); components render, you own state and transport
-- **Complete surface** - 74 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
+- **Complete surface** - 83 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
 - **Accessible** — jest-axe suites on every component, keyboard and screen-reader behavior, reduced-motion variants
 - **Themeable to the token** — one `createTheme()` call emits every CSS variable; dark mode and presets switch instantly
 - **shadcn-compatible registry** — install real source files with `npx shadcn add`, or use the packages; your codebase, your rules
@@ -46,7 +46,7 @@ pnpm workspace + Turborepo monorepo:
 
 | Path | Published as | Role |
 |---|---|---|
-| `packages/core` | `@slipstream-ui/core` | 74 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
+| `packages/core` | `@slipstream-ui/core` | 83 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
 | `packages/ai` | `@slipstream-ui/ai` | 17 AI components: chat, streaming markdown, tool calls, reasoning, approvals |
 | `packages/themes` | `@slipstream-ui/themes` | `createTheme()` + default/dark/violet/zinc presets and the CSS-variable contract |
 | `packages/cli` | `@slipstream-ui/cli` | `init` / `add` / `list` / `diff` |
@@ -71,7 +71,7 @@ Every component flows through the same path, and CI enforces it:
 
 ## Component inventory
 
-**Core (74):** Accordion, Alert, AppShell, AuthLayout, Autocomplete, Avatar, Badge, Block, Breadcrumb, Button, ButtonGroup, Card, Checkbox, ComparisonTable, ConfirmDialog, Container, CTASection, DataTable, DatePicker, Dialog, Drawer, EmptyState, Fieldset, FileUpload, FilterBar, FilterChips, Flex, Form, FormField, FormLayout, Grid, Heading, Hero, Input, InputGroup, Label, Link, List, Menu, MetricCard, PageHeader, Pagination, PasswordInput, Popover, Progress, Prose, Radio/RadioGroup/RadioCard, RangeSlider, Search, Section, SectionHeading, SegmentedControl, Select, SelectMenu, Separator, SiteFooter, SiteHeader, Skeleton, Spinner, StatBand, Stepper, Switch, Table, TableCard, Tabs, TableOfContents, Text, Textarea, TimePicker, Timeline, Toast/Toaster, Tooltip.
+**Core (83):** Accordion, Alert, AnnouncementBar, AppShell, ArticleCard, AuthLayout, Autocomplete, Avatar, Badge, Block, Breadcrumb, Button, ButtonGroup, Card, Checkbox, ComparisonTable, ConfirmDialog, ContactStrip, Container, CTASection, DataTable, DatePicker, Dialog, Drawer, EmptyState, FeatureGrid, FeatureRow, Fieldset, FileUpload, FilterBar, FilterChips, Flex, Form, FormField, FormLayout, Grid, Heading, Hero, Input, InputGroup, Label, Link, List, LogoCloud, Menu, MetricCard, Newsletter, PageHeader, Pagination, PasswordInput, Popover, ProcessSteps, Progress, Prose, Radio/RadioGroup/RadioCard, RangeSlider, Search, Section, SectionHeading, SegmentedControl, Select, SelectMenu, Separator, SiteFooter, SiteHeader, Skeleton, Spinner, StatBand, Stepper, Switch, Table, TableCard, Tabs, TableOfContents, Testimonial, Text, Textarea, TimePicker, Timeline, Toast/Toaster, Tooltip.
 
 **AI (17):** Attachment, Branch, ChainThought, CodeBlock, CommandPalette, Confirmation, Conversation, InlineCitation, Message, MessageActions, PromptInput, Reasoning, Response, Sources, Streaming, Suggestions, ToolCall.
 

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "logo-cloud",
+  "name": "logo-cloud",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "logo-cloud",
+  "exportName": "LogoCloud",
+  "description": "Trust strip for member, customer or partner logos with captions, columns and optional links.",
+  "designIntent": "Proof logos are repeated on every marketing page with inconsistent sizing, spacing and alt text. LogoCloud makes the strip a named list, keeps the logos decorative and supplies the accessible name once.",
+  "props": [
+    {
+      "name": "items",
+      "type": "LogoItem[]",
+      "required": true,
+      "description": "Logos to display: accessible name, decorative artwork and optional href."
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "description": "Caption above the strip."
+    },
+    {
+      "name": "columns",
+      "type": "3 | 4 | 5 | 6",
+      "required": false,
+      "defaultValue": "4",
+      "description": "Desktop column count."
+    },
+    {
+      "name": "grayscale",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Desaturate logos until hover."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Logo box height."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "center",
+      "enum": [
+        "left",
+        "center"
+      ],
+      "description": "Caption and grid alignment."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Member logo strip",
+      "code": "<LogoCloud\n  caption=\"Trusted across the lower middle market\"\n  items={[\n    { name: 'Peakstone', logo: <img src=\"/peakstone.svg\" alt=\"\" /> },\n    { name: 'North', logo: <img src=\"/north.svg\" alt=\"\" />, href: '/members/north' },\n  ]}\n/>",
+      "description": "Decorative logo art with the name supplied as accessible text."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't duplicate the name in alt text",
+      "explanation": "LogoCloud already renders the item name for assistive tech. Mark the image decorative so screen readers announce it once.",
+      "example": "<img src=\"/logo.svg\" alt=\"\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named logo list",
+      "implementation": "Each item is a list item with an sr-only name; logo artwork is aria-hidden",
+      "userRequirements": "Pass a human-readable name for every logo"
+    },
+    {
+      "feature": "Optional links",
+      "implementation": "Linked logos render as a single focusable link named by the item",
+      "userRequirements": "Use links only when the logo destination is useful"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place LogoCloud inside a Section so the band controls tone and spacing",
+      "example": "<Section tone=\"muted\"><LogoCloud items={logos} /></Section>"
+    }
+  ],
+  "relatedComponents": [
+    "Section",
+    "Testimonial",
+    "StatBand"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/logo-cloud/LogoCloud.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type LogoItem = {\n  /** Accessible name announced for the logo. */\n  name: string;\n  /** Logo artwork. Mark the image decorative so the name is not duplicated. */\n  logo: React.ReactNode;\n  /** Optional destination. */\n  href?: string;\n};\n\nexport type LogoCloudProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Logos to display. */\n  items: LogoItem[];\n  /** Caption above the strip. */\n  caption?: string;\n  /** Desktop column count (3-6). Default 4. */\n  columns?: 3 | 4 | 5 | 6;\n  /** Desaturate logos until hover. Default true. */\n  grayscale?: boolean;\n  /** Logo box height. Default 'md'. */\n  size?: 'sm' | 'md' | 'lg';\n  /** Caption and grid alignment. Default 'center'. */\n  align?: 'left' | 'center';\n  /** Custom link element for routers. */\n  linkComponent?: React.ElementType;\n};\n\nconst columnClasses: Record<NonNullable<LogoCloudProps['columns']>, string> = {\n  3: 'grid-cols-2 sm:grid-cols-3',\n  4: 'grid-cols-2 sm:grid-cols-4',\n  5: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5',\n  6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',\n};\n\nconst sizeClasses: Record<NonNullable<LogoCloudProps['size']>, string> = {\n  sm: 'h-6',\n  md: 'h-8',\n  lg: 'h-12',\n};\n\n/**\n * Trust strip for member, customer or partner logos. Logos are decorative\n * slots; the item name supplies the accessible text. Use it inside a Section\n * so the surface tone and spacing come from the band.\n */\nexport const LogoCloud = React.forwardRef<HTMLDivElement, LogoCloudProps>(function LogoCloud(\n  {\n    items,\n    caption,\n    columns = 4,\n    grayscale = true,\n    size = 'md',\n    align = 'center',\n    linkComponent,\n    className,\n    ...props\n  },\n  ref\n) {\n  const Link = linkComponent ?? 'a';\n  const logoClass = cn(\n    'flex items-center transition duration-200 motion-reduce:transition-none',\n    sizeClasses[size],\n    grayscale && 'opacity-70 grayscale hover:opacity-100 hover:grayscale-0'\n  );\n\n  return (\n    <div ref={ref} className={cn('w-full', className)} {...props}>\n      {caption && (\n        <p\n          className={cn(\n            'mb-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground',\n            align === 'center' && 'text-center'\n          )}\n        >\n          {caption}\n        </p>\n      )}\n      <ul className={cn('grid items-center gap-x-8 gap-y-6', columnClasses[columns], align === 'center' && 'justify-items-center')}>\n        {items.map((item) => {\n          const content = (\n            <>\n              <span className={logoClass} aria-hidden=\"true\">\n                {item.logo}\n              </span>\n              <span className=\"sr-only\">{item.name}</span>\n            </>\n          );\n\n          return (\n            <li key={item.name} className={cn('min-w-0', align === 'center' ? 'justify-self-center' : 'justify-self-start')}>\n              {item.href ? (\n                <Link\n                  href={item.href}\n                  className=\"rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background\"\n                >\n                  {content}\n                </Link>\n              ) : (\n                content\n              )}\n            </li>\n          );\n        })}\n      </ul>\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/logo-cloud/index.ts",
+      "content": "export { LogoCloud } from './LogoCloud';\nexport type { LogoCloudProps, LogoItem } from './LogoCloud';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/logo-cloud.manifest.json",
+      "content": "{\n  \"id\": \"logo-cloud\",\n  \"name\": \"LogoCloud\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"logo-cloud\",\n  \"exportName\": \"LogoCloud\",\n  \"description\": \"Trust strip for member, customer or partner logos with captions, columns and optional links.\",\n  \"designIntent\": \"Proof logos are repeated on every marketing page with inconsistent sizing, spacing and alt text. LogoCloud makes the strip a named list, keeps the logos decorative and supplies the accessible name once.\",\n  \"props\": [\n    {\n      \"name\": \"items\",\n      \"type\": \"LogoItem[]\",\n      \"required\": true,\n      \"description\": \"Logos to display: accessible name, decorative artwork and optional href.\"\n    },\n    {\n      \"name\": \"caption\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Caption above the strip.\"\n    },\n    {\n      \"name\": \"columns\",\n      \"type\": \"3 | 4 | 5 | 6\",\n      \"required\": false,\n      \"defaultValue\": \"4\",\n      \"description\": \"Desktop column count.\"\n    },\n    {\n      \"name\": \"grayscale\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Desaturate logos until hover.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md' | 'lg'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"enum\": [\n        \"sm\",\n        \"md\",\n        \"lg\"\n      ],\n      \"description\": \"Logo box height.\"\n    },\n    {\n      \"name\": \"align\",\n      \"type\": \"'left' | 'center'\",\n      \"required\": false,\n      \"defaultValue\": \"center\",\n      \"enum\": [\n        \"left\",\n        \"center\"\n      ],\n      \"description\": \"Caption and grid alignment.\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Custom link element for routers.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Member logo strip\",\n      \"code\": \"<LogoCloud\\n  caption=\\\"Trusted across the lower middle market\\\"\\n  items={[\\n    { name: 'Peakstone', logo: <img src=\\\"/peakstone.svg\\\" alt=\\\"\\\" /> },\\n    { name: 'North', logo: <img src=\\\"/north.svg\\\" alt=\\\"\\\" />, href: '/members/north' },\\n  ]}\\n/>\",\n      \"description\": \"Decorative logo art with the name supplied as accessible text.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't duplicate the name in alt text\",\n      \"explanation\": \"LogoCloud already renders the item name for assistive tech. Mark the image decorative so screen readers announce it once.\",\n      \"example\": \"<img src=\\\"/logo.svg\\\" alt=\\\"\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Named logo list\",\n      \"implementation\": \"Each item is a list item with an sr-only name; logo artwork is aria-hidden\",\n      \"userRequirements\": \"Pass a human-readable name for every logo\"\n    },\n    {\n      \"feature\": \"Optional links\",\n      \"implementation\": \"Linked logos render as a single focusable link named by the item\",\n      \"userRequirements\": \"Use links only when the logo destination is useful\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section\",\n      \"relationship\": \"Place LogoCloud inside a Section so the band controls tone and spacing\",\n      \"example\": \"<Section tone=\\\"muted\\\"><LogoCloud items={logos} /></Section>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Section\",\n    \"Testimonial\",\n    \"StatBand\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

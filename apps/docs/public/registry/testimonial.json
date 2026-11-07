@@ -1,0 +1,137 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "testimonial",
+  "name": "testimonial",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "testimonial",
+  "exportName": "Testimonial",
+  "description": "Semantic written testimonial with quote, person, role, company, avatar and logo slots.",
+  "designIntent": "Review and landing pages repeat the same quote hierarchy. Testimonial uses figure, blockquote and figcaption so the attribution is real structure instead of three styled paragraphs.",
+  "props": [
+    {
+      "name": "quote",
+      "type": "string",
+      "required": true,
+      "description": "Testimonial copy without quotation marks."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Person or company name."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": false,
+      "description": "Role or title."
+    },
+    {
+      "name": "company",
+      "type": "string",
+      "required": false,
+      "description": "Company name."
+    },
+    {
+      "name": "avatar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Avatar slot, usually Avatar."
+    },
+    {
+      "name": "logo",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Brand or logo slot shown in the card header."
+    },
+    {
+      "name": "variant",
+      "type": "'card' | 'plain'",
+      "required": false,
+      "defaultValue": "card",
+      "enum": [
+        "card",
+        "plain"
+      ],
+      "description": "Card surface or plain quote."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Quote scale."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Written testimonial",
+      "code": "<Testimonial\n  quote=\"The right advisor changed the outcome.\"\n  name=\"Bob Falahee\"\n  role=\"CEO\"\n  company=\"Blind & Shade\"\n  avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}\n/>",
+      "description": "A card testimonial with attribution."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't add quotation marks in the quote prop",
+      "explanation": "The component renders the quotation marks. Duplicating them produces doubled punctuation.",
+      "example": "// Avoid\nquote=\"\\\"Quote\\\"\""
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Quote semantics",
+      "implementation": "Renders figure, blockquote and figcaption",
+      "userRequirements": "Keep the person name in the figcaption"
+    },
+    {
+      "feature": "Avatar alternative",
+      "implementation": "Avatar is a slot",
+      "userRequirements": "Use an avatar with a fallback and avoid a redundant alt text"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place several testimonials in a Grid for a quote wall",
+      "example": "<Grid mdCols={3} gap=\"lg\"><Testimonial ... /></Grid>"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Avatar",
+    "Quote",
+    "Grid"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/testimonial/Testimonial.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type TestimonialProps = React.HTMLAttributes<HTMLElement> & {\n  /** The testimonial copy, without quotation marks. */\n  quote: string;\n  /** Person or company name. */\n  name: string;\n  /** Role or title. */\n  role?: string;\n  /** Company name. */\n  company?: string;\n  /** Avatar slot (usually Avatar). */\n  avatar?: React.ReactNode;\n  /** Brand or logo slot shown in the card header. */\n  logo?: React.ReactNode;\n  /** Card surface or plain quote. Default 'card'. */\n  variant?: 'card' | 'plain';\n  /** Quote scale. Default 'md'. */\n  size?: 'sm' | 'md' | 'lg';\n};\n\nconst quoteSizes = {\n  sm: 'text-base',\n  md: 'text-lg',\n  lg: 'text-xl sm:text-2xl',\n} as const;\n\n/**\n * Semantic testimonial: figure + blockquote + figcaption. Use it for written\n * proof on landing and review pages, not for app feedback prompts.\n */\nexport const Testimonial = React.forwardRef<HTMLElement, TestimonialProps>(function Testimonial(\n  { quote, name, role, company, avatar, logo, variant = 'card', size = 'md', className, ...props },\n  ref\n) {\n  return (\n    <figure\n      ref={ref as never}\n      className={cn(\n        'flex h-full flex-col gap-5',\n        variant === 'card' && 'rounded-xl border border-border bg-card p-6 shadow-sm',\n        className\n      )}\n      {...props}\n    >\n      {logo && <div className=\"flex items-center\">{logo}</div>}\n      <blockquote className={cn('flex-1 leading-relaxed', quoteSizes[size])}>\n        <p>“{quote}”</p>\n      </blockquote>\n      <figcaption className=\"flex items-center gap-3\">\n        {avatar && <div className=\"shrink-0\">{avatar}</div>}\n        <div className=\"min-w-0\">\n          <p className=\"text-sm font-semibold\">{name}</p>\n          {(role || company) && (\n            <p className=\"text-xs text-muted-foreground\">\n              {[role, company].filter(Boolean).join(', ')}\n            </p>\n          )}\n        </div>\n      </figcaption>\n    </figure>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/testimonial/index.ts",
+      "content": "export { Testimonial } from './Testimonial';\nexport type { TestimonialProps } from './Testimonial';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/testimonial.manifest.json",
+      "content": "{\n  \"id\": \"testimonial\",\n  \"name\": \"Testimonial\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"testimonial\",\n  \"exportName\": \"Testimonial\",\n  \"description\": \"Semantic written testimonial with quote, person, role, company, avatar and logo slots.\",\n  \"designIntent\": \"Review and landing pages repeat the same quote hierarchy. Testimonial uses figure, blockquote and figcaption so the attribution is real structure instead of three styled paragraphs.\",\n  \"props\": [\n    {\n      \"name\": \"quote\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Testimonial copy without quotation marks.\"\n    },\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Person or company name.\"\n    },\n    {\n      \"name\": \"role\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Role or title.\"\n    },\n    {\n      \"name\": \"company\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Company name.\"\n    },\n    {\n      \"name\": \"avatar\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Avatar slot, usually Avatar.\"\n    },\n    {\n      \"name\": \"logo\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Brand or logo slot shown in the card header.\"\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'card' | 'plain'\",\n      \"required\": false,\n      \"defaultValue\": \"card\",\n      \"enum\": [\n        \"card\",\n        \"plain\"\n      ],\n      \"description\": \"Card surface or plain quote.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md' | 'lg'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"enum\": [\n        \"sm\",\n        \"md\",\n        \"lg\"\n      ],\n      \"description\": \"Quote scale.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Written testimonial\",\n      \"code\": \"<Testimonial\\n  quote=\\\"The right advisor changed the outcome.\\\"\\n  name=\\\"Bob Falahee\\\"\\n  role=\\\"CEO\\\"\\n  company=\\\"Blind & Shade\\\"\\n  avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}\\n/>\",\n      \"description\": \"A card testimonial with attribution.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't add quotation marks in the quote prop\",\n      \"explanation\": \"The component renders the quotation marks. Duplicating them produces doubled punctuation.\",\n      \"example\": \"// Avoid\\nquote=\\\"\\\\\\\"Quote\\\\\\\"\\\"\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Quote semantics\",\n      \"implementation\": \"Renders figure, blockquote and figcaption\",\n      \"userRequirements\": \"Keep the person name in the figcaption\"\n    },\n    {\n      \"feature\": \"Avatar alternative\",\n      \"implementation\": \"Avatar is a slot\",\n      \"userRequirements\": \"Use an avatar with a fallback and avoid a redundant alt text\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Place several testimonials in a Grid for a quote wall\",\n      \"example\": \"<Grid mdCols={3} gap=\\\"lg\\\"><Testimonial ... /></Grid>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Card\",\n    \"Avatar\",\n    \"Quote\",\n    \"Grid\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

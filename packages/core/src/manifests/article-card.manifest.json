@@ -1,0 +1,98 @@
+{
+  "id": "article-card",
+  "name": "ArticleCard",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "article-card",
+  "exportName": "ArticleCard",
+  "description": "Linked article or resource card with media, eyebrow, title, summary and metadata.",
+  "designIntent": "Content hubs repeat the same article tile. ArticleCard owns the image aspect, title hierarchy, excerpt clamp and metadata row so blog, resource and LOI pages do not each invent a card.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Article title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Summary copy."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": true,
+      "description": "Destination URL."
+    },
+    {
+      "name": "eyebrow",
+      "type": "string",
+      "required": false,
+      "description": "Category or content type."
+    },
+    {
+      "name": "media",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Image, illustration or video poster."
+    },
+    {
+      "name": "meta",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Date, read time, author or other metadata."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'compact'",
+      "required": false,
+      "defaultValue": "default",
+      "enum": ["default", "compact"],
+      "description": "Standard card or a denser compact card."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Resource card",
+      "code": "<ArticleCard\n  href=\"/articles/exit-planning\"\n  eyebrow=\"Advisors\"\n  title=\"The 2026 exit planning guide\"\n  description=\"What buyers are looking for.\"\n  meta=\"8 min read\"\n  media={<img src=\"/cover.jpg\" alt=\"\" />}\n/>",
+      "description": "A linked article tile for a resource grid."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest controls in the card",
+      "explanation": "The whole card is one link. Put save, share or menu actions outside the card or redesign the card as a non-link panel.",
+      "example": "// Avoid\n<ArticleCard href=\"/x\" title=\"X\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Single link",
+      "implementation": "The card is one link containing the title, summary and metadata",
+      "userRequirements": "Use a descriptive title so the link name is meaningful"
+    },
+    {
+      "feature": "Decorative media",
+      "implementation": "Media is a slot",
+      "userRequirements": "Use alt=\"\" for decorative covers or a meaningful alt for informative images"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place cards in a responsive Grid",
+      "example": "<Grid mdCols={3} gap=\"lg\"><ArticleCard ... /></Grid>"
+    }
+  ],
+  "relatedComponents": ["Card", "Grid", "FeaturedPost", "ResourceHub"]
+}

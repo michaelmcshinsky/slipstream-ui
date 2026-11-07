@@ -18,6 +18,7 @@ Like DatePicker: the platform time control is already accessible and locale-awar
 | defaultValue | `string` | — | no | "HH:MM", initial value. |
 | onValueChange | `(value: string) => void` | — | no | Fired with the time string; '' when cleared. |
 | clearable | `boolean` | `false` | no | Shows a clear button once a value exists. |
+| clearLabel | `string` | `Clear time` | no | Accessible label for the clear button. |
 
 ## Examples
 

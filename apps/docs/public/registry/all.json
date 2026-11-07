@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 91,
+  "count": 100,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -21,12 +21,28 @@
       "registry": "/registry/alert.json"
     },
     {
+      "id": "announcement-bar",
+      "name": "AnnouncementBar",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Dismissible announcement bar with optional action, tone and sticky positioning.",
+      "registry": "/registry/announcement-bar.json"
+    },
+    {
       "id": "app-shell",
       "name": "AppShell",
       "package": "@slipstream-ui/core",
       "tier": "organism",
       "description": "Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
       "registry": "/registry/app-shell.json"
+    },
+    {
+      "id": "article-card",
+      "name": "ArticleCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Linked article or resource card with media, eyebrow, title, summary and metadata.",
+      "registry": "/registry/article-card.json"
     },
     {
       "id": "attachment",
@@ -173,6 +189,14 @@
       "registry": "/registry/confirmation.json"
     },
     {
+      "id": "contact-strip",
+      "name": "ContactStrip",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Compact labelled contact rows with optional icons and links.",
+      "registry": "/registry/contact-strip.json"
+    },
+    {
       "id": "container",
       "name": "Container",
       "package": "@slipstream-ui/core",
@@ -235,6 +259,22 @@
       "tier": "molecule",
       "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
       "registry": "/registry/empty-state.json"
+    },
+    {
+      "id": "feature-grid",
+      "name": "FeatureGrid",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Grid of feature or benefit cards with an icon, title, copy and optional link.",
+      "registry": "/registry/feature-grid.json"
+    },
+    {
+      "id": "feature-row",
+      "name": "FeatureRow",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Alternating media and copy row for mid-page feature sections.",
+      "registry": "/registry/feature-row.json"
     },
     {
       "id": "fieldset",
@@ -381,6 +421,14 @@
       "registry": "/registry/list.json"
     },
     {
+      "id": "logo-cloud",
+      "name": "LogoCloud",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Trust strip for member, customer or partner logos with captions, columns and optional links.",
+      "registry": "/registry/logo-cloud.json"
+    },
+    {
       "id": "menu",
       "name": "Menu",
       "package": "@slipstream-ui/core",
@@ -413,6 +461,14 @@
       "registry": "/registry/metric-card.json"
     },
     {
+      "id": "newsletter",
+      "name": "Newsletter",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Email capture block with inline or stacked layout, pending state, success and failure feedback.",
+      "registry": "/registry/newsletter.json"
+    },
+    {
       "id": "page-header",
       "name": "PageHeader",
       "package": "@slipstream-ui/core",
@@ -443,6 +499,14 @@
       "tier": "molecule",
       "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
       "registry": "/registry/popover.json"
+    },
+    {
+      "id": "process-steps",
+      "name": "ProcessSteps",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Ordered process cards with derived step numbers or custom icons.",
+      "registry": "/registry/process-steps.json"
     },
     {
       "id": "progress",
@@ -667,6 +731,14 @@
       "tier": "molecule",
       "description": "Tabbed content container with ARIA tablist semantics and keyboard navigation",
       "registry": "/registry/tabs.json"
+    },
+    {
+      "id": "testimonial",
+      "name": "Testimonial",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic written testimonial with quote, person, role, company, avatar and logo slots.",
+      "registry": "/registry/testimonial.json"
     },
     {
       "id": "text",

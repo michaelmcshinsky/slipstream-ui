@@ -21,6 +21,7 @@ Breadcrumb shows the user's location in a hierarchy and lets them navigate back 
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers (preserves prefetch/modified clicks). |
 | linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
 | truncateCurrent | `boolean` | `false` | no | Truncate the current page label and expose the full text as a title. |
+| label | `string` | `Breadcrumb` | no | Accessible name of the navigation landmark. |
 
 ## Examples
 

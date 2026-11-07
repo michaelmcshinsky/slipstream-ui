@@ -18,6 +18,7 @@ A custom calendar is a large accessibility surface. The platform date picker alr
 | defaultValue | `string` | — | no | ISO date, initial value. |
 | onValueChange | `(value: string) => void` | — | no | Fired with the ISO string; '' when cleared. |
 | clearable | `boolean` | `false` | no | Shows a clear button once a value exists. |
+| clearLabel | `string` | `Clear date` | no | Accessible label for the clear button. |
 
 ## Examples
 

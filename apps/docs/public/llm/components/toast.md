@@ -22,6 +22,7 @@ Toasts announce status changes without stealing focus. The provider/useToast pai
 | position | `'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'` | `bottom-right` | no | Toaster placement (Toaster component). |
 | richColors | `boolean` | `false` | no | Tint the toast surface with its status color (Toaster component). |
 | label | `string` | `Notifications` | no | Accessible name of the live region (Toaster component). |
+| dismissLabel | `string` | `Dismiss notification` | no | Accessible label for each dismiss button. |
 
 ## Examples
 

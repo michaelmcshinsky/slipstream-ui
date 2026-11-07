@@ -1,0 +1,122 @@
+{
+  "id": "newsletter",
+  "name": "Newsletter",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "newsletter",
+  "exportName": "Newsletter",
+  "description": "Email capture block with inline or stacked layout, pending state, success and failure feedback.",
+  "designIntent": "Resource hubs and articles all need a newsletter block with the same validation, consent copy and status feedback. Newsletter owns the field and state while the caller owns the CRM and double opt-in.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Headline for the signup block."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting copy."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "you@example.com",
+      "description": "Email placeholder."
+    },
+    {
+      "name": "buttonLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Subscribe",
+      "description": "Submit button label."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Email address",
+      "description": "Visible or screen-reader label for the email field."
+    },
+    {
+      "name": "successMessage",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Thanks. Check your inbox to confirm.",
+      "description": "Success message."
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Something went wrong. Please try again.",
+      "description": "Failure message used when onSubmit rejects."
+    },
+    {
+      "name": "consent",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Consent or privacy copy shown under the form."
+    },
+    {
+      "name": "onSubmit",
+      "type": "(email: string) => void | Promise<void>",
+      "required": false,
+      "description": "Submit handler. Omit for a presentational form."
+    },
+    {
+      "name": "layout",
+      "type": "'inline' | 'stacked'",
+      "required": false,
+      "defaultValue": "inline",
+      "enum": ["inline", "stacked"],
+      "description": "Inline on desktop or always stacked."
+    },
+    {
+      "name": "level",
+      "type": "2 | 3",
+      "required": false,
+      "defaultValue": "2",
+      "description": "Heading level."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Owner newsletter",
+      "code": "<Newsletter\n  title=\"Weekly exit insights\"\n  description=\"One email a week. No spam.\"\n  consent=\"By subscribing you agree to the privacy policy.\"\n  onSubmit={async (email) => subscribe(email)}\n/>",
+      "description": "Inline email capture with consent copy."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put the transport in the component",
+      "explanation": "Newsletter owns the field and status only. Pass a submit handler so the caller controls the CRM, double opt-in and error mapping.",
+      "example": "// Avoid fetching a vendor endpoint inside Newsletter\n<Newsletter title=\"Join\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Labelled email field",
+      "implementation": "The label is associated with the input and visible to screen readers",
+      "userRequirements": "Keep the label descriptive"
+    },
+    {
+      "feature": "Status announcements",
+      "implementation": "Success uses aria-live polite; errors use role alert",
+      "userRequirements": "Provide short success and error messages"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place Newsletter inside a Section or a Card",
+      "example": "<Section tone=\"muted\"><Newsletter title=\"Join\" /></Section>"
+    }
+  ],
+  "relatedComponents": ["Input", "Button", "Section", "Card"]
+}

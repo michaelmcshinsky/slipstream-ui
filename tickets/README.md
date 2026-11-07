@@ -38,4 +38,84 @@ Canonical planning source: `docs/engineering-backlog.md`. One issue per file.
 | [SLIP-052](SLIP-052.md) | Publish two technical articles | 5 | P1 | 6h | M5 Distribution | SLIP-015 |
 | [SLIP-053](SLIP-053.md) | Instrument the funnel | 5 | P1 | 4h | M5 Distribution | SLIP-048 |
 
-**Total:** 33 tickets, 193h.
+## Epic 6: Internationalization
+
+| ID | Title | Epic | Priority | Hours | Milestone | Depends on |
+|---|---|---|---|---|---|---|
+| [SLIP-060](SLIP-060.md) | Internationalize every app | 6 | P1 | 120h | M6 Internationalization |  |
+| [SLIP-061](SLIP-061.md) | Localize P0 core component labels | 6 | P1 | 6h | M6 Internationalization | SLIP-060 |
+| [SLIP-062](SLIP-062.md) | Localize P1 core component labels | 6 | P1 | 8h | M6 Internationalization | SLIP-061 |
+| [SLIP-063](SLIP-063.md) | Localize AI timestamps and remaining AI labels | 6 | P1 | 5h | M6 Internationalization | SLIP-060 |
+| [SLIP-064](SLIP-064.md) | Docs locale routing, shell and switcher | 6 | P1 | 16h | M6 Internationalization | SLIP-060 |
+| [SLIP-065](SLIP-065.md) | Translate docs navigation, search and content | 6 | P2 | 80h | M6 Internationalization | SLIP-064 |
+| [SLIP-066](SLIP-066.md) | Dashboard locale shell and user preference | 6 | P2 | 24h | M6 Internationalization | SLIP-060 |
+| [SLIP-067](SLIP-067.md) | Localize transactional emails | 6 | P2 | 12h | M6 Internationalization | SLIP-066 |
+| [SLIP-068](SLIP-068.md) | Playground locale toggle and RTL/CI audit | 6 | P2 | 8h | M6 Internationalization | SLIP-060 |
+
+## Epic 7: Axial adoption
+
+Canonical analysis: [`../reports/axial-adoption-gap-analysis.md`](../reports/axial-adoption-gap-analysis.md).
+Epic 7 covers the marketing, data, marketplace, platform and AI-block gaps
+identified from axial.net.
+
+| ID | Title | Epic | Priority | Hours | Milestone | Depends on |
+|---|---|---|---|---|---|---|
+| [SLIP-070](SLIP-070.md) | Marketing blocks II: logo cloud, feature grid/row, testimonial, process, article, newsletter, contact, announcement | 7 | P0 | 18h | M7 Axial adoption |  |
+| [SLIP-071](SLIP-071.md) | Marketing blocks III: video testimonial, team grid, pricing table, audio embed | 7 | P1 | 16h | M7 Axial adoption | SLIP-070 |
+| [SLIP-072](SLIP-072.md) | Content hub: featured post, promo card, tag filter, author card, share bar, related posts | 7 | P1 | 18h | M7 Axial adoption | SLIP-070 |
+| [SLIP-073](SLIP-073.md) | Filter panel, multi-select and date-range primitives for dashboards | 7 | P0 | 18h | M7 Axial adoption | SLIP-070 |
+| [SLIP-074](SLIP-074.md) | Charts package with accessible bar, line, area, sparkline and table fallback | 7 | P0 | 28h | M7 Axial adoption | SLIP-070 |
+| [SLIP-075](SLIP-075.md) | Marketplace cards: deal, entity/profile, tombstone, document and load-more | 7 | P0 | 18h | M7 Axial adoption | SLIP-070 |
+| [SLIP-076](SLIP-076.md) | App shell II: topbar, user menu, notifications, saved search and inbox | 7 | P1 | 26h | M7 Axial adoption | SLIP-075 |
+| [SLIP-077](SLIP-077.md) | Forms conversion kit: wizard, phone, currency, error summary and result panels | 7 | P0 | 24h | M7 Axial adoption | SLIP-070 |
+| [SLIP-078](SLIP-078.md) | SEO package: metadata, JSON-LD, FAQ, article, breadcrumb and sitemap helpers | 7 | P0 | 14h | M7 Axial adoption |  |
+| [SLIP-079](SLIP-079.md) | Consent package: provider, cookie banner, preferences and script gating | 7 | P0 | 14h | M7 Axial adoption |  |
+| [SLIP-080](SLIP-080.md) | Icons and media package: Icon, IconButton, IconTile, SocialLinks, Media and Figure | 7 | P0 | 14h | M7 Axial adoption |  |
+| [SLIP-081](SLIP-081.md) | SiteHeader and SiteFooter v2: utility bar, mega menu, contact and newsletter | 7 | P0 | 14h | M7 Axial adoption | SLIP-070 |
+| [SLIP-082](SLIP-082.md) | Block manifests, page recipes and validate_page for the AI-first layer | 7 | P0 | 24h | M7 Axial adoption | SLIP-070, SLIP-081 |
+| [SLIP-083](SLIP-083.md) | Page templates and CMS mappings for marketing, directory and dashboard pages | 7 | P1 | 24h | M7 Axial adoption | SLIP-070, SLIP-073, SLIP-075, SLIP-081 |
+| [SLIP-084](SLIP-084.md) | Storybook, visual regression and published accessibility report | 7 | P1 | 18h | M7 Axial adoption | SLIP-070 |
+| [SLIP-085](SLIP-085.md) | Tailwind v4 real-app certification and RSC/no-JS compatibility matrix | 7 | P1 | 14h | M7 Axial adoption | SLIP-070 |
+| [SLIP-086](SLIP-086.md) | VPAT/ACR, browser support matrix and 1.0 support policy | 7 | P1 | 18h | M7 Axial adoption | SLIP-084 |
+| [SLIP-087](SLIP-087.md) | Localize the new marketing, data and marketplace surfaces | 7 | P2 | 16h | M7 Axial adoption | SLIP-070, SLIP-073, SLIP-075 |
+
+## Epic 8: Integration hardening
+
+| ID | Title | Epic | Priority | Hours | Milestone | Depends on |
+|---|---|---|---|---|---|---|
+| [SLIP-090](SLIP-090.md) | fix: validate_usage handles JSX-valued props and native attributes | 8 | P0 | 3h | M8 Integration hardening |  |
+| [SLIP-091](SLIP-091.md) | fix: keep AppShell rail viewport-height and Sidebar parents active | 8 | P0 | 2h | M8 Integration hardening |  |
+| [SLIP-092](SLIP-092.md) | feat: expose accessible SiteHeader navigation labels | 8 | P1 | 1h | M8 Integration hardening |  |
+| [SLIP-093](SLIP-093.md) | test: add visual regression coverage for AppShell and SiteHeader | 8 | P2 | 4h | M8 Integration hardening |  |
+| [SLIP-094](SLIP-094.md) | perf: audit prebuilt CSS size and tree-shaking | 8 | P2 | 3h | M8 Integration hardening |  |
+| [SLIP-095](SLIP-095.md) | docs: document react-hook-form compatibility for value-based controls | 8 | P1 | 2h | M8 Integration hardening |  |
+| [SLIP-096](SLIP-096.md) | test: add a prebuilt stylesheet export smoke test | 8 | P1 | 3h | M8 Integration hardening |  |
+| [SLIP-097](SLIP-097.md) | feat: add an AuthLayout split/aside variant | 8 | P2 | 6h | M8 Integration hardening |  |
+| [SLIP-098](SLIP-098.md) | feat: add a PageHeader document-head helper | 8 | P3 | 3h | M8 Integration hardening |  |
+| [SLIP-099](SLIP-099.md) | chore: publish core, themes, and mcp-server after the integration fixes | 8 | P0 | 2h | M8 Integration hardening |  |
+
+**Total:** 70 tickets, 837h across all ticket files. Epics 0-5 are 33 tickets /
+193h; Epic 6 is 9 tickets / 279h; Epic 7 is 18 tickets / 336h; Epic 8 is 10
+tickets / 29h. SLIP-060 is an umbrella ticket, so its 120h overlaps the child
+i18n tickets.
+
+## Integration hardening (2026-11-07)
+
+Consumer-integration fixes and follow-ups. These are outside the original
+90-day product backlog and use the 090-100 ID range.
+
+| ID | Title | Epic | Priority | Hours | Milestone | Depends on |
+|---|---|---|---|---|---|---|
+| [SLIP-090](SLIP-090.md) | fix: validate_usage handles JSX-valued props and native attributes | 6 | P0 | 3h | M6 Integration hardening |  |
+| [SLIP-091](SLIP-091.md) | fix: keep AppShell rail viewport-height and Sidebar parents active | 6 | P0 | 2h | M6 Integration hardening |  |
+| [SLIP-092](SLIP-092.md) | feat: expose accessible SiteHeader navigation labels | 6 | P1 | 1h | M6 Integration hardening |  |
+| [SLIP-093](SLIP-093.md) | test: add visual regression coverage for AppShell and SiteHeader | 6 | P2 | 4h | M6 Integration hardening | SLIP-091, SLIP-092 |
+| [SLIP-094](SLIP-094.md) | perf: audit prebuilt CSS size and tree-shaking | 6 | P2 | 3h | M6 Integration hardening |  |
+| [SLIP-095](SLIP-095.md) | docs: document react-hook-form compatibility for value-based controls | 6 | P1 | 2h | M6 Integration hardening |  |
+| [SLIP-096](SLIP-096.md) | test: add a prebuilt stylesheet export smoke test | 6 | P1 | 3h | M6 Integration hardening |  |
+| [SLIP-097](SLIP-097.md) | feat: add an AuthLayout split/aside variant | 6 | P2 | 6h | M6 Integration hardening |  |
+| [SLIP-098](SLIP-098.md) | feat: add a PageHeader document-head helper | 6 | P3 | 3h | M6 Integration hardening |  |
+| [SLIP-099](SLIP-099.md) | chore: publish core, themes, and mcp-server after the integration fixes | 6 | P0 | 2h | M6 Integration hardening | SLIP-090, SLIP-091, SLIP-092 |
+| [SLIP-100](SLIP-100.md) | docs: regenerate registry and LLM docs after the concurrent component work | 6 | P1 | 1h | M6 Integration hardening |  |
+
+**Integration total:** 11 tickets, 30h (3 done, 8 open).

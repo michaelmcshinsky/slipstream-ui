@@ -38,4 +38,43 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 32 | SLIP-052 | P1 | 6h | Blocked + external | Depends on SLIP-015; needs credentials/accounts |
 | 33 | SLIP-053 | P1 | 4h | Blocked | Depends on SLIP-048 |
 
+## Epic 7 - Axial adoption
+
+| Order | ID | P | Hours | Status | Note |
+|---|---|---|---|---|---|
+| 34 | SLIP-070 | P0 | 18h | Done | 9 marketing blocks shipped; 100 components |
+| 35 | SLIP-071 | P1 | 16h | Ready | Depends on SLIP-070 (done) |
+| 36 | SLIP-072 | P1 | 18h | Ready | Depends on SLIP-070 (done) |
+| 37 | SLIP-073 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
+| 38 | SLIP-074 | P0 | 28h | Ready | Depends on SLIP-070 (done); chart-library decision |
+| 39 | SLIP-075 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
+| 40 | SLIP-076 | P1 | 26h | Blocked | Depends on SLIP-075 |
+| 41 | SLIP-077 | P0 | 24h | Ready | Depends on SLIP-070 (done) |
+| 42 | SLIP-078 | P0 | 14h | Ready | Independent package |
+| 43 | SLIP-079 | P0 | 14h | Ready | Independent package |
+| 44 | SLIP-080 | P0 | 14h | Ready | Independent package |
+| 45 | SLIP-081 | P0 | 14h | Ready | Depends on SLIP-070 (done) |
+| 46 | SLIP-082 | P0 | 24h | Blocked | Depends on SLIP-081 |
+| 47 | SLIP-083 | P1 | 24h | Blocked | Depends on 073, 075, 081 |
+| 48 | SLIP-084 | P1 | 18h | Ready | Depends on SLIP-070 (done) |
+| 49 | SLIP-085 | P1 | 14h | Ready | Depends on SLIP-070 (done) |
+| 50 | SLIP-086 | P1 | 18h | Blocked | Depends on SLIP-084 |
+| 51 | SLIP-087 | P2 | 16h | Blocked | Depends on 073, 075 |
+
+## Integration hardening (2026-11-07)
+
+| Order | ID | P | Hours | Status | Note |
+|---|---|---|---|---|---|
+| 1 | SLIP-090 | P0 | 3h | Done | validate_usage parser + native attrs |
+| 2 | SLIP-091 | P0 | 2h | Done | AppShell rail + Sidebar nested active |
+| 3 | SLIP-092 | P1 | 1h | Done | SiteHeader nav labels |
+| 4 | SLIP-099 | P0 | 2h | Blocked + external | Needs npm publish auth |
+| 5 | SLIP-095 | P1 | 2h | Ready | RHF compatibility guide |
+| 6 | SLIP-096 | P1 | 3h | Ready | Packaged stylesheet smoke test |
+| 7 | SLIP-100 | P1 | 1h | Ready | Regenerate docs after concurrent work |
+| 8 | SLIP-093 | P2 | 4h | Ready | Shell visual regression |
+| 9 | SLIP-094 | P2 | 3h | Ready | CSS/JS size audit |
+| 10 | SLIP-097 | P2 | 6h | Ready | AuthLayout aside variant |
+| 11 | SLIP-098 | P3 | 3h | Ready | PageHeader head helper |
+
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.

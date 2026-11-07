@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "announcement-bar",
+  "name": "announcement-bar",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "announcement-bar",
+  "exportName": "AnnouncementBar",
+  "description": "Dismissible announcement bar with optional action, tone and sticky positioning.",
+  "designIntent": "Launches, content hubs and network notices need a thin bar above the header. AnnouncementBar owns the message, action and dismissal without forcing the site header to grow more props.",
+  "props": [
+    {
+      "name": "message",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Message shown in the bar."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Optional destination for the action."
+    },
+    {
+      "name": "actionLabel",
+      "type": "string",
+      "required": false,
+      "description": "Action text, shown when href is provided."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show a close control."
+    },
+    {
+      "name": "onDismiss",
+      "type": "() => void",
+      "required": false,
+      "description": "Called after the user dismisses the bar."
+    },
+    {
+      "name": "tone",
+      "type": "'muted' | 'brand' | 'inverse'",
+      "required": false,
+      "defaultValue": "muted",
+      "enum": [
+        "muted",
+        "brand",
+        "inverse"
+      ],
+      "description": "Surface treatment."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Pin the bar to the top of the viewport."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Content hub launch",
+      "code": "<AnnouncementBar\n  message=\"The 2026 Middle Market Review is live\"\n  href=\"/forum\"\n  actionLabel=\"Read it\"\n  tone=\"brand\"\n/>",
+      "description": "A branded announcement with a link and dismissal."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't stack multiple announcements",
+      "explanation": "One bar per page. Multiple messages compete and push the header down.",
+      "example": "// Avoid\n<AnnouncementBar message=\"A\" /><AnnouncementBar message=\"B\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named region",
+      "implementation": "Renders role=region with aria-label Announcement",
+      "userRequirements": "Keep the message short and actionable"
+    },
+    {
+      "feature": "Dismiss control",
+      "implementation": "The close button is named Dismiss announcement",
+      "userRequirements": "Persist or reset dismissal in the caller when needed"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteHeader",
+      "relationship": "Place AnnouncementBar above the sticky header",
+      "example": "<AnnouncementBar message=\".\" /><SiteHeader ... />"
+    }
+  ],
+  "relatedComponents": [
+    "SiteHeader",
+    "Alert",
+    "Banner"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/announcement-bar/AnnouncementBar.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type AnnouncementBarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {\n  /** Message shown in the bar. */\n  message: React.ReactNode;\n  /** Optional destination for the action. */\n  href?: string;\n  /** Action text, shown when href is provided. */\n  actionLabel?: string;\n  /** Show a close control. Default true. */\n  dismissible?: boolean;\n  /** Called after the user dismisses the bar. */\n  onDismiss?: () => void;\n  /** Surface treatment. Default 'muted'. */\n  tone?: 'muted' | 'brand' | 'inverse';\n  /** Pin the bar to the top of the viewport. */\n  sticky?: boolean;\n  /** Custom link element for routers. */\n  linkComponent?: React.ElementType;\n};\n\nconst toneClasses = {\n  muted: 'bg-muted text-foreground',\n  brand: 'bg-primary text-primary-foreground',\n  inverse: 'bg-inverse text-inverse-foreground',\n} as const;\n\n/**\n * Dismissible announcement bar for launches, content hubs and network notices.\n * It owns only dismissal; persistence and targeting belong to the caller.\n */\nexport const AnnouncementBar = React.forwardRef<HTMLDivElement, AnnouncementBarProps>(\n  function AnnouncementBar(\n    {\n      message,\n      href,\n      actionLabel,\n      dismissible = true,\n      onDismiss,\n      tone = 'muted',\n      sticky = false,\n      linkComponent,\n      className,\n      ...props\n    },\n    ref\n  ) {\n    const [dismissed, setDismissed] = React.useState(false);\n    const Link = linkComponent ?? 'a';\n\n    if (dismissed) return null;\n\n    const dismiss = () => {\n      setDismissed(true);\n      onDismiss?.();\n    };\n\n    return (\n      <div\n        ref={ref}\n        role=\"region\"\n        aria-label=\"Announcement\"\n        className={cn(\n          'w-full border-b border-border/60',\n          toneClasses[tone],\n          sticky && 'sticky top-0 z-30',\n          className\n        )}\n        {...props}\n      >\n        <div className=\"mx-auto flex w-full max-w-7xl items-center justify-center gap-3 px-4 py-2 text-sm sm:px-6\">\n          <p className=\"min-w-0 text-center\">{message}</p>\n          {href && actionLabel && (\n            <Link\n              href={href}\n              className=\"shrink-0 font-semibold underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current\"\n            >\n              {actionLabel}\n            </Link>\n          )}\n          {dismissible && (\n            <button\n              type=\"button\"\n              onClick={dismiss}\n              aria-label=\"Dismiss announcement\"\n              className=\"shrink-0 rounded p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current\"\n            >\n              <svg aria-hidden=\"true\" viewBox=\"0 0 20 20\" className=\"h-4 w-4\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\">\n                <path d=\"m5 5 10 10M15 5 5 15\" />\n              </svg>\n            </button>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/announcement-bar/index.ts",
+      "content": "export { AnnouncementBar } from './AnnouncementBar';\nexport type { AnnouncementBarProps } from './AnnouncementBar';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/announcement-bar.manifest.json",
+      "content": "{\n  \"id\": \"announcement-bar\",\n  \"name\": \"AnnouncementBar\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"announcement-bar\",\n  \"exportName\": \"AnnouncementBar\",\n  \"description\": \"Dismissible announcement bar with optional action, tone and sticky positioning.\",\n  \"designIntent\": \"Launches, content hubs and network notices need a thin bar above the header. AnnouncementBar owns the message, action and dismissal without forcing the site header to grow more props.\",\n  \"props\": [\n    {\n      \"name\": \"message\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"Message shown in the bar.\"\n    },\n    {\n      \"name\": \"href\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Optional destination for the action.\"\n    },\n    {\n      \"name\": \"actionLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Action text, shown when href is provided.\"\n    },\n    {\n      \"name\": \"dismissible\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Show a close control.\"\n    },\n    {\n      \"name\": \"onDismiss\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Called after the user dismisses the bar.\"\n    },\n    {\n      \"name\": \"tone\",\n      \"type\": \"'muted' | 'brand' | 'inverse'\",\n      \"required\": false,\n      \"defaultValue\": \"muted\",\n      \"enum\": [\n        \"muted\",\n        \"brand\",\n        \"inverse\"\n      ],\n      \"description\": \"Surface treatment.\"\n    },\n    {\n      \"name\": \"sticky\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Pin the bar to the top of the viewport.\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Custom link element for routers.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Content hub launch\",\n      \"code\": \"<AnnouncementBar\\n  message=\\\"The 2026 Middle Market Review is live\\\"\\n  href=\\\"/forum\\\"\\n  actionLabel=\\\"Read it\\\"\\n  tone=\\\"brand\\\"\\n/>\",\n      \"description\": \"A branded announcement with a link and dismissal.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't stack multiple announcements\",\n      \"explanation\": \"One bar per page. Multiple messages compete and push the header down.\",\n      \"example\": \"// Avoid\\n<AnnouncementBar message=\\\"A\\\" /><AnnouncementBar message=\\\"B\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Named region\",\n      \"implementation\": \"Renders role=region with aria-label Announcement\",\n      \"userRequirements\": \"Keep the message short and actionable\"\n    },\n    {\n      \"feature\": \"Dismiss control\",\n      \"implementation\": \"The close button is named Dismiss announcement\",\n      \"userRequirements\": \"Persist or reset dismissal in the caller when needed\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"SiteHeader\",\n      \"relationship\": \"Place AnnouncementBar above the sticky header\",\n      \"example\": \"<AnnouncementBar message=\\\".\\\" /><SiteHeader ... />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"SiteHeader\",\n    \"Alert\",\n    \"Banner\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

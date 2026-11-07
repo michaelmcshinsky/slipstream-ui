@@ -97,8 +97,22 @@ export const NAV_SECTIONS: NavSection[] = [
         items: [
           { href: '/docs/components/hero', label: 'Hero' },
           { href: '/docs/components/stat-band', label: 'StatBand' },
+          { href: '/docs/components/logo-cloud', label: 'LogoCloud' },
+          { href: '/docs/components/feature-grid', label: 'FeatureGrid' },
+          { href: '/docs/components/feature-row', label: 'FeatureRow' },
+          { href: '/docs/components/testimonial', label: 'Testimonial' },
+          { href: '/docs/components/process-steps', label: 'ProcessSteps' },
           { href: '/docs/components/cta-section', label: 'CTASection' },
           { href: '/docs/components/comparison-table', label: 'ComparisonTable' },
+        ],
+      },
+      {
+        title: 'Content',
+        items: [
+          { href: '/docs/components/article-card', label: 'ArticleCard' },
+          { href: '/docs/components/newsletter', label: 'Newsletter' },
+          { href: '/docs/components/contact-strip', label: 'ContactStrip' },
+          { href: '/docs/components/announcement-bar', label: 'AnnouncementBar' },
         ],
       },
       {

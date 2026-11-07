@@ -18,6 +18,7 @@ Skeleton reduces perceived loading time by showing the layout shape before data 
 | height | `string` | — | no | Tailwind height class for the block (e.g. 'h-4'). |
 | width | `string` | `w-full` | no | Tailwind width class for the block (e.g. 'w-48'). |
 | rounded | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `md` | no | Corner preset — full for avatars/dots, none for tables. |
+| label | `string` | — | no | Optional loading announcement. When set, the block becomes a status region instead of decorative. |
 
 ## Examples
 

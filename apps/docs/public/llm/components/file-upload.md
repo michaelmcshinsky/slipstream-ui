@@ -20,6 +20,9 @@ File inputs are hard to style and easy to make inaccessible. FileUpload keeps th
 | label | `string` | `Drop files here or click to browse` | no | Drop-zone copy. |
 | hint | `string` | — | no | Helper line under the drop zone. |
 | progress | `Record<string, number>` | — | no | Per-file progress 0-100 keyed by file name; renders progress bars. |
+| selectedFilesLabel | `string` | `Selected files` | no | Accessible label for the selected-files list. |
+| removeLabel | `(file: File) => string` | `Remove <name>` | no | Accessible label for a file remove button. |
+| uploadingLabel | `(file: File) => string` | `Uploading <name>` | no | Accessible label for a file upload progress bar. |
 
 ## Examples
 

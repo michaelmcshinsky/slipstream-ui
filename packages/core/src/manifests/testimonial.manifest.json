@@ -1,0 +1,100 @@
+{
+  "id": "testimonial",
+  "name": "Testimonial",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "testimonial",
+  "exportName": "Testimonial",
+  "description": "Semantic written testimonial with quote, person, role, company, avatar and logo slots.",
+  "designIntent": "Review and landing pages repeat the same quote hierarchy. Testimonial uses figure, blockquote and figcaption so the attribution is real structure instead of three styled paragraphs.",
+  "props": [
+    {
+      "name": "quote",
+      "type": "string",
+      "required": true,
+      "description": "Testimonial copy without quotation marks."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Person or company name."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": false,
+      "description": "Role or title."
+    },
+    {
+      "name": "company",
+      "type": "string",
+      "required": false,
+      "description": "Company name."
+    },
+    {
+      "name": "avatar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Avatar slot, usually Avatar."
+    },
+    {
+      "name": "logo",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Brand or logo slot shown in the card header."
+    },
+    {
+      "name": "variant",
+      "type": "'card' | 'plain'",
+      "required": false,
+      "defaultValue": "card",
+      "enum": ["card", "plain"],
+      "description": "Card surface or plain quote."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Quote scale."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Written testimonial",
+      "code": "<Testimonial\n  quote=\"The right advisor changed the outcome.\"\n  name=\"Bob Falahee\"\n  role=\"CEO\"\n  company=\"Blind & Shade\"\n  avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}\n/>",
+      "description": "A card testimonial with attribution."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't add quotation marks in the quote prop",
+      "explanation": "The component renders the quotation marks. Duplicating them produces doubled punctuation.",
+      "example": "// Avoid\nquote=\"\\\"Quote\\\"\""
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Quote semantics",
+      "implementation": "Renders figure, blockquote and figcaption",
+      "userRequirements": "Keep the person name in the figcaption"
+    },
+    {
+      "feature": "Avatar alternative",
+      "implementation": "Avatar is a slot",
+      "userRequirements": "Use an avatar with a fallback and avoid a redundant alt text"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place several testimonials in a Grid for a quote wall",
+      "example": "<Grid mdCols={3} gap=\"lg\"><Testimonial ... /></Grid>"
+    }
+  ],
+  "relatedComponents": ["Card", "Avatar", "Quote", "Grid"]
+}

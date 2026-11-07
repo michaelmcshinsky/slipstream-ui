@@ -25,6 +25,8 @@ Free text stays first-class: any value may be typed, while matching options acce
 | clearable | `boolean` | `false` | no | Shows a clear button once the field has text. |
 | loadingText | `string` | — | no | Shown while async options load. |
 | debounceMs | `number` | `200` | no | Debounce for loadOptions in ms. |
+| clearLabel | `string` | `Clear input` | no | Accessible label for the clear button. |
+| suggestionsLabel | `string` | `Suggestions` | no | Accessible label for the suggestion listbox. |
 
 ## Examples
 

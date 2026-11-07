@@ -1,0 +1,131 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "article-card",
+  "name": "article-card",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "article-card",
+  "exportName": "ArticleCard",
+  "description": "Linked article or resource card with media, eyebrow, title, summary and metadata.",
+  "designIntent": "Content hubs repeat the same article tile. ArticleCard owns the image aspect, title hierarchy, excerpt clamp and metadata row so blog, resource and LOI pages do not each invent a card.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Article title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Summary copy."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": true,
+      "description": "Destination URL."
+    },
+    {
+      "name": "eyebrow",
+      "type": "string",
+      "required": false,
+      "description": "Category or content type."
+    },
+    {
+      "name": "media",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Image, illustration or video poster."
+    },
+    {
+      "name": "meta",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Date, read time, author or other metadata."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'compact'",
+      "required": false,
+      "defaultValue": "default",
+      "enum": [
+        "default",
+        "compact"
+      ],
+      "description": "Standard card or a denser compact card."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Resource card",
+      "code": "<ArticleCard\n  href=\"/articles/exit-planning\"\n  eyebrow=\"Advisors\"\n  title=\"The 2026 exit planning guide\"\n  description=\"What buyers are looking for.\"\n  meta=\"8 min read\"\n  media={<img src=\"/cover.jpg\" alt=\"\" />}\n/>",
+      "description": "A linked article tile for a resource grid."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest controls in the card",
+      "explanation": "The whole card is one link. Put save, share or menu actions outside the card or redesign the card as a non-link panel.",
+      "example": "// Avoid\n<ArticleCard href=\"/x\" title=\"X\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Single link",
+      "implementation": "The card is one link containing the title, summary and metadata",
+      "userRequirements": "Use a descriptive title so the link name is meaningful"
+    },
+    {
+      "feature": "Decorative media",
+      "implementation": "Media is a slot",
+      "userRequirements": "Use alt=\"\" for decorative covers or a meaningful alt for informative images"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place cards in a responsive Grid",
+      "example": "<Grid mdCols={3} gap=\"lg\"><ArticleCard ... /></Grid>"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Grid",
+    "FeaturedPost",
+    "ResourceHub"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/article-card/ArticleCard.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ArticleCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {\n  /** Article title. */\n  title: string;\n  /** Summary copy. */\n  description?: string;\n  /** Destination URL. */\n  href: string;\n  /** Category or content type. */\n  eyebrow?: string;\n  /** Image, illustration or video poster. */\n  media?: React.ReactNode;\n  /** Date, read time, author or other metadata. */\n  meta?: React.ReactNode;\n  /** Custom link element for routers. */\n  linkComponent?: React.ElementType;\n  /** Standard card or a denser compact card. */\n  variant?: 'default' | 'compact';\n};\n\n/**\n * Article or resource card for a content hub. The whole card is one link, so\n * do not nest buttons or other links inside it. Media is a slot so consumers\n * can use next/image, a plain img, a video poster or an illustration.\n */\nexport const ArticleCard = React.forwardRef<HTMLElement, ArticleCardProps>(function ArticleCard(\n  {\n    title,\n    description,\n    href,\n    eyebrow,\n    media,\n    meta,\n    linkComponent,\n    variant = 'default',\n    className,\n    ...props\n  },\n  ref\n) {\n  const Link = linkComponent ?? 'a';\n  const compact = variant === 'compact';\n\n  return (\n    <article ref={ref as never} className={cn('h-full', className)} {...props}>\n      <Link\n        href={href}\n        className={cn(\n          'group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-colors hover:border-primary/40',\n          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background'\n        )}\n      >\n        {media && !compact && (\n          <div className=\"aspect-[16/10] w-full overflow-hidden bg-muted [&_img]:h-full [&_img]:w-full [&_img]:object-cover\">\n            {media}\n          </div>\n        )}\n        <div className={cn('flex flex-1 flex-col gap-2', compact ? 'p-4' : 'p-5')}>\n          {eyebrow && (\n            <p className=\"text-xs font-semibold uppercase tracking-widest text-primary\">{eyebrow}</p>\n          )}\n          <h3 className={cn('font-semibold tracking-tight transition-colors group-hover:text-primary', compact ? 'text-base' : 'text-lg')}>\n            {title}\n          </h3>\n          {description && (\n            <p className=\"line-clamp-3 text-sm leading-relaxed text-muted-foreground\">{description}</p>\n          )}\n          {meta && <div className=\"mt-auto pt-2 text-xs text-muted-foreground\">{meta}</div>}\n        </div>\n      </Link>\n    </article>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/article-card/index.ts",
+      "content": "export { ArticleCard } from './ArticleCard';\nexport type { ArticleCardProps } from './ArticleCard';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/article-card.manifest.json",
+      "content": "{\n  \"id\": \"article-card\",\n  \"name\": \"ArticleCard\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"article-card\",\n  \"exportName\": \"ArticleCard\",\n  \"description\": \"Linked article or resource card with media, eyebrow, title, summary and metadata.\",\n  \"designIntent\": \"Content hubs repeat the same article tile. ArticleCard owns the image aspect, title hierarchy, excerpt clamp and metadata row so blog, resource and LOI pages do not each invent a card.\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Article title.\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Summary copy.\"\n    },\n    {\n      \"name\": \"href\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Destination URL.\"\n    },\n    {\n      \"name\": \"eyebrow\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Category or content type.\"\n    },\n    {\n      \"name\": \"media\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Image, illustration or video poster.\"\n    },\n    {\n      \"name\": \"meta\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Date, read time, author or other metadata.\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Custom link element for routers.\"\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'default' | 'compact'\",\n      \"required\": false,\n      \"defaultValue\": \"default\",\n      \"enum\": [\n        \"default\",\n        \"compact\"\n      ],\n      \"description\": \"Standard card or a denser compact card.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Resource card\",\n      \"code\": \"<ArticleCard\\n  href=\\\"/articles/exit-planning\\\"\\n  eyebrow=\\\"Advisors\\\"\\n  title=\\\"The 2026 exit planning guide\\\"\\n  description=\\\"What buyers are looking for.\\\"\\n  meta=\\\"8 min read\\\"\\n  media={<img src=\\\"/cover.jpg\\\" alt=\\\"\\\" />}\\n/>\",\n      \"description\": \"A linked article tile for a resource grid.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't nest controls in the card\",\n      \"explanation\": \"The whole card is one link. Put save, share or menu actions outside the card or redesign the card as a non-link panel.\",\n      \"example\": \"// Avoid\\n<ArticleCard href=\\\"/x\\\" title=\\\"X\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Single link\",\n      \"implementation\": \"The card is one link containing the title, summary and metadata\",\n      \"userRequirements\": \"Use a descriptive title so the link name is meaningful\"\n    },\n    {\n      \"feature\": \"Decorative media\",\n      \"implementation\": \"Media is a slot\",\n      \"userRequirements\": \"Use alt=\\\"\\\" for decorative covers or a meaningful alt for informative images\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Place cards in a responsive Grid\",\n      \"example\": \"<Grid mdCols={3} gap=\\\"lg\\\"><ArticleCard ... /></Grid>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Card\",\n    \"Grid\",\n    \"FeaturedPost\",\n    \"ResourceHub\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

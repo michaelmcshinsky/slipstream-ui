@@ -1,0 +1,35 @@
+---
+id: SLIP-095
+title: "docs: document react-hook-form compatibility for value-based controls"
+epic: 6
+priority: P1
+estimate_hours: 2
+milestone: "M6 Integration hardening"
+labels: ["epic:integration", "type:docs", "p1"]
+depends_on: []
+status: ready
+---
+
+**Context.** `Input` and `Textarea` forward refs and work with RHF `register()`.
+`Select`, `Checkbox`, `DatePicker`, and `TimePicker` use value-based callbacks
+and need a `Controller`. Consumers repeatedly rediscover this.
+
+**Desired state.** Add a short guide (and per-component notes) showing:
+
+- `register()` for Input/Textarea,
+- `Controller` for Select/Checkbox/DatePicker/TimePicker,
+- a copy-paste adapter example,
+- how `FormField` wires errors and `aria-invalid`.
+
+**Acceptance criteria**
+
+- [ ] The guide is linked from the components index and the docs nav.
+- [ ] Examples typecheck.
+- [ ] The `Select` docs mention the native `onChange` event and `onValueChange`.
+- [ ] The guide names the RHF version tested.
+
+**Files.** `apps/docs/app/docs/guides/`, `apps/docs/lib/nav.ts`,
+`apps/docs/lib/search-index.ts`.
+
+**Out of scope.** Shipping an RHF adapter package.
+

@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 91 components, each shipping a
+The AI-first React component library. 100 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,11 +8,13 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 74
+## Core components (@slipstream-ui/core) — 83
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
+- [AnnouncementBar](https://slipstreamui.com/llm/components/announcement-bar.md) — Dismissible announcement bar with optional action, tone and sticky positioning.
 - [AppShell](https://slipstreamui.com/llm/components/app-shell.md) — Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
+- [ArticleCard](https://slipstreamui.com/llm/components/article-card.md) — Linked article or resource card with media, eyebrow, title, summary and metadata.
 - [AuthLayout](https://slipstreamui.com/llm/components/auth-layout.md) — Centered authentication surface: brand, title/description, form card and footer, with size presets.
 - [Autocomplete](https://slipstreamui.com/llm/components/autocomplete.md) — Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
@@ -25,6 +27,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 - [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
+- [ContactStrip](https://slipstreamui.com/llm/components/contact-strip.md) — Compact labelled contact rows with optional icons and links.
 - [Container](https://slipstreamui.com/llm/components/container.md) — Centered, width-constrained page container with shared gutters and four width presets.
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
@@ -32,6 +35,8 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- [FeatureGrid](https://slipstreamui.com/llm/components/feature-grid.md) — Grid of feature or benefit cards with an icon, title, copy and optional link.
+- [FeatureRow](https://slipstreamui.com/llm/components/feature-row.md) — Alternating media and copy row for mid-page feature sections.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 - [FileUpload](https://slipstreamui.com/llm/components/file-upload.md) — Drag-and-drop file picker with a removable file list and per-file progress bars.
 - [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
@@ -49,12 +54,15 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- [Newsletter](https://slipstreamui.com/llm/components/newsletter.md) — Email capture block with inline or stacked layout, pending state, success and failure feedback.
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 - [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+- [ProcessSteps](https://slipstreamui.com/llm/components/process-steps.md) — Ordered process cards with derived step numbers or custom icons.
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
@@ -77,6 +85,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [TableCard](https://slipstreamui.com/llm/components/table-card.md) — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
 - [TableOfContents](https://slipstreamui.com/llm/components/table-of-contents.md) — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
+- [Testimonial](https://slipstreamui.com/llm/components/testimonial.md) — Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea
 - [ThemeToggle](https://slipstreamui.com/llm/components/theme-toggle.md) — Presentational light/dark toggle with accessible labels and sun/moon state.

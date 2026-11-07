@@ -1,0 +1,136 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "feature-row",
+  "name": "feature-row",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "feature-row",
+  "exportName": "FeatureRow",
+  "description": "Alternating media and copy row for mid-page feature sections.",
+  "designIntent": "Landing pages alternate a product shot with a short feature story. FeatureRow owns the two-column rhythm and media side without taking over the page h1, which belongs to Hero or PageHeader.",
+  "props": [
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Row heading."
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Supporting copy."
+    },
+    {
+      "name": "eyebrow",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Small overline above the heading."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Calls to action."
+    },
+    {
+      "name": "media",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Image, mockup, video or form shown beside the copy."
+    },
+    {
+      "name": "mediaPosition",
+      "type": "'left' | 'right'",
+      "required": false,
+      "defaultValue": "right",
+      "enum": [
+        "left",
+        "right"
+      ],
+      "description": "Which side the media sits on at lg and up."
+    },
+    {
+      "name": "level",
+      "type": "2 | 3",
+      "required": false,
+      "defaultValue": "2",
+      "description": "Heading level."
+    },
+    {
+      "name": "size",
+      "type": "'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": [
+        "md",
+        "lg"
+      ],
+      "description": "Heading scale."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Alternating feature",
+      "code": "<FeatureRow\n  eyebrow=\"For advisors\"\n  title=\"Reach relevant investors\"\n  description=\"Run a confidential, data-informed process.\"\n  media={<img src=\"/deal-flow.png\" alt=\"Deal flow dashboard\" />}\n  actions={<Button>Request access</Button>}\n/>",
+      "description": "A standard feature row with media on the right."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use FeatureRow for the page hero",
+      "explanation": "Use Hero for the opening story and h1. FeatureRow defaults to h2 and is intended for mid-page sections.",
+      "example": "// Avoid\n<FeatureRow title=\"Page title\" />\n\n// Prefer\n<Hero title=\"Page title\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading level",
+      "implementation": "Renders h2 by default and accepts level 3",
+      "userRequirements": "Keep the outline sequential under the page h1"
+    },
+    {
+      "feature": "Media alternative",
+      "implementation": "Media is a slot; the consumer owns alt text",
+      "userRequirements": "Give informative media alt text and hide decorative media"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place FeatureRow inside a Section, usually three to five in sequence",
+      "example": "<Section><FeatureRow title=\".\" media={<Media />} /></Section>"
+    }
+  ],
+  "relatedComponents": [
+    "Hero",
+    "FeatureGrid",
+    "Section"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/feature-row/FeatureRow.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type FeatureRowProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & {\n  /** Row heading. */\n  title: React.ReactNode;\n  /** Supporting copy. */\n  description?: React.ReactNode;\n  /** Small overline above the heading. */\n  eyebrow?: React.ReactNode;\n  /** Calls to action. */\n  actions?: React.ReactNode;\n  /** Image, mockup, video or form shown beside the copy. */\n  media: React.ReactNode;\n  /** Which side the media sits on at lg and up. Default 'right'. */\n  mediaPosition?: 'left' | 'right';\n  /** Heading level. Default 2. */\n  level?: 2 | 3;\n  /** Heading scale. Default 'md'. */\n  size?: 'md' | 'lg';\n};\n\nconst titleSizes = {\n  md: 'text-3xl',\n  lg: 'text-3xl sm:text-4xl',\n} as const;\n\n/**\n * Alternating media and copy row for feature sections. Unlike Hero, this is a\n * mid-page block with a smaller heading and no h1. Use several rows to explain\n * a workflow, product surface or audience benefit.\n */\nexport const FeatureRow = React.forwardRef<HTMLDivElement, FeatureRowProps>(function FeatureRow(\n  {\n    title,\n    description,\n    eyebrow,\n    actions,\n    media,\n    mediaPosition = 'right',\n    level = 2,\n    size = 'md',\n    className,\n    ...props\n  },\n  ref\n) {\n  const Heading = `h${level}` as 'h2' | 'h3';\n\n  return (\n    <div\n      ref={ref}\n      className={cn('grid items-center gap-10 lg:grid-cols-2 lg:gap-16', className)}\n      {...props}\n    >\n      <div className={cn('min-w-0', mediaPosition === 'left' && 'lg:order-2')}>\n        {eyebrow && (\n          <p className=\"mb-3 text-xs font-semibold uppercase tracking-widest text-primary\">{eyebrow}</p>\n        )}\n        <Heading className={cn('font-semibold tracking-tight text-balance', titleSizes[size])}>{title}</Heading>\n        {description && (\n          <div className=\"mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg\">\n            {description}\n          </div>\n        )}\n        {actions && <div className=\"mt-7 flex flex-wrap items-center gap-3\">{actions}</div>}\n      </div>\n      <div className={cn('min-w-0', mediaPosition === 'left' && 'lg:order-1')}>{media}</div>\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/feature-row/index.ts",
+      "content": "export { FeatureRow } from './FeatureRow';\nexport type { FeatureRowProps } from './FeatureRow';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/feature-row.manifest.json",
+      "content": "{\n  \"id\": \"feature-row\",\n  \"name\": \"FeatureRow\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"feature-row\",\n  \"exportName\": \"FeatureRow\",\n  \"description\": \"Alternating media and copy row for mid-page feature sections.\",\n  \"designIntent\": \"Landing pages alternate a product shot with a short feature story. FeatureRow owns the two-column rhythm and media side without taking over the page h1, which belongs to Hero or PageHeader.\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"Row heading.\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Supporting copy.\"\n    },\n    {\n      \"name\": \"eyebrow\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Small overline above the heading.\"\n    },\n    {\n      \"name\": \"actions\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Calls to action.\"\n    },\n    {\n      \"name\": \"media\",\n      \"type\": \"ReactNode\",\n      \"required\": true,\n      \"description\": \"Image, mockup, video or form shown beside the copy.\"\n    },\n    {\n      \"name\": \"mediaPosition\",\n      \"type\": \"'left' | 'right'\",\n      \"required\": false,\n      \"defaultValue\": \"right\",\n      \"enum\": [\n        \"left\",\n        \"right\"\n      ],\n      \"description\": \"Which side the media sits on at lg and up.\"\n    },\n    {\n      \"name\": \"level\",\n      \"type\": \"2 | 3\",\n      \"required\": false,\n      \"defaultValue\": \"2\",\n      \"description\": \"Heading level.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'md' | 'lg'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"enum\": [\n        \"md\",\n        \"lg\"\n      ],\n      \"description\": \"Heading scale.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Alternating feature\",\n      \"code\": \"<FeatureRow\\n  eyebrow=\\\"For advisors\\\"\\n  title=\\\"Reach relevant investors\\\"\\n  description=\\\"Run a confidential, data-informed process.\\\"\\n  media={<img src=\\\"/deal-flow.png\\\" alt=\\\"Deal flow dashboard\\\" />}\\n  actions={<Button>Request access</Button>}\\n/>\",\n      \"description\": \"A standard feature row with media on the right.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use FeatureRow for the page hero\",\n      \"explanation\": \"Use Hero for the opening story and h1. FeatureRow defaults to h2 and is intended for mid-page sections.\",\n      \"example\": \"// Avoid\\n<FeatureRow title=\\\"Page title\\\" />\\n\\n// Prefer\\n<Hero title=\\\"Page title\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Heading level\",\n      \"implementation\": \"Renders h2 by default and accepts level 3\",\n      \"userRequirements\": \"Keep the outline sequential under the page h1\"\n    },\n    {\n      \"feature\": \"Media alternative\",\n      \"implementation\": \"Media is a slot; the consumer owns alt text\",\n      \"userRequirements\": \"Give informative media alt text and hide decorative media\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section\",\n      \"relationship\": \"Place FeatureRow inside a Section, usually three to five in sequence\",\n      \"example\": \"<Section><FeatureRow title=\\\".\\\" media={<Media />} /></Section>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Hero\",\n    \"FeatureGrid\",\n    \"Section\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

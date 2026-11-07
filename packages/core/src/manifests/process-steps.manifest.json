@@ -1,0 +1,76 @@
+{
+  "id": "process-steps",
+  "name": "ProcessSteps",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "process-steps",
+  "exportName": "ProcessSteps",
+  "description": "Ordered process cards with derived step numbers or custom icons.",
+  "designIntent": "Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordered list so the sequence is structural, derives the numbers from order and supports icons without turning the section into arbitrary divs.",
+  "props": [
+    {
+      "name": "steps",
+      "type": "ProcessStep[]",
+      "required": true,
+      "description": "Ordered steps: title, optional description and icon."
+    },
+    {
+      "name": "columns",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Desktop column count."
+    },
+    {
+      "name": "numbered",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show step numbers when no icon is provided."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "enum": ["left", "center"],
+      "description": "Content alignment."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Advisor process",
+      "code": "<ProcessSteps\n  steps={[\n    { title: 'Meet your consultant', description: 'Share your goals.' },\n    { title: 'Review advisors', description: 'Compare recommendations.' },\n    { title: 'Interview and hire', description: 'Choose with confidence.' },\n  ]}\n/>",
+      "description": "Three numbered process steps."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't hardcode step numbers",
+      "explanation": "Numbers come from the list order. Hardcoded numbers drift when steps are inserted or reordered.",
+      "example": "// Avoid\nsteps={[{ title: '01. Meet' }]}"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Ordered sequence",
+      "implementation": "Renders ol/li so the order is announced",
+      "userRequirements": "Keep steps in the intended order"
+    },
+    {
+      "feature": "Icon or number",
+      "implementation": "The marker is visual; the list order carries the sequence",
+      "userRequirements": "Provide a title for every step"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place ProcessSteps inside a Section band",
+      "example": "<Section><ProcessSteps steps={steps} /></Section>"
+    }
+  ],
+  "relatedComponents": ["Stepper", "Timeline", "FeatureGrid"]
+}

@@ -18,6 +18,7 @@ Radio lets users pick exactly one option from a visible set. RadioGroup provides
 | label | `string` | — | no | Visible label rendered next to the radio |
 | checked | `boolean` | — | no | Controlled checked state (on Radio) |
 | onCheckedChange | `(checked: boolean) => void` | — | no | Fired when the user selects this radio (on Radio) |
+| onChange | `React.ChangeEventHandler<HTMLInputElement>` | — | no | Native change event, compatible with react-hook-form register(). Fires alongside onCheckedChange. |
 | disabled | `boolean` | `false` | no | Disables the radio |
 | title | `string` | — | no | Section heading (RadioCard component) |
 | description | `string` | — | no | Supporting line under the title (RadioCard component) |

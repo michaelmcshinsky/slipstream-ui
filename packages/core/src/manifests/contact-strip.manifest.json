@@ -1,0 +1,75 @@
+{
+  "id": "contact-strip",
+  "name": "ContactStrip",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "contact-strip",
+  "exportName": "ContactStrip",
+  "description": "Compact labelled contact rows with optional icons and links.",
+  "designIntent": "Marketing footers and contact sections repeat phone, email and address rows. ContactStrip keeps the label/value pairing consistent and gives phone and email links the right destination.",
+  "props": [
+    {
+      "name": "items",
+      "type": "ContactItem[]",
+      "required": true,
+      "description": "Contact rows: label, value, optional href and icon."
+    },
+    {
+      "name": "columns",
+      "type": "2 | 3",
+      "required": false,
+      "defaultValue": "2",
+      "description": "Desktop column count."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "enum": ["left", "center"],
+      "description": "Row alignment."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Contact details",
+      "code": "<ContactStrip\n  items={[\n    { label: 'Call', value: '1.800.860.4519', href: 'tel:18008604519' },\n    { label: 'Email', value: 'info@axial.net', href: 'mailto:info@axial.net' },\n  ]}\n/>",
+      "description": "Phone and email rows with links."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a bare URL as the label",
+      "explanation": "The label should name the channel (Call, Email, Address), not repeat the value.",
+      "example": "// Avoid\n{ label: 'info@axial.net', value: 'info@axial.net' }"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "List semantics",
+      "implementation": "Renders ul/li with a label and a value per row",
+      "userRequirements": "Keep labels short and distinct"
+    },
+    {
+      "feature": "Contact links",
+      "implementation": "Phone uses tel: and email uses mailto: when provided",
+      "userRequirements": "Provide the correct href scheme"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteFooter",
+      "relationship": "Place ContactStrip in the footer contact column",
+      "example": "<SiteFooter columns={columns} />"
+    }
+  ],
+  "relatedComponents": ["SiteFooter", "Link", "Text"]
+}

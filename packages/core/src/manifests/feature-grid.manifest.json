@@ -1,0 +1,83 @@
+{
+  "id": "feature-grid",
+  "name": "FeatureGrid",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "feature-grid",
+  "exportName": "FeatureGrid",
+  "description": "Grid of feature or benefit cards with an icon, title, copy and optional link.",
+  "designIntent": "Marketing pages repeat three- and six-card feature groups. FeatureGrid standardizes the card hierarchy, icon tile, grid and link affordance without forcing a separate Card composition on every page.",
+  "props": [
+    {
+      "name": "features",
+      "type": "FeatureItem[]",
+      "required": true,
+      "description": "Features to display: title, optional description, icon, href and actionLabel."
+    },
+    {
+      "name": "columns",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Desktop column count."
+    },
+    {
+      "name": "variant",
+      "type": "'card' | 'plain'",
+      "required": false,
+      "defaultValue": "card",
+      "enum": ["card", "plain"],
+      "description": "Card surface or a plain stack."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "enum": ["left", "center"],
+      "description": "Content alignment."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Three benefits",
+      "code": "<FeatureGrid\n  features={[\n    { title: 'Vetted advisors', description: 'Curated for your business', icon: <Shield /> },\n    { title: 'Buyer targeting', description: 'Reach the right investors', href: '/features/buyers', actionLabel: 'Learn more' },\n  ]}\n/>",
+      "description": "A two-column feature group with one linked card."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put a button inside a linked card",
+      "explanation": "The whole card is a link when href is present. A nested button creates invalid interaction and conflicting targets.",
+      "example": "// Avoid\n<FeatureGrid features={[{ href: '/x', title: 'X', actionLabel: 'Go' }]} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "List semantics",
+      "implementation": "Renders ul/li so the group and item count are announced",
+      "userRequirements": "Keep one feature per item"
+    },
+    {
+      "feature": "Linked cards",
+      "implementation": "The card is a single link; the action label is part of its accessible name",
+      "userRequirements": "Use a short action label and avoid duplicate links to the same destination"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place FeatureGrid inside a Section band",
+      "example": "<Section><FeatureGrid features={features} /></Section>"
+    }
+  ],
+  "relatedComponents": ["Card", "FeatureRow", "ProcessSteps"]
+}
