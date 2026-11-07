@@ -1,0 +1,86 @@
+{
+  "id": "filter-chips",
+  "name": "FilterChips",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "filter-chips",
+  "exportName": "FilterChips",
+  "description": "Active-filter summary with removable chips and a clear-all action.",
+  "designIntent": "Filter bars collapse, scroll or hide on mobile, so users lose track of what is applied. FilterChips keeps the active set visible, with one remove action per filter and an optional reset.",
+  "props": [
+    {
+      "name": "filters",
+      "type": "FilterChip[]",
+      "required": true,
+      "description": "Active filters: key, label, optional value and onRemove."
+    },
+    {
+      "name": "onClearAll",
+      "type": "() => void",
+      "required": false,
+      "description": "Shows a clear-all action when provided."
+    },
+    {
+      "name": "clearLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Clear all",
+      "description": "Label for the clear-all action."
+    },
+    {
+      "name": "emptyLabel",
+      "type": "string",
+      "required": false,
+      "description": "Shown when there are no active filters. Nothing renders when omitted."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Applied dashboard filters",
+      "code": "<FilterChips\n  filters={[\n    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: () => remove('industry') },\n    { key: 'region', label: 'Region', value: 'Mountain', onRemove: () => remove('region') },\n  ]}\n  onClearAll={clearAll}\n/>",
+      "description": "A removable summary of two applied filters."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't duplicate the filter controls",
+      "explanation": "FilterChips summarizes applied filters; the select, slider or segmented control still owns input.",
+      "example": "// Avoid\n<FilterChips filters={filters} onClearAll={clearAll} />\n<Select options={filters.map(...)} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Group name",
+      "implementation": "Renders role=group with aria-label Active filters by default",
+      "userRequirements": "Override aria-label when the page has more than one filter summary"
+    },
+    {
+      "feature": "Remove buttons",
+      "implementation": "Each remove button is named Remove <label>: <value>",
+      "userRequirements": "Keep labels and values short enough to announce clearly"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Filter labels",
+      "guidelines": ["Use the same labels as the controls", "Show the selected value, not the option list", "Use Any only when a filter is explicitly unbounded"],
+      "goodExamples": ["Industry: Technology"],
+      "badExamples": ["Filter 1: tech, software, SaaS"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterBar",
+      "relationship": "Place FilterChips directly under FilterBar so applied filters remain visible",
+      "example": "<FilterBar /><FilterChips filters={filters} onClearAll={clearAll} />"
+    },
+    {
+      "component": "SegmentedControl",
+      "relationship": "Use FilterChips to summarize multi-select segments",
+      "example": "<SegmentedControl multiple /><FilterChips filters={chips} />"
+    }
+  ],
+  "relatedComponents": ["FilterBar", "SegmentedControl", "RangeSlider"]
+}

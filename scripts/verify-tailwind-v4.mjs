@@ -44,21 +44,35 @@ execFileSync('npm', ['install', '--no-save', '--no-package-lock', 'tailwindcss@4
 
 console.log('Compiling Tailwind v4 theme against component sources...');
 try {
-  execFileSync('npx', ['--no-install', '@tailwindcss/cli', '-i', INPUT, '-o', OUTPUT], {
+  // Run the installed CLI directly. `npx --no-install @tailwindcss/cli` fails
+  // on Windows because npx treats the scoped package as a subcommand.
+  const cli = path.join(TMP, 'node_modules', '@tailwindcss', 'cli', 'dist', 'index.mjs');
+  execFileSync(process.execPath, [cli, '-i', INPUT, '-o', OUTPUT], {
     cwd: TMP,
     stdio: 'inherit',
-    shell: process.platform === 'win32',
     timeout: 180_000,
   });
 
   const css = fs.readFileSync(OUTPUT, 'utf8');
-  const required = ['.bg-card', '.bg-primary', '.text-muted-foreground', '.border-border', '.rounded-lg'];
+  const required = [
+    '.bg-card',
+    '.bg-primary',
+    '.bg-inverse',
+    '.text-inverse-foreground',
+    '.text-muted-foreground',
+    '.border-border',
+    '.rounded-lg',
+  ];
   const missing = required.filter((selector) => !css.includes(selector));
   if (missing.length > 0) {
     console.error(`Tailwind v4 output is missing: ${missing.join(', ')}`);
     process.exit(1);
   }
-  if (!/\.bg-card\s*\{[^}]*hsl\(var\(--card\)\)/.test(css) || !/\.text-muted-foreground\s*\{[^}]*hsl\(var\(--muted-foreground\)\)/.test(css)) {
+  if (
+    !/\.bg-card\s*\{[^}]*hsl\(var\(--card\)\)/.test(css) ||
+    !/\.text-muted-foreground\s*\{[^}]*hsl\(var\(--muted-foreground\)\)/.test(css) ||
+    !/\.bg-inverse\s*\{[^}]*hsl\(var\(--inverse\)\)/.test(css)
+  ) {
     console.error('Tailwind v4 output does not resolve the semantic tokens.');
     process.exit(1);
   }

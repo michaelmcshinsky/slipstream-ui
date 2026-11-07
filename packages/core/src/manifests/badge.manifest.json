@@ -7,10 +7,10 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'success' | 'warning' | 'info'",
+      "type": "'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'neutral' | 'accent' | 'success' | 'warning' | 'info'",
       "defaultValue": "default",
       "required": false,
-      "description": "Semantic surface; primary/danger are aliases for default/destructive.",
+      "description": "Semantic surface; primary/danger are aliases for default/destructive, neutral is a muted metadata pill and accent is a tinted brand pill.",
       "enum": [
         "default",
         "secondary",
@@ -18,6 +18,8 @@
         "outline",
         "primary",
         "danger",
+        "neutral",
+        "accent",
         "success",
         "warning",
         "info"

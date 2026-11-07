@@ -86,8 +86,19 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/flex', label: 'Flex' },
           { href: '/docs/components/grid', label: 'Grid' },
           { href: '/docs/components/block', label: 'Block' },
+          { href: '/docs/components/container', label: 'Container' },
+          { href: '/docs/components/section', label: 'Section' },
           { href: '/docs/components/page-header', label: 'PageHeader' },
           { href: '/docs/components/auth-layout', label: 'AuthLayout' },
+        ],
+      },
+      {
+        title: 'Marketing',
+        items: [
+          { href: '/docs/components/hero', label: 'Hero' },
+          { href: '/docs/components/stat-band', label: 'StatBand' },
+          { href: '/docs/components/cta-section', label: 'CTASection' },
+          { href: '/docs/components/comparison-table', label: 'ComparisonTable' },
         ],
       },
       {
@@ -114,6 +125,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/select-menu', label: 'SelectMenu' },
           { href: '/docs/components/search', label: 'Search' },
           { href: '/docs/components/autocomplete', label: 'Autocomplete' },
+          { href: '/docs/components/segmented-control', label: 'SegmentedControl' },
+          { href: '/docs/components/range-slider', label: 'RangeSlider' },
         ],
       },
       {
@@ -137,6 +150,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/empty-state', label: 'EmptyState' },
           { href: '/docs/components/metric-card', label: 'MetricCard' },
           { href: '/docs/components/filter-bar', label: 'FilterBar' },
+          { href: '/docs/components/filter-chips', label: 'FilterChips' },
           { href: '/docs/components/timeline', label: 'Timeline' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },

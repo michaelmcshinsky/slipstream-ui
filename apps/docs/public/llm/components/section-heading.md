@@ -21,6 +21,9 @@ Marketing and content pages repeat the same eyebrow/title/description/actions cl
 | level | `2 | 3 | 4` | `2` | no | Heading level rendered for the title. |
 | align | `'left' | 'center'` | `left` | no | Text and action alignment. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Title scale. |
+| titleClassName | `string` | — | no | Extra classes merged onto the title element for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes merged onto the description paragraph. |
+| eyebrowClassName | `string` | — | no | Extra classes merged onto the eyebrow/kicker. |
 
 ## Examples
 

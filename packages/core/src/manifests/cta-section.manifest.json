@@ -1,0 +1,122 @@
+{
+  "id": "cta-section",
+  "name": "CTASection",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "cta-section",
+  "exportName": "CTASection",
+  "description": "Full-width conversion band with eyebrow, headline, supporting copy and actions.",
+  "designIntent": "Every marketing page ends with the same call-to-action band, but teams rebuild the padding, width and tone each time. CTASection standardizes the hierarchy and defaults to an inverse band.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Headline for the call to action."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Supporting copy under the headline."
+    },
+    {
+      "name": "eyebrow",
+      "type": "string",
+      "required": false,
+      "description": "Small overline above the headline."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Buttons or links."
+    },
+    {
+      "name": "tone",
+      "type": "'default' | 'muted' | 'brand' | 'inverse'",
+      "required": false,
+      "defaultValue": "inverse",
+      "enum": ["default", "muted", "brand", "inverse"],
+      "description": "Surface treatment."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "center",
+      "enum": ["left", "center"],
+      "description": "Copy alignment."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Vertical space."
+    },
+    {
+      "name": "width",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+      "required": false,
+      "defaultValue": "lg",
+      "enum": ["sm", "md", "lg", "xl", "full"],
+      "description": "Inner container width."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Default inverse CTA",
+      "code": "<CTASection\n  eyebrow=\"Join Axial\"\n  title=\"Join the network\"\n  description=\"Connect with counterparties and close transactions.\"\n  actions={<Button>Get started</Button>}\n/>",
+      "description": "A dark conversion band with one primary action."
+    },
+    {
+      "title": "Muted CTA",
+      "code": "<CTASection tone=\"muted\" align=\"left\" title=\"Talk to an advisor\" actions={<Button>Book a call</Button>} />",
+      "description": "A lighter band aligned to the page grid."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't stack two CTA sections",
+      "explanation": "One conversion band per page is enough. Put secondary actions in the hero or footer.",
+      "example": "// Avoid\n<CTASection title=\"Join\" /><CTASection title=\"Join now\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Heading",
+      "implementation": "Renders an h2 so it sits under the page h1",
+      "userRequirements": "Keep the title short and make the primary action the first control"
+    },
+    {
+      "feature": "Inverse tone",
+      "implementation": "Section scopes inverse tokens for the band",
+      "userRequirements": "Use semantic button variants so contrast survives the tone"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "CTA copy",
+      "guidelines": ["State the outcome", "Use one primary verb", "Keep the supporting line to one sentence"],
+      "goodExamples": ["Join the network", "Get matched with an advisor"],
+      "badExamples": ["Submit", "Click here"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "CTASection renders Section internally; do not wrap it in another Section",
+      "example": "<CTASection title=\"Ready?\" actions={<Button>Start</Button>} />"
+    },
+    {
+      "component": "Button",
+      "relationship": "Use one primary action and at most one secondary",
+      "example": "<CTASection actions={<><Button>Start</Button><Button variant=\"outline\">Learn more</Button></>} />"
+    }
+  ],
+  "relatedComponents": ["Section", "Hero", "Button"]
+}

@@ -22,6 +22,9 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 | eyebrow | `ReactNode` | — | no | Kicker above the title. |
 | size | `'sm' | 'md' | 'lg' | 'hero'` | `md` | no | Heading scale; hero is for marketing pages. |
 | align | `'left' | 'center'` | `left` | no | Text alignment. |
+| titleClassName | `string` | — | no | Extra classes merged onto the h1 for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes merged onto the description paragraph. |
+| eyebrowClassName | `string` | — | no | Extra classes merged onto the eyebrow/kicker. |
 
 ## Examples
 

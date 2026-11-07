@@ -1,0 +1,66 @@
+{
+  "id": "container",
+  "name": "Container",
+  "tier": "atom",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "container",
+  "exportName": "Container",
+  "description": "Centered, width-constrained page container with shared gutters and four width presets.",
+  "designIntent": "Pages repeat the same mx-auto/max-w/px trio with slightly different values. Container makes the content width and gutters a shared decision so headers, marketing sections and app pages line up.",
+  "props": [
+    {
+      "name": "width",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+      "required": false,
+      "defaultValue": "lg",
+      "enum": ["sm", "md", "lg", "xl", "full"],
+      "description": "Maximum content width. lg is 80rem (1280px); xl is 1400px; full removes the cap."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["none", "sm", "md", "lg"],
+      "description": "Horizontal gutters. md is px-4 / sm:px-6; lg adds lg:px-8."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav'",
+      "required": false,
+      "defaultValue": "div",
+      "description": "Semantic element to render."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Page container",
+      "code": "<Container width=\"lg\" padding=\"lg\">\n  <PageHeader title=\"Deals\" />\n</Container>",
+      "description": "Shared width and gutters for a page header and its content."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest same-width containers",
+      "explanation": "A Container inside a Container doubles the gutters on narrow screens. Use Section's inner container once.",
+      "example": "// Avoid\n<Container><Container>Content</Container></Container>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Semantic element",
+      "implementation": "The as prop renders div/section/article/header/footer/main/nav",
+      "userRequirements": "Use a landmark element when the container is a page region and give it an accessible name"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Section renders a Container internally; use Container directly only for custom chrome",
+      "example": "<Section width=\"lg\"><Hero /></Section>"
+    }
+  ],
+  "relatedComponents": ["Section", "Block", "Grid"]
+}

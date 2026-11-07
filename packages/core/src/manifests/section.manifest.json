@@ -1,0 +1,115 @@
+{
+  "id": "section",
+  "name": "Section",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "section",
+  "exportName": "Section",
+  "description": "Full-width page section with a surface tone, vertical rhythm and an optional centered container.",
+  "designIntent": "Marketing and content pages alternate background bands and vertical padding. Section owns the band and the inner container so pages stop repeating py-* and background classes, and tone=\"inverse\" scopes the token ladder for a readable dark band.",
+  "props": [
+    {
+      "name": "tone",
+      "type": "'default' | 'muted' | 'subtle' | 'brand' | 'inverse'",
+      "required": false,
+      "defaultValue": "default",
+      "enum": ["default", "muted", "subtle", "brand", "inverse"],
+      "description": "Surface treatment. inverse flips background, foreground, card, border and muted tokens for its subtree."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["none", "sm", "md", "lg", "xl"],
+      "description": "Vertical rhythm. md is py-14 / sm:py-16."
+    },
+    {
+      "name": "width",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+      "required": false,
+      "defaultValue": "lg",
+      "enum": ["sm", "md", "lg", "xl", "full"],
+      "description": "Inner Container width."
+    },
+    {
+      "name": "container",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Wrap children in a centered Container."
+    },
+    {
+      "name": "containerClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the inner Container."
+    },
+    {
+      "name": "as",
+      "type": "'section' | 'div' | 'article' | 'header' | 'footer' | 'main' | 'aside'",
+      "required": false,
+      "defaultValue": "section",
+      "description": "Semantic element to render."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Inverse CTA band",
+      "code": "<Section tone=\"inverse\" padding=\"lg\">\n  <SectionHeading title=\"Ready to exit?\" align=\"center\" />\n</Section>",
+      "description": "A dark band whose child components inherit inverse surface tokens."
+    },
+    {
+      "title": "Muted feature band",
+      "code": "<Section tone=\"muted\" width=\"xl\">\n  <FeatureGrid />\n</Section>",
+      "description": "A tinted band with a wider content cap."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put a Section inside a Section",
+      "explanation": "Nesting bands doubles padding and can reset the tone. Use one Section per band and plain layout elements inside it.",
+      "example": "// Avoid\n<Section><Section>Content</Section></Section>"
+    },
+    {
+      "title": "Don't hardcode colors inside a tone",
+      "explanation": "Use semantic tokens so the inverse scope can flip card, border and muted text automatically.",
+      "example": "// Avoid\n<Section tone=\"inverse\"><div className=\"bg-slate-900 text-white\" /></Section>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Tone scoping",
+      "implementation": "tone=inverse sets background, foreground, card, border and muted CSS variables on the section",
+      "userRequirements": "Keep text and controls on semantic tokens so contrast survives the tone change"
+    },
+    {
+      "feature": "Landmark",
+      "implementation": "Renders a section element by default",
+      "userRequirements": "Add aria-label or aria-labelledby when the section is a named region"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Section rhythm",
+      "guidelines": ["One idea per band", "Alternate default and muted tones", "Use inverse once per page for the final CTA"],
+      "goodExamples": ["Default features, muted proof, inverse CTA"],
+      "badExamples": ["Five alternating dark bands in a row"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Container",
+      "relationship": "Section renders Container when container is true",
+      "example": "<Section width=\"lg\"><Hero /></Section>"
+    },
+    {
+      "component": "Hero",
+      "relationship": "Hero is placed inside Section; Section owns the band",
+      "example": "<Section tone=\"inverse\"><Hero title=\".\" /></Section>"
+    }
+  ],
+  "relatedComponents": ["Container", "Hero", "CTASection", "PageHeader"]
+}

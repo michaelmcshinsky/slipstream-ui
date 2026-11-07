@@ -46,6 +46,13 @@
         "href",
         "to"
       ]
+    },
+    {
+      "name": "truncateCurrent",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Truncate the current page label and expose the full text as a title."
     }
   ],
   "examples": [

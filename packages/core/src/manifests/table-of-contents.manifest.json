@@ -35,6 +35,18 @@
       "required": false,
       "defaultValue": "true",
       "description": "Stick while the article scrolls."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name for the nav landmark when it differs from the visible label."
+    },
+    {
+      "name": "labelClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the visible label."
     }
   ],
   "examples": [

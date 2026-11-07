@@ -1,0 +1,131 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "comparison-table",
+  "name": "comparison-table",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "comparison-table",
+  "exportName": "ComparisonTable",
+  "description": "Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.",
+  "designIntent": "Comparison sections are hand-built with ad-hoc check glyphs and inaccessible color-only states. ComparisonTable makes the feature/value relationship semantic and gives boolean cells screen-reader text.",
+  "props": [
+    {
+      "name": "columns",
+      "type": "ComparisonColumn[]",
+      "required": true,
+      "description": "Comparison columns excluding the feature column. Each column has a label and optional highlight."
+    },
+    {
+      "name": "rows",
+      "type": "ComparisonRow[]",
+      "required": true,
+      "description": "Feature rows with one value per column. Booleans render check/dash; strings render as text."
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Comparison",
+      "description": "Accessible table caption."
+    },
+    {
+      "name": "featureLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Feature",
+      "description": "Heading for the feature column."
+    },
+    {
+      "name": "valueLabels",
+      "type": "{ yes?: string; no?: string }",
+      "required": false,
+      "description": "Screen-reader labels for boolean cells. Defaults to Included and Not included."
+    }
+  ],
+  "examples": [
+    {
+      "title": "With advisor vs. solo",
+      "code": "<ComparisonTable\n  columns={[\n    { label: 'With an advisor', highlight: true },\n    { label: 'On your own' },\n  ]}\n  rows={[\n    { feature: 'Accurate valuation', values: [true, false] },\n    { feature: 'Negotiation support', values: ['Included', 'Self-managed'] },\n  ]}\n/>",
+      "description": "A highlighted recommended column and mixed boolean/text cells."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use color alone",
+      "explanation": "Boolean cells already include a check/dash and screen-reader text. Do not replace them with colored dots.",
+      "example": "// Avoid\n{ feature: 'Support', values: ['green', 'red'] }"
+    },
+    {
+      "title": "Don't use it for dense data",
+      "explanation": "Use DataTable when rows are records and columns need sorting, selection or pagination.",
+      "example": "// Avoid\n<ComparisonTable rows={transactions} />\n\n// Prefer\n<DataTable columns={columns} data={transactions} rowId={rowId} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Table semantics",
+      "implementation": "Renders caption, thead, tbody, scope=col and scope=row",
+      "userRequirements": "Provide a caption that names the comparison"
+    },
+    {
+      "feature": "Boolean values",
+      "implementation": "Check/dash glyphs are aria-hidden and paired with sr-only Included/Not included text",
+      "userRequirements": "Override valueLabels when the domain uses different terms"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Comparison rows",
+      "guidelines": [
+        "One capability per row",
+        "Parallel phrasing across columns",
+        "Keep text cells to two or three words"
+      ],
+      "goodExamples": [
+        "Accurate valuation",
+        "Negotiation support"
+      ],
+      "badExamples": [
+        "Miscellaneous benefits"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Place the table inside a Section; it owns its own bordered surface",
+      "example": "<Section><ComparisonTable columns={columns} rows={rows} /></Section>"
+    }
+  ],
+  "relatedComponents": [
+    "Table",
+    "DataTable",
+    "Section"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/comparison-table/ComparisonTable.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ComparisonColumn = {\n  /** Column heading (e.g. \"With an advisor\"). */\n  label: string;\n  /** Visually emphasize this column. */\n  highlight?: boolean;\n};\n\nexport type ComparisonRow = {\n  /** Capability or criterion shown in the first column. */\n  feature: string;\n  /** One value per column: boolean for included/not included, string for free text. */\n  values: Array<string | boolean>;\n  /** Optional supporting line under the feature. */\n  hint?: string;\n};\n\nexport type ComparisonTableProps = React.HTMLAttributes<HTMLTableElement> & {\n  /** Comparison columns, excluding the feature column. */\n  columns: ComparisonColumn[];\n  /** Feature rows with one value per column. */\n  rows: ComparisonRow[];\n  /** Accessible caption. Default \"Comparison\". */\n  caption?: string;\n  /** Heading for the feature column. Default \"Feature\". */\n  featureLabel?: string;\n  /** Screen-reader labels for boolean cells. */\n  valueLabels?: { yes?: string; no?: string };\n};\n\nfunction CheckMark() {\n  return (\n    <svg\n      aria-hidden=\"true\"\n      viewBox=\"0 0 20 20\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"2.2\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      className=\"mx-auto h-5 w-5 text-success\"\n    >\n      <path d=\"m4 10.5 4 4 8-9\" />\n    </svg>\n  );\n}\n\nfunction DashMark() {\n  return (\n    <svg\n      aria-hidden=\"true\"\n      viewBox=\"0 0 20 20\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"2.2\"\n      strokeLinecap=\"round\"\n      className=\"mx-auto h-5 w-5 text-muted-foreground/60\"\n    >\n      <path d=\"M5 10h10\" />\n    </svg>\n  );\n}\n\n/**\n * Marketing comparison table for \"us vs. them\" or \"with an advisor vs. on\n * your own\" sections. Boolean cells render a check or dash plus screen-reader\n * text, so the comparison never relies on color or glyph alone.\n */\nexport const ComparisonTable = React.forwardRef<HTMLTableElement, ComparisonTableProps>(\n  function ComparisonTable(\n    {\n      columns,\n      rows,\n      caption = 'Comparison',\n      featureLabel = 'Feature',\n      valueLabels,\n      className,\n      ...props\n    },\n    ref\n  ) {\n    const yes = valueLabels?.yes ?? 'Included';\n    const no = valueLabels?.no ?? 'Not included';\n\n    return (\n      <div className=\"w-full overflow-x-auto rounded-xl border border-border bg-card\">\n        <table ref={ref} className={cn('w-full border-collapse text-sm', className)} {...props}>\n          <caption className=\"sr-only\">{caption}</caption>\n          <thead>\n            <tr className=\"border-b border-border\">\n              <th scope=\"col\" className=\"min-w-48 px-5 py-4 text-left font-medium text-muted-foreground\">\n                {featureLabel}\n              </th>\n              {columns.map((column) => (\n                <th\n                  key={column.label}\n                  scope=\"col\"\n                  className={cn(\n                    'min-w-40 px-5 py-4 text-center font-semibold',\n                    column.highlight && 'bg-primary/10 text-primary'\n                  )}\n                >\n                  {column.label}\n                </th>\n              ))}\n            </tr>\n          </thead>\n          <tbody>\n            {rows.map((row) => (\n              <tr key={row.feature} className=\"border-b border-border last:border-b-0\">\n                <th scope=\"row\" className=\"px-5 py-4 text-left font-medium\">\n                  {row.feature}\n                  {row.hint && <span className=\"mt-1 block text-xs font-normal text-muted-foreground\">{row.hint}</span>}\n                </th>\n                {columns.map((column, index) => {\n                  const value = row.values[index];\n                  return (\n                    <td\n                      key={`${row.feature}-${column.label}`}\n                      className={cn('px-5 py-4 text-center align-middle', column.highlight && 'bg-primary/5')}\n                    >\n                      {typeof value === 'boolean' ? (\n                        <>\n                          {value ? <CheckMark /> : <DashMark />}\n                          <span className=\"sr-only\">{value ? yes : no}</span>\n                        </>\n                      ) : (\n                        <span>{value ?? ''}</span>\n                      )}\n                    </td>\n                  );\n                })}\n              </tr>\n            ))}\n          </tbody>\n        </table>\n      </div>\n    );\n  }\n);\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/comparison-table/index.ts",
+      "content": "export { ComparisonTable } from './ComparisonTable';\nexport type { ComparisonColumn, ComparisonRow, ComparisonTableProps } from './ComparisonTable';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/comparison-table.manifest.json",
+      "content": "{\n  \"id\": \"comparison-table\",\n  \"name\": \"ComparisonTable\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"comparison-table\",\n  \"exportName\": \"ComparisonTable\",\n  \"description\": \"Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.\",\n  \"designIntent\": \"Comparison sections are hand-built with ad-hoc check glyphs and inaccessible color-only states. ComparisonTable makes the feature/value relationship semantic and gives boolean cells screen-reader text.\",\n  \"props\": [\n    {\n      \"name\": \"columns\",\n      \"type\": \"ComparisonColumn[]\",\n      \"required\": true,\n      \"description\": \"Comparison columns excluding the feature column. Each column has a label and optional highlight.\"\n    },\n    {\n      \"name\": \"rows\",\n      \"type\": \"ComparisonRow[]\",\n      \"required\": true,\n      \"description\": \"Feature rows with one value per column. Booleans render check/dash; strings render as text.\"\n    },\n    {\n      \"name\": \"caption\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Comparison\",\n      \"description\": \"Accessible table caption.\"\n    },\n    {\n      \"name\": \"featureLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Feature\",\n      \"description\": \"Heading for the feature column.\"\n    },\n    {\n      \"name\": \"valueLabels\",\n      \"type\": \"{ yes?: string; no?: string }\",\n      \"required\": false,\n      \"description\": \"Screen-reader labels for boolean cells. Defaults to Included and Not included.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"With advisor vs. solo\",\n      \"code\": \"<ComparisonTable\\n  columns={[\\n    { label: 'With an advisor', highlight: true },\\n    { label: 'On your own' },\\n  ]}\\n  rows={[\\n    { feature: 'Accurate valuation', values: [true, false] },\\n    { feature: 'Negotiation support', values: ['Included', 'Self-managed'] },\\n  ]}\\n/>\",\n      \"description\": \"A highlighted recommended column and mixed boolean/text cells.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use color alone\",\n      \"explanation\": \"Boolean cells already include a check/dash and screen-reader text. Do not replace them with colored dots.\",\n      \"example\": \"// Avoid\\n{ feature: 'Support', values: ['green', 'red'] }\"\n    },\n    {\n      \"title\": \"Don't use it for dense data\",\n      \"explanation\": \"Use DataTable when rows are records and columns need sorting, selection or pagination.\",\n      \"example\": \"// Avoid\\n<ComparisonTable rows={transactions} />\\n\\n// Prefer\\n<DataTable columns={columns} data={transactions} rowId={rowId} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Table semantics\",\n      \"implementation\": \"Renders caption, thead, tbody, scope=col and scope=row\",\n      \"userRequirements\": \"Provide a caption that names the comparison\"\n    },\n    {\n      \"feature\": \"Boolean values\",\n      \"implementation\": \"Check/dash glyphs are aria-hidden and paired with sr-only Included/Not included text\",\n      \"userRequirements\": \"Override valueLabels when the domain uses different terms\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Comparison rows\",\n      \"guidelines\": [\n        \"One capability per row\",\n        \"Parallel phrasing across columns\",\n        \"Keep text cells to two or three words\"\n      ],\n      \"goodExamples\": [\n        \"Accurate valuation\",\n        \"Negotiation support\"\n      ],\n      \"badExamples\": [\n        \"Miscellaneous benefits\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section\",\n      \"relationship\": \"Place the table inside a Section; it owns its own bordered surface\",\n      \"example\": \"<Section><ComparisonTable columns={columns} rows={rows} /></Section>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Table\",\n    \"DataTable\",\n    \"Section\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

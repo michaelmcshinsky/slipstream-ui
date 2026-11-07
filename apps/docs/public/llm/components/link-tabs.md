@@ -17,6 +17,7 @@ Tabs switch client-side panels; LinkTabs navigates between routes. Settings, acc
 | items | `LinkTabsItem[]` | — | yes | Tabs in display order. Each item has label, href, optional exact, icon, and disabled. |
 | activeHref | `string` | — | no | Current pathname used to mark the active tab. |
 | linkComponent | `React.ElementType` | — | no | Router link element (Inertia Link, Next Link, react-router Link). Defaults to an anchor. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
 | variant | `'default' | 'underline' | 'rounded'` | `default` | no | Visual style of the tab strip. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
 | label | `string` | `Section` | no | Accessible name for the navigation landmark. |

@@ -20,13 +20,18 @@ describe('Alert', () => {
     expect(screen.getByText('You can do things here.')).toBeInTheDocument();
   });
 
-  it.each(['default', 'destructive', 'success', 'warning', 'info'] as const)(
+  it.each(['default', 'destructive', 'danger', 'success', 'warning', 'info'] as const)(
     'applies the %s variant class',
     (variant) => {
       const { container: rendered } = render(<Alert variant={variant}>msg</Alert>);
       expect(rendered.firstChild).toBeInTheDocument();
     }
   );
+
+  it('treats danger as an alias of destructive', () => {
+    render(<Alert variant="danger">msg</Alert>);
+    expect(screen.getByRole('alert')).toHaveClass('bg-destructive/10');
+  });
 
   it('forwards className', () => {
     render(<Alert className="custom-class">msg</Alert>);

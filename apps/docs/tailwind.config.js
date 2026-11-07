@@ -67,6 +67,17 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        inverse: {
+          DEFAULT: 'hsl(var(--inverse))',
+          foreground: 'hsl(var(--inverse-foreground))',
+          muted: 'hsl(var(--inverse-muted))',
+          'muted-foreground': 'hsl(var(--inverse-muted-foreground))',
+          border: 'hsl(var(--inverse-border))',
+          card: 'hsl(var(--inverse-card))',
+          'card-foreground': 'hsl(var(--inverse-card-foreground))',
+          primary: 'hsl(var(--inverse-primary))',
+          'primary-foreground': 'hsl(var(--inverse-primary-foreground))',
+        },
       },
       borderRadius: {
         // Themes emit per-token radii; fall back to the base --radius.

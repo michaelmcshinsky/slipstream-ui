@@ -75,6 +75,20 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'card-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
     popover: darkMode ? '222 34% 14%' : '0 0% 100%',
     'popover-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
+
+    // Inverse sections flip the surface ladder: navy in light mode, white in
+    // dark mode. Section scopes these tokens onto its subtree.
+    inverse: darkMode ? '0 0% 100%' : '222 85% 7%',
+    'inverse-foreground': darkMode ? '222 85% 7%' : '0 0% 100%',
+    'inverse-muted': darkMode ? '214 40% 94%' : '222 45% 16%',
+    'inverse-muted-foreground': darkMode ? '219 12% 38%' : '215 20% 72%',
+    'inverse-border': darkMode ? '214 28% 82%' : '222 35% 24%',
+    'inverse-card': darkMode ? '0 0% 98%' : '222 45% 12%',
+    'inverse-card-foreground': darkMode ? '222 85% 7%' : '0 0% 100%',
+    // On an inverse band the normal primary is too dark in light mode; use a
+    // lighter brand blue with navy ink so links and filled buttons both pass.
+    'inverse-primary': darkMode ? '224 89% 53%' : '224 92% 72%',
+    'inverse-primary-foreground': darkMode ? '0 0% 100%' : '222 85% 7%',
   };
 
   return {

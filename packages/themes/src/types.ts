@@ -33,6 +33,21 @@ export type ThemeColors = {
   'card-foreground': string;
   popover: string;
   'popover-foreground': string;
+
+  /**
+   * Inverse section surface: a dark band in light mode and a light band in
+   * dark mode. Section scopes these tokens onto its children so cards,
+   * borders and muted text stay readable inside a contrasting band.
+   */
+  inverse: string;
+  'inverse-foreground': string;
+  'inverse-muted': string;
+  'inverse-muted-foreground': string;
+  'inverse-border': string;
+  'inverse-card': string;
+  'inverse-card-foreground': string;
+  'inverse-primary': string;
+  'inverse-primary-foreground': string;
 };
 
 export type Theme = {

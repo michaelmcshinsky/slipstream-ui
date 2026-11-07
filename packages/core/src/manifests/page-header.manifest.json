@@ -64,6 +64,24 @@
         "left",
         "center"
       ]
+    },
+    {
+      "name": "titleClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the h1 for host display typography."
+    },
+    {
+      "name": "descriptionClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the description paragraph."
+    },
+    {
+      "name": "eyebrowClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the eyebrow/kicker."
     }
   ],
   "examples": [

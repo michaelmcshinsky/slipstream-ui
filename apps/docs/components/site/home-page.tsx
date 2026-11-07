@@ -123,7 +123,7 @@ function CopyInstallPill() {
   const [copied, setCopied] = useState(false);
   async function copy() {
     try {
-      await navigator.clipboard.writeText('npx slipstream-ui@latest init');
+      await navigator.clipboard.writeText('npx @slipstream-ui/cli@latest init');
       track('install_copy', { command: 'init', location: 'home' });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
@@ -137,7 +137,7 @@ function CopyInstallPill() {
       onClick={copy}
       className="inline-flex items-center gap-3 rounded-lg border border-border bg-muted px-4 py-2.5 font-mono text-sm transition-colors hover:bg-accent"
     >
-      <span>npx slipstream-ui@latest init</span>
+      <span>npx @slipstream-ui/cli@latest init</span>
       <span className="text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
     </button>
   );

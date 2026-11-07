@@ -1,0 +1,170 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "range-slider",
+  "name": "range-slider",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "range-slider",
+  "exportName": "RangeSlider",
+  "description": "Dual-thumb numeric range slider with labeled native inputs and formatted values.",
+  "designIntent": "Data dashboards need a low/high range for revenue, EBITDA or dates, but a single range input cannot express two thumbs accessibly. RangeSlider composes two native range inputs so keyboard and screen-reader behavior stay native while the track renders one selection.",
+  "props": [
+    {
+      "name": "value",
+      "type": "[number, number]",
+      "required": false,
+      "description": "Controlled low/high pair."
+    },
+    {
+      "name": "defaultValue",
+      "type": "[number, number]",
+      "required": false,
+      "description": "Initial low/high pair when uncontrolled. Defaults to [min, max]."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: [number, number]) => void",
+      "required": false,
+      "description": "Fires with the next low/high pair."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "defaultValue": "0",
+      "description": "Lower bound."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "defaultValue": "100",
+      "description": "Upper bound."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "required": false,
+      "defaultValue": "1",
+      "description": "Increment."
+    },
+    {
+      "name": "startLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Minimum",
+      "description": "Accessible label for the low thumb."
+    },
+    {
+      "name": "endLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Maximum",
+      "description": "Accessible label for the high thumb."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "description": "Formats the displayed values and aria-valuetext."
+    },
+    {
+      "name": "showValues",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show the current low/high values above the track."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable both thumbs."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Revenue range",
+      "code": "<RangeSlider\n  min={5}\n  max={100}\n  defaultValue={[5, 100]}\n  startLabel=\"Revenue minimum\"\n  endLabel=\"Revenue maximum\"\n  formatValue={(value) => `$${value}M`}\n  onValueChange={setRevenue}\n/>",
+      "description": "A five-to-one-hundred million revenue filter."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use a single range input for two values",
+      "explanation": "A single thumb cannot express a minimum and maximum. Use RangeSlider when both ends are adjustable.",
+      "example": "// Avoid\n<input type=\"range\" />\n\n// Prefer\n<RangeSlider defaultValue={[20, 80]} />"
+    },
+    {
+      "title": "Don't hide the labels",
+      "explanation": "Each thumb needs a distinct accessible name so screen-reader users know which end they are changing.",
+      "example": "<RangeSlider startLabel=\"Revenue minimum\" endLabel=\"Revenue maximum\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Native range inputs",
+      "implementation": "Two input[type=range] elements with individual aria-label and aria-valuetext",
+      "userRequirements": "Give each thumb a distinct label and format values with the same unit shown on screen"
+    },
+    {
+      "feature": "Non-crossing thumbs",
+      "implementation": "The low thumb cannot move above the high thumb and vice versa",
+      "userRequirements": "Pass a valid min/max range and a step that reflects the real granularity"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Range values",
+      "guidelines": [
+        "Use the same unit on both ends",
+        "Format compactly",
+        "Prefer 5/50/100 style milestones when exact values are not meaningful"
+      ],
+      "goodExamples": [
+        "$5M to $100M"
+      ],
+      "badExamples": [
+        "5 to 100000000"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterPanel",
+      "relationship": "Place RangeSlider inside a filter panel or FilterBar for live numeric filtering",
+      "example": "<FilterBar><RangeSlider defaultValue={[5, 100]} /></FilterBar>"
+    }
+  ],
+  "relatedComponents": [
+    "FilterChips",
+    "FilterBar",
+    "SegmentedControl"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/range-slider/RangeSlider.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type RangeSliderProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> & {\n  /** Controlled low/high pair. */\n  value?: [number, number];\n  /** Initial low/high pair when uncontrolled. Defaults to [min, max]. */\n  defaultValue?: [number, number];\n  /** Fires with the next low/high pair. */\n  onValueChange?: (value: [number, number]) => void;\n  /** Lower bound. Default 0. */\n  min?: number;\n  /** Upper bound. Default 100. */\n  max?: number;\n  /** Increment. Default 1. */\n  step?: number;\n  /** Accessible label for the low thumb. Default \"Minimum\". */\n  startLabel?: string;\n  /** Accessible label for the high thumb. Default \"Maximum\". */\n  endLabel?: string;\n  /** Formats the displayed values and aria-valuetext. */\n  formatValue?: (value: number) => string;\n  /** Show the current low/high values above the track. Default true. */\n  showValues?: boolean;\n  disabled?: boolean;\n};\n\nconst rangeInputClass = cn(\n  'pointer-events-none absolute inset-x-0 top-1/2 h-5 w-full -translate-y-1/2 appearance-none bg-transparent',\n  '[&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:bg-transparent',\n  '[&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:shadow',\n  '[&::-moz-range-track]:h-1 [&::-moz-range-track]:bg-transparent',\n  '[&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:bg-background [&::-moz-range-thumb]:shadow',\n  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',\n  'disabled:cursor-not-allowed disabled:opacity-50'\n);\n\n/**\n * Dual-thumb range slider for numeric ranges such as revenue or EBITDA.\n * Uses two native range inputs for keyboard and screen-reader behavior, and\n * keeps the low and high thumbs from crossing. Pair it with a FilterBar or\n * FilterPanel for data dashboards.\n */\nexport const RangeSlider = React.forwardRef<HTMLDivElement, RangeSliderProps>(function RangeSlider(\n  {\n    value,\n    defaultValue,\n    onValueChange,\n    min = 0,\n    max = 100,\n    step = 1,\n    startLabel = 'Minimum',\n    endLabel = 'Maximum',\n    formatValue = (entry) => String(entry),\n    showValues = true,\n    disabled = false,\n    className,\n    ...props\n  },\n  ref\n) {\n  const clamp = (entry: number) => Math.min(Math.max(entry, min), max);\n  const [internal, setInternal] = React.useState<[number, number]>(() => {\n    const initial = defaultValue ?? [min, max];\n    return [clamp(initial[0]), clamp(initial[1])];\n  });\n  const current = value ?? internal;\n  const low = Math.min(clamp(current[0]), clamp(current[1]));\n  const high = Math.max(clamp(current[0]), clamp(current[1]));\n\n  const commit = (next: [number, number]) => {\n    if (value === undefined) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  const span = max - min || 1;\n  const lowPercent = ((low - min) / span) * 100;\n  const highPercent = ((high - min) / span) * 100;\n\n  return (\n    <div ref={ref} className={cn('w-full', className)} {...props}>\n      {showValues && (\n        <div className=\"mb-2 flex items-center justify-between text-sm font-medium tabular-nums\">\n          <span>{formatValue(low)}</span>\n          <span>{formatValue(high)}</span>\n        </div>\n      )}\n      <div className=\"relative h-5 w-full\">\n        <div className=\"absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-muted\" />\n        <div\n          className=\"absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-primary\"\n          style={{ left: `${lowPercent}%`, right: `${100 - highPercent}%` }}\n        />\n        <input\n          type=\"range\"\n          min={min}\n          max={max}\n          step={step}\n          value={low}\n          disabled={disabled}\n          aria-label={startLabel}\n          aria-valuetext={formatValue(low)}\n          onChange={(event) => commit([Math.min(Number(event.target.value), high), high])}\n          className={cn(rangeInputClass, 'z-10')}\n        />\n        <input\n          type=\"range\"\n          min={min}\n          max={max}\n          step={step}\n          value={high}\n          disabled={disabled}\n          aria-label={endLabel}\n          aria-valuetext={formatValue(high)}\n          onChange={(event) => commit([low, Math.max(Number(event.target.value), low)])}\n          className={cn(rangeInputClass, 'z-20')}\n        />\n      </div>\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/range-slider/index.ts",
+      "content": "export { RangeSlider } from './RangeSlider';\nexport type { RangeSliderProps } from './RangeSlider';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/range-slider.manifest.json",
+      "content": "{\n  \"id\": \"range-slider\",\n  \"name\": \"RangeSlider\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"range-slider\",\n  \"exportName\": \"RangeSlider\",\n  \"description\": \"Dual-thumb numeric range slider with labeled native inputs and formatted values.\",\n  \"designIntent\": \"Data dashboards need a low/high range for revenue, EBITDA or dates, but a single range input cannot express two thumbs accessibly. RangeSlider composes two native range inputs so keyboard and screen-reader behavior stay native while the track renders one selection.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"[number, number]\",\n      \"required\": false,\n      \"description\": \"Controlled low/high pair.\"\n    },\n    {\n      \"name\": \"defaultValue\",\n      \"type\": \"[number, number]\",\n      \"required\": false,\n      \"description\": \"Initial low/high pair when uncontrolled. Defaults to [min, max].\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: [number, number]) => void\",\n      \"required\": false,\n      \"description\": \"Fires with the next low/high pair.\"\n    },\n    {\n      \"name\": \"min\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"defaultValue\": \"0\",\n      \"description\": \"Lower bound.\"\n    },\n    {\n      \"name\": \"max\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"defaultValue\": \"100\",\n      \"description\": \"Upper bound.\"\n    },\n    {\n      \"name\": \"step\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"defaultValue\": \"1\",\n      \"description\": \"Increment.\"\n    },\n    {\n      \"name\": \"startLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Minimum\",\n      \"description\": \"Accessible label for the low thumb.\"\n    },\n    {\n      \"name\": \"endLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Maximum\",\n      \"description\": \"Accessible label for the high thumb.\"\n    },\n    {\n      \"name\": \"formatValue\",\n      \"type\": \"(value: number) => string\",\n      \"required\": false,\n      \"description\": \"Formats the displayed values and aria-valuetext.\"\n    },\n    {\n      \"name\": \"showValues\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"true\",\n      \"description\": \"Show the current low/high values above the track.\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Disable both thumbs.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Revenue range\",\n      \"code\": \"<RangeSlider\\n  min={5}\\n  max={100}\\n  defaultValue={[5, 100]}\\n  startLabel=\\\"Revenue minimum\\\"\\n  endLabel=\\\"Revenue maximum\\\"\\n  formatValue={(value) => `$${value}M`}\\n  onValueChange={setRevenue}\\n/>\",\n      \"description\": \"A five-to-one-hundred million revenue filter.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use a single range input for two values\",\n      \"explanation\": \"A single thumb cannot express a minimum and maximum. Use RangeSlider when both ends are adjustable.\",\n      \"example\": \"// Avoid\\n<input type=\\\"range\\\" />\\n\\n// Prefer\\n<RangeSlider defaultValue={[20, 80]} />\"\n    },\n    {\n      \"title\": \"Don't hide the labels\",\n      \"explanation\": \"Each thumb needs a distinct accessible name so screen-reader users know which end they are changing.\",\n      \"example\": \"<RangeSlider startLabel=\\\"Revenue minimum\\\" endLabel=\\\"Revenue maximum\\\" />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Native range inputs\",\n      \"implementation\": \"Two input[type=range] elements with individual aria-label and aria-valuetext\",\n      \"userRequirements\": \"Give each thumb a distinct label and format values with the same unit shown on screen\"\n    },\n    {\n      \"feature\": \"Non-crossing thumbs\",\n      \"implementation\": \"The low thumb cannot move above the high thumb and vice versa\",\n      \"userRequirements\": \"Pass a valid min/max range and a step that reflects the real granularity\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Range values\",\n      \"guidelines\": [\n        \"Use the same unit on both ends\",\n        \"Format compactly\",\n        \"Prefer 5/50/100 style milestones when exact values are not meaningful\"\n      ],\n      \"goodExamples\": [\n        \"$5M to $100M\"\n      ],\n      \"badExamples\": [\n        \"5 to 100000000\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"FilterPanel\",\n      \"relationship\": \"Place RangeSlider inside a filter panel or FilterBar for live numeric filtering\",\n      \"example\": \"<FilterBar><RangeSlider defaultValue={[5, 100]} /></FilterBar>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"FilterChips\",\n    \"FilterBar\",\n    \"SegmentedControl\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

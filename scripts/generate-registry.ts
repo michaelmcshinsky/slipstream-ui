@@ -47,6 +47,7 @@ function loadManifests() {
         manifest,
         packageDir: dir,
         packageName: name,
+        packageVersion: JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).version,
       }));
   }).sort((a, b) => a.manifest.id.localeCompare(b.manifest.id));
 }
@@ -165,9 +166,13 @@ function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const entries = loadManifests();
 
-  for (const { manifest, packageDir, packageName } of entries) {
+  for (const { manifest, packageDir, packageName, packageVersion } of entries) {
     const sourceDir = manifest.sourceDir ?? manifest.id;
-    const files = collectSourceFiles(packageDir, sourceDir);
+    const files = collectSourceFiles(packageDir, sourceDir).map((file) => {
+      if (!file.path.includes('/manifests/')) return file;
+      const data = JSON.parse(file.content);
+      return { ...file, content: `${JSON.stringify({ ...data, version: packageVersion }, null, 2)}\n` };
+    });
     // AI components import core primitives; declare those registry items so
     // shadcn-compatible installers pull them in automatically.
     const registryDependencies = files
@@ -183,6 +188,9 @@ function main() {
     const payload = {
       $schema: 'https://slipstreamui.com/schemas/manifest-v1.json',
       ...manifest,
+      // Stamped from the published package so the registry never advertises a
+      // stale per-component version.
+      version: packageVersion,
       // shadcn-compatible installer fields:
       name: manifest.id,
       type: 'registry:component',

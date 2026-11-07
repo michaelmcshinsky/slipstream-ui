@@ -1,0 +1,106 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "container",
+  "name": "container",
+  "tier": "atom",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "container",
+  "exportName": "Container",
+  "description": "Centered, width-constrained page container with shared gutters and four width presets.",
+  "designIntent": "Pages repeat the same mx-auto/max-w/px trio with slightly different values. Container makes the content width and gutters a shared decision so headers, marketing sections and app pages line up.",
+  "props": [
+    {
+      "name": "width",
+      "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+      "required": false,
+      "defaultValue": "lg",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "full"
+      ],
+      "description": "Maximum content width. lg is 80rem (1280px); xl is 1400px; full removes the cap."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": [
+        "none",
+        "sm",
+        "md",
+        "lg"
+      ],
+      "description": "Horizontal gutters. md is px-4 / sm:px-6; lg adds lg:px-8."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav'",
+      "required": false,
+      "defaultValue": "div",
+      "description": "Semantic element to render."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Page container",
+      "code": "<Container width=\"lg\" padding=\"lg\">\n  <PageHeader title=\"Deals\" />\n</Container>",
+      "description": "Shared width and gutters for a page header and its content."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest same-width containers",
+      "explanation": "A Container inside a Container doubles the gutters on narrow screens. Use Section's inner container once.",
+      "example": "// Avoid\n<Container><Container>Content</Container></Container>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Semantic element",
+      "implementation": "The as prop renders div/section/article/header/footer/main/nav",
+      "userRequirements": "Use a landmark element when the container is a page region and give it an accessible name"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Section renders a Container internally; use Container directly only for custom chrome",
+      "example": "<Section width=\"lg\"><Hero /></Section>"
+    }
+  ],
+  "relatedComponents": [
+    "Section",
+    "Block",
+    "Grid"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/container/Container.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ContainerWidth = 'sm' | 'md' | 'lg' | 'xl' | 'full';\n\nexport type ContainerProps = React.HTMLAttributes<HTMLElement> & {\n  /** Maximum content width. Default 'lg' (80rem / 1280px). */\n  width?: ContainerWidth;\n  /** Horizontal gutters. Default 'md'. */\n  padding?: 'none' | 'sm' | 'md' | 'lg';\n  /** Semantic element (default 'div'). */\n  as?: 'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav';\n};\n\nconst widthClasses: Record<ContainerWidth, string> = {\n  sm: 'max-w-3xl',\n  md: 'max-w-5xl',\n  lg: 'max-w-7xl',\n  xl: 'max-w-[1400px]',\n  full: 'max-w-none',\n};\n\nconst paddingClasses = {\n  none: '',\n  sm: 'px-4',\n  md: 'px-4 sm:px-6',\n  lg: 'px-4 sm:px-6 lg:px-8',\n} as const;\n\n/**\n * Centered, width-constrained page container. Use it for page chrome,\n * marketing sections and any content that should share the same gutters and\n * maximum width instead of repeating `mx-auto max-w-* px-*` per page.\n */\nexport const Container = React.forwardRef<HTMLElement, ContainerProps>(function Container(\n  { width = 'lg', padding = 'md', as = 'div', className, ...props },\n  ref\n) {\n  const Tag = as as 'div';\n\n  return (\n    <Tag\n      ref={ref as never}\n      className={cn('mx-auto w-full', widthClasses[width], paddingClasses[padding], className)}\n      {...props}\n    />\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/container/index.ts",
+      "content": "export { Container } from './Container';\nexport type { ContainerProps, ContainerWidth } from './Container';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/container.manifest.json",
+      "content": "{\n  \"id\": \"container\",\n  \"name\": \"Container\",\n  \"tier\": \"atom\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"container\",\n  \"exportName\": \"Container\",\n  \"description\": \"Centered, width-constrained page container with shared gutters and four width presets.\",\n  \"designIntent\": \"Pages repeat the same mx-auto/max-w/px trio with slightly different values. Container makes the content width and gutters a shared decision so headers, marketing sections and app pages line up.\",\n  \"props\": [\n    {\n      \"name\": \"width\",\n      \"type\": \"'sm' | 'md' | 'lg' | 'xl' | 'full'\",\n      \"required\": false,\n      \"defaultValue\": \"lg\",\n      \"enum\": [\n        \"sm\",\n        \"md\",\n        \"lg\",\n        \"xl\",\n        \"full\"\n      ],\n      \"description\": \"Maximum content width. lg is 80rem (1280px); xl is 1400px; full removes the cap.\"\n    },\n    {\n      \"name\": \"padding\",\n      \"type\": \"'none' | 'sm' | 'md' | 'lg'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"enum\": [\n        \"none\",\n        \"sm\",\n        \"md\",\n        \"lg\"\n      ],\n      \"description\": \"Horizontal gutters. md is px-4 / sm:px-6; lg adds lg:px-8.\"\n    },\n    {\n      \"name\": \"as\",\n      \"type\": \"'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav'\",\n      \"required\": false,\n      \"defaultValue\": \"div\",\n      \"description\": \"Semantic element to render.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Page container\",\n      \"code\": \"<Container width=\\\"lg\\\" padding=\\\"lg\\\">\\n  <PageHeader title=\\\"Deals\\\" />\\n</Container>\",\n      \"description\": \"Shared width and gutters for a page header and its content.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't nest same-width containers\",\n      \"explanation\": \"A Container inside a Container doubles the gutters on narrow screens. Use Section's inner container once.\",\n      \"example\": \"// Avoid\\n<Container><Container>Content</Container></Container>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Semantic element\",\n      \"implementation\": \"The as prop renders div/section/article/header/footer/main/nav\",\n      \"userRequirements\": \"Use a landmark element when the container is a page region and give it an accessible name\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Section\",\n      \"relationship\": \"Section renders a Container internally; use Container directly only for custom chrome\",\n      \"example\": \"<Section width=\\\"lg\\\"><Hero /></Section>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Section\",\n    \"Block\",\n    \"Grid\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

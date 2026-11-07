@@ -19,12 +19,14 @@
       "require": "./dist/index.js"
     },
     "./tailwind-v4.css": "./tailwind-v4.css",
+    "./tailwind-preset": "./tailwind-preset.cjs",
     "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist",
     "src",
-    "tailwind-v4.css"
+    "tailwind-v4.css",
+    "tailwind-preset.cjs"
   ],
   "publishConfig": {
     "access": "public",
@@ -36,7 +38,12 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
   "devDependencies": {
     "@slipstream-ui/eslint-config": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",

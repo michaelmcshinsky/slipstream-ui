@@ -37,8 +37,17 @@ export default function TailwindV4Page() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">2. Apply your theme variables</h2>
       <p className="mb-3 leading-relaxed text-muted-foreground">
-        The v4 file reads the same HSL channel variables that <code className="text-foreground">createTheme()</code>{' '}
-        emits. Apply them to the root element (or a scoped container):
+        Import the prebuilt defaults first, then override any token with{' '}
+        <code className="text-foreground">createTheme()</code> when you need a brand palette:
+      </p>
+      <CodeBlock
+        language="css"
+        code={`@import "tailwindcss";
+@import "@slipstream-ui/themes/styles.css";
+@import "@slipstream-ui/themes/tailwind-v4.css";`}
+      />
+      <p className="mb-3 leading-relaxed text-muted-foreground">
+        For a custom brand, emit the same channel variables at runtime (or from a generated stylesheet):
       </p>
       <CodeBlock
         language="ts"
@@ -51,8 +60,11 @@ document.documentElement.setAttribute("style", css);`}
       <h2 className="text-2xl font-semibold mt-8 mb-4">3. Keep dark mode working</h2>
       <p className="mb-3 leading-relaxed text-muted-foreground">
         The v4 entry declares <code className="text-foreground">@custom-variant dark</code> against
-        the <code className="text-foreground">.dark</code> class, matching the v3 preset. Toggle the
-        class on <code className="text-foreground">&lt;html&gt;</code> as before.
+        both the <code className="text-foreground">.dark</code> class and the{' '}
+        <code className="text-foreground">[data-theme=&apos;dark&apos;]</code> attribute. Toggle
+        either on <code className="text-foreground">&lt;html&gt;</code>;{' '}
+        <code className="text-foreground">@slipstream-ui/themes/styles.css</code> ships the matching
+        dark values.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">What changes from v3</h2>

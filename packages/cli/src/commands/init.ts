@@ -4,7 +4,37 @@ import ora from 'ora';
 import path from 'node:path';
 import fs from 'fs-extra';
 
-/** CSS custom properties injected into the project's global stylesheet. */
+/** Extract the declarations of the first matching selector block. */
+function readBlock(css: string, selector: string): Map<string, string> {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = css.match(new RegExp(`${escaped}\\s*\\{([^}]*)\\}`));
+  const declarations = new Map<string, string>();
+  if (!match) return declarations;
+  for (const declaration of match[1].matchAll(/(--[a-z0-9-]+)\s*:\s*([^;]+);/g)) {
+    declarations.set(declaration[1], declaration[2].trim());
+  }
+  return declarations;
+}
+
+let THEME_LIGHT: Map<string, string> = new Map();
+let THEME_DARK: Map<string, string> = new Map();
+
+/** Format the tokens the consumer is missing, so an existing brand theme is
+ * extended rather than replaced. */
+function missingThemeTokens(css: string) {
+  const light = readBlock(css, ':root');
+  const dark = readBlock(css, '.dark');
+  const missingLight = [...THEME_LIGHT].filter(([token]) => !light.has(token));
+  const missingDark = [...THEME_DARK].filter(([token]) => !dark.has(token));
+  if (missingLight.length === 0 && missingDark.length === 0) return null;
+  const block = (tokens: [string, string][]) => tokens.map(([token, value]) => `  ${token}: ${value};`).join('\n');
+  return [
+    missingLight.length > 0 ? `:root {\n${block(missingLight)}\n}` : '',
+    missingDark.length > 0 ? `.dark {\n  color-scheme: dark;\n${block(missingDark)}\n}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+}
 const THEME_VARIABLES = `:root {
   --background: 0 0% 100%;
   --foreground: 222 85% 7%;
@@ -74,6 +104,9 @@ const THEME_VARIABLES = `:root {
   --input: 217 18% 36%;
   --ring: 224 90% 70%;
 }`;
+
+THEME_LIGHT = readBlock(THEME_VARIABLES, ':root');
+THEME_DARK = readBlock(THEME_VARIABLES, '.dark');
 
 
 /** Candidate global stylesheet locations, Next.js first then Vite conventions. */
@@ -203,6 +236,13 @@ export const initCommand = new Command('init')
           cssMode = 'tailwind-v3';
           if (!hasTheme) {
             next = `${next.trimEnd()}\n\n/* slipstream-ui theme */\n${THEME_VARIABLES}\n`;
+          } else {
+            // Keep the consumer's brand palette and add only the tokens the
+            // Slipstream components need but the existing theme is missing.
+            const missing = missingThemeTokens(next);
+            if (missing) {
+              next = `${next.trimEnd()}\n\n/* slipstream-ui theme (missing tokens) */\n${missing}\n`;
+            }
           }
         } else {
           cssMode = 'prebuilt';

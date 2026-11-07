@@ -57,6 +57,16 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
+  --color-inverse: hsl(var(--inverse));
+  --color-inverse-foreground: hsl(var(--inverse-foreground));
+  --color-inverse-muted: hsl(var(--inverse-muted));
+  --color-inverse-muted-foreground: hsl(var(--inverse-muted-foreground));
+  --color-inverse-border: hsl(var(--inverse-border));
+  --color-inverse-card: hsl(var(--inverse-card));
+  --color-inverse-card-foreground: hsl(var(--inverse-card-foreground));
+  --color-inverse-primary: hsl(var(--inverse-primary));
+  --color-inverse-primary-foreground: hsl(var(--inverse-primary-foreground));
+
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
 

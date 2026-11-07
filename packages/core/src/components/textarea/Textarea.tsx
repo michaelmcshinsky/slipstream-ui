@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  /** Controlled value; omit for uncontrolled usage. */
-  value?: string;
-  /** Fired when the content changes. */
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-};
+export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 /**
  * Multi-line text input styled to match `Input`. Wraps the native

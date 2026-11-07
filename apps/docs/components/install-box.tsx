@@ -16,7 +16,7 @@ export type InstallBoxProps = {
  */
 export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @slipstream-ui/ai', className }: InstallBoxProps) {
   const tabs = [
-    { id: 'cli', label: 'CLI', command: `npx slipstream-ui@latest add ${componentId}` },
+    { id: 'cli', label: 'CLI', command: `npx @slipstream-ui/cli@latest add ${componentId}` },
     { id: 'shadcn', label: 'shadcn', command: `npx shadcn@latest add https://slipstreamui.com/registry/${componentId}.json` },
     { id: 'npm', label: 'pnpm', command: `pnpm add ${npmPackages}` },
   ] as const;

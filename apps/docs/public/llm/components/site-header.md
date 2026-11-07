@@ -19,7 +19,12 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | activeHref | `string` | — | no | Current route for active styling (aria-current=page). |
 | match | `'prefix' | 'exact'` | `prefix` | no | Prefix highlights parents of the current route; exact only identical hrefs. |
 | actions | `ReactNode` | — | no | Right-aligned actions (theme toggle, GitHub, CTA). |
+| mobileActions | `ReactNode` | — | no | Actions rendered inside the mobile drawer; defaults to `actions`. |
 | linkComponent | `React.ElementType` | — | no | Router link element. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
+| brandLabel | `string` | `Home` | no | Accessible name for the brand link. |
+| navLabel | `string` | `Main` | no | Accessible name for the desktop navigation landmark. |
+| mobileNavLabel | `string` | `Mobile` | no | Accessible name for the mobile navigation landmark. |
 | sticky | `boolean` | `true` | no | Pin the bar to the top. |
 | mobileLabel | `string` | `Menu` | no | Title of the mobile navigation drawer. |
 

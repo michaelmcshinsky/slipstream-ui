@@ -26,6 +26,8 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
    * anchors and Next.js Link; `to` covers react-router and similar routers.
    */
   linkHrefProp?: 'href' | 'to';
+  /** Truncate the current page label and expose the full text as a title. */
+  truncateCurrent?: boolean;
 };
 
 /**
@@ -34,7 +36,7 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
  * announce the navigation landmark and current location.
  */
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, separator = '/', onItemClick, linkComponent, linkHrefProp = 'href', className, ...props }, ref) => {
+  ({ items, separator = '/', onItemClick, linkComponent, linkHrefProp = 'href', truncateCurrent = false, className, ...props }, ref) => {
     const LinkEl = linkComponent ?? 'a';
     return (
     <nav
@@ -47,7 +49,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={`${item.label}-${index}`} className="flex items-center space-x-1.5">
+            <li key={`${item.label}-${index}`} className={cn('flex items-center space-x-1.5', truncateCurrent && isLast && 'min-w-0')}>
               {index > 0 && (
                 <span aria-hidden="true" className="text-muted-foreground/50">
                   {separator}
@@ -71,7 +73,8 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               ) : (
                 <span
                   aria-current={isLast ? 'page' : undefined}
-                  className={isLast ? 'font-medium text-foreground' : undefined}
+                  title={truncateCurrent && isLast ? item.label : undefined}
+                  className={cn(isLast && 'font-medium text-foreground', truncateCurrent && isLast && 'truncate')}
                 >
                   {item.label}
                 </span>

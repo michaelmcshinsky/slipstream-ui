@@ -98,8 +98,8 @@ it('renders a retry card when the stream fails', async () => {
         <CodeBlock
           language="bash"
           code={`# Fail CI when copied components drift from the registry
-npx slipstream-ui@latest diff            # exit 1 on drift
-npx slipstream-ui@latest diff --json     # machine-readable
+npx @slipstream-ui/cli@latest diff            # exit 1 on drift
+npx @slipstream-ui/cli@latest diff --json     # machine-readable
 
 # And validate every COMPONENT_MANIFEST in the repo
 pnpm validate:manifests                  # schema + TS↔manifest drift`}
@@ -110,7 +110,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
           language="yaml"
           code={`# .github/workflows/ci.yml
 - name: Slipstream drift
-  run: npx slipstream-ui@latest diff`}
+  run: npx @slipstream-ui/cli@latest diff`}
         />
       </div>
 
@@ -145,7 +145,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
 - run: pnpm typecheck
 - run: pnpm test                      # jest-axe + interaction suites
 - run: pnpm validate:manifests        # manifest schema + drift
-- run: npx slipstream-ui@latest diff  # copied components vs registry`}
+- run: npx @slipstream-ui/cli@latest diff  # copied components vs registry`}
           />
         </div>
         <p className="mt-3 text-sm text-muted-foreground">

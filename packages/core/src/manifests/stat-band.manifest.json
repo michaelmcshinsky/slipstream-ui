@@ -1,0 +1,97 @@
+{
+  "id": "stat-band",
+  "name": "StatBand",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "stat-band",
+  "exportName": "StatBand",
+  "description": "Semantic description list of headline stats with labels, optional hints and column presets.",
+  "designIntent": "Proof sections repeat the same number/label cluster. StatBand standardizes the scale, dividers and responsive columns, and uses dl semantics so the number-to-label relationship is real structure, not styled divs.",
+  "props": [
+    {
+      "name": "items",
+      "type": "StatItem[]",
+      "required": true,
+      "description": "Stats to display: value, label and optional hint."
+    },
+    {
+      "name": "columns",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Desktop column count. Mobile stacks to one column and sm uses two."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "center",
+      "enum": ["left", "center"],
+      "description": "Copy alignment."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Value scale."
+    },
+    {
+      "name": "divided",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Draw dividers between stats at sm and up."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Proof band",
+      "code": "<StatBand\n  items={[\n    { value: '3,500+', label: 'Advisory firms' },\n    { value: '5,000+', label: 'Investors' },\n    { value: '12,000+', label: 'Deals annually' },\n  ]}\n/>",
+      "description": "Three proof points with default dividers."
+    },
+    {
+      "title": "Left-aligned four-up",
+      "code": "<StatBand columns={4} align=\"left\" items={stats} />",
+      "description": "Four stats aligned to the left."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use StatBand for app KPIs",
+      "explanation": "Use MetricCard when the value needs a delta, trend or loading state. StatBand is a marketing proof strip.",
+      "example": "// Avoid\n<StatBand items={[{ value: '+12%', label: 'MRR' }]} />\n\n// Prefer\n<MetricCard label=\"MRR\" value=\"$48k\" delta=\"+12%\" trend=\"up\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Description list",
+      "implementation": "Renders dl/dt/dd so each value is paired with its label",
+      "userRequirements": "Keep labels short and do not put interactive controls inside a stat"
+    },
+    {
+      "feature": "Visual order",
+      "implementation": "Value renders before label visually while dt precedes dd in the DOM",
+      "userRequirements": "Screen readers still receive the label before the value"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Stats",
+      "guidelines": ["Use one unit per stat", "Include a sign or plus when the number is a floor", "Keep labels to three words"],
+      "goodExamples": ["12,000+ deals annually"],
+      "badExamples": ["Lots of deals"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "StatBand sits inside a Section so the surface tone and padding come from the band",
+      "example": "<Section tone=\"inverse\"><StatBand items={stats} /></Section>"
+    }
+  ],
+  "relatedComponents": ["MetricCard", "Hero", "Section"]
+}

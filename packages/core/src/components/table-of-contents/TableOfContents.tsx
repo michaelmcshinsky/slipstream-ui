@@ -15,6 +15,10 @@ export type TableOfContentsProps = React.HTMLAttributes<HTMLElement> & {
   activeId?: string;
   /** Accessible name. Default 'On this page'. */
   label?: string;
+  /** Accessible name for the nav landmark when it differs from the visible label. */
+  ariaLabel?: string;
+  /** Extra classes for the visible label. */
+  labelClassName?: string;
   /** Stick to the viewport while the article scrolls (default true). */
   sticky?: boolean;
 };
@@ -28,17 +32,19 @@ export function TableOfContents({
   headings,
   activeId,
   label = 'On this page',
+  ariaLabel,
+  labelClassName,
   sticky = true,
   className,
   ...props
 }: TableOfContentsProps) {
   return (
     <nav
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
       className={cn('text-sm', sticky && 'sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto', className)}
       {...props}
     >
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className={cn('mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground', labelClassName)}>{label}</p>
       <ul className="space-y-1 border-l border-border">
         {headings.map((heading) => {
           const active = heading.id === activeId;
@@ -48,9 +54,9 @@ export function TableOfContents({
                 href={`#${heading.id}`}
                 aria-current={active ? 'location' : undefined}
                 className={cn(
-                  '-ml-px block border-l py-1 pl-3 transition-colors',
+                  '-ml-px block border-l py-1 pl-3 no-underline transition-colors',
                   active
-                    ? 'border-primary font-medium text-primary'
+                    ? 'border-primary font-medium text-primary underline'
                     : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
                 )}
               >

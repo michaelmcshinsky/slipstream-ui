@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 82,
+  "count": 91,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -149,6 +149,14 @@
       "registry": "/registry/command-palette.json"
     },
     {
+      "id": "comparison-table",
+      "name": "ComparisonTable",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.",
+      "registry": "/registry/comparison-table.json"
+    },
+    {
       "id": "confirm-dialog",
       "name": "ConfirmDialog",
       "package": "@slipstream-ui/core",
@@ -165,12 +173,28 @@
       "registry": "/registry/confirmation.json"
     },
     {
+      "id": "container",
+      "name": "Container",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Centered, width-constrained page container with shared gutters and four width presets.",
+      "registry": "/registry/container.json"
+    },
+    {
       "id": "conversation",
       "name": "Conversation",
       "package": "@slipstream-ui/ai",
       "tier": "organism",
       "description": "A container for displaying a list of chat messages with auto-scroll and loading states",
       "registry": "/registry/conversation.json"
+    },
+    {
+      "id": "cta-section",
+      "name": "CTASection",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Full-width conversion band with eyebrow, headline, supporting copy and actions.",
+      "registry": "/registry/cta-section.json"
     },
     {
       "id": "data-table",
@@ -237,6 +261,14 @@
       "registry": "/registry/filter-bar.json"
     },
     {
+      "id": "filter-chips",
+      "name": "FilterChips",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Active-filter summary with removable chips and a clear-all action.",
+      "registry": "/registry/filter-chips.json"
+    },
+    {
       "id": "flex",
       "name": "Flex / FlexItem",
       "package": "@slipstream-ui/core",
@@ -283,6 +315,14 @@
       "tier": "atom",
       "description": "Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.",
       "registry": "/registry/heading.json"
+    },
+    {
+      "id": "hero",
+      "name": "Hero",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
+      "registry": "/registry/hero.json"
     },
     {
       "id": "inline-citation",
@@ -437,6 +477,14 @@
       "registry": "/registry/radio.json"
     },
     {
+      "id": "range-slider",
+      "name": "RangeSlider",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Dual-thumb numeric range slider with labeled native inputs and formatted values.",
+      "registry": "/registry/range-slider.json"
+    },
+    {
       "id": "reasoning",
       "name": "Reasoning",
       "package": "@slipstream-ui/ai",
@@ -461,12 +509,28 @@
       "registry": "/registry/search.json"
     },
     {
+      "id": "section",
+      "name": "Section",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Full-width page section with a surface tone, vertical rhythm and an optional centered container.",
+      "registry": "/registry/section.json"
+    },
+    {
       "id": "section-heading",
       "name": "SectionHeading",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.",
       "registry": "/registry/section-heading.json"
+    },
+    {
+      "id": "segmented-control",
+      "name": "SegmentedControl",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Single- or multi-select segmented control for view and filter switches.",
+      "registry": "/registry/segmented-control.json"
     },
     {
       "id": "select",
@@ -531,6 +595,14 @@
       "tier": "atom",
       "description": "Indeterminate loading indicator with accessible status semantics.",
       "registry": "/registry/spinner.json"
+    },
+    {
+      "id": "stat-band",
+      "name": "StatBand",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Semantic description list of headline stats with labels, optional hints and column presets.",
+      "registry": "/registry/stat-band.json"
     },
     {
       "id": "stepper",

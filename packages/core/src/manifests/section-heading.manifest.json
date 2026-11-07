@@ -54,6 +54,24 @@
       "required": false,
       "defaultValue": "md",
       "description": "Title scale."
+    },
+    {
+      "name": "titleClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the title element for host display typography."
+    },
+    {
+      "name": "descriptionClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the description paragraph."
+    },
+    {
+      "name": "eyebrowClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes merged onto the eyebrow/kicker."
     }
   ],
   "examples": [

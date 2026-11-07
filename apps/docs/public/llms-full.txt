@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 82 components, each shipping a
+The AI-first React component library. 91 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 65
+## Core components (@slipstream-ui/core) — 74
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -23,7 +23,10 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
+- [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 - [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
+- [Container](https://slipstreamui.com/llm/components/container.md) — Centered, width-constrained page container with shared gutters and four width presets.
+- [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -32,12 +35,14 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 - [FileUpload](https://slipstreamui.com/llm/components/file-upload.md) — Drag-and-drop file picker with a removable file list and per-file progress bars.
 - [FilterBar](https://slipstreamui.com/llm/components/filter-bar.md) — List-page filter strip: search field, filter controls, reset affordance and trailing actions.
+- [FilterChips](https://slipstreamui.com/llm/components/filter-chips.md) — Active-filter summary with removable chips and a clear-all action.
 - [Flex / FlexItem](https://slipstreamui.com/llm/components/flex.md) — Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 - [Form](https://slipstreamui.com/llm/components/form.md) — Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 - [FormField](https://slipstreamui.com/llm/components/form-field.md) — Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
 - [FormLayout](https://slipstreamui.com/llm/components/form-layout.md) — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 - [Grid / GridItem](https://slipstreamui.com/llm/components/grid.md) — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - [Heading](https://slipstreamui.com/llm/components/heading.md) — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
+- [Hero](https://slipstreamui.com/llm/components/hero.md) — Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
@@ -53,8 +58,11 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 - [Radio](https://slipstreamui.com/llm/components/radio.md) — Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
+- [RangeSlider](https://slipstreamui.com/llm/components/range-slider.md) — Dual-thumb numeric range slider with labeled native inputs and formatted values.
 - [Search](https://slipstreamui.com/llm/components/search.md) — Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
+- [Section](https://slipstreamui.com/llm/components/section.md) — Full-width page section with a surface tone, vertical rhythm and an optional centered container.
 - [SectionHeading](https://slipstreamui.com/llm/components/section-heading.md) — Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
+- [SegmentedControl](https://slipstreamui.com/llm/components/segmented-control.md) — Single- or multi-select segmented control for view and filter switches.
 - [Select](https://slipstreamui.com/llm/components/select.md) — Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 - [SelectMenu](https://slipstreamui.com/llm/components/select-menu.md) — Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 - [Separator](https://slipstreamui.com/llm/components/separator.md) — A visual divider between content blocks, decorative or semantic
@@ -62,6 +70,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [SiteHeader](https://slipstreamui.com/llm/components/site-header.md) — Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
+- [StatBand](https://slipstreamui.com/llm/components/stat-band.md) — Semantic description list of headline stats with labels, optional hints and column presets.
 - [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
 - [Switch](https://slipstreamui.com/llm/components/switch.md) — A toggle switch for binary settings, with role=switch and aria-checked
 - [Table](https://slipstreamui.com/llm/components/table.md) — Semantic data table with headers, body, footer, and accessible caption
@@ -200,7 +209,7 @@ Alert communicates status or requires attention. Use it for form errors, success
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'destructive' | 'success' | 'warning' | 'info'` | `'default'` | no | Semantic style variant |
+| variant | `'default' | 'destructive' | 'danger' | 'success' | 'warning' | 'info'` | `'default'` | no | Semantic style variant; danger is an alias of destructive. |
 | children | `ReactNode` | — | yes | Alert content (AlertTitle and AlertDescription) |
 | className | `string` | — | no | Additional CSS classes to apply |
 
@@ -670,7 +679,7 @@ The Badge component is used to display small pieces of information like status i
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'success' | 'warning' | 'info'` | `default` | no | Semantic surface; primary/danger are aliases for default/destructive. |
+| variant | `'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'neutral' | 'accent' | 'success' | 'warning' | 'info'` | `default` | no | Semantic surface; primary/danger are aliases for default/destructive, neutral is a muted metadata pill and accent is a tinted brand pill. |
 | children | `ReactNode` | — | no | Content to display inside the badge |
 | className | `string` | — | no | Additional CSS classes to apply |
 | asChild | `boolean` | `false` | no | Render the child element with badge styling. |
@@ -885,6 +894,8 @@ Breadcrumb shows the user's location in a hierarchy and lets them navigate back 
 | className | `string` | — | no | Additional CSS classes to apply |
 | onItemClick | `(item: BreadcrumbItem, index: number) => void` | — | no | Receives every link click with default navigation prevented — route programmatically. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers (preserves prefetch/modified clicks). |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
+| truncateCurrent | `boolean` | `false` | no | Truncate the current page label and expose the full text as a title. |
 
 ## Examples
 
@@ -948,7 +959,7 @@ The Button component is a fundamental interactive element that triggers actions 
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link'` | `default` | no | Visual style variant of the button |
+| variant | `'default' | 'primary' | 'destructive' | 'danger' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link' | 'contrast' | 'onDark'` | `default` | no | Visual style variant of the button |
 | size | `'default' | 'sm' | 'lg' | 'icon'` | `default` | no | Size variant of the button |
 | asChild | `boolean` | `false` | no | When true, renders as a child component using Radix Slot for composition |
 | disabled | `boolean` | `false` | no | Disables the button and prevents interaction |
@@ -1443,6 +1454,68 @@ useEffect(() => {
 
 ---
 
+# ComparisonTable
+
+Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
+
+> Import: `import { ComparisonTable } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/comparison-table.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Comparison sections are hand-built with ad-hoc check glyphs and inaccessible color-only states. ComparisonTable makes the feature/value relationship semantic and gives boolean cells screen-reader text.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| columns | `ComparisonColumn[]` | — | yes | Comparison columns excluding the feature column. Each column has a label and optional highlight. |
+| rows | `ComparisonRow[]` | — | yes | Feature rows with one value per column. Booleans render check/dash; strings render as text. |
+| caption | `string` | `Comparison` | no | Accessible table caption. |
+| featureLabel | `string` | `Feature` | no | Heading for the feature column. |
+| valueLabels | `{ yes?: string; no?: string }` | — | no | Screen-reader labels for boolean cells. Defaults to Included and Not included. |
+
+## Examples
+
+### With advisor vs. solo
+
+A highlighted recommended column and mixed boolean/text cells.
+
+```tsx
+<ComparisonTable
+  columns={[
+    { label: 'With an advisor', highlight: true },
+    { label: 'On your own' },
+  ]}
+  rows={[
+    { feature: 'Accurate valuation', values: [true, false] },
+    { feature: 'Negotiation support', values: ['Included', 'Self-managed'] },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use color alone** — Boolean cells already include a check/dash and screen-reader text. Do not replace them with colored dots.
+- **Don't use it for dense data** — Use DataTable when rows are records and columns need sorting, selection or pagination.
+
+## Accessibility
+
+- **Table semantics**: Renders caption, thead, tbody, scope=col and scope=row
+- **Boolean values**: Check/dash glyphs are aria-hidden and paired with sr-only Included/Not included text
+
+## Composition
+
+- Compose with **Section** — Place the table inside a Section; it owns its own bordered surface
+  
+  ```tsx
+  <Section><ComparisonTable columns={columns} rows={rows} /></Section>
+  ```
+- Related: Table, DataTable, Section
+
+---
+
 # ConfirmDialog
 
 Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
@@ -1552,6 +1625,57 @@ Make destructive or consequential tool calls require explicit user consent.
 
 - **Dialog semantics**: Pending state renders role=alertdialog labeled by the title.
 - **Outcome announcement**: Status chip text announces Approved/Rejected.
+
+---
+
+# Container
+
+Centered, width-constrained page container with shared gutters and four width presets.
+
+> Import: `import { Container } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/container.json
+> Tier: atom · Package: @slipstream-ui/core
+
+## Design intent
+
+Pages repeat the same mx-auto/max-w/px trio with slightly different values. Container makes the content width and gutters a shared decision so headers, marketing sections and app pages line up.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| width | `'sm' | 'md' | 'lg' | 'xl' | 'full'` | `lg` | no | Maximum content width. lg is 80rem (1280px); xl is 1400px; full removes the cap. |
+| padding | `'none' | 'sm' | 'md' | 'lg'` | `md` | no | Horizontal gutters. md is px-4 / sm:px-6; lg adds lg:px-8. |
+| as | `'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav'` | `div` | no | Semantic element to render. |
+
+## Examples
+
+### Page container
+
+Shared width and gutters for a page header and its content.
+
+```tsx
+<Container width="lg" padding="lg">
+  <PageHeader title="Deals" />
+</Container>
+```
+
+## Anti-patterns
+
+- **Don't nest same-width containers** — A Container inside a Container doubles the gutters on narrow screens. Use Section's inner container once.
+
+## Accessibility
+
+- **Semantic element**: The as prop renders div/section/article/header/footer/main/nav
+
+## Composition
+
+- Compose with **Section** — Section renders a Container internally; use Container directly only for custom chrome
+  
+  ```tsx
+  <Section width="lg"><Hero /></Section>
+  ```
+- Related: Section, Block, Grid
 
 ---
 
@@ -1670,6 +1794,79 @@ More compact conversation without avatars
   Conversation displays messages, PromptInput adds new ones to the messages array
   ```
 - Related: Message, PromptInput, ChatLayout
+
+---
+
+# CTASection
+
+Full-width conversion band with eyebrow, headline, supporting copy and actions.
+
+> Import: `import { CTASection } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/cta-section.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Every marketing page ends with the same call-to-action band, but teams rebuild the padding, width and tone each time. CTASection standardizes the hierarchy and defaults to an inverse band.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `string` | — | yes | Headline for the call to action. |
+| description | `string` | — | no | Supporting copy under the headline. |
+| eyebrow | `string` | — | no | Small overline above the headline. |
+| actions | `ReactNode` | — | no | Buttons or links. |
+| tone | `'default' | 'muted' | 'brand' | 'inverse'` | `inverse` | no | Surface treatment. |
+| align | `'left' | 'center'` | `center` | no | Copy alignment. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Vertical space. |
+| width | `'sm' | 'md' | 'lg' | 'xl' | 'full'` | `lg` | no | Inner container width. |
+
+## Examples
+
+### Default inverse CTA
+
+A dark conversion band with one primary action.
+
+```tsx
+<CTASection
+  eyebrow="Join Axial"
+  title="Join the network"
+  description="Connect with counterparties and close transactions."
+  actions={<Button>Get started</Button>}
+/>
+```
+
+### Muted CTA
+
+A lighter band aligned to the page grid.
+
+```tsx
+<CTASection tone="muted" align="left" title="Talk to an advisor" actions={<Button>Book a call</Button>} />
+```
+
+## Anti-patterns
+
+- **Don't stack two CTA sections** — One conversion band per page is enough. Put secondary actions in the hero or footer.
+
+## Accessibility
+
+- **Heading**: Renders an h2 so it sits under the page h1
+- **Inverse tone**: Section scopes inverse tokens for the band
+
+## Composition
+
+- Compose with **Section** — CTASection renders Section internally; do not wrap it in another Section
+  
+  ```tsx
+  <CTASection title="Ready?" actions={<Button>Start</Button>} />
+  ```
+- Compose with **Button** — Use one primary action and at most one secondary
+  
+  ```tsx
+  <CTASection actions={<><Button>Start</Button><Button variant="outline">Learn more</Button></>} />
+  ```
+- Related: Section, Hero, Button
 
 ---
 
@@ -2023,7 +2220,9 @@ Empty states are where users decide what to do next. A consistent icon/title/des
 | description | `string` | — | no | Supporting line explaining the next step. |
 | icon | `ReactNode` | — | no | Decorative icon/illustration above the title. |
 | action | `ReactNode` | — | no | Primary action (Button or link). |
+| actions | `ReactNode` | — | no | Alias for `action` for codebases that pass a list of actions. |
 | secondaryAction | `ReactNode` | — | no | Secondary action beside the primary one. |
+| titleAs | `'p' | 'h2' | 'h3' | 'h4'` | `p` | no | Heading level for the title. Defaults to a paragraph. |
 | size | `'sm' | 'md'` | `md` | no | Compact padding for panels/table bodies. |
 
 ## Examples
@@ -2240,6 +2439,68 @@ Search, filters, reset and count in one strip.
   <FilterBar><Select … /></FilterBar>
   ```
 - Related: DataTable, Select, Input, PageHeader
+
+---
+
+# FilterChips
+
+Active-filter summary with removable chips and a clear-all action.
+
+> Import: `import { FilterChips } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/filter-chips.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Filter bars collapse, scroll or hide on mobile, so users lose track of what is applied. FilterChips keeps the active set visible, with one remove action per filter and an optional reset.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| filters | `FilterChip[]` | — | yes | Active filters: key, label, optional value and onRemove. |
+| onClearAll | `() => void` | — | no | Shows a clear-all action when provided. |
+| clearLabel | `string` | `Clear all` | no | Label for the clear-all action. |
+| emptyLabel | `string` | — | no | Shown when there are no active filters. Nothing renders when omitted. |
+
+## Examples
+
+### Applied dashboard filters
+
+A removable summary of two applied filters.
+
+```tsx
+<FilterChips
+  filters={[
+    { key: 'industry', label: 'Industry', value: 'Technology', onRemove: () => remove('industry') },
+    { key: 'region', label: 'Region', value: 'Mountain', onRemove: () => remove('region') },
+  ]}
+  onClearAll={clearAll}
+/>
+```
+
+## Anti-patterns
+
+- **Don't duplicate the filter controls** — FilterChips summarizes applied filters; the select, slider or segmented control still owns input.
+
+## Accessibility
+
+- **Group name**: Renders role=group with aria-label Active filters by default
+- **Remove buttons**: Each remove button is named Remove <label>: <value>
+
+## Composition
+
+- Compose with **FilterBar** — Place FilterChips directly under FilterBar so applied filters remain visible
+  
+  ```tsx
+  <FilterBar /><FilterChips filters={filters} onClearAll={clearAll} />
+  ```
+- Compose with **SegmentedControl** — Use FilterChips to summarize multi-select segments
+  
+  ```tsx
+  <SegmentedControl multiple /><FilterChips filters={chips} />
+  ```
+- Related: FilterBar, SegmentedControl, RangeSlider
 
 ---
 
@@ -2667,6 +2928,92 @@ Document structure and visual size are different axes: screen readers and SEO ne
 
 ---
 
+# Hero
+
+Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+
+> Import: `import { Hero } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/hero.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and the split/centered layouts while leaving the band tone and padding to Section.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `ReactNode` | — | yes | Main headline. Accepts inline markup for a highlighted phrase. |
+| description | `ReactNode` | — | no | Supporting sentence under the headline. |
+| eyebrow | `ReactNode` | — | no | Small overline above the headline. |
+| badge | `ReactNode` | — | no | Pill above the headline for an announcement, category or proof point. |
+| actions | `ReactNode` | — | no | Primary and secondary calls to action. |
+| media | `ReactNode` | — | no | Product shot, illustration, video or form shown beside the copy. |
+| mediaPosition | `'left' | 'right'` | `right` | no | Which side the media sits on at lg and up. |
+| align | `'left' | 'center'` | `left` | no | Copy alignment. Centered is typically used without media. |
+| size | `'md' | 'lg'` | `lg` | no | Headline scale. |
+| level | `1 | 2` | `1` | no | Heading level. Use 2 when the hero is nested under a page h1. |
+| variant | `'split' | 'centered'` | — | no | Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided. |
+| as | `'div' | 'section' | 'header'` | `div` | no | Semantic element to render. |
+
+## Examples
+
+### Split hero
+
+Copy on the left, product media on the right.
+
+```tsx
+<Section tone="inverse">
+  <Hero
+    badge="The private deal network"
+    title="Find your next buyer."
+    description="Join 20,000+ investors and advisors."
+    actions={<Button>Get started</Button>}
+    media={<ProductMockup />}
+  />
+</Section>
+```
+
+### Centered hero
+
+A narrow centered hero for a page band.
+
+```tsx
+<Hero
+  align="center"
+  eyebrow="Network overview"
+  title="A fragmented market, made easier"
+  description="Current activity across the network."
+/>
+```
+
+## Anti-patterns
+
+- **Don't use Hero as the only page heading twice** — A page should have one h1. Use level={2} for a second hero-like band or PageHeader for documentation pages.
+- **Don't hardcode the band color** — Wrap Hero in Section and use its tone so child tokens stay readable.
+
+## Accessibility
+
+- **Headline semantics**: Renders h1 by default and accepts level={2}
+- **Media alternative**: Media is a slot; the consumer controls alt text
+
+## Composition
+
+- Compose with **Section** — Hero sits inside Section; Section owns tone and padding
+  
+  ```tsx
+  <Section tone="inverse"><Hero title="." /></Section>
+  ```
+- Compose with **Button** — Put one primary and at most one secondary action in actions
+  
+  ```tsx
+  <Hero actions={<><Button>Start</Button><Button variant="outline">Learn more</Button></>} />
+  ```
+- Related: Section, PageHeader, StatBand, CTASection
+
+---
+
 # InlineCitation
 
 Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.
@@ -3042,6 +3389,7 @@ Tabs switch client-side panels; LinkTabs navigates between routes. Settings, acc
 | items | `LinkTabsItem[]` | — | yes | Tabs in display order. Each item has label, href, optional exact, icon, and disabled. |
 | activeHref | `string` | — | no | Current pathname used to mark the active tab. |
 | linkComponent | `React.ElementType` | — | no | Router link element (Inertia Link, Next Link, react-router Link). Defaults to an anchor. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
 | variant | `'default' | 'underline' | 'rounded'` | `default` | no | Visual style of the tab strip. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
 | label | `string` | `Section` | no | Accessible name for the navigation landmark. |
@@ -3494,6 +3842,9 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 | eyebrow | `ReactNode` | — | no | Kicker above the title. |
 | size | `'sm' | 'md' | 'lg' | 'hero'` | `md` | no | Heading scale; hero is for marketing pages. |
 | align | `'left' | 'center'` | `left` | no | Text alignment. |
+| titleClassName | `string` | — | no | Extra classes merged onto the h1 for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes merged onto the description paragraph. |
+| eyebrowClassName | `string` | — | no | Extra classes merged onto the eyebrow/kicker. |
 
 ## Examples
 
@@ -3554,6 +3905,9 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | itemLabel | `string` | `items` | no | Noun used in the summary. |
 | showSummary | `boolean` | — | no | Force the summary on/off (defaults on when total and pageSize are set). |
 | onPageChange | `(page: number) => void` | — | no | Called with the new page number. |
+| pageHrefs | `Record<number, string>` | — | no | Page-number to href map. When provided, controls render as links instead of buttons for server-rendered pagination; the map is serializable so it can cross a React Server Component boundary. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers (Next Link, react-router Link) when pageHrefs is used. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 | siblings | `number` | `1` | no | Page buttons shown around the current page. |
 | showBoundaries | `boolean` | `false` | no | Show first/last jump buttons. |
 | showFirst | `boolean` | — | no | Force-show the first-page button. |
@@ -4075,6 +4429,73 @@ Group driven by parent state
 
 ---
 
+# RangeSlider
+
+Dual-thumb numeric range slider with labeled native inputs and formatted values.
+
+> Import: `import { RangeSlider } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/range-slider.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Data dashboards need a low/high range for revenue, EBITDA or dates, but a single range input cannot express two thumbs accessibly. RangeSlider composes two native range inputs so keyboard and screen-reader behavior stay native while the track renders one selection.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| value | `[number, number]` | — | no | Controlled low/high pair. |
+| defaultValue | `[number, number]` | — | no | Initial low/high pair when uncontrolled. Defaults to [min, max]. |
+| onValueChange | `(value: [number, number]) => void` | — | no | Fires with the next low/high pair. |
+| min | `number` | `0` | no | Lower bound. |
+| max | `number` | `100` | no | Upper bound. |
+| step | `number` | `1` | no | Increment. |
+| startLabel | `string` | `Minimum` | no | Accessible label for the low thumb. |
+| endLabel | `string` | `Maximum` | no | Accessible label for the high thumb. |
+| formatValue | `(value: number) => string` | — | no | Formats the displayed values and aria-valuetext. |
+| showValues | `boolean` | `true` | no | Show the current low/high values above the track. |
+| disabled | `boolean` | — | no | Disable both thumbs. |
+
+## Examples
+
+### Revenue range
+
+A five-to-one-hundred million revenue filter.
+
+```tsx
+<RangeSlider
+  min={5}
+  max={100}
+  defaultValue={[5, 100]}
+  startLabel="Revenue minimum"
+  endLabel="Revenue maximum"
+  formatValue={(value) => `$${value}M`}
+  onValueChange={setRevenue}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use a single range input for two values** — A single thumb cannot express a minimum and maximum. Use RangeSlider when both ends are adjustable.
+- **Don't hide the labels** — Each thumb needs a distinct accessible name so screen-reader users know which end they are changing.
+
+## Accessibility
+
+- **Native range inputs**: Two input[type=range] elements with individual aria-label and aria-valuetext
+- **Non-crossing thumbs**: The low thumb cannot move above the high thumb and vice versa
+
+## Composition
+
+- Compose with **FilterPanel** — Place RangeSlider inside a filter panel or FilterBar for live numeric filtering
+  
+  ```tsx
+  <FilterBar><RangeSlider defaultValue={[5, 100]} /></FilterBar>
+  ```
+- Related: FilterChips, FilterBar, SegmentedControl
+
+---
+
 # Reasoning
 
 A collapsible component for displaying AI reasoning steps and chain-of-thought processes
@@ -4298,6 +4719,77 @@ const options = [
 
 ---
 
+# Section
+
+Full-width page section with a surface tone, vertical rhythm and an optional centered container.
+
+> Import: `import { Section } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/section.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Marketing and content pages alternate background bands and vertical padding. Section owns the band and the inner container so pages stop repeating py-* and background classes, and tone="inverse" scopes the token ladder for a readable dark band.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| tone | `'default' | 'muted' | 'subtle' | 'brand' | 'inverse'` | `default` | no | Surface treatment. inverse flips background, foreground, card, border and muted tokens for its subtree. |
+| padding | `'none' | 'sm' | 'md' | 'lg' | 'xl'` | `md` | no | Vertical rhythm. md is py-14 / sm:py-16. |
+| width | `'sm' | 'md' | 'lg' | 'xl' | 'full'` | `lg` | no | Inner Container width. |
+| container | `boolean` | `true` | no | Wrap children in a centered Container. |
+| containerClassName | `string` | — | no | Extra classes for the inner Container. |
+| as | `'section' | 'div' | 'article' | 'header' | 'footer' | 'main' | 'aside'` | `section` | no | Semantic element to render. |
+
+## Examples
+
+### Inverse CTA band
+
+A dark band whose child components inherit inverse surface tokens.
+
+```tsx
+<Section tone="inverse" padding="lg">
+  <SectionHeading title="Ready to exit?" align="center" />
+</Section>
+```
+
+### Muted feature band
+
+A tinted band with a wider content cap.
+
+```tsx
+<Section tone="muted" width="xl">
+  <FeatureGrid />
+</Section>
+```
+
+## Anti-patterns
+
+- **Don't put a Section inside a Section** — Nesting bands doubles padding and can reset the tone. Use one Section per band and plain layout elements inside it.
+- **Don't hardcode colors inside a tone** — Use semantic tokens so the inverse scope can flip card, border and muted text automatically.
+
+## Accessibility
+
+- **Tone scoping**: tone=inverse sets background, foreground, card, border and muted CSS variables on the section
+- **Landmark**: Renders a section element by default
+
+## Composition
+
+- Compose with **Container** — Section renders Container when container is true
+  
+  ```tsx
+  <Section width="lg"><Hero /></Section>
+  ```
+- Compose with **Hero** — Hero is placed inside Section; Section owns the band
+  
+  ```tsx
+  <Section tone="inverse"><Hero title="." /></Section>
+  ```
+- Related: Container, Hero, CTASection, PageHeader
+
+---
+
 # SectionHeading
 
 Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
@@ -4321,6 +4813,9 @@ Marketing and content pages repeat the same eyebrow/title/description/actions cl
 | level | `2 | 3 | 4` | `2` | no | Heading level rendered for the title. |
 | align | `'left' | 'center'` | `left` | no | Text and action alignment. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Title scale. |
+| titleClassName | `string` | — | no | Extra classes merged onto the title element for host display typography. |
+| descriptionClassName | `string` | — | no | Extra classes merged onto the description paragraph. |
+| eyebrowClassName | `string` | — | no | Extra classes merged onto the eyebrow/kicker. |
 
 ## Examples
 
@@ -4356,6 +4851,92 @@ Eyebrow + title + copy + action link.
 
 ---
 
+# SegmentedControl
+
+Single- or multi-select segmented control for view and filter switches.
+
+> Import: `import { SegmentedControl } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/segmented-control.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Filters such as All / Investors / Advisors are often built with Tabs, which wrongly promises tabpanels. SegmentedControl provides radio semantics for single choice and pressed buttons for multi-select, with arrow-key navigation.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| options | `SegmentedOption[]` | — | yes | Segments to render: value, label, optional icon and disabled. |
+| value | `string | string[]` | — | no | Controlled selection. Use string[] when multiple. |
+| defaultValue | `string | string[]` | — | no | Initial selection when uncontrolled. |
+| onValueChange | `(value: string | string[]) => void` | — | no | Fires with the next selection. |
+| multiple | `boolean` | `false` | no | Allow more than one segment to be active. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
+| fullWidth | `boolean` | `false` | no | Stretch segments to fill the container width. |
+
+## Examples
+
+### Single-select audience filter
+
+Radio semantics with arrow-key navigation.
+
+```tsx
+<SegmentedControl
+  aria-label="Audience"
+  value={audience}
+  onValueChange={setAudience}
+  options={[
+    { value: 'investors', label: 'Investors' },
+    { value: 'advisors', label: 'Advisors' },
+    { value: 'owners', label: 'Owners' },
+  ]}
+/>
+```
+
+### Multi-select filter
+
+Pressed buttons for independent filters.
+
+```tsx
+<SegmentedControl
+  aria-label="Deal type"
+  multiple
+  defaultValue={['m&a']}
+  options={[
+    { value: 'm&a', label: 'M&A' },
+    { value: 'debt', label: 'Debt' },
+  ]}
+/>
+```
+
+## Anti-patterns
+
+- **Don't use it for tab panels** — If each segment reveals its own panel, use Tabs so aria-controls and tabpanel semantics are correct.
+- **Don't omit the accessible name** — A radiogroup without a name is ambiguous. Pass aria-label or aria-labelledby.
+
+## Accessibility
+
+- **Single-select semantics**: Uses role=radiogroup and role=radio with aria-checked and roving tabindex
+- **Keyboard**: Arrow keys move selection; Home and End jump to the first and last enabled segment
+- **Multi-select semantics**: Uses role=group with aria-pressed on each segment
+
+## Composition
+
+- Compose with **FilterChips** — Pair a multi-select control with FilterChips to show and remove active filters
+  
+  ```tsx
+  <><SegmentedControl multiple /><FilterChips filters={chips} /></>
+  ```
+- Compose with **Tabs** — Use Tabs when each option owns a tabpanel; use SegmentedControl for filters
+  
+  ```tsx
+  <Tabs defaultValue="overview">...</Tabs>
+  ```
+- Related: Tabs, FilterChips, SelectMenu
+
+---
+
 # Select
 
 Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
@@ -4381,6 +4962,7 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 | placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
 | multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue and onValueChange switch to string[]. |
 | onValueChange | `(value: string | string[]) => void` | — | no | Value-based callback for controlled usage; string[] when multiple. |
+| children | `React.ReactNode` | — | no | Native <option>/<optgroup> children for dynamic lists. Used only when neither options nor groups is provided; options takes precedence, groups takes precedence over options. |
 
 ## Examples
 
@@ -4430,6 +5012,18 @@ const [size, setSize] = useState('default');
     { value: 'lg', label: 'Large' },
   ]}
 />
+```
+
+### Native option children
+
+When the option list is already JSX (dynamic labels, optgroups from data), pass children instead of options; the native change event keeps react-hook-form register() working.
+
+```tsx
+<Select label="State" {...register('state')}>
+  {states.map((state) => (
+    <option key={state.value} value={state.value}>{state.label}</option>
+  ))}
+</Select>
 ```
 
 ## Anti-patterns
@@ -4619,6 +5213,9 @@ Footers are copied between projects with inconsistent link handling. SiteFooter 
 | columns | `SiteFooterColumn[]` | — | yes | Link columns: { title, links: { label, href, external? }[] }. |
 | legal | `ReactNode` | — | no | Bottom bar (copyright, legal links). |
 | linkComponent | `React.ElementType` | — | no | Router link element. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
+| activeHref | `string` | — | no | Current route, used to mark the matching link with aria-current=page. |
+| match | `'prefix' | 'exact'` | `prefix` | no | Prefix matching highlights parents of the current route; exact only identical hrefs. |
 
 ## Examples
 
@@ -4675,7 +5272,12 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | activeHref | `string` | — | no | Current route for active styling (aria-current=page). |
 | match | `'prefix' | 'exact'` | `prefix` | no | Prefix highlights parents of the current route; exact only identical hrefs. |
 | actions | `ReactNode` | — | no | Right-aligned actions (theme toggle, GitHub, CTA). |
+| mobileActions | `ReactNode` | — | no | Actions rendered inside the mobile drawer; defaults to `actions`. |
 | linkComponent | `React.ElementType` | — | no | Router link element. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
+| brandLabel | `string` | `Home` | no | Accessible name for the brand link. |
+| navLabel | `string` | `Main` | no | Accessible name for the desktop navigation landmark. |
+| mobileNavLabel | `string` | `Mobile` | no | Accessible name for the mobile navigation landmark. |
 | sticky | `boolean` | `true` | no | Pin the bar to the top. |
 | mobileLabel | `string` | `Menu` | no | Title of the mobile navigation drawer. |
 
@@ -4887,6 +5489,72 @@ Communicate in-progress states without layout shift; inherit text color so it ad
 
 - **Status semantics**: role=status with sr-only label announces loading to screen readers.
 - **Reduced motion**: Pair with motion-reduce utilities when animation must be suppressed.
+
+---
+
+# StatBand
+
+Semantic description list of headline stats with labels, optional hints and column presets.
+
+> Import: `import { StatBand } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/stat-band.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Proof sections repeat the same number/label cluster. StatBand standardizes the scale, dividers and responsive columns, and uses dl semantics so the number-to-label relationship is real structure, not styled divs.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| items | `StatItem[]` | — | yes | Stats to display: value, label and optional hint. |
+| columns | `2 | 3 | 4` | `3` | no | Desktop column count. Mobile stacks to one column and sm uses two. |
+| align | `'left' | 'center'` | `center` | no | Copy alignment. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Value scale. |
+| divided | `boolean` | `true` | no | Draw dividers between stats at sm and up. |
+
+## Examples
+
+### Proof band
+
+Three proof points with default dividers.
+
+```tsx
+<StatBand
+  items={[
+    { value: '3,500+', label: 'Advisory firms' },
+    { value: '5,000+', label: 'Investors' },
+    { value: '12,000+', label: 'Deals annually' },
+  ]}
+/>
+```
+
+### Left-aligned four-up
+
+Four stats aligned to the left.
+
+```tsx
+<StatBand columns={4} align="left" items={stats} />
+```
+
+## Anti-patterns
+
+- **Don't use StatBand for app KPIs** — Use MetricCard when the value needs a delta, trend or loading state. StatBand is a marketing proof strip.
+
+## Accessibility
+
+- **Description list**: Renders dl/dt/dd so each value is paired with its label
+- **Visual order**: Value renders before label visually while dt precedes dd in the DOM
+
+## Composition
+
+- Compose with **Section** — StatBand sits inside a Section so the surface tone and padding come from the band
+  
+  ```tsx
+  <Section tone="inverse"><StatBand items={stats} /></Section>
+  ```
+- Related: MetricCard, Hero, Section
 
 ---
 
@@ -5232,6 +5900,8 @@ Long-form pages drift into bespoke TOC implementations. TableOfContents fixes th
 | activeId | `string` | — | no | Controlled active heading (pair with useScrollSpy). |
 | label | `string` | `On this page` | no | Accessible name of the nav landmark. |
 | sticky | `boolean` | `true` | no | Stick while the article scrolls. |
+| ariaLabel | `string` | — | no | Accessible name for the nav landmark when it differs from the visible label. |
+| labelClassName | `string` | — | no | Extra classes for the visible label. |
 
 ## Examples
 

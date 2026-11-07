@@ -40,7 +40,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "sourceDir": "suggestion",
   "exportName": "Suggestions",
   "type": "registry:component",
@@ -63,7 +63,7 @@
     },
     {
       "path": "components/slipstream/manifests/suggestions.manifest.json",
-      "content": "{\n  \"id\": \"suggestions\",\n  \"name\": \"Suggestions\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays clickable follow-up prompts for AI interactions.\",\n  \"designIntent\": \"Help users discover useful next actions without composing every prompt from scratch.\",\n  \"props\": [\n    {\n      \"name\": \"suggestions\",\n      \"type\": \"Suggestion[]\",\n      \"required\": true,\n      \"description\": \"Suggestions to display.\"\n    },\n    {\n      \"name\": \"onSelect\",\n      \"type\": \"(suggestion: Suggestion) => void\",\n      \"required\": false,\n      \"description\": \"Called when a suggestion is selected.\"\n    },\n    {\n      \"name\": \"maxDisplay\",\n      \"required\": false,\n      \"defaultValue\": \"4\",\n      \"type\": \"number\",\n      \"description\": \"Maximum number of suggestions to display before truncating\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Follow-up prompts\",\n      \"code\": \"<Suggestions suggestions={[{ id: '1', text: 'Show me an example' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Keyboard activation\",\n      \"implementation\": \"Suggestions are native buttons.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.0.1\",\n  \"sourceDir\": \"suggestion\",\n  \"exportName\": \"Suggestions\"\n}",
+      "content": "{\n  \"id\": \"suggestions\",\n  \"name\": \"Suggestions\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays clickable follow-up prompts for AI interactions.\",\n  \"designIntent\": \"Help users discover useful next actions without composing every prompt from scratch.\",\n  \"props\": [\n    {\n      \"name\": \"suggestions\",\n      \"type\": \"Suggestion[]\",\n      \"required\": true,\n      \"description\": \"Suggestions to display.\"\n    },\n    {\n      \"name\": \"onSelect\",\n      \"type\": \"(suggestion: Suggestion) => void\",\n      \"required\": false,\n      \"description\": \"Called when a suggestion is selected.\"\n    },\n    {\n      \"name\": \"maxDisplay\",\n      \"required\": false,\n      \"defaultValue\": \"4\",\n      \"type\": \"number\",\n      \"description\": \"Maximum number of suggestions to display before truncating\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Follow-up prompts\",\n      \"code\": \"<Suggestions suggestions={[{ id: '1', text: 'Show me an example' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Keyboard activation\",\n      \"implementation\": \"Suggestions are native buttons.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"suggestion\",\n  \"exportName\": \"Suggestions\"\n}\n",
       "type": "registry:item"
     }
   ]

@@ -5,7 +5,7 @@
   "description": "Inline alert for status messages with semantic variants (destructive, success, warning, info)",
   "designIntent": "Alert communicates status or requires attention. Use it for form errors, success confirmations, warnings, and informational notices. Renders role=alert so screen readers announce it immediately.",
   "props": [
-    { "name": "variant", "type": "'default' | 'destructive' | 'success' | 'warning' | 'info'", "defaultValue": "'default'", "required": false, "description": "Semantic style variant" },
+    { "name": "variant", "type": "'default' | 'destructive' | 'danger' | 'success' | 'warning' | 'info'", "defaultValue": "'default'", "required": false, "description": "Semantic style variant; danger is an alias of destructive." },
     { "name": "children", "type": "ReactNode", "required": true, "description": "Alert content (AlertTitle and AlertDescription)" },
     { "name": "className", "type": "string", "required": false, "description": "Additional CSS classes to apply" }
   ],
@@ -33,7 +33,7 @@
     }
   ],
   "accessibility": [
-    { "feature": "Live region", "implementation": "role=alert announces the content when it appears", "userRequirements": "Only use variant=destructive for errors; screen readers announce it with urgency" },
+    { "feature": "Live region", "implementation": "role=alert announces the content when it appears", "userRequirements": "Use variant=destructive or its danger alias for errors; screen readers announce it with urgency" },
     { "feature": "Heading semantics", "implementation": "AlertTitle renders as h5", "userRequirements": "Maintain logical heading order in your page" }
   ],
   "contentGuidelines": [

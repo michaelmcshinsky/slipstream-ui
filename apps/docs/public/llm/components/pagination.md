@@ -23,6 +23,9 @@ Pagination lets users navigate through paged content. It shows page numbers with
 | itemLabel | `string` | `items` | no | Noun used in the summary. |
 | showSummary | `boolean` | — | no | Force the summary on/off (defaults on when total and pageSize are set). |
 | onPageChange | `(page: number) => void` | — | no | Called with the new page number. |
+| pageHrefs | `Record<number, string>` | — | no | Page-number to href map. When provided, controls render as links instead of buttons for server-rendered pagination; the map is serializable so it can cross a React Server Component boundary. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers (Next Link, react-router Link) when pageHrefs is used. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 | siblings | `number` | `1` | no | Page buttons shown around the current page. |
 | showBoundaries | `boolean` | `false` | no | Show first/last jump buttons. |
 | showFirst | `boolean` | — | no | Force-show the first-page button. |

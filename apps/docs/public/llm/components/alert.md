@@ -14,7 +14,7 @@ Alert communicates status or requires attention. Use it for form errors, success
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'destructive' | 'success' | 'warning' | 'info'` | `'default'` | no | Semantic style variant |
+| variant | `'default' | 'destructive' | 'danger' | 'success' | 'warning' | 'info'` | `'default'` | no | Semantic style variant; danger is an alias of destructive. |
 | children | `ReactNode` | — | yes | Alert content (AlertTitle and AlertDescription) |
 | className | `string` | — | no | Additional CSS classes to apply |
 

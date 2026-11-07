@@ -19,6 +19,9 @@ Footers are copied between projects with inconsistent link handling. SiteFooter 
 | columns | `SiteFooterColumn[]` | — | yes | Link columns: { title, links: { label, href, external? }[] }. |
 | legal | `ReactNode` | — | no | Bottom bar (copyright, legal links). |
 | linkComponent | `React.ElementType` | — | no | Router link element. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router. |
+| activeHref | `string` | — | no | Current route, used to mark the matching link with aria-current=page. |
+| match | `'prefix' | 'exact'` | `prefix` | no | Prefix matching highlights parents of the current route; exact only identical hrefs. |
 
 ## Examples
 

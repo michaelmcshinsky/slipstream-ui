@@ -1,0 +1,123 @@
+/**
+ * Slipstream UI Tailwind CSS 3 preset.
+ *
+ * Consumers keep their own `content` globs and add this preset:
+ *
+ *   module.exports = {
+ *     presets: [require('@slipstream-ui/themes/tailwind-preset')],
+ *     content: [app source globs, package dist globs],
+ *   }
+ *
+ * The preset carries the full semantic token contract, radius/density/motion
+ * mappings, accordion keyframes, and the animate plugin used by overlays.
+ */
+module.exports = {
+  darkMode: [
+    'variant',
+    '&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *)',
+  ],
+  theme: {
+    container: {
+      center: true,
+      padding: { DEFAULT: '1rem', sm: '2rem' },
+      screens: { '2xl': '1400px' },
+    },
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+          ink: 'hsl(var(--warning-ink))',
+        },
+        info: {
+          DEFAULT: 'hsl(var(--info))',
+          foreground: 'hsl(var(--info-foreground))',
+          ink: 'hsl(var(--info-ink))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        inverse: {
+          DEFAULT: 'hsl(var(--inverse))',
+          foreground: 'hsl(var(--inverse-foreground))',
+          muted: 'hsl(var(--inverse-muted))',
+          'muted-foreground': 'hsl(var(--inverse-muted-foreground))',
+          border: 'hsl(var(--inverse-border))',
+          card: 'hsl(var(--inverse-card))',
+          'card-foreground': 'hsl(var(--inverse-card-foreground))',
+          primary: 'hsl(var(--inverse-primary))',
+          'primary-foreground': 'hsl(var(--inverse-primary-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      transitionDuration: {
+        fast: 'var(--motion-fast)',
+        normal: 'var(--motion-normal)',
+        slow: 'var(--motion-slow)',
+      },
+      transitionTimingFunction: {
+        'ease-standard': 'var(--motion-ease)',
+        'ease-in': 'var(--motion-ease-in)',
+        'ease-out': 'var(--motion-ease-out)',
+      },
+      spacing: {
+        density: 'var(--density-space)',
+        'control-height': 'var(--density-control-height)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
+  },
+  plugins: [require('tailwindcss-animate')],
+};

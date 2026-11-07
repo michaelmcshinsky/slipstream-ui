@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const COMMANDS = [
   {
     name: 'init',
-    synopsis: 'npx slipstream-ui@latest init [options]',
+    synopsis: 'npx @slipstream-ui/cli@latest init [options]',
     description:
       'Initialize Slipstream UI in your project. Detects your framework (Next.js, Vite) and Tailwind setup, writes slipstream.config.json, creates the component directory, and injects theme CSS variables into your global stylesheet when it can find one.',
     options: [
@@ -22,43 +22,45 @@ const COMMANDS = [
       'components/slipstream/ — destination for copied source components',
       'CSS variable theme block appended to your global stylesheet (Next/Vite candidates)',
     ],
-    example: 'npx slipstream-ui@latest init --defaults',
+    example: 'npx @slipstream-ui/cli@latest init --defaults',
   },
   {
     name: 'add',
-    synopsis: 'npx slipstream-ui@latest add <component> [options]',
+    synopsis: 'npx @slipstream-ui/cli@latest add <component> [options]',
     description:
-      "Copy a component's real source files and its COMPONENT_MANIFEST into components/slipstream/. You own the code after it lands — edit it freely.",
+      "Copy a component's real source files, the sibling components it imports, the shared utils, and its COMPONENT_MANIFEST into components/slipstream/. You own the code after it lands - edit it freely.",
     options: [
-      { flag: '-o, --overwrite', effect: 'Replace an existing copy of the component. Required if the destination already exists.' },
+      { flag: '-o, --overwrite', effect: 'Replace existing copies of the component and its dependencies. Without it, existing files are skipped.' },
     ],
     creates: [
-      'components/slipstream/<component>/ — source files',
-      'components/slipstream/manifests/<id>.manifest.json — the machine-readable spec',
+      'components/slipstream/<component>/ - source files',
+      'components/slipstream/<dependency>/ - sibling components imported by the entry component',
+      'components/slipstream/utils/ - cn(), gap() and presence() helpers',
+      'components/slipstream/manifests/<id>.manifest.json - the machine-readable spec',
     ],
-    example: 'npx slipstream-ui@latest add message --overwrite',
+    example: 'npx @slipstream-ui/cli@latest add message --overwrite',
   },
   {
     name: 'list',
-    synopsis: 'npx slipstream-ui@latest list [options]',
+    synopsis: 'npx @slipstream-ui/cli@latest list [options]',
     description: 'Print every available component with its id, package, and tier. Useful before running add.',
     options: [
       { flag: '-p, --package <package>', effect: 'Filter by package (core, ai, themes).' },
       { flag: '-t, --tier <tier>', effect: 'Filter by tier (atom, molecule, organism).' },
     ],
     creates: [],
-    example: 'npx slipstream-ui@latest list --package ai --tier molecule',
+    example: 'npx @slipstream-ui/cli@latest list --package ai --tier molecule',
   },
   {
     name: 'diff',
-    synopsis: 'npx slipstream-ui@latest diff [options]',
+    synopsis: 'npx @slipstream-ui/cli@latest diff [options]',
     description:
       'Read-only comparison of your installed components against the registry. Reports version drift, modified files, missing files, and local-only files. Exits non-zero when drift is found, so it can gate CI.',
     options: [
       { flag: '--json', effect: 'Machine-readable output for scripting and CI.' },
     ],
     creates: [],
-    example: 'npx slipstream-ui@latest diff --json',
+    example: 'npx @slipstream-ui/cli@latest diff --json',
   },
 ];
 
@@ -66,7 +68,7 @@ const FILES_WRITTEN = [
   { file: 'slipstream.config.json', when: 'init', purpose: 'Project config: component directory, style, package list, detected framework.' },
   { file: 'components/slipstream/<id>/', when: 'add', purpose: 'Component source files you now own and can edit.' },
   { file: 'components/slipstream/manifests/<id>.manifest.json', when: 'add', purpose: 'The COMPONENT_MANIFEST — prop schema, anti-patterns, a11y rules.' },
-  { file: 'Global stylesheet (CSS variables)', when: 'init', purpose: 'Theme variables appended to globals.css / index.css when Tailwind is detected and no theme block exists.' },
+  { file: 'Global stylesheet (CSS variables)', when: 'init', purpose: 'Theme variables appended to globals.css / index.css. An existing brand theme is extended with only the missing tokens.' },
 ];
 
 const TROUBLESHOOTING = [
@@ -80,19 +82,19 @@ const TROUBLESHOOTING = [
   },
   {
     symptom: '"Unknown component: xyz."',
-    fix: 'Run npx slipstream-ui list to see valid component ids.',
+    fix: 'Run npx @slipstream-ui/cli@latest list to see valid component ids.',
   },
   {
     symptom: '"destination already exists."',
-    fix: 'The component is already copied. Add --overwrite to replace it, or npx slipstream-ui diff to see what changed.',
+    fix: 'The component is already copied. Add --overwrite to replace it, or npx @slipstream-ui/cli@latest diff to see what changed.',
   },
   {
     symptom: 'Theme variables were not injected.',
-    fix: 'init skips injection when it finds an existing CSS-variable theme (--background:) or when Tailwind is not detected. Add the variable block manually — see Theming.',
+    fix: 'For Tailwind 3, init extends an existing CSS-variable theme with only the tokens it is missing. If Tailwind is not detected, import the prebuilt stylesheets - see Theming.',
   },
   {
     symptom: 'Copied component cannot find its imports.',
-    fix: 'Install the packages: pnpm add @slipstream-ui/core @slipstream-ui/ai. Copied components import from them by default.',
+    fix: 'add copies the component\'s sibling dependencies and the shared utils into components/slipstream. Install any third-party packages the command lists (for example @radix-ui/react-slot).',
   },
 ];
 
@@ -106,10 +108,10 @@ export default function CliPage() {
       </p>
 
       <div className="mt-8">
-        <CodeBlock language="bash" code={`npx slipstream-ui@latest init
-npx slipstream-ui@latest list
-npx slipstream-ui@latest add message
-npx slipstream-ui@latest diff`} />
+        <CodeBlock language="bash" code={`npx @slipstream-ui/cli@latest init
+npx @slipstream-ui/cli@latest list
+npx @slipstream-ui/cli@latest add message
+npx @slipstream-ui/cli@latest diff`} />
       </div>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Commands</h2>
@@ -184,7 +186,7 @@ npx slipstream-ui@latest diff`} />
       <div className="mt-4">
         <CodeBlock language="yaml" code={`# .github/workflows/ci.yml
 - name: Check Slipstream component drift
-  run: npx slipstream-ui@latest diff`} />
+  run: npx @slipstream-ui/cli@latest diff`} />
       </div>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Troubleshooting</h2>

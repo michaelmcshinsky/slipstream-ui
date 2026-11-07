@@ -1,0 +1,122 @@
+{
+  "id": "segmented-control",
+  "name": "SegmentedControl",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "segmented-control",
+  "exportName": "SegmentedControl",
+  "description": "Single- or multi-select segmented control for view and filter switches.",
+  "designIntent": "Filters such as All / Investors / Advisors are often built with Tabs, which wrongly promises tabpanels. SegmentedControl provides radio semantics for single choice and pressed buttons for multi-select, with arrow-key navigation.",
+  "props": [
+    {
+      "name": "options",
+      "type": "SegmentedOption[]",
+      "required": true,
+      "description": "Segments to render: value, label, optional icon and disabled."
+    },
+    {
+      "name": "value",
+      "type": "string | string[]",
+      "required": false,
+      "description": "Controlled selection. Use string[] when multiple."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string | string[]",
+      "required": false,
+      "description": "Initial selection when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string | string[]) => void",
+      "required": false,
+      "description": "Fires with the next selection."
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Allow more than one segment to be active."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Control density."
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Stretch segments to fill the container width."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Single-select audience filter",
+      "code": "<SegmentedControl\n  aria-label=\"Audience\"\n  value={audience}\n  onValueChange={setAudience}\n  options={[\n    { value: 'investors', label: 'Investors' },\n    { value: 'advisors', label: 'Advisors' },\n    { value: 'owners', label: 'Owners' },\n  ]}\n/>",
+      "description": "Radio semantics with arrow-key navigation."
+    },
+    {
+      "title": "Multi-select filter",
+      "code": "<SegmentedControl\n  aria-label=\"Deal type\"\n  multiple\n  defaultValue={['m&a']}\n  options={[\n    { value: 'm&a', label: 'M&A' },\n    { value: 'debt', label: 'Debt' },\n  ]}\n/>",
+      "description": "Pressed buttons for independent filters."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for tab panels",
+      "explanation": "If each segment reveals its own panel, use Tabs so aria-controls and tabpanel semantics are correct.",
+      "example": "// Avoid\n<SegmentedControl options={panels} />\n\n// Prefer\n<Tabs defaultValue=\"overview\">...</Tabs>"
+    },
+    {
+      "title": "Don't omit the accessible name",
+      "explanation": "A radiogroup without a name is ambiguous. Pass aria-label or aria-labelledby.",
+      "example": "<SegmentedControl aria-label=\"Audience\" options={options} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Single-select semantics",
+      "implementation": "Uses role=radiogroup and role=radio with aria-checked and roving tabindex",
+      "userRequirements": "Provide an accessible name with aria-label or aria-labelledby"
+    },
+    {
+      "feature": "Keyboard",
+      "implementation": "Arrow keys move selection; Home and End jump to the first and last enabled segment",
+      "userRequirements": "Keep labels short enough to scan"
+    },
+    {
+      "feature": "Multi-select semantics",
+      "implementation": "Uses role=group with aria-pressed on each segment",
+      "userRequirements": "Use multiple only when choices are independent"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Segment labels",
+      "guidelines": ["One or two words", "Parallel grammar", "No punctuation"],
+      "goodExamples": ["Investors", "Advisors", "Owners"],
+      "badExamples": ["Show me investors", "Advisors!"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "FilterChips",
+      "relationship": "Pair a multi-select control with FilterChips to show and remove active filters",
+      "example": "<><SegmentedControl multiple /><FilterChips filters={chips} /></>"
+    },
+    {
+      "component": "Tabs",
+      "relationship": "Use Tabs when each option owns a tabpanel; use SegmentedControl for filters",
+      "example": "<Tabs defaultValue=\"overview\">...</Tabs>"
+    }
+  ],
+  "relatedComponents": ["Tabs", "FilterChips", "SelectMenu"]
+}

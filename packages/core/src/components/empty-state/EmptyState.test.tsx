@@ -23,6 +23,18 @@ describe('EmptyState', () => {
     expect(container.firstChild).toHaveClass('py-6');
   });
 
+  it('accepts an actions alias and renders the title as a heading', () => {
+    render(
+      <EmptyState
+        title="Nothing here"
+        titleAs="h3"
+        actions={<button type="button">Try again</button>}
+      />
+    );
+    expect(screen.getByRole('heading', { level: 3, name: 'Nothing here' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<EmptyState title="Empty" description="Nothing to show" />);
     expect(await axe(container)).toHaveNoViolations();

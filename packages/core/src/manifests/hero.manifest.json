@@ -1,0 +1,152 @@
+{
+  "id": "hero",
+  "name": "Hero",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.1.0",
+  "sourceDir": "hero",
+  "exportName": "Hero",
+  "description": "Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
+  "designIntent": "Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and the split/centered layouts while leaving the band tone and padding to Section.",
+  "props": [
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Main headline. Accepts inline markup for a highlighted phrase."
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Supporting sentence under the headline."
+    },
+    {
+      "name": "eyebrow",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Small overline above the headline."
+    },
+    {
+      "name": "badge",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Pill above the headline for an announcement, category or proof point."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Primary and secondary calls to action."
+    },
+    {
+      "name": "media",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Product shot, illustration, video or form shown beside the copy."
+    },
+    {
+      "name": "mediaPosition",
+      "type": "'left' | 'right'",
+      "required": false,
+      "defaultValue": "right",
+      "enum": ["left", "right"],
+      "description": "Which side the media sits on at lg and up."
+    },
+    {
+      "name": "align",
+      "type": "'left' | 'center'",
+      "required": false,
+      "defaultValue": "left",
+      "enum": ["left", "center"],
+      "description": "Copy alignment. Centered is typically used without media."
+    },
+    {
+      "name": "size",
+      "type": "'md' | 'lg'",
+      "required": false,
+      "defaultValue": "lg",
+      "enum": ["md", "lg"],
+      "description": "Headline scale."
+    },
+    {
+      "name": "level",
+      "type": "1 | 2",
+      "required": false,
+      "defaultValue": "1",
+      "description": "Heading level. Use 2 when the hero is nested under a page h1."
+    },
+    {
+      "name": "variant",
+      "type": "'split' | 'centered'",
+      "required": false,
+      "description": "Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided."
+    },
+    {
+      "name": "as",
+      "type": "'div' | 'section' | 'header'",
+      "required": false,
+      "defaultValue": "div",
+      "enum": ["div", "section", "header"],
+      "description": "Semantic element to render."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Split hero",
+      "code": "<Section tone=\"inverse\">\n  <Hero\n    badge=\"The private deal network\"\n    title=\"Find your next buyer.\"\n    description=\"Join 20,000+ investors and advisors.\"\n    actions={<Button>Get started</Button>}\n    media={<ProductMockup />}\n  />\n</Section>",
+      "description": "Copy on the left, product media on the right."
+    },
+    {
+      "title": "Centered hero",
+      "code": "<Hero\n  align=\"center\"\n  eyebrow=\"Network overview\"\n  title=\"A fragmented market, made easier\"\n  description=\"Current activity across the network.\"\n/>",
+      "description": "A narrow centered hero for a page band."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Hero as the only page heading twice",
+      "explanation": "A page should have one h1. Use level={2} for a second hero-like band or PageHeader for documentation pages.",
+      "example": "// Avoid two h1s\n<Hero title=\"Page\" /><Hero title=\"Another page\" />"
+    },
+    {
+      "title": "Don't hardcode the band color",
+      "explanation": "Wrap Hero in Section and use its tone so child tokens stay readable.",
+      "example": "<Section tone=\"inverse\"><Hero title=\".\" /></Section>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Headline semantics",
+      "implementation": "Renders h1 by default and accepts level={2}",
+      "userRequirements": "Keep exactly one h1 per page and a sequential outline below it"
+    },
+    {
+      "feature": "Media alternative",
+      "implementation": "Media is a slot; the consumer controls alt text",
+      "userRequirements": "Give informative images alt text and mark decorative media aria-hidden"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Headlines",
+      "guidelines": ["Lead with the outcome", "Keep to one sentence", "Highlight at most one phrase"],
+      "goodExamples": ["Find your next buyer."],
+      "badExamples": ["Welcome to our website"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Section",
+      "relationship": "Hero sits inside Section; Section owns tone and padding",
+      "example": "<Section tone=\"inverse\"><Hero title=\".\" /></Section>"
+    },
+    {
+      "component": "Button",
+      "relationship": "Put one primary and at most one secondary action in actions",
+      "example": "<Hero actions={<><Button>Start</Button><Button variant=\"outline\">Learn more</Button></>} />"
+    }
+  ],
+  "relatedComponents": ["Section", "PageHeader", "StatBand", "CTASection"]
+}

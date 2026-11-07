@@ -14,7 +14,7 @@ The Badge component is used to display small pieces of information like status i
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| variant | `'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'success' | 'warning' | 'info'` | `default` | no | Semantic surface; primary/danger are aliases for default/destructive. |
+| variant | `'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'neutral' | 'accent' | 'success' | 'warning' | 'info'` | `default` | no | Semantic surface; primary/danger are aliases for default/destructive, neutral is a muted metadata pill and accent is a tinted brand pill. |
 | children | `ReactNode` | — | no | Content to display inside the badge |
 | className | `string` | — | no | Additional CSS classes to apply |
 | asChild | `boolean` | `false` | no | Render the child element with badge styling. |

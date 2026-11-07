@@ -18,6 +18,8 @@ Long-form pages drift into bespoke TOC implementations. TableOfContents fixes th
 | activeId | `string` | — | no | Controlled active heading (pair with useScrollSpy). |
 | label | `string` | `On this page` | no | Accessible name of the nav landmark. |
 | sticky | `boolean` | `true` | no | Stick while the article scrolls. |
+| ariaLabel | `string` | — | no | Accessible name for the nav landmark when it differs from the visible label. |
+| labelClassName | `string` | — | no | Extra classes for the visible label. |
 
 ## Examples
 

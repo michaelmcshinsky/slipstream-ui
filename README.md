@@ -20,7 +20,7 @@ Slipstream UI is a React component library built for AI-assisted development. Ev
 
 - **AI reads the spec, not the source** — manifests over MCP, canonical markdown routes, and a `validate_usage` tool that rejects hallucinated props before they ship
 - **Stateless by design** — bring any backend (Vercel AI SDK, LangGraph, raw streams); components render, you own state and transport
-- **Complete surface** - 65 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
+- **Complete surface** - 74 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
 - **Accessible** — jest-axe suites on every component, keyboard and screen-reader behavior, reduced-motion variants
 - **Themeable to the token** — one `createTheme()` call emits every CSS variable; dark mode and presets switch instantly
 - **shadcn-compatible registry** — install real source files with `npx shadcn add`, or use the packages; your codebase, your rules
@@ -46,7 +46,7 @@ pnpm workspace + Turborepo monorepo:
 
 | Path | Published as | Role |
 |---|---|---|
-| `packages/core` | `@slipstream-ui/core` | 65 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
+| `packages/core` | `@slipstream-ui/core` | 74 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
 | `packages/ai` | `@slipstream-ui/ai` | 17 AI components: chat, streaming markdown, tool calls, reasoning, approvals |
 | `packages/themes` | `@slipstream-ui/themes` | `createTheme()` + default/dark/violet/zinc presets and the CSS-variable contract |
 | `packages/cli` | `@slipstream-ui/cli` | `init` / `add` / `list` / `diff` |
@@ -71,7 +71,7 @@ Every component flows through the same path, and CI enforces it:
 
 ## Component inventory
 
-**Core (63):** Accordion, Alert, AppShell, AuthLayout, Autocomplete, Avatar, Badge, Block, Breadcrumb, Button, ButtonGroup, Card, Checkbox, ConfirmDialog, DataTable, DatePicker, Dialog, Drawer, EmptyState, Fieldset, FileUpload, FilterBar, Flex, Form, FormField, FormLayout, Grid, Heading, Input, InputGroup, Label, Link, List, Menu, MetricCard, PageHeader, Pagination, PasswordInput, Popover, Progress, Prose, Radio/RadioGroup/RadioCard, Search, SectionHeading, Select, SelectMenu, Separator, SiteFooter, SiteHeader, Skeleton, Spinner, Stepper, Switch, Table, TableCard, Tabs, TableOfContents, Text, Textarea, TimePicker, Timeline, Toast/Toaster, Tooltip.
+**Core (74):** Accordion, Alert, AppShell, AuthLayout, Autocomplete, Avatar, Badge, Block, Breadcrumb, Button, ButtonGroup, Card, Checkbox, ComparisonTable, ConfirmDialog, Container, CTASection, DataTable, DatePicker, Dialog, Drawer, EmptyState, Fieldset, FileUpload, FilterBar, FilterChips, Flex, Form, FormField, FormLayout, Grid, Heading, Hero, Input, InputGroup, Label, Link, List, Menu, MetricCard, PageHeader, Pagination, PasswordInput, Popover, Progress, Prose, Radio/RadioGroup/RadioCard, RangeSlider, Search, Section, SectionHeading, SegmentedControl, Select, SelectMenu, Separator, SiteFooter, SiteHeader, Skeleton, Spinner, StatBand, Stepper, Switch, Table, TableCard, Tabs, TableOfContents, Text, Textarea, TimePicker, Timeline, Toast/Toaster, Tooltip.
 
 **AI (17):** Attachment, Branch, ChainThought, CodeBlock, CommandPalette, Confirmation, Conversation, InlineCitation, Message, MessageActions, PromptInput, Reasoning, Response, Sources, Streaming, Suggestions, ToolCall.
 

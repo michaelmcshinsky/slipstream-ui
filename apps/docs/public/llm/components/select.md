@@ -23,6 +23,7 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 | placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
 | multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue and onValueChange switch to string[]. |
 | onValueChange | `(value: string | string[]) => void` | — | no | Value-based callback for controlled usage; string[] when multiple. |
+| children | `React.ReactNode` | — | no | Native <option>/<optgroup> children for dynamic lists. Used only when neither options nor groups is provided; options takes precedence, groups takes precedence over options. |
 
 ## Examples
 
@@ -72,6 +73,18 @@ const [size, setSize] = useState('default');
     { value: 'lg', label: 'Large' },
   ]}
 />
+```
+
+### Native option children
+
+When the option list is already JSX (dynamic labels, optgroups from data), pass children instead of options; the native change event keeps react-hook-form register() working.
+
+```tsx
+<Select label="State" {...register('state')}>
+  {states.map((state) => (
+    <option key={state.value} value={state.value}>{state.label}</option>
+  ))}
+</Select>
 ```
 
 ## Anti-patterns

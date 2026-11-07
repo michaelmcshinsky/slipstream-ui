@@ -18,7 +18,9 @@ Empty states are where users decide what to do next. A consistent icon/title/des
 | description | `string` | — | no | Supporting line explaining the next step. |
 | icon | `ReactNode` | — | no | Decorative icon/illustration above the title. |
 | action | `ReactNode` | — | no | Primary action (Button or link). |
+| actions | `ReactNode` | — | no | Alias for `action` for codebases that pass a list of actions. |
 | secondaryAction | `ReactNode` | — | no | Secondary action beside the primary one. |
+| titleAs | `'p' | 'h2' | 'h3' | 'h4'` | `p` | no | Heading level for the title. Defaults to a paragraph. |
 | size | `'sm' | 'md'` | `md` | no | Compact padding for panels/table bodies. |
 
 ## Examples
