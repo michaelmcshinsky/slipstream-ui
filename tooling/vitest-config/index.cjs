@@ -5,7 +5,7 @@ const react = require('@vitejs/plugin-react').default ?? require('@vitejs/plugin
  * Shared vitest config for component packages.
  * Assumes jsdom environment and per-package setupFiles.
  */
-function createTestConfig({ setupFiles = [] } = {}) {
+function createTestConfig({ setupFiles = [], test = {} } = {}) {
   return {
     plugins: [react()],
     cacheDir: path.join(process.cwd(), '.vitest-cache'),
@@ -15,6 +15,7 @@ function createTestConfig({ setupFiles = [] } = {}) {
       setupFiles,
       include: ['src/**/*.test.{ts,tsx}'],
       css: false,
+      ...test,
     },
   };
 }
