@@ -3,8 +3,10 @@ import { Button, Input, Badge, Avatar, AvatarFallback, Spinner } from '@slipstre
 import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, AttachmentList, MessageActions, Message, Response, CodeBlock, Confirmation, Branch, InlineCitation } from '@slipstream-ui/ai';
 import { defaultTheme, darkTheme, violetTheme, violetDarkTheme } from '@slipstream-ui/themes';
 import { LocaleSwitcher } from '@slipstream-ui/i18n/react';
+import { useI18n } from '@slipstream-ui/i18n/react';
 
 function App() {
+  const { t, pseudo } = useI18n();
   const [messages, setMessages] = useState([
     { id: '1', role: 'user' as const, content: 'Hello! Welcome to Slipstream UI Playground.' },
     { id: '2', role: 'assistant' as const, content: 'Hi there! This is a demo of the Slipstream UI components. Try adding a message!' },
@@ -28,6 +30,11 @@ function App() {
     document.documentElement.classList.toggle('dark', next);
     localStorage.setItem('slipstream-theme', next ? 'dark' : 'light');
     setDark(next);
+  }
+
+  function togglePseudo() {
+    localStorage.setItem('slipstream-pseudo', pseudo ? '0' : '1');
+    window.location.reload();
   }
 
   const changeTheme = (name: string) => {
@@ -95,8 +102,16 @@ function App() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <header className="mb-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <div><h1 className="text-4xl font-bold mb-2">Slipstream UI Playground</h1><p className="text-muted-foreground">Interactive demo of Slipstream UI components</p></div>
+            <div><h1 className="text-4xl font-bold mb-2">Slipstream UI Playground</h1><p className="text-muted-foreground">{t('app.subtitle')}</p></div>
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={togglePseudo}
+                aria-pressed={pseudo}
+                className="rounded-md border border-border px-2 py-1 text-sm hover:bg-muted"
+              >
+                {pseudo ? 'en-XA on' : 'en-XA'}
+              </button>
               <LocaleSwitcher />
               <button
                 type="button"

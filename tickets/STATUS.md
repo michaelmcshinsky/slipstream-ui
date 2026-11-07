@@ -96,7 +96,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-065 | Pending | Docs guides/component page translation |
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
 | SLIP-067 | Pending | Transactional emails |
-| SLIP-068 | **Partial** | Playground provider + switcher; pseudo-locale/CI visual checks pending |
+| SLIP-068 | **Partial** | Playground provider + switcher + `en-XA` pseudo-locale toggle; CI axe/visual checks pending |
 ## Integration hardening (2026-11-07)
 
 | ID | Status | Note |

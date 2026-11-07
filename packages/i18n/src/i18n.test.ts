@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { resolveLocale, resolveLocaleFromAcceptLanguage, directionFor } from './locales';
-import { getMessages } from './messages';
-import { translate, translatePlural } from './translate';
+import { getMessages, pseudoMessages } from './messages';
+import { en } from './messages/en';
+import { translate, translatePlural, getMessage } from './translate';
 import { formatNumber, formatRelativeTime } from './format';
 
 describe('locale resolution', () => {
@@ -70,5 +71,29 @@ describe('formatting', () => {
     const now = Date.UTC(2026, 10, 5, 12, 0, 0);
     expect(formatRelativeTime('en', now - 60_000, now)).toBe('1 minute ago');
     expect(formatRelativeTime('ar', now - 60_000, now)).toContain('دقيقة');
+  });
+});
+
+describe('pseudo-locale', () => {
+  function leafKeys(value: unknown, prefix = ''): string[] {
+    if (typeof value === 'string') return [prefix];
+    if (value && typeof value === 'object') {
+      return Object.entries(value as Record<string, unknown>).flatMap(([key, entry]) =>
+        leafKeys(entry, prefix ? `${prefix}.${key}` : key)
+      );
+    }
+    return [];
+  }
+
+  it('mirrors the English key tree', () => {
+    expect(leafKeys(pseudoMessages).sort()).toEqual(leafKeys(en).sort());
+  });
+
+  it('expands the copy for layout stress', () => {
+    const original = getMessage(en, 'app.title');
+    const pseudo = getMessage(pseudoMessages, 'app.title');
+    expect(original).toBeTruthy();
+    expect(pseudo).toContain('[[');
+    expect((pseudo ?? '').length).toBeGreaterThan((original ?? '').length);
   });
 });
