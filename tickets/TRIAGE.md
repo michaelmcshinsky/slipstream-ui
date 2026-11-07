@@ -77,4 +77,17 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 10 | SLIP-097 | P2 | 6h | Ready | AuthLayout aside variant |
 | 11 | SLIP-098 | P3 | 3h | Ready | PageHeader head helper |
 
+## i18n epic (2026-11-07)
+
+| Order | ID | P | Hours | Status | Note |
+|---|---|---|---|---|---|
+| 1 | SLIP-061 | P1 | 6h | Done | P0 labels: Button, Pagination, DataTable, Dialog, Drawer |
+| 2 | SLIP-062 | P1 | 8h | Done | P1 labels: Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell |
+| 3 | SLIP-063 | P1 | 5h | Done | Message/Reasoning `formatTime`/`locale` + starter wiring |
+| 4 | SLIP-068 | P2 | 8h | Partial | `en-XA` pseudo-locale + playground toggle done; CI axe sweep and visual regression pending |
+| 5 | SLIP-064 | P1 | 16h | Partial | Cookie locale, provider, switcher and shell copy done; path-prefixed routes, metadata, hreflang and sitemap pending |
+| 6 | SLIP-066 | P2 | 24h | Partial | Dashboard shell and nav done; user locale migration, flows, currency and RTL tables pending |
+| 7 | SLIP-067 | P2 | 12h | Blocked | Depends on SLIP-066 user locale |
+| 8 | SLIP-065 | P2 | 80h | Blocked | Depends on SLIP-064; guides and 80 component pages need native-speaker review |
+
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
