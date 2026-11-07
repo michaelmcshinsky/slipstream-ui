@@ -22,6 +22,36 @@ describe('validate_usage tool', () => {
     expect(payload.issues.some((issue: { message: string }) => messageHas(issue.message, '"title"'))).toBe(true);
   });
 
+  it('finds props after JSX-valued attributes', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'site-header',
+      code: '<SiteHeader brand={<Logo />} items={NAV} activeHref="/" actions={<ThemeToggle />} linkComponent={Link} navLabel="Marketing" />',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(true);
+    expect(payload.issues).toEqual([]);
+  });
+
+  it('allows inherited native attributes', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'select',
+      code: '<Select id="role" name="role" aria-label="Role" options={options} value="coach" onValueChange={setRole} />',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(true);
+    expect(payload.issues).toEqual([]);
+  });
+
+  it('handles nested arrow functions in attributes', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<Button onClick={() => { setOpen(true); }} variant="outline">Open</Button>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(true);
+    expect(payload.issues).toEqual([]);
+  });
+
   it('passes valid usage', async () => {
     const result = await validateUsageTool.handler({
       componentId: 'button',

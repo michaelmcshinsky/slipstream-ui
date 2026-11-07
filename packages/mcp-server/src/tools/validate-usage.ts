@@ -18,40 +18,175 @@ type ComponentUsage = {
 };
 
 /**
- * Extract attribute names from JSX usages of the component, e.g. every
- * `name=` inside a <Message ... /> opening tag. Heuristic but effective for
- * catching hallucinated props — the failure mode this tool exists to prevent.
+ * Native HTML/React attributes are inherited through `...props` and are not
+ * documented in manifests (manifests list component-specific props). Treat
+ * them as valid so the validator catches hallucinated props without flagging
+ * standard DOM attributes.
+ */
+const NATIVE_ATTRIBUTES = new Set([
+  'id', 'name', 'className', 'style', 'title', 'role', 'tabIndex', 'disabled',
+  'required', 'placeholder', 'type', 'value', 'defaultValue', 'checked',
+  'defaultChecked', 'form', 'autoComplete', 'autoFocus', 'min', 'max', 'step',
+  'multiple', 'readOnly', 'hidden', 'target', 'rel', 'href', 'src', 'alt',
+  'width', 'height', 'htmlFor', 'children', 'key', 'ref', 'dir', 'lang',
+  'draggable', 'contentEditable', 'spellCheck', 'accept', 'capture', 'files',
+  'rows', 'cols', 'wrap', 'maxLength', 'minLength', 'pattern', 'size',
+  'inputMode', 'enterKeyHint', 'download', 'referrerPolicy', 'crossOrigin',
+  'loading', 'decoding', 'srcSet', 'sizes', 'media', 'poster', 'controls',
+  'loop', 'muted', 'preload', 'playsInline', 'colSpan', 'rowSpan', 'scope',
+  'headers', 'abbr', 'dateTime', 'open', 'start', 'reversed', 'valueAsNumber',
+]);
+
+function isNativeAttribute(name: string): boolean {
+  return (
+    NATIVE_ATTRIBUTES.has(name) ||
+    name.startsWith('aria-') ||
+    name.startsWith('data-') ||
+    /^on[A-Z]/.test(name)
+  );
+}
+
+/** Read a balanced `{...}` expression starting at `start`. */
+function readBalanced(code: string, start: number): number {
+  let depth = 0;
+  let quote: string | null = null;
+  for (let index = start; index < code.length; index += 1) {
+    const char = code[index];
+    if (quote) {
+      if (char === '\\') {
+        index += 1;
+      } else if (char === quote) {
+        quote = null;
+      }
+      continue;
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char;
+    } else if (char === '{') {
+      depth += 1;
+    } else if (char === '}') {
+      depth -= 1;
+      if (depth === 0) return index;
+    }
+  }
+  return code.length - 1;
+}
+
+/**
+ * Find the `>` that closes an opening tag, ignoring `>` inside quoted strings
+ * and brace expressions (nested JSX such as `brand={<Logo />}`).
+ */
+function findOpeningTagEnd(code: string, start: number): number {
+  let braceDepth = 0;
+  let quote: string | null = null;
+  for (let index = start; index < code.length; index += 1) {
+    const char = code[index];
+    if (quote) {
+      if (char === '\\') {
+        index += 1;
+      } else if (char === quote) {
+        quote = null;
+      }
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      quote = char;
+    } else if (char === '{') {
+      braceDepth += 1;
+    } else if (char === '}') {
+      braceDepth = Math.max(0, braceDepth - 1);
+    } else if (char === '>' && braceDepth === 0) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+function parseAttributes(raw: string): ComponentAttribute[] {
+  const attributes: ComponentAttribute[] = [];
+  let index = 0;
+
+  while (index < raw.length) {
+    while (index < raw.length && /\s/.test(raw[index])) index += 1;
+    if (index >= raw.length) break;
+    if (raw[index] === '/') {
+      index += 1;
+      continue;
+    }
+    if (raw[index] === '{') {
+      // Spread props cannot be validated.
+      attributes.push({ name: '...' });
+      index = readBalanced(raw, index) + 1;
+      continue;
+    }
+
+    const nameStart = index;
+    while (index < raw.length && /[A-Za-z0-9_:-]/.test(raw[index])) index += 1;
+    if (index === nameStart) {
+      index += 1;
+      continue;
+    }
+    const name = raw.slice(nameStart, index);
+
+    while (index < raw.length && /\s/.test(raw[index])) index += 1;
+    let value: string | undefined;
+    if (raw[index] === '=') {
+      index += 1;
+      while (index < raw.length && /\s/.test(raw[index])) index += 1;
+      if (raw[index] === '"' || raw[index] === "'") {
+        const quote = raw[index];
+        index += 1;
+        const valueStart = index;
+        while (index < raw.length && raw[index] !== quote) index += 1;
+        value = raw.slice(valueStart, index);
+        index += 1;
+      } else if (raw[index] === '{') {
+        index = readBalanced(raw, index) + 1;
+      }
+    }
+
+    attributes.push({ name, value });
+  }
+
+  return attributes;
+}
+
+/**
+ * Extract attribute names from JSX usages of the component. Handles JSX-valued
+ * props, arrow functions, and nested elements inside attribute braces.
  */
 function findComponentUsages(code: string, exportName: string): ComponentUsage[] {
   const usages: ComponentUsage[] = [];
-  const tagPattern = new RegExp(`<${exportName}\\b([^>]*?)/?>`, 'gs');
-  for (const match of code.matchAll(tagPattern)) {
-    // Strip string literals and brace expressions so only the attribute
-    // skeleton remains, then read each identifier token.
-    const raw = match[1];
-    const stripped = raw.replace(/"[^"]*"|'[^']*'|\{[^{}]*\}/g, ' ');
+  let searchFrom = 0;
 
-    const values = new Map<string, string>();
-    for (const valueMatch of raw.matchAll(/([A-Za-z_][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g)) {
-      const value = valueMatch[2] ?? valueMatch[3];
-      if (value !== undefined) values.set(valueMatch[1], value);
+  while (searchFrom < code.length) {
+    const start = code.indexOf(`<${exportName}`, searchFrom);
+    if (start === -1) break;
+
+    const afterName = code[start + exportName.length + 1];
+    if (afterName && !/[\s/>]/.test(afterName)) {
+      searchFrom = start + 1;
+      continue;
     }
 
-    const attributes: ComponentAttribute[] = [...stripped.matchAll(/(?:^|\s)([A-Za-z_][\w-]*)/g)]
-      .map((attrMatch) => attrMatch[1])
-      .filter((name) => !['true', 'false'].includes(name))
-      .map((name) => ({ name, value: values.get(name) }));
+    const end = findOpeningTagEnd(code, start);
+    if (end === -1) break;
 
-    const selfClosing = /\/\s*>$/.test(match[0].trimEnd());
+    const raw = code.slice(start + exportName.length + 1, end);
+    const selfClosing = /\/\s*$/.test(raw);
+    const attributes = parseAttributes(raw);
+
     let hasChildren = false;
-    if (!selfClosing && match.index !== undefined) {
-      const after = code.slice(match.index + match[0].length);
+    if (!selfClosing) {
+      const after = code.slice(end + 1);
       const closing = new RegExp(`</${exportName}\\s*>`).exec(after);
       hasChildren = closing !== null && after.slice(0, closing.index).trim().length > 0;
     }
 
     usages.push({ attributes, selfClosing, hasChildren });
+    searchFrom = end + 1;
   }
+
   return usages;
 }
 
@@ -98,8 +233,9 @@ export const validateUsageTool: McpTool = {
       for (const attribute of usage.attributes) {
         const schema = schemaByName.get(attribute.name);
         if (!schema) {
-          // Spread props cannot be validated.
-          if (attribute.name === '...') continue;
+          // Spread props cannot be validated; native HTML attributes are
+          // inherited through ...props and are intentionally not in manifests.
+          if (attribute.name === '...' || isNativeAttribute(attribute.name)) continue;
           issues.push({
             severity: 'error',
             message: `Unknown prop "${attribute.name}" on <${exportName}> (${where}). This prop does not exist in the manifest.`,
