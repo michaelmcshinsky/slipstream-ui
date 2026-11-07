@@ -80,3 +80,6 @@ jobs:
 
       - name: Verify per-file modules and subpath exports
         run: pnpm verify:modules
+
+      - name: Verify registry cache reload
+        run: pnpm verify:registry
