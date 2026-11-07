@@ -71,7 +71,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 4 | SLIP-099 | P0 | 2h | Blocked + external | Needs npm publish auth |
 | 5 | SLIP-095 | P1 | 2h | Done | RHF compatibility guide |
 | 6 | SLIP-096 | P1 | 3h | Done | Packaged stylesheet smoke test |
-| 7 | SLIP-100 | P1 | 1h | Ready | Regenerate docs after concurrent work |
+| 7 | SLIP-100 | P1 | 1h | Done | Regenerate docs after concurrent work |
 | 8 | SLIP-093 | P2 | 4h | Ready | Shell visual regression |
 | 9 | SLIP-094 | P2 | 3h | Ready | CSS/JS size audit |
 | 10 | SLIP-097 | P2 | 6h | Ready | AuthLayout aside variant |

@@ -21,11 +21,17 @@ commit the generated output together with the source.
 
 **Acceptance criteria**
 
-- [ ] `pnpm validate:manifests` passes at the final count.
-- [ ] `pnpm check:components` passes.
-- [ ] `apps/docs/public/registry`, `apps/docs/public/llm`, `llms.txt`, and
+- [x] `pnpm validate:manifests` passes at the final count.
+- [x] `pnpm check:components` passes.
+- [x] `apps/docs/public/registry`, `apps/docs/public/llm`, `llms.txt`, and
       `README.md` stats are in sync.
-- [ ] No generated file references a component without a source.
+- [x] No generated file references a component without a source.
+
+**Status: Done (2026-11-07).**
+
+Regenerated after the marketing-component work landed: 100 components
+(83 core + 17 AI). `validate:manifests`, `check:llm`, and `check:components`
+all pass, and the generated diff is clean against the committed output.
 
 **Files.** generated docs, `README.md`, `tickets/STATUS.md`.
 
