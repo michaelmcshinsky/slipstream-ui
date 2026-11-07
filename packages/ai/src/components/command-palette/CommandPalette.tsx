@@ -32,6 +32,12 @@ export type CommandPaletteProps = {
   /** Shown while async commands load. */
   loadingText?: string;
   placeholder?: string;
+  /** Accessible label for the combobox. Default 'Command palette'. */
+  dialogLabel?: string;
+  /** Accessible label for the listbox. Default 'Commands'. */
+  listLabel?: string;
+  /** Shown when no command matches. Default 'No matching commands.'. */
+  emptyText?: string;
 };
 
 /**
@@ -49,6 +55,9 @@ export function CommandPalette({
   renderCommand,
   loadingText = 'Searching…',
   placeholder = 'Type a command.',
+  dialogLabel = 'Command palette',
+  listLabel = 'Commands',
+  emptyText = 'No matching commands.',
 }: CommandPaletteProps) {
   const [query, setQuery] = React.useState('');
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -143,7 +152,7 @@ export function CommandPalette({
           aria-controls={listboxId}
           aria-activedescendant={filtered.length > 0 ? optionId(activeIndex) : undefined}
           aria-autocomplete="list"
-          aria-label="Command palette"
+          aria-label={dialogLabel}
           placeholder={placeholder}
           value={query}
           onChange={(event) => {
@@ -156,7 +165,7 @@ export function CommandPalette({
         <ul
           id={listboxId}
           role="listbox"
-          aria-label="Commands"
+          aria-label={listLabel}
           aria-busy={loading || undefined}
           className="max-h-72 overflow-y-auto py-1"
         >
@@ -167,7 +176,7 @@ export function CommandPalette({
           )}
           {!loading && filtered.length === 0 && (
             <li role="presentation" className="px-4 py-3 text-sm text-muted-foreground">
-              No matching commands.
+              {emptyText}
             </li>
           )}
           {filtered.map((command, index) => {

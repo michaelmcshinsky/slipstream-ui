@@ -156,3 +156,20 @@ describe('Sidebar nesting and collapse', () => {
     expect(screen.getByRole('button', { name: 'Expand navigation' })).toBeInTheDocument();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the navigation label overrides', async () => {
+    const user = userEvent.setup();
+    render(
+      <AppShell
+        sidebar={<Sidebar sections={sections} />}
+        openNavigationLabel="Ouvrir la navigation"
+        navigationTitle="Navigation FR"
+      >
+        <p>Body</p>
+      </AppShell>
+    );
+    await user.click(screen.getByRole('button', { name: 'Ouvrir la navigation' }));
+    expect(screen.getByRole('dialog', { name: 'Navigation FR' })).toBeInTheDocument();
+  });
+});

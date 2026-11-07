@@ -65,6 +65,12 @@
       "type": "string | null",
       "required": false,
       "description": "Controlled selected value; display follows it (null clears)."
+    },
+    {
+      "name": "listLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label for the results listbox. Defaults to the input aria-label, then \"Search results\"."
     }
   ],
   "examples": [

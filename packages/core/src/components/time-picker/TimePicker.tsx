@@ -13,6 +13,8 @@ export type TimePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'
   onValueChange?: (value: string) => void;
   /** Show a clear button once a time is selected. */
   clearable?: boolean;
+  /** Accessible label for the clear button. Default 'Clear time'. */
+  clearLabel?: string;
 };
 
 /**
@@ -20,7 +22,7 @@ export type TimePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'
  * picker, keyboard editing and locale behavior.
  */
 export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(function TimePicker(
-  { value, defaultValue, onValueChange, onChange, clearable = false, className, ...props },
+  { value, defaultValue, onValueChange, onChange, clearable = false, clearLabel = 'Clear time', className, ...props },
   ref
 ) {
   const [internal, setInternal] = React.useState(defaultValue ?? '');
@@ -48,7 +50,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(fu
         <button
           type="button"
           onClick={() => commit('')}
-          aria-label="Clear time"
+          aria-label={clearLabel}
           className="absolute right-2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           ✕

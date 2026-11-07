@@ -118,6 +118,20 @@
         "md",
         "lg"
       ]
+    },
+    {
+      "name": "openNavigationLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Open navigation",
+      "description": "Accessible label for the mobile menu button."
+    },
+    {
+      "name": "navigationTitle",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Navigation",
+      "description": "Title of the mobile navigation drawer."
     }
   ],
   "examples": [

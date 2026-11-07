@@ -11,6 +11,8 @@ export type BreadcrumbItem = {
 export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
   /** Ordered list of breadcrumb items; the last item is the current page. */
   items: BreadcrumbItem[];
+  /** Accessible name of the navigation landmark. Default 'Breadcrumb'. */
+  label?: string;
   /** Separator character between items (default '/'). */
   separator?: React.ReactNode;
   /**
@@ -36,12 +38,12 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
  * announce the navigation landmark and current location.
  */
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, separator = '/', onItemClick, linkComponent, linkHrefProp = 'href', truncateCurrent = false, className, ...props }, ref) => {
+  ({ items, label = 'Breadcrumb', separator = '/', onItemClick, linkComponent, linkHrefProp = 'href', truncateCurrent = false, className, ...props }, ref) => {
     const LinkEl = linkComponent ?? 'a';
     return (
     <nav
       ref={ref}
-      aria-label="Breadcrumb"
+      aria-label={label}
       className={cn('flex items-center space-x-1.5 text-sm text-muted-foreground', className)}
       {...props}
     >

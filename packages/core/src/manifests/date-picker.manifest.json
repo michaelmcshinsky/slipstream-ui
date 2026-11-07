@@ -29,6 +29,13 @@
       "required": false,
       "defaultValue": "false",
       "description": "Shows a clear button once a value exists."
+    },
+    {
+      "name": "clearLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Clear date",
+      "description": "Accessible label for the clear button."
     }
   ],
   "examples": [

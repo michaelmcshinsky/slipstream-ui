@@ -41,6 +41,27 @@
       "type": "Record<string, number>",
       "required": false,
       "description": "Per-file progress 0-100 keyed by file name; renders progress bars."
+    },
+    {
+      "name": "selectedFilesLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Selected files",
+      "description": "Accessible label for the selected-files list."
+    },
+    {
+      "name": "removeLabel",
+      "type": "(file: File) => string",
+      "required": false,
+      "defaultValue": "Remove <name>",
+      "description": "Accessible label for a file remove button."
+    },
+    {
+      "name": "uploadingLabel",
+      "type": "(file: File) => string",
+      "required": false,
+      "defaultValue": "Uploading <name>",
+      "description": "Accessible label for a file upload progress bar."
     }
   ],
   "examples": [

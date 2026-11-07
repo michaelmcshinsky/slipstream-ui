@@ -13,6 +13,8 @@ export type DatePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'
   onValueChange?: (value: string) => void;
   /** Show a clear button once a date is selected. */
   clearable?: boolean;
+  /** Accessible label for the clear button. Default 'Clear date'. */
+  clearLabel?: string;
 };
 
 /**
@@ -21,7 +23,7 @@ export type DatePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'
  * custom calendar, so accessibility and input methods come for free.
  */
 export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
-  { value, defaultValue, onValueChange, onChange, clearable = false, className, ...props },
+  { value, defaultValue, onValueChange, onChange, clearable = false, clearLabel = 'Clear date', className, ...props },
   ref
 ) {
   const [internal, setInternal] = React.useState(defaultValue ?? '');
@@ -49,7 +51,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         <button
           type="button"
           onClick={() => commit('')}
-          aria-label="Clear date"
+          aria-label={clearLabel}
           className="absolute right-2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           ✕

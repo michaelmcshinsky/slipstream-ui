@@ -85,6 +85,20 @@
       "required": false,
       "defaultValue": "200",
       "description": "Debounce for loadOptions in ms."
+    },
+    {
+      "name": "clearLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Clear input",
+      "description": "Accessible label for the clear button."
+    },
+    {
+      "name": "suggestionsLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Suggestions",
+      "description": "Accessible label for the suggestion listbox."
     }
   ],
   "examples": [

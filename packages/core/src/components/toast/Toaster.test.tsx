@@ -83,3 +83,13 @@ describe('imperative toast', () => {
   });
 });
 
+
+describe('localized labels', () => {
+  it('uses the dismiss label override', () => {
+    render(<Toaster dismissLabel="Fermer la notification" />);
+    act(() => {
+      toast.success('Saved');
+    });
+    expect(screen.getByRole('button', { name: 'Fermer la notification' })).toBeInTheDocument();
+  });
+});

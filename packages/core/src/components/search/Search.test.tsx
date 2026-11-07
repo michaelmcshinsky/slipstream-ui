@@ -86,3 +86,14 @@ describe('Search controlled value', () => {
     expect(screen.getByRole('combobox')).toHaveValue('');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the list label and empty text overrides', () => {
+    render(<Search options={OPTIONS} aria-label="Recherche" listLabel="Resultats" emptyText="Aucun resultat" />);
+    const input = screen.getByRole('combobox', { name: 'Recherche' });
+    fireEvent.focus(input);
+    expect(screen.getByRole('listbox', { name: 'Resultats' })).toBeInTheDocument();
+    fireEvent.change(input, { target: { value: 'zzz' } });
+    expect(screen.getByText('Aucun resultat')).toBeInTheDocument();
+  });
+});

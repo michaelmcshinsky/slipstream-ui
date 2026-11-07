@@ -93,3 +93,24 @@ describe('CommandPalette async commands', () => {
     expect(user).toBeTruthy();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the dialog, list and empty label overrides', async () => {
+    const user = userEvent.setup();
+    render(
+      <CommandPalette
+        open
+        onOpenChange={() => undefined}
+        commands={commands}
+        onSelect={() => undefined}
+        dialogLabel="Palette de commandes"
+        listLabel="Commandes FR"
+        emptyText="Aucune commande"
+      />
+    );
+    expect(screen.getByRole('combobox', { name: 'Palette de commandes' })).toBeInTheDocument();
+    expect(screen.getByRole('listbox', { name: 'Commandes FR' })).toBeInTheDocument();
+    await user.type(screen.getByRole('combobox'), 'zzz');
+    expect(screen.getByText('Aucune commande')).toBeInTheDocument();
+  });
+});

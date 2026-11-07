@@ -41,3 +41,19 @@ describe('FileUpload', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the selected files and remove label overrides', () => {
+    const selected = new File(['x'], 'a.txt', { type: 'text/plain' });
+    render(
+      <FileUpload
+        aria-label="Pieces jointes"
+        defaultFiles={[selected]}
+        selectedFilesLabel="Fichiers selectionnes"
+        removeLabel={(file) => `Retirer ${file.name}`}
+      />
+    );
+    expect(screen.getByRole('list', { name: 'Fichiers selectionnes' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Retirer a.txt' })).toBeInTheDocument();
+  });
+});

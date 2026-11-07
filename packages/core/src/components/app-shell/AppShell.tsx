@@ -196,6 +196,10 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
   sidebarWidth?: string;
   /** Breakpoint at which the rail switches to the mobile drawer. Default 'md'. */
   mobileBreakpoint?: 'sm' | 'md' | 'lg';
+  /** Accessible label for the mobile menu button. Default 'Open navigation'. */
+  openNavigationLabel?: string;
+  /** Title of the mobile drawer. Default 'Navigation'. */
+  navigationTitle?: string;
 };
 
 const hideAt: Record<NonNullable<AppShellProps['mobileBreakpoint']>, string> = {
@@ -222,6 +226,8 @@ export function AppShell({
   hideMobileMenu = false,
   sidebarWidth = 'w-64',
   mobileBreakpoint = 'md',
+  openNavigationLabel = 'Open navigation',
+  navigationTitle = 'Navigation',
   className,
   children,
   ...props
@@ -248,7 +254,7 @@ export function AppShell({
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                aria-label="Open navigation"
+                aria-label={openNavigationLabel}
                 className={cn('rounded-md border border-border p-2 text-muted-foreground hover:bg-muted', showBelow[mobileBreakpoint])}
               >
                 <span aria-hidden="true">☰</span>
@@ -260,7 +266,7 @@ export function AppShell({
         <main className="min-w-0 flex-1">{children}</main>
       </div>
       {sidebar && (
-        <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title="Navigation" side="left" size="sm" animate>
+        <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title={navigationTitle} side="left" size="sm" animate>
           {sidebar}
         </Drawer>
       )}

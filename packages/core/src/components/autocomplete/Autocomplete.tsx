@@ -36,6 +36,10 @@ export type AutocompleteProps = Omit<
   renderOption?: (option: NormalizedOption, state: { active: boolean }) => React.ReactNode;
   /** Show a clear button once there is text. */
   clearable?: boolean;
+  /** Accessible label for the clear button. Default 'Clear input'. */
+  clearLabel?: string;
+  /** Accessible label for the suggestion listbox. Default 'Suggestions'. */
+  suggestionsLabel?: string;
   /** Shown when no option matches. */
   emptyText?: string;
   /** Shown while async options load. */
@@ -71,6 +75,8 @@ export function Autocomplete({
   loadOptions,
   renderOption,
   clearable = false,
+  clearLabel = 'Clear input',
+  suggestionsLabel = 'Suggestions',
   emptyText,
   loadingText,
   debounceMs = 200,
@@ -183,7 +189,7 @@ export function Autocomplete({
             onValueChange?.('');
             combobox.setOpen(true);
           }}
-          aria-label="Clear input"
+          aria-label={clearLabel}
           className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           ✕
@@ -194,7 +200,7 @@ export function Autocomplete({
           <ul
             id={combobox.listboxId}
             role="listbox"
-            aria-label="Suggestions"
+            aria-label={suggestionsLabel}
             aria-busy={loading || undefined}
             style={{
               position: 'fixed',

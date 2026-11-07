@@ -123,3 +123,10 @@ describe('Breadcrumb linkComponent', () => {
     expect(screen.getByText('Docs')).toHaveAttribute('aria-current', 'page');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the landmark label override', () => {
+    render(<Breadcrumb label="Fil d'Ariane" items={[{ label: 'Accueil', href: '/' }, { label: 'Page' }]} />);
+    expect(screen.getByRole('navigation', { name: "Fil d'Ariane" })).toBeInTheDocument();
+  });
+});

@@ -1,9 +1,9 @@
-# Backlog status — 2026-11-05
+# Backlog status — 2026-11-07
 
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (22)
+## Completed (23)
 
 | ID | Deliverable |
 |---|---|
@@ -29,6 +29,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-051 | LLM doc audit (`scripts/check-llm-docs.ts`) |
 | SLIP-052 | Two technical articles (`docs/articles/`) |
 | SLIP-053 | Consent-gated, PII-free analytics + tests |
+| SLIP-062 | P1 component labels (Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell) |
 
 ## Blocked / not completed (11)
 
@@ -61,21 +62,37 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | ID | Status | Note |
 |---|---|---|
 | SLIP-061 | **Done** | Button, Pagination, DataTable, Dialog, Drawer label props + tests/manifests |
-| SLIP-062 | Pending | P1 labels (Autocomplete, Breadcrumb, DatePicker, FileUpload, Search, CommandPalette, Toast, Spinner/Skeleton) |
+| SLIP-062 | **Done** | Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell label props + tests/manifests |
 | SLIP-063 | Pending | Message/Reasoning timestamp formatting |
 | SLIP-064 | **Partial** | Docs provider, `lang`/`dir`, navbar switcher, translated shell nav and changelog page; path URLs/SEO/metadata pending |
 | SLIP-065 | Pending | Docs guides/component page translation |
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
 | SLIP-067 | Pending | Transactional emails |
 | SLIP-068 | **Partial** | Playground provider + switcher; pseudo-locale/CI visual checks pending |
+## Integration hardening (2026-11-07)
+
+| ID | Status | Note |
+|---|---|---|
+| SLIP-090 | **Done** | `validate_usage` parses JSX-valued props and allows native attributes (`f134b5b`) |
+| SLIP-091 | **Done** | AppShell rail is viewport-height; Sidebar parents stay active on nested routes (`a0b5723`) |
+| SLIP-092 | **Done** | SiteHeader `navLabel` / `mobileNavLabel` (`a0b5723`) |
+| SLIP-093 | Pending | Shell visual regression |
+| SLIP-094 | Pending | Prebuilt CSS/JS size audit |
+| SLIP-095 | Pending | RHF compatibility docs |
+| SLIP-096 | Pending | Packaged stylesheet smoke test |
+| SLIP-097 | Pending | AuthLayout aside variant |
+| SLIP-098 | Pending | PageHeader head helper |
+| SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
+| SLIP-100 | Pending | Regenerate docs after concurrent component work |
+
 ## Verification
 
 ```bash
 pnpm typecheck                  # 15 packages
-pnpm test                       # core 499, ai 148, app 375, mcp 11, starter 20
-pnpm validate:manifests         # 80 valid, 0 drift, counts match
-pnpm check:llm                  # 80 manifests ↔ markdown
-pnpm report:manifests           # 80 components, 0 gaps
+pnpm test                       # core 594, ai 148, app 375, mcp 11, starter 25
+pnpm validate:manifests         # 100 valid, 0 drift, counts match
+pnpm check:llm                  # 100 manifests ↔ markdown
+pnpm report:manifests           # 100 components, 0 gaps
 pnpm bench:check                # 100 cases, no drift
 pnpm bench:test                 # 10 tests
 pnpm verify:tailwind-v4         # compile fixture
@@ -88,3 +105,4 @@ pnpm --filter slipstream-ai-chat-starter build
 Mock provider, 100 cases × 4 conditions: **65.7% recall, 100% precision, 0%
 false positives**. Structural classes 100%; accessibility 40%; state/streaming
 10%. See [`../docs/benchmarks.md`](../docs/benchmarks.md).
+

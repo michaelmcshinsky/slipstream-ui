@@ -128,3 +128,21 @@ describe('Autocomplete options, groups, async and clear', () => {
     expect(screen.getByRole('combobox', { name: 'Search' })).toHaveValue('');
   });
 });
+
+describe('localized labels', () => {
+  it('uses the clear and suggestions label overrides', () => {
+    render(
+      <Autocomplete
+        suggestions={['react', 'remix']}
+        aria-label="Framework"
+        defaultValue="re"
+        clearable
+        clearLabel="Effacer"
+        suggestionsLabel="Suggestions FR"
+      />
+    );
+    expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    fireEvent.focus(screen.getByRole('combobox'));
+    expect(screen.getByRole('listbox', { name: 'Suggestions FR' })).toBeInTheDocument();
+  });
+});

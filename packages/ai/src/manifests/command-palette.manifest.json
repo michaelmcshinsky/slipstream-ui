@@ -67,6 +67,27 @@
       "type": "string",
       "required": false,
       "description": "Shown while async commands load."
+    },
+    {
+      "name": "dialogLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Command palette",
+      "description": "Accessible label for the combobox."
+    },
+    {
+      "name": "listLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Commands",
+      "description": "Accessible label for the command listbox."
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "defaultValue": "No matching commands.",
+      "description": "Shown when no command matches the query."
     }
   ],
   "examples": [

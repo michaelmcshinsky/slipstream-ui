@@ -24,6 +24,8 @@ export type ToasterProps = {
   position?: ToasterPosition;
   /** Accessible name of the live region. Default 'Notifications'. */
   label?: string;
+  /** Accessible label for each dismiss button. Default 'Dismiss notification'. */
+  dismissLabel?: string;
   /** Tint the toast surface with its status color (neutral by default). */
   richColors?: boolean;
 };
@@ -61,7 +63,7 @@ const dotClasses: Record<ToastVariant, string> = {
  *
  * The region is a polite live region, so announcements don't steal focus.
  */
-export function Toaster({ position = 'bottom-right', label = 'Notifications', richColors = false }: ToasterProps) {
+export function Toaster({ position = 'bottom-right', label = 'Notifications', dismissLabel = 'Dismiss notification', richColors = false }: ToasterProps) {
   const entries = React.useSyncExternalStore(subscribeToToasts, getToastSnapshot, getToastServerSnapshot);
 
   return (
@@ -100,7 +102,7 @@ export function Toaster({ position = 'bottom-right', label = 'Notifications', ri
               <button
                 type="button"
                 onClick={() => imperativeToast.dismiss(entry.id)}
-                aria-label="Dismiss notification"
+                aria-label={dismissLabel}
                 title={entry.title}
                 className="rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >

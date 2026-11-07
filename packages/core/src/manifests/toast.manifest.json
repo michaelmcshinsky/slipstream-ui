@@ -83,6 +83,13 @@
       "required": false,
       "defaultValue": "Notifications",
       "description": "Accessible name of the live region (Toaster component)."
+    },
+    {
+      "name": "dismissLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Dismiss notification",
+      "description": "Accessible label for each dismiss button."
     }
   ],
   "examples": [

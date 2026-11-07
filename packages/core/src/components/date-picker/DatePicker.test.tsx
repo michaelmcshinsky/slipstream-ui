@@ -28,3 +28,10 @@ describe('DatePicker', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the clear label override', () => {
+    render(<DatePicker aria-label="Date" clearable defaultValue="2026-11-03" clearLabel="Effacer la date" />);
+    expect(screen.getByRole('button', { name: 'Effacer la date' })).toBeInTheDocument();
+  });
+});

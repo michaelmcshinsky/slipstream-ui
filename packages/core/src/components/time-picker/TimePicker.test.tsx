@@ -28,3 +28,10 @@ describe('TimePicker', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('localized labels', () => {
+  it('uses the clear label override', () => {
+    render(<TimePicker aria-label="Heure" clearable defaultValue="17:00" clearLabel="Effacer l'heure" />);
+    expect(screen.getByRole('button', { name: "Effacer l'heure" })).toBeInTheDocument();
+  });
+});

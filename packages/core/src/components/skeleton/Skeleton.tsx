@@ -16,6 +16,11 @@ export type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {
   width?: string;
   /** Corner rounding preset (default 'md'). */
   rounded?: keyof typeof roundedClasses;
+  /**
+   * Optional loading announcement. When set, the block becomes a `status`
+   * region instead of decorative; leave unset for visual-only placeholders.
+   */
+  label?: string;
 };
 
 /**
@@ -25,10 +30,11 @@ export type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {
  * pair with a live-region status elsewhere to announce loading.
  */
 const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
-  ({ className, height, width, rounded = 'md', ...props }, ref) => (
+  ({ className, height, width, rounded = 'md', label, children, ...props }, ref) => (
     <div
       ref={ref}
-      aria-hidden="true"
+      aria-hidden={label ? undefined : 'true'}
+      role={label ? 'status' : undefined}
       className={cn(
         'animate-pulse bg-muted motion-reduce:animate-none',
         roundedClasses[rounded],
@@ -37,7 +43,10 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
         className
       )}
       {...props}
-    />
+    >
+      {label ? <span className="sr-only">{label}</span> : null}
+      {children}
+    </div>
   )
 );
 Skeleton.displayName = 'Skeleton';

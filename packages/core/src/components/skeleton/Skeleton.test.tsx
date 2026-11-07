@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
 import { Skeleton } from './Skeleton';
@@ -45,5 +45,14 @@ describe('Skeleton sizing props', () => {
   it('always hides from assistive tech', () => {
     const { container } = render(<Skeleton height="h-4" />);
     expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
+  });
+});
+
+describe('localized loading label', () => {
+  it('announces an optional loading label instead of hiding the block', () => {
+    render(<Skeleton label="Chargement" />);
+    const status = screen.getByRole('status');
+    expect(status).not.toHaveAttribute('aria-hidden');
+    expect(status).toHaveTextContent('Chargement');
   });
 });

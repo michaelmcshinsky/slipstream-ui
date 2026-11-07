@@ -13,6 +13,12 @@ export type FileUploadProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 
   /** Drag-and-drop area copy. */
   label?: string;
   hint?: string;
+  /** Accessible label for the selected-files list. Default 'Selected files'. */
+  selectedFilesLabel?: string;
+  /** Accessible label for a file's remove button. Default `Remove <name>`. */
+  removeLabel?: (file: File) => string;
+  /** Accessible label for a file's upload progress. Default `Uploading <name>`. */
+  uploadingLabel?: (file: File) => string;
   /** Per-file progress (0-100) keyed by file name, rendered as a bar. */
   progress?: Record<string, number>;
 };
@@ -36,6 +42,9 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
     onFilesChange,
     label = 'Drop files here or click to browse',
     hint,
+    selectedFilesLabel = 'Selected files',
+    removeLabel = (file: File) => `Remove ${file.name}`,
+    uploadingLabel = (file: File) => `Uploading ${file.name}`,
     progress,
     multiple = true,
     accept,
@@ -107,7 +116,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
       </div>
 
       {current.length > 0 && (
-        <ul aria-label="Selected files" className="space-y-2">
+        <ul aria-label={selectedFilesLabel} className="space-y-2">
           {current.map((file) => (
             <li key={file.name} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2">
               <div className="min-w-0">
@@ -119,7 +128,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
                     aria-valuenow={progress[file.name]}
                     aria-valuemin={0}
                     aria-valuemax={100}
-                    aria-label={`Uploading ${file.name}`}
+                    aria-label={uploadingLabel(file)}
                     className="mt-1 h-1.5 w-40 overflow-hidden rounded-full bg-muted"
                   >
                     <div className="h-full bg-primary" style={{ width: `${progress[file.name]}%` }} />
@@ -129,7 +138,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
               <button
                 type="button"
                 onClick={() => commit(current.filter((entry) => entry.name !== file.name))}
-                aria-label={`Remove ${file.name}`}
+                aria-label={removeLabel(file)}
                 className="rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 ✕

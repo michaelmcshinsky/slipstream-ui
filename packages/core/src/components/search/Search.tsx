@@ -27,6 +27,8 @@ export type SearchProps = {
   placeholder?: string;
   /** Shown when no option matches the query. */
   emptyText?: string;
+  /** Accessible label for the results listbox. Default 'Search results'. */
+  listLabel?: string;
   disabled?: boolean;
   id?: string;
   name?: string;
@@ -48,6 +50,7 @@ export function Search({
   onValueChange,
   placeholder = 'Search…',
   emptyText = 'No matching results',
+  listLabel,
   disabled,
   id,
   name,
@@ -120,7 +123,7 @@ export function Search({
           <ul
             id={combobox.listboxId}
             role="listbox"
-            aria-label={ariaLabel ?? 'Search results'}
+            aria-label={listLabel ?? ariaLabel ?? 'Search results'}
             style={{
               position: 'fixed',
               top: combobox.pos!.top,
