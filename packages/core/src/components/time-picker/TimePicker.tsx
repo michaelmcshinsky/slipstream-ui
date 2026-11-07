@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Input, type InputProps } from '../input/Input';
 
-export type TimePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {
+export type TimePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'> & {
   /** "HH:MM" (24h) — controlled. */
   value?: string;
   /** "HH:MM" — initial value when uncontrolled. */
@@ -20,7 +20,7 @@ export type TimePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | '
  * picker, keyboard editing and locale behavior.
  */
 export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(function TimePicker(
-  { value, defaultValue, onValueChange, clearable = false, className, ...props },
+  { value, defaultValue, onValueChange, onChange, clearable = false, className, ...props },
   ref
 ) {
   const [internal, setInternal] = React.useState(defaultValue ?? '');
@@ -37,7 +37,10 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(fu
         ref={ref}
         type="time"
         value={current}
-        onChange={(event) => commit(event.target.value)}
+        onChange={(event) => {
+          commit(event.target.value);
+          onChange?.(event);
+        }}
         className={clearable && current ? 'pr-9' : undefined}
         {...props}
       />

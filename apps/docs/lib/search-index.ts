@@ -56,6 +56,8 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Separator', href: '/docs/components/separator', content: 'divider rule line between sections horizontal vertical', group: 'Components' },
   { title: 'Tooltip', href: '/docs/components/tooltip', content: 'hover focus hint aria-describedby delay escape dismiss', group: 'Components' },
   { title: 'Tabs', href: '/docs/components/tabs', content: 'tabbed panels tablist keyboard arrow keys preview code playground', group: 'Components' },
+  { title: 'LinkTabs', href: '/docs/components/link-tabs', content: 'link tabs navigation routes aria-current active exact prefix router settings sub-navigation', group: 'Components' },
+  { title: 'ThemeToggle', href: '/docs/components/theme-toggle', content: 'theme toggle dark mode light mode switch sun moon aria-label persistence', group: 'Components' },
   { title: 'Accordion', href: '/docs/components/accordion', content: 'collapsible sections disclosure expand collapse faq single multiple', group: 'Components' },
   { title: 'Menu', href: '/docs/components/menu', content: 'dropdown menu typeahead keyboard ARIA menuitem actions', group: 'Components' },
   { title: 'Card', href: '/docs/components/card', content: 'container header body footer surface panel grouping', group: 'Components' },

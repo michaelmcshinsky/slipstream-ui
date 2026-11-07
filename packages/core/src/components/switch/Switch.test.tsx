@@ -67,10 +67,25 @@ describe('Switch', () => {
 
 
 describe('Switch form submission', () => {
-  it('renders a hidden input while checked when name is provided', () => {
-    const { container, rerender } = render(<Switch name="notify" aria-label="Notify" defaultChecked />);
-    expect(container.querySelector('input[type="hidden"][name="notify"]')).toHaveValue('on');
-    rerender(<Switch name="notify" aria-label="Notify" checked={false} onCheckedChange={() => undefined} />);
-    expect(container.querySelector('input[type="hidden"][name="notify"]')).toBeNull();
+  it('renders a hidden checkbox that reflects the state when name is provided', () => {
+    const { container, rerender } = render(
+      <Switch name="notify" aria-label="Notify" defaultChecked />
+    );
+    const checkedInput = container.querySelector('input[type="checkbox"][name="notify"]');
+    expect(checkedInput).toBeChecked();
+    expect(checkedInput).toHaveAttribute('value', 'on');
+
+    rerender(
+      <Switch name="notify" aria-label="Notify" checked={false} onCheckedChange={() => undefined} />
+    );
+    const uncheckedInput = container.querySelector('input[type="checkbox"][name="notify"]');
+    expect(uncheckedInput).not.toBeChecked();
+  });
+
+  it('uses a custom value for form submission', () => {
+    const { container } = render(
+      <Switch name="notify" value="yes" aria-label="Notify" defaultChecked />
+    );
+    expect(container.querySelector('input[name="notify"]')).toHaveAttribute('value', 'yes');
   });
 });

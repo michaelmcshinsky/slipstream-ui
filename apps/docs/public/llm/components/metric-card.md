@@ -18,7 +18,7 @@ Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta
 | value | `string | number` | — | yes | Primary number/value; rendered tabular. |
 | delta | `string` | — | no | Signed change, e.g. +12.4%. |
 | trend | `'up' | 'down' | 'flat'` | `flat` | no | Delta direction color + arrow glyph. |
-| hint | `string` | — | no | Comparison context (vs last month). |
+| hint | `React.ReactNode` | — | no | Comparison context (vs last month). |
 | icon | `ReactNode` | — | no | Decorative icon. |
 
 ## Examples

@@ -17,6 +17,8 @@ Progress shows completion of a known-length task (uploads, installs, multi-step 
 | value | `number` | `0` | no | Current value between 0 and max |
 | max | `number` | `100` | no | Upper bound of the progress scale |
 | label | `string` | — | no | Accessible label announced by screen readers |
+| indicatorClassName | `string` | — | no | Extra classes for the filled indicator (e.g. a semantic color). |
+| indicatorStyle | `React.CSSProperties` | — | no | Inline styles for the filled indicator (e.g. a data-viz color). |
 | className | `string` | — | no | Additional CSS classes to apply |
 
 ## Examples

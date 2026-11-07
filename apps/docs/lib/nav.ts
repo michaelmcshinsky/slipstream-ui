@@ -164,6 +164,8 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/breadcrumb', label: 'Breadcrumb' },
           { href: '/docs/components/pagination', label: 'Pagination' },
           { href: '/docs/components/tabs', label: 'Tabs' },
+          { href: '/docs/components/link-tabs', label: 'LinkTabs' },
+          { href: '/docs/components/theme-toggle', label: 'ThemeToggle' },
           { href: '/docs/components/accordion', label: 'Accordion' },
         ],
       },

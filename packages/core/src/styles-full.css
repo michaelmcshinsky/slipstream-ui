@@ -1,0 +1,9 @@
+/*
+ * Slipstream UI prebuilt stylesheet with Tailwind preflight.
+ *
+ * Use this in a host app that does not already provide a base reset.
+ * It will normalize headings, lists, form controls, and borders globally.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,97 @@
+{
+  "id": "theme-toggle",
+  "name": "ThemeToggle",
+  "tier": "molecule",
+  "description": "Presentational light/dark toggle with accessible labels and sun/moon state.",
+  "designIntent": "Theme persistence is app-specific (cookie, localStorage, server session), but the control is the same everywhere. ThemeToggle owns the button, icon state, and accessible label while the consumer owns storage and the actual class/attribute switch.",
+  "props": [
+    {
+      "name": "theme",
+      "type": "'light' | 'dark'",
+      "required": true,
+      "description": "Current theme.",
+      "enum": ["light", "dark"]
+    },
+    {
+      "name": "onThemeChange",
+      "type": "(theme: 'light' | 'dark') => void",
+      "required": true,
+      "description": "Fired with the next theme when the user toggles."
+    },
+    {
+      "name": "labels",
+      "type": "{ toLight?: string; toDark?: string }",
+      "required": false,
+      "description": "Accessible labels for the action that will happen next."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Control size.",
+      "enum": ["sm", "md"]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Cookie-backed theme",
+      "code": "const [theme, setTheme] = useState<'light' | 'dark'>('light')\n\nfunction change(next: 'light' | 'dark') {\n  setTheme(next)\n  document.documentElement.dataset.theme = next\n  document.cookie = `theme=${next}; path=/; max-age=31536000`\n}\n\n<ThemeToggle theme={theme} onThemeChange={change} />",
+      "description": "The consumer persists the theme; the component only renders and reports the next value."
+    },
+    {
+      "title": "Custom labels",
+      "code": "<ThemeToggle theme={theme} onThemeChange={setTheme} labels={{ toDark: 'Dark mode', toLight: 'Light mode' }} />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't let the component own persistence",
+      "explanation": "Theme storage differs by app (cookie for SSR, localStorage for SPAs). Keep persistence in the consumer and pass theme/onThemeChange."
+    },
+    {
+      "title": "Don't use an icon-only button without a label",
+      "explanation": "The component always sets aria-label and title; don't override them with empty values."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Accessible name",
+      "implementation": "aria-label and title describe the next action, not the current state."
+    },
+    {
+      "feature": "Keyboard",
+      "implementation": "Native button, Enter/Space activation, visible focus ring."
+    },
+    {
+      "feature": "Icon semantics",
+      "implementation": "Icons are aria-hidden; the button label carries the meaning."
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Labels",
+      "guidelines": ["Name the action", "Use sentence case", "Avoid 'Toggle'"],
+      "goodExamples": ["Switch to dark theme", "Switch to light theme"],
+      "badExamples": ["Theme", "Toggle", "Click"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SiteHeader",
+      "relationship": "Place in SiteHeader actions or the app shell header."
+    }
+  ],
+  "relatedComponents": ["Button", "SiteHeader", "AppShell"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.6.0",
+  "sourceDir": "theme-toggle",
+  "exportName": "ThemeToggle"
+}

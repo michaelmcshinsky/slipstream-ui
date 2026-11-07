@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class'],
+  // Support both the conventional `.dark` class and the `data-theme="dark"`
+  // attribute used by cookie/SSR theme systems.
+  darkMode: [
+    'variant',
+    '&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *)',
+  ],
   content: [
     './src/**/*.{ts,tsx}',
   ],

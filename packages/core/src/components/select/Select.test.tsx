@@ -25,9 +25,9 @@ describe('Select', () => {
     expect(screen.getByRole('combobox', { name: 'Size' })).toHaveValue('sm');
   });
 
-  it('supports controlled value with onChange', async () => {
+  it('supports controlled value with onValueChange', async () => {
     const user = userEvent.setup();
-    const onChange = vi.fn();
+    const onValueChange = vi.fn();
     function Controlled() {
       const [value, setValue] = useState<string | string[]>('default');
       return (
@@ -35,17 +35,26 @@ describe('Select', () => {
           options={options}
           label="Size"
           value={value}
-          onChange={(next) => {
+          onValueChange={(next) => {
             setValue(next);
-            onChange(next);
+            onValueChange(next);
           }}
         />
       );
     }
     render(<Controlled />);
     await user.selectOptions(screen.getByRole('combobox', { name: 'Size' }), 'sm');
-    expect(onChange).toHaveBeenCalledWith('sm');
+    expect(onValueChange).toHaveBeenCalledWith('sm');
     expect(screen.getByRole('combobox', { name: 'Size' })).toHaveValue('sm');
+  });
+
+  it('calls onChange with the native event for react-hook-form compatibility', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<Select options={options} aria-label="Size" onChange={onChange} />);
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Size' }), 'sm');
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0].target.value).toBe('sm');
   });
 
   it('forwards arbitrary select props (name, disabled)', () => {
@@ -81,13 +90,13 @@ describe('Select groups, placeholder and multiple', () => {
 
   it('supports native multi-select with a string[] contract', async () => {
     const user = userEvent.setup();
-    const onChange = vi.fn();
+    const onValueChange = vi.fn();
     render(
       <Select
         label="Channels"
         multiple
         value={['email']}
-        onChange={onChange}
+        onValueChange={onValueChange}
         options={[
           { value: 'email', label: 'Email' },
           { value: 'slack', label: 'Slack' },
@@ -95,6 +104,6 @@ describe('Select groups, placeholder and multiple', () => {
       />
     );
     await user.selectOptions(screen.getByRole('listbox', { name: 'Channels' }), ['slack']);
-    expect(onChange).toHaveBeenLastCalledWith(['email', 'slack']);
+    expect(onValueChange).toHaveBeenLastCalledWith(['email', 'slack']);
   });
 });

@@ -1,0 +1,14 @@
+/*
+ * Slipstream UI prebuilt stylesheet (utilities only).
+ *
+ * Import this when the host app already owns its base/reset styles:
+ *
+ *   import '@slipstream-ui/core/styles.css'
+ *
+ * The theme variables are supplied by `@slipstream-ui/themes/styles.css`,
+ * `createTheme()` + `themeToCssVariables()`, or your own stylesheet.
+ *
+ * If you need Tailwind's preflight reset, import `styles-full.css` instead.
+ */
+@tailwind components;
+@tailwind utilities;

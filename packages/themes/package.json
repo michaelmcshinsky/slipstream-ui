@@ -7,6 +7,8 @@
     "directory": "packages/themes"
   },
   "description": "Theming system for Slipstream UI with createTheme() and presets",
+  "license": "MIT",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -16,7 +18,8 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./tailwind-v4.css": "./tailwind-v4.css"
+    "./tailwind-v4.css": "./tailwind-v4.css",
+    "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist",
@@ -28,7 +31,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node scripts/build-css.mjs",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx"

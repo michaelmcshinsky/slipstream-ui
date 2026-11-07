@@ -1,0 +1,116 @@
+{
+  "id": "link-tabs",
+  "name": "LinkTabs",
+  "tier": "molecule",
+  "description": "Route-driven navigation tabs that render real links and mark the current path with aria-current=\"page\".",
+  "designIntent": "Tabs switch client-side panels; LinkTabs navigates between routes. Settings, account, and app sub-navigation are URL-driven, so they need link semantics, prefix/exact matching, and a router-agnostic link component rather than a tablist.",
+  "props": [
+    {
+      "name": "items",
+      "type": "LinkTabsItem[]",
+      "required": true,
+      "description": "Tabs in display order. Each item has label, href, optional exact, icon, and disabled."
+    },
+    {
+      "name": "activeHref",
+      "type": "string",
+      "required": false,
+      "description": "Current pathname used to mark the active tab."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Router link element (Inertia Link, Next Link, react-router Link). Defaults to an anchor."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'underline' | 'rounded'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Visual style of the tab strip.",
+      "enum": ["default", "underline", "rounded"]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Control density.",
+      "enum": ["sm", "md", "lg"]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Section",
+      "description": "Accessible name for the navigation landmark."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes to apply."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Settings sub-navigation",
+      "code": "<LinkTabs\n  items={[\n    { label: 'Profile', href: '/settings/profile', exact: true },\n    { label: 'Billing', href: '/settings/billing' },\n  ]}\n  activeHref={pathname}\n  linkComponent={Link}\n/>",
+      "description": "The active item receives aria-current=\"page\"; prefix matching keeps parent sections active on child routes."
+    },
+    {
+      "title": "Underline strip",
+      "code": "<LinkTabs items={items} activeHref={pathname} variant=\"underline\" />"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use Tabs for route navigation",
+      "explanation": "Tabs is a tablist for switching panels in place. Use LinkTabs when the URL changes; screen readers and browser history expect links.",
+      "example": "// Avoid\n<Tabs><TabsTrigger value=\"/settings\">Settings</TabsTrigger></Tabs>\n\n// Prefer\n<LinkTabs items={[{ label: 'Settings', href: '/settings' }]} activeHref={pathname} />"
+    },
+    {
+      "title": "Don't hardcode the active state",
+      "explanation": "Pass activeHref from the router; the component handles exact vs prefix matching."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Navigation landmark",
+      "implementation": "Renders a nav with an accessible label (default \"Section\")."
+    },
+    {
+      "feature": "Current page",
+      "implementation": "The active link receives aria-current=\"page\"."
+    },
+    {
+      "feature": "Keyboard",
+      "implementation": "Native links are tabbable and activate with Enter."
+    },
+    {
+      "feature": "Disabled tabs",
+      "implementation": "Disabled items render as spans with aria-disabled and no link."
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tab labels",
+      "guidelines": ["Use 1-3 words", "Be parallel in structure", "Avoid vague labels"],
+      "goodExamples": ["Overview", "Billing", "Members"],
+      "badExamples": ["Click here", "More", "Misc"]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "PageHeader",
+      "relationship": "Place LinkTabs directly below the page header for section navigation."
+    }
+  ],
+  "relatedComponents": ["Tabs", "Breadcrumb", "PageHeader", "Link"],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.6.0",
+  "sourceDir": "link-tabs",
+  "exportName": "LinkTabs"
+}

@@ -35,7 +35,7 @@ describe('imperative toast', () => {
 
     const ids = toast.dismiss;
     expect(typeof ids).toBe('function');
-    await user.click(screen.getByRole('button', { name: 'Dismiss Upload failed' }));
+    await user.click(screen.getByTitle('Upload failed'));
     expect(screen.queryByText('Upload failed')).not.toBeInTheDocument();
   });
 
@@ -63,7 +63,7 @@ describe('imperative toast', () => {
       vi.advanceTimersByTime(10000);
     });
     expect(screen.getByText('Sticky')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Dismiss Sticky' }));
+    await user.click(screen.getByRole('button', { name: 'Dismiss notification' }));
     expect(screen.queryByText('Sticky')).not.toBeInTheDocument();
   });
 
@@ -82,3 +82,4 @@ describe('imperative toast', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+

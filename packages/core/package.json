@@ -7,6 +7,8 @@
     "directory": "packages/core"
   },
   "description": "Core UI components for Slipstream UI",
+  "license": "MIT",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -15,7 +17,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./styles.css": "./dist/styles.css",
+    "./styles-full.css": "./dist/styles-full.css"
   },
   "files": [
     "dist",
@@ -26,7 +30,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\"",
+    "build": "tsup && node -e \"require('fs').cpSync('src/manifests','dist/manifests',{recursive:true})\" && tailwindcss -c tailwind.config.js -i src/styles.css -o dist/styles.css --minify && tailwindcss -c tailwind.full.config.js -i src/styles-full.css -o dist/styles-full.css --minify",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
@@ -48,7 +52,7 @@
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.6.8",
-    "@types/react": "^18.2.0",
+    "@types/react": "^19.0.0",
     "eslint": "^8.56.0",
     "jest-axe": "^11.0.0",
     "jsdom": "^30.1.3",

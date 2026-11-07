@@ -100,7 +100,8 @@ export function Toaster({ position = 'bottom-right', label = 'Notifications', ri
               <button
                 type="button"
                 onClick={() => imperativeToast.dismiss(entry.id)}
-                aria-label={`Dismiss ${entry.title}`}
+                aria-label="Dismiss notification"
+                title={entry.title}
                 className="rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 ✕

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Input, type InputProps } from '../input/Input';
 
-export type DatePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {
+export type DatePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'> & {
   /** ISO date string (YYYY-MM-DD) — controlled. */
   value?: string;
   /** ISO date string — initial value when uncontrolled. */
@@ -21,7 +21,7 @@ export type DatePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | '
  * custom calendar, so accessibility and input methods come for free.
  */
 export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
-  { value, defaultValue, onValueChange, clearable = false, className, ...props },
+  { value, defaultValue, onValueChange, onChange, clearable = false, className, ...props },
   ref
 ) {
   const [internal, setInternal] = React.useState(defaultValue ?? '');
@@ -38,7 +38,10 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
         ref={ref}
         type="date"
         value={current}
-        onChange={(event) => commit(event.target.value)}
+        onChange={(event) => {
+          commit(event.target.value);
+          onChange?.(event);
+        }}
         className={clearable && current ? 'pr-9' : undefined}
         {...props}
       />

@@ -26,6 +26,18 @@
       "description": "Accessible label announced by screen readers"
     },
     {
+      "name": "indicatorClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the filled indicator (e.g. a semantic color)."
+    },
+    {
+      "name": "indicatorStyle",
+      "type": "React.CSSProperties",
+      "required": false,
+      "description": "Inline styles for the filled indicator (e.g. a data-viz color)."
+    },
+    {
       "name": "className",
       "type": "string",
       "required": false,

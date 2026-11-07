@@ -31,6 +31,8 @@ export * from './components/separator';
 export * from './components/skeleton';
 export * from './components/progress';
 export * from './components/tabs';
+export * from './components/link-tabs';
+export * from './components/theme-toggle';
 export * from './components/tooltip';
 export * from './components/card';
 export * from './components/confirm-dialog';

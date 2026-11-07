@@ -9,7 +9,7 @@ The AI-first React component library — your AI already knows how to use it.
 [![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
 
 <!-- generated:stats:start -->
-**80 components** · 80 machine-readable specs · MCP `validate_usage` · MIT
+**82 components** · 82 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
 [Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)

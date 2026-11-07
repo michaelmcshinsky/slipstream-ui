@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 80 components, each shipping a
+The AI-first React component library. 82 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 63
+## Core components (@slipstream-ui/core) — 65
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -42,6 +42,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
+- [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -69,6 +70,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea
+- [ThemeToggle](https://slipstreamui.com/llm/components/theme-toggle.md) — Presentational light/dark toggle with accessible labels and sun/moon state.
 - [TimePicker](https://slipstreamui.com/llm/components/time-picker.md) — Native time field with an HH:MM contract and an optional clear button.
 - [Timeline](https://slipstreamui.com/llm/components/timeline.md) — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - [Toast](https://slipstreamui.com/llm/components/toast.md) — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.

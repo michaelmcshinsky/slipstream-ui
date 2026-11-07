@@ -18,7 +18,7 @@
  * before this file. Overlays still render without it; only motion is lost.
  */
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme='dark'], [data-theme='dark'] *));
 
 @theme inline {
   --color-background: hsl(var(--background));

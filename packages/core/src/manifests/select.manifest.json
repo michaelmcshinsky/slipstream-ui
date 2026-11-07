@@ -37,9 +37,9 @@
     },
     {
       "name": "onChange",
-      "type": "(value: string | string[]) => void",
+      "type": "React.ChangeEventHandler<HTMLSelectElement>",
       "required": false,
-      "description": "Fired with the new value; string[] when multiple."
+      "description": "Native change event, compatible with react-hook-form register()."
     },
     {
       "name": "groups",
@@ -58,13 +58,13 @@
       "type": "boolean",
       "required": false,
       "defaultValue": "false",
-      "description": "Native multi-select; value/defaultValue/onChange switch to string[]."
+      "description": "Native multi-select; value/defaultValue and onValueChange switch to string[]."
     },
     {
       "name": "onValueChange",
       "type": "(value: string | string[]) => void",
       "required": false,
-      "description": "Alias for onChange — value-based callback."
+      "description": "Value-based callback for controlled usage; string[] when multiple."
     }
   ],
   "examples": [
@@ -75,12 +75,12 @@
     },
     {
       "title": "Multi-select",
-      "code": "<Select\n  label=\"Channels\"\n  multiple\n  value={channels}\n  onChange={setChannels}\n  options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}\n/>",
+      "code": "<Select\n  label=\"Channels\"\n  multiple\n  value={channels}\n  onValueChange={setChannels}\n  options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}\n/>",
       "description": "Native listbox with a string[] contract."
     },
     {
       "title": "Controlled select",
-      "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
+      "code": "const [size, setSize] = useState('default');\n\n<Select\n  label=\"Size\"\n  value={size}\n  onValueChange={setSize}\n  options={[\n    { value: 'default', label: 'Default' },\n    { value: 'sm', label: 'Small' },\n    { value: 'lg', label: 'Large' },\n  ]}\n/>",
       "description": "Keep the selected value in state and render it back through value."
     }
   ],

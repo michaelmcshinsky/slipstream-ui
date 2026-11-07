@@ -18,11 +18,11 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 | label | `string` | — | no | Visible label rendered and associated via htmlFor/aria |
 | value | `string | string[]` | — | no | Controlled value (string, or string[] when multiple). |
 | defaultValue | `string | string[]` | — | no | Initial value when uncontrolled. |
-| onChange | `(value: string | string[]) => void` | — | no | Fired with the new value; string[] when multiple. |
+| onChange | `React.ChangeEventHandler<HTMLSelectElement>` | — | no | Native change event, compatible with react-hook-form register(). |
 | groups | `SelectOptionGroup[]` | — | no | Optgroups: [{ label, options }] rendered with a heading per section. |
 | placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
-| multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue/onChange switch to string[]. |
-| onValueChange | `(value: string | string[]) => void` | — | no | Alias for onChange — value-based callback. |
+| multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue and onValueChange switch to string[]. |
+| onValueChange | `(value: string | string[]) => void` | — | no | Value-based callback for controlled usage; string[] when multiple. |
 
 ## Examples
 
@@ -50,7 +50,7 @@ Native listbox with a string[] contract.
   label="Channels"
   multiple
   value={channels}
-  onChange={setChannels}
+  onValueChange={setChannels}
   options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}
 />
 ```
@@ -65,7 +65,7 @@ const [size, setSize] = useState('default');
 <Select
   label="Size"
   value={size}
-  onChange={setSize}
+  onValueChange={setSize}
   options={[
     { value: 'default', label: 'Default' },
     { value: 'sm', label: 'Small' },

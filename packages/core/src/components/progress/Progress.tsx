@@ -8,6 +8,10 @@ export type ProgressProps = React.HTMLAttributes<HTMLDivElement> & {
   max?: number;
   /** Accessible label announced by screen readers. */
   label?: string;
+  /** Extra classes for the filled indicator (e.g. a semantic color). */
+  indicatorClassName?: string;
+  /** Inline styles for the filled indicator (e.g. a data-viz color). */
+  indicatorStyle?: React.CSSProperties;
 };
 
 /**
@@ -16,7 +20,7 @@ export type ProgressProps = React.HTMLAttributes<HTMLDivElement> & {
  * percentage; the visual track is pure CSS.
  */
 const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
-  ({ className, value = 0, max = 100, label, ...props }, ref) => {
+  ({ className, value = 0, max = 100, label, indicatorClassName, indicatorStyle, ...props }, ref) => {
     const clamped = Math.min(Math.max(value, 0), max);
     const percent = max > 0 ? (clamped / max) * 100 : 0;
 
@@ -32,8 +36,11 @@ const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         {...props}
       >
         <div
-          className="h-full bg-primary transition-all duration-300 motion-reduce:transition-none"
-          style={{ width: `${percent}%` }}
+          className={cn(
+            'h-full bg-primary transition-all duration-300 motion-reduce:transition-none',
+            indicatorClassName
+          )}
+          style={{ width: `${percent}%`, ...indicatorStyle }}
         />
       </div>
     );

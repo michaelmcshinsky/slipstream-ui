@@ -7,7 +7,7 @@ export type MetricCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'
   label: string;
   value: string | number;
   /** Secondary line under the value. */
-  hint?: string;
+  hint?: React.ReactNode;
   /** Signed change, e.g. "+12.4%" or "-3". */
   delta?: string;
   /** Direction colors the delta (green up / red down / muted flat). */

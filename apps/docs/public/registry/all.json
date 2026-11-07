@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 80,
+  "count": 82,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -325,6 +325,14 @@
       "registry": "/registry/link.json"
     },
     {
+      "id": "link-tabs",
+      "name": "LinkTabs",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Route-driven navigation tabs that render real links and mark the current path with aria-current=\"page\".",
+      "registry": "/registry/link-tabs.json"
+    },
+    {
       "id": "list",
       "name": "List / ListItem",
       "package": "@slipstream-ui/core",
@@ -603,6 +611,14 @@
       "tier": "atom",
       "description": "A multi-line text input styled to match Input, wrapping the native textarea",
       "registry": "/registry/textarea.json"
+    },
+    {
+      "id": "theme-toggle",
+      "name": "ThemeToggle",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Presentational light/dark toggle with accessible labels and sun/moon state.",
+      "registry": "/registry/theme-toggle.json"
     },
     {
       "id": "time-picker",

@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 80 components, each shipping a
+The AI-first React component library. 82 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 63
+## Core components (@slipstream-ui/core) — 65
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -42,6 +42,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
+- [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -69,6 +70,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - [Textarea](https://slipstreamui.com/llm/components/textarea.md) — A multi-line text input styled to match Input, wrapping the native textarea
+- [ThemeToggle](https://slipstreamui.com/llm/components/theme-toggle.md) — Presentational light/dark toggle with accessible labels and sun/moon state.
 - [TimePicker](https://slipstreamui.com/llm/components/time-picker.md) — Native time field with an HH:MM contract and an optional clear button.
 - [Timeline](https://slipstreamui.com/llm/components/timeline.md) — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - [Toast](https://slipstreamui.com/llm/components/toast.md) — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
@@ -3021,6 +3023,72 @@ Preserves prefetch and modified-click behavior.
 
 ---
 
+# LinkTabs
+
+Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
+
+> Import: `import { LinkTabs } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/link-tabs.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Tabs switch client-side panels; LinkTabs navigates between routes. Settings, account, and app sub-navigation are URL-driven, so they need link semantics, prefix/exact matching, and a router-agnostic link component rather than a tablist.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| items | `LinkTabsItem[]` | — | yes | Tabs in display order. Each item has label, href, optional exact, icon, and disabled. |
+| activeHref | `string` | — | no | Current pathname used to mark the active tab. |
+| linkComponent | `React.ElementType` | — | no | Router link element (Inertia Link, Next Link, react-router Link). Defaults to an anchor. |
+| variant | `'default' | 'underline' | 'rounded'` | `default` | no | Visual style of the tab strip. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
+| label | `string` | `Section` | no | Accessible name for the navigation landmark. |
+| className | `string` | — | no | Additional CSS classes to apply. |
+
+## Examples
+
+### Settings sub-navigation
+
+The active item receives aria-current="page"; prefix matching keeps parent sections active on child routes.
+
+```tsx
+<LinkTabs
+  items={[
+    { label: 'Profile', href: '/settings/profile', exact: true },
+    { label: 'Billing', href: '/settings/billing' },
+  ]}
+  activeHref={pathname}
+  linkComponent={Link}
+/>
+```
+
+### Underline strip
+
+```tsx
+<LinkTabs items={items} activeHref={pathname} variant="underline" />
+```
+
+## Anti-patterns
+
+- **Don't use Tabs for route navigation** — Tabs is a tablist for switching panels in place. Use LinkTabs when the URL changes; screen readers and browser history expect links.
+- **Don't hardcode the active state** — Pass activeHref from the router; the component handles exact vs prefix matching.
+
+## Accessibility
+
+- **Navigation landmark**: Renders a nav with an accessible label (default "Section").
+- **Current page**: The active link receives aria-current="page".
+- **Keyboard**: Native links are tabbable and activate with Enter.
+- **Disabled tabs**: Disabled items render as spans with aria-disabled and no link.
+
+## Composition
+
+- Compose with **PageHeader** — Place LinkTabs directly below the page header for section navigation.
+- Related: Tabs, Breadcrumb, PageHeader, Link
+
+---
+
 # List / ListItem
 
 Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
@@ -3367,7 +3435,7 @@ Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta
 | value | `string | number` | — | yes | Primary number/value; rendered tabular. |
 | delta | `string` | — | no | Signed change, e.g. +12.4%. |
 | trend | `'up' | 'down' | 'flat'` | `flat` | no | Delta direction color + arrow glyph. |
-| hint | `string` | — | no | Comparison context (vs last month). |
+| hint | `React.ReactNode` | — | no | Comparison context (vs last month). |
 | icon | `ReactNode` | — | no | Decorative icon. |
 
 ## Examples
@@ -3693,6 +3761,8 @@ Progress shows completion of a known-length task (uploads, installs, multi-step 
 | value | `number` | `0` | no | Current value between 0 and max |
 | max | `number` | `100` | no | Upper bound of the progress scale |
 | label | `string` | — | no | Accessible label announced by screen readers |
+| indicatorClassName | `string` | — | no | Extra classes for the filled indicator (e.g. a semantic color). |
+| indicatorStyle | `React.CSSProperties` | — | no | Inline styles for the filled indicator (e.g. a data-viz color). |
 | className | `string` | — | no | Additional CSS classes to apply |
 
 ## Examples
@@ -4306,11 +4376,11 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 | label | `string` | — | no | Visible label rendered and associated via htmlFor/aria |
 | value | `string | string[]` | — | no | Controlled value (string, or string[] when multiple). |
 | defaultValue | `string | string[]` | — | no | Initial value when uncontrolled. |
-| onChange | `(value: string | string[]) => void` | — | no | Fired with the new value; string[] when multiple. |
+| onChange | `React.ChangeEventHandler<HTMLSelectElement>` | — | no | Native change event, compatible with react-hook-form register(). |
 | groups | `SelectOptionGroup[]` | — | no | Optgroups: [{ label, options }] rendered with a heading per section. |
 | placeholder | `string` | — | no | Renders a disabled empty option as the 'choose one' affordance. |
-| multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue/onChange switch to string[]. |
-| onValueChange | `(value: string | string[]) => void` | — | no | Alias for onChange — value-based callback. |
+| multiple | `boolean` | `false` | no | Native multi-select; value/defaultValue and onValueChange switch to string[]. |
+| onValueChange | `(value: string | string[]) => void` | — | no | Value-based callback for controlled usage; string[] when multiple. |
 
 ## Examples
 
@@ -4338,7 +4408,7 @@ Native listbox with a string[] contract.
   label="Channels"
   multiple
   value={channels}
-  onChange={setChannels}
+  onValueChange={setChannels}
   options={[{ value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }]}
 />
 ```
@@ -4353,7 +4423,7 @@ const [size, setSize] = useState('default');
 <Select
   label="Size"
   value={size}
-  onChange={setSize}
+  onValueChange={setSize}
   options={[
     { value: 'default', label: 'Default' },
     { value: 'sm', label: 'Small' },
@@ -5388,6 +5458,70 @@ Labelled textarea with a hint
   <Label htmlFor="m">Message</Label><Textarea id="m" />
   ```
 - Related: Input, Label
+
+---
+
+# ThemeToggle
+
+Presentational light/dark toggle with accessible labels and sun/moon state.
+
+> Import: `import { ThemeToggle } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/theme-toggle.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Theme persistence is app-specific (cookie, localStorage, server session), but the control is the same everywhere. ThemeToggle owns the button, icon state, and accessible label while the consumer owns storage and the actual class/attribute switch.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| theme | `'light' | 'dark'` | — | yes | Current theme. |
+| onThemeChange | `(theme: 'light' | 'dark') => void` | — | yes | Fired with the next theme when the user toggles. |
+| labels | `{ toLight?: string; toDark?: string }` | — | no | Accessible labels for the action that will happen next. |
+| size | `'sm' | 'md'` | `md` | no | Control size. |
+| className | `string` | — | no | Additional CSS classes to apply. |
+
+## Examples
+
+### Cookie-backed theme
+
+The consumer persists the theme; the component only renders and reports the next value.
+
+```tsx
+const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+function change(next: 'light' | 'dark') {
+  setTheme(next)
+  document.documentElement.dataset.theme = next
+  document.cookie = `theme=${next}; path=/; max-age=31536000`
+}
+
+<ThemeToggle theme={theme} onThemeChange={change} />
+```
+
+### Custom labels
+
+```tsx
+<ThemeToggle theme={theme} onThemeChange={setTheme} labels={{ toDark: 'Dark mode', toLight: 'Light mode' }} />
+```
+
+## Anti-patterns
+
+- **Don't let the component own persistence** — Theme storage differs by app (cookie for SSR, localStorage for SPAs). Keep persistence in the consumer and pass theme/onThemeChange.
+- **Don't use an icon-only button without a label** — The component always sets aria-label and title; don't override them with empty values.
+
+## Accessibility
+
+- **Accessible name**: aria-label and title describe the next action, not the current state.
+- **Keyboard**: Native button, Enter/Space activation, visible focus ring.
+- **Icon semantics**: Icons are aria-hidden; the button label carries the meaning.
+
+## Composition
+
+- Compose with **SiteHeader** — Place in SiteHeader actions or the app shell header.
+- Related: Button, SiteHeader, AppShell
 
 ---
 

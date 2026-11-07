@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 
-export type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
+export type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & {
   /** Controlled checked state; omit for uncontrolled usage. */
   checked?: boolean;
   /** Fired when the user toggles the checkbox. */
@@ -14,12 +14,15 @@ export type CheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 't
  * with a CSS overlay so the native input stays the source of truth.
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, checked, onCheckedChange, ...props }, ref) => (
+  ({ className, checked, onCheckedChange, onChange, ...props }, ref) => (
     <input
       type="checkbox"
       ref={ref}
       checked={checked}
-      onChange={(event) => onCheckedChange?.(event.target.checked)}
+      onChange={(event) => {
+        onCheckedChange?.(event.target.checked);
+        onChange?.(event);
+      }}
       className={cn(
         'peer h-4 w-4 shrink-0 rounded-sm border border-primary',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',

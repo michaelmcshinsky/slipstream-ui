@@ -36,7 +36,7 @@ export default function SelectPage() {
         title="Playground"
         preview={
           <div className="w-full max-w-xs">
-            <Select label="Size" value={size} onChange={(next) => setSize(next as string)} options={sizes} />
+            <Select label="Size" value={size} onValueChange={(next) => setSize(next as string)} options={sizes} />
             <p className="mt-2 text-sm text-muted-foreground">Selected: {size}</p>
           </div>
         }
@@ -45,7 +45,7 @@ export default function SelectPage() {
 <Select
   label="Size"
   value={size}
-  onChange={setSize}
+  onValueChange={setSize}
   options={[
     { value: 'default', label: 'Default' },
     { value: 'sm', label: 'Small' },
@@ -96,7 +96,7 @@ export default function SelectPage() {
   multiple
   size={4}
   value={channels}
-  onChange={setChannels}
+  onValueChange={setChannels}
   options={[{ value: 'email', label: 'Email' }]}
 />`}
         usage={`// multiple switches the contract to string[]; size controls how many

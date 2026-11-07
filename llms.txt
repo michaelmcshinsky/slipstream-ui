@@ -31,7 +31,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 63
+## Core components (@slipstream-ui/core) — 65
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -65,6 +65,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
 - Link — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
+- LinkTabs — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - List / ListItem — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -92,6 +93,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Tabs — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - Text — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 - Textarea — A multi-line text input styled to match Input, wrapping the native textarea
+- ThemeToggle — Presentational light/dark toggle with accessible labels and sun/moon state.
 - TimePicker — Native time field with an HH:MM contract and an optional clear button.
 - Timeline — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - Toast — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.

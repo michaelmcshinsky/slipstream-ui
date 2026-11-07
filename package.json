@@ -35,8 +35,8 @@
     "@changesets/changelog-github": "^1.0.0",
     "@changesets/cli": "^3.0.3",
     "@types/node": "^20.10.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "tsx": "^4.23.15",
     "turbo": "^2.11.10",
     "typescript": "^5.3.3"

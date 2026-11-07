@@ -16,7 +16,7 @@ export type SelectOptionGroup = {
 
 export type SelectProps = Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
-  'onChange' | 'value' | 'defaultValue' | 'multiple'
+  'value' | 'defaultValue' | 'multiple'
 > & {
   /** Flat options. Ignored when `groups` is provided. */
   options?: SelectOption[];
@@ -29,8 +29,9 @@ export type SelectProps = Omit<
   multiple?: boolean;
   value?: string | string[];
   defaultValue?: string | string[];
-  onChange?: (value: string | string[]) => void;
-  /** Alias for onChange — the value-based callback used by most codebases. */
+  /** Native change event - compatible with react-hook-form's register(). */
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  /** Value-based callback for controlled usage. */
   onValueChange?: (value: string | string[]) => void;
 };
 
@@ -80,7 +81,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
           const next = multiple
             ? Array.from(event.target.selectedOptions, (option) => option.value)
             : event.target.value;
-          onChange?.(next);
+          onChange?.(event);
           onValueChange?.(next);
         }}
         {...props}

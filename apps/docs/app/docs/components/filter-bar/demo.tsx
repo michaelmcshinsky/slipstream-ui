@@ -43,7 +43,7 @@ export default function FilterBarPage() {
               <Select
                 label="Status"
                 value={status}
-                onChange={(next) => setStatus(next as string)}
+                onValueChange={(next) => setStatus(next as string)}
                 options={[
                   { value: 'all', label: 'All' },
                   { value: 'active', label: 'Active' },
@@ -64,7 +64,7 @@ export default function FilterBarPage() {
   onReset={resetFilters}
   activeCount={activeFilters}
 >
-  <Select label="Status" options={statusOptions} value={status} onChange={setStatus} />
+  <Select label="Status" options={statusOptions} value={status} onValueChange={setStatus} />
 </FilterBar>`}
         usage={`// FilterBar narrows results; creation actions belong in PageHeader actions.
 // Omit onSearchChange to use the bar for selects only.`}
