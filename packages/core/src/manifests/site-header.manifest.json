@@ -46,10 +46,48 @@
       "description": "Right-aligned actions (theme toggle, GitHub, CTA)."
     },
     {
+      "name": "mobileActions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Actions rendered inside the mobile drawer; defaults to `actions`."
+    },
+    {
       "name": "linkComponent",
       "type": "React.ElementType",
       "required": false,
       "description": "Router link element."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop used to pass the destination to linkComponent: href for anchors/Next Link, to for react-router.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
+      "name": "brandLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Home",
+      "description": "Accessible name for the brand link."
+    },
+    {
+      "name": "navLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Main",
+      "description": "Accessible name for the desktop navigation landmark."
+    },
+    {
+      "name": "mobileNavLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Mobile",
+      "description": "Accessible name for the mobile navigation landmark."
     },
     {
       "name": "sticky",

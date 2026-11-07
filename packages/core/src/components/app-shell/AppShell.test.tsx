@@ -50,6 +50,16 @@ describe('Sidebar', () => {
     expect(screen.getByRole('link', { name: 'X' })).toHaveAttribute('aria-current', 'page');
   });
 
+  it('keeps a parent item active on nested routes', () => {
+    render(
+      <Sidebar
+        sections={[{ items: [{ href: '/app/body', label: 'Body' }] }]}
+        activeHref="/app/body/strength"
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Body' })).toHaveAttribute('aria-current', 'page');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Sidebar sections={sections} activeHref="/dashboard" />);
     expect(await axe(container)).toHaveNoViolations();

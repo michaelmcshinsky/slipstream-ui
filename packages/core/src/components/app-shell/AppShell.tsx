@@ -47,6 +47,9 @@ export type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> &
 function containsActive(item: SidebarItem, activeHref: string | undefined): boolean {
   if (!activeHref) return false;
   if (item.href === activeHref) return true;
+  // Prefix match on path boundaries so /app/body stays active on
+  // /app/body/strength, without matching /app/bodyx.
+  if (activeHref.startsWith(item.href.endsWith('/') ? item.href : `${item.href}/`)) return true;
   return (item.children ?? []).some((child) => containsActive(child, activeHref));
 }
 
@@ -230,7 +233,7 @@ export function AppShell({
       {sidebar && (
         <aside
           className={cn(
-            'shrink-0 border-r border-border has-[[data-collapsed]]:w-16',
+            'sticky top-0 h-screen shrink-0 border-r border-border has-[[data-collapsed]]:w-16',
             hideAt[mobileBreakpoint],
             sidebarWidth
           )}
