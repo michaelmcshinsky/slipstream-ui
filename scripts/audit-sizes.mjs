@@ -88,21 +88,22 @@ try {
     "import { Button, Card, CardContent, CardHeader, CardTitle } from './packages/core/dist/index.mjs';\n" +
       'globalThis.__slipstreamSizeAudit = [Button, Card, CardContent, CardHeader, CardTitle];\n'
   );
-  execFileSync(
-    process.execPath,
-    [
-      findEsbuild(),
-      entry,
-      '--bundle',
-      '--format=esm',
-      '--minify',
-      '--external:react',
-      '--external:react-dom',
-      `--outfile=${outfile}`,
-      '--log-level=error',
-    ],
-    { cwd: root, stdio: 'pipe' }
-  );
+  const esbuildBin = findEsbuild();
+  const bundlerArgs = [
+    entry,
+    '--bundle',
+    '--format=esm',
+    '--minify',
+    '--external:react',
+    '--external:react-dom',
+    `--outfile=${outfile}`,
+    '--log-level=error',
+  ];
+  // On Windows the esbuild bin is a Node shim; on Linux/macOS it is the
+  // platform binary itself and must be executed directly.
+  const runner = process.platform === 'win32' ? process.execPath : esbuildBin;
+  const runnerArgs = process.platform === 'win32' ? [esbuildBin, ...bundlerArgs] : bundlerArgs;
+  execFileSync(runner, runnerArgs, { cwd: root, stdio: 'pipe' });
   results['minimal import'] = measure(outfile);
 } finally {
   rmSync(entry, { force: true });
