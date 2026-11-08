@@ -27,6 +27,7 @@ const ROUTES = [
   '/docs/mcp',
   '/docs/templates',
   '/changelog',
+  '/docs/roadmap',
   '/about',
   '/accessibility',
   '/contact',

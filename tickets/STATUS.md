@@ -1,9 +1,38 @@
-# Backlog status — 2026-11-07
+# Backlog status — 2026-11-08
 
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (32)
+## Release 0.6.0 / 0.6.1 (2026-11-08)
+
+Published to npm from CI with provenance, each with a GitHub release and tag:
+
+| Package | Version |
+|---|---|
+| `@slipstream-ui/core` | 0.6.1 |
+| `@slipstream-ui/ai` | 0.6.1 |
+| `@slipstream-ui/themes` | 0.6.1 |
+| `@slipstream-ui/mcp-server` | 0.3.1 |
+| `@slipstream-ui/cli` | 0.2.2 |
+| `@slipstream-ui/registry` | 0.2.2 |
+| `@slipstream-ui/i18n` | 0.3.1 |
+
+Gate fixes that landed in the same release:
+
+| ID | Deliverable |
+|---|---|
+| SLIP-099 | **Done** — core/ai/themes 0.6.0 → 0.6.1, mcp-server 0.3.1, cli/registry 0.2.2, i18n 0.3.1 published from CI |
+| SLIP-103 | Prisma client generated on install; tests run with bounded turbo concurrency |
+| SLIP-104 | Docs navbar links reach the 24px WCAG 2.2 target size; axe 26/26 clean |
+| SLIP-105 | Per-file subpath modules emit under `dist/src` on Windows and Linux |
+| SLIP-106 | Bundle-size audit executes the esbuild platform binary on Linux |
+| SLIP-107 | 0.6.1: Tailwind v4 peer range and the modal-layer cleanup warning |
+
+Consumer state: `utah-esports` moved from the vendored 0.5.0 tarballs to the
+published `^0.6.1` packages and `^0.3.1` MCP server, with `pnpm peers check`
+clean and `pnpm check` green.
+
+## Completed (37)
 
 | ID | Deliverable |
 |---|---|
@@ -39,6 +68,12 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-094 | Bundle and stylesheet size audit + budgets |
 | SLIP-097 | AuthLayout `variant="split"` + aside slot |
 | SLIP-098 | PageHeader `documentHead()` helper + docs |
+| SLIP-099 | Published 0.6.0/0.6.1 (core, ai, themes), `mcp-server` 0.3.1, `cli`/`registry` 0.2.2, `i18n` 0.3.1 from CI |
+| SLIP-103 | Prisma client generated on install; bounded test concurrency |
+| SLIP-104 | Docs navbar 24px target size (WCAG 2.2) |
+| SLIP-105 | Subpath modules emit under `dist/src` on every platform |
+| SLIP-106 | Size audit runs the esbuild platform binary |
+| SLIP-107 | 0.6.1: Tailwind v4 peer range + modal-layer cleanup |
 
 ## Blocked / not completed (11)
 
@@ -119,24 +154,35 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
 | SLIP-098 | **Done** | PageHeader `documentHead()` helper + docs |
-| SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
+| SLIP-099 | **Done** | core/ai/themes 0.6.0 then 0.6.1, mcp-server 0.3.1, cli/registry 0.2.2, i18n 0.3.1 |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |
 | SLIP-102 | **Done** | `ListItem.description` accepts ReactNode; manifest and docs updated |
+| SLIP-103 | **Done** | `prepare: prisma generate`, `turbo test --concurrency=2`, serialized app SQLite suite |
+| SLIP-104 | **Done** | Navbar `inline-flex h-6 items-center`; axe 26/26 clean |
+| SLIP-105 | **Done** | `outDir: dist/src` + normalized entry keys; `verify:modules` green |
+| SLIP-106 | **Done** | Platform-aware esbuild invocation in the size audit |
+| SLIP-107 | **Done** | Themes peer `^3.4.0 || ^4.0.0`; modal-layer `layerId` capture; 0.6.1 published |
+| SLIP-108 | Ready | `success-ink` token for success text on a tint; ToolCall/Confirmation chips + axe coverage |
 
 ## Verification
 
 ```bash
 pnpm typecheck                  # 17 packages
-pnpm test                       # core 594, ai 148, app 375, mcp 11, starter 25
+pnpm lint                       # 10 packages
+pnpm test                       # 1221 tests: core 621, ai 153, app 375, starter 25, mcp 17, cli 16, i18n 14
+pnpm build                      # 12 tasks
 pnpm validate:manifests         # 104 valid, 0 drift, counts match
 pnpm check:llm                  # 104 manifests ↔ markdown
-pnpm report:manifests           # 100 components, 0 gaps
-pnpm bench:check                # 100 cases, no drift
-pnpm bench:test                 # 10 tests
+pnpm check:components           # 104 components with tests, examples, a11y notes and docs
 pnpm verify:tailwind-v4         # compile fixture
-pnpm --filter slipstream-ui-docs typecheck
-pnpm --filter slipstream-ui-docs build   # 144 routes
+pnpm verify:tailwind3           # preset compile fixture
+pnpm verify:modules             # root client bundle, server-safe subpaths, explicit imports
+pnpm verify:registry            # registry cache reload
+node scripts/test-packaged-styles.mjs   # packing smoke test
+node scripts/audit-sizes.mjs            # CSS/JS budgets
+pnpm --filter slipstream-ui-docs build  # 144 routes
+pnpm --filter slipstream-ui-docs audit:a11y -- <url>   # 26 page runs, 0 violations
 pnpm --filter slipstream-ai-chat-starter build
 ```
 

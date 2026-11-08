@@ -16,9 +16,33 @@ import { Footer } from '@/components/site/footer';
 
 const releases = [
   {
+    version: '0.6.1',
+    date: 'November 8, 2026',
+    tag: 'current',
+    highlights: [
+      '@slipstream-ui/themes accepts Tailwind CSS v4 as a peer alongside v3.4, so apps on Tailwind 4 install without an unmet-peer warning',
+      'Dialog and Drawer modal-layer cleanup captures the layer id instead of reading a ref during teardown, removing the React warning and keeping nested-close ordering correct',
+      'Verified before publish: typecheck 17/17, lint 10/10, tests 13/13, build 12/12, manifest validation at 104 components, and axe at 26 page runs (13 routes, light and dark)',
+    ],
+  },
+  {
+    version: '0.6.0',
+    date: 'November 8, 2026',
+    tag: 'previous',
+    highlights: [
+      '104 components (87 core + 17 AI): dashboard filter layer (MultiSelect, FilterPanel, DateRangePicker, AppliedFilters), marketing blocks (Hero, StatBand, CTASection, ComparisonTable, LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar), plus SegmentedControl, RangeSlider, FilterChips, LinkTabs and ThemeToggle',
+      'Server-safe per-file subpath exports (@slipstream-ui/core/card) that preserve each file\'s use client directive, so server components no longer have to pull the client barrel',
+      'Prebuilt stylesheets (styles.css, styles-full.css, themes/styles.css) and data-theme="dark" support alongside .dark, for apps that do not run Tailwind themselves',
+      'React Hook Form and native change handlers: documented Controller recipe, Select option children, native attribute passthrough on the form controls',
+      'Router-agnostic documentHead() helper, AuthLayout split/aside variant, AppShell viewport-height rail, sidebar prefix matching, footer active state',
+      'New release gates: registry cache reload, per-file module and subpath verification, packaged-stylesheet smoke test, bundle-size budgets with gzip limits',
+      'Versioned packages: core/ai/themes 0.6.0, cli 0.2.2, registry 0.2.2, mcp-server 0.3.1, i18n 0.3.1',
+    ],
+  },
+  {
     version: '0.5.0',
     date: 'November 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'Validation benchmark: 100 cases across 7 defect classes and 4 conditions, with a published baseline of 65.7% structural recall, 100% precision and 0 false positives on valid cases',
       'Tailwind CSS v4: a CSS-first theme contract in @slipstream-ui/themes plus a cross-platform compile fixture that verifies semantic utilities against the real component sources',
