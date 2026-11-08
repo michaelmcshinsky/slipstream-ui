@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "feature-row",
   "exportName": "FeatureRow",
   "description": "Alternating media and copy row for mid-page feature sections.",

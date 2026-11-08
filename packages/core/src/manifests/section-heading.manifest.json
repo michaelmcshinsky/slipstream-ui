@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "section-heading",
   "exportName": "SectionHeading",
   "description": "Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.",

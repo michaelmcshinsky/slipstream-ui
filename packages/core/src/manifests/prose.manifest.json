@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "prose",
   "exportName": "Prose",
   "description": "Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.",

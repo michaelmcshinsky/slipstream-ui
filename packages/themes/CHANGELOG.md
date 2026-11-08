@@ -1,5 +1,13 @@
 # @slipstream-ui/themes
 
+## 0.6.1
+
+### Patch Changes
+
+- Fix the modal-layer effect cleanup so it captures the current layer id, and
+  allow Tailwind CSS v4 as a peer alongside v3.4 because the package ships the
+  v4 theme contract.
+
 ## 0.6.0
 
 ### Minor Changes

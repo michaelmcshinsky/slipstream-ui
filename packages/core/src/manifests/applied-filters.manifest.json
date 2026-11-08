@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "applied-filters",
   "exportName": "AppliedFilters",
   "description": "Applied-filter summary with a live count, removable chips and an edit action.",

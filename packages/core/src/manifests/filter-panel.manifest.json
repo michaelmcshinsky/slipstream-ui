@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "filter-panel",
   "exportName": "FilterPanel",
   "description": "Structured filter panel with collapsible sections and reset/apply actions.",

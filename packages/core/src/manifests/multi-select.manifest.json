@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "multi-select",
   "exportName": "MultiSelect",
   "description": "Searchable multi-select filter with visible removable chips and a checkbox panel.",

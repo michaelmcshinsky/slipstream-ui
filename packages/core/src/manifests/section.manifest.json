@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "sourceDir": "section",
   "exportName": "Section",
   "description": "Full-width page section with a surface tone, vertical rhythm and an optional centered container.",
