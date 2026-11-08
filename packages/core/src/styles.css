@@ -1,14 +1,133 @@
 /*
- * Slipstream UI prebuilt stylesheet (utilities only).
+ * Slipstream UI prebuilt stylesheet (utilities plus a minimal reset).
  *
- * Import this when the host app already owns its base/reset styles:
+ * Import this when the host app does not run Tailwind itself:
  *
  *   import '@slipstream-ui/core/styles.css'
  *
  * The theme variables are supplied by `@slipstream-ui/themes/styles.css`,
  * `createTheme()` + `themeToCssVariables()`, or your own stylesheet.
  *
- * If you need Tailwind's preflight reset, import `styles-full.css` instead.
+ * The reset below covers the Preflight rules the components depend on:
+ * border style, box sizing, form-control font inheritance, media display and
+ * default margins. It is intentionally smaller than Tailwind Preflight.
+ *
+ * If the host already ships Tailwind Preflight, no action is needed. If it
+ * wants the full Preflight, import `styles-full.css` instead.
  */
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: hsl(var(--border, 214 28% 89%));
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  line-height: inherit;
+}
+
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+:-moz-focusring {
+  outline: auto;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  text-indent: 0;
+  border-color: inherit;
+  border-collapse: collapse;
+}
+
 @tailwind components;
 @tailwind utilities;

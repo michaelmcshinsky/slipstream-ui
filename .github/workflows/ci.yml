@@ -83,3 +83,6 @@ jobs:
 
       - name: Verify registry cache reload
         run: pnpm verify:registry
+
+      - name: Verify prebuilt stylesheet reset
+        run: pnpm verify:prebuilt
