@@ -81,10 +81,10 @@ export function Navbar() {
               />
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">
-              <Link href="/docs" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.docs')}</Link>
-              <Link href="/docs/components" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.components')}</Link>
-              <Link href="/docs/templates" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.templates')}</Link>
-              <Link href="/changelog" className="text-muted-foreground transition-colors hover:text-foreground">{t('shell.changelog')}</Link>
+              <Link href="/docs" className="inline-flex h-6 items-center text-muted-foreground transition-colors hover:text-foreground">{t('shell.docs')}</Link>
+              <Link href="/docs/components" className="inline-flex h-6 items-center text-muted-foreground transition-colors hover:text-foreground">{t('shell.components')}</Link>
+              <Link href="/docs/templates" className="inline-flex h-6 items-center text-muted-foreground transition-colors hover:text-foreground">{t('shell.templates')}</Link>
+              <Link href="/changelog" className="inline-flex h-6 items-center text-muted-foreground transition-colors hover:text-foreground">{t('shell.changelog')}</Link>
             </div>
           </div>
 
