@@ -23,6 +23,7 @@
     "verify:modules": "node scripts/verify-modules.mjs",
     "verify:registry": "tsx scripts/verify-registry-reload.ts",
     "verify:prebuilt": "node scripts/verify-prebuilt-styles.mjs",
+    "verify:consumer": "node scripts/verify-consumer.mjs",
     "bench:generate": "tsx benchmarks/generate-cases.ts",
     "bench:check": "tsx benchmarks/generate-cases.ts --check",
     "bench": "tsx benchmarks/src/run.ts",
