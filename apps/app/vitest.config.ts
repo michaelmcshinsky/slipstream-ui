@@ -20,6 +20,10 @@ export default defineConfig({
     // times out under load.
     testTimeout: 30_000,
     hookTimeout: 30_000,
+    // Auth/billing flow tests share one SQLite database for the whole run.
+    // Running files in parallel makes those writes interleave, so keep the
+    // integration suite deterministic even when turbo starts other packages.
+    fileParallelism: false,
     env: {
       // connection_limit=1 serializes SQLite access: all test files share one
       // per-run database, and parallel workers otherwise trip lock timeouts
