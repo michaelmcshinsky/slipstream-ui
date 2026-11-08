@@ -1,5 +1,115 @@
 # @slipstream-ui/core
 
+## 0.6.0
+
+### Minor Changes
+
+- [`352e873`](https://github.com/michaelmcshinsky/slipstream-ui/commit/352e87336f87bd5f2ab5fc327d204af6f62a8944) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add the dashboard filter layer: `MultiSelect`, `FilterPanel`,
+  `DateRangePicker` and `AppliedFilters`.
+  
+  `MultiSelect` pairs a searchable checkbox panel with removable chips outside
+  the trigger. `FilterPanel` owns collapsible sections and reset/apply actions
+  without owning filter values. `DateRangePicker` uses an ISO string contract and
+  keeps the end on or after the start. `AppliedFilters` wraps `FilterChips` with
+  a live count and an edit action.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`9dfc268`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9dfc2688503324e7f8dda0784643b688d5ce47b9) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add prebuilt stylesheets (`styles.css`, `styles-full.css`, `themes/styles.css`), support `data-theme="dark"` alongside `.dark`, make form controls compatible with native change handlers and react-hook-form, and add `LinkTabs` and `ThemeToggle`.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add a tone-aware marketing and data-filter layer.
+  
+  - `Container` and `Section` with width, vertical rhythm and `tone` presets.
+    `Section` scopes inverse surface tokens so cards, borders and muted text
+    stay readable inside a contrasting band.
+  - `Hero`, `StatBand`, `CTASection` and `ComparisonTable` marketing blocks.
+  - `SegmentedControl`, `RangeSlider` and `FilterChips` for dashboards and
+    filter-heavy list pages.
+  - Themes gain `inverse`, `inverse-foreground`, `inverse-muted`,
+    `inverse-border`, `inverse-card`, `inverse-primary` and related tokens, plus
+    matching Tailwind v3 and v4 mappings. Inverse sections keep AA contrast in
+    both light and dark mode.
+
+- [`feaf8c6`](https://github.com/michaelmcshinsky/slipstream-ui/commit/feaf8c62252d54bc1d4a2fad5ecb4215a113011b) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add the second marketing block batch: `LogoCloud`, `FeatureGrid`, `FeatureRow`,
+  `Testimonial`, `ProcessSteps`, `ArticleCard`, `Newsletter`, `ContactStrip` and
+  `AnnouncementBar`. Each ships a manifest, tests, docs and registry payload.
+  
+  `Newsletter` owns email capture state and success/error feedback but not the
+  CRM transport. `ArticleCard` accepts a router `linkComponent`. `AnnouncementBar`
+  owns dismissal only; persistence stays with the caller.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`1e8e062`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1e8e062cabae7b0fbe8b9e13de9556ba553e8b38) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `linkHrefProp` so router-bound components work with react-router's `to`
+  prop, `brandLabel` and `mobileActions` on SiteHeader, and `activeHref` /
+  `match` on SiteFooter. Fix the mobile menu button icon and expanded state,
+  wire the CLI to prebuilt and Tailwind 4 stylesheets (including `src/styles.css`
+  targets), and correct the install docs.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add integration escape hatches and fix the registry install path.
+  
+  - Core: emit per-file ESM/CJS modules and component subpath exports
+    (`@slipstream-ui/core/card`) that preserve each file's `use client`
+    directive. The root import remains a client bundle for compatibility.
+  - SectionHeading, PageHeader: `titleClassName`, `descriptionClassName` and
+    `eyebrowClassName` for host display typography.
+  - Hero: `titleClassName`, `descriptionClassName`, `eyebrowClassName` and
+    `badgeClassName`.
+  - SiteHeader: `showMobileTrigger`, `desktopBreakpoint` and `navClassName` so
+    hosts can keep their own mobile navigation and header height.
+  - TableOfContents: `ariaLabel` and `labelClassName`; active links are
+    underlined.
+  - Breadcrumb: `truncateCurrent` for long current-page labels.
+  - Select: native `<option>` children in addition to `options`/`groups`.
+  - CLI `add`: copy the component's relative dependency closure and
+    `components/slipstream/utils/`, rewrite support imports, and skip existing
+    files unless `--overwrite`.
+  - CLI `diff` and `add`: read `componentsDir` from `slipstream.config.json`
+    and reject paths outside the project.
+  - CLI `diff`: normalize support imports and line endings before comparing, so
+    a copied install does not report false drift.
+  - Dialog and Drawer: share a modal layer stack for body scroll lock and
+    nested Escape handling.
+  - CLI `init`: extend an existing CSS-variable theme with only the missing
+    Slipstream tokens instead of skipping stylesheet setup.
+  - Themes: publish the Tailwind CSS 3 preset at
+    `@slipstream-ui/themes/tailwind-preset`.
+  - Tailwind 3 preset: map timing keys as `standard`, `in`, and `out` so
+    `ease-standard` compiles. The previous `ease-*` keys generated
+    `ease-ease-*` and never produced the utility.
+  - Registry payloads stamp the package version instead of stale
+    per-component versions.
+  - Docs: use `npx @slipstream-ui/cli@latest`, and document the new add/init
+    behaviour and the Tailwind preset.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`7dca271`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7dca2714066c74e461da4fb04262540f52e6714b) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `contrast`/`onDark` button variants and link-mode pagination (`pageHrefs`,
+  `linkComponent`, `linkHrefProp`) for Server Components. Invalidate the manifest
+  registry cache when manifest files change so a running MCP server sees edits
+  without a restart.
+
+### Patch Changes
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`a0b5723`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a0b5723495cb31df3f814521aa34198ae359a23c) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix the AppShell desktop rail so it stays viewport-height and keeps its footer visible, keep Sidebar parent items active on nested routes, and expose accessible `navLabel` / `mobileNavLabel` props on SiteHeader.
+
+- [`6945e41`](https://github.com/michaelmcshinsky/slipstream-ui/commit/6945e4131dedc792a6e2cf512a9f4cdc1d0d3658) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Localize the remaining P1 component labels with optional props and English
+  defaults: Autocomplete clear/suggestions, Breadcrumb landmark, DatePicker and
+  TimePicker clear, FileUpload selected/remove/uploading, Search list label,
+  CommandPalette dialog/list/empty, Toaster dismiss, Skeleton opt-in status
+  label, and AppShell mobile-navigation labels. Message and Reasoning now accept
+  `formatTime` or a BCP-47 `locale` for timestamps, and the AI Chat Starter
+  passes the active locale. The i18n package gains an `en-XA` pseudo-locale
+  catalog and providers accept `pseudo`, with a persisted playground toggle.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix pagination typography and harden the Tailwind v4 verification fixture.
+  
+  - Pagination now renders an ellipsis glyph, en-dash range summaries and
+    `«` / `»` boundary glyphs, matching the documented summary and tests.
+  - `verify:tailwind-v4` runs the installed `@tailwindcss/cli` binary directly
+    instead of calling `npx --no-install @tailwindcss/cli`, which fails on
+    Windows. The fixture also verifies the new inverse selectors.
+
+- [`9b07d2e`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9b07d2e5a87623e8f3a9f9033364e711a9285212) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Radio accepts the native `onChange` handler again, matching Checkbox and Select. Both `onChange` and `onCheckedChange` fire, so react-hook-form `register()` and plain native handlers work without a Controller.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`5a8d403`](https://github.com/michaelmcshinsky/slipstream-ui/commit/5a8d403af48c4e6705f17a3d91227f35187920eb) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Select now fills its container like Input, and native `<option>`/`<optgroup>` children are a documented fallback: `groups` wins over `options`, and `options` wins over `children`. This lets react-hook-form `register()` spread and dynamic option lists work without converting to the `options` array.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Integration fixes surfaced by adopting Slipstream in a Next.js App Router site: `Badge` gains `neutral` and `accent` variants and now renders an inline `span`, `Alert` accepts `danger` as an alias of `destructive`, `EmptyState` accepts an `actions` alias and a `titleAs` heading level, `Textarea` stops narrowing native `value`/`onChange` so react-hook-form and other native form libraries type-check, the `add` command resolves peer dependencies from the correct manifest and drops two unused bindings, and the Tailwind v4 docs point at the prebuilt `@slipstream-ui/themes/styles.css` defaults.
+
 ## 0.5.0
 
 ### Minor Changes

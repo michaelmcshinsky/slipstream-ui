@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "logo-cloud",
   "exportName": "LogoCloud",
   "description": "Trust strip for member, customer or partner logos with captions, columns and optional links.",

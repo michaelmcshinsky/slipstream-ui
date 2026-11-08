@@ -1,5 +1,70 @@
 # @slipstream-ui/themes
 
+## 0.6.0
+
+### Minor Changes
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`9dfc268`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9dfc2688503324e7f8dda0784643b688d5ce47b9) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add prebuilt stylesheets (`styles.css`, `styles-full.css`, `themes/styles.css`), support `data-theme="dark"` alongside `.dark`, make form controls compatible with native change handlers and react-hook-form, and add `LinkTabs` and `ThemeToggle`.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add a tone-aware marketing and data-filter layer.
+  
+  - `Container` and `Section` with width, vertical rhythm and `tone` presets.
+    `Section` scopes inverse surface tokens so cards, borders and muted text
+    stay readable inside a contrasting band.
+  - `Hero`, `StatBand`, `CTASection` and `ComparisonTable` marketing blocks.
+  - `SegmentedControl`, `RangeSlider` and `FilterChips` for dashboards and
+    filter-heavy list pages.
+  - Themes gain `inverse`, `inverse-foreground`, `inverse-muted`,
+    `inverse-border`, `inverse-card`, `inverse-primary` and related tokens, plus
+    matching Tailwind v3 and v4 mappings. Inverse sections keep AA contrast in
+    both light and dark mode.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`1e8e062`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1e8e062cabae7b0fbe8b9e13de9556ba553e8b38) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `linkHrefProp` so router-bound components work with react-router's `to`
+  prop, `brandLabel` and `mobileActions` on SiteHeader, and `activeHref` /
+  `match` on SiteFooter. Fix the mobile menu button icon and expanded state,
+  wire the CLI to prebuilt and Tailwind 4 stylesheets (including `src/styles.css`
+  targets), and correct the install docs.
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add integration escape hatches and fix the registry install path.
+  
+  - Core: emit per-file ESM/CJS modules and component subpath exports
+    (`@slipstream-ui/core/card`) that preserve each file's `use client`
+    directive. The root import remains a client bundle for compatibility.
+  - SectionHeading, PageHeader: `titleClassName`, `descriptionClassName` and
+    `eyebrowClassName` for host display typography.
+  - Hero: `titleClassName`, `descriptionClassName`, `eyebrowClassName` and
+    `badgeClassName`.
+  - SiteHeader: `showMobileTrigger`, `desktopBreakpoint` and `navClassName` so
+    hosts can keep their own mobile navigation and header height.
+  - TableOfContents: `ariaLabel` and `labelClassName`; active links are
+    underlined.
+  - Breadcrumb: `truncateCurrent` for long current-page labels.
+  - Select: native `<option>` children in addition to `options`/`groups`.
+  - CLI `add`: copy the component's relative dependency closure and
+    `components/slipstream/utils/`, rewrite support imports, and skip existing
+    files unless `--overwrite`.
+  - CLI `diff` and `add`: read `componentsDir` from `slipstream.config.json`
+    and reject paths outside the project.
+  - CLI `diff`: normalize support imports and line endings before comparing, so
+    a copied install does not report false drift.
+  - Dialog and Drawer: share a modal layer stack for body scroll lock and
+    nested Escape handling.
+  - CLI `init`: extend an existing CSS-variable theme with only the missing
+    Slipstream tokens instead of skipping stylesheet setup.
+  - Themes: publish the Tailwind CSS 3 preset at
+    `@slipstream-ui/themes/tailwind-preset`.
+  - Tailwind 3 preset: map timing keys as `standard`, `in`, and `out` so
+    `ease-standard` compiles. The previous `ease-*` keys generated
+    `ease-ease-*` and never produced the utility.
+  - Registry payloads stamp the package version instead of stale
+    per-component versions.
+  - Docs: use `npx @slipstream-ui/cli@latest`, and document the new add/init
+    behaviour and the Tailwind preset.
+
+### Patch Changes
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Integration fixes surfaced by adopting Slipstream in a Next.js App Router site: `Badge` gains `neutral` and `accent` variants and now renders an inline `span`, `Alert` accepts `danger` as an alias of `destructive`, `EmptyState` accepts an `actions` alias and a `titleAs` heading level, `Textarea` stops narrowing native `value`/`onChange` so react-hook-form and other native form libraries type-check, the `add` command resolves peer dependencies from the correct manifest and drops two unused bindings, and the Tailwind v4 docs point at the prebuilt `@slipstream-ui/themes/styles.css` defaults.
+
 ## 0.5.0
 
 ### Minor Changes

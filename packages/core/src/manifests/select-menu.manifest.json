@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "select-menu",
   "exportName": "SelectMenu",
   "description": "Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.",

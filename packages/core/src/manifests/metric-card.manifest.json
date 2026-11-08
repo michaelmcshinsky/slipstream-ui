@@ -99,7 +99,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "metric-card",
   "exportName": "MetricCard"
 }

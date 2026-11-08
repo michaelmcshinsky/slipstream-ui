@@ -1,5 +1,11 @@
 # @slipstream-ui/mcp-server
 
+## 0.3.1
+
+### Patch Changes
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`f134b5b`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f134b5bbd203c62b002b3704e7a48ed50fd39f58) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix `validate_usage` so JSX-valued props and nested arrow functions no longer hide later props, and inherited native HTML attributes (`id`, `name`, `aria-*`, `data-*`, event handlers) are not reported as hallucinated props.
+
 ## 0.3.0
 
 ### Minor Changes

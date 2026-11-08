@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "filter-panel",
   "exportName": "FilterPanel",
   "description": "Structured filter panel with collapsible sections and reset/apply actions.",
@@ -79,7 +79,11 @@
       "type": "'div' | 'aside' | 'section'",
       "required": false,
       "defaultValue": "div",
-      "enum": ["div", "aside", "section"],
+      "enum": [
+        "div",
+        "aside",
+        "section"
+      ],
       "description": "Semantic element to render."
     }
   ],
@@ -116,5 +120,11 @@
       "example": "<Drawer title=\"Filters\"><FilterPanel ... /></Drawer>"
     }
   ],
-  "relatedComponents": ["MultiSelect", "RangeSlider", "DateRangePicker", "AppliedFilters", "FilterBar"]
+  "relatedComponents": [
+    "MultiSelect",
+    "RangeSlider",
+    "DateRangePicker",
+    "AppliedFilters",
+    "FilterBar"
+  ]
 }

@@ -33,7 +33,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "chainthought",
   "exportName": "ChainThought"
 }

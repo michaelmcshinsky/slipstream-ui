@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "site-footer",
   "exportName": "SiteFooter",
   "description": "Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.",

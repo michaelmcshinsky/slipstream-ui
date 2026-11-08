@@ -34,7 +34,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceDir": "chainthought",
   "exportName": "ChainThought",
   "type": "registry:component",
@@ -57,7 +57,7 @@
     },
     {
       "path": "components/slipstream/manifests/chain-thought.manifest.json",
-      "content": "{\n  \"id\": \"chain-thought\",\n  \"name\": \"ChainThought\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays ordered reasoning steps with status indicators.\",\n  \"designIntent\": \"Provide a compact progress view for multi-step agent work.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"ChainThoughtStep[]\",\n      \"required\": true,\n      \"description\": \"Ordered reasoning steps.\"\n    },\n    {\n      \"name\": \"compact\",\n      \"type\": \"boolean\",\n      \"defaultValue\": false,\n      \"required\": false,\n      \"description\": \"Use compact typography.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Agent steps\",\n      \"code\": \"<ChainThought steps={[{ id: '1', content: 'Analyzing…', status: 'pending' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status visibility\",\n      \"implementation\": \"Each step exposes a text label and visual status.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"chainthought\",\n  \"exportName\": \"ChainThought\"\n}\n",
+      "content": "{\n  \"id\": \"chain-thought\",\n  \"name\": \"ChainThought\",\n  \"tier\": \"molecule\",\n  \"description\": \"Displays ordered reasoning steps with status indicators.\",\n  \"designIntent\": \"Provide a compact progress view for multi-step agent work.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"ChainThoughtStep[]\",\n      \"required\": true,\n      \"description\": \"Ordered reasoning steps.\"\n    },\n    {\n      \"name\": \"compact\",\n      \"type\": \"boolean\",\n      \"defaultValue\": false,\n      \"required\": false,\n      \"description\": \"Use compact typography.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Agent steps\",\n      \"code\": \"<ChainThought steps={[{ id: '1', content: 'Analyzing…', status: 'pending' }]} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status visibility\",\n      \"implementation\": \"Each step exposes a text label and visual status.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.6.0\",\n  \"sourceDir\": \"chainthought\",\n  \"exportName\": \"ChainThought\"\n}\n",
       "type": "registry:item"
     }
   ]
