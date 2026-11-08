@@ -64,9 +64,9 @@
     },
     {
       "name": "description",
-      "type": "string",
+      "type": "ReactNode",
       "required": false,
-      "description": "Secondary line under the main content (ListItem)."
+      "description": "Secondary line under the main content (ListItem); accepts text or rich meta such as badges and dots."
     },
     {
       "name": "onClick",

@@ -77,6 +77,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 10 | SLIP-097 | P2 | 6h | Done | AuthLayout aside variant |
 | 11 | SLIP-098 | P3 | 3h | Done | PageHeader head helper |
 | 12 | SLIP-101 | P2 | 1h | Done | React dedupe note for linked checkouts |
+| 13 | SLIP-102 | P2 | 1h | Done | Rich ListItem descriptions for composite rows |
 
 ## i18n epic (2026-11-07)
 
@@ -92,3 +93,4 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 8 | SLIP-065 | P2 | 80h | Blocked | Depends on SLIP-064; guides and 80 component pages need native-speaker review |
 
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
+

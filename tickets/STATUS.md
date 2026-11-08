@@ -122,6 +122,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |
+| SLIP-102 | **Done** | `ListItem.description` accepts ReactNode; manifest and docs updated |
 
 ## Verification
 
@@ -144,4 +145,5 @@ pnpm --filter slipstream-ai-chat-starter build
 Mock provider, 100 cases × 4 conditions: **65.7% recall, 100% precision, 0%
 false positives**. Structural classes 100%; accessibility 40%; state/streaming
 10%. See [`../docs/benchmarks.md`](../docs/benchmarks.md).
+
 

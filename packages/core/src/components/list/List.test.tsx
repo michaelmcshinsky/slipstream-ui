@@ -53,6 +53,18 @@ describe('List / ListItem', () => {
     expect(screen.getByText('Sub-line')).toBeInTheDocument();
   });
 
+  it('accepts rich content in the description slot', () => {
+    render(
+      <List>
+        <ListItem description={<span><span data-testid="meta-dot" /> Meta line</span>}>
+          Title
+        </ListItem>
+      </List>
+    );
+    expect(screen.getByTestId('meta-dot')).toBeInTheDocument();
+    expect(screen.getByText('Meta line')).toBeInTheDocument();
+  });
+
   it('disables pressable rows', () => {
     render(
       <List>

@@ -44,8 +44,8 @@ export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
    * <button> so list semantics (ul > li) stay intact for assistive tech.
    */
   onClick?: () => void;
-  /** Secondary line under the main content. */
-  description?: string;
+  /** Secondary line under the main content; accepts rich meta (badges, dots). */
+  description?: React.ReactNode;
   /** Disables a pressable row. */
   disabled?: boolean;
 };
@@ -68,7 +68,7 @@ const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
         <span className="min-w-0 flex-1">
           <span className="block truncate">{children}</span>
           {description && (
-            <span className="mt-0.5 block truncate text-xs text-muted-foreground">{description}</span>
+            <span className="mt-0.5 block text-xs text-muted-foreground">{description}</span>
           )}
         </span>
         {trailing && <span className="flex shrink-0 items-center text-xs text-muted-foreground">{trailing}</span>}

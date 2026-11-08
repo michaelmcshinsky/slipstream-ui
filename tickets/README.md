@@ -118,6 +118,7 @@ Consumer-integration fixes and follow-ups. These are outside the original
 | [SLIP-099](SLIP-099.md) | chore: publish core, themes, and mcp-server after the integration fixes | 6 | P0 | 2h | M6 Integration hardening | SLIP-090, SLIP-091, SLIP-092 |
 | [SLIP-100](SLIP-100.md) | docs: regenerate registry and LLM docs after the concurrent component work | 6 | P1 | 1h | M6 Integration hardening |  |
 | [SLIP-101](SLIP-101.md) | docs: call out React dedupe when Slipstream is consumed from a linked checkout | 6 | P2 | 1h | M6 Integration hardening |  |
+| [SLIP-102](SLIP-102.md) | feat: accept rich content in ListItem descriptions | 6 | P2 | 1h | M6 Integration hardening |  |
 
-**Integration total:** 12 tickets, 31h (10 done, 2 open: SLIP-093 visual
+**Integration total:** 13 tickets, 32h (11 done, 2 open: SLIP-093 visual
 regression and SLIP-099 publish).
