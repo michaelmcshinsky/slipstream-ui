@@ -1,0 +1,133 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "document-card",
+  "name": "document-card",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "document-card",
+  "exportName": "DocumentCard",
+  "description": "Document row with file metadata, access status and an optional download action.",
+  "designIntent": "Deal rooms repeat the same document row. DocumentCard keeps the file type, size, updated date, access state and download action in one consistent row.",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "File name."
+    },
+    {
+      "name": "fileType",
+      "type": "string",
+      "required": true,
+      "description": "Short file type label, such as PDF or XLSX."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "description": "Human-readable file size."
+    },
+    {
+      "name": "updatedAt",
+      "type": "string",
+      "required": false,
+      "description": "Updated date or relative time."
+    },
+    {
+      "name": "status",
+      "type": "'available' | 'restricted' | 'pending'",
+      "required": false,
+      "defaultValue": "available",
+      "enum": [
+        "available",
+        "restricted",
+        "pending"
+      ],
+      "description": "Access state."
+    },
+    {
+      "name": "onDownload",
+      "type": "() => void",
+      "required": false,
+      "description": "Download handler. Omit to render a display-only row."
+    },
+    {
+      "name": "downloadLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Download",
+      "description": "Download button label."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom file icon slot."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal room document",
+      "code": "<DocumentCard\n  name=\"Q3-financials.pdf\"\n  fileType=\"PDF\"\n  size=\"2.4 MB\"\n  updatedAt=\"Nov 1, 2026\"\n  onDownload={download}\n/>",
+      "description": "A downloadable document with metadata."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't enable download for restricted files",
+      "explanation": "The button is disabled unless status is available; access is never implied.",
+      "example": "<DocumentCard status=\"restricted\" onDownload={download} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named download",
+      "implementation": "The download button is named Download <file name>",
+      "userRequirements": "Keep file names descriptive"
+    },
+    {
+      "feature": "Access state",
+      "implementation": "Status is a text badge and the disabled button communicates restriction",
+      "userRequirements": "Provide a way to request access outside the row"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "DocumentCard is a compact Card row",
+      "example": "<DocumentCard name=\".\" fileType=\"PDF\" />"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Badge",
+    "Button",
+    "FileUpload"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/document-card/DocumentCard.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Badge } from '../badge/Badge';\nimport { Button } from '../button/Button';\nimport { Card, CardContent } from '../card/Card';\n\nexport type DocumentStatus = 'available' | 'restricted' | 'pending';\n\nexport type DocumentCardProps = React.HTMLAttributes<HTMLElement> & {\n  /** File name. */\n  name: string;\n  /** Short file type label, such as PDF or XLSX. */\n  fileType: string;\n  /** Human-readable file size. */\n  size?: string;\n  /** Updated date or relative time. */\n  updatedAt?: string;\n  /** Access state. Default 'available'. */\n  status?: DocumentStatus;\n  /** Download handler. Omit to render a display-only row. */\n  onDownload?: () => void;\n  /** Download button label. Default \"Download\". */\n  downloadLabel?: string;\n  /** Custom file icon slot. */\n  icon?: React.ReactNode;\n};\n\nconst statusConfig: Record<DocumentStatus, { label: string; variant: 'success' | 'warning' | 'info' }> = {\n  available: { label: 'Available', variant: 'success' },\n  restricted: { label: 'Restricted', variant: 'warning' },\n  pending: { label: 'Pending', variant: 'info' },\n};\n\n/**\n * Document row for a deal room or diligence list. The row states the access\n * status and only exposes the download action when a handler is provided.\n */\nexport const DocumentCard = React.forwardRef<HTMLElement, DocumentCardProps>(function DocumentCard(\n  {\n    name,\n    fileType,\n    size,\n    updatedAt,\n    status = 'available',\n    onDownload,\n    downloadLabel = 'Download',\n    icon,\n    className,\n    ...props\n  },\n  ref\n) {\n  const statusInfo = statusConfig[status];\n  const meta = [fileType, size, updatedAt].filter(Boolean).join(' · ');\n\n  return (\n    <Card ref={ref as never} className={cn('w-full', className)} {...props}>\n      <CardContent className=\"flex items-center gap-3 p-4\">\n        <span className=\"flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary [&_svg]:size-5\">\n          {icon ?? <span className=\"text-[10px] font-bold uppercase tracking-wide\">{fileType}</span>}\n        </span>\n        <div className=\"min-w-0 flex-1\">\n          <p className=\"truncate text-sm font-medium\">{name}</p>\n          {meta && <p className=\"mt-0.5 truncate text-xs text-muted-foreground\">{meta}</p>}\n        </div>\n        <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>\n        {onDownload && (\n          <Button\n            type=\"button\"\n            variant=\"outline\"\n            size=\"sm\"\n            onClick={onDownload}\n            disabled={status !== 'available'}\n            aria-label={`${downloadLabel} ${name}`}\n          >\n            {downloadLabel}\n          </Button>\n        )}\n      </CardContent>\n    </Card>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/document-card/index.ts",
+      "content": "export { DocumentCard } from './DocumentCard';\nexport type { DocumentCardProps, DocumentStatus } from './DocumentCard';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/document-card.manifest.json",
+      "content": "{\n  \"id\": \"document-card\",\n  \"name\": \"DocumentCard\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"document-card\",\n  \"exportName\": \"DocumentCard\",\n  \"description\": \"Document row with file metadata, access status and an optional download action.\",\n  \"designIntent\": \"Deal rooms repeat the same document row. DocumentCard keeps the file type, size, updated date, access state and download action in one consistent row.\",\n  \"props\": [\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"File name.\"\n    },\n    {\n      \"name\": \"fileType\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Short file type label, such as PDF or XLSX.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Human-readable file size.\"\n    },\n    {\n      \"name\": \"updatedAt\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Updated date or relative time.\"\n    },\n    {\n      \"name\": \"status\",\n      \"type\": \"'available' | 'restricted' | 'pending'\",\n      \"required\": false,\n      \"defaultValue\": \"available\",\n      \"enum\": [\n        \"available\",\n        \"restricted\",\n        \"pending\"\n      ],\n      \"description\": \"Access state.\"\n    },\n    {\n      \"name\": \"onDownload\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Download handler. Omit to render a display-only row.\"\n    },\n    {\n      \"name\": \"downloadLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Download\",\n      \"description\": \"Download button label.\"\n    },\n    {\n      \"name\": \"icon\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Custom file icon slot.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Deal room document\",\n      \"code\": \"<DocumentCard\\n  name=\\\"Q3-financials.pdf\\\"\\n  fileType=\\\"PDF\\\"\\n  size=\\\"2.4 MB\\\"\\n  updatedAt=\\\"Nov 1, 2026\\\"\\n  onDownload={download}\\n/>\",\n      \"description\": \"A downloadable document with metadata.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't enable download for restricted files\",\n      \"explanation\": \"The button is disabled unless status is available; access is never implied.\",\n      \"example\": \"<DocumentCard status=\\\"restricted\\\" onDownload={download} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Named download\",\n      \"implementation\": \"The download button is named Download <file name>\",\n      \"userRequirements\": \"Keep file names descriptive\"\n    },\n    {\n      \"feature\": \"Access state\",\n      \"implementation\": \"Status is a text badge and the disabled button communicates restriction\",\n      \"userRequirements\": \"Provide a way to request access outside the row\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Card\",\n      \"relationship\": \"DocumentCard is a compact Card row\",\n      \"example\": \"<DocumentCard name=\\\".\\\" fileType=\\\"PDF\\\" />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Card\",\n    \"Badge\",\n    \"Button\",\n    \"FileUpload\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

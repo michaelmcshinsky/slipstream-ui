@@ -47,7 +47,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 36 | SLIP-072 | P1 | 18h | Ready | Depends on SLIP-070 (done) |
 | 37 | SLIP-073 | P0 | 18h | Done | 4 dashboard filter components shipped |
 | 38 | SLIP-074 | P0 | 28h | Ready | Depends on SLIP-070 (done); chart-library decision |
-| 39 | SLIP-075 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
+| 39 | SLIP-075 | P0 | 18h | Done | 5 marketplace cards shipped |
 | 40 | SLIP-076 | P1 | 26h | Blocked | Depends on SLIP-075 |
 | 41 | SLIP-077 | P0 | 24h | Ready | Depends on SLIP-070 (done) |
 | 42 | SLIP-078 | P0 | 14h | Ready | Independent package |

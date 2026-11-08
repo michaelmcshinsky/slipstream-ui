@@ -117,6 +117,16 @@ export const NAV_SECTIONS: NavSection[] = [
         ],
       },
       {
+        title: 'Marketplace',
+        items: [
+          { href: '/docs/components/deal-card', label: 'DealCard' },
+          { href: '/docs/components/entity-card', label: 'EntityCard' },
+          { href: '/docs/components/tombstone-card', label: 'TombstoneCard' },
+          { href: '/docs/components/document-card', label: 'DocumentCard' },
+          { href: '/docs/components/load-more', label: 'LoadMore' },
+        ],
+      },
+      {
         title: 'Forms',
         items: [
           { href: '/docs/components/input', label: 'Input' },

@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 104 components, each shipping a
+The AI-first React component library. 109 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 87
+## Core components (@slipstream-ui/core) — 92
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -34,9 +34,12 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - [DateRangePicker](https://slipstreamui.com/llm/components/date-range-picker.md) — Start/end date range with ISO strings and quick presets.
+- [DealCard](https://slipstreamui.com/llm/components/deal-card.md) — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
+- [DocumentCard](https://slipstreamui.com/llm/components/document-card.md) — Document row with file metadata, access status and an optional download action.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- [EntityCard](https://slipstreamui.com/llm/components/entity-card.md) — Firm or member profile card with logo, type, location, stats, tags and actions.
 - [FeatureGrid](https://slipstreamui.com/llm/components/feature-grid.md) — Grid of feature or benefit cards with an icon, title, copy and optional link.
 - [FeatureRow](https://slipstreamui.com/llm/components/feature-row.md) — Alternating media and copy row for mid-page feature sections.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
@@ -57,6 +60,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [LoadMore](https://slipstreamui.com/llm/components/load-more.md) — Load-more control with pending and end-of-list states.
 - [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -96,6 +100,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [TimePicker](https://slipstreamui.com/llm/components/time-picker.md) — Native time field with an HH:MM contract and an optional clear button.
 - [Timeline](https://slipstreamui.com/llm/components/timeline.md) — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - [Toast](https://slipstreamui.com/llm/components/toast.md) — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
+- [TombstoneCard](https://slipstreamui.com/llm/components/tombstone-card.md) — Placeholder card for archived, closed or unavailable marketplace items.
 - [Tooltip](https://slipstreamui.com/llm/components/tooltip.md) — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 
 ## AI components (@slipstream-ui/ai) — 17
@@ -2359,6 +2364,85 @@ A controlled range with two presets.
 
 ---
 
+# DealCard
+
+Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
+
+> Import: `import { DealCard } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/deal-card.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Deal lists repeat the same card across trends, search and saved views. DealCard keeps the metrics and access state consistent and never implies NDA or CIM access without an explicit badge.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `string` | — | yes | Deal headline. |
+| sector | `string` | — | yes | Sector or industry label. |
+| location | `string` | — | no | Region or location. |
+| description | `string` | — | no | Optional short summary. |
+| metrics | `DealMetric[]` | — | yes | Three headline metrics such as revenue, EBITDA and margin. |
+| status | `'available' | 'under-nda' | 'closed' | 'draft'` | `available` | no | Availability state. |
+| ndaAvailable | `boolean` | — | no | Show the NDA badge. |
+| cimAvailable | `boolean` | — | no | Show the CIM badge. |
+| href | `string` | — | no | Optional deal detail link. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| saved | `boolean` | `false` | no | Save toggle state. |
+| onSave | `() => void` | — | no | Save toggle handler. |
+| saveLabel | `string` | `Save` | no | Save button label. |
+| onRequestAccess | `() => void` | — | no | Request access handler. |
+| requestLabel | `string` | `Request access` | no | Request access label. |
+
+## Examples
+
+### Deal opportunity
+
+A deal card with access badges and one action.
+
+```tsx
+<DealCard
+  title="Fleet services platform"
+  sector="Transportation"
+  location="South Atlantic"
+  metrics={[
+    { label: 'Revenue', value: '$20.4M' },
+    { label: 'EBITDA', value: '$4.2M' },
+    { label: 'Margin', value: '21%' },
+  ]}
+  ndaAvailable
+  cimAvailable
+  onRequestAccess={requestAccess}
+/>
+```
+
+## Anti-patterns
+
+- **Don't imply access with color** — NDA and CIM access are stated as text badges. Do not use color or a lock icon alone.
+
+## Accessibility
+
+- **Action labels**: Request access and Save are real buttons; Save exposes aria-pressed
+- **Metric pairs**: Metrics render as a description list
+
+## Composition
+
+- Compose with **Grid** — Place cards in a responsive Grid
+  
+  ```tsx
+  <Grid mdCols={2} gap="lg"><DealCard ... /></Grid>
+  ```
+- Compose with **LoadMore** — Pair a deal grid with LoadMore for paginated results
+  
+  ```tsx
+  <DealCard ... /><LoadMore hasMore={hasMore} onLoadMore={load} />
+  ```
+- Related: Card, Badge, EntityCard, LoadMore
+
+---
+
 # Dialog
 
 Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -2428,6 +2512,67 @@ const [open, setOpen] = useState(false);
   <Dialog ...><Button onClick={onConfirm}>Confirm</Button></Dialog>
   ```
 - Related: Button, Toast, Drawer, Confirmation
+
+---
+
+# DocumentCard
+
+Document row with file metadata, access status and an optional download action.
+
+> Import: `import { DocumentCard } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/document-card.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Deal rooms repeat the same document row. DocumentCard keeps the file type, size, updated date, access state and download action in one consistent row.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| name | `string` | — | yes | File name. |
+| fileType | `string` | — | yes | Short file type label, such as PDF or XLSX. |
+| size | `string` | — | no | Human-readable file size. |
+| updatedAt | `string` | — | no | Updated date or relative time. |
+| status | `'available' | 'restricted' | 'pending'` | `available` | no | Access state. |
+| onDownload | `() => void` | — | no | Download handler. Omit to render a display-only row. |
+| downloadLabel | `string` | `Download` | no | Download button label. |
+| icon | `ReactNode` | — | no | Custom file icon slot. |
+
+## Examples
+
+### Deal room document
+
+A downloadable document with metadata.
+
+```tsx
+<DocumentCard
+  name="Q3-financials.pdf"
+  fileType="PDF"
+  size="2.4 MB"
+  updatedAt="Nov 1, 2026"
+  onDownload={download}
+/>
+```
+
+## Anti-patterns
+
+- **Don't enable download for restricted files** — The button is disabled unless status is available; access is never implied.
+
+## Accessibility
+
+- **Named download**: The download button is named Download <file name>
+- **Access state**: Status is a text badge and the disabled button communicates restriction
+
+## Composition
+
+- Compose with **Card** — DocumentCard is a compact Card row
+  
+  ```tsx
+  <DocumentCard name="." fileType="PDF" />
+  ```
+- Related: Card, Badge, Button, FileUpload
 
 ---
 
@@ -2578,6 +2723,73 @@ Title, explanation and one primary action.
   <Card><CardContent><EmptyState … /></CardContent></Card>
   ```
 - Related: Alert, Card, DataTable
+
+---
+
+# EntityCard
+
+Firm or member profile card with logo, type, location, stats, tags and actions.
+
+> Import: `import { EntityCard } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/entity-card.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+Directory and profile lists repeat the same firm card. EntityCard keeps the identity, stats and sector tags consistent and falls back to initials when no logo exists.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| name | `string` | — | yes | Firm or member name. |
+| entityType | `string` | — | yes | Firm type, role or member category. |
+| location | `string` | — | no | Region or office location. |
+| description | `string` | — | no | Short firm description. |
+| logo | `ReactNode` | — | no | Logo slot. Falls back to initials when omitted. |
+| stats | `EntityStat[]` | — | no | Small stats such as closed deals or active mandates. |
+| tags | `string[]` | — | no | Sector or service tags. |
+| href | `string` | — | no | Profile destination. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| actions | `ReactNode` | — | no | Extra footer actions. |
+
+## Examples
+
+### Directory profile
+
+A firm card with stats, tags and a profile link.
+
+```tsx
+<EntityCard
+  name="Peakstone Group"
+  entityType="Investment bank"
+  location="New York, NY"
+  stats={[
+    { label: 'Closed deals', value: '60' },
+    { label: 'Via Axial', value: '3' },
+  ]}
+  tags={['Industrials', 'Healthcare']}
+  href="/members/peakstone"
+/>
+```
+
+## Anti-patterns
+
+- **Don't make the whole card a link with nested actions** — The title and footer link are the destinations; actions stay separate so controls never nest.
+
+## Accessibility
+
+- **Identity fallback**: The avatar fallback derives initials from the name
+- **Stats**: Stats render as a description list
+
+## Composition
+
+- Compose with **Grid** — Place entity cards in a directory Grid
+  
+  ```tsx
+  <Grid mdCols={3} gap="lg"><EntityCard ... /></Grid>
+  ```
+- Related: Avatar, Badge, Card, DealCard, DocumentCard
 
 ---
 
@@ -3979,7 +4191,7 @@ Row collections are lists, not tables or div stacks: screen readers announce ite
 | leading | `ReactNode` | — | no | Leading slot: icon, avatar, status dot, or checkbox (ListItem). |
 | trailing | `ReactNode` | — | no | Trailing slot: chevron, badge, meta, or action (ListItem). |
 | selected | `boolean` | `false` | no | Marks the row as the active/selected item (ListItem). |
-| description | `string` | — | no | Secondary line under the main content (ListItem). |
+| description | `ReactNode` | — | no | Secondary line under the main content (ListItem); accepts text or rich meta such as badges and dots. |
 | onClick | `() => void` | — | no | Makes the row pressable — content renders inside a full-width button so list semantics stay intact (ListItem). |
 
 ## Examples
@@ -4029,6 +4241,58 @@ onClick renders the row content inside a <button> — keyboard and screen-reader
 - Compose with **Block** — Wrap a List in a Block section for titled groups
 - Compose with **Badge / Avatar** — Common leading/trailing slot content
 - Related: Table, Menu, Card
+
+---
+
+# LoadMore
+
+Load-more control with pending and end-of-list states.
+
+> Import: `import { LoadMore } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/load-more.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Paginated lists without page numbers need one consistent load-more control that announces loading and the end of the list. LoadMore keeps the row layout and state copy in one place.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| hasMore | `boolean` | — | yes | Whether another page is available. |
+| onLoadMore | `() => void` | — | yes | Request the next page. |
+| loading | `boolean` | `false` | no | Loading state. |
+| loadLabel | `string` | `Load more` | no | Button label. |
+| loadingLabel | `string` | `Loading...` | no | Loading label. |
+| endLabel | `string` | `You're all caught up.` | no | End-of-list message. |
+
+## Examples
+
+### Deal grid pagination
+
+A load-more control below a card grid.
+
+```tsx
+<LoadMore hasMore={hasMore} loading={loading} onLoadMore={loadNextPage} />
+```
+
+## Anti-patterns
+
+- **Don't keep the button when the list is complete** — Replace the button with the end message so there is no dead action.
+
+## Accessibility
+
+- **Live state**: The wrapper uses aria-live polite; loading disables the button and sets aria-busy
+
+## Composition
+
+- Compose with **Grid** — Place LoadMore below the card grid
+  
+  ```tsx
+  <Grid>...</Grid><LoadMore ... />
+  ```
+- Related: Pagination, DataTable, DealCard, EntityCard
 
 ---
 
@@ -7223,6 +7487,64 @@ toast({ title: 'Saved' });
   <ToastProvider><App /></ToastProvider>
   ```
 - Related: Confirmation, Button
+
+---
+
+# TombstoneCard
+
+Placeholder card for archived, closed or unavailable marketplace items.
+
+> Import: `import { TombstoneCard } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/tombstone-card.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+Removing unavailable items silently breaks saved links and user expectations. TombstoneCard keeps the item in place and states the reason and status.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| title | `string` | — | yes | Listing, deal or document name. |
+| reason | `string` | — | no | Why the item is unavailable. |
+| status | `'archived' | 'unavailable' | 'closed'` | `unavailable` | no | Unavailable state. |
+| logo | `ReactNode` | — | no | Logo or document icon slot. |
+| href | `string` | — | no | Optional detail destination. |
+| actionLabel | `string` | `View details` | no | Link label. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+
+## Examples
+
+### Archived listing
+
+A muted card that explains why the listing is unavailable.
+
+```tsx
+<TombstoneCard
+  title="Archived listing"
+  reason="This listing closed in 2025."
+  status="archived"
+  href="/deals/archived"
+/>
+```
+
+## Anti-patterns
+
+- **Don't remove the item without explanation** — A saved link or bookmark should still resolve to a card that explains the state.
+
+## Accessibility
+
+- **Status text**: The unavailable state is a text badge, not color alone
+
+## Composition
+
+- Compose with **Grid** — Use in place of a DealCard or EntityCard when the item is unavailable
+  
+  ```tsx
+  <Grid><TombstoneCard ... /></Grid>
+  ```
+- Related: Card, Badge, DealCard, EntityCard
 
 ---
 

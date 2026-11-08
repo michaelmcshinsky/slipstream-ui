@@ -20,7 +20,7 @@ Row collections are lists, not tables or div stacks: screen readers announce ite
 | leading | `ReactNode` | — | no | Leading slot: icon, avatar, status dot, or checkbox (ListItem). |
 | trailing | `ReactNode` | — | no | Trailing slot: chevron, badge, meta, or action (ListItem). |
 | selected | `boolean` | `false` | no | Marks the row as the active/selected item (ListItem). |
-| description | `ReactNode` | - | no | Secondary line under the main content (ListItem); accepts text or rich meta such as badges and dots. |
+| description | `ReactNode` | — | no | Secondary line under the main content (ListItem); accepts text or rich meta such as badges and dots. |
 | onClick | `() => void` | — | no | Makes the row pressable — content renders inside a full-width button so list semantics stay intact (ListItem). |
 
 ## Examples

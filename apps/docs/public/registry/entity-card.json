@@ -1,0 +1,139 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "entity-card",
+  "name": "entity-card",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "entity-card",
+  "exportName": "EntityCard",
+  "description": "Firm or member profile card with logo, type, location, stats, tags and actions.",
+  "designIntent": "Directory and profile lists repeat the same firm card. EntityCard keeps the identity, stats and sector tags consistent and falls back to initials when no logo exists.",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Firm or member name."
+    },
+    {
+      "name": "entityType",
+      "type": "string",
+      "required": true,
+      "description": "Firm type, role or member category."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": false,
+      "description": "Region or office location."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Short firm description."
+    },
+    {
+      "name": "logo",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Logo slot. Falls back to initials when omitted."
+    },
+    {
+      "name": "stats",
+      "type": "EntityStat[]",
+      "required": false,
+      "description": "Small stats such as closed deals or active mandates."
+    },
+    {
+      "name": "tags",
+      "type": "string[]",
+      "required": false,
+      "description": "Sector or service tags."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Profile destination."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Extra footer actions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Directory profile",
+      "code": "<EntityCard\n  name=\"Peakstone Group\"\n  entityType=\"Investment bank\"\n  location=\"New York, NY\"\n  stats={[\n    { label: 'Closed deals', value: '60' },\n    { label: 'Via Axial', value: '3' },\n  ]}\n  tags={['Industrials', 'Healthcare']}\n  href=\"/members/peakstone\"\n/>",
+      "description": "A firm card with stats, tags and a profile link."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't make the whole card a link with nested actions",
+      "explanation": "The title and footer link are the destinations; actions stay separate so controls never nest.",
+      "example": "// Use href for the title and footer link; put actions in the actions slot."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Identity fallback",
+      "implementation": "The avatar fallback derives initials from the name",
+      "userRequirements": "Provide a name even when a logo is available"
+    },
+    {
+      "feature": "Stats",
+      "implementation": "Stats render as a description list",
+      "userRequirements": "Use short labels and consistent units"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place entity cards in a directory Grid",
+      "example": "<Grid mdCols={3} gap=\"lg\"><EntityCard ... /></Grid>"
+    }
+  ],
+  "relatedComponents": [
+    "Avatar",
+    "Badge",
+    "Card",
+    "DealCard",
+    "DocumentCard"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/entity-card/EntityCard.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Avatar, AvatarFallback } from '../avatar/Avatar';\nimport { Badge } from '../badge/Badge';\nimport { Card, CardContent, CardFooter, CardHeader } from '../card/Card';\n\nexport type EntityStat = {\n  label: string;\n  value: string;\n};\n\nexport type EntityCardProps = React.HTMLAttributes<HTMLElement> & {\n  /** Firm or member name. */\n  name: string;\n  /** Firm type, role or member category. */\n  entityType: string;\n  /** Region or office location. */\n  location?: string;\n  /** Short firm description. */\n  description?: string;\n  /** Logo slot. Falls back to initials when omitted. */\n  logo?: React.ReactNode;\n  /** Small stats such as closed deals or active mandates. */\n  stats?: EntityStat[];\n  /** Sector or service tags. */\n  tags?: string[];\n  /** Profile destination. */\n  href?: string;\n  /** Custom link element for routers. */\n  linkComponent?: React.ElementType;\n  /** Extra footer actions. */\n  actions?: React.ReactNode;\n};\n\nfunction initials(name: string): string {\n  return name\n    .split(/\\s+/)\n    .filter(Boolean)\n    .slice(0, 2)\n    .map((part) => part[0]?.toUpperCase() ?? '')\n    .join('');\n}\n\n/**\n * Firm or member profile card for a directory. Use the logo slot for a brand\n * mark; when absent, initials keep the card identifiable. Stats and tags are\n * optional, so the same card works in compact and detailed directory views.\n */\nexport const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(function EntityCard(\n  {\n    name,\n    entityType,\n    location,\n    description,\n    logo,\n    stats,\n    tags,\n    href,\n    linkComponent,\n    actions,\n    className,\n    ...props\n  },\n  ref\n) {\n  const Link = linkComponent ?? 'a';\n\n  return (\n    <Card ref={ref as never} className={cn('flex h-full flex-col', className)} {...props}>\n      <CardHeader className=\"flex-row items-start gap-3 p-5 pb-3\">\n        <div className=\"shrink-0\">\n          {logo ?? (\n            <Avatar>\n              <AvatarFallback>{initials(name)}</AvatarFallback>\n            </Avatar>\n          )}\n        </div>\n        <div className=\"min-w-0 flex-1\">\n          <h3 className=\"truncate text-base font-semibold tracking-tight\">\n            {href ? (\n              <Link href={href} className=\"rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\">\n                {name}\n              </Link>\n            ) : (\n              name\n            )}\n          </h3>\n          <p className=\"mt-0.5 truncate text-xs text-muted-foreground\">{entityType}</p>\n          {location && <p className=\"mt-0.5 truncate text-xs text-muted-foreground\">{location}</p>}\n        </div>\n      </CardHeader>\n      <CardContent className=\"flex-1 px-5 pb-3\">\n        {description && <p className=\"line-clamp-3 text-sm leading-relaxed text-muted-foreground\">{description}</p>}\n        {tags && tags.length > 0 && (\n          <div className=\"mt-3 flex flex-wrap gap-1.5\">\n            {tags.map((tag) => (\n              <Badge key={tag} variant=\"secondary\">\n                {tag}\n              </Badge>\n            ))}\n          </div>\n        )}\n        {stats && stats.length > 0 && (\n          <dl className=\"mt-4 grid grid-cols-2 gap-3\">\n            {stats.map((stat) => (\n              <div key={stat.label} className=\"min-w-0\">\n                <dt className=\"text-xs text-muted-foreground\">{stat.label}</dt>\n                <dd className=\"mt-0.5 truncate text-sm font-semibold tabular-nums\">{stat.value}</dd>\n              </div>\n            ))}\n          </dl>\n        )}\n      </CardContent>\n      {(href || actions) && (\n        <CardFooter className=\"flex flex-wrap items-center gap-2 border-t border-border px-5 py-3\">\n          {href && (\n            <Link\n              href={href}\n              className=\"text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n            >\n              View profile\n            </Link>\n          )}\n          {actions && <div className=\"ml-auto flex items-center gap-2\">{actions}</div>}\n        </CardFooter>\n      )}\n    </Card>\n  );\n});\n\n/** Alias for profile-oriented directory surfaces. */\nexport const ProfileCard = EntityCard;\nexport type ProfileCardProps = EntityCardProps;\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/entity-card/index.ts",
+      "content": "export { EntityCard, ProfileCard } from './EntityCard';\nexport type { EntityCardProps, EntityStat, ProfileCardProps } from './EntityCard';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/entity-card.manifest.json",
+      "content": "{\n  \"id\": \"entity-card\",\n  \"name\": \"EntityCard\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"entity-card\",\n  \"exportName\": \"EntityCard\",\n  \"description\": \"Firm or member profile card with logo, type, location, stats, tags and actions.\",\n  \"designIntent\": \"Directory and profile lists repeat the same firm card. EntityCard keeps the identity, stats and sector tags consistent and falls back to initials when no logo exists.\",\n  \"props\": [\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Firm or member name.\"\n    },\n    {\n      \"name\": \"entityType\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Firm type, role or member category.\"\n    },\n    {\n      \"name\": \"location\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Region or office location.\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Short firm description.\"\n    },\n    {\n      \"name\": \"logo\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Logo slot. Falls back to initials when omitted.\"\n    },\n    {\n      \"name\": \"stats\",\n      \"type\": \"EntityStat[]\",\n      \"required\": false,\n      \"description\": \"Small stats such as closed deals or active mandates.\"\n    },\n    {\n      \"name\": \"tags\",\n      \"type\": \"string[]\",\n      \"required\": false,\n      \"description\": \"Sector or service tags.\"\n    },\n    {\n      \"name\": \"href\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Profile destination.\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Custom link element for routers.\"\n    },\n    {\n      \"name\": \"actions\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Extra footer actions.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Directory profile\",\n      \"code\": \"<EntityCard\\n  name=\\\"Peakstone Group\\\"\\n  entityType=\\\"Investment bank\\\"\\n  location=\\\"New York, NY\\\"\\n  stats={[\\n    { label: 'Closed deals', value: '60' },\\n    { label: 'Via Axial', value: '3' },\\n  ]}\\n  tags={['Industrials', 'Healthcare']}\\n  href=\\\"/members/peakstone\\\"\\n/>\",\n      \"description\": \"A firm card with stats, tags and a profile link.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't make the whole card a link with nested actions\",\n      \"explanation\": \"The title and footer link are the destinations; actions stay separate so controls never nest.\",\n      \"example\": \"// Use href for the title and footer link; put actions in the actions slot.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Identity fallback\",\n      \"implementation\": \"The avatar fallback derives initials from the name\",\n      \"userRequirements\": \"Provide a name even when a logo is available\"\n    },\n    {\n      \"feature\": \"Stats\",\n      \"implementation\": \"Stats render as a description list\",\n      \"userRequirements\": \"Use short labels and consistent units\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Place entity cards in a directory Grid\",\n      \"example\": \"<Grid mdCols={3} gap=\\\"lg\\\"><EntityCard ... /></Grid>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Avatar\",\n    \"Badge\",\n    \"Card\",\n    \"DealCard\",\n    \"DocumentCard\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

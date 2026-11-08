@@ -1,0 +1,148 @@
+{
+  "id": "deal-card",
+  "name": "DealCard",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "deal-card",
+  "exportName": "DealCard",
+  "description": "Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.",
+  "designIntent": "Deal lists repeat the same card across trends, search and saved views. DealCard keeps the metrics and access state consistent and never implies NDA or CIM access without an explicit badge.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Deal headline."
+    },
+    {
+      "name": "sector",
+      "type": "string",
+      "required": true,
+      "description": "Sector or industry label."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": false,
+      "description": "Region or location."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Optional short summary."
+    },
+    {
+      "name": "metrics",
+      "type": "DealMetric[]",
+      "required": true,
+      "description": "Three headline metrics such as revenue, EBITDA and margin."
+    },
+    {
+      "name": "status",
+      "type": "'available' | 'under-nda' | 'closed' | 'draft'",
+      "required": false,
+      "defaultValue": "available",
+      "enum": ["available", "under-nda", "closed", "draft"],
+      "description": "Availability state."
+    },
+    {
+      "name": "ndaAvailable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the NDA badge."
+    },
+    {
+      "name": "cimAvailable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the CIM badge."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Optional deal detail link."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Save toggle state."
+    },
+    {
+      "name": "onSave",
+      "type": "() => void",
+      "required": false,
+      "description": "Save toggle handler."
+    },
+    {
+      "name": "saveLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Save",
+      "description": "Save button label."
+    },
+    {
+      "name": "onRequestAccess",
+      "type": "() => void",
+      "required": false,
+      "description": "Request access handler."
+    },
+    {
+      "name": "requestLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Request access",
+      "description": "Request access label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal opportunity",
+      "code": "<DealCard\n  title=\"Fleet services platform\"\n  sector=\"Transportation\"\n  location=\"South Atlantic\"\n  metrics={[\n    { label: 'Revenue', value: '$20.4M' },\n    { label: 'EBITDA', value: '$4.2M' },\n    { label: 'Margin', value: '21%' },\n  ]}\n  ndaAvailable\n  cimAvailable\n  onRequestAccess={requestAccess}\n/>",
+      "description": "A deal card with access badges and one action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't imply access with color",
+      "explanation": "NDA and CIM access are stated as text badges. Do not use color or a lock icon alone.",
+      "example": "<DealCard ndaAvailable cimAvailable />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Action labels",
+      "implementation": "Request access and Save are real buttons; Save exposes aria-pressed",
+      "userRequirements": "Keep the labels explicit"
+    },
+    {
+      "feature": "Metric pairs",
+      "implementation": "Metrics render as a description list",
+      "userRequirements": "Use short labels and consistent units"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place cards in a responsive Grid",
+      "example": "<Grid mdCols={2} gap=\"lg\"><DealCard ... /></Grid>"
+    },
+    {
+      "component": "LoadMore",
+      "relationship": "Pair a deal grid with LoadMore for paginated results",
+      "example": "<DealCard ... /><LoadMore hasMore={hasMore} onLoadMore={load} />"
+    }
+  ],
+  "relatedComponents": ["Card", "Badge", "EntityCard", "LoadMore"]
+}

@@ -1,0 +1,99 @@
+{
+  "id": "document-card",
+  "name": "DocumentCard",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "document-card",
+  "exportName": "DocumentCard",
+  "description": "Document row with file metadata, access status and an optional download action.",
+  "designIntent": "Deal rooms repeat the same document row. DocumentCard keeps the file type, size, updated date, access state and download action in one consistent row.",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "File name."
+    },
+    {
+      "name": "fileType",
+      "type": "string",
+      "required": true,
+      "description": "Short file type label, such as PDF or XLSX."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "description": "Human-readable file size."
+    },
+    {
+      "name": "updatedAt",
+      "type": "string",
+      "required": false,
+      "description": "Updated date or relative time."
+    },
+    {
+      "name": "status",
+      "type": "'available' | 'restricted' | 'pending'",
+      "required": false,
+      "defaultValue": "available",
+      "enum": ["available", "restricted", "pending"],
+      "description": "Access state."
+    },
+    {
+      "name": "onDownload",
+      "type": "() => void",
+      "required": false,
+      "description": "Download handler. Omit to render a display-only row."
+    },
+    {
+      "name": "downloadLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Download",
+      "description": "Download button label."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom file icon slot."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal room document",
+      "code": "<DocumentCard\n  name=\"Q3-financials.pdf\"\n  fileType=\"PDF\"\n  size=\"2.4 MB\"\n  updatedAt=\"Nov 1, 2026\"\n  onDownload={download}\n/>",
+      "description": "A downloadable document with metadata."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't enable download for restricted files",
+      "explanation": "The button is disabled unless status is available; access is never implied.",
+      "example": "<DocumentCard status=\"restricted\" onDownload={download} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named download",
+      "implementation": "The download button is named Download <file name>",
+      "userRequirements": "Keep file names descriptive"
+    },
+    {
+      "feature": "Access state",
+      "implementation": "Status is a text badge and the disabled button communicates restriction",
+      "userRequirements": "Provide a way to request access outside the row"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "DocumentCard is a compact Card row",
+      "example": "<DocumentCard name=\".\" fileType=\"PDF\" />"
+    }
+  ],
+  "relatedComponents": ["Card", "Badge", "Button", "FileUpload"]
+}

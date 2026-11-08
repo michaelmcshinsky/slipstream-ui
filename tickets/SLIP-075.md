@@ -22,10 +22,12 @@ set.
 
 **Acceptance criteria**
 
-- [ ] Cards compose from `Card`/`Badge`/`Avatar` and use semantic tokens.
-- [ ] Every action is keyboard reachable; disabled states are announced.
-- [ ] Long names and metadata truncate without breaking layout.
-- [ ] LoadMore announces loading and end-of-list states.
-- [ ] Manifests, tests, axe, docs, registry/LLM output.
+- [x] Cards compose from `Card`/`Badge`/`Avatar` and use semantic tokens.
+- [x] Every action is keyboard reachable; disabled states are announced.
+- [x] Long names and metadata truncate without breaking layout.
+- [x] LoadMore announces loading and end-of-list states.
+- [x] Manifests, tests, axe, docs, registry/LLM output.
 
 **Out of scope.** Marketplace data fetching.
+
+**Completed:** 2026-11-08. 5 cards shipped: DealCard, EntityCard/ProfileCard, TombstoneCard, DocumentCard and LoadMore. 109 components total (92 core + 17 AI); core 636 tests passed; docs build 149 routes.

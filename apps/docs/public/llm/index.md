@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 104 components, each shipping a
+The AI-first React component library. 109 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 87
+## Core components (@slipstream-ui/core) — 92
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -34,9 +34,12 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - [DateRangePicker](https://slipstreamui.com/llm/components/date-range-picker.md) — Start/end date range with ISO strings and quick presets.
+- [DealCard](https://slipstreamui.com/llm/components/deal-card.md) — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
+- [DocumentCard](https://slipstreamui.com/llm/components/document-card.md) — Document row with file metadata, access status and an optional download action.
 - [Drawer](https://slipstreamui.com/llm/components/drawer.md) — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - [EmptyState](https://slipstreamui.com/llm/components/empty-state.md) — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- [EntityCard](https://slipstreamui.com/llm/components/entity-card.md) — Firm or member profile card with logo, type, location, stats, tags and actions.
 - [FeatureGrid](https://slipstreamui.com/llm/components/feature-grid.md) — Grid of feature or benefit cards with an icon, title, copy and optional link.
 - [FeatureRow](https://slipstreamui.com/llm/components/feature-row.md) — Alternating media and copy row for mid-page feature sections.
 - [Fieldset](https://slipstreamui.com/llm/components/fieldset.md) — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
@@ -57,6 +60,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [LoadMore](https://slipstreamui.com/llm/components/load-more.md) — Load-more control with pending and end-of-list states.
 - [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -96,6 +100,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [TimePicker](https://slipstreamui.com/llm/components/time-picker.md) — Native time field with an HH:MM contract and an optional clear button.
 - [Timeline](https://slipstreamui.com/llm/components/timeline.md) — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - [Toast](https://slipstreamui.com/llm/components/toast.md) — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
+- [TombstoneCard](https://slipstreamui.com/llm/components/tombstone-card.md) — Placeholder card for archived, closed or unavailable marketplace items.
 - [Tooltip](https://slipstreamui.com/llm/components/tooltip.md) — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 
 ## AI components (@slipstream-ui/ai) — 17

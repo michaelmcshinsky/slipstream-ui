@@ -1,0 +1,88 @@
+{
+  "id": "tombstone-card",
+  "name": "TombstoneCard",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.5.0",
+  "sourceDir": "tombstone-card",
+  "exportName": "TombstoneCard",
+  "description": "Placeholder card for archived, closed or unavailable marketplace items.",
+  "designIntent": "Removing unavailable items silently breaks saved links and user expectations. TombstoneCard keeps the item in place and states the reason and status.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Listing, deal or document name."
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "required": false,
+      "description": "Why the item is unavailable."
+    },
+    {
+      "name": "status",
+      "type": "'archived' | 'unavailable' | 'closed'",
+      "required": false,
+      "defaultValue": "unavailable",
+      "enum": ["archived", "unavailable", "closed"],
+      "description": "Unavailable state."
+    },
+    {
+      "name": "logo",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Logo or document icon slot."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Optional detail destination."
+    },
+    {
+      "name": "actionLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "View details",
+      "description": "Link label."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Archived listing",
+      "code": "<TombstoneCard\n  title=\"Archived listing\"\n  reason=\"This listing closed in 2025.\"\n  status=\"archived\"\n  href=\"/deals/archived\"\n/>",
+      "description": "A muted card that explains why the listing is unavailable."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't remove the item without explanation",
+      "explanation": "A saved link or bookmark should still resolve to a card that explains the state.",
+      "example": "<TombstoneCard title=\".\" reason=\".\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Status text",
+      "implementation": "The unavailable state is a text badge, not color alone",
+      "userRequirements": "Keep the reason specific"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Use in place of a DealCard or EntityCard when the item is unavailable",
+      "example": "<Grid><TombstoneCard ... /></Grid>"
+    }
+  ],
+  "relatedComponents": ["Card", "Badge", "DealCard", "EntityCard"]
+}

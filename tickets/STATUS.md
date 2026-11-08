@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (32)
+## Completed (33)
 
 | ID | Deliverable |
 |---|---|
@@ -32,10 +32,11 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-070 | Marketing blocks II: LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar |
 | SLIP-062 | P1 component labels (Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell) |
 | SLIP-073 | Dashboard filter layer: MultiSelect, FilterPanel, DateRangePicker, AppliedFilters |
+| SLIP-075 | Marketplace cards: DealCard, EntityCard/ProfileCard, TombstoneCard, DocumentCard, LoadMore |
 | SLIP-063 | AI timestamp `formatTime`/`locale` props + starter wiring |
 | SLIP-095 | React Hook Form compatibility guide + Select callback docs |
 | SLIP-096 | Packaged stylesheet smoke test + CI + release checklist |
-| SLIP-100 | Registry and LLM docs regenerated at 100 components |
+| SLIP-100 | Registry and LLM docs regenerated at 109 components |
 | SLIP-094 | Bundle and stylesheet size audit + budgets |
 | SLIP-097 | AuthLayout `variant="split"` + aside slot |
 | SLIP-098 | PageHeader `documentHead()` helper + docs |
@@ -64,12 +65,12 @@ Tickets: SLIP-070 through SLIP-087.
 
 | ID | Status | Note |
 |---|---|---|
-| SLIP-070 | **Done** | 9 marketing blocks II shipped; 104 components total (87 core + 17 AI) |
+| SLIP-070 | **Done** | 9 marketing blocks II shipped; 109 components total (92 core + 17 AI) |
 | SLIP-071 | Ready | Depends on 070; video/team/pricing/audio |
 | SLIP-072 | Ready | Depends on 070; content hub blocks |
 | SLIP-073 | **Done** | MultiSelect, FilterPanel, DateRangePicker, AppliedFilters |
 | SLIP-074 | Ready | Depends on 070; charts package |
-| SLIP-075 | Ready | Depends on 070; marketplace cards |
+| SLIP-075 | **Done** | DealCard, EntityCard/ProfileCard, TombstoneCard, DocumentCard, LoadMore |
 | SLIP-076 | Blocked | Depends on 075 |
 | SLIP-077 | Ready | Depends on 070; forms conversion kit |
 | SLIP-078 | Ready | Independent SEO package |
@@ -120,7 +121,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
 | SLIP-098 | **Done** | PageHeader `documentHead()` helper + docs |
 | SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
-| SLIP-100 | **Done** | Registry/LLM docs regenerated at 100 components; validate and checks pass |
+| SLIP-100 | **Done** | Registry/LLM docs regenerated at 109 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |
 | SLIP-102 | **Done** | `ListItem.description` accepts ReactNode; manifest and docs updated |
 
@@ -128,15 +129,15 @@ Tickets: SLIP-070 through SLIP-087.
 
 ```bash
 pnpm typecheck                  # 17 packages
-pnpm test                       # core 594, ai 148, app 375, mcp 11, starter 25
-pnpm validate:manifests         # 104 valid, 0 drift, counts match
-pnpm check:llm                  # 104 manifests ↔ markdown
-pnpm report:manifests           # 100 components, 0 gaps
+pnpm test                       # core 636, ai 148, app 375, mcp 11, starter 25
+pnpm validate:manifests         # 109 valid, 0 drift, counts match
+pnpm check:llm                  # 109 manifests ↔ markdown
+pnpm report:manifests           # 109 components, 0 gaps
 pnpm bench:check                # 100 cases, no drift
 pnpm bench:test                 # 10 tests
 pnpm verify:tailwind-v4         # compile fixture
 pnpm --filter slipstream-ui-docs typecheck
-pnpm --filter slipstream-ui-docs build   # 144 routes
+pnpm --filter slipstream-ui-docs build   # 149 routes
 pnpm --filter slipstream-ai-chat-starter build
 ```
 

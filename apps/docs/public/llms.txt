@@ -31,7 +31,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 87
+## Core components (@slipstream-ui/core) — 92
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -57,9 +57,12 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - DatePicker — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - DateRangePicker — Start/end date range with ISO strings and quick presets.
+- DealCard — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - Dialog — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
+- DocumentCard — Document row with file metadata, access status and an optional download action.
 - Drawer — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - EmptyState — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- EntityCard — Firm or member profile card with logo, type, location, stats, tags and actions.
 - FeatureGrid — Grid of feature or benefit cards with an icon, title, copy and optional link.
 - FeatureRow — Alternating media and copy row for mid-page feature sections.
 - Fieldset — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
@@ -80,6 +83,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Link — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - LinkTabs — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - List / ListItem — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- LoadMore — Load-more control with pending and end-of-list states.
 - LogoCloud — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -119,6 +123,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - TimePicker — Native time field with an HH:MM contract and an optional clear button.
 - Timeline — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - Toast — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
+- TombstoneCard — Placeholder card for archived, closed or unavailable marketplace items.
 - Tooltip — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 <!-- generated:core:end -->
 
