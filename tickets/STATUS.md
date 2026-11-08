@@ -164,6 +164,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-106 | **Done** | Platform-aware esbuild invocation in the size audit |
 | SLIP-107 | **Done** | Themes peer `^3.4.0 || ^4.0.0`; modal-layer `layerId` capture; 0.6.1 published |
 | SLIP-108 | Ready | `success-ink` token for success text on a tint; ToolCall/Confirmation chips + axe coverage |
+| SLIP-109 | Ready | vitest 5 wants `@types/node` 22+; root pins 20.19.43 (install warning only) |
 
 ## Verification
 

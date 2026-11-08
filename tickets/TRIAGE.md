@@ -102,6 +102,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 4 | SLIP-106 | P1 | 1h | Done | Bundle-size audit runs the esbuild platform binary |
 | 5 | SLIP-107 | P1 | 2h | Done | 0.6.1: Tailwind v4 peer range + modal-layer cleanup |
 | 6 | SLIP-108 | P2 | 3h | Ready | `success-ink` token; ToolCall/Confirmation chips; add those routes to axe |
+| 7 | SLIP-109 | P3 | 1h | Ready | vitest 5 peer wants `@types/node` 22+; root pins 20.19.43 |
 
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
 
