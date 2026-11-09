@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "site-header",
   "exportName": "SiteHeader",
   "description": "Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.",

@@ -1,5 +1,27 @@
 # @slipstream-ui/ai
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @slipstream-ui/core@0.6.1
+
+## 0.6.0
+
+### Patch Changes
+
+- [`6945e41`](https://github.com/michaelmcshinsky/slipstream-ui/commit/6945e4131dedc792a6e2cf512a9f4cdc1d0d3658) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Localize the remaining P1 component labels with optional props and English
+  defaults: Autocomplete clear/suggestions, Breadcrumb landmark, DatePicker and
+  TimePicker clear, FileUpload selected/remove/uploading, Search list label,
+  CommandPalette dialog/list/empty, Toaster dismiss, Skeleton opt-in status
+  label, and AppShell mobile-navigation labels. Message and Reasoning now accept
+  `formatTime` or a BCP-47 `locale` for timestamps, and the AI Chat Starter
+  passes the active locale. The i18n package gains an `en-XA` pseudo-locale
+  catalog and providers accept `pseudo`, with a persisted playground toggle.
+- Updated dependencies [[`a0b5723`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a0b5723495cb31df3f814521aa34198ae359a23c), [`352e873`](https://github.com/michaelmcshinsky/slipstream-ui/commit/352e87336f87bd5f2ab5fc327d204af6f62a8944), [`9dfc268`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9dfc2688503324e7f8dda0784643b688d5ce47b9), [`6945e41`](https://github.com/michaelmcshinsky/slipstream-ui/commit/6945e4131dedc792a6e2cf512a9f4cdc1d0d3658), [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d), [`feaf8c6`](https://github.com/michaelmcshinsky/slipstream-ui/commit/feaf8c62252d54bc1d4a2fad5ecb4215a113011b), [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d), [`9b07d2e`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9b07d2e5a87623e8f3a9f9033364e711a9285212), [`5a8d403`](https://github.com/michaelmcshinsky/slipstream-ui/commit/5a8d403af48c4e6705f17a3d91227f35187920eb), [`1e8e062`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1e8e062cabae7b0fbe8b9e13de9556ba553e8b38), [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d), [`876be12`](https://github.com/michaelmcshinsky/slipstream-ui/commit/876be124dd63ac553e83465a1130eed3a1c9ba6d), [`7dca271`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7dca2714066c74e461da4fb04262540f52e6714b)]:
+  - @slipstream-ui/core@0.6.0
+
 ## 0.5.0
 
 ### Minor Changes

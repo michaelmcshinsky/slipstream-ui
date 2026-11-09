@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "hero",
   "exportName": "Hero",
   "description": "Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",

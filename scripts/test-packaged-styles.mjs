@@ -80,14 +80,18 @@ try {
     assertContains(utilities, className, 'utilities stylesheet');
   }
 
-  // The utilities-only sheet must not ship Tailwind's preflight reset.
+  // The utilities-only sheet ships a small reset, not Tailwind Preflight.
   assert.ok(
-    !utilities.includes('-webkit-text-size-adjust'),
-    'utilities stylesheet unexpectedly contains preflight'
+    !utilities.includes('--tw-border-spacing-x'),
+    'utilities stylesheet unexpectedly contains Tailwind Preflight'
   );
   assert.ok(
-    full.includes('-webkit-text-size-adjust'),
-    'styles-full.css is missing preflight'
+    utilities.includes('box-sizing:border-box'),
+    'utilities stylesheet is missing its minimal reset'
+  );
+  assert.ok(
+    full.includes('--tw-border-spacing-x'),
+    'styles-full.css is missing Tailwind Preflight'
   );
 
   for (const token of ['--background:', '--primary:', '--border:', '--radius:']) {

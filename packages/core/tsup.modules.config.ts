@@ -9,6 +9,14 @@ import { defineConfig } from 'tsup';
  * `@slipstream-ui/core/card` renders in a server component while
  * `@slipstream-ui/core/dialog` remains a client boundary.
  */
+function entryKey(source: string) {
+  return path
+    .relative('src', source)
+    .split(path.sep)
+    .join('/')
+    .replace(/\.(ts|tsx)$/, '');
+}
+
 function componentEntries() {
   const entries: Record<string, string> = {};
   const roots = ['src/components', 'src/utils', 'src/types'];
@@ -20,16 +28,14 @@ function componentEntries() {
         for (const file of readdirSync(dir)) {
           if (!/\.(ts|tsx)$/.test(file) || /\.(test|spec)\./.test(file) || file.endsWith('.d.ts')) continue;
           const source = path.join(dir, file);
-          const key = source.replace(/^src\//, '').replace(/\.(ts|tsx)$/, '');
-          entries[key] = source;
+          entries[entryKey(source)] = source;
         }
         continue;
       }
       const file = entry.name;
       if (!entry.isFile() || !/\.(ts|tsx)$/.test(file) || /\.(test|spec)\./.test(file) || file.endsWith('.d.ts')) continue;
       const source = path.join(root, file);
-      const key = source.replace(/^src\//, '').replace(/\.(ts|tsx)$/, '');
-      entries[key] = source;
+      entries[entryKey(source)] = source;
     }
   }
 
@@ -38,7 +44,10 @@ function componentEntries() {
 
 export default defineConfig({
   entry: componentEntries(),
-  outDir: 'dist',
+  // Emit beside the tsc declarations so the `./*` export map resolves to
+  // dist/src/components/<dir>/index.{mjs,js,d.ts}. The fix-module-extensions
+  // pass then runs over the emitted ESM/CJS files.
+  outDir: 'dist/src',
   format: ['esm', 'cjs'],
   dts: false,
   splitting: false,

@@ -1,5 +1,14 @@
 # @slipstream-ui/registry
 
+## 0.2.2
+
+### Patch Changes
+
+- [#68](https://github.com/michaelmcshinsky/slipstream-ui/pull/68) [`7dca271`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7dca2714066c74e461da4fb04262540f52e6714b) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `contrast`/`onDark` button variants and link-mode pagination (`pageHrefs`,
+  `linkComponent`, `linkHrefProp`) for Server Components. Invalidate the manifest
+  registry cache when manifest files change so a running MCP server sees edits
+  without a restart.
+
 ## 0.2.1
 
 ### Patch Changes

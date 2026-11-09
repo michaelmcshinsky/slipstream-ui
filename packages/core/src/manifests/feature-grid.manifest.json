@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "feature-grid",
   "exportName": "FeatureGrid",
   "description": "Grid of feature or benefit cards with an icon, title, copy and optional link.",

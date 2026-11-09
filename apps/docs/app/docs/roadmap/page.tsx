@@ -31,8 +31,8 @@ const RELEASES: {
   },
   {
     version: '0.5.0',
-    window: 'In release',
-    state: 'next',
+    window: 'Shipped · November 2026',
+    state: 'shipped',
     focus: 'Migration-readiness round two — parity with shadcn/MUI-era apps',
     items: [
       `${COMPONENT_COUNT} components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI)`,
@@ -46,21 +46,24 @@ const RELEASES: {
     ],
   },
   {
-    version: '0.6',
-    window: 'Next up',
-    state: 'planned',
-    focus: 'Remaining migration gaps and DX polish',
+    version: '0.6.x',
+    window: 'Shipped · November 2026',
+    state: 'shipped',
+    focus: 'Integration hardening: the filter, marketing and consumer-parity round',
     items: [
-      'React Hook Form contract: documented Controller recipe and native onChange passthrough',
-      'Rich DatePicker/TimePicker (calendar popover, 12-hour, minute steps) on top of the ISO/HH:MM contract',
-      'Resizable Drawer (drag handle, min width) for wide detail panes',
-      'Migration aliases: PageHeader.subtitle, EmptyState action object, AuthLayout subtitle/logo/maxWidth, Drawer onClose, MetricCard title/description, Accordion items',
-      'MetricCard tone/loading, Badge size, FilterBar active chips, mobile bottom-tab navigation',
-      'Sidebar prefix/pattern active matching',
+      `${COMPONENT_COUNT} components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), all with manifests, tests, examples and docs`,
+      'Dashboard filter layer: MultiSelect, FilterPanel, DateRangePicker, AppliedFilters, SegmentedControl, RangeSlider, FilterChips, FilterBar wiring',
+      'Marketing and content blocks: Hero, StatBand, CTASection, ComparisonTable, LogoCloud, FeatureGrid, FeatureRow, Testimonial, ProcessSteps, ArticleCard, Newsletter, ContactStrip, AnnouncementBar',
+      'Server-safe per-file subpath exports (core/card) that preserve each file use client directive, alongside the client barrel',
+      'Prebuilt stylesheets: styles.css, styles-full.css and themes/styles.css, with data-theme="dark" support next to .dark',
+      'React Hook Form and native change handlers: documented Controller recipe, Select children, native attribute passthrough',
+      'Router-agnostic documentHead() helper, AuthLayout split/aside variant, PageHeader, AppShell viewport rail and sidebar prefix matching',
+      'Release gates: registry reload verification, module/subpath verification, packaged-stylesheet smoke test, bundle-size budgets, axe audit at 26 page runs',
+      '0.6.1: Tailwind v4 accepted as a peer next to v3.4, and the Dialog/Drawer modal-layer cleanup no longer reads a ref during teardown',
     ],
   },
   {
-    version: '0.7 — 0.9',
+    version: '0.7 - 0.9',
     window: 'Planned',
     state: 'planned',
     focus: 'Proof and starters',
@@ -70,6 +73,10 @@ const RELEASES: {
       'Multi-thread workspace template and production app shells',
       'Bundle-size and tree-shaking measurements published',
       'validate_usage v2: actionable fix suggestions and whole-tree validation',
+      'Rich DatePicker/TimePicker (calendar popover, 12-hour, minute steps) on top of the ISO/HH:MM contract',
+      'Resizable Drawer (drag handle, min width) for wide detail panes',
+      'Migration aliases: PageHeader.subtitle, EmptyState action object, AuthLayout subtitle/logo/maxWidth, Drawer onClose, MetricCard title/description, Accordion items',
+      'MetricCard tone/loading, Badge size, mobile bottom-tab navigation',
     ],
   },
   {
@@ -86,7 +93,7 @@ const RELEASES: {
 ];
 
 const stateStyles: Record<(typeof RELEASES)[number]['state'], string> = {
-  shipped: 'border-success/40 bg-success/10 text-success',
+  shipped: 'border-success/40 bg-card text-success',
   next: 'border-primary/40 bg-primary/10 text-primary',
   planned: 'border-border bg-muted text-muted-foreground',
 };
@@ -130,11 +137,11 @@ export default function RoadmapPage() {
       <div className="mt-10 rounded-xl border border-border bg-muted/30 p-6 text-sm text-muted-foreground">
         <p>
           Need something that is not on the list? Open a{' '}
-          <a className="text-primary underline underline-offset-2" href="https://github.com/michaelmcshinsky/slipstream-ui/issues">
+          <a className="text-primary underline underline-offset-2 hover:text-primary/80" href="https://github.com/michaelmcshinsky/slipstream-ui/issues">
             GitHub issue
           </a>{' '}
           or read the{' '}
-          <Link className="text-primary underline underline-offset-2" href="/changelog">
+          <Link className="text-primary underline underline-offset-2 hover:text-primary/80" href="/changelog">
             changelog
           </Link>{' '}
           for what already shipped.

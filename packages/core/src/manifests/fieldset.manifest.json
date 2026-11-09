@@ -107,7 +107,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "fieldset",
   "exportName": "Fieldset"
 }

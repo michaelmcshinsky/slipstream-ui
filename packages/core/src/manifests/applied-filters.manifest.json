@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "applied-filters",
   "exportName": "AppliedFilters",
   "description": "Applied-filter summary with a live count, removable chips and an edit action.",
@@ -81,5 +81,9 @@
       "example": "<AppliedFilters filters={chips} onEdit={() => setOpen(true)} />"
     }
   ],
-  "relatedComponents": ["FilterChips", "FilterPanel", "FilterBar"]
+  "relatedComponents": [
+    "FilterChips",
+    "FilterPanel",
+    "FilterBar"
+  ]
 }

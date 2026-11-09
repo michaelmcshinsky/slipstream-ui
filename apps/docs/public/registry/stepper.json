@@ -3,8 +3,8 @@
   "id": "stepper",
   "name": "stepper",
   "tier": "molecule",
-  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.",
-  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color. Four responsive shapes (inline labels, labels below, vertical timeline, compact dots) cover onboarding, checkout, and narrow sidebars.",
+  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.",
   "props": [
     {
       "name": "steps",
@@ -30,50 +30,6 @@
       ]
     },
     {
-      "name": "variant",
-      "type": "'numbered' | 'dots'",
-      "required": false,
-      "defaultValue": "numbered",
-      "description": "Marker style. numbered shows the step number and a check when complete; dots is the compact progress variant with no numbers.",
-      "enum": [
-        "numbered",
-        "dots"
-      ]
-    },
-    {
-      "name": "size",
-      "type": "'sm' | 'md'",
-      "required": false,
-      "defaultValue": "md",
-      "description": "Marker and label scale.",
-      "enum": [
-        "sm",
-        "md"
-      ]
-    },
-    {
-      "name": "labelPlacement",
-      "type": "'inline' | 'below'",
-      "required": false,
-      "defaultValue": "inline",
-      "description": "Horizontal only: place the label beside the marker or beneath it.",
-      "enum": [
-        "inline",
-        "below"
-      ]
-    },
-    {
-      "name": "alignTitles",
-      "type": "'start' | 'center'",
-      "required": false,
-      "defaultValue": "center",
-      "description": "Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned.",
-      "enum": [
-        "start",
-        "center"
-      ]
-    },
-    {
       "name": "onStepClick",
       "type": "(index: number) => void",
       "required": false,
@@ -82,24 +38,9 @@
   ],
   "examples": [
     {
-      "title": "Horizontal onboarding wizard",
-      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n  onStepClick={setStep}\n/>",
+      "title": "Onboarding wizard",
+      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n/>",
       "description": "Current step is announced; completed steps show a check."
-    },
-    {
-      "title": "Labels below the markers",
-      "code": "<Stepper\n  current={2}\n  labelPlacement=\"below\"\n  steps={[{ label: 'Account' }, { label: 'Studio' }, { label: 'Review' }]}\n/>",
-      "description": "A wider, marketing-friendly horizontal shape."
-    },
-    {
-      "title": "Vertical timeline",
-      "code": "<Stepper\n  current={1}\n  orientation=\"vertical\"\n  steps={[\n    { label: 'Submitted', description: 'Mar 2' },\n    { label: 'Under review', description: 'Mar 4' },\n    { label: 'Decision', description: 'Mar 9' },\n  ]}\n/>",
-      "description": "A vertical connector joins the markers, suited to sidebars and activity feeds."
-    },
-    {
-      "title": "Compact dots",
-      "code": "<Stepper current={1} variant=\"dots\" size=\"sm\" steps={[{ label: 'Plan' }, { label: 'Build' }, { label: 'Ship' }]} />",
-      "description": "No numbers, small markers, for tight toolbars or mobile."
     }
   ],
   "antiPatterns": [
@@ -140,11 +81,6 @@
       "component": "Form",
       "relationship": "One Form (or Form step) per Stepper stage",
       "example": "<Stepper current={1} steps={steps} />"
-    },
-    {
-      "component": "Drawer",
-      "relationship": "A vertical dots Stepper fits a narrow drawer or settings sidebar",
-      "example": "<Drawer><Stepper current={1} orientation=\"vertical\" variant=\"dots\" steps={steps} /></Drawer>"
     }
   ],
   "relatedComponents": [
@@ -154,7 +90,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "stepper",
   "exportName": "Stepper",
   "type": "registry:component",
@@ -167,7 +103,7 @@
   "files": [
     {
       "path": "components/slipstream/stepper/Stepper.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type StepperStep = {\n  label: string;\n  description?: string;\n};\n\nexport type StepperProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, 'onClick'> & {\n  steps: StepperStep[];\n  /** Zero-based index of the active step. */\n  current: number;\n  /** Layout direction. Default 'horizontal'. */\n  orientation?: 'horizontal' | 'vertical';\n  /**\n   * Marker style. `numbered` shows the step number and a check when complete;\n   * `dots` is the compact progress variant with no numbers.\n   */\n  variant?: 'numbered' | 'dots';\n  /** Marker and label scale. Default 'md'. */\n  size?: 'sm' | 'md';\n  /** Horizontal only: place the label beside the marker or beneath it. Default 'inline'. */\n  labelPlacement?: 'inline' | 'below';\n  /**\n   * Center a title vertically against its marker when that step has no\n   * description. Titles with a description stay top aligned. Default 'center'.\n   */\n  alignTitles?: 'start' | 'center';\n  /** Makes completed/upcoming steps clickable. */\n  onStepClick?: (index: number) => void;\n};\n\n/**\n * Progress through a multi-step flow with proper semantics: an ordered list\n * where the active step carries aria-current=\"step\" and each marker states\n * complete/current/upcoming in text, not only color.\n *\n * Four practical shapes: horizontal inline labels, horizontal labels below\n * the markers, a vertical timeline, and a compact dots variant for tight\n * spaces. All four are responsive and keyboard operable when `onStepClick`\n * is provided.\n */\nexport const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function Stepper(\n  {\n    steps,\n    current,\n    orientation = 'horizontal',\n    variant = 'numbered',\n    size = 'md',\n    labelPlacement = 'inline',\n    alignTitles = 'center',\n    onStepClick,\n    className,\n    ...props\n  },\n  ref\n) {\n  const vertical = orientation === 'vertical';\n  const interactive = Boolean(onStepClick);\n\n  const markerSizeClass = size === 'sm' ? 'h-6 w-6 text-[11px]' : 'h-7 w-7 text-xs';\n  const dotSizeClass = size === 'sm' ? 'h-2 w-2' : 'h-2.5 w-2.5';\n  const labelSizeClass = size === 'sm' ? 'text-xs' : 'text-sm';\n  const descriptionSizeClass = size === 'sm' ? 'text-[11px]' : 'text-xs';\n  const gapClass = size === 'sm' ? 'gap-1.5' : 'gap-2';\n  const verticalTitlePad = size === 'sm' ? 'pt-0.5' : 'pt-1';\n  const connectorTop =\n    variant === 'dots'\n      ? size === 'sm'\n        ? 'mt-1'\n        : 'mt-[5px]'\n      : size === 'sm'\n        ? 'mt-3'\n        : 'mt-3.5';\n\n  const focusClass =\n    'rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';\n\n  return (\n    <ol\n      ref={ref}\n      className={cn(\n        vertical ? 'flex flex-col' : 'flex flex-wrap items-start gap-4',\n        className\n      )}\n      {...props}\n    >\n      {steps.map((step, index) => {\n        const state = index < current ? 'complete' : index === current ? 'current' : 'upcoming';\n        const isLast = index === steps.length - 1;\n        const titleCentered = alignTitles === 'center' && !step.description;\n        const below = !vertical && labelPlacement === 'below';\n\n        const marker = (\n          <span\n            aria-hidden=\"true\"\n            className={cn(\n              'flex shrink-0 items-center justify-center',\n              variant === 'dots'\n                ? cn(\n                    'rounded-full',\n                    dotSizeClass,\n                    state === 'upcoming' ? 'bg-border' : 'bg-primary',\n                    state === 'current' && 'ring-2 ring-primary/30 ring-offset-2 ring-offset-background'\n                  )\n                : cn(\n                    'rounded-full border font-medium',\n                    markerSizeClass,\n                    state === 'complete' && 'border-primary bg-primary text-primary-foreground',\n                    state === 'current' && 'border-primary text-primary',\n                    state === 'upcoming' && 'border-border text-muted-foreground'\n                  )\n            )}\n          >\n            {variant === 'numbered' ? (state === 'complete' ? '✓' : index + 1) : null}\n          </span>\n        );\n\n        const label = (\n          <span className=\"min-w-0\">\n            <span\n              className={cn(\n                'block leading-5',\n                labelSizeClass,\n                below && 'text-center',\n                state === 'upcoming' ? 'text-muted-foreground' : 'font-medium'\n              )}\n            >\n              {step.label}\n            </span>\n            {step.description && (\n              <span\n                className={cn(\n                  'mt-0.5 block leading-4 text-muted-foreground',\n                  descriptionSizeClass,\n                  below && 'text-center'\n                )}\n              >\n                {step.description}\n              </span>\n            )}\n            <span className=\"sr-only\">\n              {state === 'complete' ? ' (completed)' : state === 'current' ? ' (current step)' : ' (upcoming)'}\n            </span>\n          </span>\n        );\n\n        const renderRow = (children: React.ReactNode, rowClassName: string) =>\n          interactive ? (\n            <button\n              type=\"button\"\n              onClick={() => onStepClick?.(index)}\n              aria-current={state === 'current' ? 'step' : undefined}\n              className={cn(rowClassName, focusClass)}\n            >\n              {children}\n            </button>\n          ) : (\n            <div aria-current={state === 'current' ? 'step' : undefined} className={rowClassName}>\n              {children}\n            </div>\n          );\n\n        if (vertical) {\n          return (\n            <li key={step.label} className=\"flex\">\n              {renderRow(\n                <>\n                  <div className=\"flex flex-col items-center\">\n                    {marker}\n                    {!isLast && (\n                      <span aria-hidden=\"true\" className=\"my-1 w-px flex-1 rounded-full bg-border\" />\n                    )}\n                  </div>\n                  <div className={cn('min-w-0 pb-6', titleCentered && verticalTitlePad)}>{label}</div>\n                </>,\n                'flex w-full items-stretch gap-3 text-left'\n              )}\n            </li>\n          );\n        }\n\n        if (below) {\n          return (\n            <li key={step.label} className=\"flex min-w-0 flex-1 items-start gap-2\">\n              {renderRow(\n                <>\n                  {marker}\n                  {label}\n                </>,\n                'flex min-w-0 flex-1 flex-col items-center gap-2 text-center'\n              )}\n              {!isLast && (\n                <span\n                  aria-hidden=\"true\"\n                  className={cn('h-px min-w-4 flex-1 bg-border', connectorTop)}\n                />\n              )}\n            </li>\n          );\n        }\n\n        return (\n          <li key={step.label} className=\"flex min-w-0 items-start gap-2\">\n            {renderRow(\n              <>\n                {marker}\n                {label}\n              </>,\n              cn('flex min-w-0 text-left', gapClass, titleCentered ? 'items-center' : 'items-start')\n            )}\n            {!isLast && (\n              <span\n                aria-hidden=\"true\"\n                className={cn('h-px w-6 shrink-0 bg-border sm:w-8', connectorTop)}\n              />\n            )}\n          </li>\n        );\n      })}\n    </ol>\n  );\n});\n",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type StepperStep = {\n  label: string;\n  description?: string;\n};\n\nexport type StepperProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, 'onClick'> & {\n  steps: StepperStep[];\n  /** Zero-based index of the active step. */\n  current: number;\n  orientation?: 'horizontal' | 'vertical';\n  /** Makes completed/upcoming steps clickable. */\n  onStepClick?: (index: number) => void;\n};\n\n/**\n * Progress through a multi-step flow with proper semantics: an ordered list\n * where the active step carries aria-current=\"step\" and each marker states\n * complete/current/upcoming in text, not only color.\n */\nexport const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function Stepper(\n  { steps, current, orientation = 'horizontal', onStepClick, className, ...props },\n  ref\n) {\n  return (\n    <ol\n      ref={ref}\n      className={cn(\n        'flex gap-4',\n        orientation === 'vertical' ? 'flex-col' : 'flex-wrap items-start',\n        className\n      )}\n      {...props}\n    >\n      {steps.map((step, index) => {\n        const state = index < current ? 'complete' : index === current ? 'current' : 'upcoming';\n        const interactive = Boolean(onStepClick);\n        const content = (\n          <>\n            <span\n              aria-hidden=\"true\"\n              className={cn(\n                'flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-medium',\n                state === 'complete' && 'border-primary bg-primary text-primary-foreground',\n                state === 'current' && 'border-primary text-primary',\n                state === 'upcoming' && 'border-border text-muted-foreground'\n              )}\n            >\n              {state === 'complete' ? '✓' : index + 1}\n            </span>\n            <span className=\"min-w-0\">\n              <span className={cn('block text-sm', state === 'upcoming' ? 'text-muted-foreground' : 'font-medium')}>\n                {step.label}\n              </span>\n              {step.description && (\n                <span className=\"block text-xs text-muted-foreground\">{step.description}</span>\n              )}\n              <span className=\"sr-only\">\n                {state === 'complete' ? ' (completed)' : state === 'current' ? ' (current step)' : ' (upcoming)'}\n              </span>\n            </span>\n          </>\n        );\n\n        return (\n          <li key={step.label} className=\"flex min-w-0 items-start gap-2\">\n            {interactive ? (\n              <button\n                type=\"button\"\n                onClick={() => onStepClick?.(index)}\n                aria-current={state === 'current' ? 'step' : undefined}\n                className=\"flex items-start gap-2 rounded-md text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n              >\n                {content}\n              </button>\n            ) : (\n              <div aria-current={state === 'current' ? 'step' : undefined} className=\"flex items-start gap-2\">\n                {content}\n              </div>\n            )}\n            {orientation === 'horizontal' && index < steps.length - 1 && (\n              <span aria-hidden=\"true\" className=\"mt-3.5 hidden h-px w-8 bg-border sm:block\" />\n            )}\n          </li>\n        );\n      })}\n    </ol>\n  );\n});\n",
       "type": "registry:component"
     },
     {
@@ -177,7 +113,7 @@
     },
     {
       "path": "components/slipstream/manifests/stepper.manifest.json",
-      "content": "{\n  \"id\": \"stepper\",\n  \"name\": \"Stepper\",\n  \"tier\": \"molecule\",\n  \"description\": \"Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.\",\n  \"designIntent\": \"Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color. Four responsive shapes (inline labels, labels below, vertical timeline, compact dots) cover onboarding, checkout, and narrow sidebars.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"{ label: string; description?: string }[]\",\n      \"required\": true,\n      \"description\": \"Ordered step definitions.\"\n    },\n    {\n      \"name\": \"current\",\n      \"type\": \"number\",\n      \"required\": true,\n      \"description\": \"Zero-based index of the active step.\"\n    },\n    {\n      \"name\": \"orientation\",\n      \"type\": \"'horizontal' | 'vertical'\",\n      \"required\": false,\n      \"defaultValue\": \"horizontal\",\n      \"description\": \"Layout direction.\",\n      \"enum\": [\n        \"horizontal\",\n        \"vertical\"\n      ]\n    },\n    {\n      \"name\": \"variant\",\n      \"type\": \"'numbered' | 'dots'\",\n      \"required\": false,\n      \"defaultValue\": \"numbered\",\n      \"description\": \"Marker style. numbered shows the step number and a check when complete; dots is the compact progress variant with no numbers.\",\n      \"enum\": [\n        \"numbered\",\n        \"dots\"\n      ]\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md'\",\n      \"required\": false,\n      \"defaultValue\": \"md\",\n      \"description\": \"Marker and label scale.\",\n      \"enum\": [\n        \"sm\",\n        \"md\"\n      ]\n    },\n    {\n      \"name\": \"labelPlacement\",\n      \"type\": \"'inline' | 'below'\",\n      \"required\": false,\n      \"defaultValue\": \"inline\",\n      \"description\": \"Horizontal only: place the label beside the marker or beneath it.\",\n      \"enum\": [\n        \"inline\",\n        \"below\"\n      ]\n    },\n    {\n      \"name\": \"alignTitles\",\n      \"type\": \"'start' | 'center'\",\n      \"required\": false,\n      \"defaultValue\": \"center\",\n      \"description\": \"Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned.\",\n      \"enum\": [\n        \"start\",\n        \"center\"\n      ]\n    },\n    {\n      \"name\": \"onStepClick\",\n      \"type\": \"(index: number) => void\",\n      \"required\": false,\n      \"description\": \"Makes steps clickable (for revisit flows).\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Horizontal onboarding wizard\",\n      \"code\": \"<Stepper\\n  current={step}\\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\\n  onStepClick={setStep}\\n/>\",\n      \"description\": \"Current step is announced; completed steps show a check.\"\n    },\n    {\n      \"title\": \"Labels below the markers\",\n      \"code\": \"<Stepper\\n  current={2}\\n  labelPlacement=\\\"below\\\"\\n  steps={[{ label: 'Account' }, { label: 'Studio' }, { label: 'Review' }]}\\n/>\",\n      \"description\": \"A wider, marketing-friendly horizontal shape.\"\n    },\n    {\n      \"title\": \"Vertical timeline\",\n      \"code\": \"<Stepper\\n  current={1}\\n  orientation=\\\"vertical\\\"\\n  steps={[\\n    { label: 'Submitted', description: 'Mar 2' },\\n    { label: 'Under review', description: 'Mar 4' },\\n    { label: 'Decision', description: 'Mar 9' },\\n  ]}\\n/>\",\n      \"description\": \"A vertical connector joins the markers, suited to sidebars and activity feeds.\"\n    },\n    {\n      \"title\": \"Compact dots\",\n      \"code\": \"<Stepper current={1} variant=\\\"dots\\\" size=\\\"sm\\\" steps={[{ label: 'Plan' }, { label: 'Build' }, { label: 'Ship' }]} />\",\n      \"description\": \"No numbers, small markers, for tight toolbars or mobile.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for progress percentage\",\n      \"explanation\": \"Use Progress for measurable 0-100 progress; Stepper is discrete stages.\",\n      \"example\": \"// Avoid: 7 steps for an upload\\n// Prefer: <Progress value={42} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Sequence + state\",\n      \"implementation\": \"Ordered list with aria-current=step and sr-only state text\",\n      \"userRequirements\": \"Keep step labels short and parallel\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Step labels\",\n      \"guidelines\": [\n        \"Verb or noun phrase\",\n        \"Parallel grammar\",\n        \"3-5 steps max\"\n      ],\n      \"goodExamples\": [\n        \"Account\",\n        \"Studio details\",\n        \"Review\"\n      ],\n      \"badExamples\": [\n        \"Step 1\",\n        \"Now do this\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Form\",\n      \"relationship\": \"One Form (or Form step) per Stepper stage\",\n      \"example\": \"<Stepper current={1} steps={steps} />\"\n    },\n    {\n      \"component\": \"Drawer\",\n      \"relationship\": \"A vertical dots Stepper fits a narrow drawer or settings sidebar\",\n      \"example\": \"<Drawer><Stepper current={1} orientation=\\\"vertical\\\" variant=\\\"dots\\\" steps={steps} /></Drawer>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Progress\",\n    \"Tabs\",\n    \"Form\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.5.0\",\n  \"sourceDir\": \"stepper\",\n  \"exportName\": \"Stepper\"\n}\n",
+      "content": "{\n  \"id\": \"stepper\",\n  \"name\": \"Stepper\",\n  \"tier\": \"molecule\",\n  \"description\": \"Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.\",\n  \"designIntent\": \"Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.\",\n  \"props\": [\n    {\n      \"name\": \"steps\",\n      \"type\": \"{ label: string; description?: string }[]\",\n      \"required\": true,\n      \"description\": \"Ordered step definitions.\"\n    },\n    {\n      \"name\": \"current\",\n      \"type\": \"number\",\n      \"required\": true,\n      \"description\": \"Zero-based index of the active step.\"\n    },\n    {\n      \"name\": \"orientation\",\n      \"type\": \"'horizontal' | 'vertical'\",\n      \"required\": false,\n      \"defaultValue\": \"horizontal\",\n      \"description\": \"Layout direction.\",\n      \"enum\": [\n        \"horizontal\",\n        \"vertical\"\n      ]\n    },\n    {\n      \"name\": \"onStepClick\",\n      \"type\": \"(index: number) => void\",\n      \"required\": false,\n      \"description\": \"Makes steps clickable (for revisit flows).\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Onboarding wizard\",\n      \"code\": \"<Stepper\\n  current={step}\\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\\n/>\",\n      \"description\": \"Current step is announced; completed steps show a check.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't use it for progress percentage\",\n      \"explanation\": \"Use Progress for measurable 0-100 progress; Stepper is discrete stages.\",\n      \"example\": \"// Avoid: 7 steps for an upload\\n// Prefer: <Progress value={42} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Sequence + state\",\n      \"implementation\": \"Ordered list with aria-current=step and sr-only state text\",\n      \"userRequirements\": \"Keep step labels short and parallel\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Step labels\",\n      \"guidelines\": [\n        \"Verb or noun phrase\",\n        \"Parallel grammar\",\n        \"3-5 steps max\"\n      ],\n      \"goodExamples\": [\n        \"Account\",\n        \"Studio details\",\n        \"Review\"\n      ],\n      \"badExamples\": [\n        \"Step 1\",\n        \"Now do this\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Form\",\n      \"relationship\": \"One Form (or Form step) per Stepper stage\",\n      \"example\": \"<Stepper current={1} steps={steps} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Progress\",\n    \"Tabs\",\n    \"Form\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.6.1\",\n  \"sourceDir\": \"stepper\",\n  \"exportName\": \"Stepper\"\n}\n",
       "type": "registry:item"
     }
   ]

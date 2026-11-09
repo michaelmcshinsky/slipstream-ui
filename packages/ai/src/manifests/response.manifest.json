@@ -49,5 +49,5 @@
   "exportName": "Response",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.5.0"
+  "version": "0.6.1"
 }

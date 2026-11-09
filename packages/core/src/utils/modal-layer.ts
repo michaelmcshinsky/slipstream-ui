@@ -13,8 +13,9 @@ export function useModalLayer(open: boolean) {
   const id = React.useRef(Symbol('modal-layer'));
 
   React.useEffect(() => {
+    const layerId = id.current;
     if (!open) return;
-    layers.push(id.current);
+    layers.push(layerId);
 
     if (layers.length === 1) {
       const previousOverflow = document.body.style.overflow;
@@ -25,7 +26,7 @@ export function useModalLayer(open: boolean) {
     }
 
     return () => {
-      const index = layers.indexOf(id.current);
+      const index = layers.indexOf(layerId);
       if (index >= 0) layers.splice(index, 1);
       if (layers.length === 0) {
         restoreScroll?.();

@@ -704,7 +704,7 @@ importers:
   packages/themes:
     dependencies:
       tailwindcss:
-        specifier: ^3.4.0
+        specifier: ^3.4.0 || ^4.0.0
         version: 3.4.19(tsx@4.23.15)
       tailwindcss-animate:
         specifier: ^1.0.7
@@ -8886,7 +8886,7 @@ packages:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      postcss: '>=8.5.18'
+      postcss: '>=8.5.23'
     dependencies:
       postcss: 8.5.32
       postcss-value-parser: 4.2.0

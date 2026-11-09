@@ -93,6 +93,18 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 7 | SLIP-067 | P2 | 12h | Blocked | Depends on SLIP-066 user locale |
 | 8 | SLIP-065 | P2 | 80h | Blocked | Depends on SLIP-064; guides and 80 component pages need native-speaker review |
 
+### Release gate — 0.6.0 / 0.6.1 (2026-11-08)
+
+| Order | ID | P | Hours | Status | Note |
+|---|---|---|---|---|---|
+| 1 | SLIP-103 | P1 | 2h | Done | Prisma client on install; bounded turbo test concurrency; serialized app SQLite suite |
+| 2 | SLIP-104 | P1 | 1h | Done | Docs navbar 24px target size; axe 26/26 clean |
+| 3 | SLIP-105 | P1 | 2h | Done | Subpath modules emit under `dist/src` on Windows and Linux |
+| 4 | SLIP-106 | P1 | 1h | Done | Bundle-size audit runs the esbuild platform binary |
+| 5 | SLIP-107 | P1 | 2h | Done | 0.6.1: Tailwind v4 peer range + modal-layer cleanup |
+| 6 | SLIP-108 | P2 | 3h | Ready | `success-ink` token; ToolCall/Confirmation chips; add those routes to axe |
+| 7 | SLIP-109 | P3 | 1h | Ready | vitest 5 peer wants `@types/node` 22+; root pins 20.19.43 |
+
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
 
 
