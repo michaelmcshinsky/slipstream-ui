@@ -6098,7 +6098,7 @@ Custom listbox select for rich options: descriptions, icons, groups, multi-selec
 
 ## Design intent
 
-Native <select> cannot render rich option content. SelectMenu supplies a real listbox with the button/listbox keyboard model while keeping the same value/onValueChange contract as Select, so teams can move between the two without rewriting state.
+Native <select> cannot render rich option content. SelectMenu supplies a real listbox behind a select-only combobox trigger with the combobox/listbox keyboard model while keeping the same value/onValueChange contract as Select, so teams can move between the two without rewriting state.
 
 ## Props
 

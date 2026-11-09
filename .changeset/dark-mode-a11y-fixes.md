@@ -9,3 +9,5 @@ Fix WCAG 2.2 issues found by the dark-mode audit.
 - `Timeline` muted items keep token colors instead of dimming with opacity.
 - `RangeSlider` inputs and `DatePicker`/`DateRangePicker`/`TimePicker` clear
   buttons meet the 24px target-size minimum.
+- `SelectMenu` exposes the select-only `combobox` role on its trigger and makes
+  the scrollable listbox focusable, so the open state is valid ARIA.

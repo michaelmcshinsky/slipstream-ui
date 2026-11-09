@@ -46,6 +46,12 @@ route and a committed report.
     WCAG 2.2 target-size minimum.
   - `DatePicker`, `DateRangePicker` and `TimePicker` clear buttons are 24x24
     inline-flex targets instead of a padded glyph smaller than 24px.
+  - `SelectMenu` uses the select-only `combobox` role on its trigger (the
+    button role does not allow `aria-activedescendant`) and gives its scrollable
+    listbox a focus target, found by opening the overlay during the audit.
+- Overlay pass: dialog, drawer, confirm dialog, popover, menu, select menu,
+  command palette and toast panels are opened with their demo triggers, then
+  audited and screenshotted, because they start closed on the page pass.
 - Docs fixes:
   - inline prose links in guides and `/docs/roadmap` are permanently underlined
     (link-in-text-block), not only on hover;
@@ -60,20 +66,22 @@ route and a committed report.
 
 - [x] Every core and AI component page is audited in dark mode.
 - [x] Every docs/marketing route is audited in dark mode.
+- [x] Overlay panels that start closed (dialog, drawer, menu, popover, command
+      palette, select menu, toast) are opened and audited.
 - [x] The audit fails if `.dark` did not apply.
 - [x] The audit fails on any axe WCAG 2.2 A/AA violation.
 - [x] The audit fails on large unintended light surfaces.
 - [x] `reports/dark-mode-audit.md` records the route count and result.
 - [x] Both the light/dark `audit:a11y` pass and the dark `audit:dark` pass are clean.
 
-**Verification.** 140 routes audited, 0 violation groups, 0 theme failures,
-0 light-surface warnings. `audit:a11y` 26 page runs clean. Core tests 106 files
-/ 638 tests, core and docs typecheck, core and docs lint, manifest/coverage/LLM
-/count checks, and the 149-route docs build all pass.
+**Verification.** 140 routes audited plus 20 opened overlay panels, 0 violation
+groups, 0 theme failures, 0 light-surface warnings. `audit:a11y` 26 page runs
+clean. Core tests 106 files / 639 tests, core and docs typecheck, core and docs
+lint, manifest/coverage/LLM/count checks, and the 149-route docs build all pass.
 
 **Files.** `apps/docs/scripts/audit-dark-mode.ts`,
 `apps/docs/package.json`, `reports/dark-mode-audit.md`,
-`packages/core/src/components/{separator,tabs,timeline,range-slider,date-picker,date-range-picker,time-picker}/`,
+`packages/core/src/components/{separator,tabs,timeline,range-slider,date-picker,date-range-picker,time-picker,select-menu}/`,
 `apps/docs/app/docs/components/{tooltip,message,tool-call,fieldset}/demo.tsx`,
 and the guides plus `/docs/roadmap` pages.
 

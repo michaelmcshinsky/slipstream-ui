@@ -57,6 +57,28 @@ const SITE_ROUTES = [
   '/thank-you',
 ];
 
+/**
+ * Overlay demos start closed, so their panels (dialog, drawer, menu, popover,
+ * command palette, select menu, toast) would never reach the closed-state pass.
+ * Each entry lists trigger labels that are clicked in order; missing labels are
+ * skipped rather than failing the run.
+ */
+const OVERLAY_TRIGGERS: Record<string, string[]> = {
+  '/docs/components/dialog': [
+    'Delete project',
+    'Open 2xl dialog',
+    'Composed header + footer',
+    'Open dialog with no',
+  ],
+  '/docs/components/drawer': ['Open filter drawer', 'Open bottom sheet'],
+  '/docs/components/confirm-dialog': ['Delete project', 'Publish release'],
+  '/docs/components/popover': ['Details'],
+  '/docs/components/menu': ['Options', 'Account', 'Row actions'],
+  '/docs/components/select-menu': ['Plan', 'Alert channels'],
+  '/docs/components/command-palette': ['Open palette'],
+  '/docs/components/toast': ['success()', 'error()', 'warning()', 'info()', 'sticky'],
+};
+
 function componentRoutes(): string[] {
   const routes = new Set<string>();
 
@@ -91,6 +113,69 @@ type AxeNode = { target: string[]; html: string; failureSummary?: string };
 type AxeViolation = { id: string; impact: string | null; help: string; nodes: AxeNode[] };
 type LightSurface = { tag: string; className: string; area: number; background: string };
 
+const LIGHT_SURFACE_SCAN = `(() => {
+  const parse = (value) => {
+    const match = value.match(/rgba?\\(([^)]+)\\)/);
+    if (!match) return null;
+    const parts = match[1].split(',').map((part) => Number(part.trim()));
+    return [parts[0], parts[1], parts[2], parts[3] ?? 1];
+  };
+  const luminance = (rgb) => {
+    const channel = (value) => {
+      const c = value / 255;
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+  };
+
+  const darkApplied = document.documentElement.classList.contains('dark');
+  const bodyBackground = getComputedStyle(document.body).backgroundColor;
+  const lightSurfaces = [];
+
+  for (const element of Array.from(document.querySelectorAll('body *'))) {
+    if (['IMG', 'SVG', 'VIDEO', 'CANVAS', 'PICTURE'].includes(element.tagName)) continue;
+    if (element.closest('[data-tone="inverse"], [data-tone="brand"]')) continue;
+    const style = getComputedStyle(element);
+    if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) < 0.1) continue;
+    const parsed = parse(style.backgroundColor);
+    if (!parsed || parsed[3] < 0.9) continue;
+    const lum = luminance([parsed[0], parsed[1], parsed[2]]);
+    const rect = element.getBoundingClientRect();
+    const area = rect.width * rect.height;
+    if (lum > 0.82 && area > 12000) {
+      lightSurfaces.push({
+        tag: element.tagName.toLowerCase(),
+        className: element.className?.toString().slice(0, 120) ?? '',
+        area: Math.round(area),
+        background: style.backgroundColor,
+      });
+    }
+  }
+
+  return { darkApplied, bodyBackground, lightSurfaces };
+})()`;
+
+type PageState = {
+  darkApplied: boolean;
+  bodyBackground: string;
+  lightSurfaces: LightSurface[];
+};
+
+async function scanPage(page: Page): Promise<PageState> {
+  return (await page.evaluate(LIGHT_SURFACE_SCAN)) as PageState;
+}
+
+async function runAxe(page: Page): Promise<AxeViolation[]> {
+  const results = (await page.evaluate(async () => {
+    // @ts-expect-error injected by addScriptTag
+    return window.axe.run(document, {
+      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] },
+      resultTypes: ['violations'],
+    });
+  })) as { violations: AxeViolation[] };
+  return results.violations;
+}
+
 async function audit(page: Page, route: string): Promise<{
   violations: AxeViolation[];
   darkApplied: boolean;
@@ -102,61 +187,10 @@ async function audit(page: Page, route: string): Promise<{
   await page.waitForTimeout(400);
   await page.addScriptTag({ content: axeSource });
 
-  const state = (await page.evaluate(`(() => {
-    const parse = (value) => {
-      const match = value.match(/rgba?\\(([^)]+)\\)/);
-      if (!match) return null;
-      const parts = match[1].split(',').map((part) => Number(part.trim()));
-      return [parts[0], parts[1], parts[2], parts[3] ?? 1];
-    };
-    const luminance = (rgb) => {
-      const channel = (value) => {
-        const c = value / 255;
-        return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-      };
-      return 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
-    };
+  const state = await scanPage(page);
+  const violations = await runAxe(page);
 
-    const darkApplied = document.documentElement.classList.contains('dark');
-    const bodyBackground = getComputedStyle(document.body).backgroundColor;
-    const lightSurfaces = [];
-
-    for (const element of Array.from(document.querySelectorAll('body *'))) {
-      if (['IMG', 'SVG', 'VIDEO', 'CANVAS', 'PICTURE'].includes(element.tagName)) continue;
-      if (element.closest('[data-tone="inverse"], [data-tone="brand"]')) continue;
-      const style = getComputedStyle(element);
-      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) < 0.1) continue;
-      const parsed = parse(style.backgroundColor);
-      if (!parsed || parsed[3] < 0.9) continue;
-      const lum = luminance([parsed[0], parsed[1], parsed[2]]);
-      const rect = element.getBoundingClientRect();
-      const area = rect.width * rect.height;
-      if (lum > 0.82 && area > 12000) {
-        lightSurfaces.push({
-          tag: element.tagName.toLowerCase(),
-          className: element.className?.toString().slice(0, 120) ?? '',
-          area: Math.round(area),
-          background: style.backgroundColor,
-        });
-      }
-    }
-
-    return { darkApplied, bodyBackground, lightSurfaces };
-  })()`)) as {
-    darkApplied: boolean;
-    bodyBackground: string;
-    lightSurfaces: LightSurface[];
-  };
-
-  const results = (await page.evaluate(async () => {
-    // @ts-expect-error injected by addScriptTag
-    return window.axe.run(document, {
-      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] },
-      resultTypes: ['violations'],
-    });
-  })) as { violations: AxeViolation[] };
-
-  return { ...state, violations: results.violations };
+  return { ...state, violations };
 }
 
 async function main(): Promise<void> {
@@ -188,9 +222,18 @@ async function main(): Promise<void> {
     surfaces: number;
     screenshot: string;
   }> = [];
+  const overlayRows: Array<{
+    route: string;
+    trigger: string;
+    failures: number;
+    surfaces: number;
+    screenshot: string;
+  }> = [];
   let totalViolations = 0;
+  let overlayViolations = 0;
   let themeFailures = 0;
   let surfaceWarnings = 0;
+  let overlaySurfaceWarnings = 0;
 
   for (const [index, route] of uniqueRoutes.entries()) {
     const name = `${String(index + 1).padStart(3, '0')}-${route.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'home'}`;
@@ -221,6 +264,54 @@ async function main(): Promise<void> {
     for (const surface of result.lightSurfaces.slice(0, 3)) {
       console.log(`  light surface: <${surface.tag}> ${surface.background} area=${surface.area} class=${surface.className}`);
     }
+
+    for (const [triggerIndex, triggerName] of (OVERLAY_TRIGGERS[route] ?? []).entries()) {
+      let trigger = page.getByRole('button', { name: triggerName, exact: false }).first();
+      if ((await trigger.count()) === 0) {
+        trigger = page.getByRole('combobox', { name: triggerName, exact: false }).first();
+      }
+      if ((await trigger.count()) === 0) {
+        console.log(`  overlay skip: no button or combobox matching "${triggerName}"`);
+        continue;
+      }
+      try {
+        await trigger.click({ timeout: 3_000 });
+      } catch {
+        console.log(`  overlay skip: could not click "${triggerName}"`);
+        continue;
+      }
+      await page.waitForTimeout(400);
+
+      const overlayViolationsList = await runAxe(page);
+      const overlaySurfacesList = (await scanPage(page)).lightSurfaces;
+      const overlayScreenshot = path.join(OUT, `${name}-overlay-${triggerIndex + 1}.jpg`);
+      await page.screenshot({ path: overlayScreenshot, type: 'jpeg', quality: 70 });
+
+      overlayViolations += overlayViolationsList.length;
+      overlaySurfaceWarnings += overlaySurfacesList.length;
+      overlayRows.push({
+        route,
+        trigger: triggerName,
+        failures: overlayViolationsList.length,
+        surfaces: overlaySurfacesList.length,
+        screenshot: overlayScreenshot,
+      });
+
+      console.log(
+        `  overlay ${overlayViolationsList.length === 0 ? 'PASS' : 'FAIL'}: "${triggerName}" violations=${overlayViolationsList.length} lightSurfaces=${overlaySurfacesList.length}`
+      );
+      for (const violation of overlayViolationsList) {
+        console.log(`    [${violation.impact ?? 'unknown'}] ${violation.id}: ${violation.help} (${violation.nodes.length})`);
+        for (const node of violation.nodes.slice(0, 2)) {
+          console.log(`      ${node.target.join(' ')}`);
+        }
+      }
+
+      // Escape closes dialogs, drawers, menus, popovers, palettes and select
+      // menus. Toasts auto-dismiss; a stray Escape is harmless.
+      await page.keyboard.press('Escape').catch(() => undefined);
+      await page.waitForTimeout(250);
+    }
   }
 
   await browser.close();
@@ -233,12 +324,15 @@ async function main(): Promise<void> {
     `- Base URL: ${BASE}`,
     `- Routes: ${uniqueRoutes.length}`,
     `- Violation groups: ${totalViolations}`,
+    `- Overlay panels opened: ${overlayRows.length}`,
+    `- Overlay violation groups: ${overlayViolations}`,
     `- Theme not applied: ${themeFailures}`,
     `- Large light surface warnings: ${surfaceWarnings}`,
+    `- Overlay light surface warnings: ${overlaySurfaceWarnings}`,
     `- Screenshots: ${OUT}`,
     '',
-    totalViolations === 0 && themeFailures === 0
-      ? '**Result: every audited route rendered in dark mode with no WCAG 2.2 A/AA axe violations.**'
+    totalViolations === 0 && overlayViolations === 0 && themeFailures === 0
+      ? '**Result: every audited route and opened overlay rendered in dark mode with no WCAG 2.2 A/AA axe violations.**'
       : '**Result: failures found. See the failing routes below.**',
     '',
     '## Failing routes',
@@ -257,13 +351,27 @@ async function main(): Promise<void> {
       ? 'None. No large light background was found outside intentional inverse/brand sections.'
       : 'Large light backgrounds were found. Review the screenshots and the flagged routes.',
     '',
+    '## Overlay checks',
+    '',
+    overlayRows.length === 0
+      ? 'None opened.'
+      : [
+          '| Route | Trigger | Violations | Light surfaces |',
+          '|---|---|---|---|',
+          ...overlayRows.map(
+            (row) => `| \`${row.route}\` | ${row.trigger} | ${row.failures} | ${row.surfaces} |`
+          ),
+        ].join('\n'),
+    '',
   ];
   fs.writeFileSync(REPORT, lines.join('\n'));
 
-  console.log(`\n${uniqueRoutes.length} routes, ${totalViolations} violation group(s), ${themeFailures} theme failure(s), ${surfaceWarnings} light-surface warning(s).`);
+  console.log(
+    `\n${uniqueRoutes.length} routes, ${overlayRows.length} overlay panels, ${totalViolations} page violation group(s), ${overlayViolations} overlay violation group(s), ${themeFailures} theme failure(s), ${surfaceWarnings + overlaySurfaceWarnings} light-surface warning(s).`
+  );
   console.log(`Report: ${REPORT}`);
   console.log(`Screenshots: ${OUT}`);
-  process.exit(totalViolations > 0 || themeFailures > 0 ? 1 : 0);
+  process.exit(totalViolations > 0 || overlayViolations > 0 || themeFailures > 0 ? 1 : 0);
 }
 
 main().catch((error: unknown) => {

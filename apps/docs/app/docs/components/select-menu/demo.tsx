@@ -38,7 +38,7 @@ export default function SelectMenuPage() {
         { name: 'renderValue / renderItem', type: 'function', description: 'Custom trigger content and option rows.' },
       ]}
       accessibility={[
-        'Button + listbox pattern: aria-haspopup, aria-expanded, aria-activedescendant, aria-selected.',
+        'Select-only combobox + listbox pattern: aria-haspopup, aria-expanded, aria-activedescendant, aria-selected.',
         'Arrows move, Home/End jump, Enter/Space select, Escape closes; first-letter typeahead.',
         'Disabled options expose aria-disabled and are skipped by keyboard movement.',
       ]}

@@ -42,7 +42,7 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-098 | PageHeader `documentHead()` helper + docs |
 | SLIP-101 | React dedupe note for linked checkouts |
 | SLIP-102 | `ListItem.description` accepts ReactNode; manifest and docs updated |
-| SLIP-103 | Dark-mode audit across 140 component/docs routes; 15 failure groups fixed |
+| SLIP-103 | Dark-mode audit across 140 routes + 20 overlays; all failures fixed |
 
 ## Blocked / not completed (11)
 
@@ -127,13 +127,13 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 109 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |
 | SLIP-102 | **Done** | `ListItem.description` accepts ReactNode; manifest and docs updated |
-| SLIP-103 | **Done** | Dark-mode audit: 140 routes, 0 violations, 0 theme failures |
+| SLIP-103 | **Done** | Dark-mode audit: 140 routes + 20 overlays, 0 violations |
 
 ## Verification
 
 ```bash
 pnpm typecheck                  # 17 packages
-pnpm test                       # core 638, ai 148, app 375, mcp 11, starter 25
+pnpm test                       # core 639, ai 148, app 375, mcp 11, starter 25
 pnpm validate:manifests         # 109 valid, 0 drift, counts match
 pnpm check:llm                  # 109 manifests ↔ markdown
 pnpm report:manifests           # 109 components, 0 gaps
@@ -143,7 +143,7 @@ pnpm verify:tailwind-v4         # compile fixture
 pnpm --filter slipstream-ui-docs typecheck
 pnpm --filter slipstream-ui-docs build   # 149 routes
 pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # light + dark, 26 page runs
-pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111   # 140 routes, 0 violations
+pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111   # 140 routes + 20 overlays, 0 violations
 pnpm --filter slipstream-ai-chat-starter build
 ```
 

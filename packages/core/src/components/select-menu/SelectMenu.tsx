@@ -265,6 +265,7 @@ export const SelectMenu = React.forwardRef<HTMLButtonElement, SelectMenuProps>(f
       <button
         ref={setTriggerRef}
         type="button"
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listboxId : undefined}
@@ -292,6 +293,7 @@ export const SelectMenu = React.forwardRef<HTMLButtonElement, SelectMenuProps>(f
             ref={listRef}
             id={listboxId}
             role="listbox"
+            tabIndex={-1}
             aria-labelledby={labelId}
             aria-multiselectable={multiple || undefined}
             style={{
