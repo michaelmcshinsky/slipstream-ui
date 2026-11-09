@@ -1,0 +1,113 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "load-more",
+  "name": "load-more",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.6.1",
+  "sourceDir": "load-more",
+  "exportName": "LoadMore",
+  "description": "Load-more control with pending and end-of-list states.",
+  "designIntent": "Paginated lists without page numbers need one consistent load-more control that announces loading and the end of the list. LoadMore keeps the row layout and state copy in one place.",
+  "props": [
+    {
+      "name": "hasMore",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether another page is available."
+    },
+    {
+      "name": "onLoadMore",
+      "type": "() => void",
+      "required": true,
+      "description": "Request the next page."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Loading state."
+    },
+    {
+      "name": "loadLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Load more",
+      "description": "Button label."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Loading...",
+      "description": "Loading label."
+    },
+    {
+      "name": "endLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "You're all caught up.",
+      "description": "End-of-list message."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal grid pagination",
+      "code": "<LoadMore hasMore={hasMore} loading={loading} onLoadMore={loadNextPage} />",
+      "description": "A load-more control below a card grid."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't keep the button when the list is complete",
+      "explanation": "Replace the button with the end message so there is no dead action.",
+      "example": "<LoadMore hasMore={false} onLoadMore={load} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live state",
+      "implementation": "The wrapper uses aria-live polite; loading disables the button and sets aria-busy",
+      "userRequirements": "Keep loading and end labels short"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place LoadMore below the card grid",
+      "example": "<Grid>...</Grid><LoadMore ... />"
+    }
+  ],
+  "relatedComponents": [
+    "Pagination",
+    "DataTable",
+    "DealCard",
+    "EntityCard"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/load-more/LoadMore.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Button } from '../button/Button';\n\nexport type LoadMoreProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Whether another page is available. */\n  hasMore: boolean;\n  /** Request the next page. */\n  onLoadMore: () => void;\n  /** Loading state. */\n  loading?: boolean;\n  /** Button label. Default \"Load more\". */\n  loadLabel?: string;\n  /** Loading label. Default \"Loading...\". */\n  loadingLabel?: string;\n  /** End-of-list message. Default \"You're all caught up.\" */\n  endLabel?: string;\n};\n\n/**\n * Load-more control for paginated lists without page numbers. While loading it\n * disables the button and sets aria-busy; at the end it replaces the button\n * with a polite status message.\n */\nexport const LoadMore = React.forwardRef<HTMLDivElement, LoadMoreProps>(function LoadMore(\n  {\n    hasMore,\n    onLoadMore,\n    loading = false,\n    loadLabel = 'Load more',\n    loadingLabel = 'Loading...',\n    endLabel = \"You're all caught up.\",\n    className,\n    ...props\n  },\n  ref\n) {\n  return (\n    <div ref={ref} aria-live=\"polite\" className={cn('flex w-full justify-center py-4', className)} {...props}>\n      {hasMore ? (\n        <Button type=\"button\" variant=\"outline\" onClick={onLoadMore} loading={loading}>\n          {loading ? loadingLabel : loadLabel}\n        </Button>\n      ) : (\n        <p role=\"status\" className=\"text-sm text-muted-foreground\">\n          {endLabel}\n        </p>\n      )}\n    </div>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/load-more/index.ts",
+      "content": "export { LoadMore } from './LoadMore';\nexport type { LoadMoreProps } from './LoadMore';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/load-more.manifest.json",
+      "content": "{\n  \"id\": \"load-more\",\n  \"name\": \"LoadMore\",\n  \"tier\": \"molecule\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.6.1\",\n  \"sourceDir\": \"load-more\",\n  \"exportName\": \"LoadMore\",\n  \"description\": \"Load-more control with pending and end-of-list states.\",\n  \"designIntent\": \"Paginated lists without page numbers need one consistent load-more control that announces loading and the end of the list. LoadMore keeps the row layout and state copy in one place.\",\n  \"props\": [\n    {\n      \"name\": \"hasMore\",\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"description\": \"Whether another page is available.\"\n    },\n    {\n      \"name\": \"onLoadMore\",\n      \"type\": \"() => void\",\n      \"required\": true,\n      \"description\": \"Request the next page.\"\n    },\n    {\n      \"name\": \"loading\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Loading state.\"\n    },\n    {\n      \"name\": \"loadLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Load more\",\n      \"description\": \"Button label.\"\n    },\n    {\n      \"name\": \"loadingLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Loading...\",\n      \"description\": \"Loading label.\"\n    },\n    {\n      \"name\": \"endLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"You're all caught up.\",\n      \"description\": \"End-of-list message.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Deal grid pagination\",\n      \"code\": \"<LoadMore hasMore={hasMore} loading={loading} onLoadMore={loadNextPage} />\",\n      \"description\": \"A load-more control below a card grid.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't keep the button when the list is complete\",\n      \"explanation\": \"Replace the button with the end message so there is no dead action.\",\n      \"example\": \"<LoadMore hasMore={false} onLoadMore={load} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Live state\",\n      \"implementation\": \"The wrapper uses aria-live polite; loading disables the button and sets aria-busy\",\n      \"userRequirements\": \"Keep loading and end labels short\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Place LoadMore below the card grid\",\n      \"example\": \"<Grid>...</Grid><LoadMore ... />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Pagination\",\n    \"DataTable\",\n    \"DealCard\",\n    \"EntityCard\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

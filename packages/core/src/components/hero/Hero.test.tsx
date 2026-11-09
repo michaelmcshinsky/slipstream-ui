@@ -27,6 +27,20 @@ describe('Hero', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Section hero' })).toBeInTheDocument();
   });
 
+  it('supports stacked and overlay layouts', () => {
+    const { rerender, container } = render(
+      <Hero title="Stacked" media={<img src="/shot.png" alt="Product shot" />} variant="stacked" />
+    );
+    expect(container.firstChild).toHaveClass('flex-col');
+    expect(screen.getByAltText('Product shot')).toBeInTheDocument();
+
+    rerender(
+      <Hero title="Overlay" media={<img src="/shot.png" alt="Product shot" />} variant="overlay" />
+    );
+    expect(container.firstChild).toHaveClass('relative', 'isolate');
+    expect(screen.getByRole('heading', { level: 1, name: 'Overlay' })).toHaveClass('text-background');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Hero title="Headline" description="Supporting copy" />);
     expect(await axe(container)).toHaveNoViolations();

@@ -31,7 +31,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 87
+## Core components (@slipstream-ui/core) — 92
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -57,9 +57,12 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - DatePicker — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 - DateRangePicker — Start/end date range with ISO strings and quick presets.
+- DealCard — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - Dialog — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
+- DocumentCard — Document row with file metadata, access status and an optional download action.
 - Drawer — Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 - EmptyState — Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
+- EntityCard — Firm or member profile card with logo, type, location, stats, tags and actions.
 - FeatureGrid — Grid of feature or benefit cards with an icon, title, copy and optional link.
 - FeatureRow — Alternating media and copy row for mid-page feature sections.
 - Fieldset — Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
@@ -73,13 +76,14 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - FormLayout — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 - Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
-- Hero — Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- Hero — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 - Input — A text input field with support for various input types and standard HTML input attributes
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
 - Link — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - LinkTabs — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - List / ListItem — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- LoadMore — Load-more control with pending and end-of-list states.
 - LogoCloud — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
@@ -106,11 +110,11 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Skeleton — A loading placeholder that mirrors the shape of upcoming content
 - Spinner — Indeterminate loading indicator with accessible status semantics.
 - StatBand — Semantic description list of headline stats with labels, optional hints and column presets.
-- Stepper — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
+- Stepper — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 - Switch — A toggle switch for binary settings, with role=switch and aria-checked
 - Table — Semantic data table with headers, body, footer, and accessible caption
 - TableCard — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
-- TableOfContents — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
+- TableOfContents — Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - Tabs — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - Testimonial — Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 - Text — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
@@ -119,6 +123,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - TimePicker — Native time field with an HH:MM contract and an optional clear button.
 - Timeline — Vertical chronology for experience, activity and audit trails, built on an ordered list.
 - Toast — Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
+- TombstoneCard — Placeholder card for archived, closed or unavailable marketplace items.
 - Tooltip — Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 <!-- generated:core:end -->
 
@@ -158,9 +163,10 @@ Prefer these over HTML pages when generating code.
 ## MCP Server
 The MCP server provides tools for AI agents:
 - list_components - Query available components with filters
+- search_components - Find components by capability keywords
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
-- validate_usage - Validate generated JSX against a component manifest before emitting; detects hallucinated props and missing required props
+- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, and missing required props
 
 ## Production UX notes
 - Components are stateless; consumers own thread/conversation state

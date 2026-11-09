@@ -47,7 +47,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 36 | SLIP-072 | P1 | 18h | Ready | Depends on SLIP-070 (done) |
 | 37 | SLIP-073 | P0 | 18h | Done | 4 dashboard filter components shipped |
 | 38 | SLIP-074 | P0 | 28h | Ready | Depends on SLIP-070 (done); chart-library decision |
-| 39 | SLIP-075 | P0 | 18h | Ready | Depends on SLIP-070 (done) |
+| 39 | SLIP-075 | P0 | 18h | Done | 5 marketplace cards shipped |
 | 40 | SLIP-076 | P1 | 26h | Blocked | Depends on SLIP-075 |
 | 41 | SLIP-077 | P0 | 24h | Ready | Depends on SLIP-070 (done) |
 | 42 | SLIP-078 | P0 | 14h | Ready | Independent package |
@@ -68,7 +68,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 1 | SLIP-090 | P0 | 3h | Done | validate_usage parser + native attrs |
 | 2 | SLIP-091 | P0 | 2h | Done | AppShell rail + Sidebar nested active |
 | 3 | SLIP-092 | P1 | 1h | Done | SiteHeader nav labels |
-| 4 | SLIP-099 | P0 | 2h | Blocked + external | Needs npm publish auth |
+| 4 | SLIP-099 | P0 | 2h | Done | core/themes 0.6.1 + mcp-server 0.3.1 published with provenance |
 | 5 | SLIP-095 | P1 | 2h | Done | RHF compatibility guide |
 | 6 | SLIP-096 | P1 | 3h | Done | Packaged stylesheet smoke test |
 | 7 | SLIP-100 | P1 | 1h | Done | Regenerate docs after concurrent work |
@@ -78,6 +78,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 11 | SLIP-098 | P3 | 3h | Done | PageHeader head helper |
 | 12 | SLIP-101 | P2 | 1h | Done | React dedupe note for linked checkouts |
 | 13 | SLIP-102 | P2 | 1h | Done | Rich ListItem descriptions for composite rows |
+| 14 | SLIP-103 | P1 | 10h | Done | Dark-mode audit: 140 routes + 20 overlays, 0 violations |
 
 ## i18n epic (2026-11-07)
 
@@ -105,4 +106,5 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 7 | SLIP-109 | P3 | 1h | Ready | vitest 5 peer wants `@types/node` 22+; root pins 20.19.43 |
 
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
+
 

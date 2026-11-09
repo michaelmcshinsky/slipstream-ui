@@ -127,11 +127,11 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
           language="text"
           code={`mcp: validate_usage({
   componentId: "prompt-input",
-  props: { onSubmitChat: "…", isBusy: true }   // <- invented props
+  code: "<PromptInput onSubmitChat={send} isBusy />"   // invented props
 })
-=> { ok: false, issues: [
-     { prop: "onSubmitChat", problem: "unknown", suggestion: "onSubmit" },
-     { prop: "isBusy",       problem: "unknown", suggestion: "isLoading" }
+=> { valid: false, issues: [
+     { severity: "error", message: "Unknown prop: onSubmitChat" },
+     { severity: "error", message: "Unknown prop: isBusy" }
    ] }`}
         />
       </div>
@@ -154,7 +154,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
             href="https://github.com/michaelmcshinsky/slipstream-ui/blob/main/.github/workflows/ci.yml"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-primary underline underline-offset-2"
           >
             ci.yml
           </a>

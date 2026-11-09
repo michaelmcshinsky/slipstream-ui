@@ -27,6 +27,7 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'Getting Started',
     items: [
       { href: '/docs', label: 'Introduction' },
+      { href: '/docs/getting-started', label: 'Quickstart' },
       { href: '/docs/installation', label: 'Installation' },
       { href: '/docs/tailwind-v4', label: 'Tailwind v4' },
       { href: '/docs/compatibility', label: 'Compatibility' },
@@ -37,6 +38,7 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: 'AI-First',
     items: [
+      { href: '/docs/ai-first', label: 'Overview' },
       { href: '/docs/ai-manifests', label: 'COMPONENT_MANIFEST' },
       { href: '/docs/cli', label: 'CLI' },
       { href: '/docs/patterns', label: 'Patterns' },
@@ -114,6 +116,16 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/newsletter', label: 'Newsletter' },
           { href: '/docs/components/contact-strip', label: 'ContactStrip' },
           { href: '/docs/components/announcement-bar', label: 'AnnouncementBar' },
+        ],
+      },
+      {
+        title: 'Marketplace',
+        items: [
+          { href: '/docs/components/deal-card', label: 'DealCard' },
+          { href: '/docs/components/entity-card', label: 'EntityCard' },
+          { href: '/docs/components/tombstone-card', label: 'TombstoneCard' },
+          { href: '/docs/components/document-card', label: 'DocumentCard' },
+          { href: '/docs/components/load-more', label: 'LoadMore' },
         ],
       },
       {
@@ -246,3 +258,4 @@ export function getNeighbors(href: string): { previous?: NavItem; next?: NavItem
     next: index < FLAT_NAV.length - 1 ? FLAT_NAV[index + 1] : undefined,
   };
 }
+// trigger ci

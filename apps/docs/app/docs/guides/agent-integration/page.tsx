@@ -91,15 +91,17 @@ export default function AgentIntegrationGuidePage() {
 3. agent writes JSX
      <PromptInput onSubmit={handle} isLoading={busy} onStop={stop} />
 
-4. validate_usage({ componentId: "prompt-input", props: [...] })
-     -> ok: true     (or flags hallucinated / missing required props)
+4. validate_usage({ componentId: "prompt-input", code: "<PromptInput ... />" })
+     -> { valid: true, issues: [] }   (or flags hallucinated / invalid / missing props)
 
 5. emit only after validation passes`}
         />
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code> catches invented prop
-        names, wrong types, and missing requireds — the three ways agents usually break component APIs.
+        names, values outside a documented enum, and missing required props - the three ways agents
+        usually break component APIs. It also returns the manifest&apos;s anti-patterns so the agent can
+        re-check intent.
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
@@ -119,7 +121,7 @@ GET /llm/components/<id>.md    -> props, anti-patterns, a11y, composition`}
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
         Point tools that support <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">llms.txt</code> at{' '}
-        <a href="/llms.txt" className="font-medium text-primary hover:underline">slipstreamui.com/llms.txt</a>; per-component
+        <a href="/llms.txt" className="font-medium text-primary underline underline-offset-2">slipstreamui.com/llms.txt</a>; per-component
         pages are generated from the manifests on every build, so they cannot drift.
       </p>
 

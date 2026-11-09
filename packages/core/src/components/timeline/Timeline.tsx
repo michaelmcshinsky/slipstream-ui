@@ -38,11 +38,11 @@ export const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(functi
             />
             {index < items.length - 1 && <span aria-hidden="true" className="mt-1 w-px flex-1 bg-border" />}
           </div>
-          <div className={cn('min-w-0 pb-1', item.muted && 'opacity-60')}>
+          <div className="min-w-0 pb-1">
             {item.period && (
               <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{item.period}</p>
             )}
-            <p className="text-sm font-semibold">{item.title}</p>
+            <p className={cn('text-sm font-semibold', item.muted && 'text-muted-foreground')}>{item.title}</p>
             {item.description && <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>}
             {item.icon && <div className="mt-1 text-muted-foreground [&_svg]:size-4">{item.icon}</div>}
           </div>

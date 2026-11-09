@@ -29,15 +29,15 @@ export default function FieldsetPage() {
         preview={
           <div className="w-full max-w-sm">
             <Fieldset legend="Notification preferences" description="Applies to every project in this workspace">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 py-1">
                 <Checkbox id="fs-product" aria-label="Product updates" defaultChecked />
                 <Label htmlFor="fs-product">Product updates</Label>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 py-1">
                 <Checkbox id="fs-security" aria-label="Security alerts" defaultChecked />
                 <Label htmlFor="fs-security">Security alerts</Label>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 py-1">
                 <Checkbox id="fs-tips" aria-label="Tips" />
                 <Label htmlFor="fs-tips">Tips &amp; tricks</Label>
               </div>

@@ -7,8 +7,8 @@
   "version": "0.6.1",
   "sourceDir": "hero",
   "exportName": "Hero",
-  "description": "Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
-  "designIntent": "Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and the split/centered layouts while leaving the band tone and padding to Section.",
+  "description": "Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
+  "designIntent": "Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and four responsive layouts (split, centered, stacked, overlay) while leaving the band tone and padding to Section.",
   "props": [
     {
       "name": "title",
@@ -44,7 +44,7 @@
       "name": "media",
       "type": "ReactNode",
       "required": false,
-      "description": "Product shot, illustration, video or form shown beside the copy."
+      "description": "Product shot, illustration, video or form shown beside or behind the copy."
     },
     {
       "name": "mediaPosition",
@@ -55,7 +55,7 @@
         "left",
         "right"
       ],
-      "description": "Which side the media sits on at lg and up."
+      "description": "Which side the media sits on at lg and up in the split layout."
     },
     {
       "name": "align",
@@ -88,9 +88,15 @@
     },
     {
       "name": "variant",
-      "type": "'split' | 'centered'",
+      "type": "'split' | 'centered' | 'stacked' | 'overlay'",
       "required": false,
-      "description": "Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided."
+      "enum": [
+        "split",
+        "centered",
+        "stacked",
+        "overlay"
+      ],
+      "description": "Layout. split puts copy and media side by side at lg and up; centered stacks copy in a narrow column; stacked puts copy above full-width media; overlay places media behind the copy with a theme-aware scrim. Defaults to split when media is provided and centered without it."
     },
     {
       "name": "as",
@@ -127,18 +133,39 @@
       "type": "string",
       "required": false,
       "description": "Extra classes for the badge wrapper."
+    },
+    {
+      "name": "mediaClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the media wrapper."
     }
   ],
   "examples": [
     {
       "title": "Split hero",
       "code": "<Section tone=\"inverse\">\n  <Hero\n    badge=\"The private deal network\"\n    title=\"Find your next buyer.\"\n    description=\"Join 20,000+ investors and advisors.\"\n    actions={<Button>Get started</Button>}\n    media={<ProductMockup />}\n  />\n</Section>",
-      "description": "Copy on the left, product media on the right."
+      "description": "Copy on the left, product media on the right; stacks on small screens."
+    },
+    {
+      "title": "Reversed split hero",
+      "code": "<Hero\n  mediaPosition=\"left\"\n  eyebrow=\"Network overview\"\n  title=\"A fragmented market, made easier\"\n  description=\"Current activity across the network.\"\n  media={<ProductMockup />}\n/>",
+      "description": "Media on the left at lg and up without changing DOM order."
     },
     {
       "title": "Centered hero",
       "code": "<Hero\n  align=\"center\"\n  eyebrow=\"Network overview\"\n  title=\"A fragmented market, made easier\"\n  description=\"Current activity across the network.\"\n/>",
       "description": "A narrow centered hero for a page band."
+    },
+    {
+      "title": "Stacked hero",
+      "code": "<Hero\n  variant=\"stacked\"\n  eyebrow=\"Product tour\"\n  title=\"Every deal in one workspace\"\n  description=\"Understand the pipeline before the first call.\"\n  media={<DashboardScreenshot />}\n/>",
+      "description": "Copy above full-width media, useful for wide screenshots."
+    },
+    {
+      "title": "Overlay hero",
+      "code": "<Hero\n  variant=\"overlay\"\n  align=\"center\"\n  badge=\"Spring cohort\"\n  title=\"Dance all night in Provo\"\n  description=\"Three rooms, one badge, live music until midnight.\"\n  actions={<Button>Get tickets</Button>}\n  media={<img src=\"/ballroom.jpg\" alt=\"\" />}\n/>",
+      "description": "Media behind the copy; the scrim and ink invert automatically in dark mode."
     }
   ],
   "antiPatterns": [
@@ -151,6 +178,11 @@
       "title": "Don't hardcode the band color",
       "explanation": "Wrap Hero in Section and use its tone so child tokens stay readable.",
       "example": "<Section tone=\"inverse\"><Hero title=\".\" /></Section>"
+    },
+    {
+      "title": "Don't put busy media behind overlay copy",
+      "explanation": "The overlay scrim protects contrast, but high-detail media still hurts legibility. Use a calm crop and keep copy short.",
+      "example": "<Hero variant=\"overlay\" media={<img src=\"/calm-crop.jpg\" alt=\"\" />} title=\"One short line\" />"
     }
   ],
   "accessibility": [

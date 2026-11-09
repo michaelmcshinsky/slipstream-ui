@@ -201,9 +201,9 @@ npx @slipstream-ui/cli@latest diff`} />
 
       <p className="mt-10 text-sm text-muted-foreground">
         Prefer source copies over packages? See{' '}
-        <Link href="/docs/installation" className="font-medium text-primary hover:underline">Installation</Link>{' '}
+        <Link href="/docs/installation" className="font-medium text-primary underline underline-offset-2">Installation</Link>{' '}
         for the shadcn-compatible registry path, or{' '}
-        <Link href="/docs/theming" className="font-medium text-primary hover:underline">Theming</Link> for{' '}
+        <Link href="/docs/theming" className="font-medium text-primary underline underline-offset-2">Theming</Link> for{' '}
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">createTheme()</code> setup.
       </p>
     </div>

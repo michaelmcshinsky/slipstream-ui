@@ -178,7 +178,7 @@ export default function PatternsPage() {
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
         Full recipes for the surfaces AI products actually ship. Every one is stateless — you own
         the transport and the state. Prefer a complete copy-paste app? Start from the{' '}
-        <Link href="/docs/templates" className="font-medium text-primary hover:underline">
+        <Link href="/docs/templates" className="font-medium text-primary underline underline-offset-2">
           templates
         </Link>
         .
@@ -225,7 +225,7 @@ export default function PatternsPage() {
           call for Vercel AI SDK's <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">useChat</code>, a LangGraph stream, or
           WebSocket frames — the components only consume <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">messages</code> and{' '}
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">streamingMessageId</code>. See{' '}
-          <Link href="/docs/components/conversation" className="font-medium text-primary hover:underline">
+          <Link href="/docs/components/conversation" className="font-medium text-primary underline underline-offset-2">
             Conversation
           </Link>{' '}
           for the full prop contract.

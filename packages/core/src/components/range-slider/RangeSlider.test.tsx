@@ -33,6 +33,14 @@ describe('RangeSlider', () => {
     expect(onValueChange).toHaveBeenLastCalledWith([80, 80]);
   });
 
+  it('centres the WebKit thumb on the track', () => {
+    const { container } = render(<RangeSlider defaultValue={[25, 75]} />);
+    const inputs = container.querySelectorAll<HTMLInputElement>('input[type="range"]');
+    // Track is 4px tall, thumb 16px: -6px keeps the thumb centred instead of
+    // flush with the track's top edge.
+    expect(inputs[0]?.className).toContain('[&::-webkit-slider-thumb]:mt-[-6px]');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<RangeSlider defaultValue={[25, 75]} />);
     expect(await axe(container)).toHaveNoViolations();

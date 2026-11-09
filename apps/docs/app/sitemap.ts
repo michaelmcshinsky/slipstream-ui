@@ -4,7 +4,7 @@ import { FLAT_NAV } from '@/lib/nav';
 const BASE_URL = 'https://slipstreamui.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const LAST_UPDATED = new Date('2026-11-04');
+  const LAST_UPDATED = new Date('2026-11-09');
   const staticRoutes = ['', '/changelog', '/about', '/accessibility', '/contact', '/privacy', '/terms', '/llm/index.md'].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: LAST_UPDATED,

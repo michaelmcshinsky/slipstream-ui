@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 104,
+  "count": 109,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -253,12 +253,28 @@
       "registry": "/registry/date-range-picker.json"
     },
     {
+      "id": "deal-card",
+      "name": "DealCard",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.",
+      "registry": "/registry/deal-card.json"
+    },
+    {
       "id": "dialog",
       "name": "Dialog",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "description": "Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
       "registry": "/registry/dialog.json"
+    },
+    {
+      "id": "document-card",
+      "name": "DocumentCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Document row with file metadata, access status and an optional download action.",
+      "registry": "/registry/document-card.json"
     },
     {
       "id": "drawer",
@@ -275,6 +291,14 @@
       "tier": "molecule",
       "description": "Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
       "registry": "/registry/empty-state.json"
+    },
+    {
+      "id": "entity-card",
+      "name": "EntityCard",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Firm or member profile card with logo, type, location, stats, tags and actions.",
+      "registry": "/registry/entity-card.json"
     },
     {
       "id": "feature-grid",
@@ -385,7 +409,7 @@
       "name": "Hero",
       "package": "@slipstream-ui/core",
       "tier": "organism",
-      "description": "Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
+      "description": "Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
       "registry": "/registry/hero.json"
     },
     {
@@ -443,6 +467,14 @@
       "tier": "molecule",
       "description": "Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.",
       "registry": "/registry/list.json"
+    },
+    {
+      "id": "load-more",
+      "name": "LoadMore",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Load-more control with pending and end-of-list states.",
+      "registry": "/registry/load-more.json"
     },
     {
       "id": "logo-cloud",
@@ -705,7 +737,7 @@
       "name": "Stepper",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
+      "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.",
       "registry": "/registry/stepper.json"
     },
     {
@@ -753,7 +785,7 @@
       "name": "TableOfContents",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
+      "description": "Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
       "registry": "/registry/table-of-contents.json"
     },
     {
@@ -819,6 +851,14 @@
       "tier": "molecule",
       "description": "Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.",
       "registry": "/registry/toast.json"
+    },
+    {
+      "id": "tombstone-card",
+      "name": "TombstoneCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Placeholder card for archived, closed or unavailable marketplace items.",
+      "registry": "/registry/tombstone-card.json"
     },
     {
       "id": "tool-call",

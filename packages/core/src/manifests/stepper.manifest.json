@@ -2,8 +2,8 @@
   "id": "stepper",
   "name": "Stepper",
   "tier": "molecule",
-  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.",
-  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.",
+  "description": "Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.",
+  "designIntent": "Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color. Four responsive shapes (inline labels, labels below, vertical timeline, compact dots) cover onboarding, checkout, and narrow sidebars.",
   "props": [
     {
       "name": "steps",
@@ -29,6 +29,50 @@
       ]
     },
     {
+      "name": "variant",
+      "type": "'numbered' | 'dots'",
+      "required": false,
+      "defaultValue": "numbered",
+      "description": "Marker style. numbered shows the step number and a check when complete; dots is the compact progress variant with no numbers.",
+      "enum": [
+        "numbered",
+        "dots"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Marker and label scale.",
+      "enum": [
+        "sm",
+        "md"
+      ]
+    },
+    {
+      "name": "labelPlacement",
+      "type": "'inline' | 'below'",
+      "required": false,
+      "defaultValue": "inline",
+      "description": "Horizontal only: place the label beside the marker or beneath it.",
+      "enum": [
+        "inline",
+        "below"
+      ]
+    },
+    {
+      "name": "alignTitles",
+      "type": "'start' | 'center'",
+      "required": false,
+      "defaultValue": "center",
+      "description": "Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned.",
+      "enum": [
+        "start",
+        "center"
+      ]
+    },
+    {
       "name": "onStepClick",
       "type": "(index: number) => void",
       "required": false,
@@ -37,9 +81,24 @@
   ],
   "examples": [
     {
-      "title": "Onboarding wizard",
-      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n/>",
+      "title": "Horizontal onboarding wizard",
+      "code": "<Stepper\n  current={step}\n  steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}\n  onStepClick={setStep}\n/>",
       "description": "Current step is announced; completed steps show a check."
+    },
+    {
+      "title": "Labels below the markers",
+      "code": "<Stepper\n  current={2}\n  labelPlacement=\"below\"\n  steps={[{ label: 'Account' }, { label: 'Studio' }, { label: 'Review' }]}\n/>",
+      "description": "A wider, marketing-friendly horizontal shape."
+    },
+    {
+      "title": "Vertical timeline",
+      "code": "<Stepper\n  current={1}\n  orientation=\"vertical\"\n  steps={[\n    { label: 'Submitted', description: 'Mar 2' },\n    { label: 'Under review', description: 'Mar 4' },\n    { label: 'Decision', description: 'Mar 9' },\n  ]}\n/>",
+      "description": "A vertical connector joins the markers, suited to sidebars and activity feeds."
+    },
+    {
+      "title": "Compact dots",
+      "code": "<Stepper current={1} variant=\"dots\" size=\"sm\" steps={[{ label: 'Plan' }, { label: 'Build' }, { label: 'Ship' }]} />",
+      "description": "No numbers, small markers, for tight toolbars or mobile."
     }
   ],
   "antiPatterns": [
@@ -80,6 +139,11 @@
       "component": "Form",
       "relationship": "One Form (or Form step) per Stepper stage",
       "example": "<Stepper current={1} steps={steps} />"
+    },
+    {
+      "component": "Drawer",
+      "relationship": "A vertical dots Stepper fits a narrow drawer or settings sidebar",
+      "example": "<Drawer><Stepper current={1} orientation=\"vertical\" variant=\"dots\" steps={steps} /></Drawer>"
     }
   ],
   "relatedComponents": [

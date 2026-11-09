@@ -21,12 +21,20 @@ export type TableOfContentsProps = React.HTMLAttributes<HTMLElement> & {
   labelClassName?: string;
   /** Stick to the viewport while the article scrolls (default true). */
   sticky?: boolean;
+  /**
+   * Called with the heading id when a link is activated. The browser still
+   * performs the native anchor jump, so this is for syncing a controlled
+   * `activeId`, analytics, or closing a mobile TOC.
+   */
+  onNavigate?: (id: string) => void;
 };
 
 /**
  * "On this page" navigation for long-form content. Renders a nested list
  * with indentation per heading level and aria-current on the active item.
- * Pair with `useScrollSpy` (or your own scroll tracking) for the active id.
+ * Links are real anchors, so they scroll and update the URL with no JavaScript.
+ * Pair with `useScrollSpy` (or your own scroll tracking) for the active id,
+ * and give the target headings `scroll-mt-*` when a sticky header overlaps.
  */
 export function TableOfContents({
   headings,
@@ -35,6 +43,7 @@ export function TableOfContents({
   ariaLabel,
   labelClassName,
   sticky = true,
+  onNavigate,
   className,
   ...props
 }: TableOfContentsProps) {
@@ -53,6 +62,7 @@ export function TableOfContents({
               <a
                 href={`#${heading.id}`}
                 aria-current={active ? 'location' : undefined}
+                onClick={() => onNavigate?.(heading.id)}
                 className={cn(
                   '-ml-px block border-l py-1 pl-3 no-underline transition-colors',
                   active
@@ -101,6 +111,20 @@ export function useScrollSpy(ids: string[], options?: { rootMargin?: string }): 
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, [idKey, rootMargin]);
+
+  // Clicking a TOC anchor changes the hash before the observer reports a new
+  // intersection. Mirror the hash so the highlight follows immediately.
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const ids = idKey.split('|').filter(Boolean);
+    const syncFromHash = () => {
+      const id = window.location.hash.replace(/^#/, '');
+      if (id && ids.includes(id)) setActiveId(id);
+    };
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    return () => window.removeEventListener('hashchange', syncFromHash);
+  }, [idKey]);
 
   return activeId;
 }

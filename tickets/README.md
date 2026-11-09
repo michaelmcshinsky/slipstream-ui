@@ -120,5 +120,5 @@ Consumer-integration fixes and follow-ups. These are outside the original
 | [SLIP-101](SLIP-101.md) | docs: call out React dedupe when Slipstream is consumed from a linked checkout | 6 | P2 | 1h | M6 Integration hardening |  |
 | [SLIP-102](SLIP-102.md) | feat: accept rich content in ListItem descriptions | 6 | P2 | 1h | M6 Integration hardening |  |
 
-**Integration total:** 13 tickets, 32h (11 done, 2 open: SLIP-093 visual
-regression and SLIP-099 publish).
+**Integration total:** 13 tickets, 32h (12 done, 1 open: SLIP-093 visual
+regression).

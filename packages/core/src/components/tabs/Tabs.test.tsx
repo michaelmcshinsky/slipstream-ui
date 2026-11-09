@@ -59,6 +59,18 @@ describe('Tabs', () => {
     expect(panel).toHaveAttribute('aria-labelledby', tab.id);
   });
 
+  it('omits aria-controls when a trigger has no matching panel', () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">Only trigger</TabsTrigger>
+        </TabsList>
+      </Tabs>
+    );
+    expect(screen.getByRole('tab')).not.toHaveAttribute('aria-controls');
+    expect(screen.getByRole('tab')).toHaveAttribute('aria-selected', 'true');
+  });
+
   it('activates with Enter key', async () => {
     const user = userEvent.setup();
     render(<BasicTabs defaultValue="a" />);

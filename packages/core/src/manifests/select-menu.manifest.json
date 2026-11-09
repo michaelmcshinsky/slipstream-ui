@@ -8,7 +8,7 @@
   "sourceDir": "select-menu",
   "exportName": "SelectMenu",
   "description": "Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.",
-  "designIntent": "Native <select> cannot render rich option content. SelectMenu supplies a real listbox with the button/listbox keyboard model while keeping the same value/onValueChange contract as Select, so teams can move between the two without rewriting state.",
+  "designIntent": "Native <select> cannot render rich option content. SelectMenu supplies a real listbox behind a select-only combobox trigger with the combobox/listbox keyboard model while keeping the same value/onValueChange contract as Select, so teams can move between the two without rewriting state.",
   "props": [
     {
       "name": "items",

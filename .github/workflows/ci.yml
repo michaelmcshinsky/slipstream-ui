@@ -86,3 +86,6 @@ jobs:
 
       - name: Verify prebuilt stylesheet reset
         run: pnpm verify:prebuilt
+
+      - name: Consumer smoke build (Next 16 + Tailwind 3)
+        run: pnpm verify:consumer

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { TableOfContents } from './TableOfContents';
 
 const headings = [
@@ -22,6 +23,16 @@ describe('TableOfContents', () => {
     render(<TableOfContents headings={headings} />);
     const setupItem = screen.getByRole('link', { name: 'Setup' }).closest('li')!;
     expect(setupItem.style.paddingLeft).toBe('0.75rem');
+  });
+
+  it('reports navigation while keeping the native anchor behavior', async () => {
+    const user = userEvent.setup();
+    const onNavigate = vi.fn();
+    render(<TableOfContents headings={headings} onNavigate={onNavigate} />);
+    const link = screen.getByRole('link', { name: 'API' });
+    expect(link).toHaveAttribute('href', '#api');
+    await user.click(link);
+    expect(onNavigate).toHaveBeenCalledWith('api');
   });
 
   it('has no accessibility violations', async () => {

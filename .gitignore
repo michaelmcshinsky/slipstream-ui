@@ -8,7 +8,8 @@ coverage
 .vitest-cache
 
 # Generated reports (see pnpm report:manifests)
-reports/
+reports/*
+!reports/dark-mode-audit.md
 benchmarks/results/
 
 # Databases (generated locally by prisma db push / seed)

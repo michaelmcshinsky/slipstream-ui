@@ -1,0 +1,88 @@
+{
+  "id": "load-more",
+  "name": "LoadMore",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.6.1",
+  "sourceDir": "load-more",
+  "exportName": "LoadMore",
+  "description": "Load-more control with pending and end-of-list states.",
+  "designIntent": "Paginated lists without page numbers need one consistent load-more control that announces loading and the end of the list. LoadMore keeps the row layout and state copy in one place.",
+  "props": [
+    {
+      "name": "hasMore",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether another page is available."
+    },
+    {
+      "name": "onLoadMore",
+      "type": "() => void",
+      "required": true,
+      "description": "Request the next page."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Loading state."
+    },
+    {
+      "name": "loadLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Load more",
+      "description": "Button label."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Loading...",
+      "description": "Loading label."
+    },
+    {
+      "name": "endLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "You're all caught up.",
+      "description": "End-of-list message."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal grid pagination",
+      "code": "<LoadMore hasMore={hasMore} loading={loading} onLoadMore={loadNextPage} />",
+      "description": "A load-more control below a card grid."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't keep the button when the list is complete",
+      "explanation": "Replace the button with the end message so there is no dead action.",
+      "example": "<LoadMore hasMore={false} onLoadMore={load} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live state",
+      "implementation": "The wrapper uses aria-live polite; loading disables the button and sets aria-busy",
+      "userRequirements": "Keep loading and end labels short"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place LoadMore below the card grid",
+      "example": "<Grid>...</Grid><LoadMore ... />"
+    }
+  ],
+  "relatedComponents": [
+    "Pagination",
+    "DataTable",
+    "DealCard",
+    "EntityCard"
+  ]
+}

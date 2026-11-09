@@ -1,0 +1,183 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "deal-card",
+  "name": "deal-card",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.6.1",
+  "sourceDir": "deal-card",
+  "exportName": "DealCard",
+  "description": "Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.",
+  "designIntent": "Deal lists repeat the same card across trends, search and saved views. DealCard keeps the metrics and access state consistent and never implies NDA or CIM access without an explicit badge.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Deal headline."
+    },
+    {
+      "name": "sector",
+      "type": "string",
+      "required": true,
+      "description": "Sector or industry label."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": false,
+      "description": "Region or location."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Optional short summary."
+    },
+    {
+      "name": "metrics",
+      "type": "DealMetric[]",
+      "required": true,
+      "description": "Three headline metrics such as revenue, EBITDA and margin."
+    },
+    {
+      "name": "status",
+      "type": "'available' | 'under-nda' | 'closed' | 'draft'",
+      "required": false,
+      "defaultValue": "available",
+      "enum": [
+        "available",
+        "under-nda",
+        "closed",
+        "draft"
+      ],
+      "description": "Availability state."
+    },
+    {
+      "name": "ndaAvailable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the NDA badge."
+    },
+    {
+      "name": "cimAvailable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the CIM badge."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Optional deal detail link."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers."
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Save toggle state."
+    },
+    {
+      "name": "onSave",
+      "type": "() => void",
+      "required": false,
+      "description": "Save toggle handler."
+    },
+    {
+      "name": "saveLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Save",
+      "description": "Save button label."
+    },
+    {
+      "name": "onRequestAccess",
+      "type": "() => void",
+      "required": false,
+      "description": "Request access handler."
+    },
+    {
+      "name": "requestLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Request access",
+      "description": "Request access label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Deal opportunity",
+      "code": "<DealCard\n  title=\"Fleet services platform\"\n  sector=\"Transportation\"\n  location=\"South Atlantic\"\n  metrics={[\n    { label: 'Revenue', value: '$20.4M' },\n    { label: 'EBITDA', value: '$4.2M' },\n    { label: 'Margin', value: '21%' },\n  ]}\n  ndaAvailable\n  cimAvailable\n  onRequestAccess={requestAccess}\n/>",
+      "description": "A deal card with access badges and one action."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't imply access with color",
+      "explanation": "NDA and CIM access are stated as text badges. Do not use color or a lock icon alone.",
+      "example": "<DealCard ndaAvailable cimAvailable />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Action labels",
+      "implementation": "Request access and Save are real buttons; Save exposes aria-pressed",
+      "userRequirements": "Keep the labels explicit"
+    },
+    {
+      "feature": "Metric pairs",
+      "implementation": "Metrics render as a description list",
+      "userRequirements": "Use short labels and consistent units"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Grid",
+      "relationship": "Place cards in a responsive Grid",
+      "example": "<Grid mdCols={2} gap=\"lg\"><DealCard ... /></Grid>"
+    },
+    {
+      "component": "LoadMore",
+      "relationship": "Pair a deal grid with LoadMore for paginated results",
+      "example": "<DealCard ... /><LoadMore hasMore={hasMore} onLoadMore={load} />"
+    }
+  ],
+  "relatedComponents": [
+    "Card",
+    "Badge",
+    "EntityCard",
+    "LoadMore"
+  ],
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/deal-card/DealCard.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Badge } from '../badge/Badge';\nimport { Button } from '../button/Button';\nimport { Card, CardContent, CardFooter, CardHeader } from '../card/Card';\n\nexport type DealMetric = {\n  label: string;\n  value: string;\n};\n\nexport type DealStatus = 'available' | 'under-nda' | 'closed' | 'draft';\n\nexport type DealCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {\n  /** Deal headline. */\n  title: string;\n  /** Sector or industry label. */\n  sector: string;\n  /** Region or location. */\n  location?: string;\n  /** Optional short summary. */\n  description?: string;\n  /** Three headline metrics such as revenue, EBITDA and margin. */\n  metrics: DealMetric[];\n  /** Availability state. Default 'available'. */\n  status?: DealStatus;\n  /** Show the NDA badge. */\n  ndaAvailable?: boolean;\n  /** Show the CIM badge. */\n  cimAvailable?: boolean;\n  /** Optional deal detail link. */\n  href?: string;\n  /** Custom link element for routers. */\n  linkComponent?: React.ElementType;\n  /** Save toggle state. */\n  saved?: boolean;\n  onSave?: () => void;\n  /** Save button label. Default \"Save\". */\n  saveLabel?: string;\n  /** Request access handler. */\n  onRequestAccess?: () => void;\n  /** Request access label. Default \"Request access\". */\n  requestLabel?: string;\n};\n\nconst statusConfig: Record<DealStatus, { label: string; variant: 'success' | 'info' | 'secondary' | 'outline' }> = {\n  available: { label: 'Available', variant: 'success' },\n  'under-nda': { label: 'Under NDA', variant: 'info' },\n  closed: { label: 'Closed', variant: 'secondary' },\n  draft: { label: 'Draft', variant: 'outline' },\n};\n\n/**\n * Deal opportunity card for trend, search and saved-deal surfaces. Metrics use\n * tabular numerals; NDA and CIM access are stated as text badges, not implied.\n */\nexport const DealCard = React.forwardRef<HTMLElement, DealCardProps>(function DealCard(\n  {\n    title,\n    sector,\n    location,\n    description,\n    metrics,\n    status = 'available',\n    ndaAvailable,\n    cimAvailable,\n    href,\n    linkComponent,\n    saved = false,\n    onSave,\n    saveLabel = 'Save',\n    onRequestAccess,\n    requestLabel = 'Request access',\n    className,\n    ...props\n  },\n  ref\n) {\n  const Link = linkComponent ?? 'a';\n  const statusInfo = statusConfig[status];\n\n  return (\n    <Card ref={ref as never} className={cn('flex h-full flex-col overflow-hidden', className)} {...props}>\n      <CardHeader className=\"gap-2 p-5 pb-3\">\n        <div className=\"flex items-start justify-between gap-2\">\n          <p className=\"text-xs font-semibold uppercase tracking-widest text-primary\">{sector}</p>\n          <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>\n        </div>\n        <h3 className=\"text-lg font-semibold leading-snug tracking-tight\">\n          {href ? (\n            <Link href={href} className=\"rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\">\n              {title}\n            </Link>\n          ) : (\n            title\n          )}\n        </h3>\n        {location && <p className=\"text-xs text-muted-foreground\">{location}</p>}\n      </CardHeader>\n      <CardContent className=\"flex-1 px-5 pb-3\">\n        {description && <p className=\"line-clamp-2 text-sm leading-relaxed text-muted-foreground\">{description}</p>}\n        <dl className=\"mt-4 grid grid-cols-3 gap-3\">\n          {metrics.map((metric) => (\n            <div key={metric.label} className=\"min-w-0\">\n              <dt className=\"text-xs text-muted-foreground\">{metric.label}</dt>\n              <dd className=\"mt-0.5 truncate text-sm font-semibold tabular-nums\">{metric.value}</dd>\n            </div>\n          ))}\n        </dl>\n        {(ndaAvailable || cimAvailable) && (\n          <div className=\"mt-4 flex flex-wrap gap-1.5\">\n            {ndaAvailable && <Badge variant=\"info\">NDA available</Badge>}\n            {cimAvailable && <Badge variant=\"secondary\">CIM available</Badge>}\n          </div>\n        )}\n      </CardContent>\n      <CardFooter className=\"flex flex-wrap items-center gap-2 border-t border-border px-5 py-3\">\n        {onRequestAccess && (\n          <Button type=\"button\" size=\"sm\" onClick={onRequestAccess}>\n            {requestLabel}\n          </Button>\n        )}\n        {onSave && (\n          <Button\n            type=\"button\"\n            size=\"sm\"\n            variant=\"ghost\"\n            aria-pressed={saved}\n            onClick={onSave}\n            className=\"ml-auto\"\n          >\n            {saved ? 'Saved' : saveLabel}\n          </Button>\n        )}\n      </CardFooter>\n    </Card>\n  );\n});\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/deal-card/index.ts",
+      "content": "export { DealCard } from './DealCard';\nexport type { DealCardProps, DealMetric, DealStatus } from './DealCard';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/deal-card.manifest.json",
+      "content": "{\n  \"id\": \"deal-card\",\n  \"name\": \"DealCard\",\n  \"tier\": \"organism\",\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.6.1\",\n  \"sourceDir\": \"deal-card\",\n  \"exportName\": \"DealCard\",\n  \"description\": \"Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.\",\n  \"designIntent\": \"Deal lists repeat the same card across trends, search and saved views. DealCard keeps the metrics and access state consistent and never implies NDA or CIM access without an explicit badge.\",\n  \"props\": [\n    {\n      \"name\": \"title\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Deal headline.\"\n    },\n    {\n      \"name\": \"sector\",\n      \"type\": \"string\",\n      \"required\": true,\n      \"description\": \"Sector or industry label.\"\n    },\n    {\n      \"name\": \"location\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Region or location.\"\n    },\n    {\n      \"name\": \"description\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Optional short summary.\"\n    },\n    {\n      \"name\": \"metrics\",\n      \"type\": \"DealMetric[]\",\n      \"required\": true,\n      \"description\": \"Three headline metrics such as revenue, EBITDA and margin.\"\n    },\n    {\n      \"name\": \"status\",\n      \"type\": \"'available' | 'under-nda' | 'closed' | 'draft'\",\n      \"required\": false,\n      \"defaultValue\": \"available\",\n      \"enum\": [\n        \"available\",\n        \"under-nda\",\n        \"closed\",\n        \"draft\"\n      ],\n      \"description\": \"Availability state.\"\n    },\n    {\n      \"name\": \"ndaAvailable\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Show the NDA badge.\"\n    },\n    {\n      \"name\": \"cimAvailable\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Show the CIM badge.\"\n    },\n    {\n      \"name\": \"href\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Optional deal detail link.\"\n    },\n    {\n      \"name\": \"linkComponent\",\n      \"type\": \"React.ElementType\",\n      \"required\": false,\n      \"description\": \"Custom link element for routers.\"\n    },\n    {\n      \"name\": \"saved\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"defaultValue\": \"false\",\n      \"description\": \"Save toggle state.\"\n    },\n    {\n      \"name\": \"onSave\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Save toggle handler.\"\n    },\n    {\n      \"name\": \"saveLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Save\",\n      \"description\": \"Save button label.\"\n    },\n    {\n      \"name\": \"onRequestAccess\",\n      \"type\": \"() => void\",\n      \"required\": false,\n      \"description\": \"Request access handler.\"\n    },\n    {\n      \"name\": \"requestLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Request access\",\n      \"description\": \"Request access label.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Deal opportunity\",\n      \"code\": \"<DealCard\\n  title=\\\"Fleet services platform\\\"\\n  sector=\\\"Transportation\\\"\\n  location=\\\"South Atlantic\\\"\\n  metrics={[\\n    { label: 'Revenue', value: '$20.4M' },\\n    { label: 'EBITDA', value: '$4.2M' },\\n    { label: 'Margin', value: '21%' },\\n  ]}\\n  ndaAvailable\\n  cimAvailable\\n  onRequestAccess={requestAccess}\\n/>\",\n      \"description\": \"A deal card with access badges and one action.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't imply access with color\",\n      \"explanation\": \"NDA and CIM access are stated as text badges. Do not use color or a lock icon alone.\",\n      \"example\": \"<DealCard ndaAvailable cimAvailable />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Action labels\",\n      \"implementation\": \"Request access and Save are real buttons; Save exposes aria-pressed\",\n      \"userRequirements\": \"Keep the labels explicit\"\n    },\n    {\n      \"feature\": \"Metric pairs\",\n      \"implementation\": \"Metrics render as a description list\",\n      \"userRequirements\": \"Use short labels and consistent units\"\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Grid\",\n      \"relationship\": \"Place cards in a responsive Grid\",\n      \"example\": \"<Grid mdCols={2} gap=\\\"lg\\\"><DealCard ... /></Grid>\"\n    },\n    {\n      \"component\": \"LoadMore\",\n      \"relationship\": \"Pair a deal grid with LoadMore for paginated results\",\n      \"example\": \"<DealCard ... /><LoadMore hasMore={hasMore} onLoadMore={load} />\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Card\",\n    \"Badge\",\n    \"EntityCard\",\n    \"LoadMore\"\n  ]\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

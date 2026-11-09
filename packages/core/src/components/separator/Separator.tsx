@@ -30,7 +30,7 @@ const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
       ref={ref}
       role={label ? 'separator' : 'none'}
       aria-label={label}
-      aria-orientation={orientation === 'vertical' ? 'vertical' : undefined}
+      aria-orientation={label && orientation === 'vertical' ? 'vertical' : undefined}
       className={cn(separatorVariants({ orientation }), className)}
       {...props}
     />

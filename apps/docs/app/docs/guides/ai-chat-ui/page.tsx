@@ -66,7 +66,9 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
       <div className="mt-4">
         <CodeBlock
           language="tsx"
-          code={`async function send(text: string) {
+          code={`const abortRef = useRef<AbortController | null>(null);
+
+async function send(text: string) {
   const replyId = crypto.randomUUID();
   setMessages((prev) => [
     ...prev,
@@ -75,12 +77,18 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
   ]);
   setStreamingId(replyId);
 
+  const controller = new AbortController();   // keep in a ref for Stop
+  abortRef.current = controller;
   const res = await fetch('/api/chat', {
     method: 'POST',
     body: JSON.stringify({ prompt: text }),
-    signal: controller.signal,          // kept for stop-generation
+    signal: controller.signal,
   });
-  const reader = res.body!.getReader();
+  if (!res.ok || !res.body) {
+    setStreamingId(null);
+    return;
+  }
+  const reader = res.body.getReader();
   const decoder = new TextDecoder();
   let content = '';
   for (;;) {
@@ -111,21 +119,21 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
 <PromptInput
   onSubmit={send}
   isLoading={streamingId !== null}
-  onStop={() => controller.abort()}
+  onStop={() => abortRef.current?.abort()}
 />`}
         />
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
-          <Link href="/docs/components/conversation" className="text-primary hover:underline">Conversation</Link> pins
+          <Link href="/docs/components/conversation" className="text-primary underline underline-offset-2">Conversation</Link> pins
           scroll to the latest message and exposes a scroll-to-latest pill, transcript download, and welcome state.
         </li>
         <li>
-          <Link href="/docs/components/prompt-input" className="text-primary hover:underline">PromptInput</Link> handles
+          <Link href="/docs/components/prompt-input" className="text-primary underline underline-offset-2">PromptInput</Link> handles
           Enter-to-send, Shift+Enter, auto-resize, attachments, and flips to a Stop button while loading.
         </li>
         <li>
-          <Link href="/docs/components/message-actions" className="text-primary hover:underline">MessageActions</Link>{' '}
+          <Link href="/docs/components/message-actions" className="text-primary underline underline-offset-2">MessageActions</Link>{' '}
           adds copy, thumbs up/down, and regenerate under the latest assistant message.
         </li>
       </ul>
