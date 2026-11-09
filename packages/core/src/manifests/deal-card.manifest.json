@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "deal-card",
   "exportName": "DealCard",
   "description": "Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.",
@@ -45,7 +45,12 @@
       "type": "'available' | 'under-nda' | 'closed' | 'draft'",
       "required": false,
       "defaultValue": "available",
-      "enum": ["available", "under-nda", "closed", "draft"],
+      "enum": [
+        "available",
+        "under-nda",
+        "closed",
+        "draft"
+      ],
       "description": "Availability state."
     },
     {
@@ -144,5 +149,10 @@
       "example": "<DealCard ... /><LoadMore hasMore={hasMore} onLoadMore={load} />"
     }
   ],
-  "relatedComponents": ["Card", "Badge", "EntityCard", "LoadMore"]
+  "relatedComponents": [
+    "Card",
+    "Badge",
+    "EntityCard",
+    "LoadMore"
+  ]
 }

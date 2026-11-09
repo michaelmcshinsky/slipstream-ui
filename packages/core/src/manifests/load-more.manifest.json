@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "load-more",
   "exportName": "LoadMore",
   "description": "Load-more control with pending and end-of-list states.",
@@ -79,5 +79,10 @@
       "example": "<Grid>...</Grid><LoadMore ... />"
     }
   ],
-  "relatedComponents": ["Pagination", "DataTable", "DealCard", "EntityCard"]
+  "relatedComponents": [
+    "Pagination",
+    "DataTable",
+    "DealCard",
+    "EntityCard"
+  ]
 }

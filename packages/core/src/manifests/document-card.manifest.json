@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "sourceDir": "document-card",
   "exportName": "DocumentCard",
   "description": "Document row with file metadata, access status and an optional download action.",
@@ -39,7 +39,11 @@
       "type": "'available' | 'restricted' | 'pending'",
       "required": false,
       "defaultValue": "available",
-      "enum": ["available", "restricted", "pending"],
+      "enum": [
+        "available",
+        "restricted",
+        "pending"
+      ],
       "description": "Access state."
     },
     {
@@ -95,5 +99,10 @@
       "example": "<DocumentCard name=\".\" fileType=\"PDF\" />"
     }
   ],
-  "relatedComponents": ["Card", "Badge", "Button", "FileUpload"]
+  "relatedComponents": [
+    "Card",
+    "Badge",
+    "Button",
+    "FileUpload"
+  ]
 }
