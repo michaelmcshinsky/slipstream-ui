@@ -254,17 +254,17 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
-            <a href="/docs/mcp" className="text-primary hover:underline">
+            <a href="/docs/mcp" className="text-primary underline underline-offset-2">
               Set up the MCP server
             </a>
           </li>
           <li>
-            <a href="/docs/components" className="text-primary hover:underline">
+            <a href="/docs/components" className="text-primary underline underline-offset-2">
               Explore components and their manifests
             </a>
           </li>
           <li>
-            <a href="/docs/cli" className="text-primary hover:underline">
+            <a href="/docs/cli" className="text-primary underline underline-offset-2">
               Use the CLI to add components
             </a>
           </li>

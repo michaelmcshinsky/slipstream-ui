@@ -49,6 +49,7 @@ export default function ToolCallPage() {
               <div>
                 <label className="text-sm font-medium mb-2 block">Status</label>
                 <select
+                  aria-label="Tool call status"
                   value={status}
                   onChange={(e) => setStatus(e.target.value as ToolCallStatus)}
                   className="w-full p-2 border rounded bg-background"

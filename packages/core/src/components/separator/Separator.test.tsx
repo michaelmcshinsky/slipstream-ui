@@ -22,7 +22,15 @@ describe('Separator', () => {
   it('applies the vertical orientation class', () => {
     const { container } = render(<Separator orientation="vertical" />);
     expect(container.firstChild).toHaveClass('w-px');
-    expect(container.firstChild).toHaveAttribute('aria-orientation', 'vertical');
+  });
+
+  it('only exposes aria-orientation on a semantic separator', () => {
+    const { container } = render(<Separator orientation="vertical" />);
+    expect(container.firstChild).not.toHaveAttribute('aria-orientation');
+
+    const { container: semantic } = render(<Separator orientation="vertical" label="Toolbar sections" />);
+    expect(semantic.firstChild).toHaveAttribute('role', 'separator');
+    expect(semantic.firstChild).toHaveAttribute('aria-orientation', 'vertical');
   });
 
   it('forwards className', () => {

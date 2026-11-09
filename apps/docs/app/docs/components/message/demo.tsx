@@ -51,6 +51,7 @@ export default function MessagePage() {
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
                 <select
+                  aria-label="Message role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as 'user' | 'assistant' | 'system')}
                   className="w-full p-2 border rounded bg-background"

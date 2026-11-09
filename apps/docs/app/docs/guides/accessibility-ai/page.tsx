@@ -87,7 +87,7 @@ export default function AccessibilityAiGuidePage() {
       <p className="mt-2 leading-relaxed text-muted-foreground">
         Semantic status tokens (success/warning/info) ship as CSS variables with paired
         foregrounds — status pills pass AA in both themes by default. If you override tokens via{' '}
-        <Link href="/docs/theming" className="text-primary hover:underline">createTheme</Link>,
+        <Link href="/docs/theming" className="text-primary underline underline-offset-2">createTheme</Link>,
         re-check contrast on destructive/success on your brand hues.
       </p>
 
@@ -113,7 +113,7 @@ it('chat surface has no accessibility violations', async () => {
       <p className="mt-3 text-sm text-muted-foreground">
         Also run an axe pass <em>while streaming</em> and <em>with an error card open</em> — the
         resting state alone misses half the surface. See{' '}
-        <Link href="/docs/guides/testing" className="font-medium text-primary hover:underline">Testing AI components</Link>{' '}
+        <Link href="/docs/guides/testing" className="font-medium text-primary underline underline-offset-2">Testing AI components</Link>{' '}
         for the full workflow, including manifest drift in CI.
       </p>
 

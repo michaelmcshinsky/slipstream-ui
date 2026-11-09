@@ -49,7 +49,7 @@ export default function FormPage() {
                 <button
                   type="button"
                   onClick={() => setSaved(false)}
-                  className="ml-2 font-medium text-primary underline-offset-2 hover:underline"
+                  className="ml-2 font-medium text-primary underline underline-offset-2"
                 >
                   Edit again
                 </button>

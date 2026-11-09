@@ -52,7 +52,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(fu
           type="button"
           onClick={() => commit('')}
           aria-label={clearLabel}
-          className="absolute right-2 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="absolute right-1.5 inline-flex h-6 w-6 items-center justify-center rounded text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           ✕
         </button>

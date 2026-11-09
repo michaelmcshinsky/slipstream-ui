@@ -3,7 +3,7 @@
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
 
-## Completed (33)
+## Completed (36)
 
 | ID | Deliverable |
 |---|---|
@@ -40,6 +40,9 @@ Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-back
 | SLIP-094 | Bundle and stylesheet size audit + budgets |
 | SLIP-097 | AuthLayout `variant="split"` + aside slot |
 | SLIP-098 | PageHeader `documentHead()` helper + docs |
+| SLIP-101 | React dedupe note for linked checkouts |
+| SLIP-102 | `ListItem.description` accepts ReactNode; manifest and docs updated |
+| SLIP-103 | Dark-mode audit across 138 component/docs routes; 15 failure groups fixed |
 
 ## Blocked / not completed (11)
 
@@ -120,16 +123,17 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-096 | **Done** | Packaged stylesheet smoke test + CI + release checklist |
 | SLIP-097 | **Done** | AuthLayout split/aside variant + fallback + docs |
 | SLIP-098 | **Done** | PageHeader `documentHead()` helper + docs |
-| SLIP-099 | Blocked | Publish core/themes/mcp-server (npm auth) |
+| SLIP-099 | **Done** | Published core/themes 0.6.1 + mcp-server 0.3.1 (2026-11-08) with provenance |
 | SLIP-100 | **Done** | Registry/LLM docs regenerated at 109 components; validate and checks pass |
 | SLIP-101 | **Done** | React dedupe note for linked checkouts |
 | SLIP-102 | **Done** | `ListItem.description` accepts ReactNode; manifest and docs updated |
+| SLIP-103 | **Done** | Dark-mode audit: 138 routes, 0 violations, 0 theme failures |
 
 ## Verification
 
 ```bash
 pnpm typecheck                  # 17 packages
-pnpm test                       # core 636, ai 148, app 375, mcp 11, starter 25
+pnpm test                       # core 638, ai 148, app 375, mcp 11, starter 25
 pnpm validate:manifests         # 109 valid, 0 drift, counts match
 pnpm check:llm                  # 109 manifests ↔ markdown
 pnpm report:manifests           # 109 components, 0 gaps
@@ -138,6 +142,8 @@ pnpm bench:test                 # 10 tests
 pnpm verify:tailwind-v4         # compile fixture
 pnpm --filter slipstream-ui-docs typecheck
 pnpm --filter slipstream-ui-docs build   # 149 routes
+pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # light + dark, 26 page runs
+pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111   # 138 routes, 0 violations
 pnpm --filter slipstream-ai-chat-starter build
 ```
 
@@ -146,5 +152,6 @@ pnpm --filter slipstream-ai-chat-starter build
 Mock provider, 100 cases × 4 conditions: **65.7% recall, 100% precision, 0%
 false positives**. Structural classes 100%; accessibility 40%; state/streaming
 10%. See [`../docs/benchmarks.md`](../docs/benchmarks.md).
+
 
 

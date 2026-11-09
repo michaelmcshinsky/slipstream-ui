@@ -68,7 +68,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 1 | SLIP-090 | P0 | 3h | Done | validate_usage parser + native attrs |
 | 2 | SLIP-091 | P0 | 2h | Done | AppShell rail + Sidebar nested active |
 | 3 | SLIP-092 | P1 | 1h | Done | SiteHeader nav labels |
-| 4 | SLIP-099 | P0 | 2h | Blocked + external | Needs npm publish auth |
+| 4 | SLIP-099 | P0 | 2h | Done | core/themes 0.6.1 + mcp-server 0.3.1 published with provenance |
 | 5 | SLIP-095 | P1 | 2h | Done | RHF compatibility guide |
 | 6 | SLIP-096 | P1 | 3h | Done | Packaged stylesheet smoke test |
 | 7 | SLIP-100 | P1 | 1h | Done | Regenerate docs after concurrent work |
@@ -78,6 +78,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 11 | SLIP-098 | P3 | 3h | Done | PageHeader head helper |
 | 12 | SLIP-101 | P2 | 1h | Done | React dedupe note for linked checkouts |
 | 13 | SLIP-102 | P2 | 1h | Done | Rich ListItem descriptions for composite rows |
+| 14 | SLIP-103 | P1 | 10h | Done | Dark-mode audit: 138 routes, 0 violations, 0 theme failures |
 
 ## i18n epic (2026-11-07)
 
@@ -93,4 +94,5 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 8 | SLIP-065 | P2 | 80h | Blocked | Depends on SLIP-064; guides and 80 component pages need native-speaker review |
 
 **Execution rule:** do not start an issue whose `depends_on` is incomplete. Do not mark an external issue done without the recorded date, version, and evidence.
+
 

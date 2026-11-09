@@ -87,7 +87,7 @@ function prependHistory(thread: Thread, older: Message[]): Thread {
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Slipstream has no Thread component baked in — a thread list is just data next to the active
         thread. The pattern used by the{' '}
-        <Link href="/docs/templates" className="font-medium text-primary hover:underline">templates</Link>:
+        <Link href="/docs/templates" className="font-medium text-primary underline underline-offset-2">templates</Link>:
       </p>
       <div className="mt-4">
         <CodeBlock
@@ -110,9 +110,9 @@ const active = threads.find((t) => t.id === activeId);
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Regeneration should <em>add</em> a variant, not overwrite. Store variants per message id and
         hand the active variant to the list —{' '}
-        <Link href="/docs/components/branch" className="font-medium text-primary hover:underline">Branch</Link>{' '}
+        <Link href="/docs/components/branch" className="font-medium text-primary underline underline-offset-2">Branch</Link>{' '}
         renders the N/M navigator. Full recipe:{' '}
-        <Link href="/docs/patterns#multi-branch" className="font-medium text-primary hover:underline">multi-branch conversations</Link>.
+        <Link href="/docs/patterns#multi-branch" className="font-medium text-primary underline underline-offset-2">multi-branch conversations</Link>.
       </p>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">

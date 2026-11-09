@@ -13,6 +13,10 @@ type TabsContextValue = {
   baseId: string;
   variant: TabsVariant;
   size: TabsSize;
+  /** Values of the panels actually rendered, so triggers only reference real targets. */
+  panels: Set<string>;
+  registerPanel: (value: string) => void;
+  unregisterPanel: (value: string) => void;
 };
 
 const TabsContext = React.createContext<TabsContextValue>({
@@ -21,6 +25,9 @@ const TabsContext = React.createContext<TabsContextValue>({
   baseId: '',
   variant: 'default',
   size: 'md',
+  panels: new Set(),
+  registerPanel: () => {},
+  unregisterPanel: () => {},
 });
 
 export type TabsProps = {
@@ -51,6 +58,25 @@ const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');
     const current = value ?? internalValue;
     const baseId = React.useId();
+    const [panels, setPanels] = React.useState<Set<string>>(() => new Set());
+
+    const registerPanel = React.useCallback((panelValue: string) => {
+      setPanels((previous) => {
+        if (previous.has(panelValue)) return previous;
+        const next = new Set(previous);
+        next.add(panelValue);
+        return next;
+      });
+    }, []);
+
+    const unregisterPanel = React.useCallback((panelValue: string) => {
+      setPanels((previous) => {
+        if (!previous.has(panelValue)) return previous;
+        const next = new Set(previous);
+        next.delete(panelValue);
+        return next;
+      });
+    }, []);
 
     const setValue = React.useCallback(
       (next: string) => {
@@ -60,11 +86,23 @@ const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       [value, onValueChange]
     );
 
+    const contextValue = React.useMemo(
+      () => ({
+        value: current,
+        setValue,
+        baseId,
+        variant,
+        size,
+        panels,
+        registerPanel,
+        unregisterPanel,
+      }),
+      [current, setValue, baseId, variant, size, panels, registerPanel, unregisterPanel]
+    );
+
     return (
       <div ref={ref} className={className} data-value={current} data-variant={variant}>
-        <TabsContext.Provider value={{ value: current, setValue, baseId, variant, size }}>
-          {children}
-        </TabsContext.Provider>
+        <TabsContext.Provider value={contextValue}>{children}</TabsContext.Provider>
       </div>
     );
   }
@@ -169,7 +207,7 @@ const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
         role="tab"
         id={`${ctx.baseId}-tab-${value}`}
         aria-selected={active}
-        aria-controls={`${ctx.baseId}-panel-${value}`}
+        aria-controls={ctx.panels.has(value) ? `${ctx.baseId}-panel-${value}` : undefined}
         // Radix-compatible hook so consumers can style active state from
         // outside: data-[state=active]:border-primary etc.
         data-state={active ? 'active' : 'inactive'}
@@ -219,7 +257,13 @@ export type TabsContentProps = React.HTMLAttributes<HTMLDivElement> & {
 const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   ({ value, className, ...props }, ref) => {
     const ctx = React.useContext(TabsContext);
+    const { registerPanel, unregisterPanel } = ctx;
     const active = ctx.value === value;
+
+    React.useEffect(() => {
+      registerPanel(value);
+      return () => unregisterPanel(value);
+    }, [registerPanel, unregisterPanel, value]);
 
     return (
       <div

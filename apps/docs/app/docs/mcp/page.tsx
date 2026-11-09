@@ -227,17 +227,17 @@ node dist/index.js
         <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
-            <a href="/docs/ai-manifests" className="text-primary hover:underline">
+            <a href="/docs/ai-manifests" className="text-primary underline underline-offset-2">
               Learn about COMPONENT_MANIFEST
             </a>
           </li>
           <li>
-            <a href="/docs/components" className="text-primary hover:underline">
+            <a href="/docs/components" className="text-primary underline underline-offset-2">
               Explore available components
             </a>
           </li>
           <li>
-            <a href="/llms.txt" className="text-primary hover:underline">
+            <a href="/llms.txt" className="text-primary underline underline-offset-2">
               View the llms.txt for AI agents
             </a>
           </li>

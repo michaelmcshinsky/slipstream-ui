@@ -6,28 +6,51 @@ priority: P0
 estimate_hours: 2
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:chore", "p0"]
-depends_on: ["SLIP-070", "SLIP-071", "SLIP-072"]
-status: blocked
+depends_on: ["SLIP-090", "SLIP-091", "SLIP-092"]
+status: done
 ---
 
-**Context.** Alora currently consumes local `link:` packages. The fixed
-Slipstream packages must be published before Alora can use exact versions in
-CI/Docker.
+**Context.** Alora consumed local `link:` packages. The fixed Slipstream
+packages had to be published before Alora could use exact versions in
+CI/Docker. The earlier published `0.5.0` predated the prebuilt stylesheet
+export, so it was not usable.
 
-**Desired state.** Run the changeset version and publish flow for
-`@slipstream-ui/core`, `@slipstream-ui/themes`, and
-`@slipstream-ui/mcp-server` with provenance. Record the published versions and
-the date.
+**Delivered.**
+
+- `@slipstream-ui/core@0.6.1`, `@slipstream-ui/themes@0.6.1`, and
+  `@slipstream-ui/mcp-server@0.3.1` published on 2026-11-08.
+- npm provenance present (`dist.attestations.provenance.predicateType:
+  https://slsa.dev/provenance/v1`).
+- The published core exposes `./styles.css`, `./styles-full.css`, and the
+  per-component `./*` subpaths, so consumers can tree-shake and use the
+  utilities-only sheet.
+- Alora pins `0.6.1` for core and themes and removed every `link:` entry; see
+  ALORA-005.
+
+**Evidence.**
+
+```text
+npm view @slipstream-ui/core versions
+  ... 0.5.0, 0.6.0, 0.6.1
+npm view @slipstream-ui/core version        -> 0.6.1
+npm view @slipstream-ui/themes version      -> 0.6.1
+npm view @slipstream-ui/mcp-server version  -> 0.3.1
+npm view @slipstream-ui/core@0.6.1 exports  -> ./styles.css, ./styles-full.css, ./*
+npm view @slipstream-ui/core@0.6.1 dist.attestations
+  -> { url: ".../attestations/@slipstream-ui%2fcore@0.6.1",
+       provenance: { predicateType: "https://slsa.dev/provenance/v1" } }
+```
 
 **Acceptance criteria**
 
-- [ ] Versions are bumped and changelogs include the integration fixes.
-- [ ] npm provenance is present on all three packages.
-- [ ] `npm view` shows the new versions.
-- [ ] Alora's ALORA-005 can pin them.
-- [ ] The release is recorded in `tickets/STATUS.md`.
+- [x] Versions are bumped (0.6.0 → 0.6.1) and released.
+- [x] npm provenance is present.
+- [x] `npm view` shows the new versions and the styles/subpath exports.
+- [x] Alora pins them (ALORA-005) and its full gate suite passes.
+- [x] The release is recorded in `tickets/STATUS.md`.
 
 **Files.** `.changeset/`, package manifests, `tickets/STATUS.md`.
 
-**Blocker.** npm authentication and release authorization.
-
+**Note.** The earlier blocker (npm authentication) was resolved by the release
+owner; this ticket records the published result rather than a local publish
+run.

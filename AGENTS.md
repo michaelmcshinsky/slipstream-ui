@@ -57,10 +57,11 @@ Site audits (production build required):
 pnpm --filter slipstream-ui-docs build
 pnpm --filter slipstream-ui-docs start -- -p 3111
 pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111
+pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111
 pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111
 ```
 
-`audit:a11y` runs axe-core over 13 routes in light and dark mode and exits non-zero on WCAG 2.2 A/AA violations. `audit:perf` reports Lighthouse mobile scores plus LCP/CLS/TBT.
+`audit:a11y` runs axe-core over 13 routes in light and dark mode and exits non-zero on WCAG 2.2 A/AA violations. `audit:dark` derives a route from every core and AI manifest plus the docs/marketing routes, forces the `.dark` theme, verifies the theme applied, runs axe, flags large light surfaces, and writes `reports/dark-mode-audit.md` plus per-route screenshots. `audit:perf` reports Lighthouse mobile scores plus LCP/CLS/TBT.
 
 Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), so `--filter` needs the real name.
 

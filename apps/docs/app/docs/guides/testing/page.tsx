@@ -154,7 +154,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
             href="https://github.com/michaelmcshinsky/slipstream-ui/blob/main/.github/workflows/ci.yml"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-primary underline underline-offset-2"
           >
             ci.yml
           </a>

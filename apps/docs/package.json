@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "audit:a11y": "tsx scripts/audit-a11y.ts",
+    "audit:dark": "tsx scripts/audit-dark-mode.ts",
     "audit:perf": "node scripts/audit-perf.mjs"
   },
   "dependencies": {

@@ -78,7 +78,7 @@ export default function TooltipPage() {
               <Badge variant="outline" tabIndex={0}>Hover/focus me</Badge>
             </Tooltip>
             <Tooltip content="Tooltips work on form controls too" side="right">
-              <Input readOnly value="Focus me with Tab" className="w-48" />
+              <Input readOnly value="Focus me with Tab" aria-label="Focus me with Tab" className="w-48" />
             </Tooltip>
           </div>
         }

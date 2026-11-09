@@ -130,11 +130,11 @@ export default function RoadmapPage() {
       <div className="mt-10 rounded-xl border border-border bg-muted/30 p-6 text-sm text-muted-foreground">
         <p>
           Need something that is not on the list? Open a{' '}
-          <a className="text-primary hover:underline" href="https://github.com/michaelmcshinsky/slipstream-ui/issues">
+          <a className="text-primary underline underline-offset-2" href="https://github.com/michaelmcshinsky/slipstream-ui/issues">
             GitHub issue
           </a>{' '}
           or read the{' '}
-          <Link className="text-primary hover:underline" href="/changelog">
+          <Link className="text-primary underline underline-offset-2" href="/changelog">
             changelog
           </Link>{' '}
           for what already shipped.

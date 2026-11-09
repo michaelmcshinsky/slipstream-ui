@@ -119,7 +119,7 @@ GET /llm/components/<id>.md    -> props, anti-patterns, a11y, composition`}
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
         Point tools that support <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">llms.txt</code> at{' '}
-        <a href="/llms.txt" className="font-medium text-primary hover:underline">slipstreamui.com/llms.txt</a>; per-component
+        <a href="/llms.txt" className="font-medium text-primary underline underline-offset-2">slipstreamui.com/llms.txt</a>; per-component
         pages are generated from the manifests on every build, so they cannot drift.
       </p>
 

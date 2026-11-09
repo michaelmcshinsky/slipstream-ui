@@ -106,7 +106,7 @@ async function send(text: string) {
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Streams cut mid-token: <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">**half</code>,
         unclosed code fences, dangling tables.{' '}
-        <Link href="/docs/components/response" className="font-medium text-primary hover:underline">Response</Link>{' '}
+        <Link href="/docs/components/response" className="font-medium text-primary underline underline-offset-2">Response</Link>{' '}
         repairs those on every render (<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">parseIncompleteMarkdown</code>,
         on by default) — never show raw asterisks while streaming.
       </p>
@@ -116,7 +116,7 @@ async function send(text: string) {
       </h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
-          <Link href="/docs/components/conversation" className="text-primary hover:underline">Conversation</Link>{' '}
+          <Link href="/docs/components/conversation" className="text-primary underline underline-offset-2">Conversation</Link>{' '}
           auto-scrolls only while you are near the bottom — reading history is never yanked mid-stream.
         </li>
         <li>During streaming scrolls are instant (per-token smooth animations jank); user-triggered jumps are smooth.</li>

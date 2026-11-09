@@ -117,15 +117,15 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
-          <Link href="/docs/components/conversation" className="text-primary hover:underline">Conversation</Link> pins
+          <Link href="/docs/components/conversation" className="text-primary underline underline-offset-2">Conversation</Link> pins
           scroll to the latest message and exposes a scroll-to-latest pill, transcript download, and welcome state.
         </li>
         <li>
-          <Link href="/docs/components/prompt-input" className="text-primary hover:underline">PromptInput</Link> handles
+          <Link href="/docs/components/prompt-input" className="text-primary underline underline-offset-2">PromptInput</Link> handles
           Enter-to-send, Shift+Enter, auto-resize, attachments, and flips to a Stop button while loading.
         </li>
         <li>
-          <Link href="/docs/components/message-actions" className="text-primary hover:underline">MessageActions</Link>{' '}
+          <Link href="/docs/components/message-actions" className="text-primary underline underline-offset-2">MessageActions</Link>{' '}
           adds copy, thumbs up/down, and regenerate under the latest assistant message.
         </li>
       </ul>
