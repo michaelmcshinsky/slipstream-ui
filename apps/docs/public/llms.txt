@@ -76,7 +76,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - FormLayout — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 - Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
-- Hero — Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- Hero — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 - Input — A text input field with support for various input types and standard HTML input attributes
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
@@ -110,11 +110,11 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Skeleton — A loading placeholder that mirrors the shape of upcoming content
 - Spinner — Indeterminate loading indicator with accessible status semantics.
 - StatBand — Semantic description list of headline stats with labels, optional hints and column presets.
-- Stepper — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
+- Stepper — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 - Switch — A toggle switch for binary settings, with role=switch and aria-checked
 - Table — Semantic data table with headers, body, footer, and accessible caption
 - TableCard — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
-- TableOfContents — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
+- TableOfContents — Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - Tabs — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - Testimonial — Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 - Text — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
@@ -163,9 +163,10 @@ Prefer these over HTML pages when generating code.
 ## MCP Server
 The MCP server provides tools for AI agents:
 - list_components - Query available components with filters
+- search_components - Find components by capability keywords
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
-- validate_usage - Validate generated JSX against a component manifest before emitting; detects hallucinated props and missing required props
+- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, and missing required props
 
 ## Production UX notes
 - Components are stateless; consumers own thread/conversation state

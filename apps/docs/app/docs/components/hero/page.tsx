@@ -3,7 +3,8 @@ import Demo from './demo';
 
 export const metadata: Metadata = {
   title: 'Hero',
-  description: 'Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.',
+  description:
+    'Responsive marketing hero with split, centered, stacked and overlay layouts, plus badge, eyebrow, actions and a media slot.',
 };
 
 export default function Page() {

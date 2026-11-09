@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
+import { axe, configureAxe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 import { SelectMenu, type SelectMenuItem } from './SelectMenu';
 
@@ -107,8 +107,9 @@ describe('SelectMenu', () => {
     const user = userEvent.setup();
     render(<SelectMenu aria-label="Plan" items={items} />);
     await user.click(screen.getByRole('combobox'));
-    expect(
-      await axe(document.body, { rules: { region: { enabled: false } } })
-    ).toHaveNoViolations();
+    // The open listbox is portalled outside the render container, so check the
+    // body. The region rule is disabled because this is a fragment, not a page.
+    const check = configureAxe({ rules: { region: { enabled: false } } });
+    expect(await check(document.body)).toHaveNoViolations();
   });
 });

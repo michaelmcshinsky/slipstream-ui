@@ -27,11 +27,13 @@ const REPORT = path.join(ROOT, 'reports', 'dark-mode-audit.md');
 const SITE_ROUTES = [
   '/',
   '/docs',
+  '/docs/getting-started',
   '/docs/components',
   '/docs/templates',
   '/docs/patterns',
   '/docs/mcp',
   '/docs/cli',
+  '/docs/ai-first',
   '/docs/ai-manifests',
   '/docs/installation',
   '/docs/compatibility',

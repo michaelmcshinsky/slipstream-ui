@@ -101,12 +101,15 @@ export default function DocsPage() {
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Start here</h2>
       <ol className="mt-4 space-y-3 text-muted-foreground">
         <li>
-          <strong className="text-foreground">1. Install.</strong> Add the packages, or copy source into
-          your repository with the shadcn-compatible CLI -{' '}
+          <strong className="text-foreground">1. Install.</strong> Follow the five-step{' '}
+          <Link href="/docs/getting-started" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
+            quickstart
+          </Link>{' '}
+          for a themed screen, or read the{' '}
           <Link href="/docs/installation" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
             installation guide
-          </Link>
-          .
+          </Link>{' '}
+          for packages, CLI, and registry tradeoffs.
         </li>
         <li>
           <strong className="text-foreground">2. Read one manifest.</strong> Open{' '}

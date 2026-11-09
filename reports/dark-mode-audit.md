@@ -1,8 +1,8 @@
 # Dark-mode audit
 
-- Date: 2026-11-09T16:59:13.932Z
-- Base URL: http://localhost:3111
-- Routes: 140
+- Date: 2026-11-09T21:31:41.128Z
+- Base URL: http://localhost:3112
+- Routes: 142
 - Violation groups: 0
 - Overlay panels opened: 20
 - Overlay violation groups: 0

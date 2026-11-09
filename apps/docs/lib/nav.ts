@@ -27,6 +27,7 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'Getting Started',
     items: [
       { href: '/docs', label: 'Introduction' },
+      { href: '/docs/getting-started', label: 'Quickstart' },
       { href: '/docs/installation', label: 'Installation' },
       { href: '/docs/tailwind-v4', label: 'Tailwind v4' },
       { href: '/docs/compatibility', label: 'Compatibility' },
@@ -37,6 +38,7 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: 'AI-First',
     items: [
+      { href: '/docs/ai-first', label: 'Overview' },
       { href: '/docs/ai-manifests', label: 'COMPONENT_MANIFEST' },
       { href: '/docs/cli', label: 'CLI' },
       { href: '/docs/patterns', label: 'Patterns' },

@@ -28,16 +28,18 @@ export default function MCPPage() {
         </p>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>List all available components with filters</li>
+          <li>Search components by capability keywords</li>
           <li>Get complete COMPONENT_MANIFEST for any component</li>
           <li>Query component properties and usage patterns</li>
           <li>Understand composition rules and relationships</li>
+          <li>Validate generated JSX before it reaches your diff</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Installation</h2>
         <p className="text-muted-foreground mb-4">
-          Install the MCP server package:
+          Install the MCP server as a development dependency:
         </p>
-        <CodeBlock language="bash" code={`pnpm add @slipstream-ui/mcp-server`} />
+        <CodeBlock language="bash" code={`pnpm add -D @slipstream-ui/mcp-server`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Configuration</h2>
 
@@ -121,8 +123,8 @@ list_components(package="@slipstream-ui/ai", tier="molecule")`} />
         <CodeBlock language="text" code={`// Find streaming-capable components
 search_components(query="streaming chat")
 
-// Find citation components
-search_components(query="citations grounding")`} />
+// Find citation components and cap the result count
+search_components(query="citations grounding", limit=5)`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">get_component_manifest</h3>
         <p className="text-muted-foreground mb-4">
@@ -136,28 +138,35 @@ get_component_manifest(componentId="message")`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">get_usage_examples</h3>
         <p className="text-muted-foreground mb-4">
-          Fetch runnable examples (basic, composition, edge cases) straight from the manifest, so the
-          agent copies patterns that actually compile.
+          Fetch runnable examples (basic, composition, edge cases) plus composition rules and
+          anti-patterns straight from the manifest, so the agent copies patterns that actually
+          compile.
         </p>
         <CodeBlock language="text" code={`get_usage_examples(componentId="select-menu")
-
-// Filter by example kind
-get_usage_examples(componentId="dialog", kind="composition")`} />
+get_usage_examples(componentId="dialog")`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">validate_usage</h3>
         <p className="text-muted-foreground mb-4">
-          Validate generated JSX against the component manifests before it ships: unknown props,
-          wrong enum values, missing required props and missing accessible names are reported with
-          file/line context. This is the tool that makes the library hallucination-proof.
+          Validate generated JSX against the component manifest before it ships. The validator
+          reports unknown (hallucinated) props, values outside a documented enum, and missing
+          required props, and returns the manifest&apos;s anti-patterns so the agent can re-check
+          intent. It does not type-check expressions or render the component.
         </p>
-        <CodeBlock language="text" code={`// Ask the agent to run this before emitting code
-validate_usage(
-  file: "app/page.tsx",
-  code: '<Button variant="primry">Save</Button>'
+        <CodeBlock language="text" code={`validate_usage(
+  componentId="button",
+  code="<Button variant='primry'>Save</Button>"
 )
 
-// Returns errors like:
-// button.props.variant: "primry" is not one of default|destructive|…`} />
+// Returns:
+// {
+//   valid: false,
+//   usageCount: 1,
+//   issues: [{
+//     severity: "error",
+//     message: "Invalid value \\"primry\\" for prop \\"variant\\" ... Allowed values: default, destructive, outline, ..."
+//   }],
+//   antiPatternsToCheck: [...]
+// }`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
         <p className="text-muted-foreground mb-4">
@@ -177,7 +186,35 @@ validate_usage(
    → Uses manifest props: variant="default"
    → Uses manifest examples: <Button>Click me</Button>
    → Follows content guidelines for button text
-   → Ensures accessibility requirements`} />
+   → Ensures accessibility requirements
+
+4. Agent: "Validate before emitting"
+   MCP: validate_usage(componentId="button", code="<Button>Click me</Button>")
+   → { valid: true, issues: [] }`} />
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Teach the agent to reach for the tools</h2>
+        <p className="text-muted-foreground mb-4">
+          Tool availability is not a habit. Add an explicit rule to{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">CLAUDE.md</code>,{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">.cursorrules</code>, or{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">AGENTS.md</code>:
+        </p>
+        <CodeBlock language="markdown" code={`# UI components
+This project uses Slipstream UI. Before writing any component JSX:
+1. search_components / get_component_manifest for the component you need.
+2. Follow its props exactly - never invent prop names.
+3. Run validate_usage on the generated JSX before finishing.
+4. Respect anti-patterns and composition rules from the manifest.`} />
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">No MCP client?</h2>
+        <p className="text-muted-foreground mb-4">
+          Every manifest is also served as markdown and as registry JSON. An agent that can fetch a
+          URL gets the same contract without a connection:
+        </p>
+        <CodeBlock language="text" code={`GET https://slipstreamui.com/llms.txt
+GET https://slipstreamui.com/llms-full.txt
+GET https://slipstreamui.com/llm/components/<id>.md
+GET https://slipstreamui.com/registry/<id>.json`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">

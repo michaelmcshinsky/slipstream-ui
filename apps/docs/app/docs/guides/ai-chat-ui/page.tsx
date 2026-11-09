@@ -66,7 +66,9 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
       <div className="mt-4">
         <CodeBlock
           language="tsx"
-          code={`async function send(text: string) {
+          code={`const abortRef = useRef<AbortController | null>(null);
+
+async function send(text: string) {
   const replyId = crypto.randomUUID();
   setMessages((prev) => [
     ...prev,
@@ -75,12 +77,18 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
   ]);
   setStreamingId(replyId);
 
+  const controller = new AbortController();   // keep in a ref for Stop
+  abortRef.current = controller;
   const res = await fetch('/api/chat', {
     method: 'POST',
     body: JSON.stringify({ prompt: text }),
-    signal: controller.signal,          // kept for stop-generation
+    signal: controller.signal,
   });
-  const reader = res.body!.getReader();
+  if (!res.ok || !res.body) {
+    setStreamingId(null);
+    return;
+  }
+  const reader = res.body.getReader();
   const decoder = new TextDecoder();
   let content = '';
   for (;;) {
@@ -111,7 +119,7 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
 <PromptInput
   onSubmit={send}
   isLoading={streamingId !== null}
-  onStop={() => controller.abort()}
+  onStop={() => abortRef.current?.abort()}
 />`}
         />
       </div>

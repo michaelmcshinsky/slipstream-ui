@@ -132,10 +132,48 @@ export default function AIManifestsPage() {
   "relatedComponents": ["Badge", "Link", "Tooltip"],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "sourceDir": "button",
   "exportName": "Button"
 }`} language="json" />
+        <p className="mt-3 text-sm text-muted-foreground">
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">version</code> tracks the
+          published package version; <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">sourceDir</code> and{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">exportName</code> let the drift checker
+          find the TypeScript declaration that this manifest must match.
+        </p>
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Required sections</h3>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Section</th>
+                <th className="p-3 text-left font-medium">What it carries</th>
+                <th className="p-3 text-left font-medium">Why an agent needs it</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['id, name, tier, package', 'Identity and import path', 'Find the component and the package to import.'],
+                ['description, designIntent', 'What it is and when to reach for it', 'Pick the right component instead of a near neighbor.'],
+                ['props', 'Type, required, default, enum, description', 'Write real props and valid enum values.'],
+                ['examples', 'Runnable JSX with titles', 'Copy a pattern that compiles.'],
+                ['antiPatterns', 'Wrong usage plus the preferred code', 'Avoid the predictable mistakes.'],
+                ['accessibility', 'Feature, implementation, user requirements', 'Keep generated UI accessible.'],
+                ['contentGuidelines', 'Tone, length, good/bad examples', 'Generate appropriate copy, not lorem ipsum.'],
+                ['compositionRules', 'Related components and example wiring', 'Compose instead of duplicating.'],
+                ['relatedComponents', 'Adjacent component ids', 'Walk to the next component in the flow.'],
+              ].map(([section, carries, why]) => (
+                <tr key={section} className="border-t border-border">
+                  <td className="p-3 font-mono text-xs">{section}</td>
+                  <td className="p-3 text-muted-foreground">{carries}</td>
+                  <td className="p-3 text-muted-foreground">{why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Key Sections</h2>
 
@@ -209,15 +247,42 @@ export default function AIManifestsPage() {
         <CodeBlock code={`# List all components
 list_components()
 
+# Search by capability
+search_components(query="streaming chat")
+
 # Get specific component manifest
 get_component_manifest(componentId="button")
 
-# Validate generated JSX against the manifest
-validate_usage(componentId="button", code="<Button variant='default'>Click</Button>")`} language="bash" />
+# Get examples and composition rules
+get_usage_examples(componentId="button")
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Direct File Access</h3>
+# Validate generated JSX against the manifest
+validate_usage(
+  componentId="button",
+  code="<Button variant='primry'>Save</Button>"
+)
+# -> { valid: false, issues: [{ severity: "error", message: "Invalid value ..." }] }`} language="bash" />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Canonical markdown routes</h3>
         <p className="text-muted-foreground mb-4">
-          Manifests are stored alongside component source code:
+          Any client that can fetch a URL gets the same contract without an MCP connection:
+        </p>
+        <CodeBlock code={`GET /llms.txt                      # curated agent index
+GET /llms-full.txt                 # every component in one file
+GET /llm/index.md                  # overview plus component index
+GET /llm/components/<id>.md        # full reference generated from the manifest`} language="text" />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Registry JSON</h3>
+        <p className="text-muted-foreground mb-4">
+          Build tools and shadcn-compatible installers read the generated registry. It carries the
+          manifest plus the component source payload:
+        </p>
+        <CodeBlock code={`GET /registry/all.json        # index of every component
+GET /registry/<id>.json       # manifest + shadcn installer payload`} language="text" />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Direct file access</h3>
+        <p className="text-muted-foreground mb-4">
+          In a checkout, manifests are stored alongside component source code:
         </p>
         <CodeBlock code={`packages/core/src/manifests/button.manifest.json
 packages/core/src/manifests/input.manifest.json
@@ -226,7 +291,11 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">llms.txt</h3>
         <p className="text-muted-foreground mb-4">
-          The project includes an llms.txt file at the root that provides a curated overview for AI agents.
+          The repository includes <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">llms.txt</code> at
+          the root and serves the same file at{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">https://slipstreamui.com/llms.txt</code>.
+          The component lists inside it are generated between marker comments, so the index cannot
+          drift from the real manifest set.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Creating Manifests</h2>
@@ -236,10 +305,45 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
         <ol className="list-decimal pl-6 space-y-2 text-muted-foreground">
           <li>Create the component with proper TypeScript types and JSDoc</li>
           <li>Create a corresponding manifest file in <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">src/manifests/</code></li>
-          <li>Include all required sections (props, examples, accessibility, etc.)</li>
-          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm validate:manifests</code> to validate</li>
-          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm build</code> to regenerate the registry</li>
+          <li>Document every non-inherited prop declared by any <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">*Props</code> type in that directory</li>
+          <li>Include all required sections (props, examples, accessibility, anti-patterns, composition)</li>
+          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm validate:manifests</code> to validate schema and TypeScript drift</li>
+          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm generate:registry</code> and <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm generate:llm-docs</code></li>
+          <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm check:llm</code> so stale generated docs fail early</li>
         </ol>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Keeping the contract honest</h2>
+        <p className="text-muted-foreground mb-4">
+          Four checks run in CI, each covering a different kind of drift:
+        </p>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Command</th>
+                <th className="p-3 text-left font-medium">Catches</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['pnpm validate:manifests', 'Schema errors, TypeScript ↔ manifest prop drift, version and component-count mismatches.'],
+                ['pnpm generate:registry', 'Regenerates /registry; a diff means the published contract is stale.'],
+                ['pnpm generate:llm-docs', 'Regenerates /llm, llms.txt, llms-full.txt, and README stats from manifests.'],
+                ['pnpm check:llm', 'Fails when generated markdown no longer matches the manifests.'],
+              ].map(([command, catches]) => (
+                <tr key={command} className="border-t border-border">
+                  <td className="p-3 font-mono text-xs">{command}</td>
+                  <td className="p-3 text-muted-foreground">{catches}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          The validator is a contract check, not a compiler. It reports unknown props, invalid enum
+          values, and missing required props. Pair it with <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">tsc</code>{' '}
+          and your test suite for everything else.
+        </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">

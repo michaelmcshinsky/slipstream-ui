@@ -53,7 +53,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [FormLayout](https://slipstreamui.com/llm/components/form-layout.md) — Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 - [Grid / GridItem](https://slipstreamui.com/llm/components/grid.md) — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - [Heading](https://slipstreamui.com/llm/components/heading.md) — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
-- [Hero](https://slipstreamui.com/llm/components/hero.md) — Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- [Hero](https://slipstreamui.com/llm/components/hero.md) — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
@@ -87,11 +87,11 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Skeleton](https://slipstreamui.com/llm/components/skeleton.md) — A loading placeholder that mirrors the shape of upcoming content
 - [Spinner](https://slipstreamui.com/llm/components/spinner.md) — Indeterminate loading indicator with accessible status semantics.
 - [StatBand](https://slipstreamui.com/llm/components/stat-band.md) — Semantic description list of headline stats with labels, optional hints and column presets.
-- [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
+- [Stepper](https://slipstreamui.com/llm/components/stepper.md) — Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 - [Switch](https://slipstreamui.com/llm/components/switch.md) — A toggle switch for binary settings, with role=switch and aria-checked
 - [Table](https://slipstreamui.com/llm/components/table.md) — Semantic data table with headers, body, footer, and accessible caption
 - [TableCard](https://slipstreamui.com/llm/components/table-card.md) — Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
-- [TableOfContents](https://slipstreamui.com/llm/components/table-of-contents.md) — Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
+- [TableOfContents](https://slipstreamui.com/llm/components/table-of-contents.md) — Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 - [Tabs](https://slipstreamui.com/llm/components/tabs.md) — Tabbed content container with ARIA tablist semantics and keyboard navigation
 - [Testimonial](https://slipstreamui.com/llm/components/testimonial.md) — Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 - [Text](https://slipstreamui.com/llm/components/text.md) — Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
@@ -3658,7 +3658,7 @@ Document structure and visual size are different axes: screen readers and SEO ne
 
 # Hero
 
-Marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 
 > Import: `import { Hero } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/hero.json
@@ -3666,7 +3666,7 @@ Marketing hero with badge, eyebrow, headline, copy, actions and an optional medi
 
 ## Design intent
 
-Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and the split/centered layouts while leaving the band tone and padding to Section.
+Landing pages repeat a headline cluster with an optional product shot. Hero standardizes the hierarchy and four responsive layouts (split, centered, stacked, overlay) while leaving the band tone and padding to Section.
 
 ## Props
 
@@ -3677,23 +3677,24 @@ Landing pages repeat a headline cluster with an optional product shot. Hero stan
 | eyebrow | `ReactNode` | — | no | Small overline above the headline. |
 | badge | `ReactNode` | — | no | Pill above the headline for an announcement, category or proof point. |
 | actions | `ReactNode` | — | no | Primary and secondary calls to action. |
-| media | `ReactNode` | — | no | Product shot, illustration, video or form shown beside the copy. |
-| mediaPosition | `'left' | 'right'` | `right` | no | Which side the media sits on at lg and up. |
+| media | `ReactNode` | — | no | Product shot, illustration, video or form shown beside or behind the copy. |
+| mediaPosition | `'left' | 'right'` | `right` | no | Which side the media sits on at lg and up in the split layout. |
 | align | `'left' | 'center'` | `left` | no | Copy alignment. Centered is typically used without media. |
 | size | `'md' | 'lg'` | `lg` | no | Headline scale. |
 | level | `1 | 2` | `1` | no | Heading level. Use 2 when the hero is nested under a page h1. |
-| variant | `'split' | 'centered'` | — | no | Split places copy and media side by side; centered stacks copy in a narrow column. Defaults to split when media is provided. |
+| variant | `'split' | 'centered' | 'stacked' | 'overlay'` | — | no | Layout. split puts copy and media side by side at lg and up; centered stacks copy in a narrow column; stacked puts copy above full-width media; overlay places media behind the copy with a theme-aware scrim. Defaults to split when media is provided and centered without it. |
 | as | `'div' | 'section' | 'header'` | `div` | no | Semantic element to render. |
 | titleClassName | `string` | — | no | Extra classes for the headline, for host display typography. |
 | descriptionClassName | `string` | — | no | Extra classes for the description. |
 | eyebrowClassName | `string` | — | no | Extra classes for the eyebrow. |
 | badgeClassName | `string` | — | no | Extra classes for the badge wrapper. |
+| mediaClassName | `string` | — | no | Extra classes for the media wrapper. |
 
 ## Examples
 
 ### Split hero
 
-Copy on the left, product media on the right.
+Copy on the left, product media on the right; stacks on small screens.
 
 ```tsx
 <Section tone="inverse">
@@ -3705,6 +3706,20 @@ Copy on the left, product media on the right.
     media={<ProductMockup />}
   />
 </Section>
+```
+
+### Reversed split hero
+
+Media on the left at lg and up without changing DOM order.
+
+```tsx
+<Hero
+  mediaPosition="left"
+  eyebrow="Network overview"
+  title="A fragmented market, made easier"
+  description="Current activity across the network."
+  media={<ProductMockup />}
+/>
 ```
 
 ### Centered hero
@@ -3720,10 +3735,41 @@ A narrow centered hero for a page band.
 />
 ```
 
+### Stacked hero
+
+Copy above full-width media, useful for wide screenshots.
+
+```tsx
+<Hero
+  variant="stacked"
+  eyebrow="Product tour"
+  title="Every deal in one workspace"
+  description="Understand the pipeline before the first call."
+  media={<DashboardScreenshot />}
+/>
+```
+
+### Overlay hero
+
+Media behind the copy; the scrim and ink invert automatically in dark mode.
+
+```tsx
+<Hero
+  variant="overlay"
+  align="center"
+  badge="Spring cohort"
+  title="Dance all night in Provo"
+  description="Three rooms, one badge, live music until midnight."
+  actions={<Button>Get tickets</Button>}
+  media={<img src="/ballroom.jpg" alt="" />}
+/>
+```
+
 ## Anti-patterns
 
 - **Don't use Hero as the only page heading twice** — A page should have one h1. Use level={2} for a second hero-like band or PageHeader for documentation pages.
 - **Don't hardcode the band color** — Wrap Hero in Section and use its tone so child tokens stay readable.
+- **Don't put busy media behind overlay copy** — The overlay scrim protects contrast, but high-detail media still hurts legibility. Use a calm crop and keep copy short.
 
 ## Accessibility
 
@@ -6610,7 +6656,7 @@ Four stats aligned to the left.
 
 # Stepper
 
-Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming.
+Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 
 > Import: `import { Stepper } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/stepper.json
@@ -6618,7 +6664,7 @@ Multi-step flow indicator: ordered list, aria-current step, text state for compl
 
 ## Design intent
 
-Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color.
+Wizards need orientation: where am I, what is done, what is next. A stepper built on an ordered list keeps the sequence structural and announces state in text, not just color. Four responsive shapes (inline labels, labels below, vertical timeline, compact dots) cover onboarding, checkout, and narrow sidebars.
 
 ## Props
 
@@ -6627,11 +6673,15 @@ Wizards need orientation: where am I, what is done, what is next. A stepper buil
 | steps | `{ label: string; description?: string }[]` | — | yes | Ordered step definitions. |
 | current | `number` | — | yes | Zero-based index of the active step. |
 | orientation | `'horizontal' | 'vertical'` | `horizontal` | no | Layout direction. |
+| variant | `'numbered' | 'dots'` | `numbered` | no | Marker style. numbered shows the step number and a check when complete; dots is the compact progress variant with no numbers. |
+| size | `'sm' | 'md'` | `md` | no | Marker and label scale. |
+| labelPlacement | `'inline' | 'below'` | `inline` | no | Horizontal only: place the label beside the marker or beneath it. |
+| alignTitles | `'start' | 'center'` | `center` | no | Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned. |
 | onStepClick | `(index: number) => void` | — | no | Makes steps clickable (for revisit flows). |
 
 ## Examples
 
-### Onboarding wizard
+### Horizontal onboarding wizard
 
 Current step is announced; completed steps show a check.
 
@@ -6639,7 +6689,44 @@ Current step is announced; completed steps show a check.
 <Stepper
   current={step}
   steps={[{ label: 'Account' }, { label: 'Studio details' }, { label: 'Invite team' }, { label: 'Review' }]}
+  onStepClick={setStep}
 />
+```
+
+### Labels below the markers
+
+A wider, marketing-friendly horizontal shape.
+
+```tsx
+<Stepper
+  current={2}
+  labelPlacement="below"
+  steps={[{ label: 'Account' }, { label: 'Studio' }, { label: 'Review' }]}
+/>
+```
+
+### Vertical timeline
+
+A vertical connector joins the markers, suited to sidebars and activity feeds.
+
+```tsx
+<Stepper
+  current={1}
+  orientation="vertical"
+  steps={[
+    { label: 'Submitted', description: 'Mar 2' },
+    { label: 'Under review', description: 'Mar 4' },
+    { label: 'Decision', description: 'Mar 9' },
+  ]}
+/>
+```
+
+### Compact dots
+
+No numbers, small markers, for tight toolbars or mobile.
+
+```tsx
+<Stepper current={1} variant="dots" size="sm" steps={[{ label: 'Plan' }, { label: 'Build' }, { label: 'Ship' }]} />
 ```
 
 ## Anti-patterns
@@ -6656,6 +6743,11 @@ Current step is announced; completed steps show a check.
   
   ```tsx
   <Stepper current={1} steps={steps} />
+  ```
+- Compose with **Drawer** — A vertical dots Stepper fits a narrow drawer or settings sidebar
+  
+  ```tsx
+  <Drawer><Stepper current={1} orientation="vertical" variant="dots" steps={steps} /></Drawer>
   ```
 - Related: Progress, Tabs, Form
 
@@ -6932,7 +7024,7 @@ Header, toolbar, table and pagination in one surface.
 
 # TableOfContents
 
-Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.
+Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 
 > Import: `import { TableOfContents } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/table-of-contents.json
@@ -6940,7 +7032,7 @@ Sticky 'On this page' navigation with nested levels and aria-current, plus a use
 
 ## Design intent
 
-Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.
+Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, native anchor navigation, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.
 
 ## Props
 
@@ -6952,26 +7044,45 @@ Long-form pages drift into bespoke TOC implementations. TableOfContents fixes th
 | sticky | `boolean` | `true` | no | Stick while the article scrolls. |
 | ariaLabel | `string` | — | no | Accessible name for the nav landmark when it differs from the visible label. |
 | labelClassName | `string` | — | no | Extra classes for the visible label. |
+| onNavigate | `(id: string) => void` | — | no | Called with the heading id when a link is activated. The browser still performs the native anchor jump; use it to sync a controlled activeId, analytics, or close a mobile TOC. |
 
 ## Examples
 
 ### Article TOC
 
-Scroll-spy driven active state.
+Scroll-spy driven active state; links are native anchors.
 
 ```tsx
-const activeId = useScrollSpy(headings.map((h) => h.id));
+const ids = headings.map((h) => h.id);
+const activeId = useScrollSpy(ids);
 
 <TableOfContents headings={headings} activeId={activeId} />
+```
+
+### Controlled TOC with navigation callback
+
+Update local state when a heading is chosen; the anchor still scrolls and updates the hash.
+
+```tsx
+<TableOfContents
+  headings={headings}
+  activeId={activeId}
+  onNavigate={(id) => {
+    setActiveId(id);
+    setMobileOpen(false);
+  }}
+/>
 ```
 
 ## Anti-patterns
 
 - **Don't hardcode the active id** — Compute it from scroll position so the highlight follows the reader.
+- **Don't replace the anchors with buttons** — Buttons only run a highlight callback and break deep links, middle-click, and open-in-new-tab. The component renders real anchors; keep them.
 
 ## Accessibility
 
 - **Landmark + current item**: nav aria-label plus aria-current=location on the active link
+- **Native anchor navigation**: Each item is an a[href='#id'], so Enter, middle-click and deep links work
 
 ## Composition
 

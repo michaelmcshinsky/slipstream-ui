@@ -7,8 +7,8 @@
   "version": "0.5.0",
   "sourceDir": "table-of-contents",
   "exportName": "TableOfContents",
-  "description": "Sticky 'On this page' navigation with nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
-  "designIntent": "Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.",
+  "description": "Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.",
+  "designIntent": "Long-form pages drift into bespoke TOC implementations. TableOfContents fixes the nested list, native anchor navigation, active styling and landmark name; useScrollSpy supplies the active id from real scroll position.",
   "props": [
     {
       "name": "headings",
@@ -47,13 +47,24 @@
       "type": "string",
       "required": false,
       "description": "Extra classes for the visible label."
+    },
+    {
+      "name": "onNavigate",
+      "type": "(id: string) => void",
+      "required": false,
+      "description": "Called with the heading id when a link is activated. The browser still performs the native anchor jump; use it to sync a controlled activeId, analytics, or close a mobile TOC."
     }
   ],
   "examples": [
     {
       "title": "Article TOC",
-      "code": "const activeId = useScrollSpy(headings.map((h) => h.id));\n\n<TableOfContents headings={headings} activeId={activeId} />",
-      "description": "Scroll-spy driven active state."
+      "code": "const ids = headings.map((h) => h.id);\nconst activeId = useScrollSpy(ids);\n\n<TableOfContents headings={headings} activeId={activeId} />",
+      "description": "Scroll-spy driven active state; links are native anchors."
+    },
+    {
+      "title": "Controlled TOC with navigation callback",
+      "code": "<TableOfContents\n  headings={headings}\n  activeId={activeId}\n  onNavigate={(id) => {\n    setActiveId(id);\n    setMobileOpen(false);\n  }}\n/>",
+      "description": "Update local state when a heading is chosen; the anchor still scrolls and updates the hash."
     }
   ],
   "antiPatterns": [
@@ -61,6 +72,11 @@
       "title": "Don't hardcode the active id",
       "explanation": "Compute it from scroll position so the highlight follows the reader.",
       "example": "// Avoid\n<TableOfContents headings={h} activeId=\"intro\" />"
+    },
+    {
+      "title": "Don't replace the anchors with buttons",
+      "explanation": "Buttons only run a highlight callback and break deep links, middle-click, and open-in-new-tab. The component renders real anchors; keep them.",
+      "example": "// Avoid\n<button onClick={() => setActiveId(h.id)}>{h.text}</button>\n\n// Prefer\n<TableOfContents headings={h} activeId={activeId} onNavigate={setActiveId} />"
     }
   ],
   "accessibility": [
@@ -68,6 +84,11 @@
       "feature": "Landmark + current item",
       "implementation": "nav aria-label plus aria-current=location on the active link",
       "userRequirements": "Keep heading levels sequential"
+    },
+    {
+      "feature": "Native anchor navigation",
+      "implementation": "Each item is an a[href='#id'], so Enter, middle-click and deep links work",
+      "userRequirements": "Render an element with the matching id, and add scroll-mt-* when a sticky header overlaps the target"
     }
   ],
   "contentGuidelines": [
