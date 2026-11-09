@@ -18,14 +18,16 @@ audited but served unstyled HTML, so the audit had to prove the theme and the
 stylesheet were live before trusting any result.
 
 **Scope.** One repeatable Playwright + axe pass across every component page
-(109 manifests, 92 core + 17 AI) and every docs/marketing route (29), with a
-screenshot per route and a committed report.
+(110 pages from 109 manifests, 92 core + 17 AI; `CheckboxGroup` shares the
+`checkbox` manifest) and every docs/marketing route (30), with a screenshot per
+route and a committed report.
 
 **Delivered.**
 
 - `apps/docs/scripts/audit-dark-mode.ts` plus the `audit:dark` package script:
-  - derives component routes from the core and AI manifests, so new components
-    are covered automatically;
+  - derives component routes from the docs component pages and the core and AI
+    manifests, so new components and pages that share a source directory are
+    both covered;
   - forces `slipstream-theme=dark` and a denied consent banner before navigation;
   - asserts `documentElement.classList.contains('dark')` on every route;
   - runs axe WCAG 2.2 A/AA and fails the command on any violation;
@@ -64,7 +66,7 @@ screenshot per route and a committed report.
 - [x] `reports/dark-mode-audit.md` records the route count and result.
 - [x] Both the light/dark `audit:a11y` pass and the dark `audit:dark` pass are clean.
 
-**Verification.** 138 routes audited, 0 violation groups, 0 theme failures,
+**Verification.** 140 routes audited, 0 violation groups, 0 theme failures,
 0 light-surface warnings. `audit:a11y` 26 page runs clean. Core tests 106 files
 / 638 tests, core and docs typecheck, core and docs lint, manifest/coverage/LLM
 /count checks, and the 149-route docs build all pass.

@@ -1,8 +1,8 @@
 # Dark-mode audit
 
-- Date: 2026-11-09T16:35:26.608Z
+- Date: 2026-11-09T16:47:10.903Z
 - Base URL: http://localhost:3111
-- Routes: 138
+- Routes: 140
 - Violation groups: 0
 - Theme not applied: 0
 - Large light surface warnings: 0

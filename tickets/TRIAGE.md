@@ -78,7 +78,7 @@ Generated from the backlog. Status is mechanical: dependency and external blocke
 | 11 | SLIP-098 | P3 | 3h | Done | PageHeader head helper |
 | 12 | SLIP-101 | P2 | 1h | Done | React dedupe note for linked checkouts |
 | 13 | SLIP-102 | P2 | 1h | Done | Rich ListItem descriptions for composite rows |
-| 14 | SLIP-103 | P1 | 10h | Done | Dark-mode audit: 138 routes, 0 violations, 0 theme failures |
+| 14 | SLIP-103 | P1 | 10h | Done | Dark-mode audit: 140 routes, 0 violations, 0 theme failures |
 
 ## i18n epic (2026-11-07)
 

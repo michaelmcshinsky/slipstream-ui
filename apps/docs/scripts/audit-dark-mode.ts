@@ -54,20 +54,37 @@ const SITE_ROUTES = [
   '/contact',
   '/privacy',
   '/terms',
+  '/thank-you',
 ];
 
 function componentRoutes(): string[] {
-  const routes: string[] = [];
+  const routes = new Set<string>();
+
+  // Enumerate the docs component pages directly so pages that share a source
+  // directory with another export (for example CheckboxGroup under checkbox)
+  // are still audited.
+  const componentsDir = path.join(ROOT, 'apps/docs/app/docs/components');
+  if (fs.existsSync(componentsDir)) {
+    for (const entry of fs.readdirSync(componentsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      if (!fs.existsSync(path.join(componentsDir, entry.name, 'page.tsx'))) continue;
+      routes.add(`/docs/components/${entry.name}`);
+    }
+  }
+
+  // Manifests stay the source of truth: a manifest without a page should show
+  // up as a failure rather than silently dropping out of the audit.
   for (const pkg of ['core', 'ai']) {
     const dir = path.join(ROOT, 'packages', pkg, 'src', 'manifests');
     if (!fs.existsSync(dir)) continue;
     for (const file of fs.readdirSync(dir).filter((entry) => entry.endsWith('.manifest.json'))) {
       const manifest = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8')) as { id: string };
       const routeId = manifest.id === 'source' ? 'sources' : manifest.id;
-      routes.push(`/docs/components/${routeId}`);
+      routes.add(`/docs/components/${routeId}`);
     }
   }
-  return routes;
+
+  return [...routes];
 }
 
 type AxeNode = { target: string[]; html: string; failureSummary?: string };
@@ -80,8 +97,9 @@ async function audit(page: Page, route: string): Promise<{
   bodyBackground: string;
   lightSurfaces: LightSurface[];
 }> {
-  await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(250);
+  await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  await page.waitForLoadState('load').catch(() => undefined);
+  await page.waitForTimeout(400);
   await page.addScriptTag({ content: axeSource });
 
   const state = (await page.evaluate(`(() => {
