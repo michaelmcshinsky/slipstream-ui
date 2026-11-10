@@ -23,6 +23,32 @@ export const SITE = {
   },
 } as const;
 
+export type PackageInfo = {
+  /** npm package name, e.g. `@slipstream-ui/core`. */
+  name: string;
+  /** One-line role, shown in package lists and the installation table. */
+  summary: string;
+};
+
+/**
+ * Published npm packages, ordered by what a new consumer reaches for first.
+ * URLs are derived from the name so a renamed package cannot leave a stale
+ * hand-written link behind.
+ */
+export const PACKAGES: readonly PackageInfo[] = [
+  { name: '@slipstream-ui/core', summary: 'Components, design tokens, and the cn() utility' },
+  { name: '@slipstream-ui/ai', summary: 'AI chat and agent components' },
+  { name: '@slipstream-ui/themes', summary: 'createTheme(), presets, and the CSS-variable contract' },
+  { name: '@slipstream-ui/cli', summary: 'init, add, list, and diff for copying component source' },
+  { name: '@slipstream-ui/registry', summary: 'Manifest registry resolution shared by the CLI and MCP server' },
+  { name: '@slipstream-ui/mcp-server', summary: 'MCP tools for agent-driven component lookup and validation' },
+  { name: '@slipstream-ui/i18n', summary: 'Locale provider, switcher, and message catalogs' },
+];
+
+export function npmPackageUrl(name: string): string {
+  return `https://www.npmjs.com/package/${name}`;
+}
+
 export const CONSENT_STORAGE_KEY = 'slipstream-consent';
 export const CONSENT_EVENT = 'slipstream-consent-change';
 

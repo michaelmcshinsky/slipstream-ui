@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { PACKAGES, npmPackageUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Installation',
@@ -66,6 +67,43 @@ export default function InstallationPage() {
           source, or wants to avoid a package-wide client boundary. The
           compatibility matrix and the consumer smoke build record what is tested.
         </p>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">Published packages</h2>
+        <p className="mb-4 text-muted-foreground">
+          Every package is published to npm with matching types and a{' '}
+          <code>COMPONENT_MANIFEST</code> where it ships components. Open the npm link
+          for a package to see its version history and dependency list.
+        </p>
+        <div className="mb-8 overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-3 text-left font-medium">Package</th>
+                <th className="p-3 text-left font-medium">What it provides</th>
+                <th className="p-3 text-left font-medium">npm</th>
+              </tr>
+            </thead>
+            <tbody>
+              {PACKAGES.map((pkg) => (
+                <tr key={pkg.name} className="border-t border-border">
+                  <td className="whitespace-nowrap p-3 font-mono text-xs">{pkg.name}</td>
+                  <td className="p-3 text-muted-foreground">{pkg.summary}</td>
+                  <td className="whitespace-nowrap p-3">
+                    <a
+                      href={npmPackageUrl(pkg.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${pkg.name} on npm`}
+                      className="text-primary underline underline-offset-2 hover:text-primary/80"
+                    >
+                      npm ↗
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">

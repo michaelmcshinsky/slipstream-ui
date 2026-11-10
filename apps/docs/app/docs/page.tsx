@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
+import { PackageLink } from '@/components/package-link';
 
 export const metadata: Metadata = {
   title: 'Documentation',
@@ -73,7 +74,7 @@ export default function DocsPage() {
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Architecture</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
-        One monorepo ships six published packages and two reference apps. Components live in
+        One monorepo ships seven published packages and two reference apps. Components live in
         <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">packages/core</code> and
         <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">packages/ai</code>; theming lives in
         <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-sm">@slipstream-ui/themes</code>. Every component
@@ -91,10 +92,10 @@ export default function DocsPage() {
         />
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
-        <li><strong className="text-foreground">@slipstream-ui/core</strong> — {CORE_COMPONENT_COUNT} components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography</li>
-        <li><strong className="text-foreground">@slipstream-ui/ai</strong> — {AI_COMPONENT_COUNT} AI chat and agent components (stateless; you own state and transport)</li>
-        <li><strong className="text-foreground">@slipstream-ui/themes</strong> — createTheme() and presets over a CSS-variable token contract</li>
-        <li><strong className="text-foreground">@slipstream-ui/cli · registry · mcp-server</strong> — install and agent tooling sharing the same manifests</li>
+        <li><PackageLink name="@slipstream-ui/core" /> — {CORE_COMPONENT_COUNT} components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography</li>
+        <li><PackageLink name="@slipstream-ui/ai" /> — {AI_COMPONENT_COUNT} AI chat and agent components (stateless; you own state and transport)</li>
+        <li><PackageLink name="@slipstream-ui/themes" /> — createTheme() and presets over a CSS-variable token contract</li>
+        <li><PackageLink name="@slipstream-ui/cli" />, <PackageLink name="@slipstream-ui/registry" />, <PackageLink name="@slipstream-ui/mcp-server" />, <PackageLink name="@slipstream-ui/i18n" /> — install, registry, agent, and locale helpers sharing the same manifests</li>
         <li><strong className="text-foreground">apps/docs · apps/app · apps/playground</strong> — the docs you are reading and a reference dashboard, both built with this library</li>
       </ul>
 

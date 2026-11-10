@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import { PACKAGES, npmPackageUrl } from '@/lib/site';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 const CURRENT_YEAR = new Date().getFullYear();
 
-const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
+const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean; ariaLabel?: string }[] }[] = [
   {
     title: 'Docs',
     links: [
@@ -33,6 +34,15 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
     ],
   },
   {
+    title: 'Packages',
+    links: PACKAGES.map((pkg) => ({
+      label: pkg.name.replace('@slipstream-ui/', ''),
+      href: npmPackageUrl(pkg.name),
+      external: true,
+      ariaLabel: `${pkg.name} on npm`,
+    })),
+  },
+  {
     title: 'Project',
     links: [
       { label: 'GitHub', href: REPO_URL, external: true },
@@ -53,7 +63,7 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
 export function Footer() {
   return (
     <footer className="border-t border-border bg-muted/30">
-      <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="container mx-auto grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <div>
           <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
             {/* eslint-disable-next-line @next/next/no-img-element -- local brand lockup, unoptimized by design */}
@@ -115,7 +125,7 @@ export function Footer() {
               {column.links.map((link) => (
                 <li key={link.label}>
                   {link.external ? (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-foreground">
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.ariaLabel} className="text-muted-foreground transition-colors hover:text-foreground">
                       {link.label}
                     </a>
                   ) : (
