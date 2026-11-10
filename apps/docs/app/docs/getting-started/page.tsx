@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/getting-started', {
   title: 'Quickstart',
   description:
     'Go from an empty React app to a themed Slipstream UI screen and a working agent loop in five steps: install, theme, compose, verify, and connect the manifest tools.',
-};
+});
 
 const TROUBLESHOOTING = [
   {

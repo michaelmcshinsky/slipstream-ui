@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/guides/vercel-ai-sdk', {
   title: 'Vercel AI SDK integration',
   description:
     'Bridge the Vercel AI SDK useChat state into Slipstream Conversation, Message, and ToolCall with useSlipstreamMessages and useSlipstreamStream — no runtime lock-in.',
-};
+});
 
 export default function VercelAiSdkGuidePage() {
   return (

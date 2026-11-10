@@ -14,7 +14,6 @@ import { Navbar } from '@/components/site/navbar';
 import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
-import { GitHubStars } from '@/components/site/github-stars';
 import { ThemeShowcase } from '@/components/theme-showcase';
 import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
@@ -214,7 +213,6 @@ export default function LandingPage() {
               </a>
             </div>
             <div className="mt-6"><CopyInstallPill /></div>
-            <div className="mt-4"><GitHubStars /></div>
           </div>
           <LandingChatDemo />
         </div>

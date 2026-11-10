@@ -1,24 +1,37 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { webPageSchema } from '@/lib/structured-data';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { SITE } from '@/lib/site';
 import { VERSION } from '@/lib/version';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/about', {
   title: 'About',
   description:
     'Who builds Slipstream UI, why it exists, and the engineering principles behind manifests, the MCP server, and the usage validator.',
   alternates: { canonical: '/about' },
-};
+});
 
 export default function AboutPage() {
   return (
-    <MarketingPage
-      title="About Slipstream UI"
-      description="A small, open-source project with a single thesis: coding agents are users too, and they deserve machine-readable contracts."
-      updated="November 2026"
-    >
+    <>
+      <JsonLd
+        data={webPageSchema({
+          type: 'AboutPage',
+          name: 'About Slipstream UI',
+          description:
+            'Who builds Slipstream UI, why it exists, and the engineering principles behind manifests, the MCP server, and the usage validator.',
+          path: '/about',
+        })}
+      />
+      <MarketingPage
+        title="About Slipstream UI"
+        description="A small, open-source project with a single thesis: coding agents are users too, and they deserve machine-readable contracts."
+        updated="November 2026"
+      >
       <section className="space-y-3">
         <h2 className="text-lg font-semibold text-foreground">Why this exists</h2>
         <p>
@@ -110,6 +123,7 @@ export default function AboutPage() {
           </li>
         </ul>
       </section>
-    </MarketingPage>
+      </MarketingPage>
+    </>
   );
 }

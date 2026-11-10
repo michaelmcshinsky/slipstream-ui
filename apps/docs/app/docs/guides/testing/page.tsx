@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/guides/testing', {
   title: 'Testing AI components',
   description:
     'jest-axe accessibility suites, interaction tests for streaming and errors, manifest drift checks, and validate_usage as a CI gate for agent-generated UI.',
-};
+});
 
 export default function TestingGuidePage() {
   return (

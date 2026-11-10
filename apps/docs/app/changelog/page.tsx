@@ -6,19 +6,35 @@ import { CodeBlock } from '@slipstream-ui/ai';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
+import { Footer } from '@/components/site/footer';
+import { JsonLd } from '@/components/site/json-ld';
+import { withSeo } from '@/lib/seo';
+import { articleSchema } from '@/lib/structured-data';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/changelog', {
   title: 'Changelog',
   description:
-    'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver.',
-};
-import { Footer } from '@/components/site/footer';
+    'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.7.0.',
+});
 
 const releases = [
   {
+    version: '0.7.0',
+    date: 'November 10, 2026',
+    tag: 'current',
+    highlights: [
+      'Marketplace card layer: DealCard, EntityCard (with a ProfileCard alias), TombstoneCard, DocumentCard and LoadMore - 109 components total (92 core + 17 AI)',
+      'Deal access is stated with text badges; document downloads stay disabled unless the document is available; unavailable items keep their reason and status; LoadMore announces loading and end-of-list states',
+      'WCAG 2.2 fixes found by the dark-mode audit: Separator only exposes aria-orientation when it has the separator role, Tabs only emits aria-controls when the referenced panel is rendered, Timeline muted items keep token colors instead of dimming with opacity',
+      'RangeSlider inputs and the DatePicker, DateRangePicker and TimePicker clear buttons now meet the 24px target-size minimum',
+      'SelectMenu exposes the select-only combobox role on its trigger and makes the scrollable listbox focusable, so the open state is valid ARIA',
+      'Versioned packages: core and ai 0.7.0; themes, cli, registry, mcp-server and i18n are unchanged from the 0.6.x line',
+    ],
+  },
+  {
     version: '0.6.1',
     date: 'November 8, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       '@slipstream-ui/themes accepts Tailwind CSS v4 as a peer alongside v3.4, so apps on Tailwind 4 install without an unmet-peer warning',
       'Dialog and Drawer modal-layer cleanup captures the layer id instead of reading a ref during teardown, removing the React warning and keeping nested-close ordering correct',
@@ -145,6 +161,15 @@ export default async function ChangelogPage() {
   const ui = getChangelogUi(locale);
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={articleSchema({
+          headline: 'Slipstream UI changelog',
+          description:
+            'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.7.0.',
+          path: '/changelog',
+          dateModified: '2026-11-10',
+        })}
+      />
       <Navbar />
       {/* px-4 absorbs the pills bar's -mx-4 bleed so the page never scrolls horizontally. */}
       <div className="px-4">

@@ -4,11 +4,14 @@ import { CodeBlock } from '@slipstream-ui/ai';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 import { PackageLink } from '@/components/package-link';
+import { JsonLd } from '@/components/site/json-ld';
+import { techArticleSchema } from '@/lib/structured-data';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs', {
   title: 'Documentation',
   description: `Slipstream UI documentation: the AI-first React component library where every one of ${COMPONENT_COUNT} components ships a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator.`,
-};
+});
 
 const QUICK_LINKS = [
   {
@@ -40,6 +43,14 @@ const QUICK_LINKS = [
 export default function DocsPage() {
     return (
       <div>
+      <JsonLd
+        data={techArticleSchema({
+          title: 'Slipstream UI documentation',
+          description: `Slipstream UI documentation: the AI-first React component library where every one of ${COMPONENT_COUNT} components ships a machine-readable COMPONENT_MANIFEST, an MCP server, and a usage validator.`,
+          path: '/docs',
+          section: 'Getting started',
+        })}
+      />
       <div className="mb-8 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
         <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 font-mono text-xs font-medium text-primary">
           v{VERSION}

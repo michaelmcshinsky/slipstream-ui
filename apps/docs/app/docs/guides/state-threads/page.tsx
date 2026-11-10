@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/state-threads', {
   title: 'State & threads',
   description:
     'Where conversation state should live with stateless Slipstream components: message shapes, persistence, history prepend, branching, and multi-thread structures.',
-};
+});
 
 export default function StateThreadsGuidePage() {
   return (

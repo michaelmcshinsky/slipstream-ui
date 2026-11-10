@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/guides/migrating-from-shadcn', {
   title: 'Migrating from shadcn to AI-ready components',
   description:
     'How Slipstream UI fits next to (or replaces) shadcn/ui: shadcn-compatible registry, stateless AI components, machine-readable manifests, and an MCP validator your coding agent can check against.',
-};
+});
 
 export default function ShadcnMigrationGuidePage() {
   return (

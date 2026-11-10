@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/thank-you', {
   title: 'Message received',
   description: 'Thanks — your message reached the Slipstream UI maintainers.',
   robots: { index: false, follow: false },
-};
+});
 
 export default function ThankYouPage() {
   return (

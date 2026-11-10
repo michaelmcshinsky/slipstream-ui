@@ -4,11 +4,14 @@ import path from 'node:path';
 import Link from 'next/link';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 import { NAV_SECTIONS, type NavItem } from '@/lib/nav';
+import { JsonLd } from '@/components/site/json-ld';
+import { componentCollectionSchema } from '@/lib/structured-data';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/components', {
   title: 'Components',
   description: `Browse all ${COMPONENT_COUNT} Slipstream UI components — core atoms and AI interaction molecules — with documentation, live demos, props, and accessibility notes.`,
-};
+});
 
 type RegistryEntry = {
   tier?: string;
@@ -72,6 +75,11 @@ export default function ComponentsOverviewPage() {
 
   return (
     <div>
+      <JsonLd
+        data={componentCollectionSchema(
+          groups.flatMap((group) => group.items.map((item) => ({ name: item.label, path: item.href })))
+        )}
+      />
       <h1 className="text-4xl font-bold mb-3">Components</h1>
       <p className="text-lg text-muted-foreground mb-2">
         All {COMPONENT_COUNT} components, grouped the same way as the sidebar. Every page carries a

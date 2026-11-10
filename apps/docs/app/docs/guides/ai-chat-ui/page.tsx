@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/ai-chat-ui', {
   title: 'React AI chat UI guide',
   description:
     'Build a production React AI chat interface with Slipstream UI: streaming markdown, stop-generation, feedback actions, and accessible messages — stateless components, your backend.',
-};
+});
 
 export default function AiChatUiGuidePage() {
   return (

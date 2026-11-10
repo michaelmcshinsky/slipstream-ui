@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import { directionFor, getMessages, resolveLocale, translate } from '@slipstream-ui/i18n';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
@@ -11,15 +11,29 @@ import { organizationSchema, websiteSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://slipstreamui.com'),
+  applicationName: 'Slipstream UI',
   title: {
     default: 'Slipstream UI - The AI-first React Component Library',
     template: '%s · Slipstream UI',
   },
   description:
     'Your AI already knows your design system. Every component ships a machine-readable manifest so Claude, Cursor, and Copilot generate correct UI the first time.',
-  keywords: ['AI components', 'React', 'component system', 'MCP', 'shadcn', 'chat UI', 'Tailwind', 'design system'],
-  authors: [{ name: 'Slipstream UI' }],
+  keywords: [
+    'AI components',
+    'React component library',
+    'AI-first React',
+    'component manifest',
+    'MCP',
+    'shadcn',
+    'chat UI',
+    'Tailwind',
+    'design system',
+    'AI coding agents',
+  ],
+  authors: [{ name: 'Slipstream UI', url: 'https://slipstreamui.com/about' }],
   creator: 'Slipstream UI',
+  publisher: 'Slipstream UI',
+  category: 'technology',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -43,7 +57,29 @@ export const metadata: Metadata = {
     description: 'The AI-first React component library — your AI reads the spec, not the source.',
     images: ['/og.png'],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  referrer: 'origin-when-cross-origin',
+  formatDetection: { telephone: false, email: false, address: false },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b1220' },
+  ],
 };
 
 /**

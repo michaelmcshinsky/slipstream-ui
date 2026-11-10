@@ -1,18 +1,31 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { webPageSchema } from '@/lib/structured-data';
 import { SITE } from '@/lib/site';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/privacy', {
   title: 'Privacy policy',
   description:
     'What Slipstream UI stores on your device, what analytics we use (only with consent), how contact messages are handled, and how to exercise your privacy rights.',
   alternates: { canonical: '/privacy' },
-};
+});
 
 export default function PrivacyPage() {
   return (
-    <MarketingPage
+    <>
+      <JsonLd
+        data={webPageSchema({
+          type: 'PrivacyPolicy',
+          name: 'Privacy policy',
+          description:
+            'What Slipstream UI stores on your device, what analytics we use (only with consent), how contact messages are handled, and how to exercise your privacy rights.',
+          path: '/privacy',
+        })}
+      />
+      <MarketingPage
       title="Privacy policy"
       description="Short version: we store your theme preference, we only measure traffic if you accept cookies, and we never run ads or cross-site tracking."
       updated="November 2026"
@@ -135,5 +148,6 @@ export default function PrivacyPage() {
         </address>
       </section>
     </MarketingPage>
+    </>
   );
 }

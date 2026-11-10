@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/compatibility', {
   title: 'Compatibility',
   description:
     'Tested and expected compatibility for Slipstream UI: React 18/19, Next.js, Vite, Tailwind CSS 3.4 and 4.x, Radix UI primitives and React Server Components.',
-};
+});
 
 const ROWS = [
   ['React', '18.2', 'Tested', 'Docs and playground builds; component test suites'],

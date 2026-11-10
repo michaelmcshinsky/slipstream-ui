@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CORE_COMPONENT_COUNT, AI_COMPONENT_COUNT, COMPONENT_COUNT } from '@/lib/component-count';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/roadmap', {
   title: 'Roadmap',
   description:
     'The 0.x to 1.0 roadmap for Slipstream UI: what shipped, what is next, the stability guarantees, and the promises that come with 1.0.',
-};
+});
 
 const RELEASES: {
   version: string;
@@ -63,7 +64,20 @@ const RELEASES: {
     ],
   },
   {
-    version: '0.7 - 0.9',
+    version: '0.7.x',
+    window: 'Shipped · November 2026',
+    state: 'shipped',
+    focus: 'Marketplace cards and the WCAG 2.2 dark-mode audit',
+    items: [
+      'Marketplace card layer: DealCard, EntityCard (ProfileCard alias), TombstoneCard, DocumentCard and LoadMore',
+      'Deal access stated with text badges; downloads disabled unless the document is available; unavailable items keep their reason and status; LoadMore announces loading and end-of-list',
+      'WCAG 2.2 fixes: Separator aria-orientation only on the separator role, Tabs aria-controls only for a rendered panel, Timeline muted items keep token colors',
+      'RangeSlider inputs and DatePicker, DateRangePicker and TimePicker clear buttons meet the 24px target-size minimum',
+      'SelectMenu exposes the select-only combobox role on its trigger and makes the scrollable listbox focusable',
+    ],
+  },
+  {
+    version: '0.8 - 0.9',
     window: 'Planned',
     state: 'planned',
     focus: 'Proof and starters',

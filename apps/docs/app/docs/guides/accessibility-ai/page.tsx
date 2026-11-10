@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/accessibility-ai', {
   title: 'Accessible AI interfaces',
   description:
     'Streaming announcements, focus management, keyboard operation, reduced motion, and testing patterns that keep AI chat interfaces usable with assistive technology.',
-};
+});
 
 export default function AccessibilityAiGuidePage() {
   return (

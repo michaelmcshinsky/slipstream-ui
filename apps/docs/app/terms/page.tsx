@@ -1,18 +1,31 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { webPageSchema } from '@/lib/structured-data';
 import { SITE } from '@/lib/site';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/terms', {
   title: 'Terms of use',
   description:
     'Terms for using the Slipstream UI website and packages: MIT license, no warranty, acceptable use, and how to contact us.',
   alternates: { canonical: '/terms' },
-};
+});
 
 export default function TermsPage() {
   return (
-    <MarketingPage
+    <>
+      <JsonLd
+        data={webPageSchema({
+          type: 'TermsOfService',
+          name: 'Terms of use',
+          description:
+            'Terms for using the Slipstream UI website and packages: MIT license, no warranty, acceptable use, and how to contact us.',
+          path: '/terms',
+        })}
+      />
+      <MarketingPage
       title="Terms of use"
       description="Plain-language terms for this site and the Slipstream UI packages."
       updated="November 2026"
@@ -87,5 +100,6 @@ export default function TermsPage() {
         </p>
       </section>
     </MarketingPage>
+    </>
   );
 }

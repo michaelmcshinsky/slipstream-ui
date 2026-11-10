@@ -1,10 +1,16 @@
-# Slipstream UI - AI-First React Component Library
+# Slipstream UI — AI-First React Component Library
 
 > Single-file corpus (all components): https://slipstreamui.com/llms-full.txt
 > Per-component markdown: https://slipstreamui.com/llm/components/<id>.md
+> Version: 0.7.0 (2026-11-10) — changelog: https://slipstreamui.com/changelog
 
 ## Overview
 Slipstream UI is an AI-first React component library designed for AI-assisted development. Every component ships a machine-readable COMPONENT_MANIFEST so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
+
+- 109 components: 92 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+- MIT licensed, open source at https://github.com/michaelmcshinsky/slipstream-ui
+- React 18/19, TypeScript, Tailwind CSS 3.4 and v4
+- WCAG 2.2 AA target with automated axe coverage in both themes
 
 ## Key Differentiator
 AI reads the spec, not the source. Each component includes a COMPONENT_MANIFEST JSON file containing:
@@ -24,11 +30,13 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 ```
 
 ## Package Structure
-- @slipstream-ui/core - Base atoms and molecules (Button, Input, Badge, Avatar, Spinner, Select, Toast, Dialog)
-- @slipstream-ui/ai - AI interaction components (Message, Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, Attachment, MessageActions, CommandPalette)
+- @slipstream-ui/core - Base components: actions, forms, overlays, data display, app shell, marketing blocks and content typography
+- @slipstream-ui/ai - AI interaction components (Conversation, Message, PromptInput, Response, Reasoning, ToolCall, Sources, Suggestions, ChainThought, StreamingIndicator, Attachment, MessageActions, CommandPalette, Confirmation, Branch, InlineCitation, CodeBlock)
 - @slipstream-ui/themes - Theming system with createTheme() and presets
+- @slipstream-ui/registry - Manifest registry resolution shared by the CLI and MCP server
 - @slipstream-ui/mcp-server - MCP server for AI agents
 - @slipstream-ui/cli - CLI tool for installation and management
+- @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
 <!-- generated:core:start -->
 ## Core components (@slipstream-ui/core) — 92
@@ -160,6 +168,10 @@ Static manifest registry served from the docs site:
 - GET /llm/components/<id>.md - full per-component reference generated from its manifest
 Prefer these over HTML pages when generating code.
 
+## Changelog
+- https://slipstreamui.com/changelog - every release with highlights and migration notes
+- https://github.com/michaelmcshinsky/slipstream-ui/releases - per-package GitHub releases
+
 ## MCP Server
 The MCP server provides tools for AI agents:
 - list_components - Query available components with filters
@@ -167,6 +179,18 @@ The MCP server provides tools for AI agents:
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
 - validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, and missing required props
+
+Add it to an MCP client:
+```json
+{
+  "mcpServers": {
+    "slipstream-ui": {
+      "command": "npx",
+      "args": ["-y", "@slipstream-ui/mcp-server@latest"]
+    }
+  }
+}
+```
 
 ## Production UX notes
 - Components are stateless; consumers own thread/conversation state
@@ -181,11 +205,13 @@ Full documentation at https://slipstreamui.com/docs
 
 ## For AI Agents
 When generating UI code:
-1. Query the MCP server for component manifests
-2. Read prop schemas and usage examples
-3. Follow content guidelines for text generation
-4. Respect composition rules and anti-patterns
-5. Ensure accessibility requirements are met
+1. Read this file (or /llms-full.txt for the whole corpus) before inventing component APIs
+2. Query the MCP server for component manifests
+3. Read prop schemas and usage examples
+4. Follow content guidelines for text generation
+5. Respect composition rules and anti-patterns
+6. Run validate_usage on generated JSX before emitting it
+7. Ensure accessibility requirements are met
 
 ## Example Usage
 ```tsx

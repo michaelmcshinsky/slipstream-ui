@@ -1,18 +1,31 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { webPageSchema } from '@/lib/structured-data';
 import { SITE } from '@/lib/site';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/accessibility', {
   title: 'Accessibility',
   description:
     'Slipstream UI accessibility statement: target standard, how components and this site are tested, known limitations, and how to report a barrier.',
   alternates: { canonical: '/accessibility' },
-};
+});
 
 export default function AccessibilityPage() {
   return (
-    <MarketingPage
+    <>
+      <JsonLd
+        data={webPageSchema({
+          type: 'WebPage',
+          name: 'Accessibility statement',
+          description:
+            'Slipstream UI accessibility statement: target standard, how components and this site are tested, known limitations, and how to report a barrier.',
+          path: '/accessibility',
+        })}
+      />
+      <MarketingPage
       title="Accessibility statement"
       description="Slipstream UI targets WCAG 2.2 Level AA for both the component library and this documentation site."
       updated="November 2026"
@@ -123,5 +136,6 @@ pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111`}</code>
         <p>We aim to acknowledge accessibility reports within five business days.</p>
       </section>
     </MarketingPage>
+    </>
   );
 }

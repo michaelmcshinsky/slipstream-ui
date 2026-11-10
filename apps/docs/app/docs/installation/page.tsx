@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { PACKAGES, npmPackageUrl } from '@/lib/site';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/installation', {
   title: 'Installation',
   description:
     'Install Slipstream UI via pnpm packages, the npx slipstream-ui CLI, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
-};
+});
 
 export default function InstallationPage() {
   return (
