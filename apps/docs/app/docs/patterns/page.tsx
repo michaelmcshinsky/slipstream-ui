@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/patterns', {
   title: 'Patterns',
   description:
     'Full recipes for AI product surfaces built with Slipstream UI: streaming chat, tool-calling UI, RAG citations, human-in-the-loop approval, and multi-branch conversations.',
-};
+});
 
 type Recipe = {
   id: string;

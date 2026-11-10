@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/agent-integration', {
   title: 'MCP component library: connect your AI agent',
   description:
     'Wire Claude Code, Cursor, or any MCP client to Slipstream UI: five MCP tools, validate_usage before emitting JSX, plus llms.txt and canonical markdown routes as fallbacks.',
-};
+});
 
 const TOOLS: { name: string; purpose: string }[] = [
   { name: 'list_components', purpose: 'Browse components with package/tier filters.' },

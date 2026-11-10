@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { ThemeShowcase } from '@/components/theme-showcase';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/theming', {
   title: 'Theming',
   description:
     'Theme Slipstream UI with one createTheme() call: CSS variable emission, dark mode, multi-token radius, and violet/zinc presets that switch instantly without rebuilds.',
-};
+});
 
 export default function ThemingPage() {
   return (

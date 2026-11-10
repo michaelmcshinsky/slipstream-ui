@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/ide-setup', {
   title: 'Set up Claude Code, Cursor & Windsurf',
   description:
     'Step-by-step MCP wiring for AI coding IDEs: .mcp.json for Claude Code, mcp.json for Cursor, Windsurf config, plus rules-file patterns that make agents reach for Slipstream first.',
-};
+});
 
 export default function IdeSetupGuidePage() {
   return (

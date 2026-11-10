@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/tailwind-v4', {
   title: 'Tailwind CSS v4',
   description:
     'Use Slipstream UI with Tailwind CSS v4: import the theme contract, point @source at the package dist folders, and keep runtime theming with createTheme().',
-};
+});
 
 export default function TailwindV4Page() {
   return (

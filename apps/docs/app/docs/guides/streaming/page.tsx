@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/guides/streaming', {
   title: 'Streaming fundamentals',
   description:
     'Transport-agnostic streaming for AI chat UIs: fetch readers, abort handling, partial-markdown repair, scroll anchoring, and the backpressure details that make streams feel instant.',
-};
+});
 
 export default function StreamingGuidePage() {
   return (

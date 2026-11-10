@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { McpPlayground } from '@/components/mcp-playground';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/mcp', {
   title: 'MCP Server',
   description:
     'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: list_components, get_component_manifest, validate_usage keep agent-generated UI honest.',
-};
+});
 
 export default function MCPPage() {
   return (

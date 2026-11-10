@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/ai-first', {
   title: 'AI-first by design',
   description:
     'How Slipstream UI keeps AI-generated UI correct: one COMPONENT_MANIFEST per component, an MCP server with validate_usage, canonical markdown routes, and a registry that all derive from the same source.',
-};
+});
 
 const LAYERS = [
   {

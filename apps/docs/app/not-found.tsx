@@ -1,6 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
+
+export const metadata: Metadata = {
+  title: 'Page not found',
+  description: 'That page does not exist. Browse the Slipstream UI documentation or the component index instead.',
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

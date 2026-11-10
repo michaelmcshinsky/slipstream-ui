@@ -1,17 +1,30 @@
 import type { Metadata } from 'next';
 import { MarketingPage } from '@/components/site/marketing-page';
+import { JsonLd } from '@/components/site/json-ld';
+import { webPageSchema } from '@/lib/structured-data';
 import { SITE } from '@/lib/site';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/contact', {
   title: 'Contact',
   description:
     'Get in touch with the Slipstream UI maintainers: email, postal address, GitHub issues, and a contact form for anything else.',
   alternates: { canonical: '/contact' },
-};
+});
 
 export default function ContactPage() {
   return (
-    <MarketingPage
+    <>
+      <JsonLd
+        data={webPageSchema({
+          type: 'ContactPage',
+          name: 'Contact Slipstream UI',
+          description:
+            'Get in touch with the Slipstream UI maintainers: email, postal address, GitHub issues, and a contact form for anything else.',
+          path: '/contact',
+        })}
+      />
+      <MarketingPage
       title="Contact"
       description={SITE.contact.hours}
     >
@@ -107,5 +120,6 @@ export default function ContactPage() {
         </section>
       </div>
     </MarketingPage>
+    </>
   );
 }

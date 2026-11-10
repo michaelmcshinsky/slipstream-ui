@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { withSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withSeo('/docs/cli', {
   title: 'CLI',
   description:
     'Reference for the slipstream-ui CLI: init, add, list, and diff commands with flags, files written, CI drift gating, and troubleshooting.',
-};
+});
 
 const COMMANDS = [
   {

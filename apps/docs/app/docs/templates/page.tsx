@@ -7,11 +7,13 @@ import { RagCitationsDemo } from '@/components/rag-citations-demo';
 import { MultiThreadDemo } from '@/components/multi-thread-demo';
 import { SettingsFormDemo } from '@/components/settings-form-demo';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/templates', {
   title: 'Templates',
   description:
     'Complete, copy-paste Slipstream UI patterns: streaming chat, agent dashboard with human-in-the-loop tool calls, grounded RAG citations, multi-thread conversations, and validated settings forms.',
-};
+});
 
 /** Live previews keyed by template index; templates without one show code only. */
 const DEMOS: Record<number, ReactNode> = {

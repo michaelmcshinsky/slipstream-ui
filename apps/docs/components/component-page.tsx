@@ -6,7 +6,7 @@ import { CodeBlock } from '@slipstream-ui/ai';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
 import { JsonLd } from './site/json-ld';
-import { breadcrumbSchema } from '@/lib/structured-data';
+import { techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
@@ -113,11 +113,12 @@ export function ComponentPage({
   return (
     <article>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: 'Docs', path: '/docs' },
-          { name: 'Components', path: '/docs/components' },
-          { name: title, path: `/docs/components/${id}` },
-        ])}
+        data={techArticleSchema({
+          title: `${title} component`,
+          description,
+          path: `/docs/components/${id}`,
+          section: 'Components',
+        })}
       />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>

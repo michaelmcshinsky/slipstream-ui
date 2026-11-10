@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { CodeBlock } from '@slipstream-ui/ai';
 
-export const metadata: Metadata = {
+import { withSeo } from '@/lib/seo';
+
+export const metadata: Metadata = withSeo('/docs/guides/react-hook-form', {
   title: 'React Hook Form',
   description:
     'Use Slipstream controls with react-hook-form 7.x: register() for native inputs, Controller for value-based callbacks, and FormField for error and aria wiring.',
-};
+});
 
 export default function ReactHookFormGuidePage() {
   return (
