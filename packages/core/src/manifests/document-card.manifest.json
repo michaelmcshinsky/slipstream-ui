@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "document-card",
   "exportName": "DocumentCard",
   "description": "Document row with file metadata, access status and an optional download action.",

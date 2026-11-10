@@ -1,5 +1,28 @@
 # @slipstream-ui/core
 
+## 0.7.0
+
+### Minor Changes
+
+- [#84](https://github.com/michaelmcshinsky/slipstream-ui/pull/84) [`db0e184`](https://github.com/michaelmcshinsky/slipstream-ui/commit/db0e184ce7e2534013368c9a95f71fb8c6aecea6) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add the marketplace card layer: `DealCard`, `EntityCard` (with `ProfileCard`
+  alias), `TombstoneCard`, `DocumentCard` and `LoadMore`.
+  
+  Deal access is stated with text badges; document downloads are disabled unless
+  the document is available; unavailable items keep their reason and status;
+  LoadMore announces loading and end-of-list states.
+
+### Patch Changes
+
+- [#84](https://github.com/michaelmcshinsky/slipstream-ui/pull/84) [`db0e184`](https://github.com/michaelmcshinsky/slipstream-ui/commit/db0e184ce7e2534013368c9a95f71fb8c6aecea6) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix WCAG 2.2 issues found by the dark-mode audit.
+  
+  - `Separator` only exposes `aria-orientation` when it has the `separator` role.
+  - `Tabs` only emits `aria-controls` when the referenced panel is rendered.
+  - `Timeline` muted items keep token colors instead of dimming with opacity.
+  - `RangeSlider` inputs and `DatePicker`/`DateRangePicker`/`TimePicker` clear
+    buttons meet the 24px target-size minimum.
+  - `SelectMenu` exposes the select-only `combobox` role on its trigger and makes
+    the scrollable listbox focusable, so the open state is valid ARIA.
+
 ## 0.6.1
 
 ### Patch Changes

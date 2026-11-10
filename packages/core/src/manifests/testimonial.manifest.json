@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "testimonial",
   "exportName": "Testimonial",
   "description": "Semantic written testimonial with quote, person, role, company, avatar and logo slots.",
