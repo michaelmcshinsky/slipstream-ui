@@ -13,7 +13,7 @@
     "prepare": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.0"
+    "@prisma/client": "^6.19.3"
   },
   "devDependencies": {
     "prisma": "^5.19.0",
