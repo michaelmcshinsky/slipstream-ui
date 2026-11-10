@@ -12,6 +12,7 @@ React component library, docs app, playground, starters, CLI, MCP server and reg
 | CLI / MCP / registry | `packages/cli, mcp-server, registry` | published npm packages |
 | Docs | `apps/docs` | Next.js docs app; Worker |
 | Playground / app / starters | `apps/*` | local/dev only |
+| Tooling | `tooling/*` | shared ESLint, Tailwind, TypeScript and Vitest configs |
 | Workspace packages | `packages/*` | Shared libraries; built, typechecked and tested through the root commands |
 
 ## Run locally
