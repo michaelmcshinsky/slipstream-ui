@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "cta-section",
   "exportName": "CTASection",
   "description": "Full-width conversion band with eyebrow, headline, supporting copy and actions.",

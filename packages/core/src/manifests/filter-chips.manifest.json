@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "filter-chips",
   "exportName": "FilterChips",
   "description": "Active-filter summary with removable chips and a clear-all action.",

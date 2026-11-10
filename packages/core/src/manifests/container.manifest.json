@@ -4,7 +4,7 @@
   "tier": "atom",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "container",
   "exportName": "Container",
   "description": "Centered, width-constrained page container with shared gutters and four width presets.",
