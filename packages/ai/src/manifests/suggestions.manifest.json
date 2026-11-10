@@ -39,7 +39,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "sourceDir": "suggestion",
   "exportName": "Suggestions"
 }
