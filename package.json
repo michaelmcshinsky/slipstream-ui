@@ -33,6 +33,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts",
     "release": "turbo run build && node scripts/publish.cjs",
+    "deploy:docs": "pnpm --filter slipstream-ui-docs deploy",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "generate:llm-docs": "tsx scripts/generate-llm-docs.ts",
     "audit:packages": "tsx scripts/audit-packages.ts",

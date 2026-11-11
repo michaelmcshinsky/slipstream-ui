@@ -1,6 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "slipstream-ui-docs",
+  // Must match the Worker name of the Workers Builds project connected to this
+  // repo (`slipstream-ui`). Workers Builds overrides a mismatched name at deploy
+  // time, which leaves the WORKER_SELF_REFERENCE binding pointing at a Worker
+  // that does not exist.
+  "name": "slipstream-ui",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -11,7 +15,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "slipstream-ui-docs"
+      "service": "slipstream-ui"
     }
   ],
   "images": {

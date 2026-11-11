@@ -48,12 +48,32 @@ pnpm --filter slipstream-ui-docs dev
 | Part | Host | How |
 |---|---|---|
 | Packages | npm | Changesets + `pnpm release` |
-| Docs | Cloudflare Workers (OpenNext) | `slipstream-ui-docs`; cookie-based locale prevents static export |
+| Docs | Cloudflare Workers (OpenNext) | Worker `slipstream-ui` (repo `apps/docs`); cookie-based locale prevents static export |
 
 ### Deploy / provision
 
-- `pnpm --filter slipstream-ui-docs deploy`.
+- `pnpm --filter slipstream-ui-docs deploy` (or `pnpm deploy:docs` from the root).
 - Publish packages with `pnpm changeset` then `pnpm release`.
+
+#### Cloudflare Workers Builds (CI)
+
+The `slipstream-ui` Worker builds from this repo on every push to `main`. Configure in **Workers & Pages → slipstream-ui → Settings → Build**:
+
+| Setting | Value |
+|---|---|
+| Root directory | *(empty - the repo root)* |
+| Build command | `pnpm run build` |
+| Deploy command | `pnpm --filter slipstream-ui-docs run deploy` |
+| Preview command (only if preview builds are on) | `pnpm --filter slipstream-ui-docs run preview` |
+
+Why these values:
+
+- The root directory must stay at the repo root so the pnpm workspace install resolves the `@slipstream-ui/*` workspace links and turbo builds `packages/*` before the docs app.
+- The deploy command must run inside `apps/docs`: it is `opennextjs-cloudflare build && opennextjs-cloudflare deploy`, which produces `.open-next/worker.js` and `.open-next/assets` (the paths `apps/docs/wrangler.jsonc` points at) and then deploys with the Wrangler version pinned in `apps/docs/package.json`.
+- Do **not** set the deploy command to a bare `npx wrangler deploy`. At the repo root there is no Wrangler config, so Wrangler treats it as an unconfigured project and fails with `The Cloudflare application detection logic has been run in the root of a workspace instead of targeting a specific project`.
+- Do **not** name the Worker `slipstream-ui-docs` in `wrangler.jsonc`. Workers Builds deploys under the name of its own Worker project and overrides a mismatch at deploy time; the `WORKER_SELF_REFERENCE` service binding then still points at the old name and the version upload fails with `Service binding 'WORKER_SELF_REFERENCE' references Worker '<name>' which was not found [code: 10143]`. `wrangler.jsonc` `name` and the self-reference `service` must both equal the Workers Builds Worker name (`slipstream-ui`).
+- `turbo run build` alone only runs `next build`; it does not produce `.open-next`, so a deploy that skips the OpenNext build step fails on a missing entrypoint.
+
 
 ## Environment
 
