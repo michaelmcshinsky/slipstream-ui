@@ -8,8 +8,14 @@
     {
       "name": "label",
       "type": "string",
-      "required": true,
-      "description": "Metric name."
+      "required": false,
+      "description": "Metric name. Alias: title."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Alias for label (migration-friendly)."
     },
     {
       "name": "value",
@@ -39,7 +45,13 @@
       "name": "hint",
       "type": "React.ReactNode",
       "required": false,
-      "description": "Comparison context (vs last month)."
+      "description": "Comparison context (vs last month). Alias: description."
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Alias for hint (migration-friendly)."
     },
     {
       "name": "icon",

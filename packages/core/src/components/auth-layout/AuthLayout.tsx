@@ -4,8 +4,12 @@ import { cn } from '../../utils/cn';
 export type AuthLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   title: string;
   description?: string;
-  /** Brand/mark above the card. */
+  /** Alias for `description` (migration-friendly). */
+  subtitle?: string;
+  /** Brand/mark above the card. Alias: logo. */
   brand?: React.ReactNode;
+  /** Alias for `brand` (migration-friendly). */
+  logo?: React.ReactNode;
   /** Links or legal copy under the card. */
   footer?: React.ReactNode;
   /** Rendered inside the card under the heading. */
@@ -38,7 +42,9 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
   {
     title,
     description,
+    subtitle,
     brand,
+    logo,
     footer,
     children,
     size = 'md',
@@ -50,6 +56,8 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
   ref
 ) {
   const split = variant === 'split' && aside != null;
+  const supporting = description ?? subtitle;
+  const mark = brand ?? logo;
 
   const form = (
     <div
@@ -58,7 +66,7 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
         split ? sizeClasses[size] : 'items-center'
       )}
     >
-      {brand && <div className="mb-6">{brand}</div>}
+      {mark && <div className="mb-6">{mark}</div>}
       <div
         className={cn(
           'w-full rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8',
@@ -66,7 +74,7 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
         )}
       >
         <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
-        {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+        {supporting && <p className="mt-1 text-sm text-muted-foreground">{supporting}</p>}
         <div className="mt-6">{children}</div>
       </div>
       {footer && <div className="mt-6 text-center text-sm text-muted-foreground">{footer}</div>}

@@ -620,7 +620,9 @@ Sign-in, sign-up, reset and verify screens should look identical. AuthLayout own
 |---|---|---|---|---|
 | title | `string` | — | yes | Card heading (h1). |
 | description | `string` | — | no | Supporting line under the heading. |
+| subtitle | `string` | — | no | Alias for description (migration-friendly). |
 | brand | `ReactNode` | — | no | Mark rendered above the card. |
+| logo | `ReactNode` | — | no | Alias for brand (migration-friendly). |
 | footer | `ReactNode` | — | no | Links/legal copy under the card. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Card width preset. |
 | variant | `'centered' | 'split'` | `centered` | no | Layout preset. Split adds a branded aside beside the form card on desktop and below it on mobile. |
@@ -2593,7 +2595,8 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | open | `boolean` | — | yes | Whether the drawer is visible (controlled). |
-| onOpenChange | `(open: boolean) => void` | — | yes | Close requests (✕, Escape, backdrop, your own triggers). |
+| onOpenChange | `(open: boolean) => void` | — | no | Close requests (✕, Escape, backdrop, your own triggers). |
+| onClose | `() => void` | — | no | Close-request alias for onOpenChange(false); used when only a close handler is passed. |
 | title | `string` | — | yes | Accessible dialog name rendered as the header title. |
 | description | `string` | — | no | Supporting line under the title (wired via aria-describedby). |
 | side | `'left' | 'right' | 'top' | 'bottom'` | `right` | no | Edge the drawer slides from. |
@@ -4671,11 +4674,13 @@ Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| label | `string` | — | yes | Metric name. |
+| label | `string` | — | no | Metric name. Alias: title. |
+| title | `string` | — | no | Alias for label (migration-friendly). |
 | value | `string | number` | — | yes | Primary number/value; rendered tabular. |
 | delta | `string` | — | no | Signed change, e.g. +12.4%. |
 | trend | `'up' | 'down' | 'flat'` | `flat` | no | Delta direction color + arrow glyph. |
-| hint | `React.ReactNode` | — | no | Comparison context (vs last month). |
+| hint | `React.ReactNode` | — | no | Comparison context (vs last month). Alias: description. |
+| description | `React.ReactNode` | — | no | Alias for hint (migration-friendly). |
 | icon | `ReactNode` | — | no | Decorative icon. |
 
 ## Examples
@@ -4862,6 +4867,7 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 |---|---|---|---|---|
 | title | `string` | — | yes | Page heading rendered as h1. |
 | description | `string` | — | no | Supporting summary under the title. |
+| subtitle | `string` | — | no | Alias for description (migration-friendly). |
 | breadcrumbs | `ReactNode` | — | no | Trail rendered above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions (buttons, menus). |
 | children | `ReactNode` | — | no | Sub-row under the title (tabs, filters). |

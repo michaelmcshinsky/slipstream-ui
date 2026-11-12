@@ -11,7 +11,14 @@ export type DrawerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export type DrawerProps = {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  /** Called with the next open state. Alias: onClose (close requests only). */
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Called when the drawer asks to close: Escape, backdrop click or the close
+   * button. Alias for `onOpenChange(false)`, used when only a close handler is
+   * passed.
+   */
+  onClose?: () => void;
   title: string;
   description?: string;
   children?: React.ReactNode;
@@ -110,6 +117,7 @@ const slideOut: Record<DrawerSide, string> = {
 export function Drawer({
   open,
   onOpenChange,
+  onClose,
   title,
   description,
   children,
@@ -130,6 +138,13 @@ export function Drawer({
   const descriptionId = React.useId();
   const { present, exiting } = usePresence(open, animate);
   const isTopLayer = useModalLayer(open);
+
+  // Prefer onOpenChange; fall back to the onClose alias so a migration code
+  // path that only passes onClose still dismisses without double-firing.
+  const requestClose = React.useCallback(() => {
+    if (onOpenChange) onOpenChange(false);
+    else onClose?.();
+  }, [onOpenChange, onClose]);
 
   // Capture the opener before the panel takes focus; restore the moment
   // open flips false — even while an exit animation keeps the DOM up.
@@ -158,7 +173,7 @@ export function Drawer({
       if (event.key === 'Escape') {
         if (!isTopLayer()) return;
         event.stopPropagation();
-        onOpenChange(false);
+        requestClose();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -182,7 +197,7 @@ export function Drawer({
     };
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [open, onOpenChange, isTopLayer]);
+  }, [open, requestClose, isTopLayer]);
 
   if (!present || typeof document === 'undefined') return null;
 
@@ -200,7 +215,7 @@ export function Drawer({
     <div
       className="fixed inset-0 z-50"
       onMouseDown={(event) => {
-        if (closeOnBackdrop && event.target === event.currentTarget) onOpenChange(false);
+        if (closeOnBackdrop && event.target === event.currentTarget) requestClose();
       }}
     >
       <div
@@ -233,7 +248,7 @@ export function Drawer({
           {showClose && (
             <button
               type="button"
-              onClick={() => onOpenChange(false)}
+              onClick={requestClose}
               aria-label={closeLabel}
               className="-me-1 rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >

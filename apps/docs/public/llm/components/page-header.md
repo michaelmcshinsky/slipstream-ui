@@ -16,6 +16,7 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 |---|---|---|---|---|
 | title | `string` | — | yes | Page heading rendered as h1. |
 | description | `string` | — | no | Supporting summary under the title. |
+| subtitle | `string` | — | no | Alias for description (migration-friendly). |
 | breadcrumbs | `ReactNode` | — | no | Trail rendered above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions (buttons, menus). |
 | children | `ReactNode` | — | no | Sub-row under the title (tabs, filters). |

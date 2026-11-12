@@ -46,3 +46,16 @@ describe('PageHeader hero options', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveClass('text-4xl');
   });
 });
+
+describe('PageHeader migration aliases', () => {
+  it('renders subtitle when description is absent', () => {
+    render(<PageHeader title="Billing" subtitle="Manage invoices." />);
+    expect(screen.getByText('Manage invoices.')).toBeInTheDocument();
+  });
+
+  it('prefers description when both description and subtitle are passed', () => {
+    render(<PageHeader title="Billing" description="Canonical" subtitle="Alias" />);
+    expect(screen.getByText('Canonical')).toBeInTheDocument();
+    expect(screen.queryByText('Alias')).not.toBeInTheDocument();
+  });
+});

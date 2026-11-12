@@ -181,3 +181,25 @@ describe('localized labels', () => {
     expect(screen.getByRole('button', { name: 'Fermer' })).toBeInTheDocument();
   });
 });
+
+describe('onClose alias', () => {
+  it('closes through onClose when onOpenChange is absent', async () => {
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    render(<Drawer open title="Filters" onClose={onClose}>Body</Drawer>);
+    await user.keyboard('{Escape}');
+    expect(onClose).toHaveBeenCalledTimes(1);
+    await user.click(screen.getByRole('button', { name: 'Close drawer' }));
+    expect(onClose).toHaveBeenCalledTimes(2);
+  });
+
+  it('prefers onOpenChange when both handlers are passed', async () => {
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    const onClose = vi.fn();
+    render(<Drawer open title="Filters" onOpenChange={onOpenChange} onClose={onClose}>Body</Drawer>);
+    await user.click(screen.getByRole('button', { name: 'Close drawer' }));
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+});

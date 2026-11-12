@@ -33,6 +33,30 @@ describe('AuthLayout', () => {
   });
 });
 
+describe('AuthLayout migration aliases', () => {
+  it('reads subtitle and logo when description and brand are absent', () => {
+    render(<AuthLayout title="Sign in" subtitle="Welcome back." logo={<span>Acme</span>} />);
+    expect(screen.getByText('Welcome back.')).toBeInTheDocument();
+    expect(screen.getByText('Acme')).toBeInTheDocument();
+  });
+
+  it('prefers description and brand when both forms are passed', () => {
+    render(
+      <AuthLayout
+        title="Sign in"
+        description="Canonical line"
+        subtitle="Alias line"
+        brand={<span>Canonical mark</span>}
+        logo={<span>Alias mark</span>}
+      />
+    );
+    expect(screen.getByText('Canonical line')).toBeInTheDocument();
+    expect(screen.queryByText('Alias line')).not.toBeInTheDocument();
+    expect(screen.getByText('Canonical mark')).toBeInTheDocument();
+    expect(screen.queryByText('Alias mark')).not.toBeInTheDocument();
+  });
+});
+
 describe('split variant', () => {
   it('renders the aside after the form', () => {
     const { container } = render(

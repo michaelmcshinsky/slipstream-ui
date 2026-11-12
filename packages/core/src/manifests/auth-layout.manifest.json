@@ -18,10 +18,22 @@
       "description": "Supporting line under the heading."
     },
     {
+      "name": "subtitle",
+      "type": "string",
+      "required": false,
+      "description": "Alias for description (migration-friendly)."
+    },
+    {
       "name": "brand",
       "type": "ReactNode",
       "required": false,
       "description": "Mark rendered above the card."
+    },
+    {
+      "name": "logo",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Alias for brand (migration-friendly)."
     },
     {
       "name": "footer",

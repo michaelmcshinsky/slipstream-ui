@@ -21,7 +21,8 @@ export default function DrawerPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'open', type: 'boolean', defaultValue: 'required', description: 'Whether the drawer is visible (controlled).' },
-        { name: 'onOpenChange', type: '(open: boolean) => void', defaultValue: 'required', description: 'Close requests (✕, Escape, backdrop, your own triggers).' },
+        { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Close requests (✕, Escape, backdrop, your own triggers).' },
+        { name: 'onClose', type: '() => void', description: 'Close-request alias for onOpenChange(false); used when only a close handler is passed.' },
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Accessible dialog name rendered as the header title.' },
         { name: 'description', type: 'string', description: 'Supporting line under the title (wired via aria-describedby).' },
         { name: 'side', type: "'left' | 'right' | 'top' | 'bottom'", defaultValue: "'right'", description: 'Edge the drawer slides from.' },

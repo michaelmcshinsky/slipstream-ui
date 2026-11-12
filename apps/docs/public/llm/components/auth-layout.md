@@ -16,7 +16,9 @@ Sign-in, sign-up, reset and verify screens should look identical. AuthLayout own
 |---|---|---|---|---|
 | title | `string` | — | yes | Card heading (h1). |
 | description | `string` | — | no | Supporting line under the heading. |
+| subtitle | `string` | — | no | Alias for description (migration-friendly). |
 | brand | `ReactNode` | — | no | Mark rendered above the card. |
+| logo | `ReactNode` | — | no | Alias for brand (migration-friendly). |
 | footer | `ReactNode` | — | no | Links/legal copy under the card. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Card width preset. |
 | variant | `'centered' | 'split'` | `centered` | no | Layout preset. Split adds a branded aside beside the form card on desktop and below it on mobile. |

@@ -19,6 +19,7 @@ export default function PageHeaderPage() {
       propsRows={[
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Page heading rendered as h1.' },
         { name: 'description', type: 'string', description: 'Supporting summary under the title.' },
+        { name: 'subtitle', type: 'string', description: 'Alias for description (migration-friendly).' },
         { name: 'breadcrumbs', type: 'ReactNode', description: 'Trail rendered above the title.' },
         { name: 'actions', type: 'ReactNode', description: 'Right-aligned actions (buttons, menus).' },
         { name: 'children', type: 'ReactNode', description: 'Sub-row under the title (tabs, filters).' },
