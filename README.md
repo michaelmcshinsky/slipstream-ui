@@ -22,7 +22,7 @@ Slipstream UI is a React component library built for AI-assisted development. Ev
 
 - **AI reads the spec, not the source** — manifests over MCP, canonical markdown routes, and a `validate_usage` tool that rejects hallucinated props before they ship
 - **Stateless by design** — bring any backend (Vercel AI SDK, LangGraph, raw streams); components render, you own state and transport
-- **Complete surface** - 92 core components (forms, overlays, data tables, app shell, marketing chrome, content typography) plus 17 AI chat/agent components
+- **Complete surface** - core components across forms, overlays, data tables, app shell, marketing chrome and content typography, plus the AI chat and agent set
 - **Accessible** — jest-axe suites on every component, keyboard and screen-reader behavior, reduced-motion variants
 - **Themeable to the token** — one `createTheme()` call emits every CSS variable; dark mode and presets switch instantly
 - **shadcn-compatible registry** — install real source files with `npx shadcn add`, or use the packages; your codebase, your rules
