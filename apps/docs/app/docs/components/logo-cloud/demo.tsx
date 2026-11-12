@@ -30,22 +30,22 @@ export default function LogoCloudPage() {
         preview={
           <Section tone="muted" padding="lg" className="rounded-lg">
             <LogoCloud
-              caption="Trusted across the lower middle market"
+              caption="Trusted by teams everywhere"
               items={[
-                { name: 'Peakstone', logo: <span className="text-lg font-semibold tracking-tight">PEAKSTONE</span> },
-                { name: 'North', logo: <span className="text-lg font-semibold tracking-tight">NORTH</span> },
-                { name: 'FOCUS', logo: <span className="text-lg font-semibold tracking-tight">FOCUS</span> },
-                { name: 'Banyan', logo: <span className="text-lg font-semibold tracking-tight">banyan</span> },
+                { name: 'Example', logo: <span className="text-lg font-semibold tracking-tight">EXAMPLE</span> },
+                { name: 'Northwind', logo: <span className="text-lg font-semibold tracking-tight">NORTHWIND</span> },
+                { name: 'Contoso', logo: <span className="text-lg font-semibold tracking-tight">CONTOSO</span> },
+                { name: 'Fabrikam', logo: <span className="text-lg font-semibold tracking-tight">fabrikam</span> },
               ]}
             />
           </Section>
         }
         code={`<Section tone="muted">
   <LogoCloud
-    caption="Trusted across the lower middle market"
+    caption="Trusted by teams everywhere"
     items={[
-      { name: 'Peakstone', logo: <img src="/peakstone.svg" alt="" /> },
-      { name: 'North', logo: <img src="/north.svg" alt="" />, href: '/members/north' },
+      { name: 'Example', logo: <img src="/example.svg" alt="" /> },
+      { name: 'Northwind', logo: <img src="/northwind.svg" alt="" />, href: '/directory/northwind' },
     ]}
   />
 </Section>`}

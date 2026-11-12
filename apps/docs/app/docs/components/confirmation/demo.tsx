@@ -84,7 +84,7 @@ export default function ConfirmationPage() {
 
 // Controlled outcome with a color hint
 <Confirmation
-  title="Send to all 2,400 users?"
+  title="Send to all 240 users?"
   variant="destructive"
   status={decision}
   onApprove={approve}

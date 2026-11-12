@@ -27,12 +27,12 @@ export default function SiteHeaderPage() {
         preview={
           <div className="w-full overflow-hidden rounded-xl border border-border">
             <SiteHeader
-              brand={<span className="text-base font-bold">Acme</span>}
+              brand={<span className="text-base font-bold">Example</span>}
               items={[
                 { href: '/docs', label: 'Docs' },
                 { href: '/pricing', label: 'Pricing' },
                 { href: '/changelog', label: 'Changelog' },
-                { href: 'https://github.com/michaelmcshinsky/slipstream-ui', label: 'GitHub', external: true },
+                { href: 'https://example.com', label: 'GitHub', external: true },
               ]}
               activeHref="/docs/components"
               actions={<span className="rounded-md border border-border px-2 py-1 text-xs">⌘K</span>}
@@ -40,7 +40,7 @@ export default function SiteHeaderPage() {
           </div>
         }
         code={`<SiteHeader
-  brand={<strong>Acme</strong>}
+  brand={<strong>Example</strong>}
   items={[
     { href: '/docs', label: 'Docs' },
     { href: '/pricing', label: 'Pricing' },

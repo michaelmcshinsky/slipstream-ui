@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
 import { JsonLd } from './site/json-ld';
 import { techArticleSchema } from '@/lib/structured-data';
-import { getNeighbors, FLAT_NAV } from '@/lib/nav';
+import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
   /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
@@ -101,6 +102,7 @@ export function ComponentPage({
   accessibility,
   browserNotes,
 }: ComponentPageProps) {
+  const { t } = useI18n();
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
   const manifest = useRegistryManifest(manifestId ?? id);
 
@@ -128,9 +130,9 @@ export function ComponentPage({
           target="_blank"
           rel="noopener noreferrer"
           className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          title={`Canonical markdown reference at /llm/components/${manifestId ?? id}.md`}
+          title={t('site.page.markdownTitle', { href: `/llm/components/${manifestId ?? id}.md` })}
         >
-          <span aria-hidden="true">⧉</span> Markdown for agents
+          <span aria-hidden="true">⧉</span> {t('site.page.markdownForAgents')}
         </a>
       </div>
       <p className="mt-2 text-lg text-muted-foreground">{description}</p>
@@ -143,22 +145,22 @@ export function ComponentPage({
 
       {propsRows && propsRows.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">Props</h2>
+          <h2 className="mb-4 text-xl font-semibold">{t('site.props.title')}</h2>
           <PropsTable rows={propsRows} />
         </section>
       )}
 
       {antiPatterns.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-2 text-xl font-semibold">Anti-patterns</h2>
+          <h2 className="mb-2 text-xl font-semibold">{t('site.page.antiPatterns')}</h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            The mistakes the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
-            MCP tool rejects — same list agents see over MCP and in the canonical markdown.
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
+            {t('site.page.antiPatternsDescription')}
           </p>
           <ul className="space-y-5">
             {antiPatterns.map((pattern, i) => (
               <li key={pattern.title ?? i} className="rounded-xl border border-border bg-card p-4">
-                <p className="font-medium">{pattern.title ?? 'Avoid'}</p>
+                <p className="font-medium">{pattern.title ?? t('site.page.avoid')}</p>
                 {pattern.explanation && (
                   <p className="mt-1 text-sm text-muted-foreground">{pattern.explanation}</p>
                 )}
@@ -175,7 +177,7 @@ export function ComponentPage({
 
       {accessibility && accessibility.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">Accessibility</h2>
+          <h2 className="mb-4 text-xl font-semibold">{t('site.page.accessibility')}</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm">
             {accessibility.map((note) => (
               <li key={note}>{note}</li>
@@ -186,12 +188,16 @@ export function ComponentPage({
 
       {(compositionRules.length > 0 || related.length > 0) && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">Composition</h2>
+          <h2 className="mb-4 text-xl font-semibold">{t('site.page.composition')}</h2>
           <div className="space-y-4">
             {compositionRules.map((rule, i) => (
               <div key={`${rule.component}-${i}`} className="rounded-xl border border-border bg-card p-4">
                 <p className="text-sm">
-                  <span className="font-medium">Compose with {rule.component ?? 'a sibling component'}</span>
+                  <span className="font-medium">
+                    {t('site.page.composeWith', {
+                      component: rule.component ?? t('site.page.sibling'),
+                    })}
+                  </span>
                   {rule.relationship && <span className="text-muted-foreground"> — {rule.relationship}</span>}
                 </p>
                 {rule.example && (
@@ -203,7 +209,7 @@ export function ComponentPage({
             ))}
             {related.length > 0 && (
               <p className="text-sm text-muted-foreground">
-                Related components:{' '}
+                {t('site.page.related')}{' '}
                 {related.map((name, i) => (
                   <span key={name}>
                     {i > 0 && ', '}
@@ -222,13 +228,13 @@ export function ComponentPage({
       )}
 
       <section className="mt-10">
-        <h2 className="mb-4 text-xl font-semibold">Browser support</h2>
+        <h2 className="mb-4 text-xl font-semibold">{t('site.page.browserSupport')}</h2>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">
               <tr>
-                <th className="p-3 text-left font-medium">Browser</th>
-                <th className="p-3 text-left font-medium">Tested versions</th>
+                <th className="p-3 text-left font-medium">{t('site.page.browser')}</th>
+                <th className="p-3 text-left font-medium">{t('site.page.testedVersions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -246,12 +252,7 @@ export function ComponentPage({
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Slipstream components rely only on CSS custom properties, Flexbox/Grid, and ARIA — the
-          everyday baseline of the last two years of evergreen releases. Anything newer is
-          progressive enhancement: unsupported browsers keep full functionality with static
-          behavior instead of animations.
-        </p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t('site.page.browserNote')}</p>
         {browserNotes && browserNotes.length > 0 && (
           <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
             {browserNotes.map((note) => (
@@ -261,14 +262,14 @@ export function ComponentPage({
         )}
       </section>
 
-      <nav aria-label="Pagination" className="mt-14 flex items-stretch justify-between gap-4 border-t border-border pt-6">
+      <nav aria-label={t('site.page.paginationAria')} className="mt-14 flex items-stretch justify-between gap-4 border-t border-border pt-6">
         {previous ? (
           <Link
             href={previous.href}
             className="group flex-1 rounded-lg border border-border p-4 transition-colors hover:bg-muted"
           >
-            <span className="block text-xs text-muted-foreground">← Previous</span>
-            <span className="text-sm font-medium group-hover:text-primary">{previous.label}</span>
+            <span className="block text-xs text-muted-foreground">{t('site.page.previous')}</span>
+            <span className="text-sm font-medium group-hover:text-primary">{navItemLabel(previous, t)}</span>
           </Link>
         ) : (
           <span className="flex-1" />
@@ -278,8 +279,8 @@ export function ComponentPage({
             href={next.href}
             className="group flex-1 rounded-lg border border-border p-4 text-right transition-colors hover:bg-muted"
           >
-            <span className="block text-xs text-muted-foreground">Next →</span>
-            <span className="text-sm font-medium group-hover:text-primary">{next.label}</span>
+            <span className="block text-xs text-muted-foreground">{t('site.page.next')}</span>
+            <span className="text-sm font-medium group-hover:text-primary">{navItemLabel(next, t)}</span>
           </Link>
         ) : (
           <span className="flex-1" />

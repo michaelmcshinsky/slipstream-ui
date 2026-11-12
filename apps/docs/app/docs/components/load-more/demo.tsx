@@ -37,11 +37,11 @@ export default function LoadMorePage() {
       ]}
     >
       <DemoCard
-        title="Paginated deal grid"
+        title="Paginated project grid"
         preview={
           <div className="w-full">
             <div className="rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
-              Deal cards would render here.
+              Project cards would render here.
             </div>
             <LoadMore hasMore={hasMore} loading={loading} onLoadMore={load} />
           </div>

@@ -30,17 +30,17 @@ export default function CTASectionPage() {
         title="Default inverse band"
         preview={
           <CTASection
-            eyebrow="Join Axial"
-            title="Join the network"
-            description="Connect with counterparties, source deals and close transactions."
+            eyebrow="Get started"
+            title="Start building"
+            description="Connect your data, invite your team and ship the next release."
             actions={<Button>Get started</Button>}
             className="rounded-lg"
           />
         }
         code={`<CTASection
-  eyebrow="Join Axial"
-  title="Join the network"
-  description="Connect with counterparties, source deals and close transactions."
+  eyebrow="Get started"
+  title="Start building"
+  description="Connect your data, invite your team and ship the next release."
   actions={<Button>Get started</Button>}
 />`}
         usage={`// One CTA section per page is enough.

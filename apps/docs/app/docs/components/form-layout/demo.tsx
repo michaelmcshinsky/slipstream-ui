@@ -35,7 +35,7 @@ export default function FormLayoutPage() {
                 <Input defaultValue="Lovelace" />
               </FormField>
               <FormField id="fl-email" label="Email">
-                <Input type="email" defaultValue="ada@example.com" />
+                <Input type="email" defaultValue="user@example.com" />
               </FormField>
               <FormField id="fl-org" label="Organization">
                 <Input defaultValue="Analytical Engines" />

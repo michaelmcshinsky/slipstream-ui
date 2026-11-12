@@ -77,7 +77,15 @@ export function Navbar() {
                 src="/slipstream-lockup.png"
                 alt="Slipstream UI"
                 width={164} height={44}
-                className="h-11 w-auto"
+                className="h-11 w-auto dark:hidden"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element -- white wordmark for dark surfaces */}
+              <img
+                src="/slipstream-lockup-dark.png"
+                alt=""
+                aria-hidden="true"
+                width={164} height={44}
+                className="hidden h-11 w-auto dark:block"
               />
             </Link>
             <div className="hidden items-center gap-5 text-sm md:flex">

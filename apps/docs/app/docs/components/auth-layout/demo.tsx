@@ -29,7 +29,7 @@ export default function AuthLayoutPage() {
             <div className="scale-100 [&>div]:min-h-[24rem]">
               <AuthLayout
                 title="Sign in"
-                description="Welcome back to Acme Studio."
+                description="Welcome back to Example App."
                 footer={<span>New here? <a className="text-primary underline underline-offset-2 hover:text-primary/80" href="#signup">Create an account</a></span>}
               >
                 <form className="space-y-4" onSubmit={(event) => event.preventDefault()}>
@@ -47,7 +47,7 @@ export default function AuthLayoutPage() {
         }
         code={`<AuthLayout
   title="Sign in"
-  description="Welcome back to Acme Studio."
+  description="Welcome back to Example App."
   footer={<a href="/signup">Create an account</a>}
 >
   <Form onSubmit={signIn}>
@@ -77,17 +77,17 @@ export default function AuthLayoutPage() {
               <AuthLayout
                 variant="split"
                 title="Sign in"
-                description="Welcome back to Acme Studio."
+                description="Welcome back to Example App."
                 aside={
                   <div className="rounded-xl border border-border bg-card p-8">
                     <p className="text-lg font-medium leading-relaxed">
                       &ldquo;Slipstream cut our auth screens from a week to an afternoon.&rdquo;
                     </p>
-                    <p className="mt-3 text-sm text-muted-foreground">Ada Lovelace, CTO at Acme</p>
+                    <p className="mt-3 text-sm text-muted-foreground">Jane Doe, Product Lead at Example</p>
                     <dl className="mt-8 grid grid-cols-3 gap-4 text-center">
                       <div>
                         <dt className="text-xs text-muted-foreground">Teams</dt>
-                        <dd className="text-xl font-semibold">2,400</dd>
+                        <dd className="text-xl font-semibold">240</dd>
                       </div>
                       <div>
                         <dt className="text-xs text-muted-foreground">Countries</dt>
@@ -117,7 +117,7 @@ export default function AuthLayoutPage() {
         code={`<AuthLayout
   variant="split"
   title="Sign in"
-  description="Welcome back to Acme Studio."
+  description="Welcome back to Example App."
   aside={<BrandAside />}
 >
   <SignInForm />

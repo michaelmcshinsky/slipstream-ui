@@ -12,7 +12,7 @@ export default function TombstoneCardPage() {
       description="Placeholder card for archived, closed or unavailable marketplace items."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Listing, deal or document name.' },
+        { name: 'title', type: 'string', defaultValue: 'required', description: 'Listing, item or document name.' },
         { name: 'reason', type: 'string', description: 'Why the item is unavailable.' },
         { name: 'status', type: "'archived' | 'unavailable' | 'closed'", defaultValue: "'unavailable'", description: 'Unavailable state.' },
         { name: 'logo', type: 'ReactNode', description: 'Logo or document icon slot.' },
@@ -33,10 +33,10 @@ export default function TombstoneCardPage() {
               title="Archived listing"
               reason="This listing closed in 2025."
               status="archived"
-              href="/deals/archived"
+              href="/items/archived"
             />
             <TombstoneCard
-              title="CIM no longer available"
+              title="Document no longer available"
               reason="The seller withdrew this opportunity."
               status="unavailable"
             />
@@ -46,7 +46,7 @@ export default function TombstoneCardPage() {
   title="Archived listing"
   reason="This listing closed in 2025."
   status="archived"
-  href="/deals/archived"
+  href="/items/archived"
 />`}
         usage={`// Use in place of a live card when the item is archived or withdrawn.
 // Keep the reason specific so the state is understandable.`}

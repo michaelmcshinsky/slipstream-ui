@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FLAT_NAV } from '@/lib/nav';
+import type { MessageKey } from '@slipstream-ui/i18n';
+import { useI18n } from '@slipstream-ui/i18n/react';
+import { FLAT_NAV, navItemLabel } from '@/lib/nav';
 import { JsonLd } from './json-ld';
 import { breadcrumbSchema } from '@/lib/structured-data';
 
 /** Section landing pages whose sidebar label ("Overview") is too generic. */
-const LABEL_OVERRIDES: Record<string, string> = {
-  '/docs': 'Docs',
-  '/docs/components': 'Components',
+const LABEL_OVERRIDES: Record<string, MessageKey> = {
+  '/docs': 'shell.docs',
+  '/docs/components': 'shell.components',
 };
 
 type Crumb = { name: string; href: string };
@@ -23,18 +25,20 @@ type Crumb = { name: string; href: string };
  * never links to a 404.
  */
 export function DocsBreadcrumbs() {
+  const { t } = useI18n();
   const pathname = usePathname() ?? '/docs';
   if (pathname === '/docs') return null;
 
-  const labelByHref = new Map(FLAT_NAV.map((item) => [item.href, item.label]));
-  const trail: Crumb[] = [{ name: 'Docs', href: '/docs' }];
+  const labelByHref = new Map(FLAT_NAV.map((item) => [item.href, navItemLabel(item, t)]));
+  const trail: Crumb[] = [{ name: t('shell.docs'), href: '/docs' }];
 
   const segments = pathname.split('/').filter(Boolean);
   let href = '';
   for (const segment of segments) {
     href += `/${segment}`;
     if (href === '/docs') continue;
-    const label = LABEL_OVERRIDES[href] ?? labelByHref.get(href);
+    const overrideKey = LABEL_OVERRIDES[href];
+    const label = overrideKey ? t(overrideKey) : labelByHref.get(href);
     if (label) trail.push({ name: label, href });
   }
 
@@ -50,7 +54,7 @@ export function DocsBreadcrumbs() {
   return (
     <>
       <JsonLd data={breadcrumbSchema(trail.map(({ name, href: path }) => ({ name, path })))} />
-      <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted-foreground">
+      <nav aria-label={t('site.breadcrumbAria')} className="mb-4 text-sm text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-1.5">
           {trail.map((crumb, index) => {
             const isCurrent = index === trail.length - 1;

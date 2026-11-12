@@ -19,6 +19,7 @@ import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 import { track } from '@/lib/analytics';
+import type { HomeCopy } from '@/lib/marketing';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -55,7 +56,7 @@ const COMPARISON: {
   { capability: 'License', slipstream: 'MIT', shadcn: 'MIT', assistantUi: 'MIT', mui: 'MIT' },
 ];
 
-function LandingChatDemo() {
+function LandingChatDemo({ copy }: { copy: HomeCopy }) {
   const [messages, setMessages] = useState<MessageType[]>([
     { id: '1', role: 'user', content: 'What makes Slipstream UI different?' },
   ]);
@@ -96,7 +97,7 @@ function LandingChatDemo() {
         <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-        <span className="ml-3 text-xs text-muted-foreground">live demo — built entirely from Slipstream UI</span>
+        <span className="ml-3 text-xs text-muted-foreground">{copy.liveDemoNote}</span>
       </div>
       <div className="h-[340px]">
         <Conversation
@@ -106,21 +107,21 @@ function LandingChatDemo() {
           )}
           streamingMessageId={streamingId ?? undefined}
           showScrollButton={false}
-          welcomeTitle="Ask about Slipstream"
-          welcomeSuggestions={['What makes it different?', 'How does the manifest work?']}
+          welcomeTitle={copy.welcomeTitle}
+          welcomeSuggestions={copy.welcomeSuggestions}
           onWelcomeSelect={handleSubmit}
         />
       </div>
       <div className="border-t border-border p-3">
-        <PromptInput onSubmit={handleSubmit} placeholder="Try me…" sendButtonText="Send" />
+        <PromptInput onSubmit={handleSubmit} placeholder={copy.promptPlaceholder} sendButtonText={copy.send} />
       </div>
     </div>
   );
 }
 
-function CopyInstallPill() {
+function CopyInstallPill({ copy }: { copy: HomeCopy }) {
   const [copied, setCopied] = useState(false);
-  async function copy() {
+  async function copyCommand() {
     try {
       await navigator.clipboard.writeText('npx @slipstream-ui/cli@latest init');
       track('install_copy', { command: 'init', location: 'home' });
@@ -133,27 +134,18 @@ function CopyInstallPill() {
   return (
     <button
       type="button"
-      onClick={copy}
+      onClick={copyCommand}
       className="inline-flex items-center gap-3 rounded-lg border border-border bg-muted px-4 py-2.5 font-mono text-sm transition-colors hover:bg-accent"
     >
       <span>npx @slipstream-ui/cli@latest init</span>
-      <span className="text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
+      <span className="text-xs text-muted-foreground">{copied ? copy.copied : copy.copy}</span>
     </button>
   );
 }
 
-const FEATURES = [
-  { index: '01', title: 'Machine-readable manifests', body: 'Every component ships a COMPONENT_MANIFEST: exact prop schema, defaults, anti-patterns, accessibility requirements, composition rules.' },
-  { index: '02', title: 'validate_usage MCP tool', body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds can be caught, not shipped.' },
-  { index: '03', title: 'shadcn-compatible registry', body: 'Install real source files through any shadcn-compatible CLI, or use packages. Your codebase, your rules.' },
-  { index: '04', title: 'Fully stateless', body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.' },
-  { index: '05', title: 'Accessibility, tested', body: 'jest-axe suites on every component, aria-busy streaming states, polite completion announcements, reduced-motion variants.' },
-  { index: '06', title: 'Themeable to the token', body: 'One createTheme() call emits every CSS variable. Radius, dark mode, instant switching — no rebuilds.' },
-];
-
 const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
 
-export default function LandingPage() {
+export default function LandingPage({ copy }: { copy: HomeCopy }) {
   return (
     <main id="main" className="min-h-screen bg-background">
       <Navbar />
@@ -178,30 +170,26 @@ export default function LandingPage() {
                 title={`See what's new in v${VERSION}`}
                 className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
               >
-                v{VERSION} <span className="ml-1.5 text-primary">what&apos;s new →</span>
+                v{VERSION} <span className="ml-1.5 text-primary">{copy.whatsNew}</span>
               </Link>
               <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                AI-first · MIT
+                {copy.aiFirstBadge}
               </span>
               <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium">
-                React 18+
+                {copy.reactBadge}
               </span>
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
-              Your AI already knows{' '}
-              <span className="text-primary">your design system</span>
+              {copy.heroTitleLead}{' '}
+              <span className="text-primary">{copy.heroTitleHighlight}</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Slipstream UI is the AI-first component system built for AI-assisted development. Every
-              component ships a machine-readable spec, an MCP server that serves it, and a
-              validator that keeps agents honest.
-            </p>
+            <p className="mt-5 max-w-xl text-lg text-muted-foreground">{copy.heroDescription}</p>
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <Link
                 href="/docs/installation"
                 onClick={() => track('cta_click', { cta: 'get_started', location: 'hero' })}
               >
-                <Button size="lg">Get Started</Button>
+                <Button size="lg">{copy.getStarted}</Button>
               </Link>
               <a
                 href={REPO_URL}
@@ -209,19 +197,19 @@ export default function LandingPage() {
                 rel="noopener noreferrer"
                 onClick={() => track('github_click', { location: 'hero' })}
               >
-                <Button size="lg" variant="outline">Star on GitHub</Button>
+                <Button size="lg" variant="outline">{copy.starOnGithub}</Button>
               </a>
             </div>
-            <div className="mt-6"><CopyInstallPill /></div>
+            <div className="mt-6"><CopyInstallPill copy={copy} /></div>
           </div>
-          <LandingChatDemo />
+          <LandingChatDemo copy={copy} />
         </div>
       </section>
 
       {/* Agent strip */}
       <section className="border-b border-border bg-muted/30 py-6">
         <div className="container mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 text-sm text-muted-foreground">
-          <span className="text-xs font-semibold uppercase tracking-wider">Speaks fluently to</span>
+          <span className="text-xs font-semibold uppercase tracking-wider">{copy.agentStripLabel}</span>
           {AGENTS.map((agent) => (
             <span key={agent} className="font-medium">{agent}</span>
           ))}
@@ -234,10 +222,10 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 py-14">
         <dl className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
           {[
-            { value: String(COMPONENT_COUNT), label: 'components' },
-            { value: String(COMPONENT_COUNT), label: 'machine-readable specs' },
-            { value: '5', label: 'MCP tools for agents' },
-            { value: '0', label: 'hallucinated props allowed' },
+            { value: String(COMPONENT_COUNT), label: copy.stats[0] },
+            { value: String(COMPONENT_COUNT), label: copy.stats[1] },
+            { value: '5', label: copy.stats[2] },
+            { value: '0', label: copy.stats[3] },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl border border-border bg-card p-6">
               <dt className="order-last mt-1 text-sm text-muted-foreground">{stat.label}</dt>
@@ -249,20 +237,17 @@ export default function LandingPage() {
 
       {/* Feature bento */}
       <section className="container mx-auto px-4 py-20">
-        <h2 className="max-w-2xl text-3xl font-bold tracking-tight">
-          Built for the way software is written now
-        </h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          Half your UI is written by models. Slipstream gives them something better than docs
-          scraped from training data: a spec they can query, and a guardrail they can self-check against.
-        </p>
+        <h2 className="max-w-2xl text-3xl font-bold tracking-tight">{copy.featuresHeading}</h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">{copy.featuresIntro}</p>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((feature) => (
+          {copy.features.map((feature, index) => (
             <div
               key={feature.title}
               className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
             >
-              <div aria-hidden="true" className="mb-3 font-mono text-sm text-muted-foreground">{feature.index}</div>
+              <div aria-hidden="true" className="mb-3 font-mono text-sm text-muted-foreground">
+                {String(index + 1).padStart(2, '0')}
+              </div>
               <h3 className="mb-2 font-semibold">{feature.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
             </div>
@@ -273,31 +258,13 @@ export default function LandingPage() {
       {/* How it works for agents */}
       <section className="border-b border-border bg-muted/30">
         <div className="container mx-auto px-4 py-20">
-          <h2 className="text-center text-3xl font-bold tracking-tight">How your AI uses it</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-            Three steps, no fine-tuning, no prompt incantations.
-          </p>
+          <h2 className="text-center text-3xl font-bold tracking-tight">{copy.howHeading}</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">{copy.howIntro}</p>
           <div className="mx-auto mt-10 grid max-w-4xl gap-8 md:grid-cols-3">
-            {[
-              {
-                step: '1',
-                title: 'Connect',
-                body: 'Point Claude Code or Cursor at the Slipstream MCP server, or serve llms.txt and the /llm markdown routes.',
-              },
-              {
-                step: '2',
-                title: 'Query the spec',
-                body: 'The agent calls get_component_manifest and get_usage_examples — exact props, defaults, anti-patterns.',
-              },
-              {
-                step: '3',
-                title: 'Self-validate',
-                body: 'Before emitting, validate_usage checks the generated JSX against the manifest and corrects hallucinated props.',
-              },
-            ].map(({ step, title, body }) => (
-              <div key={step} className="relative rounded-xl border border-border bg-card p-6">
+            {copy.steps.map(({ title, body }, index) => (
+              <div key={title} className="relative rounded-xl border border-border bg-card p-6">
                 <span className="absolute -top-3 left-6 rounded-full border border-primary/40 bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-foreground">
-                  {step}
+                  {index + 1}
                 </span>
                 <h3 className="mb-2 mt-1 font-semibold">{title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
@@ -309,15 +276,15 @@ export default function LandingPage() {
 
       {/* What the validator actually catches - real manifest, real output. */}
       <section className="container mx-auto px-4 py-20">
-        <h2 className="text-center text-3xl font-bold tracking-tight">The failure mode, caught</h2>
+        <h2 className="text-center text-3xl font-bold tracking-tight">{copy.validatorHeading}</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-          An agent guesses <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onSend</code> because that
-          is what other chat libraries call it. <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
-          checks the manifest and refuses the snippet before it is written.
+          {copy.validatorIntroBefore} <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onSend</code>{' '}
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
+          {copy.validatorIntroAfter}
         </p>
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
           <div className="rounded-xl border border-destructive/30 bg-card p-4">
-            <p className="mb-3 text-sm font-semibold text-destructive">1. Hallucinated usage</p>
+            <p className="mb-3 text-sm font-semibold text-destructive">{copy.validatorCards[0].title}</p>
             <CodeBlock
               language="tsx"
               showCopyButton={false}
@@ -326,12 +293,10 @@ export default function LandingPage() {
   placeholder="Ask anything"
 />`}
             />
-            <p className="mt-3 text-xs text-muted-foreground">
-              The prop does not exist, and the required <code className="font-mono">onSubmit</code> is missing.
-            </p>
+            <p className="mt-3 text-xs text-muted-foreground">{copy.validatorCards[0].note}</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-4">
-            <p className="mb-3 text-sm font-semibold">2. validate_usage response</p>
+            <p className="mb-3 text-sm font-semibold">{copy.validatorCards[1].title}</p>
             <CodeBlock
               language="json"
               showCopyButton={false}
@@ -351,12 +316,10 @@ export default function LandingPage() {
   ]
 }`}
             />
-            <p className="mt-3 text-xs text-muted-foreground">
-              Trimmed for display; the tool also returns the manifest&apos;s anti-patterns.
-            </p>
+            <p className="mt-3 text-xs text-muted-foreground">{copy.validatorCards[1].note}</p>
           </div>
           <div className="rounded-xl border border-success/30 bg-card p-4">
-            <p className="mb-3 text-sm font-semibold text-success">3. Correct usage</p>
+            <p className="mb-3 text-sm font-semibold text-success">{copy.validatorCards[2].title}</p>
             <CodeBlock
               language="tsx"
               showCopyButton={false}
@@ -365,9 +328,7 @@ export default function LandingPage() {
   placeholder="Ask anything"
 />`}
             />
-            <p className="mt-3 text-xs text-muted-foreground">
-              Validated against the same contract your docs, MCP server, and registry serve.
-            </p>
+            <p className="mt-3 text-xs text-muted-foreground">{copy.validatorCards[2].note}</p>
           </div>
         </div>
       </section>
@@ -375,25 +336,21 @@ export default function LandingPage() {
       {/* Theme showcase */}
       <section className="border-y border-border bg-muted/30">
         <div className="container mx-auto max-w-4xl px-4 py-20">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">Themes that ship with the library</h2>
-          <p className="mb-8 max-w-2xl text-muted-foreground">
-            Default, Violet, and Zinc presets included. Switch below — this is live theming, not a screenshot.
-          </p>
+          <h2 className="mb-3 text-3xl font-bold tracking-tight">{copy.themesHeading}</h2>
+          <p className="mb-8 max-w-2xl text-muted-foreground">{copy.themesIntro}</p>
           <ThemeShowcase />
         </div>
       </section>
 
       {/* Comparison */}
       <section className="container mx-auto px-4 py-20">
-        <h2 className="text-center text-3xl font-bold tracking-tight">How it compares</h2>
-        <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">
-          Other libraries document for humans. Slipstream documents for both of you.
-        </p>
+        <h2 className="text-center text-3xl font-bold tracking-tight">{copy.comparisonHeading}</h2>
+        <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">{copy.comparisonIntro}</p>
         <div className="mx-auto max-w-5xl overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">
               <tr>
-                <th className="p-3 text-left font-medium">Capability</th>
+                <th className="p-3 text-left font-medium">{copy.comparisonCapability}</th>
                 <th className="p-3 text-center font-medium">Slipstream</th>
                 <th className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
                 <th className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
@@ -401,9 +358,9 @@ export default function LandingPage() {
               </tr>
             </thead>
             <tbody>
-              {COMPARISON.map((row) => (
+              {COMPARISON.map((row, index) => (
                 <tr key={row.capability} className="border-t border-border">
-                  <td className="p-3">{row.capability}</td>
+                  <td className="p-3">{copy.comparisonCapabilities[index] ?? row.capability}</td>
                   <td className="p-3 text-center">{row.slipstream}</td>
                   <td className="p-3 text-center text-muted-foreground">{row.shadcn}</td>
                   <td className="p-3 text-center text-muted-foreground">{row.assistantUi}</td>
@@ -414,37 +371,25 @@ export default function LandingPage() {
           </table>
         </div>
         <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-muted-foreground">
-          Reflects each project&apos;s public documentation and published packages as of November 2026 ·
-          ✅ provided · 🟡 partial or a different model · — not provided for this purpose
+          {copy.comparisonFootnote}
         </p>
         <div className="mx-auto mt-8 grid max-w-5xl gap-4 sm:grid-cols-3">
-          {[
-            {
-              title: 'Choose Slipstream',
-              body: 'When agents must generate correct, design-system-compliant code and you want a validator in the loop before code ships.',
-              accent: true,
-            },
-            {
-              title: 'Choose shadcn/ui + AI Elements',
-              body: 'When maximum ecosystem gravity and copy-in ownership of a very large primitive base matter most.',
-            },
-            {
-              title: 'Choose assistant-ui',
-              body: 'When you need a battle-tested chat runtime: streaming, tools, and generative UI as the core product.',
-            },
-          ].map((card) => (
-            <div
-              key={card.title}
-              className={`rounded-xl border p-5 ${
-                card.accent ? 'border-primary/40 bg-primary/5' : 'border-border bg-card'
-              }`}
-            >
-              <h3 className={`text-sm font-semibold ${card.accent ? 'text-primary' : 'text-foreground'}`}>
-                {card.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
-            </div>
-          ))}
+          {copy.comparisonCards.map((card, index) => {
+            const accent = index === 0;
+            return (
+              <div
+                key={card.title}
+                className={`rounded-xl border p-5 ${
+                  accent ? 'border-primary/40 bg-primary/5' : 'border-border bg-card'
+                }`}
+              >
+                <h3 className={`text-sm font-semibold ${accent ? 'text-primary' : 'text-foreground'}`}>
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -453,21 +398,15 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 py-20">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight">Start from a template</h2>
-              <p className="mt-2 max-w-xl text-muted-foreground">
-                Complete, copy-paste patterns built entirely from Slipstream components.
-              </p>
+              <h2 className="text-3xl font-bold tracking-tight">{copy.templatesHeading}</h2>
+              <p className="mt-2 max-w-xl text-muted-foreground">{copy.templatesIntro}</p>
             </div>
             <Link href="/docs/templates" className="text-sm font-medium text-primary hover:underline">
-              Browse all templates →
+              {copy.browseTemplates}
             </Link>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
-            {[
-              { name: 'Streaming chat', body: 'Markdown responses, stop-generation, scroll pinning, feedback actions.' },
-              { name: 'Agent dashboard', body: 'Tool calls with human-in-the-loop approval, reasoning steps, task progress.' },
-              { name: 'RAG citations', body: 'Grounded answers with inline citation chips and a sources footer.' },
-            ].map((template) => (
+            {copy.templates.map((template) => (
               <Link
                 key={template.name}
                 href="/docs/templates"
@@ -488,40 +427,33 @@ export default function LandingPage() {
             href="/docs/guides/agent-integration"
             className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
           >
-            <h3 className="font-semibold group-hover:text-primary">For agent builders →</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Wire the MCP server into Claude Code or Cursor, run{' '}
-              <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">validate_usage</code> before emit, or
-              serve llms.txt and markdown routes — five tools, three consumption paths.
-            </p>
+            <h3 className="font-semibold group-hover:text-primary">{copy.agentPathTitle}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy.agentPathBody}</p>
           </Link>
           <Link
             href="/docs/guides/ai-chat-ui"
             className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-md"
           >
-            <h3 className="font-semibold group-hover:text-primary">For product teams →</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Ship the production chat surface — streaming markdown, stop-generation, citations,
-              approvals — with stateless components, jest-axe coverage, and your own backend.
-            </p>
+            <h3 className="font-semibold group-hover:text-primary">{copy.productPathTitle}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{copy.productPathBody}</p>
           </Link>
         </div>
       </section>
 
       {/* CTA */}
       <section className="container mx-auto px-4 py-24 text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ship AI interfaces faster</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{copy.ctaHeading}</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          {COMPONENT_COUNT} components · {COMPONENT_COUNT} machine-readable specs · validate generated usage before it ships.
+          {copy.ctaBody.replaceAll('{componentCount}', String(COMPONENT_COUNT))}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/docs/installation"
             onClick={() => track('cta_click', { cta: 'start_building', location: 'footer' })}
           >
-            <Button size="lg">Start building</Button>
+            <Button size="lg">{copy.startBuilding}</Button>
           </Link>
-          <CopyInstallPill />
+          <CopyInstallPill copy={copy} />
         </div>
       </section>
 

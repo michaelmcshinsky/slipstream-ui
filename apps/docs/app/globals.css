@@ -7,8 +7,9 @@
  * Light: pure-white surfaces, navy ink headings (#031235 direction),
  *   royal-blue primary (#326cf4 family, one step darker so link text clears
  *   4.5:1 on tinted surfaces), thin blue-gray borders, 6px radii.
- * Dark: navy-tinted surface ladder (bg < card < popover), crisp 30% borders,
- *   light-blue primary with navy ink foreground so links AND buttons both
+ * Dark: neutral graphite surface ladder (bg < card < popover), matching the
+ *   near-black neutral dark modes of OpenWork and Open WebUI; crisp borders
+ *   and a *lightened* primary with near-black ink so links AND buttons both
  *   meet WCAG AA, semantic status hues lightened for dark text usage.
  * Note: hue values are unitless (142 not 142.1%) — percent hues make the
  * whole hsl() invalid and silently drop the declaration.
@@ -66,12 +67,12 @@
 
   .dark {
     color-scheme: dark;
-    --background: 222 42% 5%;
-    --foreground: 210 40% 96%;
-    --card: 222 34% 11%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 34% 14%;
-    --popover-foreground: 210 40% 96%;
+    --background: 220 6% 7%;
+    --foreground: 220 9% 95%;
+    --card: 220 5% 12%;
+    --card-foreground: 220 9% 95%;
+    --popover: 220 5% 15%;
+    --popover-foreground: 220 9% 95%;
     --inverse: 0 0% 100%;
     --inverse-foreground: 222 85% 7%;
     --inverse-muted: 214 40% 94%;
@@ -82,25 +83,25 @@
     --inverse-primary: 224 89% 53%;
     --inverse-primary-foreground: 0 0% 100%;
     --primary: 224 90% 70%;
-    --primary-foreground: 222 75% 10%;
-    --secondary: 217 24% 17%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 217 24% 17%;
-    --muted-foreground: 215 16% 68%;
-    --accent: 217 24% 17%;
-    --accent-foreground: 210 40% 96%;
+    --primary-foreground: 220 30% 8%;
+    --secondary: 220 5% 16%;
+    --secondary-foreground: 220 9% 95%;
+    --muted: 220 5% 16%;
+    --muted-foreground: 220 6% 68%;
+    --accent: 220 5% 16%;
+    --accent-foreground: 220 9% 95%;
     --destructive: 0 76% 64%;
-    --destructive-foreground: 222 75% 10%;
+    --destructive-foreground: 220 30% 8%;
     --success: 142 62% 52%;
-    --success-foreground: 222 75% 10%;
+    --success-foreground: 220 30% 8%;
     --warning: 38 92% 60%;
     --warning-foreground: 26 83% 14%;
     --warning-ink: 38 92% 62%;
     --info: 190 80% 58%;
-    --info-foreground: 222 75% 10%;
+    --info-foreground: 220 30% 8%;
     --info-ink: 190 80% 62%;
-    --border: 217 20% 30%;
-    --input: 217 18% 36%;
+    --border: 220 6% 22%;
+    --input: 220 6% 28%;
     --ring: 224 90% 70%;
   }
 }
@@ -126,6 +127,54 @@ pre code,
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+  }
+
+  /* Bare `border` utilities follow the theme (see the tailwind preset). The
+     Base stylesheet is repeated here so the docs app stays correct even when
+     it is built against a cached preset. */
+  *,
+  ::before,
+  ::after {
+    border-color: hsl(var(--border));
+  }
+}
+
+/*
+ * Thin, low-contrast scrollbars for the docs sidebars. The thumb stays
+ * invisible until the reader hovers the rail (or scrolls, which the sidebar
+ * flags with data-scrolling), so the light-mode gutter never shows a dark
+ * native scrollbar at rest.
+ */
+@layer utilities {
+  .scrollbar-subtle {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  .scrollbar-subtle:hover,
+  .scrollbar-subtle:focus-within,
+  .scrollbar-subtle[data-scrolling='true'] {
+    scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: transparent;
+  }
+
+  .scrollbar-subtle:hover::-webkit-scrollbar-thumb,
+  .scrollbar-subtle:focus-within::-webkit-scrollbar-thumb,
+  .scrollbar-subtle[data-scrolling='true']::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.35);
   }
 }
 

@@ -1,4 +1,8 @@
-export default function Loading() {
+import { getServerI18n } from '@/lib/i18n-server';
+
+export default async function Loading() {
+  const { t } = await getServerI18n();
+
   return (
     <div className="flex min-h-screen flex-col bg-background" aria-busy="true" aria-live="polite">
       <div className="h-14 border-b border-border" />
@@ -15,7 +19,7 @@ export default function Loading() {
           </div>
         </div>
       </div>
-      <span className="sr-only">Loading page…</span>
+      <span className="sr-only">{t('site.loading')}</span>
     </div>
   );
 }

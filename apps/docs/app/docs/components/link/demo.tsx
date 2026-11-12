@@ -36,7 +36,7 @@ export default function LinkPage() {
               Arrow: <Link href="/docs/components" variant="arrow">browse components →</Link>
             </p>
             <p>
-              External (auto): <Link href="https://github.com/michaelmcshinsky/slipstream-ui">GitHub</Link>
+              External (auto): <Link href="https://example.com">GitHub</Link>
             </p>
           </div>
         }
@@ -44,7 +44,7 @@ export default function LinkPage() {
 <Link href="/changelog" variant="muted">Changelog</Link>
 <Link href="/privacy" variant="underline">Privacy</Link>
 <Link href="/docs/components" variant="arrow">Browse components →</Link>
-<Link href="https://github.com/michaelmcshinsky/slipstream-ui">GitHub</Link>`}
+<Link href="https://example.com">GitHub</Link>`}
         usage={`// Absolute http(s) links automatically open in a new tab with
 // rel="noopener noreferrer" plus a screen-reader note. mailto:/tel: never do.
 

@@ -6,7 +6,7 @@ import { DemoCard } from '@/components/demo-card';
 import { FormField, Search, type SearchOption } from '@slipstream-ui/core';
 
 const PEOPLE: SearchOption[] = [
-  { value: 'ada', label: 'Ada Lovelace', description: 'Design systems', keywords: 'ada design ui' },
+  { value: 'user', label: 'Jane Doe', description: 'Design systems', keywords: 'user design ui' },
   { value: 'alan', label: 'Alan Turing', description: 'Platform', keywords: 'alan platform infra' },
   { value: 'grace', label: 'Grace Hopper', description: 'Developer tooling', keywords: 'grace tools compilers' },
   { value: 'katherine', label: 'Katherine Johnson', description: 'Analytics', keywords: 'katherine data math' },
@@ -56,7 +56,7 @@ export default function SearchPage() {
         code={`import { FormField, Search, type SearchOption } from '@slipstream-ui/core';
 
 const options: SearchOption[] = [
-  { value: 'ada', label: 'Ada Lovelace', description: 'Design systems', keywords: 'ada design ui' },
+  { value: 'user', label: 'Jane Doe', description: 'Design systems', keywords: 'user design ui' },
   { value: 'alan', label: 'Alan Turing', description: 'Platform', keywords: 'alan platform' },
 ];
 

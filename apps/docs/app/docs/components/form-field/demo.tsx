@@ -89,7 +89,7 @@ export default function FormFieldPage() {
         preview={
           <div className="w-full max-w-md space-y-4 rounded-xl border border-border bg-card p-5">
             <FormField id="ff-name" label="Full name" required>
-              <Input autoComplete="name" placeholder="Ada Lovelace" />
+              <Input autoComplete="name" placeholder="Jane Doe" />
             </FormField>
             <FormField id="ff-org" label="Organization" hint="Optional — used on invoices">
               <Input placeholder="Analytical Engines Inc." />

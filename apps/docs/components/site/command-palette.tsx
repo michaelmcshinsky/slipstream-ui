@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { SEARCH_INDEX, type SearchEntry } from '@/lib/search-index';
 import { track } from '@/lib/analytics';
 
@@ -11,6 +12,7 @@ import { track } from '@/lib/analytics';
  */
 export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const router = useRouter();
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -97,7 +99,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Search documentation"
+        aria-label={t('site.search.dialogLabel')}
         className="w-full max-w-lg rounded-xl border border-border bg-background shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
@@ -112,13 +114,15 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
             setActiveIndex(0);
           }}
           onKeyDown={onKeyDown}
-          placeholder="Search documentation…"
-          aria-label="Search query"
+          placeholder={t('site.search.placeholder')}
+          aria-label={t('site.search.inputLabel')}
           className="w-full rounded-t-xl border-b border-border bg-transparent px-4 py-3.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         />
-        <div ref={listRef} className="max-h-80 overflow-y-auto p-2" role="listbox" aria-label="Results">
+        <div ref={listRef} className="max-h-80 overflow-y-auto p-2" role="listbox" aria-label={t('site.search.resultsLabel')}>
           {results.length === 0 ? (
-            <p className="px-3 py-6 text-center text-sm text-muted-foreground">No results for “{query}”</p>
+            <p className="px-3 py-6 text-center text-sm text-muted-foreground">
+              {t('site.search.noResults', { query })}
+            </p>
           ) : (
             results.map((result, index) => (
               <button
@@ -140,9 +144,9 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
           )}
         </div>
         <div className="flex items-center gap-4 rounded-b-xl border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
-          <span>↑↓ navigate</span>
-          <span>↵ open</span>
-          <span className="ml-auto">esc close</span>
+          <span>{t('site.search.navigate')}</span>
+          <span>{t('site.search.open')}</span>
+          <span className="ml-auto">{t('site.search.close')}</span>
         </div>
       </div>
     </div>

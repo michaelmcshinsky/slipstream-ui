@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useI18n } from '@slipstream-ui/i18n/react';
 
 interface Heading {
   id: string;
@@ -17,9 +18,25 @@ interface Heading {
  * screens where there is no room.
  */
 export function TableOfContents() {
+  const { t } = useI18n();
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  const [scrolling, setScrolling] = useState(false);
+  const scrollTimer = useRef<number | null>(null);
   const pathname = usePathname();
+
+  useEffect(
+    () => () => {
+      if (scrollTimer.current) window.clearTimeout(scrollTimer.current);
+    },
+    []
+  );
+
+  const handleScroll = () => {
+    setScrolling(true);
+    if (scrollTimer.current) window.clearTimeout(scrollTimer.current);
+    scrollTimer.current = window.setTimeout(() => setScrolling(false), 900);
+  };
 
   useEffect(() => {
     // Collect h2/h3 headings that have ids (or generate slugs).
@@ -64,11 +81,13 @@ export function TableOfContents() {
 
   return (
     <aside
-      aria-label="On this page"
-      className="sticky top-20 hidden h-[calc(100vh-6rem)] w-48 flex-shrink-0 overflow-y-auto py-8 xl:block"
+      aria-label={t('site.tocAria')}
+      className="scrollbar-subtle sticky top-20 hidden h-[calc(100vh-6rem)] w-48 flex-shrink-0 overflow-y-auto py-8 xl:block"
+      data-scrolling={scrolling ? 'true' : undefined}
+      onScroll={handleScroll}
     >
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        On this page
+        {t('site.tocTitle')}
       </p>
       <nav>
         <ul className="space-y-1 border-l border-border">

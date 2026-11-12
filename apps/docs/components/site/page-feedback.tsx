@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { track } from '@/lib/analytics';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
@@ -11,6 +12,7 @@ const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
  * no backend is required. Resets when the reader navigates to another page.
  */
 export function PageFeedback() {
+  const { t } = useI18n();
   const pathname = usePathname();
   const [answer, setAnswer] = useState<'yes' | 'no' | null>(null);
 
@@ -20,15 +22,15 @@ export function PageFeedback() {
 
   const issueHref =
     `${REPO_URL}/issues/new` +
-    `?title=${encodeURIComponent(`Docs feedback: ${pathname}`)}` +
+    `?title=${encodeURIComponent(t('site.feedback.issueTitle', { path: pathname }))}` +
     `&body=${encodeURIComponent(
-      `Page: https://slipstreamui.com${pathname}\n\nWhat was missing or wrong?\n`
+      t('site.feedback.issueBody', { url: `https://slipstreamui.com${pathname}` })
     )}`;
 
   if (answer === 'yes') {
     return (
       <p className="mt-10 border-t border-border pt-6 text-sm text-muted-foreground" role="status">
-        Thanks — glad it helped.
+        {t('site.feedback.thanks')}
       </p>
     );
   }
@@ -37,18 +39,18 @@ export function PageFeedback() {
     return (
       <div className="mt-10 border-t border-border pt-6 text-sm" role="status">
         <p className="text-muted-foreground">
-          Sorry about that —{' '}
+          {t('site.feedback.sorryLead')}{' '}
           <a href={issueHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
-            open a pre-filled issue
+            {t('site.feedback.issueLink')}
           </a>{' '}
-          and tell us what was missing or wrong.
+          {t('site.feedback.sorryTail')}
         </p>
         <button
           type="button"
           onClick={() => setAnswer(null)}
           className="mt-2 text-xs text-muted-foreground underline-offset-2 hover:underline"
         >
-          Back
+          {t('site.feedback.back')}
         </button>
       </div>
     );
@@ -56,7 +58,7 @@ export function PageFeedback() {
 
   return (
     <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-border pt-6 text-sm">
-      <span className="text-muted-foreground">Was this page helpful?</span>
+      <span className="text-muted-foreground">{t('site.feedback.question')}</span>
       <button
         type="button"
         onClick={() => {
@@ -65,7 +67,7 @@ export function PageFeedback() {
         }}
         className="rounded-md border border-border px-3 py-1 text-xs font-medium transition-colors hover:bg-muted"
       >
-        Yes
+        {t('site.feedback.yes')}
       </button>
       <button
         type="button"
@@ -75,7 +77,7 @@ export function PageFeedback() {
         }}
         className="rounded-md border border-border px-3 py-1 text-xs font-medium transition-colors hover:bg-muted"
       >
-        No
+        {t('site.feedback.no')}
       </button>
     </div>
   );

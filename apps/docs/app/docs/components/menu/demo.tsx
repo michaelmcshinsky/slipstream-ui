@@ -46,7 +46,7 @@ export default function MenuPage() {
             <Menu>
               <MenuTrigger>Account</MenuTrigger>
               <MenuContent className="w-56">
-                <MenuLabel>Signed in as ada@example.com</MenuLabel>
+                <MenuLabel>Signed in as user@example.com</MenuLabel>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Keyboard shortcuts</MenuItem>
                 <MenuSeparator />
@@ -76,7 +76,7 @@ export default function MenuPage() {
 <Menu>
   <MenuTrigger>Account</MenuTrigger>
   <MenuContent className="w-56">
-    <MenuLabel>Signed in as ada@example.com</MenuLabel>
+    <MenuLabel>Signed in as user@example.com</MenuLabel>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Keyboard shortcuts</MenuItem>
     <MenuSeparator />

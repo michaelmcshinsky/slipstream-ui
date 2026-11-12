@@ -2,22 +2,24 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV_SECTIONS, sectionFirstHref } from '@/lib/nav';
+import { useI18n } from '@slipstream-ui/i18n/react';
+import { NAV_SECTIONS, navSectionLabel, sectionFirstHref } from '@/lib/nav';
 
 /** Horizontal scrollable section pills shown below lg, where the sidebar hides. */
 export function MobileNav() {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   // Only top-level sections on mobile — listing every component pill here
   // overflowed narrow viewports and truncated labels ("COMPON…").
   const sections = NAV_SECTIONS.map((section) => ({
     href: sectionFirstHref(section),
-    label: section.title,
+    label: navSectionLabel(section, t),
   }));
 
   return (
     <nav
-      aria-label="Documentation sections"
+      aria-label={t('site.mobileNavAria')}
       className="sticky top-14 z-30 -mx-4 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden"
     >
       <div className="flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

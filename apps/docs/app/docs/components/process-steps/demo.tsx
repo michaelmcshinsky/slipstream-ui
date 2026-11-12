@@ -23,14 +23,14 @@ export default function ProcessStepsPage() {
       ]}
     >
       <DemoCard
-        title="Advisor process"
+        title="Onboarding process"
         preview={
           <Section padding="lg" className="rounded-lg">
             <ProcessSteps
               steps={[
-                { title: 'Meet your consultant', description: 'Share your goals and timing with an Exit Consultant.' },
-                { title: 'Review recommendations', description: 'Compare advisors matched to your business and sector.' },
-                { title: 'Interview and hire', description: 'Shortlist and interview the advisors you like best.' },
+                { title: 'Meet your guide', description: 'Share your goals and timing with a product specialist.' },
+                { title: 'Review recommendations', description: 'Compare options matched to your team and stage.' },
+                { title: 'Choose and launch', description: 'Shortlist the option you like best and launch.' },
               ]}
             />
           </Section>
@@ -38,9 +38,9 @@ export default function ProcessStepsPage() {
         code={`<Section>
   <ProcessSteps
     steps={[
-      { title: 'Meet your consultant', description: 'Share your goals and timing.' },
-      { title: 'Review recommendations', description: 'Compare matched advisors.' },
-      { title: 'Interview and hire', description: 'Choose with confidence.' },
+      { title: 'Meet your guide', description: 'Share your goals and timing.' },
+      { title: 'Review recommendations', description: 'Compare matched options.' },
+      { title: 'Choose and launch', description: 'Choose with confidence.' },
     ]}
   />
 </Section>`}
