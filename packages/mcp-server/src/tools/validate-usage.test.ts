@@ -109,6 +109,110 @@ describe('validate_usage tool', () => {
   });
 });
 
+describe('validate_usage fix suggestions', () => {
+  it('suggests the documented prop for a misspelled name', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<Button varient="outline">Save</Button>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(false);
+    const issue = payload.issues.find((entry: { message: string }) =>
+      entry.message.includes('"varient"')
+    );
+    expect(issue.fix).toContain('variant');
+  });
+
+  it('suggests the nearest allowed enum value', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<Button variant="primry">Save</Button>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    const issue = payload.issues.find((entry: { message: string }) =>
+      entry.message.includes('primry')
+    );
+    expect(issue.fix).toContain('primary');
+  });
+
+  it('names the prop to add for a missing required prop', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'confirm-dialog',
+      code: '<ConfirmDialog />',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    const issue = payload.issues.find((entry: { message: string }) =>
+      entry.message.includes('Missing required')
+    );
+    expect(issue.fix).toContain('title');
+  });
+
+  it('tells the caller to render the component when it is absent', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<div>nothing</div>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    const issue = payload.issues.find((entry: { message: string }) =>
+      entry.message.includes('No <Button> usage')
+    );
+    expect(issue.fix).toContain('<Button');
+  });
+});
+
+describe('validate_usage whole-tree mode', () => {
+  it('validates every file and reports the path of each failure', async () => {
+    const result = await validateUsageTool.handler({
+      files: [
+        { path: 'app/page.tsx', code: '<Button variant="outline">Save</Button>' },
+        { path: 'app/settings.tsx', code: '<Button magic>Go</Button>' },
+      ],
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.mode).toBe('tree');
+    expect(payload.valid).toBe(false);
+    expect(payload.fileCount).toBe(2);
+    expect(payload.files[0].valid).toBe(true);
+    expect(payload.files[1].valid).toBe(false);
+    expect(payload.files[1].path).toBe('app/settings.tsx');
+    expect(payload.summary.errors).toBeGreaterThan(0);
+    expect(payload.summary.components).toBe(2);
+  });
+
+  it('ignores tags that are not Slipstream components', async () => {
+    const result = await validateUsageTool.handler({
+      files: [{ path: 'app/widget.tsx', code: '<MyWidget /><SomethingElse />' }],
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(true);
+    expect(payload.summary.components).toBe(0);
+    expect(payload.summary.skippedTags).toEqual(['MyWidget', 'SomethingElse']);
+  });
+
+  it('infers several components in one file', async () => {
+    const result = await validateUsageTool.handler({
+      files: [
+        {
+          path: 'app/dashboard.tsx',
+          code: '<><Button>New</Button><Badge>3</Badge></>',
+        },
+      ],
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.summary.components).toBe(2);
+    expect(payload.files[0].components.map((entry: { componentId: string }) => entry.componentId)).toEqual([
+      'button',
+      'badge',
+    ]);
+  });
+
+  it('throws when neither input mode is provided', async () => {
+    await expect(validateUsageTool.handler({})).rejects.toThrow(
+      'Provide componentId + code, or files'
+    );
+  });
+});
+
 function messageHas(message: string, needle: string): boolean {
   return message.includes(needle);
 }
