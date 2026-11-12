@@ -23,9 +23,15 @@ const badgeVariants = cva(
         destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
         outline: 'text-foreground',
       },
+      size: {
+        sm: 'px-2 py-0 text-[11px]',
+        md: 'px-2.5 py-0.5 text-xs',
+        lg: 'px-3 py-1 text-sm',
+      },
     },
     defaultVariants: {
       variant: 'default',
+      size: 'md',
     },
   }
 );
@@ -37,9 +43,9 @@ export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> &
   };
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'span';
-    return <Comp ref={ref} className={cn(badgeVariants({ variant }), className)} {...props} />;
+    return <Comp ref={ref} className={cn(badgeVariants({ variant, size }), className)} {...props} />;
   }
 );
 Badge.displayName = 'Badge';

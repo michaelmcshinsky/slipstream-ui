@@ -20,6 +20,8 @@ export default function MetricCardPage() {
         { name: 'hint', type: 'string', description: 'Comparison context (vs last month). Alias: description.' },
         { name: 'description', type: 'string', description: 'Alias for hint (migration-friendly).' },
         { name: 'icon', type: 'ReactNode', description: 'Decorative icon.' },
+        { name: 'tone', type: "'default' | 'success' | 'warning' | 'destructive'", defaultValue: "'default'", description: 'Semantic color for the value (not the delta).' },
+        { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Renders a skeleton instead of the value and sets aria-busy.' },
       ]}
       accessibility={['Deltas always render ↑/↓/→ glyphs, so direction is never color-only.', 'Values use tabular-nums so columns align.']}
     >

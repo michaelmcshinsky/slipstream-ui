@@ -99,4 +99,11 @@ describe('Badge semantic and alias variants', () => {
     expect(screen.getByText('accent')).toHaveClass('bg-accent');
     expect(container.querySelectorAll('span')).toHaveLength(7);
   });
+
+  it('applies size presets', () => {
+    const { rerender } = render(<Badge size="sm">small</Badge>);
+    expect(screen.getByText('small')).toHaveClass('text-[11px]');
+    rerender(<Badge size="lg">large</Badge>);
+    expect(screen.getByText('large')).toHaveClass('text-sm', 'px-3');
+  });
 });

@@ -23,6 +23,7 @@ Accordion organizes content into expandable sections, reducing visual density on
 | icon | `ReactNode` | — | no | AccordionTrigger only: replace the default chevron rendered at the far right of the header. |
 | variant | `'default' | 'borderless'` | `default` | no | 'default' = bordered card with dividers; 'borderless' = plain stacked sections. |
 | gap | `'none' | 'sm' | 'md' | 'lg' | 'xl' | number` | — | no | Token gap ('lg') or exact pixels (16) between items. |
+| items | `AccordionSection[]` | — | no | Declarative sections ({ id, title, content, disabled }); rendered as an AccordionItem per entry instead of children. |
 
 ## Examples
 

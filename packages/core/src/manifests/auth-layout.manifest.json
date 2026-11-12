@@ -65,6 +65,12 @@
       "type": "ReactNode",
       "required": false,
       "description": "Optional panel rendered beside the card in the split variant. Ignored when centered; omitting it falls back to centered."
+    },
+    {
+      "name": "maxWidth",
+      "type": "number | string",
+      "required": false,
+      "description": "Overrides the card width: pixels (420) or any CSS width (\"26rem\")."
     }
   ],
   "examples": [

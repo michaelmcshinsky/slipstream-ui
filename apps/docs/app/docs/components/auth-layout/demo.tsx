@@ -21,6 +21,7 @@ export default function AuthLayoutPage() {
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Card width preset.' },
         { name: 'variant', type: "'centered' | 'split'", defaultValue: "'centered'", description: 'Split renders the form beside an aside on desktop.' },
         { name: 'aside', type: 'ReactNode', description: 'Optional panel for the split variant; omitting it falls back to centered.' },
+        { name: 'maxWidth', type: 'number | string', description: 'Overrides the card width: pixels (420) or any CSS width ("26rem").' },
       ]}
       accessibility={['Owns the page h1; keep the form free of additional h1s.', 'Centered layout keeps the form reachable on small screens.', 'The split variant keeps DOM order form then aside, so keyboard order stays correct.']}
     >

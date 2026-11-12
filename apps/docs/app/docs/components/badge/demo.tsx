@@ -12,6 +12,7 @@ export default function BadgePage() {
       propsRows={[
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child (e.g. a router Link) with badge styling.' },
         { name: 'variant', type: "'default' | 'secondary' | 'destructive' | 'outline'", defaultValue: "'default'", description: 'Visual style variant' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Pill scale: sm for dense tables, lg for hero and metadata strips.' },
         { name: 'children', type: 'ReactNode', defaultValue: 'required', description: 'Content to display' },
       ]}
       accessibility={[

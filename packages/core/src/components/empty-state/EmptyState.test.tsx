@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { EmptyState } from './EmptyState';
 
 describe('EmptyState', () => {
@@ -38,5 +39,29 @@ describe('EmptyState', () => {
   it('has no accessibility violations', async () => {
     const { container } = render(<EmptyState title="Empty" description="Nothing to show" />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('action object form', () => {
+  it('renders a button from { label, onClick }', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(<EmptyState title="No results" action={{ label: 'Clear filters', onClick, variant: 'outline' }} />);
+    const button = screen.getByRole('button', { name: 'Clear filters' });
+    expect(button).toHaveClass('border');
+    await user.click(button);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders a link when href is provided', () => {
+    render(<EmptyState title="No results" action={{ label: 'Create one', href: '/new' }} />);
+    const link = screen.getByRole('link', { name: 'Create one' });
+    expect(link).toHaveAttribute('href', '/new');
+    expect(screen.queryByRole('button', { name: 'Create one' })).not.toBeInTheDocument();
+  });
+
+  it('still accepts a rendered node', () => {
+    render(<EmptyState title="No results" action={<button type="button">Custom</button>} />);
+    expect(screen.getByRole('button', { name: 'Custom' })).toBeInTheDocument();
   });
 });

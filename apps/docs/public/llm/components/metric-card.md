@@ -22,6 +22,8 @@ Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta
 | hint | `React.ReactNode` | — | no | Comparison context (vs last month). Alias: description. |
 | description | `React.ReactNode` | — | no | Alias for hint (migration-friendly). |
 | icon | `ReactNode` | — | no | Decorative icon. |
+| tone | `'default' | 'success' | 'warning' | 'destructive'` | `default` | no | Semantic color for the value (not the delta). |
+| loading | `boolean` | `false` | no | Renders a skeleton instead of the value and sets aria-busy. |
 
 ## Examples
 

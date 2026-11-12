@@ -57,6 +57,18 @@ describe('AuthLayout migration aliases', () => {
   });
 });
 
+describe('AuthLayout maxWidth', () => {
+  it('overrides the size preset with a pixel width', () => {
+    const { container } = render(<AuthLayout title="Sign in" maxWidth={420} />);
+    expect(container.querySelector('[style*="max-width: 420px"]')).not.toBeNull();
+  });
+
+  it('accepts any CSS width', () => {
+    const { container } = render(<AuthLayout title="Sign in" maxWidth="26rem" />);
+    expect(container.querySelector('[style*="max-width: 26rem"]')).not.toBeNull();
+  });
+});
+
 describe('split variant', () => {
   it('renders the aside after the form', () => {
     const { container } = render(

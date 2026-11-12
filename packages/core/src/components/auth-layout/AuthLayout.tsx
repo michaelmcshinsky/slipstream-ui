@@ -23,6 +23,8 @@ export type AuthLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
    * the centered variant; omitting it makes the split variant fall back.
    */
   aside?: React.ReactNode;
+  /** Overrides the card width: pixels (420) or any CSS width ("26rem"). */
+  maxWidth?: number | string;
 };
 
 const sizeClasses: Record<NonNullable<AuthLayoutProps['size']>, string> = {
@@ -50,6 +52,7 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
     size = 'md',
     variant = 'centered',
     aside,
+    maxWidth,
     className,
     ...props
   },
@@ -58,6 +61,10 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
   const split = variant === 'split' && aside != null;
   const supporting = description ?? subtitle;
   const mark = brand ?? logo;
+  const widthStyle =
+    maxWidth === undefined
+      ? undefined
+      : { maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth };
 
   const form = (
     <div
@@ -65,6 +72,7 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
         'flex w-full flex-col',
         split ? sizeClasses[size] : 'items-center'
       )}
+      style={widthStyle}
     >
       {mark && <div className="mb-6">{mark}</div>}
       <div
@@ -72,6 +80,7 @@ export const AuthLayout = React.forwardRef<HTMLDivElement, AuthLayoutProps>(func
           'w-full rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8',
           !split && sizeClasses[size]
         )}
+        style={widthStyle}
       >
         <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
         {supporting && <p className="mt-1 text-sm text-muted-foreground">{supporting}</p>}

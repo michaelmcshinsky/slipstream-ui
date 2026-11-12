@@ -15,7 +15,7 @@ export default function EmptyStatePage() {
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Primary message.' },
         { name: 'description', type: 'string', description: 'Supporting line explaining the next step.' },
         { name: 'icon', type: 'ReactNode', description: 'Decorative icon above the title.' },
-        { name: 'action', type: 'ReactNode', description: 'Primary action (Button or link).' },
+        { name: 'action', type: 'ReactNode | EmptyStateAction', description: 'Primary action as a rendered node, or { label, onClick?, href?, variant? } to have the button/link rendered for you.' },
         { name: 'secondaryAction', type: 'ReactNode', description: 'Secondary action beside the primary one.' },
         { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Compact padding for panels and table bodies.' },
       ]}

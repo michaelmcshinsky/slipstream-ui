@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 
 export type MetricTrend = 'up' | 'down' | 'flat';
+export type MetricTone = 'default' | 'success' | 'warning' | 'destructive';
 
 export type MetricCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & {
   /** Metric name. Alias: title. */
@@ -17,6 +18,10 @@ export type MetricCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'
   delta?: string;
   /** Direction colors the delta (green up / red down / muted flat). */
   trend?: MetricTrend;
+  /** Semantic color for the value (not the delta). */
+  tone?: MetricTone;
+  /** Renders a skeleton instead of the value; sets aria-busy while true. */
+  loading?: boolean;
   icon?: React.ReactNode;
 };
 
@@ -24,6 +29,13 @@ const trendClasses: Record<MetricTrend, string> = {
   up: 'text-success',
   down: 'text-destructive',
   flat: 'text-muted-foreground',
+};
+
+const toneClasses: Record<MetricTone, string> = {
+  default: '',
+  success: 'text-success',
+  warning: 'text-warning-ink',
+  destructive: 'text-destructive',
 };
 
 const trendGlyph: Record<MetricTrend, string> = { up: '↑', down: '↓', flat: '→' };
@@ -34,18 +46,37 @@ const trendGlyph: Record<MetricTrend, string> = { up: '↑', down: '↓', flat: 
  * never communicated by color alone.
  */
 export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(function MetricCard(
-  { label, value, hint, title, description, delta, trend = 'flat', icon, className, ...props },
+  { label, value, hint, title, description, delta, trend = 'flat', tone = 'default', loading = false, icon, className, ...props },
   ref
 ) {
   const heading = label ?? title;
   const supporting = hint ?? description;
+
+  if (loading) {
+    return (
+      <div
+        ref={ref}
+        aria-busy="true"
+        className={cn('rounded-xl border border-border bg-card p-5', className)}
+        {...props}
+      >
+        <div className="flex items-start justify-between gap-3">
+          {heading && <p className="text-sm text-muted-foreground">{heading}</p>}
+          {icon && <span className="text-muted-foreground [&_svg]:size-4">{icon}</span>}
+        </div>
+        <span aria-hidden="true" className="mt-3 block h-7 w-24 animate-pulse rounded-md bg-muted" />
+        <span className="sr-only">Loading</span>
+      </div>
+    );
+  }
+
   return (
     <div ref={ref} className={cn('rounded-xl border border-border bg-card p-5', className)} {...props}>
       <div className="flex items-start justify-between gap-3">
         {heading && <p className="text-sm text-muted-foreground">{heading}</p>}
         {icon && <span className="text-muted-foreground [&_svg]:size-4">{icon}</span>}
       </div>
-      <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
+      <p className={cn('mt-2 text-2xl font-semibold tabular-nums', toneClasses[tone])}>{value}</p>
       {(delta || supporting) && (
         <p className="mt-1 flex items-center gap-2 text-sm">
           {delta && (

@@ -127,3 +127,34 @@ describe('Accordion variant and gap', () => {
     expect(root).toHaveStyle({ gap: '10px' });
   });
 });
+
+describe('declarative items', () => {
+  it('renders a trigger and panel per item', async () => {
+    const user = userEvent.setup();
+    render(
+      <Accordion items={[
+        { id: 'one', title: 'First', content: 'First body' },
+        { id: 'two', title: 'Second', content: 'Second body' },
+      ]} />
+    );
+    expect(screen.getAllByRole('button')).toHaveLength(2);
+    expect(screen.getByText('First body')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'First' }));
+    expect(screen.getByRole('button', { name: 'First' })).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('disables an item without dropping its panel', () => {
+    render(
+      <Accordion items={[{ id: 'locked', title: 'Locked', content: 'Body', disabled: true }]} />
+    );
+    expect(screen.getByRole('button', { name: 'Locked' })).toBeDisabled();
+    expect(screen.getByText('Body')).toBeInTheDocument();
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <Accordion items={[{ id: 'one', title: 'First', content: 'First body' }]} />
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});

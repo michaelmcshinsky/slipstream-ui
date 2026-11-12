@@ -1,13 +1,23 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { Button, type ButtonProps } from '../button/Button';
+
+/** Object form of `action`: EmptyState renders the button/link for you. */
+export type EmptyStateAction = {
+  label: React.ReactNode;
+  onClick?: () => void;
+  /** Renders an anchor (styled as a button) instead of a button. */
+  href?: string;
+  variant?: ButtonProps['variant'];
+};
 
 export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Icon or illustration shown above the title. */
   icon?: React.ReactNode;
   title: string;
   description?: string;
-  /** Primary action (button/link). */
-  action?: React.ReactNode;
+  /** Primary action: a rendered node, or an action object. */
+  action?: React.ReactNode | EmptyStateAction;
   /** Alias for `action` for codebases that pass a list of actions. */
   actions?: React.ReactNode;
   /** Secondary action shown beside the primary one. */
@@ -17,6 +27,33 @@ export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Compact padding for use inside panels and table bodies. */
   size?: 'sm' | 'md';
 };
+
+function isActionObject(value: unknown): value is EmptyStateAction {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    !React.isValidElement(value) &&
+    'label' in value
+  );
+}
+
+/** Normalizes the node and object forms into a single element. */
+function renderAction(action: React.ReactNode | EmptyStateAction | undefined): React.ReactNode {
+  if (!isActionObject(action)) return action;
+  const { label, onClick, href, variant } = action;
+  if (href) {
+    return (
+      <Button variant={variant} asChild>
+        <a href={href}>{label}</a>
+      </Button>
+    );
+  }
+  return (
+    <Button variant={variant} onClick={onClick}>
+      {label}
+    </Button>
+  );
+}
 
 /**
  * Placeholder for empty collections, zero-result searches and unconfigured
@@ -39,7 +76,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(func
   },
   ref
 ) {
-  const primaryAction = action ?? actions;
+  const primaryAction = renderAction(action) ?? actions;
   return (
     <div
       ref={ref}

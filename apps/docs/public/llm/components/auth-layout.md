@@ -23,6 +23,7 @@ Sign-in, sign-up, reset and verify screens should look identical. AuthLayout own
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Card width preset. |
 | variant | `'centered' | 'split'` | `centered` | no | Layout preset. Split adds a branded aside beside the form card on desktop and below it on mobile. |
 | aside | `ReactNode` | — | no | Optional panel rendered beside the card in the split variant. Ignored when centered; omitting it falls back to centered. |
+| maxWidth | `number | string` | — | no | Overrides the card width: pixels (420) or any CSS width ("26rem"). |
 
 ## Examples
 
