@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
@@ -201,5 +201,68 @@ describe('onClose alias', () => {
     await user.click(screen.getByRole('button', { name: 'Close drawer' }));
     expect(onOpenChange).toHaveBeenCalledWith(false);
     expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+describe('resizable', () => {
+  it('renders a separator with the width bounds and seeds the size preset', () => {
+    render(<Drawer open onOpenChange={vi.fn()} title="Details" resizable>Body</Drawer>);
+    const handle = screen.getByRole('separator', { name: 'Resize drawer' });
+    expect(handle).toHaveAttribute('aria-valuenow', '384');
+    expect(handle).toHaveAttribute('aria-valuemin', '240');
+    expect(handle).toHaveAttribute('aria-valuemax', '960');
+    expect(screen.getByRole('dialog')).toHaveStyle({ width: '384px' });
+  });
+
+  it('honours defaultWidth and clamps it to the bounds', () => {
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Details" resizable defaultWidth={100}>
+        Body
+      </Drawer>
+    );
+    expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', '240');
+  });
+
+  it('grows and shrinks from the keyboard, with Home/End jumps', () => {
+    const onWidthChange = vi.fn();
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Details" resizable onWidthChange={onWidthChange}>
+        Body
+      </Drawer>
+    );
+    const handle = screen.getByRole('separator');
+    fireEvent.keyDown(handle, { key: 'ArrowLeft' });
+    expect(handle).toHaveAttribute('aria-valuenow', '400');
+    fireEvent.keyDown(handle, { key: 'ArrowLeft', shiftKey: true });
+    expect(handle).toHaveAttribute('aria-valuenow', '464');
+    fireEvent.keyDown(handle, { key: 'End' });
+    expect(handle).toHaveAttribute('aria-valuenow', '960');
+    fireEvent.keyDown(handle, { key: 'Home' });
+    expect(handle).toHaveAttribute('aria-valuenow', '240');
+    expect(onWidthChange).toHaveBeenLastCalledWith(240);
+  });
+
+  it('resizes while dragging the handle', () => {
+    const onWidthChange = vi.fn();
+    render(
+      <Drawer open onOpenChange={vi.fn()} title="Details" resizable onWidthChange={onWidthChange}>
+        Body
+      </Drawer>
+    );
+    const handle = screen.getByRole('separator');
+    fireEvent.pointerDown(handle, { button: 0, clientX: 500 });
+    fireEvent.pointerMove(window, { clientX: 400 });
+    expect(handle).toHaveAttribute('aria-valuenow', '484');
+    fireEvent.pointerUp(window);
+    expect(onWidthChange).toHaveBeenCalledWith(484);
+  });
+
+  it('does not render a handle for top/bottom drawers or when resizable is false', () => {
+    const { rerender } = render(
+      <Drawer open onOpenChange={vi.fn()} title="Sheet" side="bottom" resizable>Body</Drawer>
+    );
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+    rerender(<Drawer open onOpenChange={vi.fn()} title="Sheet">Body</Drawer>);
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
   });
 });

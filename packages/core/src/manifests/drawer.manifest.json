@@ -95,6 +95,46 @@
       ]
     },
     {
+      "name": "resizable",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Drag the inner edge to resize a left/right drawer. Arrow keys nudge 16px, Shift+Arrow 64px, Home/End jump to the bounds. Ignored for top/bottom drawers."
+    },
+    {
+      "name": "minWidth",
+      "type": "number",
+      "required": false,
+      "defaultValue": "240",
+      "description": "Lower width bound in pixels while resizable."
+    },
+    {
+      "name": "maxWidth",
+      "type": "number",
+      "required": false,
+      "defaultValue": "960",
+      "description": "Upper width bound in pixels while resizable."
+    },
+    {
+      "name": "defaultWidth",
+      "type": "number",
+      "required": false,
+      "description": "Initial width in pixels while resizable; defaults to the size preset."
+    },
+    {
+      "name": "onWidthChange",
+      "type": "(width: number) => void",
+      "required": false,
+      "description": "Fired with the next width in pixels when a resize commits."
+    },
+    {
+      "name": "resizeLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Resize drawer",
+      "description": "Accessible label for the resize handle."
+    },
+    {
       "name": "closeOnBackdrop",
       "type": "boolean",
       "defaultValue": "true",
