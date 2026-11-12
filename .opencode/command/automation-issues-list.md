@@ -5,7 +5,7 @@ agent: build
 
 # Slipstream UI issue list (fast lane)
 
-Run from `D:/Documents/Projects/slipstream-ui`.
+Run from `D:/Projects/slipstream-ui`.
 This command is read-only. It does not create branches, edit files, commit, push, or open PRs.
 
 ## Step 1 — List open issues
