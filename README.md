@@ -6,6 +6,8 @@ The AI-first React component library — your AI already knows how to use it.
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![npm core](https://img.shields.io/npm/v/@slipstream-ui/core.svg?label=%40slipstream-ui%2Fcore)](https://www.npmjs.com/package/@slipstream-ui/core)
 [![npm ai](https://img.shields.io/npm/v/@slipstream-ui/ai.svg?label=%40slipstream-ui%2Fai)](https://www.npmjs.com/package/@slipstream-ui/ai)
+[![npm core downloads](https://img.shields.io/npm/dm/@slipstream-ui/core.svg?label=%40slipstream-ui%2Fcore%20downloads)](https://www.npmjs.com/package/@slipstream-ui/core)
+[![npm mcp downloads](https://img.shields.io/npm/dm/@slipstream-ui/mcp-server.svg?label=%40slipstream-ui%2Fmcp-server%20downloads)](https://www.npmjs.com/package/@slipstream-ui/mcp-server)
 [![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
 
 <!-- generated:stats:start -->
@@ -166,4 +168,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) (guidelines fo
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
+
+---
+
+Built by [Michael McShinsky](https://mcshinsky.net). Design notes and the reasoning behind manifests-over-MCP are written up at [mcshinsky.net/work](https://mcshinsky.net/work/).
