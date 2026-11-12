@@ -33,7 +33,7 @@ export default function InputPage() {
           <div className="w-full max-w-md space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="in-text">Text</Label>
-              <Input id="in-text" placeholder="Ada Lovelace" autoComplete="name" />
+              <Input id="in-text" placeholder="Jane Doe" autoComplete="name" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="in-email">Email</Label>
@@ -56,7 +56,7 @@ export default function InputPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label htmlFor="in-url">URL</Label>
-                <Input id="in-url" type="url" placeholder="https://slipstreamui.com" />
+                <Input id="in-url" type="url" placeholder="https://example.com" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="in-search">Search</Label>

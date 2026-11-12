@@ -78,7 +78,7 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0b1220' },
+    { media: '(prefers-color-scheme: dark)', color: '#111113' },
   ],
 };
 
@@ -120,8 +120,10 @@ export default async function RootLayout({
         >
           {translate(messages, 'shell.skipToContent')}
         </a>
-        <I18nProvider locale={locale} messages={messages}>{children}</I18nProvider>
-        <CookieBanner />
+        <I18nProvider locale={locale} messages={messages}>
+          {children}
+          <CookieBanner />
+        </I18nProvider>
         <Analytics />
       </body>
     </html>

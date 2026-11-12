@@ -3,10 +3,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Link from 'next/link';
 import { COMPONENT_COUNT } from '@/lib/component-count';
-import { NAV_SECTIONS, type NavItem } from '@/lib/nav';
+import { NAV_SECTIONS, navGroupLabel, type NavItem } from '@/lib/nav';
 import { JsonLd } from '@/components/site/json-ld';
 import { componentCollectionSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
+import { getServerI18n } from '@/lib/i18n-server';
 
 export const metadata: Metadata = withSeo('/docs/components', {
   title: 'Components',
@@ -44,7 +45,8 @@ function idFromHref(href: string): string {
   return href.slice(href.lastIndexOf('/') + 1);
 }
 
-export default function ComponentsOverviewPage() {
+export default async function ComponentsOverviewPage() {
+  const { t } = await getServerI18n();
   const registry = loadRegistryIndex();
   const section = NAV_SECTIONS.find((s) => s.title === 'Components');
   const overview: NavItem | undefined = section?.items?.[0];
@@ -119,7 +121,7 @@ export default function ComponentsOverviewPage() {
       <div className="space-y-10">
         {groups.map((group) => (
           <section key={group.title}>
-            <h2 className="text-2xl font-semibold mb-1">{group.title}</h2>
+            <h2 className="text-2xl font-semibold mb-1">{navGroupLabel(group, t)}</h2>
             <p className="text-sm text-muted-foreground mb-4">
               {group.items.length} component{group.items.length === 1 ? '' : 's'}
             </p>

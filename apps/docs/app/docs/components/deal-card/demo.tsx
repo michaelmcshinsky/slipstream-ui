@@ -9,10 +9,10 @@ export default function DealCardPage() {
     <ComponentPage
       id="deal-card"
       title="DealCard"
-      description="Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions."
+      description="Marketplace listing card with sector, status, metrics, access badges and actions."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Deal headline.' },
+        { name: 'title', type: 'string', defaultValue: 'required', description: 'Listing headline.' },
         { name: 'sector', type: 'string', defaultValue: 'required', description: 'Sector or industry label.' },
         { name: 'location', type: 'string', description: 'Region or location.' },
         { name: 'description', type: 'string', description: 'Optional short summary.' },
@@ -20,7 +20,7 @@ export default function DealCardPage() {
         { name: 'status', type: "'available' | 'under-nda' | 'closed' | 'draft'", defaultValue: "'available'", description: 'Availability state.' },
         { name: 'ndaAvailable', type: 'boolean', description: 'Show the NDA badge.' },
         { name: 'cimAvailable', type: 'boolean', description: 'Show the CIM badge.' },
-        { name: 'href', type: 'string', description: 'Optional deal detail link.' },
+        { name: 'href', type: 'string', description: 'Optional detail link.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
         { name: 'saved', type: 'boolean', defaultValue: 'false', description: 'Save toggle state.' },
         { name: 'onSave', type: '() => void', description: 'Save toggle handler.' },
@@ -38,10 +38,10 @@ export default function DealCardPage() {
         preview={
           <Grid mdCols={2} gap="lg">
             <DealCard
-              title="Multi-regional fleet services platform"
+              title="Multi-regional logistics platform"
               sector="Transportation"
-              location="South Atlantic"
-              description="Recurring maintenance and compliance services across a multi-state fleet."
+              location="West region"
+              description="Recurring services and reporting across a multi-state operation."
               metrics={[
                 { label: 'Revenue', value: '$20.4M' },
                 { label: 'EBITDA', value: '$4.2M' },
@@ -53,9 +53,9 @@ export default function DealCardPage() {
               onSave={() => {}}
             />
             <DealCard
-              title="Hospitality procurement platform"
+              title="Retail procurement platform"
               sector="Technology"
-              location="South Atlantic"
+              location="West region"
               metrics={[
                 { label: 'Revenue', value: '$14.4M' },
                 { label: 'EBITDA', value: '$6.8M' },
@@ -69,9 +69,9 @@ export default function DealCardPage() {
           </Grid>
         }
         code={`<DealCard
-  title="Fleet services platform"
+  title="Logistics platform"
   sector="Transportation"
-  location="South Atlantic"
+  location="West region"
   metrics={[
     { label: 'Revenue', value: '$20.4M' },
     { label: 'EBITDA', value: '$4.2M' },

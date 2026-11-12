@@ -34,12 +34,12 @@ export default function FilterPanelPage() {
       ]}
     >
       <DemoCard
-        title="Deal filters"
+        title="Project filters"
         preview={
           <div className="w-full max-w-sm">
             <FilterPanel
-              title="Deal filters"
-              description="Narrow the deal set."
+              title="Project filters"
+              description="Narrow the project set."
               onReset={() => {
                 setIndustries([]);
                 setRevenue([5, 100]);
@@ -82,7 +82,7 @@ export default function FilterPanelPage() {
           </div>
         }
         code={`<FilterPanel
-  title="Deal filters"
+  title="Project filters"
   onReset={reset}
   onApply={apply}
   sections={[

@@ -85,13 +85,13 @@ const customTheme = createTheme({
 }
 
 .dark {
-  --background: 222 42% 5%;
-  --card: 222 36% 9%;
-  --foreground: 210 40% 96%;
+  --background: 220 6% 7%;
+  --card: 220 5% 10%;
+  --foreground: 220 9% 95%;
   --primary: 224 90% 70%;
-  --primary-foreground: 222 75% 10%;
-  --border: 217 20% 24%;
-  --input: 217 18% 32%;
+  --primary-foreground: 220 30% 8%;
+  --border: 220 6% 20%;
+  --input: 220 6% 25%;
   /* ... and so on */
 }`} />
 

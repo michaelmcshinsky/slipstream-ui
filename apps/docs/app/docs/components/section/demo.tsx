@@ -42,9 +42,9 @@ export default function SectionPage() {
         }
         code={`<Section tone="inverse" padding="lg" width="lg">
   <SectionHeading
-    eyebrow="Join Axial"
-    title="Ready to exit?"
-    description="Connect with the right advisor."
+    eyebrow="Get started"
+    title="Ready to build?"
+    description="Connect with the right tools."
     align="center"
   />
 </Section>`}

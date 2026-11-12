@@ -30,20 +30,20 @@ export default function FeatureGridPage() {
             <FeatureGrid
               features={[
                 {
-                  title: 'Vetted advisors',
-                  description: 'Advisors curated for your business, stage and sector.',
+                  title: 'Shared components',
+                  description: 'Components curated for your product, stage and team.',
                   icon: <span aria-hidden="true">◆</span>,
                 },
                 {
-                  title: 'Buyer targeting',
-                  description: 'Reach the right investors for every mandate.',
+                  title: 'Team workspaces',
+                  description: 'Invite the right people to every project.',
                   icon: <span aria-hidden="true">◎</span>,
-                  href: '/features/buyers',
+                  href: '/features/teams',
                   actionLabel: 'Learn more',
                 },
                 {
                   title: 'Secure documents',
-                  description: 'Streamlined NDAs and CIM distribution.',
+                  description: 'Streamlined contracts and document sharing.',
                   icon: <span aria-hidden="true">▣</span>,
                 },
               ]}
@@ -53,9 +53,9 @@ export default function FeatureGridPage() {
         code={`<Section>
   <FeatureGrid
     features={[
-      { title: 'Vetted advisors', description: 'Curated for your business.', icon: <Shield /> },
-      { title: 'Buyer targeting', description: 'Reach the right investors.', href: '/features/buyers', actionLabel: 'Learn more' },
-      { title: 'Secure documents', description: 'Streamlined NDAs and CIMs.', icon: <Lock /> },
+      { title: 'Shared components', description: 'Curated for your product.', icon: <Shield /> },
+      { title: 'Team workspaces', description: 'Invite the right people.', href: '/features/teams', actionLabel: 'Learn more' },
+      { title: 'Secure documents', description: 'Streamlined contracts and files.', icon: <Lock /> },
     ]}
   />
 </Section>`}

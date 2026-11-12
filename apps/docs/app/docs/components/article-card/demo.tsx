@@ -32,18 +32,18 @@ export default function ArticleCardPage() {
           <Section padding="lg" className="rounded-lg">
             <Grid mdCols={2} gap="lg">
               <ArticleCard
-                href="/resources/exit-planning"
-                eyebrow="Business owners"
-                title="How to plan your exit"
-                description="A practical guide to timing, advisors and the first steps of a sale."
+                href="/resources/migration-planning"
+                eyebrow="Guides"
+                title="How to plan a migration"
+                description="A practical guide to planning the work and the first steps of a migration."
                 meta="8 min read"
                 media={<div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />}
               />
               <ArticleCard
                 href="/resources/valuation"
-                eyebrow="Valuation"
-                title="What buyers look for"
-                description="The metrics that move a lower middle market valuation."
+                eyebrow="Comparison"
+                title="What teams look for"
+                description="The signals that shape a platform decision."
                 meta="6 min read"
                 media={<div className="h-full w-full bg-gradient-to-br from-info/20 to-info/5" />}
               />
@@ -52,10 +52,10 @@ export default function ArticleCardPage() {
         }
         code={`<Grid mdCols={2} gap="lg">
   <ArticleCard
-    href="/resources/exit-planning"
-    eyebrow="Business owners"
-    title="How to plan your exit"
-    description="A practical guide to timing, advisors and the first steps."
+    href="/resources/migration-planning"
+    eyebrow="Guides"
+    title="How to plan a migration"
+    description="A practical guide to planning the work and the first steps."
     meta="8 min read"
     media={<img src="/cover.jpg" alt="" />}
   />

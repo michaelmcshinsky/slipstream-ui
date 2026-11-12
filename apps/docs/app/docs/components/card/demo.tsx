@@ -50,17 +50,17 @@ export default function CardPage() {
             <Card>
               <CardHeader className="flex-row items-center justify-between space-y-0">
                 <div>
-                  <CardTitle>Conversation usage</CardTitle>
+                  <CardTitle>Usage this month</CardTitle>
                   <CardDescription>Last 30 days</CardDescription>
                 </div>
                 <Badge variant="secondary">+18%</Badge>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">12,847</p>
-                <p className="text-xs text-muted-foreground">messages streamed</p>
+                <p className="text-3xl font-bold">1,284</p>
+                <p className="text-xs text-muted-foreground">events processed</p>
               </CardContent>
               <CardFooter className="justify-between text-xs text-muted-foreground">
-                <span>Updated 2 min ago</span>
+                <span>Updated 2 minutes ago</span>
                 <Button size="sm" variant="link" className="h-auto p-0">View report</Button>
               </CardFooter>
             </Card>

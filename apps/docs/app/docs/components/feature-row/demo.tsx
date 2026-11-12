@@ -32,15 +32,15 @@ export default function FeatureRowPage() {
           <Section padding="lg" className="rounded-lg">
             <FeatureRow
               eyebrow="For acquirers"
-              title="Source relevant, actionable deals"
-              description="Discover deals tailored to your thesis from 12,000+ opportunities brought to market each year."
+              title="Find relevant, actionable insights"
+              description="Discover insights tailored to your team from 12,000+ events processed each year."
               actions={<Button>Learn more</Button>}
               media={
                 <div className="aspect-[4/3] rounded-2xl border border-border bg-muted p-6">
                   <div className="flex h-full flex-col justify-between rounded-xl bg-card p-5">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-primary">Deal flow</p>
-                    <p className="text-3xl font-semibold">12,856</p>
-                    <p className="text-sm text-muted-foreground">deals brought to market</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-primary">Event flow</p>
+                    <p className="text-3xl font-semibold">1,284</p>
+                    <p className="text-sm text-muted-foreground">events processed</p>
                   </div>
                 </div>
               }
@@ -50,8 +50,8 @@ export default function FeatureRowPage() {
         code={`<Section>
   <FeatureRow
     eyebrow="For acquirers"
-    title="Source relevant, actionable deals"
-    description="Discover deals tailored to your thesis."
+    title="Find relevant, actionable insights"
+    description="Discover insights tailored to your team."
     actions={<Button>Learn more</Button>}
     media={<ProductMockup />}
   />

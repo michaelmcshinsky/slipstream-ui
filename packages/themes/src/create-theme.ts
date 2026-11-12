@@ -5,9 +5,10 @@ import type { Theme, ThemeConfig, ThemeColors } from './types';
  *
  * The light/dark palettes follow the Axial-inspired house style (shared
  * spec with apps/docs/app/globals.css): pure-white surfaces and navy ink
- * in light mode; a navy-tinted surface ladder (background < card < popover)
- * with crisp borders and a *lightened* primary in dark mode so links AND
- * buttons both clear WCAG AA on dark backgrounds.
+ * in light mode; a neutral graphite surface ladder (background < card <
+ * popover, matching OpenWork / Open WebUI dark) with crisp borders and a
+ * *lightened* primary in dark mode so links AND buttons both clear WCAG AA
+ * on dark backgrounds.
  *
  * Hue values are unitless — percent hues invalidate the whole hsl()
  * declaration and silently drop the color.
@@ -32,49 +33,49 @@ export function createTheme(config: ThemeConfig = {}): Theme {
 
   const colors: ThemeColors = {
     // Surfaces
-    background: darkMode ? '222 42% 5%' : '0 0% 100%',
-    foreground: darkMode ? '210 40% 96%' : '222 85% 7%',
+    background: darkMode ? '220 6% 7%' : '0 0% 100%',
+    foreground: darkMode ? '220 9% 95%' : '222 85% 7%',
 
-    // Primary (brand-based; derived for dark so light-blue + navy ink
+    // Primary (brand-based; derived for dark so light-blue + near-black ink
     // passes AA both as button background and as link text)
     primary: darkMode ? lightenForDark(baseColor) : baseColor,
     'primary-foreground': darkMode ? inkForDark(baseColor) : '0 0% 100%',
 
     // Secondary / muted / accent
-    secondary: darkMode ? '217 24% 17%' : '214 45% 96%',
-    'secondary-foreground': darkMode ? '210 40% 96%' : '222 47% 11%',
-    muted: darkMode ? '217 24% 17%' : '214 40% 96%',
-    'muted-foreground': darkMode ? '215 16% 68%' : '219 12% 42%',
-    accent: darkMode ? '217 24% 17%' : '214 45% 96%',
-    'accent-foreground': darkMode ? '210 40% 96%' : '222 47% 11%',
+    secondary: darkMode ? '220 5% 16%' : '214 45% 96%',
+    'secondary-foreground': darkMode ? '220 9% 95%' : '222 47% 11%',
+    muted: darkMode ? '220 5% 16%' : '214 40% 96%',
+    'muted-foreground': darkMode ? '220 6% 68%' : '219 12% 42%',
+    accent: darkMode ? '220 5% 16%' : '214 45% 96%',
+    'accent-foreground': darkMode ? '220 9% 95%' : '222 47% 11%',
 
     // Destructive — dark text carries AA on bg and card; solid fills take ink
     destructive: darkMode ? '0 76% 64%' : '348 68% 44%',
-    'destructive-foreground': darkMode ? '222 75% 10%' : '0 0% 100%',
+    'destructive-foreground': darkMode ? '220 30% 8%' : '0 0% 100%',
 
     // Status colors (success / warning / info) — unitless hues.
-    // Solid semantic fills carry navy-ink foregrounds: mid-luminance
+    // Solid semantic fills carry near-black ink foregrounds: mid-luminance
     // colors cannot hold 4.5:1 against white, and ink-on-color is the
     // Axial house style anyway. Text usage (tints) is the primary path.
     success: darkMode ? '142 62% 52%' : '142 63% 32%',
-    'success-foreground': darkMode ? '222 75% 10%' : '0 0% 100%',
+    'success-foreground': darkMode ? '220 30% 8%' : '0 0% 100%',
     warning: darkMode ? '38 92% 60%' : '38 92% 50%',
     'warning-foreground': '26 83% 14%',
     'warning-ink': darkMode ? '38 92% 62%' : '32 90% 32%',
     info: darkMode ? '190 80% 58%' : '190 76% 38%',
-    'info-foreground': '222 75% 10%',
+    'info-foreground': darkMode ? '220 30% 8%' : '222 75% 10%',
     'info-ink': darkMode ? '190 80% 62%' : '190 90% 28%',
 
-    // Borders: dark gets a crisp 30% navy line; inputs read brighter (36%)
-    border: darkMode ? '217 20% 30%' : '214 28% 89%',
-    input: darkMode ? '217 18% 36%' : '214 28% 89%',
+    // Borders: dark gets a crisp neutral line; inputs read brighter
+    border: darkMode ? '220 6% 22%' : '214 28% 89%',
+    input: darkMode ? '220 6% 28%' : '214 28% 89%',
     ring: darkMode ? lightenForDark(baseColor) : baseColor,
 
     // Card / popover: elevated steps above the dark background
-    card: darkMode ? '222 34% 11%' : '0 0% 100%',
-    'card-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
-    popover: darkMode ? '222 34% 14%' : '0 0% 100%',
-    'popover-foreground': darkMode ? '210 40% 96%' : '222 85% 7%',
+    card: darkMode ? '220 5% 12%' : '0 0% 100%',
+    'card-foreground': darkMode ? '220 9% 95%' : '222 85% 7%',
+    popover: darkMode ? '220 5% 15%' : '0 0% 100%',
+    'popover-foreground': darkMode ? '220 9% 95%' : '222 85% 7%',
 
     // Inverse sections flip the surface ladder: navy in light mode, white in
     // dark mode. Section scopes these tokens onto its subtree.
@@ -136,11 +137,11 @@ function lightenForDark(hsl: string): string {
   return `${Math.round(parsed.h)} ${Math.round(sat)}% ${Math.round(light)}%`;
 }
 
-/** Matching ink (navy-tinted dark) foreground for the light-blue primary. */
+/** Matching ink (near-black, lightly tinted) for the light-blue primary. */
 function inkForDark(hsl: string): string {
   const parsed = parseHsl(hsl);
-  if (!parsed) return '210 40% 98%';
-  return `${Math.round(parsed.h)} 75% 10%`;
+  if (!parsed) return '220 30% 8%';
+  return `${Math.round(parsed.h)} 30% 8%`;
 }
 
 /**

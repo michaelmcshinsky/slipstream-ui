@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { cn } from '@slipstream-ui/core';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { track } from '@/lib/analytics';
 
 export type InstallBoxProps = {
@@ -23,6 +24,7 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
 
   const [tab, setTab] = useState<(typeof tabs)[number]['id']>('cli');
   const [copied, setCopied] = useState(false);
+  const { t } = useI18n();
   const active = tabs.find((entry) => entry.id === tab)!;
 
   async function copy() {
@@ -38,7 +40,7 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
 
   return (
     <div className={cn('flex items-stretch overflow-hidden rounded-lg border border-border bg-muted/40 font-mono text-xs', className)}>
-      <div role="tablist" aria-label="Install method" className="flex border-r border-border">
+      <div role="tablist" aria-label={t('site.install.method')} className="flex border-r border-border">
         {tabs.map((entry) => (
           <button
             key={entry.id}
@@ -60,10 +62,10 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
       <button
         type="button"
         onClick={copy}
-        aria-label={copied ? 'Copied' : 'Copy install command'}
+        aria-label={copied ? t('site.install.copied') : t('site.install.copyAria')}
         className="min-h-11 border-l border-border px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
-        {copied ? '✓' : 'Copy'}
+        {copied ? '✓' : t('site.install.copy')}
       </button>
     </div>
   );

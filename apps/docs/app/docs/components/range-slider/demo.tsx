@@ -39,22 +39,22 @@ export default function RangeSliderPage() {
     >
       <div className="space-y-8">
         <DemoCard
-          title="Revenue range filter"
+          title="Amount range filter"
           preview={
             <div className="w-full max-w-md">
-              <p className="mb-3 text-sm font-medium">Revenue range</p>
+              <p className="mb-3 text-sm font-medium">Amount range</p>
               <RangeSlider
                 min={5}
                 max={100}
                 step={5}
                 value={revenue}
                 onValueChange={setRevenue}
-                startLabel="Revenue minimum"
-                endLabel="Revenue maximum"
+                startLabel="Amount minimum"
+                endLabel="Amount maximum"
                 formatValue={(value) => `$${value}M`}
               />
               <p className="mt-3 text-sm text-muted-foreground">
-                Showing deals from ${revenue[0]}M to ${revenue[1]}M revenue.
+                Showing results from ${revenue[0]}M to ${revenue[1]}M.
               </p>
             </div>
           }
@@ -64,8 +64,8 @@ export default function RangeSliderPage() {
   step={5}
   value={revenue}
   onValueChange={setRevenue}
-  startLabel="Revenue minimum"
-  endLabel="Revenue maximum"
+  startLabel="Amount minimum"
+  endLabel="Amount maximum"
   formatValue={(value) => \`$\${value}M\`}
 />`}
           usage={`// value is [low, high], not a single number.

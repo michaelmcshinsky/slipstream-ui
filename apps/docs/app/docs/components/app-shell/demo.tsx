@@ -64,10 +64,10 @@ export default function AppShellPage() {
               }
               sidebar={
                 <Sidebar
-                  heading={<span className="text-sm font-bold">Acme HQ</span>}
+                  heading={<span className="text-sm font-bold">Example HQ</span>}
                   sections={NAV}
                   activeHref={activeHref}
-                  footer={<span className="text-xs text-muted-foreground">Signed in as ada@acme.dev</span>}
+                  footer={<span className="text-xs text-muted-foreground">Signed in as user@example.com</span>}
                 />
               }
             >
@@ -100,7 +100,7 @@ export default function AppShellPage() {
     <Sidebar
       activeHref={pathname}
       linkComponent={RouterLink}
-      heading={<strong>Acme HQ</strong>}
+      heading={<strong>Example HQ</strong>}
       sections={[
         { title: 'Workspace', items: [
           { href: '/dashboard', label: 'Dashboard' },

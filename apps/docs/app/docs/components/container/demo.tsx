@@ -31,7 +31,7 @@ export default function ContainerPage() {
           </div>
         }
         code={`<Container width="md" padding="lg">
-  <PageHeader title="Deals" description="Manage your pipeline." />
+  <PageHeader title="Projects" description="Manage your workspace." />
 </Container>`}
         usage={`// Width: sm (48rem) | md (64rem) | lg (80rem) | xl (1400px) | full
 // Padding: none | sm (px-4) | md (px-4 sm:px-6) | lg (+ lg:px-8)

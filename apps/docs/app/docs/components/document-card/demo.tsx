@@ -27,25 +27,25 @@ export default function DocumentCardPage() {
       ]}
     >
       <DemoCard
-        title="Deal room documents"
+        title="Project documents"
         preview={
           <div className="w-full space-y-3">
             <DocumentCard
-              name="Q3-financials.pdf"
+              name="Q3-report.pdf"
               fileType="PDF"
               size="2.4 MB"
               updatedAt="Nov 1, 2026"
               onDownload={() => {}}
             />
             <DocumentCard
-              name="CIM-draft.pdf"
+              name="contract-draft.pdf"
               fileType="PDF"
               size="8.1 MB"
               status="restricted"
               onDownload={() => {}}
             />
             <DocumentCard
-              name="Buyer-list.xlsx"
+              name="Contact-list.xlsx"
               fileType="XLSX"
               size="640 KB"
               status="pending"
@@ -53,7 +53,7 @@ export default function DocumentCardPage() {
           </div>
         }
         code={`<DocumentCard
-  name="Q3-financials.pdf"
+  name="Q3-report.pdf"
   fileType="PDF"
   size="2.4 MB"
   updatedAt="Nov 1, 2026"

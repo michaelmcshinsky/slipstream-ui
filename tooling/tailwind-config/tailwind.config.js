@@ -80,6 +80,12 @@ module.exports = {
           'primary-foreground': 'hsl(var(--inverse-primary-foreground))',
         },
       },
+      // A bare `border` must follow the theme. Without this, `border` /
+      // `border-t` fall back to Tailwind's built-in gray-200, which stays a
+      // bright light-mode line on dark surfaces (props tables, cards, demos).
+      borderColor: {
+        DEFAULT: 'hsl(var(--border))',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { cn } from '@slipstream-ui/core';
+import { useI18n } from '@slipstream-ui/i18n/react';
 
 export type DemoCardProps = {
   /** Rendered live preview. */
@@ -38,14 +39,15 @@ export function DemoCard({
   defaultTab = 'preview',
 }: DemoCardProps) {
   const [tab, setTab] = useState<DemoTab>(defaultTab);
+  const { t } = useI18n();
 
   // Build the tab list dynamically so tabs without content don't appear.
   const tabs: { value: DemoTab; label: string }[] = [
-    { value: 'preview', label: 'Preview' },
-    { value: 'code', label: 'Code' },
+    { value: 'preview', label: t('site.demo.preview') },
+    { value: 'code', label: t('site.demo.code') },
   ];
-  if (usage) tabs.push({ value: 'usage', label: 'Usage' });
-  if (types) tabs.push({ value: 'types', label: 'Types' });
+  if (usage) tabs.push({ value: 'usage', label: t('site.demo.usage') });
+  if (types) tabs.push({ value: 'types', label: t('site.demo.types') });
 
   // Keep the active tab valid if content changes.
   const activeTab = tabs.some((t) => t.value === tab) ? tab : 'preview';
@@ -53,7 +55,7 @@ export function DemoCard({
   return (
     <div className={cn('overflow-hidden rounded-lg border border-border', className)}>
       <div className="flex items-center justify-between border-b border-border bg-muted/40 px-3 py-1.5">
-        <div role="tablist" aria-label={`${title ?? 'Demo'} view`} className="flex gap-1">
+        <div role="tablist" aria-label={t('site.demo.view', { title: title ?? t('site.demo.defaultTitle') })} className="flex gap-1">
           {tabs.map(({ value, label }) => (
             <button
               key={value}

@@ -2,8 +2,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { NAV_SECTIONS, type NavGroup, type NavSection } from '@/lib/nav';
+import { useEffect, useRef, useState } from 'react';
+import { useI18n } from '@slipstream-ui/i18n/react';
+import type { MessageKey } from '@slipstream-ui/i18n';
+import {
+  NAV_SECTIONS,
+  navGroupLabel,
+  navItemLabel,
+  navSectionLabel,
+  type NavGroup,
+  type NavSection,
+} from '@/lib/nav';
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -49,9 +58,26 @@ function groupHasActive(group: NavGroup, pathname: string): boolean {
  */
 export function Sidebar() {
   const pathname = usePathname();
+  const { t } = useI18n();
   // Explicit user toggles keyed by `section` or `section/group` — absence
   // falls back to the defaults below.
   const [toggled, setToggled] = useState<Record<string, boolean>>({});
+  // Reveal the (otherwise transparent) scrollbar while the reader scrolls.
+  const [scrolling, setScrolling] = useState(false);
+  const scrollTimer = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (scrollTimer.current) window.clearTimeout(scrollTimer.current);
+    },
+    []
+  );
+
+  const handleScroll = () => {
+    setScrolling(true);
+    if (scrollTimer.current) window.clearTimeout(scrollTimer.current);
+    scrollTimer.current = window.setTimeout(() => setScrolling(false), 900);
+  };
 
   const toggle = (key: string, next: boolean) =>
     setToggled((prev) => {
@@ -70,8 +96,13 @@ export function Sidebar() {
 
   const isOpen = (key: string, fallback: boolean) => (key in toggled ? toggled[key] : fallback);
 
-  const renderItem = (item: { href: string; label: string }) => (
-    <NavItemLink key={item.href} href={item.href} label={item.label} active={pathname === item.href} />
+  const renderItem = (item: { href: string; label: string; labelKey?: MessageKey }) => (
+    <NavItemLink
+      key={item.href}
+      href={item.href}
+      label={navItemLabel(item, t)}
+      active={pathname === item.href}
+    />
   );
 
   const renderSection = (section: NavSection) => {
@@ -92,10 +123,9 @@ export function Sidebar() {
             sectionActive ? 'text-foreground' : 'text-muted-foreground'
           }`}
         >
-          {section.title}
+          {navSectionLabel(section, t)}
           <Chevron open={sectionOpen} />
-        </button>
-        {sectionOpen && (
+        </button>        {sectionOpen && (
           <ul className="mt-0.5 space-y-0.5">
             {section.items?.map(renderItem)}
             {section.groups?.map((group) => {
@@ -113,7 +143,7 @@ export function Sidebar() {
                       groupActive ? 'text-foreground' : 'text-muted-foreground'
                     }`}
                   >
-                    {group.title}
+                    {navGroupLabel(group, t)}
                     <Chevron open={groupOpen} />
                   </button>
                   {groupOpen && (
@@ -131,8 +161,12 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-60 flex-shrink-0 overflow-y-auto py-8 pr-4 lg:block">
-      <nav aria-label="Documentation" className="space-y-4">
+    <aside
+      className="scrollbar-subtle sticky top-14 hidden h-[calc(100vh-3.5rem)] w-60 flex-shrink-0 overflow-y-auto py-8 pr-4 lg:block"
+      data-scrolling={scrolling ? 'true' : undefined}
+      onScroll={handleScroll}
+    >
+      <nav aria-label={t('site.sidebarAria')} className="space-y-4">
         {NAV_SECTIONS.map(renderSection)}
       </nav>
     </aside>

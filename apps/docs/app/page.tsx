@@ -3,6 +3,8 @@ import HomePage from '@/components/site/home-page';
 import { JsonLd } from '@/components/site/json-ld';
 import { softwareApplicationSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
+import { getServerLocale } from '@/lib/i18n-server';
+import { getMarketingCopy } from '@/lib/marketing';
 
 export const metadata: Metadata = withSeo('/', {
   // Absolute so the layout's "%s · Slipstream UI" template doesn't double the brand.
@@ -12,11 +14,14 @@ export const metadata: Metadata = withSeo('/', {
   alternates: { canonical: '/' },
 });
 
-export default function Page() {
+export default async function Page() {
+  const locale = await getServerLocale();
+  const copy = getMarketingCopy(locale).home;
+
   return (
     <>
       <JsonLd data={softwareApplicationSchema()} />
-      <HomePage />
+      <HomePage copy={copy} />
     </>
   );
 }

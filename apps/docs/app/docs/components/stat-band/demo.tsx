@@ -29,9 +29,9 @@ export default function StatBandPage() {
           <Section tone="inverse" padding="lg" className="rounded-lg">
             <StatBand
               items={[
-                { value: '3,500+', label: 'Advisory firms', hint: 'Vetted for your business' },
-                { value: '5,000+', label: 'Active investors', hint: 'Aligned to your thesis' },
-                { value: '12,000+', label: 'Deals annually', hint: 'Brought to market' },
+                { value: '350+', label: 'Active teams', hint: 'Verified for your workspace' },
+                { value: '5,000+', label: 'Monthly users', hint: 'Aligned to your goals' },
+                { value: '12,000+', label: 'Projects shipped', hint: 'Brought to production' },
               ]}
             />
           </Section>
@@ -39,9 +39,9 @@ export default function StatBandPage() {
         code={`<Section tone="inverse">
   <StatBand
     items={[
-      { value: '3,500+', label: 'Advisory firms', hint: 'Vetted for your business' },
-      { value: '5,000+', label: 'Active investors', hint: 'Aligned to your thesis' },
-      { value: '12,000+', label: 'Deals annually', hint: 'Brought to market' },
+      { value: '350+', label: 'Active teams', hint: 'Verified for your workspace' },
+      { value: '5,000+', label: 'Monthly users', hint: 'Aligned to your goals' },
+      { value: '12,000+', label: 'Projects shipped', hint: 'Brought to production' },
     ]}
   />
 </Section>`}

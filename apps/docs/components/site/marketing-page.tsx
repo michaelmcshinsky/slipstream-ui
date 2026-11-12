@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useI18n } from '@slipstream-ui/i18n/react';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
@@ -12,6 +15,7 @@ export type MarketingPageProps = {
 
 /** Shared shell for marketing/legal pages (privacy, terms, contact, thanks). */
 export function MarketingPage({ title, description, updated, children }: MarketingPageProps) {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
@@ -22,12 +26,16 @@ export function MarketingPage({ title, description, updated, children }: Marketi
         <div className="mx-auto max-w-3xl">
           <p className="mb-3">
             <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
-              ← Back to home
+              {t('site.backHome')}
             </Link>
           </p>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
           {description && <p className="mt-3 text-lg text-muted-foreground">{description}</p>}
-          {updated && <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">Last updated: {updated}</p>}
+          {updated && (
+            <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">
+              {t('site.lastUpdated', { date: updated })}
+            </p>
+          )}
           <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">{children}</div>
         </div>
       </main>

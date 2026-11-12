@@ -6,8 +6,8 @@ import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 export default function SegmentedControlPage() {
-  const [audience, setAudience] = useState('investors');
-  const [types, setTypes] = useState<string[]>(['m&a']);
+  const [audience, setAudience] = useState('teams');
+  const [types, setTypes] = useState<string[]>(['integration']);
 
   return (
     <ComponentPage
@@ -41,24 +41,24 @@ export default function SegmentedControlPage() {
                 value={audience}
                 onValueChange={(value) => setAudience(value as string)}
                 options={[
-                  { value: 'investors', label: 'Investors' },
-                  { value: 'advisors', label: 'Advisors' },
-                  { value: 'owners', label: 'Owners' },
+                  { value: 'teams', label: 'Teams' },
+                  { value: 'analysts', label: 'Analysts' },
+                  { value: 'admins', label: 'Admins' },
                 ]}
               />
               <p className="mt-2 text-sm text-muted-foreground">Selected: {audience}</p>
             </div>
             <div>
-              <p className="mb-2 text-sm font-medium">Deal type (multi select)</p>
+              <p className="mb-2 text-sm font-medium">Report type (multi select)</p>
               <SegmentedControl
-                aria-label="Deal type"
+                aria-label="Report type"
                 multiple
                 value={types}
                 onValueChange={(value) => setTypes(value as string[])}
                 options={[
-                  { value: 'm&a', label: 'M&A' },
-                  { value: 'debt', label: 'Debt' },
-                  { value: 'equity', label: 'Minority equity' },
+                  { value: 'integration', label: 'Integration' },
+                  { value: 'analytics', label: 'Analytics' },
+                  { value: 'reporting', label: 'Reporting' },
                 ]}
               />
               <p className="mt-2 text-sm text-muted-foreground">Selected: {types.join(', ') || 'None'}</p>
@@ -70,18 +70,18 @@ export default function SegmentedControlPage() {
   value={audience}
   onValueChange={setAudience}
   options={[
-    { value: 'investors', label: 'Investors' },
-    { value: 'advisors', label: 'Advisors' },
-    { value: 'owners', label: 'Owners' },
+    { value: 'teams', label: 'Teams' },
+    { value: 'analysts', label: 'Analysts' },
+    { value: 'admins', label: 'Admins' },
   ]}
 />
 
 <SegmentedControl
-  aria-label="Deal type"
+  aria-label="Report type"
   multiple
   value={types}
   onValueChange={setTypes}
-  options={dealTypes}
+  options={reportTypes}
 />`}
         usage={`// Single-select: one string. Multi-select: string[].
 // Use SegmentedControl for filters, Tabs for tabpanels.

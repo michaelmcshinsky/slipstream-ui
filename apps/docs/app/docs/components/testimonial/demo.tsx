@@ -32,15 +32,15 @@ export default function TestimonialPage() {
           <Section tone="muted" padding="lg" className="rounded-lg">
             <Grid mdCols={2} gap="lg">
               <Testimonial
-                quote="The right advisor changed the outcome. We would never have known the true value of the business otherwise."
-                name="Bob Falahee"
+                quote="The shared component library changed how we ship. We would never have kept the design system consistent otherwise."
+                name="Jane Doe"
                 role="CEO"
                 company="Blind & Shade"
                 avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}
               />
               <Testimonial
-                quote="Axial is focused on effective matchmaking with a personal touch, and most importantly, getting deals done."
-                name="Kate Faust"
+                quote="The team is focused on practical collaboration, and most importantly, shipping work together."
+                name="Alex Morgan"
                 role="Partner"
                 company="Rockwood Equity Partners"
                 avatar={<Avatar><AvatarFallback>KF</AvatarFallback></Avatar>}
@@ -51,8 +51,8 @@ export default function TestimonialPage() {
         code={`<Section tone="muted">
   <Grid mdCols={2} gap="lg">
     <Testimonial
-      quote="The right advisor changed the outcome."
-      name="Bob Falahee"
+      quote="The shared library changed how we ship."
+      name="Jane Doe"
       role="CEO"
       company="Blind & Shade"
       avatar={<Avatar><AvatarFallback>BF</AvatarFallback></Avatar>}

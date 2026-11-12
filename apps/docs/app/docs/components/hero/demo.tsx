@@ -8,9 +8,9 @@ function ProductMockup() {
   return (
     <div className="aspect-[4/3] rounded-2xl border border-border bg-card p-5 shadow-sm">
       <div className="flex h-full flex-col justify-between rounded-xl bg-muted p-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Network overview</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Usage overview</p>
         <p className="text-3xl font-semibold">12,000+</p>
-        <p className="text-sm text-muted-foreground">deals brought to market annually</p>
+        <p className="text-sm text-muted-foreground">events processed monthly</p>
       </div>
     </div>
   );
@@ -58,13 +58,13 @@ export default function HeroPage() {
           preview={
             <Section tone="inverse" padding="lg" className="overflow-hidden rounded-lg">
               <Hero
-                badge="The private deal network"
+                badge="The modern product platform"
                 title={
                   <>
-                    Find your next <span className="text-inverse-primary">buyer.</span>
+                    Ship your next <span className="text-inverse-primary">release.</span>
                   </>
                 }
-                description="Join 20,000+ investors, M&A advisors, and business owners who trust Axial to source deals and hire the right advisor."
+                description="Join 20,000+ product teams who ship customer-facing interfaces every week."
                 actions={
                   <>
                     <Button>Get started</Button>
@@ -77,9 +77,9 @@ export default function HeroPage() {
           }
           code={`<Section tone="inverse">
   <Hero
-    badge="The private deal network"
-    title={<>Find your next <span className="text-inverse-primary">buyer.</span></>}
-    description="Join 20,000+ investors, M&A advisors, and business owners."
+    badge="The modern product platform"
+    title={<>Ship your next <span className="text-inverse-primary">release.</span></>}
+    description="Join 20,000+ product teams building on a shared design system."
     actions={<><Button>Get started</Button><Button variant="outline">Learn more</Button></>}
     media={<ProductMockup />}
   />
@@ -109,9 +109,9 @@ export default function HeroPage() {
             <Section tone="muted" padding="md" className="overflow-hidden rounded-lg">
               <Hero
                 variant="centered"
-                eyebrow="Network overview"
-                title="A fragmented market, made easier"
-                description="Search every active deal, track the mandate, and keep the data room in one place."
+                eyebrow="Usage overview"
+                title="One workspace, fewer handoffs"
+                description="Search every project, track the work, and keep the files in one place."
                 actions={<Button>Explore the network</Button>}
               />
             </Section>
@@ -119,9 +119,9 @@ export default function HeroPage() {
           code={`<Section tone="muted">
   <Hero
     variant="centered"
-    eyebrow="Network overview"
-    title="A fragmented market, made easier"
-    description="Search every active deal, track the mandate, and keep the data room in one place."
+    eyebrow="Usage overview"
+    title="One workspace, fewer handoffs"
+    description="Search every project, track the work, and keep the files in one place."
     actions={<Button>Explore the network</Button>}
   />
 </Section>`}
@@ -135,14 +135,14 @@ export default function HeroPage() {
                 mediaPosition="left"
                 size="md"
                 eyebrow="Pipeline"
-                title="Know the buyer before the first call"
-                description="Every mandate arrives with the team, thesis, and check size attached."
+                title="Know the account before the first call"
+                description="Every account arrives with the team, plan, and context attached."
                 media={
                   <div className="aspect-[4/3] rounded-xl border border-border bg-gradient-to-br from-primary/15 to-accent p-6">
                     <div className="h-full rounded-lg border border-border bg-card/80 p-4">
-                      <p className="text-xs uppercase tracking-widest text-muted-foreground">Buyer fit</p>
+                      <p className="text-xs uppercase tracking-widest text-muted-foreground">Account fit</p>
                       <p className="mt-2 text-2xl font-semibold">94%</p>
-                      <p className="text-sm text-muted-foreground">thesis and check size match</p>
+                      <p className="text-sm text-muted-foreground">plan and team size match</p>
                     </div>
                   </div>
                 }
@@ -153,8 +153,8 @@ export default function HeroPage() {
   mediaPosition="left"
   size="md"
   eyebrow="Pipeline"
-  title="Know the buyer before the first call"
-  description="Every mandate arrives with the team, thesis, and check size attached."
+  title="Know the account before the first call"
+  description="Every account arrives with the team, plan, and context attached."
   media={<BuyerFitCard />}
 />`}
         />
@@ -167,8 +167,8 @@ export default function HeroPage() {
                 variant="stacked"
                 align="center"
                 badge="Product tour"
-                title="Every deal in one workspace"
-                description="Move from sourcing to close without another spreadsheet."
+                title="Every project in one workspace"
+                description="Move from idea to launch without another spreadsheet."
                 media={
                   <div className="aspect-[16/9] rounded-xl border border-border bg-card p-4 shadow-sm">
                     <div className="grid h-full grid-cols-3 gap-3">
@@ -191,8 +191,8 @@ export default function HeroPage() {
   variant="stacked"
   align="center"
   badge="Product tour"
-  title="Every deal in one workspace"
-  description="Move from sourcing to close without another spreadsheet."
+  title="Every project in one workspace"
+  description="Move from idea to launch without another spreadsheet."
   media={<DashboardScreenshot />}
 />`}
         />
@@ -205,8 +205,8 @@ export default function HeroPage() {
                 variant="overlay"
                 align="center"
                 badge="Spring season"
-                title="Dance all night in Provo"
-                description="Three rooms, one badge, live music until midnight."
+                title="Build something people love"
+                description="Three products, one platform, shipping every week."
                 actions={<Button>Get tickets</Button>}
                 media={<OverlayBackdrop />}
               />
@@ -216,8 +216,8 @@ export default function HeroPage() {
   variant="overlay"
   align="center"
   badge="Spring season"
-  title="Dance all night in Provo"
-  description="Three rooms, one badge, live music until midnight."
+  title="Build something people love"
+  description="Three products, one platform, shipping every week."
   actions={<Button>Get tickets</Button>}
   media={<img src="/ballroom.jpg" alt="" />}
 />`}

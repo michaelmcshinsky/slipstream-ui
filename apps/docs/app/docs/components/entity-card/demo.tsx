@@ -9,7 +9,7 @@ export default function EntityCardPage() {
     <ComponentPage
       id="entity-card"
       title="EntityCard"
-      description="Firm or member profile card with logo, type, location, stats, tags and actions."
+      description="Profile card with logo, type, location, stats, tags and actions."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'name', type: 'string', defaultValue: 'required', description: 'Firm or member name.' },
@@ -17,7 +17,7 @@ export default function EntityCardPage() {
         { name: 'location', type: 'string', description: 'Region or office location.' },
         { name: 'description', type: 'string', description: 'Short firm description.' },
         { name: 'logo', type: 'ReactNode', description: 'Logo slot; initials are used when omitted.' },
-        { name: 'stats', type: 'EntityStat[]', description: 'Small stats such as closed deals.' },
+        { name: 'stats', type: 'EntityStat[]', description: 'Small stats such as projects delivered.' },
         { name: 'tags', type: 'string[]', description: 'Sector or service tags.' },
         { name: 'href', type: 'string', description: 'Profile destination.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
@@ -33,42 +33,42 @@ export default function EntityCardPage() {
         preview={
           <Grid mdCols={2} gap="lg">
             <EntityCard
-              name="Peakstone Group"
+              name="Example Group"
               entityType="Investment bank"
-              location="New York, NY"
-              description="M&A advisory and capital raising for middle market clients."
+              location="Springfield"
+              description="Consulting and advisory services for growing teams."
               stats={[
-                { label: 'Closed deals', value: '60' },
-                { label: 'Via Axial', value: '3' },
+                { label: 'Projects delivered', value: '60' },
+                { label: 'Via platform', value: '3' },
               ]}
               tags={['Industrials', 'Healthcare']}
-              href="/members/peakstone"
+              href="/directory/example-group"
               actions={<Button size="sm" variant="outline">Contact</Button>}
             />
             <EntityCard
-              name="North Park Capital"
+              name="Northwind Labs"
               entityType="Private equity"
-              location="Chicago, IL"
-              description="Lower middle market buyout firm focused on family-owned businesses."
+              location="Riverton"
+              description="Product studio focused on small business software."
               stats={[
                 { label: 'Platforms', value: '12' },
                 { label: 'Active', value: 'Yes' },
               ]}
               tags={['Business services']}
-              href="/members/north-park"
+              href="/directory/northwind-labs"
             />
           </Grid>
         }
         code={`<EntityCard
-  name="Peakstone Group"
+  name="Example Group"
   entityType="Investment bank"
-  location="New York, NY"
+  location="Springfield"
   stats={[
-    { label: 'Closed deals', value: '60' },
-    { label: 'Via Axial', value: '3' },
+    { label: 'Projects delivered', value: '60' },
+    { label: 'Via platform', value: '3' },
   ]}
   tags={['Industrials', 'Healthcare']}
-  href="/members/peakstone"
+  href="/directory/example-group"
 />`}
         usage={`// ProfileCard is an alias for profile-oriented surfaces.
 // Logos are optional; initials keep the card identifiable.`}

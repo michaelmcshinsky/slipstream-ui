@@ -1,15 +1,21 @@
+import type { MessageKey } from '@slipstream-ui/i18n';
+
 export type NavItem = {
   href: string;
   label: string;
+  /** Catalog key for the translated label; absent for proper nouns like component names. */
+  labelKey?: MessageKey;
 };
 
 export type NavGroup = {
   title: string;
+  titleKey?: MessageKey;
   items: NavItem[];
 };
 
 export type NavSection = {
   title: string;
+  titleKey?: MessageKey;
   /** Flat items rendered directly under the section (optional when groups cover it). */
   items?: NavItem[];
   /** Nested groups rendered as collapsible sub-sections (sidebar accordion). */
@@ -21,52 +27,72 @@ export function sectionFirstHref(section: NavSection): string {
   return section.items?.[0]?.href ?? section.groups?.[0]?.items[0]?.href ?? '/docs';
 }
 
+/** Translated label for a nav entry, falling back to the English label. */
+export function navItemLabel(item: NavItem, t: (key: MessageKey) => string): string {
+  return item.labelKey ? t(item.labelKey) : item.label;
+}
+
+/** Translated title for a sidebar section. */
+export function navSectionLabel(section: NavSection, t: (key: MessageKey) => string): string {
+  return section.titleKey ? t(section.titleKey) : section.title;
+}
+
+/** Translated title for a sidebar group. */
+export function navGroupLabel(group: NavGroup, t: (key: MessageKey) => string): string {
+  return group.titleKey ? t(group.titleKey) : group.title;
+}
+
 /** Single source of truth for the docs sidebar, command palette, and pagination. */
 export const NAV_SECTIONS: NavSection[] = [
   {
     title: 'Getting Started',
+    titleKey: 'nav.sections.gettingStarted',
     items: [
-      { href: '/docs', label: 'Introduction' },
-      { href: '/docs/getting-started', label: 'Quickstart' },
-      { href: '/docs/installation', label: 'Installation' },
-      { href: '/docs/tailwind-v4', label: 'Tailwind v4' },
-      { href: '/docs/compatibility', label: 'Compatibility' },
-      { href: '/docs/theming', label: 'Theming' },
-      { href: '/docs/roadmap', label: 'Roadmap' },
+      { href: '/docs', label: 'Introduction', labelKey: 'nav.items.introduction' },
+      { href: '/docs/getting-started', label: 'Quickstart', labelKey: 'nav.items.quickstart' },
+      { href: '/docs/installation', label: 'Installation', labelKey: 'nav.items.installation' },
+      { href: '/docs/tailwind-v4', label: 'Tailwind v4', labelKey: 'nav.items.tailwindV4' },
+      { href: '/docs/compatibility', label: 'Compatibility', labelKey: 'nav.items.compatibility' },
+      { href: '/docs/theming', label: 'Theming', labelKey: 'nav.items.theming' },
+      { href: '/docs/roadmap', label: 'Roadmap', labelKey: 'nav.items.roadmap' },
     ],
   },
   {
     title: 'AI-First',
+    titleKey: 'nav.sections.aiFirst',
     items: [
-      { href: '/docs/ai-first', label: 'Overview' },
+      { href: '/docs/ai-first', label: 'Overview', labelKey: 'nav.items.overview' },
       { href: '/docs/ai-manifests', label: 'COMPONENT_MANIFEST' },
       { href: '/docs/cli', label: 'CLI' },
-      { href: '/docs/patterns', label: 'Patterns' },
-      { href: '/docs/templates', label: 'Templates' },
-      { href: '/docs/mcp', label: 'MCP Server' },
+      { href: '/docs/patterns', label: 'Patterns', labelKey: 'nav.items.patterns' },
+      { href: '/docs/templates', label: 'Templates', labelKey: 'nav.items.templates' },
+      { href: '/docs/mcp', label: 'MCP Server', labelKey: 'nav.items.mcpServer' },
     ],
   },
   {
     title: 'Guides',
+    titleKey: 'nav.sections.guides',
     items: [
-      { href: '/docs/guides/ai-chat-ui', label: 'AI chat UI' },
-      { href: '/docs/guides/streaming', label: 'Streaming' },
-      { href: '/docs/guides/state-threads', label: 'State & threads' },
-      { href: '/docs/guides/vercel-ai-sdk', label: 'Vercel AI SDK' },
-      { href: '/docs/guides/accessibility-ai', label: 'Accessibility' },
-      { href: '/docs/guides/agent-integration', label: 'Agent integration' },
-      { href: '/docs/guides/ide-setup', label: 'IDE setup (Claude/Cursor)' },
-      { href: '/docs/guides/testing', label: 'Testing' },
-      { href: '/docs/guides/react-hook-form', label: 'React Hook Form' },
-      { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn' },
+      { href: '/docs/guides/ai-chat-ui', label: 'AI chat UI', labelKey: 'nav.items.aiChatUi' },
+      { href: '/docs/guides/streaming', label: 'Streaming', labelKey: 'nav.items.streaming' },
+      { href: '/docs/guides/state-threads', label: 'State & threads', labelKey: 'nav.items.stateThreads' },
+      { href: '/docs/guides/vercel-ai-sdk', label: 'Vercel AI SDK', labelKey: 'nav.items.vercelAiSdk' },
+      { href: '/docs/guides/accessibility-ai', label: 'Accessibility', labelKey: 'nav.items.accessibility' },
+      { href: '/docs/guides/agent-integration', label: 'Agent integration', labelKey: 'nav.items.agentIntegration' },
+      { href: '/docs/guides/ide-setup', label: 'IDE setup (Claude/Cursor)', labelKey: 'nav.items.ideSetup' },
+      { href: '/docs/guides/testing', label: 'Testing', labelKey: 'nav.items.testing' },
+      { href: '/docs/guides/react-hook-form', label: 'React Hook Form', labelKey: 'nav.items.reactHookForm' },
+      { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn', labelKey: 'nav.items.migratingFromShadcn' },
     ],
   },
   {
     title: 'Components',
-    items: [{ href: '/docs/components', label: 'Overview' }],
+    titleKey: 'nav.sections.components',
+    items: [{ href: '/docs/components', label: 'Overview', labelKey: 'nav.items.overview' }],
     groups: [
       {
         title: 'Actions',
+        titleKey: 'nav.groups.actions',
         items: [
           { href: '/docs/components/button', label: 'Button' },
           { href: '/docs/components/button-group', label: 'ButtonGroup' },
@@ -75,6 +101,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Typography',
+        titleKey: 'nav.groups.typography',
         items: [
           { href: '/docs/components/heading', label: 'Heading' },
           { href: '/docs/components/text', label: 'Text' },
@@ -85,6 +112,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Layout',
+        titleKey: 'nav.groups.layout',
         items: [
           { href: '/docs/components/flex', label: 'Flex' },
           { href: '/docs/components/grid', label: 'Grid' },
@@ -97,6 +125,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Marketing',
+        titleKey: 'nav.groups.marketing',
         items: [
           { href: '/docs/components/hero', label: 'Hero' },
           { href: '/docs/components/stat-band', label: 'StatBand' },
@@ -111,6 +140,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Content',
+        titleKey: 'nav.groups.content',
         items: [
           { href: '/docs/components/article-card', label: 'ArticleCard' },
           { href: '/docs/components/newsletter', label: 'Newsletter' },
@@ -120,6 +150,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Marketplace',
+        titleKey: 'nav.groups.marketplace',
         items: [
           { href: '/docs/components/deal-card', label: 'DealCard' },
           { href: '/docs/components/entity-card', label: 'EntityCard' },
@@ -130,6 +161,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Forms',
+        titleKey: 'nav.groups.forms',
         items: [
           { href: '/docs/components/input', label: 'Input' },
           { href: '/docs/components/input-group', label: 'InputGroup' },
@@ -160,6 +192,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Feedback',
+        titleKey: 'nav.groups.feedback',
         items: [
           { href: '/docs/components/alert', label: 'Alert' },
           { href: '/docs/components/toast', label: 'Toast' },
@@ -171,6 +204,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Data display',
+        titleKey: 'nav.groups.dataDisplay',
         items: [
           { href: '/docs/components/badge', label: 'Badge' },
           { href: '/docs/components/avatar', label: 'Avatar' },
@@ -191,6 +225,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Overlays',
+        titleKey: 'nav.groups.overlays',
         items: [
           { href: '/docs/components/dialog', label: 'Dialog' },
           { href: '/docs/components/drawer', label: 'Drawer' },
@@ -201,6 +236,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'Navigation & disclosure',
+        titleKey: 'nav.groups.navigationDisclosure',
         items: [
           { href: '/docs/components/app-shell', label: 'AppShell' },
           { href: '/docs/components/site-header', label: 'SiteHeader' },
@@ -216,6 +252,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'AI chat',
+        titleKey: 'nav.groups.aiChat',
         items: [
           { href: '/docs/components/conversation', label: 'Conversation' },
           { href: '/docs/components/prompt-input', label: 'PromptInput' },
@@ -230,6 +267,7 @@ export const NAV_SECTIONS: NavSection[] = [
       },
       {
         title: 'AI agent',
+        titleKey: 'nav.groups.aiAgent',
         items: [
           { href: '/docs/components/reasoning', label: 'Reasoning' },
           { href: '/docs/components/tool-call', label: 'ToolCall' },

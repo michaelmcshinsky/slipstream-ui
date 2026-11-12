@@ -28,18 +28,18 @@ export default function ContactStripPage() {
           <Section tone="muted" padding="lg" className="rounded-lg">
             <ContactStrip
               items={[
-                { label: 'Call', value: '1.800.860.4519', href: 'tel:18008604519' },
-                { label: 'Email', value: 'info@axial.net', href: 'mailto:info@axial.net' },
-                { label: 'Visit', value: '443 Park Avenue S, New York, NY 10016' },
+                { label: 'Call', value: '+1 555 0100', href: 'tel:+15550100' },
+                { label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com' },
+                { label: 'Visit', value: '100 Example Street, Springfield' },
               ]}
             />
           </Section>
         }
         code={`<ContactStrip
   items={[
-    { label: 'Call', value: '1.800.860.4519', href: 'tel:18008604519' },
-    { label: 'Email', value: 'info@axial.net', href: 'mailto:info@axial.net' },
-    { label: 'Visit', value: '443 Park Avenue S, New York, NY 10016' },
+    { label: 'Call', value: '+1 555 0100', href: 'tel:+15550100' },
+    { label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com' },
+    { label: 'Visit', value: '100 Example Street, Springfield' },
   ]}
 />`}
         usage={`// Labels name the channel, values carry the detail.

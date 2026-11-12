@@ -25,16 +25,16 @@ export default function SiteFooterPage() {
         preview={
           <div className="w-full overflow-hidden rounded-xl border border-border">
             <SiteFooter
-              brand={<span className="text-base font-bold">Acme</span>}
+              brand={<span className="text-base font-bold">Example</span>}
               tagline="Ship UI your AI understands."
               columns={[
                 { title: 'Product', links: [{ label: 'Docs', href: '/docs' }, { label: 'Components', href: '/docs/components' }, { label: 'Templates', href: '/docs/templates' }] },
-                { title: 'Resources', links: [{ label: 'Changelog', href: '/changelog' }, { label: 'GitHub', href: 'https://github.com/michaelmcshinsky/slipstream-ui', external: true }] },
+                { title: 'Resources', links: [{ label: 'Changelog', href: '/changelog' }, { label: 'GitHub', href: 'https://example.com', external: true }] },
                 { title: 'Legal', links: [{ label: 'Privacy', href: '/privacy' }, { label: 'Terms', href: '/terms' }, { label: 'Contact', href: '/contact' }] },
               ]}
               legal={
                 <span className="flex flex-wrap items-center gap-3">
-                  <span>© 2026 Acme</span>
+                  <span>© 2026 Example</span>
                   <Link href="/privacy" variant="muted" className="text-xs">
                     Privacy
                   </Link>
@@ -44,13 +44,13 @@ export default function SiteFooterPage() {
           </div>
         }
         code={`<SiteFooter
-  brand={<strong>Acme</strong>}
+  brand={<strong>Example</strong>}
   tagline="Ship UI your AI understands."
   columns={[
     { title: 'Product', links: [{ label: 'Docs', href: '/docs' }] },
     { title: 'Legal', links: [{ label: 'Privacy', href: '/privacy' }] },
   ]}
-  legal={<span>© 2026 Acme</span>}
+  legal={<span>© 2026 Example</span>}
 />`}
         usage={`// Keep each destination in exactly one column; use legal for the bottom row.`}
         types={`type SiteFooterProps = {
