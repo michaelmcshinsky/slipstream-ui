@@ -66,6 +66,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Table', href: '/docs/components/table', content: 'data table rows columns caption header footer sortable', group: 'Components' },
   { title: 'Alert', href: '/docs/components/alert', content: 'inline banner status message destructive success warning info role alert', group: 'Components' },
   { title: 'Popover', href: '/docs/components/popover', content: 'floating panel trigger anchored interactive outside click escape', group: 'Components' },
+  { title: 'BottomNav', href: '/docs/components/bottom-nav', content: 'mobile bottom tab bar navigation tabs aria-current safe area app shell primary destinations', group: 'Components' },
   { title: 'Breadcrumb', href: '/docs/components/breadcrumb', content: 'navigation trail hierarchy links current page aria-current', group: 'Components' },
   { title: 'Pagination', href: '/docs/components/pagination', content: 'pages numbers prev next ellipsis aria-current list navigation first last boundaries', group: 'Components' },
   { title: 'FormField', href: '/docs/components/form-field', content: 'label control hint error aria-describedby aria-invalid required form wiring', group: 'Components' },

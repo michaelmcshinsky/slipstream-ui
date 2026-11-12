@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 109 components, each shipping a
+The AI-first React component library. 110 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 92
+## Core components (@slipstream-ui/core) — 93
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -21,6 +21,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Avatar](https://slipstreamui.com/llm/components/avatar.md) — A user profile image component with fallback support and accessible image loading
 - [Badge](https://slipstreamui.com/llm/components/badge.md) — A small status indicator component for displaying tags, counts, or status information
 - [Block](https://slipstreamui.com/llm/components/block.md) — Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
+- [BottomNav](https://slipstreamui.com/llm/components/bottom-nav.md) — Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.
 - [Breadcrumb](https://slipstreamui.com/llm/components/breadcrumb.md) — Navigation breadcrumb trail with links and current-page indicator
 - [Button](https://slipstreamui.com/llm/components/button.md) — A clickable button component with variants for different visual styles and sizes
 - [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
