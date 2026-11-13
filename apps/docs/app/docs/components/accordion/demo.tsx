@@ -15,6 +15,7 @@ export default function AccordionPage() {
         { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called when the open set changes.' },
         { name: 'variant', type: "'default' | 'borderless'", defaultValue: "'default'", description: 'Bordered card with dividers, or plain stacked sections.' },
         { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | number", description: "Token gap ('lg') or exact pixels (16) between items." },
+        { name: 'items', type: 'AccordionSection[]', description: 'Declarative sections ({ id, title, content, disabled }); one AccordionItem is rendered per entry instead of children.' },
         { name: 'AccordionTrigger icon', type: 'ReactNode', description: 'Swap the default chevron rendered at the far right of the header.' },
       ]}
       accessibility={[

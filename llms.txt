@@ -39,7 +39,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 92
+## Core components (@slipstream-ui/core) — 93
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -52,6 +52,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Avatar — A user profile image component with fallback support and accessible image loading
 - Badge — A small status indicator component for displaying tags, counts, or status information
 - Block — Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
+- BottomNav — Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.
 - Breadcrumb — Navigation breadcrumb trail with links and current-page indicator
 - Button — A clickable button component with variants for different visual styles and sizes
 - ButtonGroup — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.

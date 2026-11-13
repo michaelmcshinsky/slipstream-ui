@@ -18,8 +18,14 @@
     {
       "name": "onOpenChange",
       "type": "(open: boolean) => void",
-      "required": true,
+      "required": false,
       "description": "Close requests (✕, Escape, backdrop, your own triggers)."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": false,
+      "description": "Close-request alias for onOpenChange(false); used when only a close handler is passed."
     },
     {
       "name": "title",

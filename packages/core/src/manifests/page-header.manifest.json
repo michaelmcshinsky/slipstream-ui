@@ -18,6 +18,12 @@
       "description": "Supporting summary under the title."
     },
     {
+      "name": "subtitle",
+      "type": "string",
+      "required": false,
+      "description": "Alias for description (migration-friendly)."
+    },
+    {
       "name": "breadcrumbs",
       "type": "ReactNode",
       "required": false,

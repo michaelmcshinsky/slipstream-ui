@@ -1,0 +1,130 @@
+{
+  "id": "bottom-nav",
+  "name": "BottomNav",
+  "tier": "organism",
+  "description": "Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.",
+  "designIntent": "Mobile apps put primary navigation within thumb reach at the bottom of the screen, but hand-rolled bars drift on target size, active state and the iOS home indicator. BottomNav owns the landmark, the aria-current state, 44px minimum targets and env(safe-area-inset-bottom) so every mobile shell behaves the same.",
+  "props": [
+    {
+      "name": "items",
+      "type": "BottomNavItem[]",
+      "required": true,
+      "description": "Tabs in order: href, label, optional icon, active, badge and disabled."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Router link component (Next Link, react-router Link)."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop used to pass the destination to linkComponent.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Primary",
+      "description": "Accessible label for the nav landmark."
+    },
+    {
+      "name": "fixed",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Pin the bar to the bottom edge with safe-area padding."
+    },
+    {
+      "name": "mobileOnly",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Hide the bar from the md breakpoint up."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Mobile app shell tabs",
+      "code": "<BottomNav\n  items={[\n    { href: '/', label: 'Home', icon: <HomeIcon />, active: true },\n    { href: '/search', label: 'Search', icon: <SearchIcon /> },\n    { href: '/alerts', label: 'Alerts', icon: <BellIcon />, badge: 3 },\n  ]}\n/>",
+      "description": "Three primary destinations with one active tab."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't stack more than five tabs",
+      "explanation": "Targets stop being thumb-reachable and labels start truncating. Move the extras into a More destination.",
+      "example": "// Avoid\n<BottomNav items={eightItems} />\n\n// Prefer 3-5 items plus a More tab"
+    },
+    {
+      "title": "Don't use BottomNav for desktop navigation",
+      "explanation": "mobileOnly hides the bar at md and up; desktop keeps SiteHeader/Sidebar.",
+      "example": "// Avoid\n<BottomNav items={items} mobileOnly={false} />\n\n// Prefer desktop nav in SiteHeader or Sidebar"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Navigation landmark",
+      "implementation": "Renders <nav> with an accessible name (default \"Primary\")",
+      "userRequirements": "Give each bar a distinct label when a page has more than one nav"
+    },
+    {
+      "feature": "Current tab",
+      "implementation": "aria-current=\"page\" on the active tab only",
+      "userRequirements": "Set active from the router's current location"
+    },
+    {
+      "feature": "Target size",
+      "implementation": "Every tab is at least 56px tall with a 44px minimum target",
+      "userRequirements": "Keep icons decorative; the label carries the name"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Tab labels",
+      "guidelines": [
+        "One word where possible",
+        "Sentence case",
+        "Under 12 characters"
+      ],
+      "goodExamples": [
+        "Home",
+        "Search",
+        "Alerts"
+      ],
+      "badExamples": [
+        "Go to the alerts page"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "AppShell",
+      "relationship": "Pair with AppShell and add bottom padding so content is not hidden behind the bar",
+      "example": "<AppShell><main className=\"pb-20\">...</main><BottomNav items={items} /></AppShell>"
+    },
+    {
+      "component": "Badge",
+      "relationship": "Counts ride in the item's badge slot; keep them to a single number",
+      "example": "<BottomNav items={[{ href: '/alerts', label: 'Alerts', badge: 3 }]} />"
+    }
+  ],
+  "relatedComponents": [
+    "AppShell",
+    "Sidebar",
+    "SiteHeader",
+    "Badge"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.7.0",
+  "sourceDir": "bottom-nav",
+  "exportName": "BottomNav"
+}

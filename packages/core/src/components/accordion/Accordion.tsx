@@ -17,6 +17,17 @@ const AccordionContext = React.createContext<AccordionContextValue>({
   collapsible: true,
 });
 
+export type AccordionSection = {
+  /** Unique id linking the trigger to its panel. */
+  id: string;
+  /** Trigger label. */
+  title: React.ReactNode;
+  /** Panel content. */
+  content: React.ReactNode;
+  /** Disables the trigger for this section. */
+  disabled?: boolean;
+};
+
 export type AccordionProps = {
   /** Controlled open item ids. */
   value?: string[];
@@ -30,9 +41,15 @@ export type AccordionProps = {
   variant?: 'default' | 'borderless';
   /** Token gap ('lg') or exact pixels (16) between items. */
   gap?: GapValue;
+  /**
+   * Declarative sections. When provided, Accordion renders an
+   * AccordionItem/AccordionTrigger/AccordionContent per entry instead of
+   * reading `children`.
+   */
+  items?: AccordionSection[];
   className?: string;
   style?: React.CSSProperties;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 /**
@@ -48,6 +65,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       collapsible = true,
       variant = 'default',
       gap,
+      items,
       className,
       style,
       children,
@@ -86,7 +104,14 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         style={{ ...gapResolved.style, ...style }}
       >
         <AccordionContext.Provider value={{ openItems: new Set(current), toggle, collapsible }}>
-          {children}
+          {items
+            ? items.map((item) => (
+                <AccordionItem key={item.id} id={item.id}>
+                  <AccordionTrigger disabled={item.disabled}>{item.title}</AccordionTrigger>
+                  <AccordionContent>{item.content}</AccordionContent>
+                </AccordionItem>
+              ))
+            : children}
         </AccordionContext.Provider>
       </div>
     );

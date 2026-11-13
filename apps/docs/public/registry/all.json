@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 109,
+  "count": 110,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -99,6 +99,14 @@
       "tier": "atom",
       "description": "Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
       "registry": "/registry/block.json"
+    },
+    {
+      "id": "bottom-nav",
+      "name": "BottomNav",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.",
+      "registry": "/registry/bottom-nav.json"
     },
     {
       "id": "branch",

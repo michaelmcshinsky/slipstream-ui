@@ -239,6 +239,7 @@ export const NAV_SECTIONS: NavSection[] = [
         titleKey: 'nav.groups.navigationDisclosure',
         items: [
           { href: '/docs/components/app-shell', label: 'AppShell' },
+          { href: '/docs/components/bottom-nav', label: 'BottomNav' },
           { href: '/docs/components/site-header', label: 'SiteHeader' },
           { href: '/docs/components/site-footer', label: 'SiteFooter' },
           { href: '/docs/components/table-of-contents', label: 'TableOfContents' },

@@ -15,7 +15,8 @@ Filters, detail panes, and mobile navigation need more room than a popover but s
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | open | `boolean` | — | yes | Whether the drawer is visible (controlled). |
-| onOpenChange | `(open: boolean) => void` | — | yes | Close requests (✕, Escape, backdrop, your own triggers). |
+| onOpenChange | `(open: boolean) => void` | — | no | Close requests (✕, Escape, backdrop, your own triggers). |
+| onClose | `() => void` | — | no | Close-request alias for onOpenChange(false); used when only a close handler is passed. |
 | title | `string` | — | yes | Accessible dialog name rendered as the header title. |
 | description | `string` | — | no | Supporting line under the title (wired via aria-describedby). |
 | side | `'left' | 'right' | 'top' | 'bottom'` | `right` | no | Edge the drawer slides from. |

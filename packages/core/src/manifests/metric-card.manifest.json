@@ -8,8 +8,14 @@
     {
       "name": "label",
       "type": "string",
-      "required": true,
-      "description": "Metric name."
+      "required": false,
+      "description": "Metric name. Alias: title."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Alias for label (migration-friendly)."
     },
     {
       "name": "value",
@@ -39,13 +45,39 @@
       "name": "hint",
       "type": "React.ReactNode",
       "required": false,
-      "description": "Comparison context (vs last month)."
+      "description": "Comparison context (vs last month). Alias: description."
+    },
+    {
+      "name": "description",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Alias for hint (migration-friendly)."
     },
     {
       "name": "icon",
       "type": "ReactNode",
       "required": false,
       "description": "Decorative icon."
+    },
+    {
+      "name": "tone",
+      "type": "'default' | 'success' | 'warning' | 'destructive'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Semantic color for the value (not the delta).",
+      "enum": [
+        "default",
+        "success",
+        "warning",
+        "destructive"
+      ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Renders a skeleton instead of the value and sets aria-busy."
     }
   ],
   "examples": [

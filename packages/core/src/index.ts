@@ -8,6 +8,7 @@ export * from './components/button-group';
 export * from './components/input';
 export * from './components/input-group';
 export * from './components/badge';
+export * from './components/bottom-nav';
 export * from './components/avatar';
 export * from './components/spinner';
 export * from './components/toast';

@@ -4,6 +4,8 @@ import { cn } from '../../utils/cn';
 export type PageHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   title: string;
   description?: string;
+  /** Alias for `description` (migration-friendly). */
+  subtitle?: string;
   /** Breadcrumbs/eyebrow above the title. */
   breadcrumbs?: React.ReactNode;
   /** Right-aligned actions (buttons, menus). */
@@ -37,9 +39,10 @@ const sizeClasses: Record<NonNullable<PageHeaderProps['size']>, string> = {
  * and heading hierarchy.
  */
 export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(function PageHeader(
-  { title, description, breadcrumbs, actions, eyebrow, size = 'md', align = 'left', titleClassName, descriptionClassName, eyebrowClassName, className, children, ...props },
+  { title, description, subtitle, breadcrumbs, actions, eyebrow, size = 'md', align = 'left', titleClassName, descriptionClassName, eyebrowClassName, className, children, ...props },
   ref
 ) {
+  const supporting = description ?? subtitle;
   return (
     <div ref={ref} className={cn('flex flex-col gap-2', align === 'center' && 'items-center text-center', className)} {...props}>
       {breadcrumbs && <div className="text-sm text-muted-foreground">{breadcrumbs}</div>}
@@ -49,7 +52,7 @@ export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(func
       <div className={cn('flex w-full flex-wrap items-start justify-between gap-3', align === 'center' && 'justify-center')}>
         <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>
           <h1 className={cn('font-semibold tracking-tight', sizeClasses[size], titleClassName)}>{title}</h1>
-          {description && <p className={cn('mt-2 max-w-2xl text-base text-muted-foreground', descriptionClassName)}>{description}</p>}
+          {supporting && <p className={cn('mt-2 max-w-2xl text-base text-muted-foreground', descriptionClassName)}>{supporting}</p>}
         </div>
         {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
       </div>

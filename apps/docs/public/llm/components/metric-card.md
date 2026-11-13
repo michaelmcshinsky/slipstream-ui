@@ -14,12 +14,16 @@ Dashboards need comparable tiles. MetricCard standardizes tabular numbers, delta
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| label | `string` | — | yes | Metric name. |
+| label | `string` | — | no | Metric name. Alias: title. |
+| title | `string` | — | no | Alias for label (migration-friendly). |
 | value | `string | number` | — | yes | Primary number/value; rendered tabular. |
 | delta | `string` | — | no | Signed change, e.g. +12.4%. |
 | trend | `'up' | 'down' | 'flat'` | `flat` | no | Delta direction color + arrow glyph. |
-| hint | `React.ReactNode` | — | no | Comparison context (vs last month). |
+| hint | `React.ReactNode` | — | no | Comparison context (vs last month). Alias: description. |
+| description | `React.ReactNode` | — | no | Alias for hint (migration-friendly). |
 | icon | `ReactNode` | — | no | Decorative icon. |
+| tone | `'default' | 'success' | 'warning' | 'destructive'` | `default` | no | Semantic color for the value (not the delta). |
+| loading | `boolean` | `false` | no | Renders a skeleton instead of the value and sets aria-busy. |
 
 ## Examples
 

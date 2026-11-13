@@ -18,6 +18,7 @@ The Badge component is used to display small pieces of information like status i
 | children | `ReactNode` | — | no | Content to display inside the badge |
 | className | `string` | — | no | Additional CSS classes to apply |
 | asChild | `boolean` | `false` | no | Render the child element with badge styling. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Pill scale: sm for dense tables, lg for hero and metadata strips. |
 
 ## Examples
 

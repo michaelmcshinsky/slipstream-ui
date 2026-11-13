@@ -71,6 +71,12 @@
         "lg",
         "16"
       ]
+    },
+    {
+      "name": "items",
+      "type": "AccordionSection[]",
+      "required": false,
+      "description": "Declarative sections ({ id, title, content, disabled }); rendered as an AccordionItem per entry instead of children."
     }
   ],
   "examples": [

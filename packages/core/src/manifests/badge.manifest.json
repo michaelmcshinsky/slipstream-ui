@@ -54,6 +54,18 @@
       "required": false,
       "defaultValue": "false",
       "description": "Render the child element with badge styling."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Pill scale: sm for dense tables, lg for hero and metadata strips.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
     }
   ],
   "examples": [
