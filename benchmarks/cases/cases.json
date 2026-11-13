@@ -23,11 +23,41 @@
       "expectedIssue": "No defect."
     },
     {
+      "id": "valid-announcement-bar",
+      "componentId": "announcement-bar",
+      "prompt": "Create a correct AnnouncementBar usage. Dismissible announcement bar with optional action, tone and sticky positioning.",
+      "candidateCode": "<AnnouncementBar message=\"example\" />",
+      "fixedCode": "<AnnouncementBar message=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
       "id": "valid-app-shell",
       "componentId": "app-shell",
       "prompt": "Create a correct AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
       "candidateCode": "<AppShell sections={[]} />",
       "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-applied-filters",
+      "componentId": "applied-filters",
+      "prompt": "Create a correct AppliedFilters usage. Applied-filter summary with a live count, removable chips and an edit action.",
+      "candidateCode": "<AppliedFilters filters={[]} />",
+      "fixedCode": "<AppliedFilters filters={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-article-card",
+      "componentId": "article-card",
+      "prompt": "Create a correct ArticleCard usage. Linked article or resource card with media, eyebrow, title, summary and metadata.",
+      "candidateCode": "<ArticleCard title=\"example\" href=\"example\" />",
+      "fixedCode": "<ArticleCard title=\"example\" href=\"example\" />",
       "expectedValid": true,
       "defectClass": "none",
       "expectedIssue": "No defect."
@@ -45,7 +75,7 @@
     {
       "id": "valid-auth-layout",
       "componentId": "auth-layout",
-      "prompt": "Create a correct AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "prompt": "Create a correct AuthLayout usage. Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
       "candidateCode": "<AuthLayout title=\"example\" />",
       "fixedCode": "<AuthLayout title=\"example\" />",
       "expectedValid": true,
@@ -88,6 +118,16 @@
       "prompt": "Create a correct Block usage. Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
       "candidateCode": "<Block />",
       "fixedCode": "<Block />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-bottom-nav",
+      "componentId": "bottom-nav",
+      "prompt": "Create a correct BottomNav usage. Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.",
+      "candidateCode": "<BottomNav items={[]} />",
+      "fixedCode": "<BottomNav items={[]} />",
       "expectedValid": true,
       "defectClass": "none",
       "expectedIssue": "No defect."
@@ -183,6 +223,16 @@
       "expectedIssue": "No defect."
     },
     {
+      "id": "valid-comparison-table",
+      "componentId": "comparison-table",
+      "prompt": "Create a correct ComparisonTable usage. Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.",
+      "candidateCode": "<ComparisonTable columns={[]} rows={[]} />",
+      "fixedCode": "<ComparisonTable columns={[]} rows={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
       "id": "valid-confirm-dialog",
       "componentId": "confirm-dialog",
       "prompt": "Create a correct ConfirmDialog usage. Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
@@ -203,6 +253,26 @@
       "expectedIssue": "No defect."
     },
     {
+      "id": "valid-contact-strip",
+      "componentId": "contact-strip",
+      "prompt": "Create a correct ContactStrip usage. Compact labelled contact rows with optional icons and links.",
+      "candidateCode": "<ContactStrip items={[]} />",
+      "fixedCode": "<ContactStrip items={[]} />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
+      "id": "valid-container",
+      "componentId": "container",
+      "prompt": "Create a correct Container usage. Centered, width-constrained page container with shared gutters and four width presets.",
+      "candidateCode": "<Container />",
+      "fixedCode": "<Container />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
       "id": "valid-conversation",
       "componentId": "conversation",
       "prompt": "Create a correct Conversation usage. A container for displaying a list of chat messages with auto-scroll and loading states",
@@ -213,91 +283,21 @@
       "expectedIssue": "No defect."
     },
     {
+      "id": "valid-cta-section",
+      "componentId": "cta-section",
+      "prompt": "Create a correct CTASection usage. Full-width conversion band with eyebrow, headline, supporting copy and actions.",
+      "candidateCode": "<CTASection title=\"example\" />",
+      "fixedCode": "<CTASection title=\"example\" />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
       "id": "valid-data-table",
       "componentId": "data-table",
       "prompt": "Create a correct DataTable usage. Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
       "candidateCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
       "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-date-picker",
-      "componentId": "date-picker",
-      "prompt": "Create a correct DatePicker usage. Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
-      "candidateCode": "<DatePicker />",
-      "fixedCode": "<DatePicker />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-dialog",
-      "componentId": "dialog",
-      "prompt": "Create a correct Dialog usage. Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
-      "candidateCode": "<Dialog open={true} onOpenChange={true} />",
-      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-drawer",
-      "componentId": "drawer",
-      "prompt": "Create a correct Drawer usage. Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
-      "candidateCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
-      "fixedCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-empty-state",
-      "componentId": "empty-state",
-      "prompt": "Create a correct EmptyState usage. Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.",
-      "candidateCode": "<EmptyState title=\"example\" />",
-      "fixedCode": "<EmptyState title=\"example\" />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-fieldset",
-      "componentId": "fieldset",
-      "prompt": "Create a correct Fieldset usage. Groups related form controls in a native fieldset with a legend, optional description, and an error slot.",
-      "candidateCode": "<Fieldset />",
-      "fixedCode": "<Fieldset />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-file-upload",
-      "componentId": "file-upload",
-      "prompt": "Create a correct FileUpload usage. Drag-and-drop file picker with a removable file list and per-file progress bars.",
-      "candidateCode": "<FileUpload />",
-      "fixedCode": "<FileUpload />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-filter-bar",
-      "componentId": "filter-bar",
-      "prompt": "Create a correct FilterBar usage. List-page filter strip: search field, filter controls, reset affordance and trailing actions.",
-      "candidateCode": "<FilterBar />",
-      "fixedCode": "<FilterBar />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
-      "id": "valid-flex",
-      "componentId": "flex",
-      "prompt": "Create a correct Flex / FlexItem usage. Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.",
-      "candidateCode": "<Flex />",
-      "fixedCode": "<Flex />",
       "expectedValid": true,
       "defectClass": "none",
       "expectedIssue": "No defect."
@@ -323,11 +323,41 @@
       "expectedIssue": "Unknown prop data-hallucinated."
     },
     {
+      "id": "unknown-prop-announcement-bar",
+      "componentId": "announcement-bar",
+      "prompt": "Create a AnnouncementBar usage. Dismissible announcement bar with optional action, tone and sticky positioning.",
+      "candidateCode": "<AnnouncementBar message=\"example\"  data-hallucinated=\"true\" />",
+      "fixedCode": "<AnnouncementBar message=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
       "id": "unknown-prop-app-shell",
       "componentId": "app-shell",
       "prompt": "Create a AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
       "candidateCode": "<AppShell sections={[]}  data-hallucinated=\"true\" />",
       "fixedCode": "<AppShell sections={[]} />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-applied-filters",
+      "componentId": "applied-filters",
+      "prompt": "Create a AppliedFilters usage. Applied-filter summary with a live count, removable chips and an edit action.",
+      "candidateCode": "<AppliedFilters filters={[]}  data-hallucinated=\"true\" />",
+      "fixedCode": "<AppliedFilters filters={[]} />",
+      "expectedValid": false,
+      "defectClass": "unknown-prop",
+      "expectedIssue": "Unknown prop data-hallucinated."
+    },
+    {
+      "id": "unknown-prop-article-card",
+      "componentId": "article-card",
+      "prompt": "Create a ArticleCard usage. Linked article or resource card with media, eyebrow, title, summary and metadata.",
+      "candidateCode": "<ArticleCard title=\"example\" href=\"example\"  data-hallucinated=\"true\" />",
+      "fixedCode": "<ArticleCard title=\"example\" href=\"example\" />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
       "expectedIssue": "Unknown prop data-hallucinated."
@@ -345,7 +375,7 @@
     {
       "id": "unknown-prop-auth-layout",
       "componentId": "auth-layout",
-      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "prompt": "Create a AuthLayout usage. Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
       "candidateCode": "<AuthLayout title=\"example\"  data-hallucinated=\"true\" />",
       "fixedCode": "<AuthLayout title=\"example\" />",
       "expectedValid": false,
@@ -373,34 +403,14 @@
       "expectedIssue": "Unknown prop data-hallucinated."
     },
     {
-      "id": "unknown-prop-badge",
-      "componentId": "badge",
-      "prompt": "Create a Badge usage. A small status indicator component for displaying tags, counts, or status information",
-      "candidateCode": "<Badge  data-hallucinated=\"true\" />",
-      "fixedCode": "<Badge />",
+      "id": "missing-required-announcement-bar",
+      "componentId": "announcement-bar",
+      "prompt": "Create a AnnouncementBar usage. Dismissible announcement bar with optional action, tone and sticky positioning.",
+      "candidateCode": "<AnnouncementBar />",
+      "fixedCode": "<AnnouncementBar message=\"example\" />",
       "expectedValid": false,
-      "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
-    },
-    {
-      "id": "unknown-prop-block",
-      "componentId": "block",
-      "prompt": "Create a Block usage. Semantic container (div by default, swappable element) — the structural counterpart to Text (p).",
-      "candidateCode": "<Block  data-hallucinated=\"true\" />",
-      "fixedCode": "<Block />",
-      "expectedValid": false,
-      "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
-    },
-    {
-      "id": "unknown-prop-branch",
-      "componentId": "branch",
-      "prompt": "Create a Branch usage. Variant navigation for branched messages: previous/next arrows with an N/M position indicator.",
-      "candidateCode": "<Branch count={1}  data-hallucinated=\"true\" />",
-      "fixedCode": "<Branch count={1} />",
-      "expectedValid": false,
-      "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop message."
     },
     {
       "id": "missing-required-app-shell",
@@ -411,6 +421,26 @@
       "expectedValid": false,
       "defectClass": "missing-required",
       "expectedIssue": "Missing required prop sections."
+    },
+    {
+      "id": "missing-required-applied-filters",
+      "componentId": "applied-filters",
+      "prompt": "Create a AppliedFilters usage. Applied-filter summary with a live count, removable chips and an edit action.",
+      "candidateCode": "<AppliedFilters />",
+      "fixedCode": "<AppliedFilters filters={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop filters."
+    },
+    {
+      "id": "missing-required-article-card",
+      "componentId": "article-card",
+      "prompt": "Create a ArticleCard usage. Linked article or resource card with media, eyebrow, title, summary and metadata.",
+      "candidateCode": "<ArticleCard href=\"example\" />",
+      "fixedCode": "<ArticleCard title=\"example\" href=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop title."
     },
     {
       "id": "missing-required-attachment",
@@ -425,12 +455,22 @@
     {
       "id": "missing-required-auth-layout",
       "componentId": "auth-layout",
-      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "prompt": "Create a AuthLayout usage. Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
       "candidateCode": "<AuthLayout />",
       "fixedCode": "<AuthLayout title=\"example\" />",
       "expectedValid": false,
       "defectClass": "missing-required",
       "expectedIssue": "Missing required prop title."
+    },
+    {
+      "id": "missing-required-bottom-nav",
+      "componentId": "bottom-nav",
+      "prompt": "Create a BottomNav usage. Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.",
+      "candidateCode": "<BottomNav />",
+      "fixedCode": "<BottomNav items={[]} />",
+      "expectedValid": false,
+      "defectClass": "missing-required",
+      "expectedIssue": "Missing required prop items."
     },
     {
       "id": "missing-required-branch",
@@ -463,46 +503,6 @@
       "expectedIssue": "Missing required prop steps."
     },
     {
-      "id": "missing-required-code-block",
-      "componentId": "code-block",
-      "prompt": "Create a CodeBlock usage. Syntax-highlighted code block with language label and copy-to-clipboard button.",
-      "candidateCode": "<CodeBlock />",
-      "fixedCode": "<CodeBlock code=\"example\" />",
-      "expectedValid": false,
-      "defectClass": "missing-required",
-      "expectedIssue": "Missing required prop code."
-    },
-    {
-      "id": "missing-required-command-palette",
-      "componentId": "command-palette",
-      "prompt": "Create a CommandPalette usage. Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation",
-      "candidateCode": "<CommandPalette onOpenChange={true} commands={[]} onSelect={() => {}} />",
-      "fixedCode": "<CommandPalette open={true} onOpenChange={true} commands={[]} onSelect={() => {}} />",
-      "expectedValid": false,
-      "defectClass": "missing-required",
-      "expectedIssue": "Missing required prop open."
-    },
-    {
-      "id": "missing-required-confirm-dialog",
-      "componentId": "confirm-dialog",
-      "prompt": "Create a ConfirmDialog usage. Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.",
-      "candidateCode": "<ConfirmDialog onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
-      "fixedCode": "<ConfirmDialog open={true} onOpenChange={true} title=\"example\" onConfirm={() => {}} />",
-      "expectedValid": false,
-      "defectClass": "missing-required",
-      "expectedIssue": "Missing required prop open."
-    },
-    {
-      "id": "missing-required-confirmation",
-      "componentId": "confirmation",
-      "prompt": "Create a Confirmation usage. Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
-      "candidateCode": "<Confirmation />",
-      "fixedCode": "<Confirmation title=\"example\" />",
-      "expectedValid": false,
-      "defectClass": "missing-required",
-      "expectedIssue": "Missing required prop title."
-    },
-    {
       "id": "invalid-enum-accordion",
       "componentId": "accordion",
       "prompt": "Create a Accordion usage. Collapsible content sections with ARIA accordion semantics and keyboard navigation",
@@ -511,6 +511,16 @@
       "expectedValid": false,
       "defectClass": "invalid-enum",
       "expectedIssue": "Invalid enum value for variant."
+    },
+    {
+      "id": "invalid-enum-announcement-bar",
+      "componentId": "announcement-bar",
+      "prompt": "Create a AnnouncementBar usage. Dismissible announcement bar with optional action, tone and sticky positioning.",
+      "candidateCode": "<AnnouncementBar message=\"example\"  tone=\"__invalid__\" />",
+      "fixedCode": "<AnnouncementBar message=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for tone."
     },
     {
       "id": "invalid-enum-app-shell",
@@ -523,9 +533,19 @@
       "expectedIssue": "Invalid enum value for mobileBreakpoint."
     },
     {
+      "id": "invalid-enum-article-card",
+      "componentId": "article-card",
+      "prompt": "Create a ArticleCard usage. Linked article or resource card with media, eyebrow, title, summary and metadata.",
+      "candidateCode": "<ArticleCard title=\"example\" href=\"example\"  variant=\"__invalid__\" />",
+      "fixedCode": "<ArticleCard title=\"example\" href=\"example\" />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for variant."
+    },
+    {
       "id": "invalid-enum-auth-layout",
       "componentId": "auth-layout",
-      "prompt": "Create a AuthLayout usage. Centered authentication surface: brand, title/description, form card and footer, with size presets.",
+      "prompt": "Create a AuthLayout usage. Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
       "candidateCode": "<AuthLayout title=\"example\"  size=\"__invalid__\" />",
       "fixedCode": "<AuthLayout title=\"example\" />",
       "expectedValid": false,
@@ -553,6 +573,26 @@
       "expectedIssue": "Invalid enum value for as."
     },
     {
+      "id": "invalid-enum-bottom-nav",
+      "componentId": "bottom-nav",
+      "prompt": "Create a BottomNav usage. Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.",
+      "candidateCode": "<BottomNav items={[]}  linkHrefProp=\"__invalid__\" />",
+      "fixedCode": "<BottomNav items={[]} />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for linkHrefProp."
+    },
+    {
+      "id": "invalid-enum-breadcrumb",
+      "componentId": "breadcrumb",
+      "prompt": "Create a Breadcrumb usage. Navigation breadcrumb trail with links and current-page indicator",
+      "candidateCode": "<Breadcrumb items={[]}  linkHrefProp=\"__invalid__\" />",
+      "fixedCode": "<Breadcrumb items={[]} />",
+      "expectedValid": false,
+      "defectClass": "invalid-enum",
+      "expectedIssue": "Invalid enum value for linkHrefProp."
+    },
+    {
       "id": "invalid-enum-button",
       "componentId": "button",
       "prompt": "Create a Button usage. A clickable button component with variants for different visual styles and sizes",
@@ -561,46 +601,6 @@
       "expectedValid": false,
       "defectClass": "invalid-enum",
       "expectedIssue": "Invalid enum value for variant."
-    },
-    {
-      "id": "invalid-enum-confirmation",
-      "componentId": "confirmation",
-      "prompt": "Create a Confirmation usage. Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
-      "candidateCode": "<Confirmation title=\"example\"  variant=\"__invalid__\" />",
-      "fixedCode": "<Confirmation title=\"example\" />",
-      "expectedValid": false,
-      "defectClass": "invalid-enum",
-      "expectedIssue": "Invalid enum value for variant."
-    },
-    {
-      "id": "invalid-enum-data-table",
-      "componentId": "data-table",
-      "prompt": "Create a DataTable usage. Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
-      "candidateCode": "<DataTable columns={[]} data={[]} rowId={() = density=\"__invalid__\" > {}} />",
-      "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
-      "expectedValid": false,
-      "defectClass": "invalid-enum",
-      "expectedIssue": "Invalid enum value for density."
-    },
-    {
-      "id": "invalid-enum-dialog",
-      "componentId": "dialog",
-      "prompt": "Create a Dialog usage. Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.",
-      "candidateCode": "<Dialog open={true} onOpenChange={true}  size=\"__invalid__\" />",
-      "fixedCode": "<Dialog open={true} onOpenChange={true} />",
-      "expectedValid": false,
-      "defectClass": "invalid-enum",
-      "expectedIssue": "Invalid enum value for size."
-    },
-    {
-      "id": "invalid-enum-drawer",
-      "componentId": "drawer",
-      "prompt": "Create a Drawer usage. Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).",
-      "candidateCode": "<Drawer open={true} onOpenChange={true} title=\"example\"  side=\"__invalid__\" />",
-      "fixedCode": "<Drawer open={true} onOpenChange={true} title=\"example\" />",
-      "expectedValid": false,
-      "defectClass": "invalid-enum",
-      "expectedIssue": "Invalid enum value for side."
     },
     {
       "id": "curated-invalid-composition-accordion",
