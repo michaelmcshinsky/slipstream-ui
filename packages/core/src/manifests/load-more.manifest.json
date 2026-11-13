@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sourceDir": "load-more",
   "exportName": "LoadMore",
   "description": "Load-more control with pending and end-of-list states.",

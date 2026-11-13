@@ -1,5 +1,38 @@
 # @slipstream-ui/core
 
+## 0.8.0
+
+### Minor Changes
+
+- [#107](https://github.com/michaelmcshinsky/slipstream-ui/pull/107) [`5a229c1`](https://github.com/michaelmcshinsky/slipstream-ui/commit/5a229c132991dd4ae565e0f4106f4066f961e017) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Resizable `Drawer` for wide detail panes.
+  
+  `Drawer` accepts `resizable` on left and right drawers. The inner edge becomes a focusable `separator` handle: drag it, or use Arrow keys (16px), Shift+Arrow (64px) and Home/End (bounds). `minWidth` (240), `maxWidth` (960) and `defaultWidth` bound the width, and `onWidthChange` fires when a resize commits so the width can be persisted. `resizeLabel` names the handle for assistive tech.
+  
+  Top and bottom drawers ignore `resizable`, since their extent is controlled by `height`.
+
+- [#103](https://github.com/michaelmcshinsky/slipstream-ui/pull/103) [`ab21033`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ab21033e7bf72b9e54126c9b653f0d7e8cfee1a1) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Roadmap 0.8-0.9: migration aliases, the remaining prop gaps and a mobile bottom tab bar.
+  
+  **Migration aliases** (canonical prop wins when both forms are passed):
+  
+  - `PageHeader` accepts `subtitle` as an alias for `description`.
+  - `MetricCard` accepts `title` and `description` as aliases for `label` and `hint`; `label` is now optional when `title` is passed.
+  - `AuthLayout` accepts `subtitle` and `logo` as aliases for `description` and `brand`.
+  - `Drawer` accepts `onClose` as a close-request alias for `onOpenChange(false)`; `onOpenChange` is now optional when `onClose` is passed.
+  
+  **New props:**
+  
+  - `EmptyState.action` accepts `{ label, onClick?, href?, variant? }` and renders the Button (or an anchor styled as one) for you. Rendered nodes still work.
+  - `Accordion.items` takes `{ id, title, content, disabled? }[]` and renders one section per entry instead of `children`.
+  - `AuthLayout.maxWidth` overrides the card width with pixels or any CSS width.
+  - `Badge.size` adds `sm` / `md` / `lg` to every variant.
+  - `MetricCard.tone` colors the value (`success` / `warning` / `destructive`); `MetricCard.loading` renders an `aria-busy` skeleton.
+  
+  **New component:**
+  
+  - `BottomNav` — mobile bottom tab bar for 3-5 primary destinations: `aria-current="page"` on the active tab, count badges, disabled tabs, a router `linkComponent`, 44px minimum targets and safe-area padding.
+  
+  Every addition ships a `COMPONENT_MANIFEST` entry, docs page rows, tests and regenerated registry/LLM output.
+
 ## 0.7.0
 
 ### Minor Changes

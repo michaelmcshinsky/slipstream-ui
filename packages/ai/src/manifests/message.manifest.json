@@ -241,7 +241,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sourceDir": "message",
   "exportName": "Message"
 }

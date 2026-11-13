@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sourceDir": "deal-card",
   "exportName": "DealCard",
   "description": "Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.",

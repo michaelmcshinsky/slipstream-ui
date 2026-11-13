@@ -1,5 +1,20 @@
 # @slipstream-ui/themes
 
+## 0.8.0
+
+### Patch Changes
+
+- [#101](https://github.com/michaelmcshinsky/slipstream-ui/pull/101) [`8a5b115`](https://github.com/michaelmcshinsky/slipstream-ui/commit/8a5b11558942b43708241d7a5a81282586fff1a9) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Neutral graphite dark palette and localized docs navigation.
+  
+  - `createTheme` dark mode replaces the navy-tinted surface ladder with a
+    neutral graphite ladder (`background < card < popover`) and matching
+    near-black ink on solid semantic fills. Light mode tokens are unchanged.
+  - The `init` command writes the same graphite dark values, so generated
+    projects match the shipped theme.
+  - `@slipstream-ui/i18n` adds `nav` and marketing message namespaces across
+    `ar`, `en`, `es`, `ja`, `ko`, `ru` and `zh`, and the locale switcher now
+    reads the active locale label from the message catalog.
+
 ## 0.6.1
 
 ### Patch Changes

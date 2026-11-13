@@ -4,7 +4,7 @@
   "tier": "atom",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sourceDir": "link",
   "exportName": "Link",
   "description": "Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.",
