@@ -31,7 +31,7 @@
     "test:starter": "pnpm --filter @slipstream-ui/core exec vitest run --config ../../apps/starters/ai-chat/vitest.config.ts",
     "dev:starter": "pnpm --filter slipstream-ai-chat-starter dev",
     "changeset": "changeset",
-    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts",
+    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts && tsx scripts/generate-registry.ts && tsx scripts/generate-llm-docs.ts",
     "release": "turbo run build && node scripts/publish.cjs",
     "deploy:docs": "pnpm --filter slipstream-ui-docs deploy",
     "generate:registry": "tsx scripts/generate-registry.ts",
