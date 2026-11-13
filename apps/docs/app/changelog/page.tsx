@@ -14,14 +14,29 @@ import { articleSchema } from '@/lib/structured-data';
 export const metadata: Metadata = withSeo('/changelog', {
   title: 'Changelog',
   description:
-    'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.7.0.',
+    'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.8.0.',
 });
 
 const releases = [
   {
+    version: '0.8.0',
+    date: 'November 12, 2026',
+    tag: 'current',
+    highlights: [
+      'BottomNav - mobile bottom tab bar for 3-5 primary destinations, with aria-current on the active tab, count badges, disabled tabs, a router linkComponent, 44px minimum targets and safe-area padding',
+      'Drawer resizable - left and right drawers get a focusable separator handle: drag it, or use Arrow keys (16px), Shift+Arrow (64px) and Home/End (bounds); minWidth, maxWidth, defaultWidth and onWidthChange persist the width',
+      'Migration aliases: PageHeader subtitle, MetricCard title/description, AuthLayout subtitle/logo and Drawer onClose; the canonical prop wins when both forms are passed',
+      'Prop gaps closed: EmptyState.action object, Accordion.items, AuthLayout.maxWidth, Badge.size and MetricCard tone/loading (aria-busy skeleton)',
+      'Neutral graphite dark palette replaces the navy-tinted surface ladder; light-mode tokens are unchanged',
+      '@slipstream-ui/mcp-server 0.4.0: validate_usage v2 adds concrete fix suggestions and whole-tree validation through files[] with per-file results',
+      '@slipstream-ui/i18n 0.4.0: nav and marketing message namespaces across ar, en, es, ja, ko, ru and zh, with the locale switcher reading the active label from the catalog',
+      'Versioned packages: core/ai/themes 0.8.0, mcp-server 0.4.0, i18n 0.4.0, cli 0.2.3; registry remains 0.2.2',
+    ],
+  },
+  {
     version: '0.7.0',
     date: 'November 10, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'Marketplace card layer: DealCard, EntityCard (with a ProfileCard alias), TombstoneCard, DocumentCard and LoadMore - 109 components total (92 core + 17 AI)',
       'Deal access is stated with text badges; document downloads stay disabled unless the document is available; unavailable items keep their reason and status; LoadMore announces loading and end-of-list states',
@@ -165,9 +180,9 @@ export default async function ChangelogPage() {
         data={articleSchema({
           headline: 'Slipstream UI changelog',
           description:
-            'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.7.0.',
+            'Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: 0.8.0.',
           path: '/changelog',
-          dateModified: '2026-11-10',
+          dateModified: '2026-11-12',
         })}
       />
       <Navbar />
