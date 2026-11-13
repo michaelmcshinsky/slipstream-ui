@@ -1,12 +1,12 @@
 ---
-description: Address open GitHub issues in Slipstream UI from D:/Documents/Projects/slipstream-ui — pick issues, implement focused fixes, run the full CI gate, push branches, and open PRs. Never merges or force-pushes.
+description: Address open GitHub issues in Slipstream UI from D:/Projects/slipstream-ui - pick issues, implement focused fixes, run the full CI gate, push branches, and open PRs. Never merges or force-pushes.
 agent: build
 ---
 
 # Slipstream UI issue automation
 
-Run from the active repo: `D:/Documents/Projects/slipstream-ui`.
-Do not use the stale copy at `D:/Projects/_modernization/slipstream-ui`.
+Run from the active repo: `D:/Projects/slipstream-ui`.
+Do not use the stale copies at `D:/Projects/_modernization/slipstream-ui` or `D:/Documents/Projects/slipstream-ui`.
 
 For a fast read-only check, use `automation-issues-list` instead. Use this full run only when there is a selected issue and the runner allows more than a few minutes.
 

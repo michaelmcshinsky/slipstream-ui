@@ -8,9 +8,9 @@ Slipstream UI is an AI-first React component library. Every component ships a ma
 
 ## Repository architecture
 
-pnpm workspace + Turborepo. **Never** edit `D:/Projects/_modernization/slipstream-ui`; this repo is `D:/Documents/Projects/slipstream-ui`.
+pnpm workspace + Turborepo. Work only in this checkout (`D:/Projects/slipstream-ui`). **Never** edit the stale copies at `D:/Projects/_modernization/slipstream-ui` or `D:/Documents/Projects/slipstream-ui`.
 
-- `packages/core` (`@slipstream-ui/core`) — 63 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography
+- `packages/core` (`@slipstream-ui/core`) — atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography
 - `packages/ai` (`@slipstream-ui/ai`) — 17 AI chat/agent components
 - `packages/themes` (`@slipstream-ui/themes`) — `createTheme()` + presets + CSS-variable contract
 - `packages/cli` (`@slipstream-ui/cli`) — `init` / `add` / `list` / `diff`

@@ -5,7 +5,7 @@ agent: build
 
 # Slipstream UI single-issue implementation
 
-Run from `D:/Documents/Projects/slipstream-ui`. Do not use `D:/Projects/_modernization/slipstream-ui`.
+Run from `D:/Projects/slipstream-ui`. Do not use the stale copies at `D:/Projects/_modernization/slipstream-ui` or `D:/Documents/Projects/slipstream-ui`.
 
 ## Argument
 
