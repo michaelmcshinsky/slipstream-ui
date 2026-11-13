@@ -1,5 +1,15 @@
 # @slipstream-ui/mcp-server
 
+## 0.4.0
+
+### Minor Changes
+
+- [#105](https://github.com/michaelmcshinsky/slipstream-ui/pull/105) [`f4b590b`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f4b590bf06a190446632a82722c1570fa9d27dd0) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `validate_usage` v2: fix suggestions and whole-tree validation.
+  
+  - Every issue now carries a `fix` string with the concrete next action: the documented prop a misspelled name probably meant, the nearest allowed enum value, the required props to add, or the element to render when the component is missing.
+  - Pass `files: [{ path, code }]` instead of `componentId` + `code` to validate a whole tree in one call. Each Slipstream component in a file is inferred from its JSX, non-Slipstream tags are reported in `summary.skippedTags` instead of being flagged, and every result is grouped by file path.
+  - The single-component response shape is unchanged, so existing callers keep working.
+
 ## 0.3.1
 
 ### Patch Changes

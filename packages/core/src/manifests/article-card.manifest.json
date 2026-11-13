@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sourceDir": "article-card",
   "exportName": "ArticleCard",
   "description": "Linked article or resource card with media, eyebrow, title, summary and metadata.",
