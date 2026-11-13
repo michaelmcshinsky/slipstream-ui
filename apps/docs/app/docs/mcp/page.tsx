@@ -151,7 +151,9 @@ get_usage_examples(componentId="dialog")`} />
           Validate generated JSX against the component manifest before it ships. The validator
           reports unknown (hallucinated) props, values outside a documented enum, and missing
           required props, and returns the manifest&apos;s anti-patterns so the agent can re-check
-          intent. It does not type-check expressions or render the component.
+          intent. Every issue carries a <code className="rounded bg-muted px-1 py-0.5 text-sm">fix</code>{' '}
+          string with the concrete next action, so the agent can correct the code without a second
+          round trip. It does not type-check expressions or render the component.
         </p>
         <CodeBlock language="text" code={`validate_usage(
   componentId="button",
@@ -164,9 +166,34 @@ get_usage_examples(componentId="dialog")`} />
 //   usageCount: 1,
 //   issues: [{
 //     severity: "error",
-//     message: "Invalid value \\"primry\\" for prop \\"variant\\" ... Allowed values: default, destructive, outline, ..."
+//     message: "Invalid value \\"primry\\" for prop \\"variant\\" ... Allowed values: default, destructive, outline, ...",
+//     fix: "Set variant=\\"primary\\" (nearest allowed value; allowed: default, primary, ...)."
 //   }],
 //   antiPatternsToCheck: [...]
+// }`} />
+
+        <p className="text-muted-foreground mt-4 mb-4">
+          Pass{' '}
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">files</code> instead of
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">code</code> to validate a whole
+          tree in one call. Every Slipstream component in each file is inferred from its JSX and
+          checked, and non-Slipstream tags are reported as skipped rather than flagged:
+        </p>
+        <CodeBlock language="text" code={`validate_usage(files=[
+  { path: "app/page.tsx", code: "<Button variant='outline'>Save</Button>" },
+  { path: "app/settings.tsx", code: "<Button varient='outline'>Go</Button>" }
+])
+
+// Returns:
+// {
+//   mode: "tree",
+//   valid: false,
+//   fileCount: 2,
+//   summary: { files: 2, components: 2, errors: 1, warnings: 0, skippedTags: [] },
+//   files: [
+//     { path: "app/page.tsx", valid: true,  components: [...] },
+//     { path: "app/settings.tsx", valid: false, components: [...] }
+//   ]
 // }`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
