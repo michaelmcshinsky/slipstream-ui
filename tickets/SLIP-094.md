@@ -7,7 +7,7 @@ estimate_hours: 3
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:chore", "p2"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** `@slipstream-ui/core/styles.css` is ~38 KB minified and

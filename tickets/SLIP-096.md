@@ -7,7 +7,7 @@ estimate_hours: 3
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:test", "p1"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** The prebuilt styles are a new public entry point. A packaging

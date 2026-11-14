@@ -7,7 +7,7 @@ estimate_hours: 3
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:feature", "p3"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** `PageHeader` renders the visible heading only. Consumers using
