@@ -54,6 +54,7 @@ pnpm --filter slipstream-ui-docs dev
 
 - `pnpm --filter slipstream-ui-docs deploy` (or `pnpm deploy:docs` from the root).
 - Publish packages with `pnpm changeset` then `pnpm release`.
+- Submit the deployed URLs to IndexNow (Bing, Yandex, Seznam, Naver) with `pnpm submit:indexnow`. The key file is committed at `apps/docs/public/<key>.txt` and served from the site root; pass `--origin` when submitting the Worker's `workers.dev` URL instead of the canonical domain, and `--limit`/`--dry-run` to spot-check.
 
 #### Cloudflare Workers Builds (CI)
 
