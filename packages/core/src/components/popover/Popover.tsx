@@ -14,6 +14,8 @@ type PopoverContextValue = {
   wrapperRef: React.MutableRefObject<HTMLDivElement | null>;
   /** Optional explicit anchor, rendered by PopoverAnchor. */
   anchorRef: React.MutableRefObject<HTMLElement | null>;
+  /** The rendered trigger, so Escape can restore focus and labels stay valid. */
+  triggerRef: React.MutableRefObject<HTMLButtonElement | null>;
 };
 
 const PopoverContext = React.createContext<PopoverContextValue>({
@@ -23,6 +25,7 @@ const PopoverContext = React.createContext<PopoverContextValue>({
   contentId: '',
   wrapperRef: { current: null },
   anchorRef: { current: null },
+  triggerRef: { current: null },
 });
 
 export type PopoverProps = {
@@ -47,6 +50,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
     const contentId = React.useId();
     const wrapperRef = React.useRef<HTMLDivElement | null>(null);
     const anchorRef = React.useRef<HTMLElement | null>(null);
+    const triggerRef = React.useRef<HTMLButtonElement | null>(null);
     const setRefs = React.useCallback(
       (node: HTMLDivElement | null) => {
         wrapperRef.current = node;
@@ -67,7 +71,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
     return (
       <div ref={setRefs} className={cn('relative inline-block', className)}>
         <PopoverContext.Provider
-          value={{ open: current, setOpen, triggerId, contentId, wrapperRef, anchorRef }}
+          value={{ open: current, setOpen, triggerId, contentId, wrapperRef, anchorRef, triggerRef }}
         >
           {children}
         </PopoverContext.Provider>
@@ -81,12 +85,20 @@ export type PopoverTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** The button that toggles the popover. */
 const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
-  ({ className, children, onClick, ...props }, ref) => {
-    const { open, setOpen, triggerId, contentId } = React.useContext(PopoverContext);
+  ({ className, children, onClick, id, ...props }, ref) => {
+    const { open, setOpen, triggerId, contentId, triggerRef } = React.useContext(PopoverContext);
+    const setRefs = React.useCallback(
+      (node: HTMLButtonElement | null) => {
+        triggerRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      },
+      [ref, triggerRef]
+    );
     return (
       <button
-        ref={ref}
-        id={triggerId}
+        ref={setRefs}
+        id={id ?? triggerId}
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -178,8 +190,11 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
     },
     ref
   ) => {
-    const { open, setOpen, triggerId, contentId, wrapperRef, anchorRef } =
+    const { open, setOpen, contentId, wrapperRef, anchorRef, triggerRef } =
       React.useContext(PopoverContext);
+    // The trigger may carry a consumer `id`; read the rendered element so the
+    // dialog's label always points at something that exists.
+    const labelledBy = triggerRef.current?.id || undefined;
     const contentRef = React.useRef<HTMLDivElement | null>(null);
     // Viewport coordinates measured from the anchor; the panel portals to
     // document.body with position:fixed so ancestor overflow can never clip it.
@@ -223,6 +238,13 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
       }
       updatePosition();
     }, [open, updatePosition]);
+
+    // A panel that is already open on first mount measures before the wrapper's
+    // ref is attached (child layout effects run first), so measure once more
+    // when the refs exist.
+    React.useEffect(() => {
+      if (open && !pos) updatePosition();
+    }, [open, pos, updatePosition]);
 
     // Keep the panel anchored while the page moves: reposition on scroll and
     // resize, and re-measure when the content itself changes size.
@@ -271,7 +293,7 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
         }}
         id={contentId}
         role="dialog"
-        aria-labelledby={triggerId}
+        aria-labelledby={labelledBy}
         tabIndex={-1}
         data-side={pos?.side ?? side}
         onKeyDown={(event) => {
@@ -279,6 +301,8 @@ const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
           if (event.key === 'Escape') {
             event.stopPropagation();
             setOpen(false);
+            // Escape must hand focus back, or it lands on <body>.
+            (triggerRef.current ?? anchorRef.current)?.focus();
           }
         }}
         style={{

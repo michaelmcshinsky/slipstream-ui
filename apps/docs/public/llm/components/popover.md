@@ -74,6 +74,7 @@ PopoverAnchor places the panel against the field, not the wrapper.
 ```tsx
 <Popover>
   <PopoverAnchor><Input placeholder="Pick a date" /></PopoverAnchor>
+  <PopoverTrigger>Pick</PopoverTrigger>
   <PopoverContent matchTriggerWidth>
     <Calendar value={date} onValueChange={setDate} />
   </PopoverContent>
@@ -89,7 +90,7 @@ PopoverAnchor places the panel against the field, not the wrapper.
 ## Accessibility
 
 - **Dialog semantics**: role=dialog with aria-labelledby linking to the trigger
-- **Escape dismissal**: Escape closes the popover
+- **Escape dismissal**: Escape closes the popover and returns focus to the trigger
 
 ## Composition
 

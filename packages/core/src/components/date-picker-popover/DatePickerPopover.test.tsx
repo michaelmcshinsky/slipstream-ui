@@ -122,3 +122,102 @@ describe('DatePickerPopover', () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 });
+
+describe('DatePickerPopover field wiring', () => {
+  it('marks the hidden input required and keeps the ISO value', () => {
+    const { container } = render(
+      <form>
+        <DatePickerPopover
+          name="start"
+          required
+          value="2026-11-13"
+          today={TODAY}
+          onValueChange={() => {}}
+        />
+      </form>
+    );
+    const input = container.querySelector('input[name="start"]') as HTMLInputElement;
+    expect(input.value).toBe('2026-11-13');
+    expect(input.required).toBe(true);
+    expect(input.type).toBe('hidden');
+  });
+
+  it('renders no hidden input without a name', () => {
+    const { container } = render(
+      <DatePickerPopover value="2026-11-13" today={TODAY} onValueChange={() => {}} />
+    );
+    expect(container.querySelector('input[type="hidden"]')).toBeNull();
+  });
+
+  it('passes id and aria-label through and labels the dialog', async () => {
+    const user = userEvent.setup();
+    render(
+      <DatePickerPopover
+        id="start-date"
+        aria-label="Start date"
+        value="2026-11-13"
+        today={TODAY}
+        onValueChange={() => {}}
+      />
+    );
+    const trigger = screen.getByRole('button', { name: 'Start date' });
+    expect(trigger).toHaveAttribute('id', 'start-date');
+
+    await user.click(trigger);
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAttribute('aria-labelledby', 'start-date');
+  });
+
+  it('returns focus to the trigger on Escape', async () => {
+    const user = userEvent.setup();
+    setup();
+    const trigger = screen.getByRole('button', { name: /Nov 13, 2026/ });
+    await user.click(trigger);
+    await screen.findByRole('grid');
+
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('grid')).not.toBeInTheDocument());
+    expect(trigger).toHaveFocus();
+  });
+
+  it('honours the requested side', async () => {
+    const user = userEvent.setup();
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+      this: HTMLElement
+    ) {
+      const base = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: 0,
+        height: 0,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+      } as DOMRect;
+      if (this.getAttribute('role') === 'dialog') return { ...base, width: 288, height: 320 };
+      return { ...base, top: 500, left: 40, width: 240, height: 40 };
+    });
+    setup({ side: 'top' });
+
+    await user.click(screen.getByRole('button', { name: /Nov 13, 2026/ }));
+    expect(await screen.findByRole('dialog')).toHaveAttribute('data-side', 'top');
+    vi.restoreAllMocks();
+  });
+
+  it('treats min and max as inclusive', async () => {
+    const user = userEvent.setup();
+    const { onValueChange } = setup({ min: '2026-11-13', max: '2026-11-14' });
+    await user.click(screen.getByRole('button', { name: /Nov 13, 2026/ }));
+    const grid = within(await screen.findByRole('grid'));
+
+    expect(grid.getByRole('button', { name: /Nov 13, 2026/ })).not.toHaveAttribute(
+      'aria-disabled'
+    );
+    const last = grid.getByRole('button', { name: /Nov 14, 2026/ });
+    expect(last).not.toHaveAttribute('aria-disabled');
+    await user.click(last);
+    expect(onValueChange).toHaveBeenCalledWith('2026-11-14');
+  });
+});

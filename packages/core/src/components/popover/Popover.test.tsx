@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import * as React from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from './Popover';
 
@@ -213,5 +214,167 @@ describe('Popover placement', () => {
     fireEvent.scroll(window);
     await waitFor(() => expect(screen.getByRole('dialog').style.top).toBe('100px'));
     expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+});
+
+describe('Popover focus and labelling', () => {
+  it('restores focus to the trigger on Escape', async () => {
+    const user = userEvent.setup();
+    render(<BasicPopover />);
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    await user.click(trigger);
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument());
+
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(trigger).toHaveFocus();
+  });
+
+  it('labels the dialog from the trigger', async () => {
+    const user = userEvent.setup();
+    render(<BasicPopover />);
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    await user.click(trigger);
+
+    expect(trigger.id).not.toBe('');
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-labelledby', trigger.id);
+  });
+
+  it('keeps the label valid when the trigger has an explicit id', async () => {
+    const user = userEvent.setup();
+    render(
+      <Popover>
+        <PopoverTrigger id="filter-trigger">Open</PopoverTrigger>
+        <PopoverContent>Panel</PopoverContent>
+      </Popover>
+    );
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    expect(trigger).toHaveAttribute('id', 'filter-trigger');
+
+    await user.click(trigger);
+    expect(screen.getByRole('dialog')).toHaveAttribute('aria-labelledby', 'filter-trigger');
+  });
+
+  it('does not emit a dangling aria-labelledby without a trigger', async () => {
+    render(
+      <Popover open>
+        <PopoverContent aria-label="Anchored panel">Panel</PopoverContent>
+      </Popover>
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).not.toHaveAttribute('aria-labelledby');
+    expect(dialog).toHaveAttribute('aria-label', 'Anchored panel');
+  });
+
+  it('closes an anchor-only panel on Escape without throwing', async () => {
+    const user = userEvent.setup();
+    function AnchorOnly() {
+      const [open, setOpen] = React.useState(true);
+      return (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverAnchor data-testid="anchor">Field</PopoverAnchor>
+          <PopoverContent aria-label="Anchored panel">Panel</PopoverContent>
+        </Popover>
+      );
+    }
+    render(<AnchorOnly />);
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+  });
+});
+
+describe('Popover controlled and interaction edges', () => {
+  it('follows a controlled open prop', async () => {
+    const { rerender } = render(
+      <Popover open>
+        <PopoverContent>Panel</PopoverContent>
+      </Popover>
+    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    rerender(
+      <Popover open={false}>
+        <PopoverContent>Panel</PopoverContent>
+      </Popover>
+    );
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+  });
+
+  it('toggles aria-expanded on the trigger', async () => {
+    const user = userEvent.setup();
+    render(<BasicPopover />);
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('does not open from a disabled trigger', async () => {
+    const user = userEvent.setup();
+    render(
+      <Popover>
+        <PopoverTrigger disabled>Open</PopoverTrigger>
+        <PopoverContent>Panel</PopoverContent>
+      </Popover>
+    );
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    expect(trigger).toBeDisabled();
+    await user.click(trigger);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('stays open when the pointer goes down inside the panel', async () => {
+    render(<BasicPopover />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open' }));
+    const dialog = screen.getByRole('dialog');
+
+    fireEvent.pointerDown(dialog);
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Inner button' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('repositions on window resize', async () => {
+    let top = 100;
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+      this: HTMLElement
+    ) {
+      const base = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: 0,
+        height: 0,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+      } as DOMRect;
+      if (this.getAttribute('role') === 'dialog') return { ...base, width: 288, height: 180 };
+      return { ...base, top, left: 40, width: 160, height: 32 };
+    });
+
+    render(<BasicPopover />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open' }));
+    expect(screen.getByRole('dialog').style.top).toBe('140px');
+
+    top = 20;
+    fireEvent(window, new Event('resize'));
+    await waitFor(() => expect(screen.getByRole('dialog').style.top).toBe('60px'));
+  });
+
+  it('applies align and collisionPadding to the panel position', () => {
+    mockBounds({ top: 100, left: 900, width: 160, height: 32 }, { width: 288, height: 180 });
+    render(
+      <Popover>
+        <PopoverTrigger>Open</PopoverTrigger>
+        <PopoverContent align="end" collisionPadding={8}>
+          Panel
+        </PopoverContent>
+      </Popover>
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open' }));
+
+    // align=end would start at 772; the viewport clamp keeps it at 1024-288-8.
+    expect(screen.getByRole('dialog').style.left).toBe('728px');
   });
 });

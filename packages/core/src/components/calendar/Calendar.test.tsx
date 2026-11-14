@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
@@ -141,5 +141,137 @@ describe('Calendar', () => {
       <Calendar today={TODAY} value="2026-11-13" onValueChange={() => {}} />
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('Calendar edge cases', () => {
+  it('accepts an aria-label for the grid', () => {
+    render(
+      <Calendar
+        today={TODAY}
+        value="2026-11-13"
+        aria-label="Choose a start date"
+        onValueChange={() => {}}
+      />
+    );
+    expect(screen.getByRole('grid', { name: 'Choose a start date' })).toBeInTheDocument();
+  });
+
+  it('follows a controlled value into its month', async () => {
+    const { rerender } = render(
+      <Calendar today={TODAY} value="2026-11-13" onValueChange={() => {}} />
+    );
+    expect(screen.getByRole('grid', { name: 'November 2026' })).toBeInTheDocument();
+
+    rerender(<Calendar today={TODAY} value="2027-02-10" onValueChange={() => {}} />);
+    await waitFor(() =>
+      expect(screen.getByRole('grid', { name: 'February 2027' })).toBeInTheDocument()
+    );
+    expect(day(/Feb 10, 2027/)).toHaveAttribute('tabindex', '0');
+  });
+
+  it('selects an outside day and follows it into the previous month', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Calendar defaultValue="2026-12-15" today={TODAY} onValueChange={onValueChange} />);
+
+    await user.click(day(/Nov 30, 2026/));
+    expect(onValueChange).toHaveBeenCalledWith('2026-11-30');
+    await waitFor(() =>
+      expect(screen.getByRole('grid', { name: 'November 2026' })).toBeInTheDocument()
+    );
+  });
+
+  it('keeps exactly one tab stop and moves it with the keyboard', async () => {
+    const user = userEvent.setup();
+    render(<Calendar today={TODAY} value="2026-11-13" autoFocus onValueChange={() => {}} />);
+    await waitFor(() => expect(day(/Nov 13, 2026/)).toHaveFocus());
+
+    const tabbable = () =>
+      within(screen.getByRole('grid'))
+        .getAllByRole('button')
+        .filter((button) => button.tabIndex === 0);
+    expect(tabbable()).toHaveLength(1);
+    expect(tabbable()[0]).toHaveAttribute('data-date', '2026-11-13');
+
+    await user.keyboard('{ArrowRight}');
+    expect(tabbable()).toHaveLength(1);
+    expect(tabbable()[0]).toHaveAttribute('data-date', '2026-11-14');
+  });
+
+  it('moves focus from the keyboard without autoFocus', async () => {
+    const user = userEvent.setup();
+    render(<Calendar today={TODAY} value="2026-11-13" onValueChange={() => {}} />);
+
+    // A keyboard user tabs into the grid rather than relying on autoFocus.
+    day(/Nov 13, 2026/).focus();
+    await user.keyboard('{ArrowRight}');
+    expect(day(/Nov 14, 2026/)).toHaveFocus();
+    await user.keyboard('{ArrowDown}');
+    expect(day(/Nov 21, 2026/)).toHaveFocus();
+  });
+
+  it('selects with Space', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <Calendar today={TODAY} value="2026-11-13" autoFocus onValueChange={onValueChange} />
+    );
+    await waitFor(() => expect(day(/Nov 13, 2026/)).toHaveFocus());
+
+    await user.keyboard(' ');
+    expect(onValueChange).toHaveBeenCalledWith('2026-11-13');
+  });
+
+  it('treats min and max as inclusive', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <Calendar
+        today={TODAY}
+        value="2026-11-13"
+        min="2026-11-13"
+        max="2026-11-15"
+        onValueChange={onValueChange}
+      />
+    );
+
+    expect(day(/Nov 13, 2026/)).not.toHaveAttribute('aria-disabled');
+    expect(day(/Nov 15, 2026/)).not.toHaveAttribute('aria-disabled');
+    expect(day(/Nov 12, 2026/)).toHaveAttribute('aria-disabled', 'true');
+    expect(day(/Nov 16, 2026/)).toHaveAttribute('aria-disabled', 'true');
+
+    await user.click(day(/Nov 15, 2026/));
+    expect(onValueChange).toHaveBeenCalledWith('2026-11-15');
+  });
+
+  it('clamps the day when paging months from the 31st', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <Calendar today="2026-01-31" value="2026-01-31" autoFocus onValueChange={onValueChange} />
+    );
+    await waitFor(() => expect(day(/Jan 31, 2026/)).toHaveFocus());
+
+    await user.keyboard('{PageDown}');
+    await waitFor(() => expect(day(/Feb 28, 2026/)).toHaveFocus());
+    await user.keyboard('{Enter}');
+    expect(onValueChange).toHaveBeenCalledWith('2026-02-28');
+  });
+
+  it('renders a usable grid for an unparseable value', () => {
+    render(<Calendar today={TODAY} value="not-a-date" onValueChange={() => {}} />);
+    expect(screen.getByRole('grid', { name: 'January 1970' })).toBeInTheDocument();
+  });
+
+  it('marks every day unavailable when disabled', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <Calendar today={TODAY} value="2026-11-13" disabled onValueChange={onValueChange} />
+    );
+    expect(day(/Nov 15, 2026/)).toHaveAttribute('aria-disabled', 'true');
+    await user.click(day(/Nov 15, 2026/));
+    expect(onValueChange).not.toHaveBeenCalled();
   });
 });
