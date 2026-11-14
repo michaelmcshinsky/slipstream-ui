@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 110 components, each shipping a
+The AI-first React component library. 112 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 93
+## Core components (@slipstream-ui/core) — 95
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -25,6 +25,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Breadcrumb](https://slipstreamui.com/llm/components/breadcrumb.md) — Navigation breadcrumb trail with links and current-page indicator
 - [Button](https://slipstreamui.com/llm/components/button.md) — A clickable button component with variants for different visual styles and sizes
 - [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
+- [Calendar](https://slipstreamui.com/llm/components/calendar.md) — Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
@@ -34,6 +35,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
+- [DatePickerPopover](https://slipstreamui.com/llm/components/date-picker-popover.md) — Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 - [DateRangePicker](https://slipstreamui.com/llm/components/date-range-picker.md) — Start/end date range with ISO strings and quick presets.
 - [DealCard](https://slipstreamui.com/llm/components/deal-card.md) — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -70,7 +72,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
-- [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+- [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 - [ProcessSteps](https://slipstreamui.com/llm/components/process-steps.md) — Ordered process cards with derived step numbers or custom icons.
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
@@ -1406,6 +1408,82 @@ Mix variants freely as long as each button keeps a border.
 
 ---
 
+# Calendar
+
+Month grid with ISO date keys, min/max bounds and full keyboard navigation.
+
+> Import: `import { Calendar } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/calendar.json
+> Tier: organism · Package: @slipstream-ui/core
+
+## Design intent
+
+A native date input renders browser chrome that cannot be themed and differs per browser. Calendar is the visible grid behind a date field: controlled by ISO strings so a timezone cannot shift the chosen day, keyboard-operable cell by cell, and usable standalone or inside a Popover.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| value | `string` | — | no | Selected day as `YYYY-MM-DD` (controlled). |
+| defaultValue | `string` | — | no | Initial day when uncontrolled. |
+| onValueChange | `(value: string) => void` | — | no | Fired with the ISO key when a day is chosen. |
+| min | `string` | — | no | Earliest selectable day, inclusive. |
+| max | `string` | — | no | Latest selectable day, inclusive. |
+| today | `string` | — | no | Overrides the highlighted today, for deterministic rendering. |
+| locale | `string` | `en-US` | no | BCP-47 locale for month and weekday labels. |
+| weekStartsOn | `0 | 1` | `0` | no | 0 starts the week on Sunday, 1 on Monday. |
+| isDateDisabled | `(value: string) => boolean` | — | no | Blocks individual days beyond min/max. |
+| showOutsideDays | `boolean` | `true` | no | Show leading/trailing days from neighbouring months. |
+| autoFocus | `boolean` | `false` | no | Focus the active day on mount, for popover use. |
+| disabled | `boolean` | — | no | Disables every day and the month controls. |
+| className | `string` | — | no | Additional CSS classes. |
+| aria-label | `string` | — | no | Overrides the grid label (defaults to the month name). |
+
+## Examples
+
+### Controlled calendar
+
+ISO strings in and out.
+
+```tsx
+<Calendar value={date} onValueChange={setDate} min="2026-01-01" max="2026-12-31" />
+```
+
+### Monday-first with blocked days
+
+Locale-aware week start and a predicate for holidays.
+
+```tsx
+<Calendar weekStartsOn={1} locale="es-ES" isDateDisabled={(d) => d.endsWith('-01')} />
+```
+
+## Anti-patterns
+
+- **Don't store Date objects** — A Date crossing a timezone boundary can land on the previous or next day. Keep ISO `YYYY-MM-DD` keys until you need to format them.
+- **Don't disable days by removing them** — Removing cells breaks the grid rhythm and keyboard movement. Mark them with min/max/isDateDisabled so they stay visible.
+
+## Accessibility
+
+- **Grid semantics**: role=grid with rows, columnheaders and gridcells; the month label is announced and polite.
+- **Keyboard**: Arrows move by day/week, Home/End jump to week bounds, PageUp/PageDown change month, Enter/Space selects.
+- **Selection state**: aria-selected on the gridcell and aria-current="date" for today.
+
+## Composition
+
+- Compose with **Popover** — Wrap Calendar in PopoverContent for a date field
+  
+  ```tsx
+  <PopoverContent><Calendar autoFocus /></PopoverContent>
+  ```
+- Compose with **DatePickerPopover** — Use DatePickerPopover when the field and panel should ship together
+  
+  ```tsx
+  <DatePickerPopover value={date} onValueChange={setDate} />
+  ```
+- Related: DatePicker, DatePickerPopover, Popover, DateRangePicker
+
+---
+
 # Card
 
 A content container with header, body, and footer sections for grouping related information
@@ -2371,6 +2449,91 @@ Controlled ISO value with a clear button.
   <FormField id="start" label="Start date"><DatePicker /></FormField>
   ```
 - Related: TimePicker, FormField, Input
+
+---
+
+# DatePickerPopover
+
+Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
+
+> Import: `import { DatePickerPopover } from '@slipstream-ui/core'`
+> Registry: https://slipstreamui.com/registry/date-picker-popover.json
+> Tier: molecule · Package: @slipstream-ui/core
+
+## Design intent
+
+The native date input opens browser chrome that differs per browser. DatePickerPopover pairs a themed trigger with Calendar in a Popover, so the visible month, week start and disabled days are yours, while the value remains a plain ISO string.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| value | `string` | — | no | Selected day as `YYYY-MM-DD`. |
+| onValueChange | `(value: string) => void` | — | no | Fired with the ISO key when a day is chosen. |
+| min | `string` | — | no | Earliest selectable day. |
+| max | `string` | — | no | Latest selectable day. |
+| today | `string` | — | no | Overrides the highlighted today. |
+| locale | `string` | `en-US` | no | Locale for the trigger label and the grid. |
+| weekStartsOn | `0 | 1` | `0` | no | Week start for the panel. |
+| placeholder | `string` | `Pick a date` | no | Trigger text before a date is chosen. |
+| name | `string` | — | no | Renders a hidden input so the value posts with a native form. |
+| required | `boolean` | — | no | Marks the hidden input required. |
+| disabled | `boolean` | — | no | Disables the trigger. |
+| side | `'top' | 'right' | 'bottom' | 'left'` | `bottom` | no | Preferred side of the panel; flips when it cannot fit. |
+| align | `'start' | 'center' | 'end'` | `start` | no | Cross-axis alignment of the panel. |
+| id | `string` | — | no | Id for the trigger button, for label association. |
+| className | `string` | — | no | Additional CSS classes on the trigger. |
+| aria-label | `string` | — | no | Accessible name for the trigger. |
+
+## Examples
+
+### Basic
+
+Themed field with a calendar panel.
+
+```tsx
+<DatePickerPopover value={date} onValueChange={setDate} />
+```
+
+### Bounded
+
+Only future dates, opening upward.
+
+```tsx
+<DatePickerPopover value={date} onValueChange={setDate} min={today} max={in90Days} side="top" />
+```
+
+### In a form
+
+Hidden input carries the ISO value.
+
+```tsx
+<form><Label htmlFor="d">Date</Label><DatePickerPopover id="d" name="date" required value={date} onValueChange={setDate} /></form>
+```
+
+## Anti-patterns
+
+- **Don't parse the label** — The visible text is localized. Read the ISO value, never the trigger text.
+- **Don't nest inside another dialog** — Popover is non-modal; nesting it in a Dialog works, but nesting a Dialog inside it does not. Use a Drawer for long forms.
+
+## Accessibility
+
+- **Trigger semantics**: The trigger is a button with aria-haspopup="dialog" and aria-expanded.
+- **Keyboard**: Enter/Space opens; arrows navigate; Enter selects and returns focus to the trigger; Escape closes.
+
+## Composition
+
+- Compose with **Calendar** — The panel is a Calendar; use it directly for an inline grid
+  
+  ```tsx
+  <Calendar value={date} onValueChange={setDate} />
+  ```
+- Compose with **FormField** — Wrap with FormField for label, hint and error wiring
+  
+  ```tsx
+  <FormField label="Date"><DatePickerPopover /></FormField>
+  ```
+- Related: Calendar, DatePicker, Popover, DateRangePicker, FormField
 
 ---
 
@@ -5142,7 +5305,7 @@ Input props pass through.
 
 # Popover
 
-Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 
 > Import: `import { Popover } from '@slipstream-ui/core'`
 > Registry: https://slipstreamui.com/registry/popover.json
@@ -5150,7 +5313,7 @@ Floating panel anchored to a trigger with interactive content, closing on outsid
 
 ## Design intent
 
-Popover displays interactive content (links, buttons, forms) in a floating panel. Unlike Tooltip, the content is focusable and actionable. Closes on outside click and Escape.
+Popover displays interactive content (links, buttons, forms) in a floating panel. The panel prefers the requested side, flips when that side cannot fit, and clamps inside the viewport, so it is never clipped by the window edge or an ancestor's overflow.
 
 ## Props
 
@@ -5160,6 +5323,12 @@ Popover displays interactive content (links, buttons, forms) in a floating panel
 | onOpenChange | `(open: boolean) => void` | — | no | Called when the open state changes |
 | children | `ReactNode` | — | yes | PopoverTrigger and PopoverContent children |
 | className | `string` | — | no | Additional CSS classes to apply |
+| side | `'top' | 'right' | 'bottom' | 'left'` | `bottom` | no | Preferred side of the anchor; flips to the opposite side when it cannot fit. |
+| align | `'start' | 'center' | 'end'` | `start` | no | Cross-axis alignment of the panel against the anchor. |
+| sideOffset | `number` | `8` | no | Gap in pixels between the anchor and the panel. |
+| alignOffset | `number` | `0` | no | Nudge in pixels along the cross axis. |
+| collisionPadding | `number` | `8` | no | Minimum distance the panel keeps from the viewport edges. |
+| matchTriggerWidth | `boolean` | `false` | no | Set the panel width to the anchor width, for select-like panels. |
 
 ## Examples
 
@@ -5190,10 +5359,37 @@ Popover driven by parent state
 </Popover>
 ```
 
+### Placement
+
+The panel opens to the right and flips left when there is no room.
+
+```tsx
+<Popover>
+  <PopoverTrigger>Filters</PopoverTrigger>
+  <PopoverContent side="right" align="start" sideOffset={12}>
+    <FilterPanel />
+  </PopoverContent>
+</Popover>
+```
+
+### Anchored to a field
+
+PopoverAnchor places the panel against the field, not the wrapper.
+
+```tsx
+<Popover>
+  <PopoverAnchor><Input placeholder="Pick a date" /></PopoverAnchor>
+  <PopoverContent matchTriggerWidth>
+    <Calendar value={date} onValueChange={setDate} />
+  </PopoverContent>
+</Popover>
+```
+
 ## Anti-patterns
 
 - **Don't use Popover for plain text hints** — Use Tooltip for non-interactive hints. Popover is for interactive content.
 - **Don't use Popover for critical forms or destructive actions** — Popovers close on outside click, which can interrupt form filling. Use Dialog for forms and destructive confirmations.
+- **Don't build a custom floating panel** — Placement, flipping, viewport clamping, scroll anchoring and dismissal are already handled. A hand-rolled portal by definition has none of them.
 
 ## Accessibility
 
@@ -5206,6 +5402,11 @@ Popover driven by parent state
   
   ```tsx
   <PopoverTrigger>Open</PopoverTrigger>
+  ```
+- Compose with **PopoverAnchor** — Use PopoverAnchor when the panel belongs to a field rather than the trigger button
+  
+  ```tsx
+  <PopoverAnchor><Input /></PopoverAnchor>
   ```
 - Related: Tooltip, Dialog, Menu
 

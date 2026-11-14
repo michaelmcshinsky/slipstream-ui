@@ -39,7 +39,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 93
+## Core components (@slipstream-ui/core) — 95
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -56,6 +56,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Breadcrumb — Navigation breadcrumb trail with links and current-page indicator
 - Button — A clickable button component with variants for different visual styles and sizes
 - ButtonGroup — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
+- Calendar — Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 - Card — A content container with header, body, and footer sections for grouping related information
 - Checkbox — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - ComparisonTable — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
@@ -65,6 +66,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - CTASection — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - DatePicker — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
+- DatePickerPopover — Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 - DateRangePicker — Start/end date range with ISO strings and quick presets.
 - DealCard — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - Dialog — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -101,7 +103,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - PageHeader — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - Pagination — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - PasswordInput — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
-- Popover — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+- Popover — Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 - ProcessSteps — Ordered process cards with derived step numbers or custom icons.
 - Progress — A determinate progress bar with role=progressbar and exact value semantics
 - Prose — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.

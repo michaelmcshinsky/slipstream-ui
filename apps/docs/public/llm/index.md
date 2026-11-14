@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 110 components, each shipping a
+The AI-first React component library. 112 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 93
+## Core components (@slipstream-ui/core) — 95
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -25,6 +25,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Breadcrumb](https://slipstreamui.com/llm/components/breadcrumb.md) — Navigation breadcrumb trail with links and current-page indicator
 - [Button](https://slipstreamui.com/llm/components/button.md) — A clickable button component with variants for different visual styles and sizes
 - [ButtonGroup](https://slipstreamui.com/llm/components/button-group.md) — Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
+- [Calendar](https://slipstreamui.com/llm/components/calendar.md) — Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 - [Card](https://slipstreamui.com/llm/components/card.md) — A content container with header, body, and footer sections for grouping related information
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
@@ -34,6 +35,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
+- [DatePickerPopover](https://slipstreamui.com/llm/components/date-picker-popover.md) — Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 - [DateRangePicker](https://slipstreamui.com/llm/components/date-range-picker.md) — Start/end date range with ISO strings and quick presets.
 - [DealCard](https://slipstreamui.com/llm/components/deal-card.md) — Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 - [Dialog](https://slipstreamui.com/llm/components/dialog.md) — Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
@@ -70,7 +72,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 - [Pagination](https://slipstreamui.com/llm/components/pagination.md) — Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 - [PasswordInput](https://slipstreamui.com/llm/components/password-input.md) — Password field with an accessible show/hide toggle (aria-pressed), built on Input.
-- [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger with interactive content, closing on outside click and Escape
+- [Popover](https://slipstreamui.com/llm/components/popover.md) — Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 - [ProcessSteps](https://slipstreamui.com/llm/components/process-steps.md) — Ordered process cards with derived step numbers or custom icons.
 - [Progress](https://slipstreamui.com/llm/components/progress.md) — A determinate progress bar with role=progressbar and exact value semantics
 - [Prose](https://slipstreamui.com/llm/components/prose.md) — Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
