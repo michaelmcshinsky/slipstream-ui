@@ -103,3 +103,125 @@ describe('computePosition', () => {
     expect(result.top).toBe(8);
   });
 });
+
+describe('computePosition edge cases', () => {
+  it('flips from top to bottom when there is no room above', () => {
+    const result = computePosition({
+      anchor: { ...anchor, top: 20 },
+      content,
+      viewport,
+      side: 'top',
+    });
+    expect(result.side).toBe('bottom');
+    expect(result).toEqual({ top: 64, left: 100, side: 'bottom' });
+  });
+
+  it('flips from left to right when there is no room on the left', () => {
+    const result = computePosition({
+      anchor: { ...anchor, left: 20 },
+      content,
+      viewport,
+      side: 'left',
+    });
+    expect(result).toEqual({ top: 200, left: 148, side: 'right' });
+  });
+
+  it('does not flip when the preferred side fits exactly', () => {
+    // spaceFor('bottom') === content.height, and the flip test is strict.
+    const result = computePosition({
+      anchor: { ...anchor, top: 544 },
+      content,
+      viewport,
+    });
+    expect(result.side).toBe('bottom');
+    // Still clamped to viewport - content - collisionPadding.
+    expect(result.top).toBe(768 - 180 - 8);
+  });
+
+  it('aligns end and center without clamping when there is room', () => {
+    const wideAnchor = { ...anchor, left: 500 };
+    expect(computePosition({ anchor: wideAnchor, content, viewport, align: 'end' }).left).toBe(332);
+    expect(computePosition({ anchor: wideAnchor, content, viewport, align: 'center' }).left).toBe(
+      416
+    );
+  });
+
+  it('clamps the cross axis against the viewport height for horizontal sides', () => {
+    const result = computePosition({
+      anchor: { top: 700, left: 300, width: 120, height: 36 },
+      content: { width: 200, height: 600 },
+      viewport,
+      side: 'right',
+    });
+    expect(result.top).toBe(160);
+    expect(result.left).toBe(428);
+    expect(result.side).toBe('right');
+  });
+
+  it('clamps the main axis when a horizontal panel is wider than the viewport', () => {
+    const result = computePosition({
+      anchor: { ...anchor, left: 500 },
+      content: { width: 1200, height: 100 },
+      viewport,
+      side: 'right',
+    });
+    expect(result.left).toBe(8);
+  });
+
+  it('clamps a negative alignOffset back inside the padding', () => {
+    const result = computePosition({
+      anchor: { top: 200, left: 0, width: 120, height: 36 },
+      content,
+      viewport,
+      alignOffset: -40,
+    });
+    expect(result.left).toBe(8);
+  });
+
+  it('clamps an alignOffset that pushes past the right edge', () => {
+    const result = computePosition({
+      anchor: { top: 200, left: 900, width: 120, height: 36 },
+      content,
+      viewport,
+      alignOffset: 100,
+    });
+    expect(result.left).toBe(1024 - 288 - 8);
+  });
+
+  it('handles a zero-size anchor at the origin', () => {
+    expect(
+      computePosition({
+        anchor: { top: 0, left: 0, width: 0, height: 0 },
+        content,
+        viewport,
+      })
+    ).toEqual({ top: 8, left: 8, side: 'bottom' });
+  });
+
+  it('treats explicit defaults the same as omitted options', () => {
+    expect(
+      computePosition({
+        anchor,
+        content,
+        viewport,
+        side: 'bottom',
+        align: 'start',
+        sideOffset: 8,
+        alignOffset: 0,
+        collisionPadding: 8,
+      })
+    ).toEqual(computePosition({ anchor, content, viewport }));
+  });
+
+  it('flips a top panel down and keeps it inside the viewport', () => {
+    const result = computePosition({
+      anchor: { top: 8, left: 24, width: 160, height: 40 },
+      content: { width: 288, height: 400 },
+      viewport,
+      side: 'top',
+    });
+    expect(result.side).toBe('bottom');
+    expect(result.top).toBeGreaterThanOrEqual(8);
+    expect(result.top + 400).toBeLessThanOrEqual(768 - 8);
+  });
+});
