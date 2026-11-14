@@ -2,8 +2,8 @@
   "id": "popover",
   "name": "Popover",
   "tier": "molecule",
-  "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
-  "designIntent": "Popover displays interactive content (links, buttons, forms) in a floating panel. Unlike Tooltip, the content is focusable and actionable. Closes on outside click and Escape.",
+  "description": "Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape",
+  "designIntent": "Popover displays interactive content (links, buttons, forms) in a floating panel. The panel prefers the requested side, flips when that side cannot fit, and clamps inside the viewport, so it is never clipped by the window edge or an ancestor's overflow.",
   "props": [
     {
       "name": "open",
@@ -28,6 +28,68 @@
       "type": "string",
       "required": false,
       "description": "Additional CSS classes to apply"
+    },
+    {
+      "name": "side",
+      "type": "'top' | 'right' | 'bottom' | 'left'",
+      "defaultValue": "bottom",
+      "required": false,
+      "description": "Preferred side of the anchor; flips to the opposite side when it cannot fit.",
+      "enum": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "examples": [
+        "bottom",
+        "top",
+        "right"
+      ]
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'center' | 'end'",
+      "defaultValue": "start",
+      "required": false,
+      "description": "Cross-axis alignment of the panel against the anchor.",
+      "enum": [
+        "start",
+        "center",
+        "end"
+      ],
+      "examples": [
+        "start",
+        "center"
+      ]
+    },
+    {
+      "name": "sideOffset",
+      "type": "number",
+      "defaultValue": "8",
+      "required": false,
+      "description": "Gap in pixels between the anchor and the panel."
+    },
+    {
+      "name": "alignOffset",
+      "type": "number",
+      "defaultValue": "0",
+      "required": false,
+      "description": "Nudge in pixels along the cross axis."
+    },
+    {
+      "name": "collisionPadding",
+      "type": "number",
+      "defaultValue": "8",
+      "required": false,
+      "description": "Minimum distance the panel keeps from the viewport edges."
+    },
+    {
+      "name": "matchTriggerWidth",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Set the panel width to the anchor width, for select-like panels."
     }
   ],
   "examples": [
@@ -40,6 +102,16 @@
       "title": "Controlled popover",
       "code": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>Options</PopoverTrigger>\n  <PopoverContent>\n    <form>...</form>\n  </PopoverContent>\n</Popover>",
       "description": "Popover driven by parent state"
+    },
+    {
+      "title": "Placement",
+      "code": "<Popover>\n  <PopoverTrigger>Filters</PopoverTrigger>\n  <PopoverContent side=\"right\" align=\"start\" sideOffset={12}>\n    <FilterPanel />\n  </PopoverContent>\n</Popover>",
+      "description": "The panel opens to the right and flips left when there is no room."
+    },
+    {
+      "title": "Anchored to a field",
+      "code": "<Popover>\n  <PopoverAnchor><Input placeholder=\"Pick a date\" /></PopoverAnchor>\n  <PopoverContent matchTriggerWidth>\n    <Calendar value={date} onValueChange={setDate} />\n  </PopoverContent>\n</Popover>",
+      "description": "PopoverAnchor places the panel against the field, not the wrapper."
     }
   ],
   "antiPatterns": [
@@ -51,6 +123,11 @@
     {
       "title": "Don't use Popover for critical forms or destructive actions",
       "explanation": "Popovers close on outside click, which can interrupt form filling. Use Dialog for forms and destructive confirmations."
+    },
+    {
+      "title": "Don't build a custom floating panel",
+      "explanation": "Placement, flipping, viewport clamping, scroll anchoring and dismissal are already handled. A hand-rolled portal by definition has none of them.",
+      "example": "// Avoid\n<div style={{ position: 'fixed', top: rect.bottom }}>...</div>\n\n// Prefer\n<PopoverContent side=\"bottom\" collisionPadding={8}>...</PopoverContent>"
     }
   ],
   "accessibility": [
@@ -89,6 +166,11 @@
       "component": "PopoverTrigger",
       "relationship": "Every Popover needs a PopoverTrigger",
       "example": "<PopoverTrigger>Open</PopoverTrigger>"
+    },
+    {
+      "component": "PopoverAnchor",
+      "relationship": "Use PopoverAnchor when the panel belongs to a field rather than the trigger button",
+      "example": "<PopoverAnchor><Input /></PopoverAnchor>"
     }
   ],
   "relatedComponents": [

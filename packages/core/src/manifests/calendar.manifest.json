@@ -1,0 +1,175 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "tier": "organism",
+  "description": "Month grid with ISO date keys, min/max bounds and full keyboard navigation.",
+  "designIntent": "A native date input renders browser chrome that cannot be themed and differs per browser. Calendar is the visible grid behind a date field: controlled by ISO strings so a timezone cannot shift the chosen day, keyboard-operable cell by cell, and usable standalone or inside a Popover.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected day as `YYYY-MM-DD` (controlled)."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial day when uncontrolled."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the ISO key when a day is chosen."
+    },
+    {
+      "name": "min",
+      "type": "string",
+      "required": false,
+      "description": "Earliest selectable day, inclusive."
+    },
+    {
+      "name": "max",
+      "type": "string",
+      "required": false,
+      "description": "Latest selectable day, inclusive."
+    },
+    {
+      "name": "today",
+      "type": "string",
+      "required": false,
+      "description": "Overrides the highlighted today, for deterministic rendering."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "defaultValue": "en-US",
+      "description": "BCP-47 locale for month and weekday labels."
+    },
+    {
+      "name": "weekStartsOn",
+      "type": "0 | 1",
+      "required": false,
+      "defaultValue": "0",
+      "description": "0 starts the week on Sunday, 1 on Monday."
+    },
+    {
+      "name": "isDateDisabled",
+      "type": "(value: string) => boolean",
+      "required": false,
+      "description": "Blocks individual days beyond min/max."
+    },
+    {
+      "name": "showOutsideDays",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "true",
+      "description": "Show leading/trailing days from neighbouring months."
+    },
+    {
+      "name": "autoFocus",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Focus the active day on mount, for popover use."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables every day and the month controls."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "description": "Overrides the grid label (defaults to the month name)."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Controlled calendar",
+      "code": "<Calendar value={date} onValueChange={setDate} min=\"2026-01-01\" max=\"2026-12-31\" />",
+      "description": "ISO strings in and out."
+    },
+    {
+      "title": "Monday-first with blocked days",
+      "code": "<Calendar weekStartsOn={1} locale=\"es-ES\" isDateDisabled={(d) => d.endsWith('-01')} />",
+      "description": "Locale-aware week start and a predicate for holidays."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't store Date objects",
+      "explanation": "A Date crossing a timezone boundary can land on the previous or next day. Keep ISO `YYYY-MM-DD` keys until you need to format them.",
+      "example": "// Avoid\nonValueChange={(d) => setDate(d.toISOString())}\n\n// Prefer\nonValueChange={setDateKey}"
+    },
+    {
+      "title": "Don't disable days by removing them",
+      "explanation": "Removing cells breaks the grid rhythm and keyboard movement. Mark them with min/max/isDateDisabled so they stay visible."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Grid semantics",
+      "implementation": "role=grid with rows, columnheaders and gridcells; the month label is announced and polite.",
+      "userRequirements": "Provide aria-label when several calendars share a page."
+    },
+    {
+      "feature": "Keyboard",
+      "implementation": "Arrows move by day/week, Home/End jump to week bounds, PageUp/PageDown change month, Enter/Space selects.",
+      "userRequirements": "One tab stop; roving tabindex keeps the grid compact."
+    },
+    {
+      "feature": "Selection state",
+      "implementation": "aria-selected on the gridcell and aria-current=\"date\" for today.",
+      "userRequirements": "Do not communicate selection by colour alone."
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Day labels",
+      "guidelines": [
+        "Use the full date as the accessible name",
+        "Keep visible cells to the day number"
+      ],
+      "goodExamples": [
+        "13"
+      ],
+      "badExamples": [
+        "Nov 13"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Popover",
+      "relationship": "Wrap Calendar in PopoverContent for a date field",
+      "example": "<PopoverContent><Calendar autoFocus /></PopoverContent>"
+    },
+    {
+      "component": "DatePickerPopover",
+      "relationship": "Use DatePickerPopover when the field and panel should ship together",
+      "example": "<DatePickerPopover value={date} onValueChange={setDate} />"
+    }
+  ],
+  "relatedComponents": [
+    "DatePicker",
+    "DatePickerPopover",
+    "Popover",
+    "DateRangePicker"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.8.0",
+  "sourceDir": "calendar",
+  "exportName": "Calendar"
+}

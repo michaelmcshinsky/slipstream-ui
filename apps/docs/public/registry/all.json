@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 110,
+  "count": 112,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -141,6 +141,14 @@
       "registry": "/registry/button-group.json"
     },
     {
+      "id": "calendar",
+      "name": "Calendar",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "description": "Month grid with ISO date keys, min/max bounds and full keyboard navigation.",
+      "registry": "/registry/calendar.json"
+    },
+    {
       "id": "card",
       "name": "Card",
       "package": "@slipstream-ui/core",
@@ -251,6 +259,14 @@
       "tier": "molecule",
       "description": "Native date field with an ISO-string contract, min/max passthrough and an optional clear button.",
       "registry": "/registry/date-picker.json"
+    },
+    {
+      "id": "date-picker-popover",
+      "name": "DatePickerPopover",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Date field with a Calendar panel, ISO strings, min/max and keyboard selection.",
+      "registry": "/registry/date-picker-popover.json"
     },
     {
       "id": "date-range-picker",
@@ -569,7 +585,7 @@
       "name": "Popover",
       "package": "@slipstream-ui/core",
       "tier": "molecule",
-      "description": "Floating panel anchored to a trigger with interactive content, closing on outside click and Escape",
+      "description": "Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape",
       "registry": "/registry/popover.json"
     },
     {

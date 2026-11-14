@@ -7,7 +7,7 @@ estimate_hours: 6
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:feature", "p2"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** `AuthLayout` is a centered card. Consumers with a branded aside

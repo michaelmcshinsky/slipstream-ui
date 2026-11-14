@@ -1,0 +1,227 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "date-picker-popover",
+  "name": "date-picker-popover",
+  "tier": "molecule",
+  "description": "Date field with a Calendar panel, ISO strings, min/max and keyboard selection.",
+  "designIntent": "The native date input opens browser chrome that differs per browser. DatePickerPopover pairs a themed trigger with Calendar in a Popover, so the visible month, week start and disabled days are yours, while the value remains a plain ISO string.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected day as `YYYY-MM-DD`."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Fired with the ISO key when a day is chosen."
+    },
+    {
+      "name": "min",
+      "type": "string",
+      "required": false,
+      "description": "Earliest selectable day."
+    },
+    {
+      "name": "max",
+      "type": "string",
+      "required": false,
+      "description": "Latest selectable day."
+    },
+    {
+      "name": "today",
+      "type": "string",
+      "required": false,
+      "description": "Overrides the highlighted today."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "defaultValue": "en-US",
+      "description": "Locale for the trigger label and the grid."
+    },
+    {
+      "name": "weekStartsOn",
+      "type": "0 | 1",
+      "required": false,
+      "defaultValue": "0",
+      "description": "Week start for the panel."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Pick a date",
+      "description": "Trigger text before a date is chosen."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Renders a hidden input so the value posts with a native form."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": "Marks the hidden input required."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables the trigger."
+    },
+    {
+      "name": "side",
+      "type": "'top' | 'right' | 'bottom' | 'left'",
+      "required": false,
+      "defaultValue": "bottom",
+      "enum": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "description": "Preferred side of the panel; flips when it cannot fit."
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'center' | 'end'",
+      "required": false,
+      "defaultValue": "start",
+      "enum": [
+        "start",
+        "center",
+        "end"
+      ],
+      "description": "Cross-axis alignment of the panel."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Id for the trigger button, for label association."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Additional CSS classes on the trigger."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name for the trigger."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic",
+      "code": "<DatePickerPopover value={date} onValueChange={setDate} />",
+      "description": "Themed field with a calendar panel."
+    },
+    {
+      "title": "Bounded",
+      "code": "<DatePickerPopover value={date} onValueChange={setDate} min={today} max={in90Days} side=\"top\" />",
+      "description": "Only future dates, opening upward."
+    },
+    {
+      "title": "In a form",
+      "code": "<form><Label htmlFor=\"d\">Date</Label><DatePickerPopover id=\"d\" name=\"date\" required value={date} onValueChange={setDate} /></form>",
+      "description": "Hidden input carries the ISO value."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't parse the label",
+      "explanation": "The visible text is localized. Read the ISO value, never the trigger text.",
+      "example": "// Avoid\nnew Date(trigger.textContent)\n\n// Prefer\nconst value = dateKey"
+    },
+    {
+      "title": "Don't nest inside another dialog",
+      "explanation": "Popover is non-modal; nesting it in a Dialog works, but nesting a Dialog inside it does not. Use a Drawer for long forms."
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Trigger semantics",
+      "implementation": "The trigger is a button with aria-haspopup=\"dialog\" and aria-expanded.",
+      "userRequirements": "Give it a label when the field has no visible one."
+    },
+    {
+      "feature": "Keyboard",
+      "implementation": "Enter/Space opens; arrows navigate; Enter selects and returns focus to the trigger; Escape closes.",
+      "userRequirements": "Do not trap focus: the panel is non-modal."
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Trigger label",
+      "guidelines": [
+        "Show a localized date once chosen",
+        "Show a short placeholder before"
+      ],
+      "goodExamples": [
+        "Nov 13, 2026",
+        "Pick a date"
+      ],
+      "badExamples": [
+        "2026-11-13",
+        "Select"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Calendar",
+      "relationship": "The panel is a Calendar; use it directly for an inline grid",
+      "example": "<Calendar value={date} onValueChange={setDate} />"
+    },
+    {
+      "component": "FormField",
+      "relationship": "Wrap with FormField for label, hint and error wiring",
+      "example": "<FormField label=\"Date\"><DatePickerPopover /></FormField>"
+    }
+  ],
+  "relatedComponents": [
+    "Calendar",
+    "DatePicker",
+    "Popover",
+    "DateRangePicker",
+    "FormField"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.8.0",
+  "sourceDir": "date-picker-popover",
+  "exportName": "DatePickerPopover",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/date-picker-popover/DatePickerPopover.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { formatDateLabel } from '../../utils/date';\nimport { buttonVariants } from '../button';\nimport { Calendar } from '../calendar';\nimport { Popover, PopoverContent, PopoverTrigger } from '../popover';\n\nexport type DatePickerPopoverProps = {\n  /** Selected date as an ISO key (`YYYY-MM-DD`). */\n  value?: string;\n  /** Called with the ISO key when a day is chosen. */\n  onValueChange?: (value: string) => void;\n  /** Earliest selectable day, inclusive. */\n  min?: string;\n  /** Latest selectable day, inclusive. */\n  max?: string;\n  /** Override \"today\" for deterministic rendering. */\n  today?: string;\n  locale?: string;\n  weekStartsOn?: 0 | 1;\n  /** Text shown before a date is chosen. */\n  placeholder?: string;\n  /** Renders a hidden input so the value posts with a native form. */\n  name?: string;\n  required?: boolean;\n  disabled?: boolean;\n  /** Preferred side of the field; flips when it cannot fit. */\n  side?: 'top' | 'right' | 'bottom' | 'left';\n  align?: 'start' | 'center' | 'end';\n  id?: string;\n  className?: string;\n  'aria-label'?: string;\n};\n\n/**\n * Date field with a month-grid panel. Values stay ISO `YYYY-MM-DD` strings, so\n * a browser in a different zone cannot shift the chosen day.\n */\nconst DatePickerPopover = React.forwardRef<HTMLButtonElement, DatePickerPopoverProps>(\n  (\n    {\n      value,\n      onValueChange,\n      min,\n      max,\n      today,\n      locale = 'en-US',\n      weekStartsOn = 0,\n      placeholder = 'Pick a date',\n      name,\n      required,\n      disabled,\n      side = 'bottom',\n      align = 'start',\n      id,\n      className,\n      'aria-label': ariaLabel,\n    },\n    ref\n  ) => {\n    const [open, setOpen] = React.useState(false);\n    const triggerRef = React.useRef<HTMLButtonElement | null>(null);\n    const setTriggerRef = React.useCallback(\n      (node: HTMLButtonElement | null) => {\n        triggerRef.current = node;\n        if (typeof ref === 'function') ref(node);\n        else if (ref) ref.current = node;\n      },\n      [ref]\n    );\n\n    const label = value ? formatDateLabel(value, locale) : placeholder;\n\n    return (\n      <>\n        <Popover open={open} onOpenChange={setOpen}>\n          <PopoverTrigger\n            ref={setTriggerRef}\n            id={id}\n            disabled={disabled}\n            aria-label={ariaLabel}\n            className={cn(\n              buttonVariants({ variant: 'outline' }),\n              'w-full justify-start font-normal',\n              !value && 'text-muted-foreground',\n              className\n            )}\n          >\n            {label}\n          </PopoverTrigger>\n          <PopoverContent side={side} align={align} matchTriggerWidth className=\"w-auto p-3\">\n            <Calendar\n              value={value}\n              min={min}\n              max={max}\n              today={today}\n              locale={locale}\n              weekStartsOn={weekStartsOn}\n              autoFocus\n              onValueChange={(next) => {\n                onValueChange?.(next);\n                setOpen(false);\n                triggerRef.current?.focus();\n              }}\n            />\n          </PopoverContent>\n        </Popover>\n        {name ? <input type=\"hidden\" name={name} value={value ?? ''} required={required} /> : null}\n      </>\n    );\n  }\n);\nDatePickerPopover.displayName = 'DatePickerPopover';\n\nexport { DatePickerPopover };\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/date-picker-popover/index.ts",
+      "content": "export * from './DatePickerPopover';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/date-picker-popover.manifest.json",
+      "content": "{\n  \"id\": \"date-picker-popover\",\n  \"name\": \"DatePickerPopover\",\n  \"tier\": \"molecule\",\n  \"description\": \"Date field with a Calendar panel, ISO strings, min/max and keyboard selection.\",\n  \"designIntent\": \"The native date input opens browser chrome that differs per browser. DatePickerPopover pairs a themed trigger with Calendar in a Popover, so the visible month, week start and disabled days are yours, while the value remains a plain ISO string.\",\n  \"props\": [\n    {\n      \"name\": \"value\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Selected day as `YYYY-MM-DD`.\"\n    },\n    {\n      \"name\": \"onValueChange\",\n      \"type\": \"(value: string) => void\",\n      \"required\": false,\n      \"description\": \"Fired with the ISO key when a day is chosen.\"\n    },\n    {\n      \"name\": \"min\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Earliest selectable day.\"\n    },\n    {\n      \"name\": \"max\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Latest selectable day.\"\n    },\n    {\n      \"name\": \"today\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Overrides the highlighted today.\"\n    },\n    {\n      \"name\": \"locale\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"en-US\",\n      \"description\": \"Locale for the trigger label and the grid.\"\n    },\n    {\n      \"name\": \"weekStartsOn\",\n      \"type\": \"0 | 1\",\n      \"required\": false,\n      \"defaultValue\": \"0\",\n      \"description\": \"Week start for the panel.\"\n    },\n    {\n      \"name\": \"placeholder\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"Pick a date\",\n      \"description\": \"Trigger text before a date is chosen.\"\n    },\n    {\n      \"name\": \"name\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Renders a hidden input so the value posts with a native form.\"\n    },\n    {\n      \"name\": \"required\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Marks the hidden input required.\"\n    },\n    {\n      \"name\": \"disabled\",\n      \"type\": \"boolean\",\n      \"required\": false,\n      \"description\": \"Disables the trigger.\"\n    },\n    {\n      \"name\": \"side\",\n      \"type\": \"'top' | 'right' | 'bottom' | 'left'\",\n      \"required\": false,\n      \"defaultValue\": \"bottom\",\n      \"enum\": [\n        \"top\",\n        \"right\",\n        \"bottom\",\n        \"left\"\n      ],\n      \"description\": \"Preferred side of the panel; flips when it cannot fit.\"\n    },\n    {\n      \"name\": \"align\",\n      \"type\": \"'start' | 'center' | 'end'\",\n      \"required\": false,\n      \"defaultValue\": \"start\",\n      \"enum\": [\n        \"start\",\n        \"center\",\n        \"end\"\n      ],\n      \"description\": \"Cross-axis alignment of the panel.\"\n    },\n    {\n      \"name\": \"id\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Id for the trigger button, for label association.\"\n    },\n    {\n      \"name\": \"className\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Additional CSS classes on the trigger.\"\n    },\n    {\n      \"name\": \"aria-label\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"description\": \"Accessible name for the trigger.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Basic\",\n      \"code\": \"<DatePickerPopover value={date} onValueChange={setDate} />\",\n      \"description\": \"Themed field with a calendar panel.\"\n    },\n    {\n      \"title\": \"Bounded\",\n      \"code\": \"<DatePickerPopover value={date} onValueChange={setDate} min={today} max={in90Days} side=\\\"top\\\" />\",\n      \"description\": \"Only future dates, opening upward.\"\n    },\n    {\n      \"title\": \"In a form\",\n      \"code\": \"<form><Label htmlFor=\\\"d\\\">Date</Label><DatePickerPopover id=\\\"d\\\" name=\\\"date\\\" required value={date} onValueChange={setDate} /></form>\",\n      \"description\": \"Hidden input carries the ISO value.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't parse the label\",\n      \"explanation\": \"The visible text is localized. Read the ISO value, never the trigger text.\",\n      \"example\": \"// Avoid\\nnew Date(trigger.textContent)\\n\\n// Prefer\\nconst value = dateKey\"\n    },\n    {\n      \"title\": \"Don't nest inside another dialog\",\n      \"explanation\": \"Popover is non-modal; nesting it in a Dialog works, but nesting a Dialog inside it does not. Use a Drawer for long forms.\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Trigger semantics\",\n      \"implementation\": \"The trigger is a button with aria-haspopup=\\\"dialog\\\" and aria-expanded.\",\n      \"userRequirements\": \"Give it a label when the field has no visible one.\"\n    },\n    {\n      \"feature\": \"Keyboard\",\n      \"implementation\": \"Enter/Space opens; arrows navigate; Enter selects and returns focus to the trigger; Escape closes.\",\n      \"userRequirements\": \"Do not trap focus: the panel is non-modal.\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Trigger label\",\n      \"guidelines\": [\n        \"Show a localized date once chosen\",\n        \"Show a short placeholder before\"\n      ],\n      \"goodExamples\": [\n        \"Nov 13, 2026\",\n        \"Pick a date\"\n      ],\n      \"badExamples\": [\n        \"2026-11-13\",\n        \"Select\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"Calendar\",\n      \"relationship\": \"The panel is a Calendar; use it directly for an inline grid\",\n      \"example\": \"<Calendar value={date} onValueChange={setDate} />\"\n    },\n    {\n      \"component\": \"FormField\",\n      \"relationship\": \"Wrap with FormField for label, hint and error wiring\",\n      \"example\": \"<FormField label=\\\"Date\\\"><DatePickerPopover /></FormField>\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"Calendar\",\n    \"DatePicker\",\n    \"Popover\",\n    \"DateRangePicker\",\n    \"FormField\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.8.0\",\n  \"sourceDir\": \"date-picker-popover\",\n  \"exportName\": \"DatePickerPopover\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}

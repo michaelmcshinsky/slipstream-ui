@@ -1,15 +1,15 @@
 # Bundle and stylesheet size
 
-**Measured:** 2026-11-07, after `pnpm build`, with React external.
+**Measured:** 2026-11-14, after `pnpm build`, with React external.
 **Command:** `node scripts/audit-sizes.mjs`
 
 | Artifact | Raw | Gzip |
 |---|---:|---:|
-| `@slipstream-ui/core` ESM barrel (`dist/index.mjs`) | 234.3 KB | 47.4 KB |
-| `@slipstream-ui/core/styles.css` (utilities only) | 44.5 KB | 8.1 KB |
-| `@slipstream-ui/core/styles-full.css` (with preflight) | 49.1 KB | 9.3 KB |
-| `@slipstream-ui/themes/styles.css` | 3.1 KB | 0.8 KB |
-| Minimal import: Button + Card parts, minified | 132.4 KB | 36.0 KB |
+| `@slipstream-ui/core` ESM barrel (`dist/index.mjs`) | 294.6 KB | 60.3 KB |
+| `@slipstream-ui/core/styles.css` (utilities only) | 48.8 KB | 9.1 KB |
+| `@slipstream-ui/core/styles-full.css` (with preflight) | 52.5 KB | 10.0 KB |
+| `@slipstream-ui/themes/styles.css` | 3.2 KB | 0.8 KB |
+| Minimal import: Button + Card parts, minified | 162.0 KB | 44.6 KB |
 
 The minimal import uses:
 
@@ -23,7 +23,7 @@ import { Button, Card, CardContent, CardHeader, CardTitle } from '@slipstream-ui
   under 10 KB gzip. Consumers can import it without a Tailwind build, and
   Tailwind users can scan the package output instead.
 - The ESM barrel tree-shakes, but a five-component import still carries roughly
-  132 KB minified. Most of that is shared infrastructure (`tailwind-merge`,
+  162 KB minified. Most of that is shared infrastructure (`tailwind-merge`,
   `class-variance-authority`, Radix primitives) plus the barrel's client
   boundary, not the five components themselves.
 - A per-component export map (or a `./server` entry for non-interactive
@@ -38,11 +38,16 @@ regression is caught before release.
 
 | Artifact | Raw budget | Gzip budget |
 |---|---:|---:|
-| Core ESM barrel | 280 KB | 60 KB |
+| Core ESM barrel | 310 KB | 64 KB |
 | `styles.css` | 55 KB | 12 KB |
 | `styles-full.css` | 60 KB | 14 KB |
 | `themes/styles.css` | 6 KB | 2 KB |
 | Minimal import | 180 KB | 50 KB |
+
+The barrel budget moved from 280 KB / 60 KB to 310 KB / 64 KB when `Calendar`
+and `DatePickerPopover` landed together with the shared placement and date
+utilities (measured 294.6 KB raw / 60.3 KB gzip). The minimal-import budget is
+unchanged: the new components tree-shake out of a Button + Card page.
 
 `node scripts/audit-sizes.mjs` exits non-zero when a budget is exceeded. It runs
 after the build in CI and is listed in the release checklist.

@@ -59,6 +59,8 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     // Axial house style anyway. Text usage (tints) is the primary path.
     success: darkMode ? '142 62% 52%' : '142 63% 32%',
     'success-foreground': darkMode ? '220 30% 8%' : '0 0% 100%',
+    // Ink for success text on a 10% tint: 5.6:1 on light, 7.9:1 on dark card.
+    'success-ink': darkMode ? '142 60% 62%' : '142 70% 26%',
     warning: darkMode ? '38 92% 60%' : '38 92% 50%',
     'warning-foreground': '26 83% 14%',
     'warning-ink': darkMode ? '38 92% 62%' : '32 90% 32%',

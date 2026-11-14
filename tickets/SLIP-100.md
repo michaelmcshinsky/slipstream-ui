@@ -7,7 +7,7 @@ estimate_hours: 1
 milestone: "M6 Integration hardening"
 labels: ["epic:integration", "type:docs", "p1"]
 depends_on: []
-status: ready
+status: done
 ---
 
 **Context.** The working tree contains nine in-progress components (`hero`,

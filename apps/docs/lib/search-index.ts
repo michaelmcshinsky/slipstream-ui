@@ -119,6 +119,8 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'SelectMenu', href: '/docs/components/select-menu', content: 'custom select listbox rich options descriptions icons groups multiple multi select form hidden input renderItem', group: 'Components' },
   { title: 'TableCard', href: '/docs/components/table-card', content: 'table card shell header actions toolbar footer pagination data table list page', group: 'Components' },
   { title: 'DatePicker', href: '/docs/components/date-picker', content: 'date picker calendar iso yyyy-mm-dd min max clear scheduling form', group: 'Components' },
+  { title: 'Calendar', href: '/docs/components/calendar', content: 'calendar month grid date iso yyyy-mm-dd keyboard arrows paging min max disabled week start locale', group: 'Components' },
+  { title: 'DatePickerPopover', href: '/docs/components/date-picker-popover', content: 'date picker popover calendar field iso min max placeholder form hidden input side align', group: 'Components' },
   { title: 'TimePicker', href: '/docs/components/time-picker', content: 'time picker hh:mm 24 hour scheduling form clear', group: 'Components' },
   { title: 'Stepper', href: '/docs/components/stepper', content: 'stepper wizard steps onboarding progress current completed aria-current form flow vertical labels below dots size centered title', group: 'Components' },
   { title: 'FileUpload', href: '/docs/components/file-upload', content: 'file upload drag drop attachments progress remove accept multiple form', group: 'Components' },

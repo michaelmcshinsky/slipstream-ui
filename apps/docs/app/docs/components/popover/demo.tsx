@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { Popover, PopoverContent, PopoverTrigger, Button } from '@slipstream-ui/core';
+import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger, Button, Input } from '@slipstream-ui/core';
 
 export default function PopoverPage() {
   return (
@@ -12,6 +12,8 @@ export default function PopoverPage() {
       propsRows={[
         { name: 'open', type: 'boolean', description: 'Controlled open state.' },
         { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the open state changes.' },
+        { name: '.PopoverContent', type: 'PopoverContentProps', description: 'side, align, sideOffset, alignOffset, collisionPadding and matchTriggerWidth control placement, flipping and clamping.' },
+        { name: '.PopoverAnchor', type: 'PopoverAnchorProps', description: 'Anchors the panel to this element instead of the trigger wrapper.' },
       ]}
       accessibility={[
         'role=dialog with aria-labelledby linking to the trigger.',
@@ -94,6 +96,80 @@ export default function PopoverPage() {
 {/* Width is a className — content flows inside */}
 <PopoverContent className="w-96">…</PopoverContent>`}
         types={"type PopoverProps = {\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n};"}
+      />
+
+      <DemoCard
+        title="Placement"
+        preview={
+          <div className="flex flex-wrap items-center gap-6">
+            <Popover>
+              <PopoverTrigger>Opens above</PopoverTrigger>
+              <PopoverContent side="top" align="start">
+                <p className="text-sm text-muted-foreground">
+                  Prefers the top edge and flips below when there is no room.
+                </p>
+              </PopoverContent>
+            </Popover>
+
+            <Popover>
+              <PopoverTrigger>Opens right</PopoverTrigger>
+              <PopoverContent side="right" align="center" sideOffset={12} collisionPadding={8}>
+                <p className="text-sm text-muted-foreground">
+                  sideOffset keeps the panel 12px clear of the trigger.
+                </p>
+              </PopoverContent>
+            </Popover>
+          </div>
+        }
+        code={`{/* Placement is a prop, not a measurement */}
+<Popover>
+  <PopoverTrigger>Filters</PopoverTrigger>
+  <PopoverContent side="right" align="center" sideOffset={12} collisionPadding={8}>
+    <FilterPanel />
+  </PopoverContent>
+</Popover>
+
+{/* Near the bottom of a form the panel flips up instead of clipping */}
+<PopoverContent side="top" align="start">…</PopoverContent>`}
+        types={`type PopoverContentProps = React.HTMLAttributes<HTMLDivElement> & {
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
+  sideOffset?: number;
+  alignOffset?: number;
+  collisionPadding?: number;
+  matchTriggerWidth?: boolean;
+};`}
+      />
+
+      <DemoCard
+        title="Anchored to a field"
+        preview={
+          <div className="w-full max-w-sm">
+            <Popover>
+              <div className="flex items-end gap-2">
+                <PopoverAnchor className="flex-1">
+                  <Input placeholder="2026-11-13" aria-label="Chosen date" />
+                </PopoverAnchor>
+                <PopoverTrigger>Pick</PopoverTrigger>
+              </div>
+              <PopoverContent side="bottom" align="start" matchTriggerWidth>
+                <p className="text-sm text-muted-foreground">
+                  The panel is anchored to the field and matches its width.
+                </p>
+              </PopoverContent>
+            </Popover>
+          </div>
+        }
+        code={`{/* PopoverAnchor measures the field, not the trigger */}
+<Popover>
+  <PopoverAnchor>
+    <Input placeholder="Pick a date" />
+  </PopoverAnchor>
+  <PopoverTrigger>Pick</PopoverTrigger>
+  <PopoverContent matchTriggerWidth>
+    <Calendar value={date} onValueChange={setDate} />
+  </PopoverContent>
+</Popover>`}
       />
     </ComponentPage>
   );

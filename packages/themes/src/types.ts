@@ -19,6 +19,7 @@ export type ThemeColors = {
   'destructive-foreground': string;
   success: string;
   'success-foreground': string;
+  'success-ink': string;
   warning: string;
   'warning-foreground': string;
   /** Status label/text colour that clears AA on a neutral surface. */
