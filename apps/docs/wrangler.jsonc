@@ -24,7 +24,14 @@
   "observability": {
     "enabled": true
   },
-  // Attach the docs domain in the Cloudflare dashboard, or uncomment:
-  // "routes": [{ "pattern": "ui.slipstream.dev", "custom_domain": true }],
+  // Custom domains for the docs site. `custom_domain` makes Wrangler create the
+  // proxied DNS record and managed certificate, so the pair lives in version
+  // control instead of being hand-attached in the dashboard. `www` is part of the
+  // Worker only so the app can answer it with a canonical redirect to the apex
+  // (see `redirects()` in next.config.mjs).
+  "routes": [
+    { "pattern": "slipstreamui.com", "custom_domain": true },
+    { "pattern": "www.slipstreamui.com", "custom_domain": true }
+  ],
   "vars": {}
 }

@@ -73,6 +73,15 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // One canonical host: `www` is attached to the Worker as a custom domain
+      // (see wrangler.jsonc) purely so it can answer with a permanent redirect
+      // to the apex rather than failing DNS resolution.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.slipstreamui.com' }],
+        destination: 'https://slipstreamui.com/:path*',
+        permanent: true,
+      },
       // Old/alternate changelog URL - keep external links from 404ing.
       { source: '/docs/changelog', destination: '/changelog', permanent: true },
     ];
