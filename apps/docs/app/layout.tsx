@@ -70,6 +70,10 @@ export const metadata: Metadata = {
   },
   referrer: 'origin-when-cross-origin',
   formatDetection: { telephone: false, email: false, address: false },
+  // Bing Webmaster Tools. The XML form lives at `app/BingSiteAuth.xml/route.ts`.
+  verification: {
+    other: { 'msvalidate.01': 'F7F5C880C711B95FC4C74D4ECB48B909' },
+  },
 };
 
 export const viewport: Viewport = {
