@@ -18,10 +18,12 @@ pnpm install
 
 ### Optional local environment
 
-Create `apps/docs/.env.local` to enable consent-gated analytics on the docs site:
+Create `apps/docs/.env.local` to configure consent-gated analytics on the docs site:
 
 ```bash
-# Privacy-friendly script URL (e.g. Plausible). Nothing loads without consent.
+# Google Analytics 4 property. Defaults to the ID in lib/analytics.ts.
+NEXT_PUBLIC_GA_MEASUREMENT_ID=
+# Alternative: a Plausible-style script URL, which takes precedence. Nothing loads without consent.
 NEXT_PUBLIC_ANALYTICS_SRC=
 # Optional banner domain attribute (Plausible)
 NEXT_PUBLIC_ANALYTICS_DOMAIN=

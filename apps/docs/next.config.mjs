@@ -15,16 +15,24 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
  * breaking hydration. Collect reports, then flip the header name once the only
  * remaining violations are ones we have deliberately allowed.
  *
- * When analytics is enabled via NEXT_PUBLIC_ANALYTICS_SRC, add that origin to
+ * The Google origins below cover the consent-gated GA4 tag (gtag.js plus the
+ * collection endpoints it posts to). If analytics is pointed at a
+ * Plausible-style script via NEXT_PUBLIC_ANALYTICS_SRC, add that origin to
  * `script-src` and `connect-src` before enforcing.
  */
+const googleAnalyticsOrigins = [
+  'https://www.googletagmanager.com',
+  'https://*.google-analytics.com',
+  'https://*.analytics.google.com',
+].join(' ');
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDevelopment ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self' ${googleAnalyticsOrigins}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
