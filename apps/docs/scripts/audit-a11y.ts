@@ -31,6 +31,8 @@ const ROUTES = [
   '/docs/components/stepper',
   '/docs/components/range-slider',
   '/docs/components/table-of-contents',
+  '/docs/components/tool-call',
+  '/docs/components/confirmation',
   '/docs/mcp',
   '/docs/templates',
   '/changelog',

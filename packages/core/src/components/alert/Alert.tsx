@@ -11,7 +11,7 @@ const alertVariants = cva(
         destructive: 'border-destructive/50 text-destructive bg-destructive/10 [&>svg]:text-destructive',
         /** Alias kept for Bootstrap/shadcn-style codebases. */
         danger: 'border-destructive/50 text-destructive bg-destructive/10 [&>svg]:text-destructive',
-        success: 'border-success/50 text-success bg-success/10 [&>svg]:text-success',
+        success: 'border-success/50 text-success-ink bg-success/10 [&>svg]:text-success-ink',
         warning: 'border-warning/50 text-warning-ink bg-warning/10 [&>svg]:text-warning-ink',
         info: 'border-info/50 text-info-ink bg-info/10 [&>svg]:text-info-ink',
       },
