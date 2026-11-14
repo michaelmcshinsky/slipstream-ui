@@ -88,7 +88,7 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 - Metadata per route (server components export `metadata`; client pages get a one-line layout)
 - Component pages pair `page.tsx` + `demo.tsx`; keep them in sync with the manifest
 - Site config (contact email/address) lives in `apps/docs/lib/site.ts`
-- Analytics is consent-gated via `NEXT_PUBLIC_ANALYTICS_SRC`; never load before consent
+- Analytics is consent-gated: GA4 (`GA_MEASUREMENT_ID` in `lib/analytics.ts`, overridable per environment with `NEXT_PUBLIC_GA_MEASUREMENT_ID`), or a Plausible-style script via `NEXT_PUBLIC_ANALYTICS_SRC`; never load before consent
 
 ## MCP server
 

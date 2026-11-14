@@ -320,11 +320,11 @@ export const en: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: 'Analytics is **off by default**. If you choose “Accept all”, we load a privacy-friendly analytics script that records aggregate page views (URL, referrer, coarse device/browser information). We do not use advertising cookies, fingerprinting, or cross-site profiles.',
+            text: 'Analytics is **off by default**. If you choose “Accept all”, we load Google Analytics 4 (measurement ID `G-QDQXNJV9MD`). It sets first-party `_ga` cookies and records page views, the referring page, and coarse device/browser information. GA4 does not log or store IP addresses, and we disable Google Signals and ad-personalisation signals so the property only produces aggregate reporting. Google processes this data for us as a processor and may store it outside your country.',
           },
           {
             type: 'p',
-            text: 'You can withdraw consent at any time by clearing this site data in your browser; the banner will appear again on your next visit.',
+            text: 'We never load advertising, retargeting, or session-replay scripts. You can withdraw consent at any time by clearing this site data in your browser - that also removes the `_ga` cookies - and the banner will appear again on your next visit.',
           },
         ],
       },
@@ -342,7 +342,7 @@ export const en: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: 'The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No cookies are set by that request, and no other third-party resources are loaded.',
+            text: 'The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No cookies are set by that request. The only other third-party resource is the Google Analytics tag described above, and it loads only after you accept analytics.',
           },
         ],
       },
