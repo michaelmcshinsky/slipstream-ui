@@ -38,7 +38,7 @@ export default async function DocsPage() {
           v{VERSION}
         </span>
         <span className="text-muted-foreground">
-          <DocsProseInline parts={copy.banner} vars={vars} />
+          <DocsProseInline parts={copy.banner ?? []} vars={vars} />
         </span>
         <Link
           href="/changelog"
