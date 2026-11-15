@@ -77,6 +77,15 @@ describe('semantic ink tokens', () => {
     }
   });
 
+  it('destructive text clears 4.5:1 on the popover surface', () => {
+    for (const mode of [false, true]) {
+      const theme = createTheme({ darkMode: mode });
+      expect(
+        contrast(hslToRgb(theme.colors.destructive), hslToRgb(theme.colors.popover))
+      ).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
   it('every theme colour parses as unitless HSL', () => {
     for (const mode of [false, true]) {
       const theme = createTheme({ darkMode: mode });
