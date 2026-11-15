@@ -143,10 +143,11 @@ translated primary nav/search/theme labels, and server `lang`/`dir`.
   comparison table cells. Seven locales, no English fallbacks left on the
   homepage.
 - `apps/docs/lib/docs-copy/` is the translated prose registry: typed blocks
-  (`h2`, `p`, `ul`, `ol`, `code`, `cards`), locale-keyed, interpolating
-  generated counts, with `apps/docs/components/docs-prose.tsx` rendering every
-  locale through one layout. The Introduction page ships in all seven locales;
-  add a page by extending `DocsPageId` and dropping in its catalog.
+  (`h2`, `p`, `ul`, `ol`, `code`, `chips`, `callouts`, `cards`), locale-keyed,
+  interpolating generated counts, with `apps/docs/components/docs-prose.tsx`
+  rendering every locale through one layout. **Introduction and Quickstart**
+  ship in all seven locales; add a page by extending `DocsPageId`, dropping in
+  its catalog and listing the route in `TRANSLATED_DOC_PATHS`.
 - Docs bodies that are still English-only show an explicit
   `DocsTranslationNotice` for non-English readers (localized title/body plus a
   prefilled "help translate" issue), so nothing pretends to be translated.

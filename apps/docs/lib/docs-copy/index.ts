@@ -1,4 +1,5 @@
 import type { Locale } from '@slipstream-ui/i18n';
+import { gettingStarted } from './getting-started';
 import { introduction } from './introduction';
 import type { DocsPageCopy, DocsPageId } from './types';
 
@@ -9,16 +10,18 @@ import type { DocsPageCopy, DocsPageId } from './types';
  */
 const PAGES: Record<DocsPageId, Record<Locale, DocsPageCopy>> = {
   introduction,
+  gettingStarted,
 };
 
 export function getDocsPageCopy(page: DocsPageId, locale: Locale): DocsPageCopy {
-  return PAGES[page][locale] ?? introduction.en;
+  const translated = PAGES[page];
+  return translated[locale] ?? translated.en;
 }
 
 /**
  * Docs routes whose body is translated for every locale. Everything else is
  * English-only and shows the translation notice.
  */
-export const TRANSLATED_DOC_PATHS: readonly string[] = ['/docs'];
+export const TRANSLATED_DOC_PATHS: readonly string[] = ['/docs', '/docs/getting-started'];
 
 export type { DocsPageCopy, DocsPageId, ProseBlock, ProsePart } from './types';

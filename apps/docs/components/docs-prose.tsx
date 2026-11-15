@@ -18,6 +18,7 @@ function Part({ part, vars }: { part: ProsePart; vars: Vars }) {
     return <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">{part.code}</code>;
   }
   if ('strong' in part) return <strong className="text-foreground">{part.strong}</strong>;
+  if ('em' in part) return <em>{part.em}</em>;
   return (
     <Link
       href={part.link.href}
@@ -107,12 +108,44 @@ export function DocsProse({ blocks, vars = {} }: { blocks: ProseBlock[]; vars?: 
                     href={card.href}
                     className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:shadow-sm"
                   >
-                    <div aria-hidden="true" className="mb-2 font-mono text-sm text-muted-foreground">
-                      {card.index}
-                    </div>
+                    {card.index && (
+                      <div
+                        aria-hidden="true"
+                        className="mb-2 font-mono text-sm text-muted-foreground"
+                      >
+                        {card.index}
+                      </div>
+                    )}
                     <h3 className="font-semibold group-hover:text-primary">{card.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{fill(card.body, vars)}</p>
                   </Link>
+                ))}
+              </div>
+            );
+          case 'chips':
+            return (
+              <div key={index} className="mt-8 flex flex-wrap gap-3 text-sm">
+                {block.items.map((chip) => (
+                  <Link
+                    key={chip.href}
+                    href={chip.href}
+                    className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted"
+                  >
+                    {chip.text}
+                  </Link>
+                ))}
+              </div>
+            );
+          case 'callouts':
+            return (
+              <div key={index} className="mt-4 space-y-4">
+                {block.items.map((callout) => (
+                  <div key={callout.title} className="rounded-xl border border-border bg-card p-4">
+                    <p className="font-medium">{callout.title}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                      {fill(callout.body, vars)}
+                    </p>
+                  </div>
                 ))}
               </div>
             );
