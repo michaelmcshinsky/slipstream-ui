@@ -137,6 +137,13 @@ export const zh = {
     backHome: "返回首页",
     lastUpdated: "最后更新：{date}",
     loading: "正在加载页面…",
+    translation: {
+      title: "此页面目前仅提供英文版本",
+      body: "导航、搜索和界面已翻译，文档正文仍在翻译中。",
+      help: "帮助翻译",
+      issueTitle: "将文档翻译为{locale}",
+      issueBody: "页面：{url}\n\n语言：{locale}\n\n需要翻译或修正哪些内容？\n",
+    },
     footer: {
       tagline: "AI 优先的 React 组件库。你的 AI 读取规范，而不是源码。",
       docs: "文档",

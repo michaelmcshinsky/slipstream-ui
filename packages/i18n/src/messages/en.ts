@@ -135,6 +135,13 @@ export const en = {
     backHome: "Back to home",
     lastUpdated: "Last updated: {date}",
     loading: 'Loading page…',
+    translation: {
+      title: 'This page is in English only for now',
+      body: 'The navigation, search and interface are translated, but the documentation body is still being translated.',
+      help: 'Help translate',
+      issueTitle: 'Translate the docs into {locale}',
+      issueBody: 'Page: {url}\n\nLocale: {locale}\n\nWhat needs translating or correcting?\n',
+    },
     footer: {
       tagline: 'The AI-first React component library. Your AI reads the spec, not the source.',
       docs: 'Docs',

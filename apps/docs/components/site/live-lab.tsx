@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Badge,
   Button,
@@ -23,18 +23,53 @@ import {
   toast,
   type DataTableColumn,
 } from '@slipstream-ui/core';
+import type { LabCopy } from '@/lib/marketing';
 
 type RunStatus = 'success' | 'warning' | 'info';
 type RunRow = { id: string; workflow: string; status: RunStatus; seats: number; owner: string };
+type ViewMode = 'list' | 'board' | 'calendar';
 
-const RUNS: RunRow[] = [
-  { id: 'run-1', workflow: 'Onboarding emails', status: 'success', seats: 42, owner: 'Ada' },
-  { id: 'run-2', workflow: 'Invoice sync', status: 'warning', seats: 8, owner: 'Grace' },
-  { id: 'run-3', workflow: 'Churn scoring', status: 'info', seats: 21, owner: 'Alan' },
-  { id: 'run-4', workflow: 'Weekly digest', status: 'success', seats: 64, owner: 'Ada' },
-  { id: 'run-5', workflow: 'Lead enrichment', status: 'success', seats: 12, owner: 'Martha' },
-  { id: 'run-6', workflow: 'Access review', status: 'warning', seats: 4, owner: 'Grace' },
-];
+/**
+ * Renders a copy template such as `plan: {plan} · view: {view}` and keeps the
+ * original emphasis: code-styled values and the highlighted step label.
+ */
+function Template({
+  template,
+  values,
+  code = [],
+  strong = [],
+}: {
+  template: string;
+  values: Record<string, string | number>;
+  code?: string[];
+  strong?: string[];
+}) {
+  return (
+    <>
+      {template.split(/(\{\w+\})/).map((part, index) => {
+        const match = /^\{(\w+)\}$/.exec(part);
+        if (!match) return <Fragment key={index}>{part}</Fragment>;
+        const key = match[1];
+        const value = values[key] ?? part;
+        if (code.includes(key)) {
+          return (
+            <code key={index} className="text-foreground">
+              {value}
+            </code>
+          );
+        }
+        if (strong.includes(key)) {
+          return (
+            <span key={index} className="text-foreground">
+              {value}
+            </span>
+          );
+        }
+        return <Fragment key={index}>{value}</Fragment>;
+      })}
+    </>
+  );
+}
 
 const statusVariant: Record<RunStatus, 'success' | 'warning' | 'info'> = {
   success: 'success',
@@ -42,45 +77,62 @@ const statusVariant: Record<RunStatus, 'success' | 'warning' | 'info'> = {
   info: 'info',
 };
 
-const PLANS = [
-  { value: 'free', label: 'Free', description: '1 project, community support', group: 'Individual' },
-  { value: 'pro', label: 'Pro', description: 'Unlimited projects, priority support', group: 'Individual' },
-  { value: 'team', label: 'Team', description: 'SSO, audit log, shared billing', group: 'Business' },
-];
+function runsFor(copy: LabCopy): RunRow[] {
+  return [
+    { id: 'run-1', workflow: copy.data.runs.onboardingEmails, status: 'success', seats: 42, owner: 'Ada' },
+    { id: 'run-2', workflow: copy.data.runs.invoiceSync, status: 'warning', seats: 8, owner: 'Grace' },
+    { id: 'run-3', workflow: copy.data.runs.churnScoring, status: 'info', seats: 21, owner: 'Alan' },
+    { id: 'run-4', workflow: copy.data.runs.weeklyDigest, status: 'success', seats: 64, owner: 'Ada' },
+    { id: 'run-5', workflow: copy.data.runs.leadEnrichment, status: 'success', seats: 12, owner: 'Martha' },
+    { id: 'run-6', workflow: copy.data.runs.accessReview, status: 'warning', seats: 4, owner: 'Grace' },
+  ];
+}
 
-const FLOW_STEPS = [
-  { label: 'Basics', description: 'Name and owner' },
-  { label: 'Access', description: 'Roles and SSO' },
-  { label: 'Billing', description: 'Plan and seats' },
-  { label: 'Review' },
-];
-
-function DataPane() {
+function DataPane({ copy }: { copy: LabCopy }) {
+  const runs = runsFor(copy);
   const [selected, setSelected] = useState<string[]>(['run-2']);
 
   const columns: DataTableColumn<RunRow>[] = [
-    { key: 'workflow', header: 'Workflow', sortable: true },
+    { key: 'workflow', header: copy.data.columns.workflow, sortable: true },
     {
       key: 'status',
-      header: 'Status',
-      cell: (row) => <Badge variant={statusVariant[row.status]}>{row.status}</Badge>,
+      header: copy.data.columns.status,
+      cell: (row) => (
+        <Badge variant={statusVariant[row.status]}>{copy.data.statuses[row.status]}</Badge>
+      ),
     },
-    { key: 'owner', header: 'Owner' },
-    { key: 'seats', header: 'Seats', align: 'right', sortable: true },
+    { key: 'owner', header: copy.data.columns.owner },
+    { key: 'seats', header: copy.data.columns.seats, align: 'right', sortable: true },
   ];
 
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-3">
-        <MetricCard label="Active runs" value={RUNS.length} delta="+2" trend="up" hint="this week" />
-        <MetricCard label="Selected" value={selected.length} hint="use the checkboxes" />
-        <MetricCard label="Success rate" value="98.2%" delta="+0.4" trend="up" hint="vs last week" />
+        <MetricCard
+          label={copy.data.activeRuns}
+          value={runs.length}
+          delta="+2"
+          trend="up"
+          hint={copy.data.thisWeek}
+        />
+        <MetricCard
+          label={copy.data.selected}
+          value={selected.length}
+          hint={copy.data.useTheCheckboxes}
+        />
+        <MetricCard
+          label={copy.data.successRate}
+          value="98.2%"
+          delta="+0.4"
+          trend="up"
+          hint={copy.data.vsLastWeek}
+        />
       </div>
       <DataTable
         columns={columns}
-        data={RUNS}
+        data={runs}
         rowId={(row) => row.id}
-        caption="Automation runs"
+        caption={copy.data.caption}
         pageSize={4}
         selectedRowIds={selected}
         onSelectedRowIdsChange={setSelected}
@@ -90,14 +142,15 @@ function DataPane() {
               size="sm"
               variant="outline"
               onClick={() => {
-                toast.success(`${selected.length} run${selected.length === 1 ? '' : 's'} archived`);
+                const template = selected.length === 1 ? copy.data.archivedOne : copy.data.archivedOther;
+                toast.success(template.replace('{count}', String(selected.length)));
                 setSelected([]);
               }}
             >
-              Archive
+              {copy.data.archive}
             </Button>
             <Button size="sm" variant="ghost" onClick={() => setSelected([])}>
-              Clear
+              {copy.data.clear}
             </Button>
           </>
         }
@@ -106,30 +159,61 @@ function DataPane() {
   );
 }
 
-function FormsPane() {
+function FormsPane({ copy }: { copy: LabCopy }) {
   const [plan, setPlan] = useState('pro');
-  const [view, setView] = useState<'list' | 'board' | 'calendar'>('board');
+  const [view, setView] = useState<ViewMode>('board');
   const [site, setSite] = useState('slipstream-ui');
+
+  const plans = [
+    {
+      value: 'free',
+      label: copy.forms.plans.free.label,
+      description: copy.forms.plans.free.description,
+      group: copy.forms.planGroups.individual,
+    },
+    {
+      value: 'pro',
+      label: copy.forms.plans.pro.label,
+      description: copy.forms.plans.pro.description,
+      group: copy.forms.planGroups.individual,
+    },
+    {
+      value: 'team',
+      label: copy.forms.plans.team.label,
+      description: copy.forms.plans.team.description,
+      group: copy.forms.planGroups.business,
+    },
+  ];
+
+  const views: ViewMode[] = ['list', 'board', 'calendar'];
 
   return (
     <div className="grid gap-5 sm:grid-cols-2">
       <div className="space-y-4">
         <div>
-          <p className="mb-1.5 text-xs font-medium text-muted-foreground">SelectMenu — rich options, groups</p>
+          <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+            {copy.forms.selectMenuCaption}
+          </p>
           <SelectMenu
-            aria-label="Plan"
-            items={PLANS}
+            aria-label={copy.forms.planLabel}
+            items={plans}
             value={plan}
             onValueChange={(next) => setPlan(next as string)}
           />
         </div>
         <div>
-          <p className="mb-1.5 text-xs font-medium text-muted-foreground">InputGroup — flush addons</p>
+          <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+            {copy.forms.inputGroupCaption}
+          </p>
           <InputGroup>
             <InputGroupAddon side="left" variant="muted">
               https://
             </InputGroupAddon>
-            <Input aria-label="Site domain" value={site} onChange={(event) => setSite(event.target.value)} />
+            <Input
+              aria-label={copy.forms.domainLabel}
+              value={site}
+              onChange={(event) => setSite(event.target.value)}
+            />
             <InputGroupAddon side="right" variant="muted">
               .com
             </InputGroupAddon>
@@ -138,33 +222,35 @@ function FormsPane() {
       </div>
       <div className="space-y-4">
         <div>
-          <p className="mb-1.5 text-xs font-medium text-muted-foreground">ButtonGroup — joined segments</p>
-          <ButtonGroup aria-label="View mode">
-            {(['list', 'board', 'calendar'] as const).map((mode) => (
+          <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+            {copy.forms.buttonGroupCaption}
+          </p>
+          <ButtonGroup aria-label={copy.forms.viewModeLabel}>
+            {views.map((mode) => (
               <Button
                 key={mode}
                 variant={view === mode ? 'default' : 'outline'}
                 onClick={() => setView(mode)}
                 aria-pressed={view === mode}
               >
-                {mode[0].toUpperCase() + mode.slice(1)}
+                {copy.forms.views[mode]}
               </Button>
             ))}
           </ButtonGroup>
         </div>
         <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm text-muted-foreground">
-          plan: <code className="text-foreground">{plan}</code> · view:{' '}
-          <code className="text-foreground">{view}</code> · domain:{' '}
-          <code className="text-foreground">
-            https://{site || '…'}.com
-          </code>
+          <Template
+            template={copy.forms.summary}
+            values={{ plan, view: copy.forms.views[view], domain: `https://${site || '…'}.com` }}
+            code={['plan', 'view', 'domain']}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function OverlaysPane() {
+function OverlaysPane({ copy }: { copy: LabCopy }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [note, setNote] = useState('');
@@ -173,65 +259,71 @@ function OverlaysPane() {
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
         <Button variant="destructive" onClick={() => setConfirmOpen(true)}>
-          Delete project…
+          {copy.overlays.deleteProject}
         </Button>
         <Button variant="outline" onClick={() => setDrawerOpen(true)}>
-          Open drawer
+          {copy.overlays.openDrawer}
         </Button>
-        <Button variant="outline-success" onClick={() => toast.success('Saved', 'Your changes are live')}>
+        <Button
+          variant="outline-success"
+          onClick={() => toast.success(copy.overlays.savedTitle, copy.overlays.savedBody)}
+        >
           toast.success
         </Button>
-        <Button variant="outline-warning" onClick={() => toast.warning('Rate limited', 'Retrying in 3s')}>
+        <Button
+          variant="outline-warning"
+          onClick={() => toast.warning(copy.overlays.rateLimitedTitle, copy.overlays.rateLimitedBody)}
+        >
           toast.warning
         </Button>
-        <Button variant="outline-info" onClick={() => toast.info('Heads up', 'New version available')}>
+        <Button
+          variant="outline-info"
+          onClick={() => toast.info(copy.overlays.headsUpTitle, copy.overlays.headsUpBody)}
+        >
           toast.info
         </Button>
       </div>
-      <p className="text-sm text-muted-foreground">
-        ConfirmDialog handles focus trap, Escape and an async pending state; toasts are imperative
-        (<code className="text-foreground">toast.success()</code>) and stack above every overlay.
-      </p>
+      <p className="text-sm text-muted-foreground">{copy.overlays.description}</p>
 
       <ConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
-        title="Delete project?"
-        description="This permanently removes the project and its runs. This cannot be undone."
+        title={copy.overlays.confirmTitle}
+        description={copy.overlays.confirmDescription}
         destructive
-        confirmLabel="Delete"
+        confirmLabel={copy.overlays.confirm}
         onConfirm={async () => {
           await new Promise((resolve) => setTimeout(resolve, 600));
-          toast.success('Project deleted');
+          toast.success(copy.overlays.deleted);
         }}
       />
 
       <Drawer
         open={drawerOpen}
         onOpenChange={setDrawerOpen}
-        title="Filter runs"
-        description="Drawer with a form, Escape and backdrop dismissal."
+        title={copy.overlays.drawerTitle}
+        description={copy.overlays.drawerDescription}
         side="right"
         size="sm"
         animate
       >
         <div className="space-y-3">
           <label className="block text-sm font-medium" htmlFor="lab-note">
-            Note
+            {copy.overlays.noteLabel}
           </label>
           <Input
             id="lab-note"
             value={note}
             onChange={(event) => setNote(event.target.value)}
-            placeholder="Only failed runs, last 24h…"
+            placeholder={copy.overlays.notePlaceholder}
           />
           <Button
             onClick={() => {
-              toast.success('Filter applied', note || 'No note added');
+              toast.success(copy.overlays.applied, note || copy.overlays.noNote);
               setDrawerOpen(false);
             }}
           >
-            Apply
+            {copy.overlays.apply}
           </Button>
         </div>
       </Drawer>
@@ -239,26 +331,43 @@ function OverlaysPane() {
   );
 }
 
-function FlowPane() {
+function FlowPane({ copy }: { copy: LabCopy }) {
   const [step, setStep] = useState(1);
+
+  const steps = [
+    copy.flow.steps.basics,
+    copy.flow.steps.access,
+    copy.flow.steps.billing,
+    copy.flow.steps.review,
+  ];
 
   return (
     <div className="space-y-5">
-      <Stepper current={step} steps={FLOW_STEPS} onStepClick={setStep} />
+      <Stepper current={step} steps={steps} onStepClick={setStep} labels={copy.flow.states} />
       <div className="rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-        Step <code className="text-foreground">{step + 1}</code> of {FLOW_STEPS.length} —{' '}
-        <span className="text-foreground">{FLOW_STEPS[step].label}</span>
-        {FLOW_STEPS[step].description ? ` (${FLOW_STEPS[step].description})` : ''}
+        <Template
+          template={copy.flow.summary}
+          values={{ current: step + 1, total: steps.length, label: steps[step].label }}
+          code={['current', 'total']}
+          strong={['label']}
+        />
+        {steps[step].description
+          ? copy.flow.descriptionSuffix.replace('{description}', steps[step].description as string)
+          : ''}
       </div>
       <div className="flex gap-2">
-        <Button variant="outline" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}>
-          Back
+        <Button
+          variant="outline"
+          onClick={() => setStep((s) => Math.max(0, s - 1))}
+          disabled={step === 0}
+        >
+          {copy.flow.back}
         </Button>
         <Button
-          onClick={() => setStep((s) => Math.min(FLOW_STEPS.length - 1, s + 1))}
-          disabled={step === FLOW_STEPS.length - 1}
+          onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))}
+          disabled={step === steps.length - 1}
         >
-          Next
+          {copy.flow.next}
         </Button>
       </div>
     </div>
@@ -269,44 +378,41 @@ function FlowPane() {
  * Interactive lab on the marketing homepage. Everything here is built from
  * the shipped library — data table selection/pagination, metric cards,
  * SelectMenu/InputGroup/ButtonGroup, confirm + drawer + imperative toasts,
- * and the stepper.
+ * and the stepper. All copy comes from the active locale's marketing catalog.
  */
-export function LiveLab() {
+export function LiveLab({ copy }: { copy: LabCopy }) {
   return (
     <section className="border-b border-border">
       <div className="container mx-auto px-4 py-16">
         <SectionHeading
-          eyebrow="Live demo"
-          title="The framework, running on this page"
-          description="No screenshots. Every control below is a Slipstream component — selection, pagination, menus, overlays, toasts and wizards included."
+          eyebrow={copy.eyebrow}
+          title={copy.title}
+          description={copy.description}
           size="md"
         />
         <div className="mt-8 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
           <Tabs defaultValue="data">
             <TabsList>
-              <TabsTrigger value="data">Data</TabsTrigger>
-              <TabsTrigger value="forms">Forms</TabsTrigger>
-              <TabsTrigger value="overlays">Overlays</TabsTrigger>
-              <TabsTrigger value="flow">Flow</TabsTrigger>
+              <TabsTrigger value="data">{copy.tabs.data}</TabsTrigger>
+              <TabsTrigger value="forms">{copy.tabs.forms}</TabsTrigger>
+              <TabsTrigger value="overlays">{copy.tabs.overlays}</TabsTrigger>
+              <TabsTrigger value="flow">{copy.tabs.flow}</TabsTrigger>
             </TabsList>
             <TabsContent value="data" className="pt-4">
-              <DataPane />
+              <DataPane copy={copy} />
             </TabsContent>
             <TabsContent value="forms" className="pt-4">
-              <FormsPane />
+              <FormsPane copy={copy} />
             </TabsContent>
             <TabsContent value="overlays" className="pt-4">
-              <OverlaysPane />
+              <OverlaysPane copy={copy} />
             </TabsContent>
             <TabsContent value="flow" className="pt-4">
-              <FlowPane />
+              <FlowPane copy={copy} />
             </TabsContent>
           </Tabs>
         </div>
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          Every component ships a COMPONENT_MANIFEST, tests and a live docs page — this lab is the
-          same library your agent queries over MCP.
-        </p>
+        <p className="mt-4 text-center text-sm text-muted-foreground">{copy.footer}</p>
       </div>
       <Toaster position="bottom-right" richColors />
     </section>
