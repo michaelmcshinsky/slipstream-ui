@@ -21,3 +21,5 @@ light surfaces and `primary/10` tints, and the lightened primary in dark mode.
 `Link`, the Sidebar active item, `PageHeader`/`SectionHeading` eyebrows,
 `ArticleCard`/`CTASection` eyebrows, and the highlighted `ComparisonTable`
 column now use it. `bg-primary` is unchanged for fills.
+
+The dark-mode \destructive\ text token is lightened slightly so it clears 4.5:1 on the popover surface; the previous value missed by 0.002.

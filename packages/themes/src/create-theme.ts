@@ -53,7 +53,7 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'accent-foreground': darkMode ? '220 9% 95%' : '222 47% 11%',
 
     // Destructive — dark text carries AA on bg and card; solid fills take ink
-    destructive: darkMode ? '0 76% 64%' : '348 68% 44%',
+    destructive: darkMode ? '0 80% 68%' : '348 68% 43%',
     'destructive-foreground': darkMode ? '220 30% 8%' : '0 0% 100%',
 
     // Status colors (success / warning / info) — unitless hues.
