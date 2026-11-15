@@ -15,7 +15,7 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | brand | `ReactNode` | — | yes | Brand slot (logo/lockup), wrapped in a link to /. |
-| items | `SiteNavItem[]` | — | yes | Primary nav: { href, label, external? }. |
+| items | `SiteNavItem[]` | — | yes | Primary nav. A plain item is { href, label, external? }; an item with `columns` renders as a mega-panel disclosure (desktop) and a <details> group (mobile). |
 | activeHref | `string` | — | no | Current route for active styling (aria-current=page). |
 | match | `'prefix' | 'exact'` | `prefix` | no | Prefix highlights parents of the current route; exact only identical hrefs. |
 | actions | `ReactNode` | — | no | Right-aligned actions (theme toggle, GitHub, CTA). |
@@ -47,6 +47,32 @@ Prefix-active nav with a mobile drawer.
 />
 ```
 
+### Persona mega menus
+
+Nested persona panels on desktop and <details> groups in the mobile drawer.
+
+```tsx
+<SiteHeader
+  brand={<span>Acme</span>}
+  items={[
+    {
+      label: 'Dancers',
+      columns: [
+        {
+          heading: 'Plan your season',
+          items: [
+            { href: '/events', label: 'All events', description: 'Every genre in Utah' },
+            { href: '/deadlines', label: 'Deadlines' },
+          ],
+        },
+      ],
+    },
+    { href: '/directory', label: 'Directory' },
+  ]}
+  activeHref={pathname}
+/>
+```
+
 ## Anti-patterns
 
 - **Don't use it for admin rails** — Vertical app navigation belongs in Sidebar + AppShell.
@@ -54,7 +80,8 @@ Prefix-active nav with a mobile drawer.
 ## Accessibility
 
 - **Current page**: aria-current=page on the active link (prefix or exact matching)
-- **Mobile navigation**: Burger opens a focus-trapped Drawer with the same items
+- **Mobile navigation**: Burger opens a focus-trapped Drawer with the same items; nested items render as native <details> disclosures
+- **Mega panels**: Trigger mirrors aria-expanded/aria-controls; panels open on hover or click, stay open while tabbing, close on Escape or an outside pointer
 
 ## Composition
 

@@ -59,9 +59,9 @@ export const ArticleCard = React.forwardRef<HTMLElement, ArticleCardProps>(funct
         )}
         <div className={cn('flex flex-1 flex-col gap-2', compact ? 'p-4' : 'p-5')}>
           {eyebrow && (
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary-ink">{eyebrow}</p>
           )}
-          <h3 className={cn('font-semibold tracking-tight transition-colors group-hover:text-primary', compact ? 'text-base' : 'text-lg')}>
+          <h3 className={cn('font-semibold tracking-tight transition-colors group-hover:text-primary-ink', compact ? 'text-base' : 'text-lg')}>
             {title}
           </h3>
           {description && (

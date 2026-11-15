@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 112 components, each shipping a
+The AI-first React component library. 113 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -8,7 +8,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 
-## Core components (@slipstream-ui/core) — 95
+## Core components (@slipstream-ui/core) — 96
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -57,6 +57,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Grid / GridItem](https://slipstreamui.com/llm/components/grid.md) — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - [Heading](https://slipstreamui.com/llm/components/heading.md) — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - [Hero](https://slipstreamui.com/llm/components/hero.md) — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- [Image](https://slipstreamui.com/llm/components/image.md) — A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control

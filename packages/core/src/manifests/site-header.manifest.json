@@ -20,7 +20,7 @@
       "name": "items",
       "type": "SiteNavItem[]",
       "required": true,
-      "description": "Primary nav: { href, label, external? }."
+      "description": "Primary nav. A plain item is { href, label, external? }; an item with `columns` renders as a mega-panel disclosure (desktop) and a <details> group (mobile)."
     },
     {
       "name": "activeHref",
@@ -133,6 +133,11 @@
       "title": "Marketing header",
       "code": "<SiteHeader\n  brand={<img src=\"/logo.svg\" alt=\"Acme\" className=\"h-8\" />}\n  items={[{ href: '/docs', label: 'Docs' }, { href: '/pricing', label: 'Pricing' }]}\n  activeHref={pathname}\n  linkComponent={RouterLink}\n  actions={<ThemeToggle />}\n/>",
       "description": "Prefix-active nav with a mobile drawer."
+    },
+    {
+      "title": "Persona mega menus",
+      "code": "<SiteHeader\n  brand={<span>Acme</span>}\n  items={[\n    {\n      label: 'Dancers',\n      columns: [\n        {\n          heading: 'Plan your season',\n          items: [\n            { href: '/events', label: 'All events', description: 'Every genre in Utah' },\n            { href: '/deadlines', label: 'Deadlines' },\n          ],\n        },\n      ],\n    },\n    { href: '/directory', label: 'Directory' },\n  ]}\n  activeHref={pathname}\n/>",
+      "description": "Nested persona panels on desktop and <details> groups in the mobile drawer."
     }
   ],
   "antiPatterns": [
@@ -150,8 +155,13 @@
     },
     {
       "feature": "Mobile navigation",
-      "implementation": "Burger opens a focus-trapped Drawer with the same items",
+      "implementation": "Burger opens a focus-trapped Drawer with the same items; nested items render as native <details> disclosures",
       "userRequirements": "Keep the same item list for both breakpoints"
+    },
+    {
+      "feature": "Mega panels",
+      "implementation": "Trigger mirrors aria-expanded/aria-controls; panels open on hover or click, stay open while tabbing, close on Escape or an outside pointer",
+      "userRequirements": "Use headings and short descriptions so the panel is scannable"
     }
   ],
   "contentGuidelines": [
