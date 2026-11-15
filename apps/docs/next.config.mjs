@@ -82,6 +82,20 @@ const nextConfig = {
         destination: 'https://slipstreamui.com/:path*',
         permanent: true,
       },
+      // Cloudflare terminates TLS and forwards the original scheme in
+      // `x-forwarded-proto`, so plain HTTP to the apex is bounced to HTTPS here.
+      // HSTS only protects visitors who have already completed one HTTPS
+      // request; this covers the first visit. Scoped to the canonical host so the
+      // workers.dev alias keeps answering both schemes.
+      {
+        source: '/:path*',
+        has: [
+          { type: 'host', value: 'slipstreamui.com' },
+          { type: 'header', key: 'x-forwarded-proto', value: 'http' },
+        ],
+        destination: 'https://slipstreamui.com/:path*',
+        permanent: true,
+      },
       // Old/alternate changelog URL - keep external links from 404ing.
       { source: '/docs/changelog', destination: '/changelog', permanent: true },
     ];
