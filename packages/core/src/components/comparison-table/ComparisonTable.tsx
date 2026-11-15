@@ -99,7 +99,7 @@ export const ComparisonTable = React.forwardRef<HTMLTableElement, ComparisonTabl
                   scope="col"
                   className={cn(
                     'min-w-40 px-5 py-4 text-center font-semibold',
-                    column.highlight && 'bg-primary/10 text-primary'
+                    column.highlight && 'bg-primary/10 text-primary-ink'
                   )}
                 >
                   {column.label}

@@ -8,11 +8,11 @@ import { cn } from '../../utils/cn';
 const linkVariants = cva('inline-flex items-center gap-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm', {
   variants: {
     variant: {
-      default: 'text-primary hover:underline underline-offset-4',
+      default: 'text-primary-ink hover:underline underline-offset-4',
       muted: 'text-muted-foreground hover:text-foreground',
-      underline: 'underline underline-offset-4 hover:text-primary',
-      arrow: 'font-medium text-primary hover:underline underline-offset-4',
-      external: 'text-primary hover:underline underline-offset-4',
+      underline: 'underline underline-offset-4 hover:text-primary-ink',
+      arrow: 'font-medium text-primary-ink hover:underline underline-offset-4',
+      external: 'text-primary-ink hover:underline underline-offset-4',
     },
   },
   defaultVariants: { variant: 'default' },

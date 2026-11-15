@@ -39,7 +39,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 95
+## Core components (@slipstream-ui/core) — 96
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -88,6 +88,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - Hero — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- Image — A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
 - Input — A text input field with support for various input types and standard HTML input attributes
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control

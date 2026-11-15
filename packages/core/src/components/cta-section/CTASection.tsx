@@ -67,7 +67,7 @@ export const CTASection = React.forwardRef<HTMLElement, CTASectionProps>(functio
         )}
       >
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary-ink">{eyebrow}</p>
         )}
         <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           {title}
