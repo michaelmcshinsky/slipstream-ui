@@ -169,6 +169,7 @@ export const zh = {
       terms: "条款",
       copyright: "© {year} Slipstream UI · MIT 许可证",
       builtStateless: "无状态构建 —— 数据流由你掌控。",
+      helpTranslate: "帮助翻译",
     },
     search: {
       dialogLabel: "搜索文档",

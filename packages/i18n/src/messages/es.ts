@@ -169,6 +169,7 @@ export const es = {
       terms: "Términos",
       copyright: "© {year} Slipstream UI · Licencia MIT",
       builtStateless: "Creado sin estado: tú controlas el flujo de datos.",
+      helpTranslate: "Ayudar a traducir",
     },
     search: {
       dialogLabel: "Buscar en la documentación",

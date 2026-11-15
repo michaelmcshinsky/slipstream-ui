@@ -169,6 +169,7 @@ export const ru = {
       terms: "Условия",
       copyright: "© {year} Slipstream UI · Лицензия MIT",
       builtStateless: "Без состояния — поток данных принадлежит вам.",
+      helpTranslate: "Помочь с переводом",
     },
     search: {
       dialogLabel: "Поиск по документации",

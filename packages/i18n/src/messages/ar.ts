@@ -169,6 +169,7 @@ export const ar = {
       terms: "الشروط",
       copyright: "© {year} Slipstream UI · ترخيص MIT",
       builtStateless: "مبني بلا حالة — أنت تملك تدفق بياناتك.",
+      helpTranslate: "ساعد في الترجمة",
     },
     search: {
       dialogLabel: "البحث في التوثيق",
