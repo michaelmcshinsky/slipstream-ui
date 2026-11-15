@@ -58,11 +58,18 @@ function parseArgs(argv: string[]): Options {
   const options: Options = {
     limit: Number.POSITIVE_INFINITY,
     dryRun: false,
-    soft: false,
+    // Pre-scan so `--soft` still downgrades an error raised by an argument
+    // that comes before it, e.g. a stray `--` forwarded by the package manager.
+    soft: argv.includes('--soft'),
   };
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
+    if (arg === '--') {
+      // `pnpm run x -- --soft` forwards the separator itself on some
+      // package-manager/platform combinations. It is not an option.
+      continue;
+    }
     if (arg === '--origin') {
       const value = argv[index + 1];
       if (!value) abort(options, '--origin needs a URL');
