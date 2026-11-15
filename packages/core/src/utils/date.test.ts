@@ -4,6 +4,7 @@ import {
   addMonths,
   calendarWeeks,
   dateKeyOf,
+  daysInMonth,
   formatDateLabel,
   isValidDateKey,
   monthLabel,
@@ -110,5 +111,80 @@ describe('labels', () => {
   it('formats a full date for screen readers', () => {
     expect(formatDateLabel('2026-11-13', 'en-US')).toContain('2026');
     expect(formatDateLabel('bad', 'en-US')).toBe('bad');
+  });
+});
+
+describe('daysInMonth', () => {
+  it('knows month lengths including leap years', () => {
+    expect(daysInMonth(2026, 1)).toBe(28);
+    expect(daysInMonth(2028, 1)).toBe(29);
+    expect(daysInMonth(2026, 7)).toBe(31);
+    expect(daysInMonth(2026, 11)).toBe(31);
+    expect(daysInMonth(2026, 3)).toBe(30);
+  });
+});
+
+describe('bad input', () => {
+  it('rejects impossible month and day numbers', () => {
+    expect(parseDateKey('2026-00-10')).toBeNull();
+    expect(parseDateKey('2026-13-01')).toBeNull();
+    expect(parseDateKey('2026-11-00')).toBeNull();
+    expect(parseDateKey('2026-11-32')).toBeNull();
+    expect(isValidDateKey('2026-00-10')).toBe(false);
+    expect(isValidDateKey('2026-11-00')).toBe(false);
+  });
+
+  it('rejects malformed shapes', () => {
+    expect(parseDateKey('')).toBeNull();
+    expect(parseDateKey('2026-11-13T00:00')).toBeNull();
+    expect(parseDateKey(' 2026-11-13')).toBeNull();
+    expect(parseDateKey('2026-11-13 ')).toBeNull();
+    expect(parseDateKey('20261113')).toBeNull();
+  });
+
+  it('returns the input unchanged instead of inventing a date', () => {
+    expect(addDays('nope', 1)).toBe('nope');
+    expect(addDays('2026-02-30', 1)).toBe('2026-02-30');
+    expect(addMonths('nope', 1)).toBe('nope');
+    expect(startOfWeek('nope')).toBe('nope');
+    expect(moveDateKey('nope', 'down')).toBe('nope');
+  });
+});
+
+describe('defaults and week grids', () => {
+  it('defaults to a Sunday week start', () => {
+    expect(startOfWeek('2026-11-13')).toBe('2026-11-08');
+    expect(moveDateKey('2026-11-13', 'home')).toBe('2026-11-08');
+    expect(weekdayLabels()[0]).toBe('Sun');
+    expect(monthLabel(2026, 10)).toBe('November 2026');
+  });
+
+  it('produces 42 consecutive days for every month', () => {
+    for (const [year, month] of [
+      [2026, 0],
+      [2026, 7],
+      [2028, 1],
+      [2026, 11],
+    ] as const) {
+      const weeks = calendarWeeks(year, month, 0);
+      const cells = weeks.flat();
+      expect(cells).toHaveLength(42);
+      for (let index = 1; index < cells.length; index += 1) {
+        expect(cells[index]?.key).toBe(addDays(cells[index - 1]?.key ?? '', 1));
+      }
+      expect(cells.filter((day) => day.inMonth)).toHaveLength(daysInMonth(year, month));
+    }
+  });
+
+  it('includes trailing days from the next month', () => {
+    const weeks = calendarWeeks(2026, 7, 0);
+    const last = weeks[5]?.[6];
+    expect(last?.inMonth).toBe(false);
+    expect(last?.key.startsWith('2026-09')).toBe(true);
+    expect(last?.day).toBe(Number(last?.key.slice(-2)));
+  });
+
+  it('round-trips today without an argument', () => {
+    expect(todayKey()).toBe(todayKey(new Date()));
   });
 });

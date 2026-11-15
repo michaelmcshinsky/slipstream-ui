@@ -22,7 +22,11 @@ export type AnalyticsEvent =
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
 type Plausible = (event: string, options?: { props?: AnalyticsProps }) => void;
-type Gtag = (command: 'event', event: string, props?: AnalyticsProps) => void;
+type Gtag = (
+  command: 'js' | 'config' | 'set' | 'event',
+  target: string | Date,
+  props?: AnalyticsProps,
+) => void;
 
 declare global {
   // Declaration merging is the only way to type third-party globals.
@@ -31,6 +35,43 @@ declare global {
     gtag?: Gtag;
     dataLayer?: unknown[];
   }
+}
+
+/**
+ * GA4 measurement ID for the docs site.
+ *
+ * A measurement ID is a public identifier - it is served in the page HTML by
+ * design, exactly like an analytics script URL - so it lives in code rather
+ * than a build-time secret. `NEXT_PUBLIC_GA_MEASUREMENT_ID` can point a preview
+ * or fork at a different property. Nothing loads until consent is granted.
+ */
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || 'G-QDQXNJV9MD';
+
+/** gtag.js loader URL for {@link GA_MEASUREMENT_ID}. */
+export const GA_SCRIPT_SRC = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+
+/**
+ * Installs the `gtag` shim and starts a GA4 session on the configured property.
+ *
+ * Call only after consent, and only once per page load: gtag.js drains
+ * `dataLayer` on load, so the config command has to be queued before a visitor
+ * can generate an event.
+ */
+export function installGtag(): void {
+  if (typeof window === 'undefined') return;
+
+  const dataLayer = (window.dataLayer ??= []);
+  window.gtag ??= (...args: unknown[]) => {
+    dataLayer.push(args);
+  };
+
+  window.gtag('js', new Date());
+  window.gtag('config', GA_MEASUREMENT_ID, {
+    // Aggregate reporting only: no ads signals, no cross-site audiences.
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
 }
 
 /**

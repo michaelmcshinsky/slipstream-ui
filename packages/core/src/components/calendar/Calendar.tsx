@@ -89,6 +89,7 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     });
     const [focusKey, setFocusKey] = React.useState(initial);
     const gridRef = React.useRef<HTMLDivElement | null>(null);
+    const keyboardNav = React.useRef(false);
 
     // Follow an externally controlled value into its month.
     React.useEffect(() => {
@@ -130,7 +131,17 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       const parts = parseDateKey(next);
       if (parts) setView({ year: parts.year, month: parts.month });
       setFocusKey(next);
+      keyboardNav.current = true;
     };
+
+    // Roving tabindex only means something if the caret moves with it: after a
+    // keyboard move, focus the day that owns the tab stop in the new view.
+    React.useEffect(() => {
+      if (!keyboardNav.current) return;
+      const target = gridRef.current?.querySelector<HTMLButtonElement>(`[data-date="${focusKey}"]`);
+      keyboardNav.current = false;
+      target?.focus();
+    }, [focusKey, view.year, view.month]);
 
     // Keep one tabbable day: the active one when visible, otherwise the first.
     const visibleKeys = weeks.flat().filter((day) => day.inMonth);

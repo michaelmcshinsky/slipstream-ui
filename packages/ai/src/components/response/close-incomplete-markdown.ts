@@ -22,9 +22,14 @@ export function closeIncompleteMarkdown(markdown: string): string {
   const rest = hasUnclosedFence && firstFence !== -1 ? text.slice(firstFence) : '';
 
   let repaired = prose;
+  // Identifiers are not emphasis. `snake_case` and `my_func` are extremely
+  // common in streamed text (and in inline code), so complete code spans are
+  // dropped before counting and intraword underscores are ignored. Appending a
+  // closer for those would corrupt the text instead of repairing it.
+  const countable = prose.replace(/`[^`\n]*`/g, '');
   // Count unescaped emphasis markers; close whichever are odd.
   for (const marker of ['**', '__', '~~']) {
-    const occurrences = prose.split(marker).length - 1;
+    const occurrences = countable.split(marker).length - 1;
     if (occurrences % 2 === 1) {
       repaired += marker;
     }
@@ -32,8 +37,9 @@ export function closeIncompleteMarkdown(markdown: string): string {
   // Single asterisk/underscore italics.
   for (const marker of ['*', '_']) {
     // Only count markers not part of **/__ pairs by stripping doubles first.
-    const singles = repaired.replace(/\*\*/g, '').replace(/__/g, '').split(marker).length - 1;
-    if (singles % 2 === 1) {
+    let singles = countable.replace(/\*\*/g, '').replace(/__/g, '');
+    if (marker === '_') singles = singles.replace(/(?<=\w)_(?=\w)/g, '');
+    if ((singles.split(marker).length - 1) % 2 === 1) {
       repaired += marker;
     }
   }

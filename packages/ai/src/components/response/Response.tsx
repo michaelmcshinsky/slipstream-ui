@@ -50,9 +50,13 @@ const Response = React.forwardRef<HTMLDivElement, ResponseProps>(
           components={{
             pre: ({ children }) => <>{children}</>,
             code: ({ className: codeClassName, children: codeChildren }) => {
-              const raw = String(codeChildren).replace(/\n$/, '');
+              const source = String(codeChildren);
+              const raw = source.replace(/\n$/, '');
               const match = /language-(\w+)/.exec(codeClassName ?? '');
-              const isInline = !match && !raw.includes('\n');
+              // A fenced block keeps a trailing newline even when it holds a
+              // single line; inline code never has one. Testing the stripped
+              // text made ```` ```\nid\n``` ```` render as an inline chip.
+              const isInline = !match && !source.includes('\n');
               if (isInline) {
                 return (
                   <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono before:content-none after:content-none">

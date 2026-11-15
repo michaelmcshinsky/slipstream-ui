@@ -65,6 +65,7 @@ export function todayKey(now = new Date()): string {
 }
 
 export function addDays(key: string, delta: number): string {
+  if (!parseDateKey(key)) return key;
   const date = utc(key);
   return utcKey(new Date(date.getTime() + delta * DAY_MS));
 }
@@ -80,6 +81,7 @@ export function addMonths(key: string, delta: number): string {
 }
 
 export function startOfWeek(key: string, weekStartsOn: 0 | 1 = 0): string {
+  if (!parseDateKey(key)) return key;
   const date = utc(key);
   const offset = (date.getUTCDay() - weekStartsOn + 7) % 7;
   return addDays(key, -offset);

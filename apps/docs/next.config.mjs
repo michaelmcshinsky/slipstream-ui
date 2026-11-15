@@ -15,16 +15,24 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
  * breaking hydration. Collect reports, then flip the header name once the only
  * remaining violations are ones we have deliberately allowed.
  *
- * When analytics is enabled via NEXT_PUBLIC_ANALYTICS_SRC, add that origin to
+ * The Google origins below cover the consent-gated GA4 tag (gtag.js plus the
+ * collection endpoints it posts to). If analytics is pointed at a
+ * Plausible-style script via NEXT_PUBLIC_ANALYTICS_SRC, add that origin to
  * `script-src` and `connect-src` before enforcing.
  */
+const googleAnalyticsOrigins = [
+  'https://www.googletagmanager.com',
+  'https://*.google-analytics.com',
+  'https://*.analytics.google.com',
+].join(' ');
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDevelopment ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self' ${googleAnalyticsOrigins}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -65,6 +73,29 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // One canonical host: `www` is attached to the Worker as a custom domain
+      // (see wrangler.jsonc) purely so it can answer with a permanent redirect
+      // to the apex rather than failing DNS resolution.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.slipstreamui.com' }],
+        destination: 'https://slipstreamui.com/:path*',
+        permanent: true,
+      },
+      // Cloudflare terminates TLS and forwards the original scheme in
+      // `x-forwarded-proto`, so plain HTTP to the apex is bounced to HTTPS here.
+      // HSTS only protects visitors who have already completed one HTTPS
+      // request; this covers the first visit. Scoped to the canonical host so the
+      // workers.dev alias keeps answering both schemes.
+      {
+        source: '/:path*',
+        has: [
+          { type: 'host', value: 'slipstreamui.com' },
+          { type: 'header', key: 'x-forwarded-proto', value: 'http' },
+        ],
+        destination: 'https://slipstreamui.com/:path*',
+        permanent: true,
+      },
       // Old/alternate changelog URL - keep external links from 404ing.
       { source: '/docs/changelog', destination: '/changelog', permanent: true },
     ];

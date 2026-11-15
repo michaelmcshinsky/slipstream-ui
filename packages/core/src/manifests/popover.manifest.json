@@ -110,7 +110,7 @@
     },
     {
       "title": "Anchored to a field",
-      "code": "<Popover>\n  <PopoverAnchor><Input placeholder=\"Pick a date\" /></PopoverAnchor>\n  <PopoverContent matchTriggerWidth>\n    <Calendar value={date} onValueChange={setDate} />\n  </PopoverContent>\n</Popover>",
+      "code": "<Popover>\n  <PopoverAnchor><Input placeholder=\"Pick a date\" /></PopoverAnchor>\n  <PopoverTrigger>Pick</PopoverTrigger>\n  <PopoverContent matchTriggerWidth>\n    <Calendar value={date} onValueChange={setDate} />\n  </PopoverContent>\n</Popover>",
       "description": "PopoverAnchor places the panel against the field, not the wrapper."
     }
   ],
@@ -138,7 +138,7 @@
     },
     {
       "feature": "Escape dismissal",
-      "implementation": "Escape closes the popover",
+      "implementation": "Escape closes the popover and returns focus to the trigger",
       "userRequirements": "Keep the trigger focusable after close"
     }
   ],

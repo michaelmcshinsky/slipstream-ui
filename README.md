@@ -113,7 +113,7 @@ export function ChatApp() {
 - Metadata per route (title/description, canonical, OG/Twitter cards, 1200×630 image), favicon set + web manifest
 - `robots.txt` + dynamic `sitemap.xml`
 - Legal pages (`/privacy`, `/terms`), `/about`, `/accessibility`, `/contact` (Netlify forms -> `/thank-you`), custom 404
-- Cookie consent banner that gates a privacy-friendly analytics loader — set `NEXT_PUBLIC_ANALYTICS_SRC` (and optional `NEXT_PUBLIC_ANALYTICS_DOMAIN`) to enable; nothing loads without consent
+- Cookie consent banner that gates analytics — Google Analytics 4 by default; `NEXT_PUBLIC_GA_MEASUREMENT_ID` overrides the property, or set `NEXT_PUBLIC_ANALYTICS_SRC` plus optional `NEXT_PUBLIC_ANALYTICS_DOMAIN` for a Plausible-style script. Nothing loads without consent
 - Structured data (Organization, WebSite, SoftwareApplication, BreadcrumbList) and hardened response headers (CSP in report-only, frame-ancestors, HSTS, Permissions-Policy); report vulnerabilities via `/.well-known/security.txt`
 - Contact details live in `apps/docs/lib/site.ts`
 

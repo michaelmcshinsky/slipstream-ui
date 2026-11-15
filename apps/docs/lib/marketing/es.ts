@@ -477,11 +477,11 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         blocks: [
           {
             type: 'p',
-            text: 'La analítica está **desactivada por defecto**. Si eliges «Aceptar todo», cargamos un script de analítica respetuoso con la privacidad que registra visitas agregadas (URL, referente, información aproximada de dispositivo/navegador). No usamos cookies publicitarias, huellas digitales ni perfiles entre sitios.',
+            text: 'La analítica está **desactivada por defecto**. Si eliges «Aceptar todo», cargamos Google Analytics 4 (ID de medición `G-QDQXNJV9MD`). Establece cookies propias `_ga` y registra visitas de página, la página de referencia e información aproximada de dispositivo y navegador. GA4 no registra ni almacena direcciones IP, y desactivamos Google Signals y las señales de personalización publicitaria para que la propiedad solo genere informes agregados. Google trata estos datos por nuestra cuenta como encargado y puede almacenarlos fuera de tu país.',
           },
           {
             type: 'p',
-            text: 'Puedes retirar el consentimiento en cualquier momento borrando los datos de este sitio en tu navegador; el aviso volverá a aparecer en tu próxima visita.',
+            text: 'Nunca cargamos scripts publicitarios, de retargeting ni de repetición de sesión. Puedes retirar el consentimiento en cualquier momento borrando los datos de este sitio en tu navegador —eso también elimina las cookies `_ga`—; el aviso volverá a aparecer en tu próxima visita.',
           },
         ],
       },
@@ -499,7 +499,7 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         blocks: [
           {
             type: 'p',
-            text: 'La página de inicio muestra un recuento real de estrellas de GitHub solicitando la API pública de GitHub desde tu navegador. Como cualquier solicitud a github.com, eso expone tu dirección IP y agente de usuario a GitHub según su política de privacidad. Esa solicitud no establece cookies y no se cargan otros recursos de terceros.',
+            text: 'La página de inicio muestra un recuento real de estrellas de GitHub solicitando la API pública de GitHub desde tu navegador. Como cualquier solicitud a github.com, eso expone tu dirección IP y agente de usuario a GitHub según su política de privacidad. Esa solicitud no establece cookies. El único otro recurso de terceros es la etiqueta de Google Analytics descrita arriba, y solo se carga cuando aceptas la analítica.',
           },
         ],
       },
