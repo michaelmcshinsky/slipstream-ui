@@ -226,6 +226,8 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         activeRuns: 'Active runs',
         thisWeek: 'this week',
         selected: 'Selected',
+        selectedOne: '{count} selected',
+        selectedOther: '{count} selected',
         useTheCheckboxes: 'use the checkboxes',
         successRate: 'Success rate',
         vsLastWeek: 'vs last week',

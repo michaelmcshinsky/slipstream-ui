@@ -218,6 +218,8 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         activeRuns: 'Ejecuciones activas',
         thisWeek: 'esta semana',
         selected: 'Seleccionado',
+        selectedOne: '{count} seleccionado',
+        selectedOther: '{count} seleccionados',
         useTheCheckboxes: 'usa las casillas',
         successRate: 'Tasa de éxito',
         vsLastWeek: 'vs la semana pasada',

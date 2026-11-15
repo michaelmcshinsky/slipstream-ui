@@ -218,6 +218,8 @@ export const ru: MarketingCopy = {
         activeRuns: 'Активные запуски',
         thisWeek: 'на этой неделе',
         selected: 'Выбрано',
+        selectedOne: 'Выбран {count}',
+        selectedOther: 'Выбрано {count}',
         useTheCheckboxes: 'используйте флажки',
         successRate: 'Успешность',
         vsLastWeek: 'по сравнению с прошлой неделей',

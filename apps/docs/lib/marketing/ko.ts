@@ -218,6 +218,8 @@ export const ko: MarketingCopy = {
         activeRuns: '활성 실행',
         thisWeek: '이번 주',
         selected: '선택됨',
+        selectedOne: '{count}개 선택됨',
+        selectedOther: '{count}개 선택됨',
         useTheCheckboxes: '체크박스를 사용하세요',
         successRate: '성공률',
         vsLastWeek: '지난주 대비',

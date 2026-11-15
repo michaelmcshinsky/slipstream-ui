@@ -218,6 +218,8 @@ export const ja: MarketingCopy = {
         activeRuns: 'アクティブな実行',
         thisWeek: '今週',
         selected: '選択済み',
+        selectedOne: '{count} 件選択',
+        selectedOther: '{count} 件選択',
         useTheCheckboxes: 'チェックボックスを使用',
         successRate: '成功率',
         vsLastWeek: '先週比',

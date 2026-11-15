@@ -216,6 +216,8 @@ export const zh: MarketingCopy = {
         activeRuns: '活跃运行',
         thisWeek: '本周',
         selected: '已选择',
+        selectedOne: '已选择 {count} 项',
+        selectedOther: '已选择 {count} 项',
         useTheCheckboxes: '使用复选框',
         successRate: '成功率',
         vsLastWeek: '对比上周',

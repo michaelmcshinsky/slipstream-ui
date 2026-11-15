@@ -46,6 +46,8 @@ export type LabCopy = {
     activeRuns: string;
     thisWeek: string;
     selected: string;
+    selectedOne: string;
+    selectedOther: string;
     useTheCheckboxes: string;
     successRate: string;
     vsLastWeek: string;

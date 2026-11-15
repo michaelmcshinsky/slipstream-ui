@@ -218,6 +218,8 @@ export const ar: MarketingCopy = {
         activeRuns: 'التشغيلات النشطة',
         thisWeek: 'هذا الأسبوع',
         selected: 'المحدد',
+        selectedOne: 'تم تحديد {count}',
+        selectedOther: 'تم تحديد {count}',
         useTheCheckboxes: 'استخدم مربعات الاختيار',
         successRate: 'معدل النجاح',
         vsLastWeek: 'مقارنة بالأسبوع الماضي',

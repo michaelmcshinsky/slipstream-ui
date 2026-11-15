@@ -136,6 +136,7 @@ function DataPane({ copy }: { copy: LabCopy }) {
         pageSize={4}
         selectedRowIds={selected}
         onSelectedRowIdsChange={setSelected}
+        selectedLabel={selected.length === 1 ? copy.data.selectedOne : copy.data.selectedOther}
         bulkActions={
           <>
             <Button
