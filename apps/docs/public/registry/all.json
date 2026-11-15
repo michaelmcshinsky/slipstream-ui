@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "schemaVersion": 1,
-  "count": 112,
+  "count": 113,
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
   "components": [
     {
@@ -435,6 +435,14 @@
       "tier": "organism",
       "description": "Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.",
       "registry": "/registry/hero.json"
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag",
+      "registry": "/registry/image.json"
     },
     {
       "id": "inline-citation",
