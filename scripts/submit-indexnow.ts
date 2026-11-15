@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
- * Submits the site's URLs to IndexNow (https://www.indexnow.org/documentation),
- * which forwards them to Bing, Yandex, Seznam and Naver in one request.
+ * Submits the site's URLs to IndexNow (https://www.indexnow.org/documentation).
+ * Bing is the engine these submissions exist for, so the payload goes straight to
+ * `https://www.bing.com/indexnow` first - that is the endpoint behind the
+ * "Submit URLs" tool in Bing Webmaster Tools, minus the manual paste. The shared
+ * endpoint (`https://api.indexnow.org/indexnow`) then keeps Yandex, Seznam and
+ * Naver in the loop. Override both with `INDEXNOW_ENDPOINTS` (comma-separated).
  *
  * IndexNow proves ownership by fetching `<key>.txt` from the site root, so the
  * key lives in `apps/docs/public/<key>.txt` - Next serves `public/` at the site
@@ -37,7 +41,18 @@ import { SITE } from '../apps/docs/lib/site';
 
 const ROOT = path.resolve(__dirname, '..');
 const PUBLIC = path.join(ROOT, 'apps', 'docs', 'public');
-const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const BING_ENDPOINT = 'https://www.bing.com/indexnow';
+const SHARED_ENDPOINT = 'https://api.indexnow.org/indexnow';
+const DEFAULT_ENDPOINTS = [BING_ENDPOINT, SHARED_ENDPOINT];
+
+/** `INDEXNOW_ENDPOINTS` replaces the default pair; blanks are ignored. */
+function endpointsFromEnv(): string[] {
+  const configured = (process.env.INDEXNOW_ENDPOINTS ?? '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return configured.length > 0 ? configured : DEFAULT_ENDPOINTS;
+}
 
 /** IndexNow key files are lowercase hex and 8-128 characters, plus the extension. */
 const KEY_FILE_PATTERN = /^[0-9a-f]{8,128}\.txt$/;
@@ -52,6 +67,12 @@ type Options = {
 type KeyFile = {
   key: string;
   file: string;
+};
+
+type SubmissionResult = {
+  endpoint: string;
+  status: number;
+  detail: string;
 };
 
 function parseArgs(argv: string[]): Options {
@@ -142,6 +163,32 @@ async function sitemapUrls(options: Options, origin: string): Promise<string[]> 
   return [...new Set(urls)];
 }
 
+/** POST one payload. A rate limit or a 5xx gets one retry; a rejection does not. */
+async function post(endpoint: string, payload: unknown): Promise<SubmissionResult> {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      const detail = (await response.text().catch(() => '')).trim().slice(0, 200);
+      if ((response.status === 429 || response.status >= 500) && attempt === 1) {
+        await new Promise((resolve) => setTimeout(resolve, 5_000));
+        continue;
+      }
+      return { endpoint, status: response.status, detail };
+    } catch (error) {
+      if (attempt === 1) {
+        await new Promise((resolve) => setTimeout(resolve, 2_000));
+        continue;
+      }
+      return { endpoint, status: 0, detail: error instanceof Error ? error.message : String(error) };
+    }
+  }
+  return { endpoint, status: 0, detail: 'no attempt was made' };
+}
+
 async function main(): Promise<void> {
   const options = parseArgs(process.argv.slice(2));
   const origin = (options.origin ?? process.env.INDEXNOW_ORIGIN ?? SITE.url).replace(/\/+$/, '');
@@ -167,20 +214,32 @@ async function main(): Promise<void> {
     return;
   }
 
-  const response = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify(payload),
-  });
+  const endpoints = endpointsFromEnv();
+  const results = await Promise.all(endpoints.map((endpoint) => post(endpoint, payload)));
 
-  if (response.status !== 200 && response.status !== 202) {
-    const detail = await response.text().catch(() => '');
-    abort(options, `IndexNow rejected the submission: HTTP ${response.status} ${detail}`.trim());
+  for (const result of results) {
+    console.log(
+      `submit-indexnow: ${result.endpoint} -> ${result.status || 'no response'}` +
+        (result.detail ? `: ${result.detail}` : ''),
+    );
   }
 
+  const accepted = results.filter((result) => result.status === 200 || result.status === 202);
+  if (accepted.length === 0) {
+    const summary = results
+      .map((result) => `${result.endpoint} (${result.status || result.detail})`)
+      .join(', ');
+    abort(options, `IndexNow rejected the submission: ${summary}`);
+  }
+  if (accepted.length < results.length) {
+    console.warn('submit-indexnow: at least one endpoint did not accept the submission');
+  }
+
+  const status = accepted.some((result) => result.status === 202)
+    ? 'accepted (key validation pending)'
+    : 'accepted';
   console.log(
-    `submit-indexnow: ${response.status === 202 ? 'accepted (key validation pending)' : 'accepted'} ` +
-      `${urls.length} URLs for ${payload.host} via ${payload.keyLocation}`,
+    `submit-indexnow: ${status} ${urls.length} URLs for ${payload.host} via ${payload.keyLocation}`,
   );
 }
 
