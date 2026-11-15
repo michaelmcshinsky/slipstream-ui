@@ -52,7 +52,7 @@ pnpm --filter slipstream-ui-docs dev
 
 ### Deploy / provision
 
-- `pnpm --filter slipstream-ui-docs deploy` (or `pnpm deploy:docs` from the root). That script also submits the sitemap's URLs to IndexNow (Bing, Yandex, Seznam, Naver) by ending with `pnpm submit:indexnow --soft`; the key is committed at `apps/docs/public/<key>.txt` and served from the site root. Submissions target the canonical domain (`SITE.url`) unless `INDEXNOW_ORIGIN` or `--origin` names another origin; `--limit` and `--dry-run` spot-check, and `--soft` keeps a rejected submission from failing an otherwise good deploy.
+- `pnpm --filter slipstream-ui-docs deploy` (or `pnpm deploy:docs` from the root). That script also submits the sitemap's URLs to IndexNow (Bing, Yandex, Seznam, Naver) by ending with `tsx ../../scripts/submit-indexnow.ts --soft`; the key is committed at `apps/docs/public/<key>.txt` and served from the site root. Submissions target the canonical domain (`SITE.url`) unless `INDEXNOW_ORIGIN` or `--origin` names another origin; `--limit` and `--dry-run` spot-check, and `--soft` keeps a rejected submission from failing an otherwise good deploy.
 - Publish packages with `pnpm changeset` then `pnpm release`.
 
 #### Cloudflare Workers Builds (CI)
