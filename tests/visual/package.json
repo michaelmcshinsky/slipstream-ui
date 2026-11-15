@@ -1,0 +1,21 @@
+{
+  "name": "@slipstream-ui/visual",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4180 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4180 --strictPort"
+  },
+  "dependencies": {
+    "@slipstream-ui/core": "workspace:*",
+    "@slipstream-ui/themes": "workspace:*",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.2.1",
+    "vite": "^8.3.6"
+  }
+}
