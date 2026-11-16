@@ -29,10 +29,11 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
     <label className={['relative inline-flex items-center', className].filter(Boolean).join(' ')}>
       <span className="sr-only">{t('shell.language')}</span>
       {/* appearance-none + an explicit chevron so the caret never sits flush
-          against the control edge (native arrows ignore padding on Windows). */}
+          against the control edge (native arrows ignore padding on Windows).
+          Logical padding and inset keep the caret on the trailing side in RTL. */}
       <select
         aria-label={t('shell.language')}
-        className="h-9 appearance-none rounded-md border border-border bg-background py-0 pl-2.5 pr-8 text-sm text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="h-9 appearance-none rounded-md border border-border bg-background py-0 ps-2.5 pe-8 text-sm text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         value={locale}
         onChange={(event) => change(event.target.value as Locale)}
       >
@@ -50,7 +51,7 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="pointer-events-none absolute right-2.5 h-3.5 w-3.5 text-muted-foreground"
+        className="pointer-events-none absolute end-2.5 h-3.5 w-3.5 text-muted-foreground"
       >
         <path d="M4 6l4 4 4-4" />
       </svg>

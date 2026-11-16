@@ -47,6 +47,18 @@ describe('Stepper', () => {
     expect(container.querySelectorAll('li')[0]).toHaveClass('flex-1');
   });
 
+  it('states progress in the caller language when labels are supplied', () => {
+    render(
+      <Stepper
+        steps={steps}
+        current={1}
+        labels={{ completed: ' (completado)', current: ' (paso actual)', upcoming: ' (próximo)' }}
+      />
+    );
+    expect(screen.getByText('(completado)')).toBeInTheDocument();
+    expect(screen.getByText('(próximo)')).toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Stepper steps={steps} current={1} />);
     expect(await axe(container)).toHaveNoViolations();

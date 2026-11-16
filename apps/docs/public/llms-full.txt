@@ -2130,6 +2130,9 @@ The Conversation component manages the display of multiple messages in a chat in
 | welcomeDescription | `string` | — | no | Supporting text in the welcome state |
 | welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| userLabel | `string` | — | no | Display name for the user role; override for localization |
+| assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
+| labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |
 | hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
 | isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
 | onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |
@@ -2322,6 +2325,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | selectAllLabel | `string` | `'Select all rows'` | no | Accessible label for the select-all checkbox. |
+| selectedLabel | `string` | `'{count} selected'` | no | Selection summary shown above the table while rows are selected. `{count}` is replaced with the selection size. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 | selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
 | onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |
@@ -7081,6 +7085,7 @@ Wizards need orientation: where am I, what is done, what is next. A stepper buil
 | labelPlacement | `'inline' | 'below'` | `inline` | no | Horizontal only: place the label beside the marker or beneath it. |
 | alignTitles | `'start' | 'center'` | `center` | no | Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned. |
 | onStepClick | `(index: number) => void` | — | no | Makes steps clickable (for revisit flows). |
+| labels | `{ completed?: string; current?: string; upcoming?: string }` | — | no | Screen-reader state suffixes for each step. Default to the English " (completed)", " (current step)" and " (upcoming)". |
 
 ## Examples
 

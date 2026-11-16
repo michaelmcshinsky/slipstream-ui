@@ -137,6 +137,13 @@ export const ar = {
     backHome: "العودة إلى الرئيسية",
     lastUpdated: "آخر تحديث: {date}",
     loading: "جارٍ تحميل الصفحة…",
+    translation: {
+      title: "هذه الصفحة بالإنجليزية فقط في الوقت الحالي",
+      body: "تمت ترجمة التنقل والبحث والواجهة، لكن نص التوثيق لا يزال قيد الترجمة.",
+      help: "ساعد في الترجمة",
+      issueTitle: "ترجمة التوثيق إلى {locale}",
+      issueBody: "الصفحة: {url}\n\nاللغة: {locale}\n\nما الذي يحتاج إلى ترجمة أو تصحيح؟\n",
+    },
     footer: {
       tagline: "مكتبة مكونات React المصممة للذكاء الاصطناعي. يقرأ ذكاؤك الاصطناعي المواصفات لا الشيفرة.",
       docs: "التوثيق",
@@ -162,6 +169,7 @@ export const ar = {
       terms: "الشروط",
       copyright: "© {year} Slipstream UI · ترخيص MIT",
       builtStateless: "مبني بلا حالة — أنت تملك تدفق بياناتك.",
+      helpTranslate: "ساعد في الترجمة",
     },
     search: {
       dialogLabel: "البحث في التوثيق",

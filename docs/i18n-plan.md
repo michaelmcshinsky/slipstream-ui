@@ -134,8 +134,27 @@ Follow-ups:
 
 **Implemented interim:** cookie locale, `I18nProvider`, navbar language switcher,
 translated primary nav/search/theme labels, and server `lang`/`dir`.
+**Implemented since (marketing + docs prose):**
+
+- Every homepage string is locale-keyed: the interactive lab (tabs, metric
+  cards, table headers/rows/statuses, bulk actions, SelectMenu/InputGroup/
+  ButtonGroup copy, confirm/drawer/toast copy, wizard steps and states), the
+  live chat demo (first question, streamed reply, role labels) and the
+  comparison table cells. Seven locales, no English fallbacks left on the
+  homepage.
+- `apps/docs/lib/docs-copy/` is the translated prose registry: typed blocks
+  (`h2`, `p`, `ul`, `ol`, `code`, `chips`, `callouts`, `cards`), locale-keyed,
+  interpolating generated counts, with `apps/docs/components/docs-prose.tsx`
+  rendering every locale through one layout. **Introduction and Quickstart**
+  ship in all seven locales; add a page by extending `DocsPageId`, dropping in
+  its catalog and listing the route in `TRANSLATED_DOC_PATHS`.
+- Docs bodies that are still English-only show an explicit
+  `DocsTranslationNotice` for non-English readers (localized title/body plus a
+  prefilled "help translate" issue), so nothing pretends to be translated.
+
 **Remaining:** path-prefixed URLs, per-locale metadata/`hreflang`/sitemap,
-locale-keyed search index, and translated content.
+locale-keyed search index, and the prose for the remaining guides and
+component pages.
 
 Recommended URL strategy: **path prefix**, not subdomain.
 

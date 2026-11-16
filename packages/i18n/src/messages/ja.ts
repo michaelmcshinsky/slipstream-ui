@@ -137,6 +137,13 @@ export const ja = {
     backHome: "ホームに戻る",
     lastUpdated: "最終更新: {date}",
     loading: "ページを読み込み中…",
+    translation: {
+      title: "このページは現在英語のみです",
+      body: "ナビゲーション、検索、インターフェースは翻訳済みですが、ドキュメント本文は翻訳中です。",
+      help: "翻訳に協力する",
+      issueTitle: "ドキュメントの{locale}翻訳",
+      issueBody: "ページ: {url}\n\n言語: {locale}\n\n翻訳や修正が必要な箇所はどこですか？\n",
+    },
     footer: {
       tagline: "AI ファーストの React コンポーネントライブラリ。AI はコードではなく仕様を読みます。",
       docs: "ドキュメント",
@@ -162,6 +169,7 @@ export const ja = {
       terms: "利用規約",
       copyright: "© {year} Slipstream UI · MIT ライセンス",
       builtStateless: "ステートレス設計 — データフローはあなたが所有します。",
+      helpTranslate: "翻訳に協力する",
     },
     search: {
       dialogLabel: "ドキュメントを検索",

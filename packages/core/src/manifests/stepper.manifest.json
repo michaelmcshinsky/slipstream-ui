@@ -77,6 +77,12 @@
       "type": "(index: number) => void",
       "required": false,
       "description": "Makes steps clickable (for revisit flows)."
+    },
+    {
+      "name": "labels",
+      "type": "{ completed?: string; current?: string; upcoming?: string }",
+      "required": false,
+      "description": "Screen-reader state suffixes for each step. Default to the English \" (completed)\", \" (current step)\" and \" (upcoming)\"."
     }
   ],
   "examples": [

@@ -28,6 +28,15 @@ export type StepperProps = Omit<React.OlHTMLAttributes<HTMLOListElement>, 'onCli
   alignTitles?: 'start' | 'center';
   /** Makes completed/upcoming steps clickable. */
   onStepClick?: (index: number) => void;
+  /**
+   * Screen-reader state suffixes for each step. Override for localization;
+   * defaults keep the English copy.
+   */
+  labels?: {
+    completed?: string;
+    current?: string;
+    upcoming?: string;
+  };
 };
 
 /**
@@ -50,6 +59,7 @@ export const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function
     labelPlacement = 'inline',
     alignTitles = 'center',
     onStepClick,
+    labels,
     className,
     ...props
   },
@@ -140,7 +150,11 @@ export const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function
               </span>
             )}
             <span className="sr-only">
-              {state === 'complete' ? ' (completed)' : state === 'current' ? ' (current step)' : ' (upcoming)'}
+              {state === 'complete'
+                ? (labels?.completed ?? ' (completed)')
+                : state === 'current'
+                  ? (labels?.current ?? ' (current step)')
+                  : (labels?.upcoming ?? ' (upcoming)')}
             </span>
           </span>
         );

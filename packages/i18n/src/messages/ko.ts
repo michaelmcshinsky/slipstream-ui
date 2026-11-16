@@ -137,6 +137,13 @@ export const ko = {
     backHome: "홈으로 돌아가기",
     lastUpdated: "최종 업데이트: {date}",
     loading: "페이지를 불러오는 중…",
+    translation: {
+      title: "이 페이지는 현재 영어로만 제공됩니다",
+      body: "탐색, 검색, 인터페이스는 번역되었지만 문서 본문은 아직 번역 중입니다.",
+      help: "번역 돕기",
+      issueTitle: "문서 {locale} 번역",
+      issueBody: "페이지: {url}\n\n언어: {locale}\n\n번역하거나 고쳐야 할 부분은 무엇인가요?\n",
+    },
     footer: {
       tagline: "AI 우선 React 컴포넌트 라이브러리. AI가 소스가 아닌 명세를 읽습니다.",
       docs: "문서",
@@ -162,6 +169,7 @@ export const ko = {
       terms: "이용 약관",
       copyright: "© {year} Slipstream UI · MIT 라이선스",
       builtStateless: "상태 없이 구축 — 데이터 흐름은 직접 소유합니다.",
+      helpTranslate: "번역 돕기",
     },
     search: {
       dialogLabel: "문서 검색",

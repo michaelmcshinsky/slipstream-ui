@@ -23,11 +23,17 @@ import type { HomeCopy } from '@/lib/marketing';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components** (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), each with a machine-readable \`COMPONENT_MANIFEST\`.
+/** Demo reply in the active locale; counts are interpolated per render. */
+function fillCounts(text: string): string {
+  return text
+    .replaceAll('{componentCount}', String(COMPONENT_COUNT))
+    .replaceAll('{coreComponentCount}', String(CORE_COMPONENT_COUNT))
+    .replaceAll('{aiComponentCount}', String(AI_COMPONENT_COUNT));
+}
 
-The live lab on this page runs the real library: DataTable selection + pagination, MetricCard, SelectMenu, InputGroup, ButtonGroup, ConfirmDialog, Drawer, imperative toasts and the Stepper.
-
-Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
+function demoReply(copy: HomeCopy['demo']): string {
+  return fillCounts(copy.reply);
+}
 
 /**
  * Facts below reflect each project's public documentation and published
@@ -40,8 +46,7 @@ const COMPARISON: {
   shadcn: string;
   assistantUi: string;
   mui: string;
-}[] = [
-  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
+}[] = [  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
   { capability: 'Components shipped', slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`, shadcn: 'UI primitives + AI Elements', assistantUi: 'Chat surface + primitives', mui: 'Broad UI set, no chat' },
   { capability: 'Per-component machine-readable spec', slipstream: 'Yes — props, a11y, anti-patterns', shadcn: 'Partial — registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
   { capability: 'MCP server', slipstream: 'Yes — 5 tools incl. validate_usage', shadcn: 'Partial — browse/search/install', assistantUi: 'No', mui: 'Partial — agent skills' },
@@ -58,7 +63,7 @@ const COMPARISON: {
 
 function LandingChatDemo({ copy }: { copy: HomeCopy }) {
   const [messages, setMessages] = useState<MessageType[]>([
-    { id: '1', role: 'user', content: 'What makes Slipstream UI different?' },
+    { id: '1', role: 'user', content: copy.demo.initialMessage },
   ]);
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -67,6 +72,7 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
     const userId = Date.now().toString();
     setMessages((prev) => [...prev, { id: userId, role: 'user', content: value }]);
 
+    const reply = demoReply(copy.demo);
     const replyId = `${Date.now()}-a`;
     timers.current.push(
       setTimeout(() => {
@@ -76,11 +82,11 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
         let cursor = 0;
         const tick = () => {
           cursor += 6;
-          if (cursor >= DEMO_REPLY.length) {
+          if (cursor >= reply.length) {
             setStreamingId(null);
             return;
           }
-          const partial = DEMO_REPLY.slice(0, cursor);
+          const partial = reply.slice(0, cursor);
           setMessages((prev) =>
             prev.map((message) => (message.id === replyId ? { ...message, content: partial } : message))
           );
@@ -110,6 +116,9 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
           welcomeTitle={copy.welcomeTitle}
           welcomeSuggestions={copy.welcomeSuggestions}
           onWelcomeSelect={handleSubmit}
+          userLabel={copy.demo.you}
+          assistantLabel={copy.demo.assistant}
+          labels={{ transcript: copy.demo.transcriptLabel, responseComplete: copy.demo.responseComplete }}
         />
       </div>
       <div className="border-t border-border p-3">
@@ -143,7 +152,7 @@ function CopyInstallPill({ copy }: { copy: HomeCopy }) {
   );
 }
 
-const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
+const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex'];
 
 export default function LandingPage({ copy }: { copy: HomeCopy }) {
   return (
@@ -167,7 +176,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <Link
                 href="/changelog"
-                title={`See what's new in v${VERSION}`}
+                title={`v${VERSION} — ${copy.whatsNew}`}
                 className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
               >
                 v{VERSION} <span className="ml-1.5 text-primary">{copy.whatsNew}</span>
@@ -213,10 +222,11 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           {AGENTS.map((agent) => (
             <span key={agent} className="font-medium">{agent}</span>
           ))}
+          <span className="font-medium">{copy.demo.anyMcpClient}</span>
         </div>
       </section>
 
-      <LiveLab />
+      <LiveLab copy={copy.lab} />
 
       {/* Stats band */}
       <section className="container mx-auto px-4 py-14">
@@ -358,15 +368,18 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
               </tr>
             </thead>
             <tbody>
-              {COMPARISON.map((row, index) => (
-                <tr key={row.capability} className="border-t border-border">
-                  <td className="p-3">{copy.comparisonCapabilities[index] ?? row.capability}</td>
-                  <td className="p-3 text-center">{row.slipstream}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.shadcn}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.assistantUi}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.mui}</td>
-                </tr>
-              ))}
+              {COMPARISON.map((row, index) => {
+                const values = copy.comparisonRows[index] ?? row;
+                return (
+                  <tr key={row.capability} className="border-t border-border">
+                    <td className="p-3">{copy.comparisonCapabilities[index] ?? row.capability}</td>
+                    <td className="p-3 text-center">{fillCounts(values.slipstream)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.shadcn)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.assistantUi)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.mui)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
