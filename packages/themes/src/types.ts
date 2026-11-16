@@ -9,6 +9,13 @@ export type ThemeColors = {
   foreground: string;
   primary: string;
   'primary-foreground': string;
+  /**
+   * Readable primary for text roles (links, active nav, eyebrows) on light
+   * surfaces and primary/10 tints. `primary` itself stays a fill colour:
+   * a brand hue bright enough for a button background is too light for
+   * normal-size text on white.
+   */
+  'primary-ink': string;
   secondary: string;
   'secondary-foreground': string;
   muted: string;

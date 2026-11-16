@@ -55,7 +55,7 @@ function containsActive(item: SidebarItem, activeHref: string | undefined): bool
 
 const itemClass =
   'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
-const activeClass = 'bg-primary/10 font-medium text-primary';
+const activeClass = 'bg-primary/10 font-medium text-primary-ink';
 const idleClass = 'text-muted-foreground hover:bg-accent hover:text-accent-foreground';
 
 /**
