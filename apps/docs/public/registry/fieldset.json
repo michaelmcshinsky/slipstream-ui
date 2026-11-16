@@ -111,6 +111,11 @@
   "version": "0.8.0",
   "sourceDir": "fieldset",
   "exportName": "Fieldset",
+  "componentId": "fieldset",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/fieldset",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

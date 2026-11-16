@@ -2,9 +2,12 @@
 
 Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 
+> Component ID: `password-input`
 > Import: `import { PasswordInput } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/password-input
 > Registry: https://slipstreamui.com/registry/password-input.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

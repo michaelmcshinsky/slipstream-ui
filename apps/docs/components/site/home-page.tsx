@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Button } from '@slipstream-ui/core';
 import {
   CodeBlock,
@@ -14,14 +15,60 @@ import { Navbar } from '@/components/site/navbar';
 import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
-import { ThemeShowcase } from '@/components/theme-showcase';
-import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
 import { VERSION } from '@/lib/version';
 import { track } from '@/lib/analytics';
+import { HOME_EXTRAS } from '@/lib/marketing/home-extras';
 import type { HomeCopy } from '@/lib/marketing';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
+
+/**
+ * Below-the-fold interactive islands are split out of the initial bundle.
+ * The lab and theme previews are large client trees; loading them after the
+ * hero cuts main-thread work without changing the server-rendered copy above.
+ */
+const LiveLab = dynamic(() => import('@/components/site/live-lab').then((mod) => mod.LiveLab), {
+  ssr: false,
+  loading: () => <div className="min-h-[620px]" aria-hidden="true" />,
+});
+const ThemeShowcase = dynamic(
+  () => import('@/components/theme-showcase').then((mod) => mod.ThemeShowcase),
+  { ssr: false, loading: () => <div className="min-h-[380px]" aria-hidden="true" /> }
+);
+
+/**
+ * Mounts its children only when the placeholder is near the viewport. This
+ * keeps the dynamic chunks' import and hydration off the initial main thread.
+ */
+function Deferred({ children, minHeight }: { children: React.ReactNode; minHeight: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (show || !ref.current || typeof IntersectionObserver === 'undefined') {
+      setShow(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [show]);
+
+  return (
+    <div ref={ref}>
+      {show ? children : <div style={{ minHeight }} aria-hidden="true" />}
+    </div>
+  );
+}
 
 /** Demo reply in the active locale; counts are interpolated per render. */
 function fillCounts(text: string): string {
@@ -152,6 +199,109 @@ function CopyInstallPill({ copy }: { copy: HomeCopy }) {
   );
 }
 
+function InstallSection() {
+  const { install } = HOME_EXTRAS;
+  const [copied, setCopied] = useState(false);
+
+  async function copyCommand() {
+    try {
+      await navigator.clipboard.writeText(install.command);
+      track('install_copy', { command: 'init', location: 'home_steps' });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable.
+    }
+  }
+
+  return (
+    <section id="start" className="border-b border-border">
+      <div className="container mx-auto px-4 py-20">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{install.eyebrow}</p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight">{install.title}</h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">{install.description}</p>
+
+        <ol className="mt-8 grid gap-4 md:grid-cols-5">
+          {install.steps.map((step, index) => (
+            <li key={step.title} className="rounded-xl border border-border bg-card p-4">
+              <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="mt-1.5 text-sm font-semibold">{step.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <div className="rounded-xl border border-border bg-card p-5">
+            <p className="text-sm font-medium">Recommended path</p>
+            <button
+              type="button"
+              onClick={copyCommand}
+              className="mt-3 flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-muted px-4 py-3 text-left font-mono text-sm transition-colors hover:bg-accent"
+            >
+              <span className="truncate">{install.command}</span>
+              <span className="shrink-0 text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
+            </button>
+            <div className="mt-4 flex flex-wrap gap-3 text-xs">
+              <Link href="/docs/installation" className="font-medium text-primary hover:underline">
+                Installation guide
+              </Link>
+              <Link href="/docs/getting-started" className="font-medium text-primary hover:underline">
+                Five-minute quickstart
+              </Link>
+              <Link href="/playground" className="font-medium text-primary hover:underline">
+                Try it in the browser
+              </Link>
+              <a
+                href={install.licenseLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                MIT license
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-5">
+            <h3 className="text-sm font-semibold">{install.freeTitle}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{install.freeBody}</p>
+            <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
+              {install.freeItems.map((item) => (
+                <div key={item.label} className="flex items-center justify-between gap-2 rounded-md bg-muted/60 px-2.5 py-1.5">
+                  <dt className="text-muted-foreground">{item.label}</dt>
+                  <dd className="font-medium">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{install.freeNote}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  const { faq } = HOME_EXTRAS;
+  return (
+    <section className="border-t border-border bg-muted/30">
+      <div className="container mx-auto px-4 py-20">
+        <h2 className="text-3xl font-bold tracking-tight">{faq.title}</h2>
+        <p className="mt-2 max-w-2xl text-muted-foreground">{faq.intro}</p>
+        <dl className="mt-8 grid gap-4 md:grid-cols-2">
+          {faq.items.map((item) => (
+            <div key={item.question} className="rounded-xl border border-border bg-card p-5">
+              <dt className="text-sm font-semibold">{item.question}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
 const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex'];
 
 export default function LandingPage({ copy }: { copy: HomeCopy }) {
@@ -226,7 +376,11 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </div>
       </section>
 
-      <LiveLab copy={copy.lab} />
+      <InstallSection />
+
+      <Deferred minHeight={620}>
+        <LiveLab copy={copy.lab} />
+      </Deferred>
 
       {/* Stats band */}
       <section className="container mx-auto px-4 py-14">
@@ -243,6 +397,12 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             </div>
           ))}
         </dl>
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
+          {HOME_EXTRAS.benchmarkNote}{' '}
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+            Benchmark methodology
+          </a>
+        </p>
       </section>
 
       {/* Feature bento */}
@@ -341,6 +501,12 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <p className="mt-3 text-xs text-muted-foreground">{copy.validatorCards[2].note}</p>
           </div>
         </div>
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
+          {HOME_EXTRAS.benchmarkNote}{' '}
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+            Read the methodology
+          </a>
+        </p>
       </section>
 
       {/* Theme showcase */}
@@ -348,7 +514,9 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <div className="container mx-auto max-w-4xl px-4 py-20">
           <h2 className="mb-3 text-3xl font-bold tracking-tight">{copy.themesHeading}</h2>
           <p className="mb-8 max-w-2xl text-muted-foreground">{copy.themesIntro}</p>
-          <ThemeShowcase />
+          <Deferred minHeight={380}>
+            <ThemeShowcase />
+          </Deferred>
         </div>
       </section>
 
@@ -452,6 +620,8 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           </Link>
         </div>
       </section>
+
+      <FaqSection />
 
       {/* CTA */}
       <section className="container mx-auto px-4 py-24 text-center">

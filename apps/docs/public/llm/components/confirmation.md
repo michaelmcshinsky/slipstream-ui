@@ -2,9 +2,12 @@
 
 Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.
 
+> Component ID: `confirmation`
 > Import: `import { Confirmation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/confirmation
 > Registry: https://slipstreamui.com/registry/confirmation.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -2,9 +2,12 @@
 
 A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
 
+> Component ID: `image`
 > Import: `import { Image } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/image
 > Registry: https://slipstreamui.com/registry/image.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

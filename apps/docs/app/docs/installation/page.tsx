@@ -7,7 +7,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/installation', {
   title: 'Installation',
   description:
-    'Install Slipstream UI via pnpm packages, the npx slipstream-ui CLI, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
+    'Install Slipstream UI via pnpm packages, the @slipstream-ui/cli command, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
 });
 
 export default function InstallationPage() {

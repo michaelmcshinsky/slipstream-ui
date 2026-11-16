@@ -118,6 +118,11 @@
     "Breadcrumb",
     "List"
   ],
+  "componentId": "table-of-contents",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/table-of-contents",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

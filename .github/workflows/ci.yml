@@ -73,7 +73,7 @@ jobs:
         run: pnpm generate:llm-docs
 
       - name: Check generated files are committed
-        run: git diff --exit-code -- README.md apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llm apps/docs/public/registry
+        run: git diff --exit-code -- README.md llms.txt release.json apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llms-full.txt apps/docs/public/llm apps/docs/public/registry
 
       - name: Check LLM documentation surfaces
         run: pnpm check:llm

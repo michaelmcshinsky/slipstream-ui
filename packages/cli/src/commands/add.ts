@@ -9,6 +9,27 @@ import { rewriteSupportImports } from '../source';
 
 type SourceFile = { absolute: string; relative: string; content: string };
 
+export type PlannedWrite = {
+  relative: string;
+  action: 'create' | 'overwrite' | 'skip';
+};
+
+/**
+ * Pure planning step shared by the real run and `--dry-run`.
+ * `exists` is injected so the decision can be tested without a filesystem.
+ */
+export function planWrites(
+  relatives: string[],
+  exists: (relative: string) => boolean,
+  overwrite: boolean
+): PlannedWrite[] {
+  return relatives.map((relative) => {
+    const present = exists(relative);
+    if (present && !overwrite) return { relative, action: 'skip' };
+    return { relative, action: present ? 'overwrite' : 'create' };
+  });
+}
+
 const SOURCE_EXTENSIONS = ['.ts', '.tsx'];
 
 function isTestFile(file: string) {
@@ -82,8 +103,10 @@ export const addCommand = new Command('add')
   .description('Add a component to your project')
   .argument('<component>', 'Component name (e.g., button, message, conversation)')
   .option('-o, --overwrite', 'Overwrite existing files')
+  .option('--dry-run', 'Show every file that would be created, overwritten or skipped, without writing')
   .action(async (component, options) => {
-    const spinner = ora(`Adding ${component} component...`).start();
+    const dryRun = Boolean(options.dryRun);
+    const spinner = ora(`${dryRun ? 'Planning' : 'Adding'} ${component} component...`).start();
 
     try {
       const id = component.toLowerCase();
@@ -101,38 +124,75 @@ export const addCommand = new Command('add')
       const { components, files, support } = collectComponentSource(sourceRoot, sourceDirName);
       const componentsDir = resolveComponentsDir(process.cwd());
       const destinationRoot = componentsDir.absolute;
+      const manifest = entry.manifest;
 
-      const written: string[] = [];
-      const skipped: string[] = [];
-      const write = (absolute: string, relative: string, content: string) => {
-        const destination = path.join(destinationRoot, relative);
-        if (fs.existsSync(destination) && !options.overwrite) {
-          skipped.push(relative);
-          return;
-        }
-        fs.outputFileSync(destination, content);
-        written.push(relative);
-      };
-
+      const writes: { relative: string; content: string }[] = [];
       for (const file of files) {
         // components/<dir>/File.tsx -> components/slipstream/<dir>/File.tsx
-        const relative = file.relative.replace(/^components\//, '');
-        write(file.absolute, relative, rewriteSupportImports(file.content));
+        writes.push({
+          relative: file.relative.replace(/^components\//, ''),
+          content: rewriteSupportImports(file.content),
+        });
       }
-
       for (const [, groupFiles] of support) {
         for (const absolute of groupFiles) {
-          const relative = path.relative(sourceRoot, absolute).split(path.sep).join('/');
-          write(absolute, relative, rewriteSupportImports(fs.readFileSync(absolute, 'utf8')));
+          writes.push({
+            relative: path.relative(sourceRoot, absolute).split(path.sep).join('/'),
+            content: rewriteSupportImports(fs.readFileSync(absolute, 'utf8')),
+          });
+        }
+      }
+      writes.push({
+        relative: `manifests/${id}.manifest.json`,
+        content: `${JSON.stringify(manifest, null, 2)}\n`,
+      });
+
+      const plan = planWrites(
+        writes.map((write) => write.relative),
+        (relative) => fs.existsSync(path.join(destinationRoot, relative)),
+        Boolean(options.overwrite)
+      );
+
+      if (!dryRun) {
+        for (const [index, write] of writes.entries()) {
+          if (plan[index].action === 'skip') continue;
+          fs.outputFileSync(path.join(destinationRoot, write.relative), write.content);
         }
       }
 
-      const manifest = entry.manifest;
-      fs.outputJsonSync(
-        path.join(destinationRoot, 'manifests', `${id}.manifest.json`),
-        manifest,
-        { spaces: 2 }
-      );
+      const created = plan.filter((entry) => entry.action === 'create').length;
+      const overwritten = plan.filter((entry) => entry.action === 'overwrite').length;
+      const skipped = plan.filter((entry) => entry.action === 'skip').length;
+
+      if (dryRun) {
+        spinner.succeed(chalk.cyan(`Dry run: ${component} — no files written`));
+        console.log(chalk.gray(`\nPlanned changes in ${componentsDir.relative}:`));
+        for (const item of plan) {
+          const prefix =
+            item.action === 'create'
+              ? chalk.green('create   ')
+              : item.action === 'overwrite'
+                ? chalk.yellow('overwrite')
+                : chalk.gray('skip     ');
+          console.log(`  ${prefix} ${item.relative}`);
+        }
+        console.log(
+          chalk.gray(
+            `\n${created} create, ${overwritten} overwrite, ${skipped} skip. Re-run without --dry-run to apply.`
+          )
+        );
+      } else {
+        spinner.succeed(chalk.green(`Added ${component} component successfully!`));
+        console.log(
+          `\nImport: ${chalk.cyan(`import { ${manifest.exportName ?? manifest.name} } from './${componentsDir.relative}/${manifest.sourceDir}'`)}`
+        );
+        if (components.length > 1) {
+          console.log(chalk.gray(`  Also copied: ${components.filter((candidate) => candidate !== id).join(', ')}`));
+        }
+        if (skipped > 0) {
+          console.log(chalk.yellow(`  Skipped ${skipped} existing file(s). Use --overwrite to replace them.`));
+        }
+      }
 
       const dependencies = new Set<string>();
       for (const componentId of components) {
@@ -145,17 +205,6 @@ export const addCommand = new Command('add')
             if (typeof dependency === 'string') dependencies.add(dependency);
           }
         }
-      }
-
-      spinner.succeed(chalk.green(`Added ${component} component successfully!`));
-      console.log(
-        `\nImport: ${chalk.cyan(`import { ${manifest.exportName ?? manifest.name} } from './${componentsDir.relative}/${manifest.sourceDir}'`)}`
-      );
-      if (components.length > 1) {
-        console.log(chalk.gray(`  Also copied: ${components.filter((candidate) => candidate !== id).join(', ')}`));
-      }
-      if (skipped.length > 0) {
-        console.log(chalk.yellow(`  Skipped ${skipped.length} existing file(s). Use --overwrite to replace them.`));
       }
       if (dependencies.size > 0) {
         console.log(chalk.gray(`  Peer packages: ${[...dependencies].join(', ')}`));

@@ -99,6 +99,8 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 
 Changesets with a linked `core`/`ai`/`themes` group. Add a changeset for any published-package change; CI publishes on version commits with provenance.
 
+Release metadata lives in `/release.json` (`releaseDate`, schema/manifest versions). Bump `releaseDate` there when cutting a release; `pnpm check:counts` and `scripts/check-manifest-versions.ts` fail if `llms.txt`, the registry, the LLM index, the README stats, or `packages/mcp-server/server.json` disagree with the packages.
+
 ## Priority order
 
 1. Correctness and robustness

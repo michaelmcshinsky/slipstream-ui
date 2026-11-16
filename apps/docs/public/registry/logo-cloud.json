@@ -105,6 +105,11 @@
     "Testimonial",
     "StatBand"
   ],
+  "componentId": "logo-cloud",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/logo-cloud",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

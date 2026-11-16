@@ -332,6 +332,11 @@
   "version": "0.8.0",
   "sourceDir": "prompt-input",
   "exportName": "PromptInput",
+  "componentId": "prompt-input",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/prompt-input",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

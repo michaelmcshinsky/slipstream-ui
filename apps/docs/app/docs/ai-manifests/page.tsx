@@ -279,7 +279,17 @@ GET /llm/components/<id>.md        # full reference generated from the manifest`
           manifest plus the component source payload:
         </p>
         <CodeBlock code={`GET /registry/all.json        # index of every component
-GET /registry/<id>.json       # manifest + shadcn installer payload`} language="text" />
+GET /registry/<id>.json       # manifest + shadcn installer payload
+GET /registry/graph.json      # component relationship graph (nodes + edges)`} language="text" />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">Relationship graph</h3>
+        <p className="mb-4 text-muted-foreground">
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">/registry/graph.json</code> turns the
+          manifests&apos; <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">compositionRules</code> and{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">relatedComponents</code> into a traversable
+          edge list, so an agent can choose a coherent set — a Dialog with a Form, a Conversation with Messages — instead
+          of one component at a time. Every edge resolves to a node; the count gate checks that.
+        </p>
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Direct file access</h3>
         <p className="text-muted-foreground mb-4">

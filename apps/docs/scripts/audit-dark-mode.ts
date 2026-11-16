@@ -37,6 +37,7 @@ const SITE_ROUTES = [
   '/docs/ai-manifests',
   '/docs/installation',
   '/docs/compatibility',
+  '/playground',
   '/docs/tailwind-v4',
   '/docs/theming',
   '/docs/roadmap',

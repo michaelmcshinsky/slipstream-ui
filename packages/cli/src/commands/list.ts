@@ -28,5 +28,5 @@ export const listCommand = new Command('list')
     });
 
     console.log(chalk.gray(`Total: ${components.length} component(s)`));
-    console.log(chalk.gray('\nAdd a component: npx slipstream-ui add <component-name>'));
+    console.log(chalk.gray('\nAdd a component: npx @slipstream-ui/cli@latest add <component-name>'));
   });

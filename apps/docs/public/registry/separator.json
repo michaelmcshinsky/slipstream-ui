@@ -88,6 +88,11 @@
   "version": "0.8.0",
   "sourceDir": "separator",
   "exportName": "Separator",
+  "componentId": "separator",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/separator",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

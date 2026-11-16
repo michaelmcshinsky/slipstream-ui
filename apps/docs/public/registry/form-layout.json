@@ -134,6 +134,11 @@
   "version": "0.8.0",
   "sourceDir": "form-layout",
   "exportName": "FormLayout",
+  "componentId": "form-layout",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/form-layout",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

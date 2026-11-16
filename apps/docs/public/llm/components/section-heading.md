@@ -2,9 +2,12 @@
 
 Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
 
+> Component ID: `section-heading`
 > Import: `import { SectionHeading } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/section-heading
 > Registry: https://slipstreamui.com/registry/section-heading.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

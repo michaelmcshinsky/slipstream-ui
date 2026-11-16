@@ -2,9 +2,12 @@
 
 Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.
 
+> Component ID: `site-header`
 > Import: `import { SiteHeader } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/site-header
 > Registry: https://slipstreamui.com/registry/site-header.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

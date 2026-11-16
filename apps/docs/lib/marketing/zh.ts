@@ -19,7 +19,7 @@ export const zh: MarketingCopy = {
     promptPlaceholder: '试一试…',
     send: '发送',
     agentStripLabel: '流畅对话',
-    stats: ['个组件', '份机器可读规范', '个面向智能体的 MCP 工具', '个允许的臆造 prop'],
+    stats: ['个组件', '份机器可读规范', '个面向智能体的 MCP 工具', '有效用法误报'],
     featuresHeading: '为当下编写软件的方式而构建',
     featuresIntro:
       '你的一半界面由模型编写。Slipstream 给它们比从训练数据中抓取的文档更好的东西：可查询的规范，以及可自我检查的护栏。',

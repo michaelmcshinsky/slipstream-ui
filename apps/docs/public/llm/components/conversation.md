@@ -2,9 +2,12 @@
 
 A container for displaying a list of chat messages with auto-scroll and loading states
 
+> Component ID: `conversation`
 > Import: `import { Conversation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/conversation
 > Registry: https://slipstreamui.com/registry/conversation.json
-> Tier: organism · Package: @slipstream-ui/ai
+> Tier: organism · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

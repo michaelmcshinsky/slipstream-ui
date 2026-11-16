@@ -9,11 +9,14 @@ import { getComponentManifestTool } from './tools/get-manifest';
 import { getUsageExamplesTool } from './tools/get-usage-examples';
 import { validateUsageTool } from './tools/validate-usage';
 import { searchComponentsTool } from './tools/search-components';
+import packageJson from '../package.json';
 
 const server = new Server(
   {
     name: 'slipstream-ui-mcp-server',
-    version: '0.0.1',
+    // Read from the package manifest so the advertised server version cannot
+    // drift from the published package.
+    version: packageJson.version,
   },
   {
     capabilities: {

@@ -73,3 +73,22 @@ export function writeConsent(value: ConsentValue): void {
   }
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
 }
+
+/** Remove the stored choice so the banner returns and analytics stops loading. */
+export function clearConsent(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+    // GA4 sets _ga and _ga_<container>. Expire both so "reset" is not a
+    // promise the browser cannot keep.
+    for (const entry of document.cookie.split(';')) {
+      const name = entry.split('=')[0]?.trim();
+      if (name && (name === '_ga' || name.startsWith('_ga_'))) {
+        document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+      }
+    }
+  } catch {
+    /* storage blocked — nothing to clear */
+  }
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: null }));
+}

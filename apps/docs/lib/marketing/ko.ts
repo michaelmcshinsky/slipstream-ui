@@ -19,7 +19,7 @@ export const ko: MarketingCopy = {
     promptPlaceholder: '직접 사용해 보세요…',
     send: '보내기',
     agentStripLabel: '원활하게 연동',
-    stats: ['컴포넌트', '기계 판독 명세', '에이전트용 MCP 도구', '허용되는 환각 prop'],
+    stats: ['컴포넌트', '기계 판독 명세', '에이전트용 MCP 도구', '유효한 사용의 오탐'],
     featuresHeading: '지금의 소프트웨어 개발 방식에 맞춰',
     featuresIntro:
       'UI의 절반은 모델이 작성합니다. Slipstream은 학습 데이터에서 긁어온 문서보다 나은 것을 제공합니다. 질의할 수 있는 명세와 스스로 검증할 수 있는 가드레일입니다.',

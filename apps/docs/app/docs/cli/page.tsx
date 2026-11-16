@@ -32,6 +32,7 @@ const COMMANDS = [
       "Copy a component's real source files, the sibling components it imports, the shared utils, and its COMPONENT_MANIFEST into components/slipstream/. You own the code after it lands - edit it freely.",
     options: [
       { flag: '-o, --overwrite', effect: 'Replace existing copies of the component and its dependencies. Without it, existing files are skipped.' },
+      { flag: '--dry-run', effect: 'Print every file that would be created, overwritten or skipped, and write nothing. Use it before adding into an existing design system.' },
     ],
     creates: [
       'components/slipstream/<component>/ - source files',
@@ -39,7 +40,7 @@ const COMMANDS = [
       'components/slipstream/utils/ - cn(), gap() and presence() helpers',
       'components/slipstream/manifests/<id>.manifest.json - the machine-readable spec',
     ],
-    example: 'npx @slipstream-ui/cli@latest add message --overwrite',
+    example: 'npx @slipstream-ui/cli@latest add message --dry-run',
   },
   {
     name: 'list',
@@ -104,8 +105,8 @@ export default function CliPage() {
     <div>
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">CLI</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-        Initialize a project, copy components into your own codebase, and check for drift — all from{' '}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-base">npx slipstream-ui</code>.
+        Initialize a project, copy components into your own codebase, and check for drift - all from{' '}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-base">npx @slipstream-ui/cli@latest</code>.
       </p>
 
       <div className="mt-8">

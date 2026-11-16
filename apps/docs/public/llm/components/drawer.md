@@ -2,9 +2,12 @@
 
 Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 
+> Component ID: `drawer`
 > Import: `import { Drawer } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/drawer
 > Registry: https://slipstreamui.com/registry/drawer.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

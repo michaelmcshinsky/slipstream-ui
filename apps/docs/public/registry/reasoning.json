@@ -193,6 +193,11 @@
   "version": "0.8.0",
   "sourceDir": "reasoning",
   "exportName": "Reasoning",
+  "componentId": "reasoning",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/reasoning",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

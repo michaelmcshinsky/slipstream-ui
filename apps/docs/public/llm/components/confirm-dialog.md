@@ -2,9 +2,12 @@
 
 Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
 
+> Component ID: `confirm-dialog`
 > Import: `import { ConfirmDialog } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/confirm-dialog
 > Registry: https://slipstreamui.com/registry/confirm-dialog.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

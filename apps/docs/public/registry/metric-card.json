@@ -135,6 +135,11 @@
   "version": "0.8.0",
   "sourceDir": "metric-card",
   "exportName": "MetricCard",
+  "componentId": "metric-card",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/metric-card",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

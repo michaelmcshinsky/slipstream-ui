@@ -33,6 +33,8 @@ const ROUTES = [
   '/docs/components/table-of-contents',
   '/docs/components/tool-call',
   '/docs/components/confirmation',
+  '/docs/components',
+  '/playground',
   '/docs/mcp',
   '/docs/templates',
   '/changelog',

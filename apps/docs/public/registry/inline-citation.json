@@ -46,6 +46,11 @@
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.8.0",
+  "componentId": "inline-citation",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/inline-citation",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

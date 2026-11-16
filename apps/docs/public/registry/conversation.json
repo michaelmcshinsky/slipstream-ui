@@ -306,6 +306,11 @@
   "version": "0.8.0",
   "sourceDir": "conversation",
   "exportName": "Conversation",
+  "componentId": "conversation",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/conversation",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

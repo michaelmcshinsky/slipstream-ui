@@ -2,9 +2,12 @@
 
 Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 
+> Component ID: `select-menu`
 > Import: `import { SelectMenu } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/select-menu
 > Registry: https://slipstreamui.com/registry/select-menu.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

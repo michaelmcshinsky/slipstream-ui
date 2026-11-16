@@ -43,6 +43,11 @@
   "version": "0.8.0",
   "sourceDir": "suggestion",
   "exportName": "Suggestions",
+  "componentId": "suggestions",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/suggestions",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

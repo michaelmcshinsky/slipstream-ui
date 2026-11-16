@@ -2,9 +2,12 @@
 
 Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 
+> Component ID: `form-layout`
 > Import: `import { FormLayout } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form-layout
 > Registry: https://slipstreamui.com/registry/form-layout.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

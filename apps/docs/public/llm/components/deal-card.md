@@ -2,9 +2,12 @@
 
 Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 
+> Component ID: `deal-card`
 > Import: `import { DealCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/deal-card
 > Registry: https://slipstreamui.com/registry/deal-card.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

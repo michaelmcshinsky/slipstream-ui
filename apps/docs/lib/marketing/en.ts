@@ -19,7 +19,7 @@ export const en: MarketingCopy = {
     promptPlaceholder: 'Try me…',
     send: 'Send',
     agentStripLabel: 'Speaks fluently to',
-    stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'hallucinated props allowed'],
+    stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'false positives on valid usage'],
     featuresHeading: 'Built for the way software is written now',
     featuresIntro:
       'Half your UI is written by models. Slipstream gives them something better than docs scraped from training data: a spec they can query, and a guardrail they can self-check against.',
@@ -436,6 +436,23 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         ],
       },
       {
+        heading: 'Component coverage',
+        blocks: [
+          {
+            type: 'p',
+            text: 'All {componentCount} components ship a jest-axe assertion and an accessibility section in their COMPONENT_MANIFEST. Interactive components also have keyboard and focus tests.',
+          },
+          {
+            type: 'ul',
+            items: [
+              '**Automated:** axe rules per component, light and dark route audits, keyboard interaction tests, reduced-motion variants, and role/state assertions.',
+              '**In progress:** manual screen-reader task passes (NVDA, VoiceOver), 400% zoom, and RTL reading order with translated content.',
+              '**Not claimed:** conformance for every composition a consumer builds. Passing component tests is not the same as a conforming product.',
+            ],
+          },
+        ],
+      },
+      {
         heading: 'Known limitations',
         blocks: [
           {
@@ -476,7 +493,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
               '`slipstream-consent` — your cookie choice, so we do not ask again.',
             ],
           },
-          { type: 'p', text: 'Neither value is sent to a server. Clearing site data resets both.' },
+          { type: 'p', text: 'Neither value is sent to a server. You can reset both from [Privacy preferences](#preferences).' },
         ],
       },
       {
@@ -488,7 +505,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           },
           {
             type: 'p',
-            text: 'We never load advertising, retargeting, or session-replay scripts. You can withdraw consent at any time by clearing this site data in your browser - that also removes the `_ga` cookies - and the banner will appear again on your next visit.',
+            text: 'We never load advertising, retargeting, or session-replay scripts. You can change or withdraw consent at any time in [Privacy preferences](#preferences); resetting removes the `_ga` cookies and the banner appears again on your next visit.',
           },
         ],
       },
@@ -507,6 +524,10 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           {
             type: 'p',
             text: 'The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No cookies are set by that request. The only other third-party resource is the Google Analytics tag described above, and it loads only after you accept analytics.',
+          },
+          {
+            type: 'p',
+            text: 'Processors and their purpose: Netlify (hosting, request logs and contact forms), Google (analytics, only with consent), GitHub (public repository data and the star count), and npm (package distribution and download counts).',
           },
         ],
       },
@@ -580,6 +601,37 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           {
             type: 'p',
             text: 'The site, documentation, manifests, MCP tooling and packages are provided **as is**, without warranty of any kind, express or implied, including fitness for a particular purpose. You are responsible for reviewing generated code and for your own product decisions.',
+          },
+        ],
+      },
+      {
+        heading: 'Generated code and validation',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              '`validate_usage` checks the props, required props and documented composition rules in a component manifest. It does not prove runtime behaviour, visual correctness, security or functional completeness.',
+              'Automated accessibility checks are evidence of coverage, not a WCAG conformance certification. Manual testing in your own product remains your responsibility.',
+              'You are responsible for reviewing, testing and securing any code you or an agent generate, including code generated with Slipstream UI manifests or MCP tools.',
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Trademarks and brand',
+        blocks: [
+          {
+            type: 'p',
+            text: 'The MIT license covers the source code. It does not grant rights to the Slipstream UI name, logo or other brand identifiers. Forked or modified distributions must not imply endorsement by the project.',
+          },
+        ],
+      },
+      {
+        heading: 'Security',
+        blocks: [
+          {
+            type: 'p',
+            text: 'Report vulnerabilities privately through the process in [SECURITY.md]({repo}/blob/main/SECURITY.md) or GitHub security advisories. Please do not open a public issue for an unfixed vulnerability.',
           },
         ],
       },

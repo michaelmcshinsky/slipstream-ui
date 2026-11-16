@@ -2,9 +2,12 @@
 
 Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.
 
+> Component ID: `source`
 > Import: `import { Source } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/sources
 > Registry: https://slipstreamui.com/registry/source.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

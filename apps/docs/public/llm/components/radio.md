@@ -2,9 +2,12 @@
 
 Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 
+> Component ID: `radio`
 > Import: `import { Radio } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/radio
 > Registry: https://slipstreamui.com/registry/radio.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

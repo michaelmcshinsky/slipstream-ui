@@ -2,9 +2,12 @@
 
 Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
 
+> Component ID: `form-field`
 > Import: `import { FormField } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form-field
 > Registry: https://slipstreamui.com/registry/form-field.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

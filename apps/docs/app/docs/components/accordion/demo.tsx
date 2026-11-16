@@ -41,7 +41,7 @@ export default function AccordionPage() {
               </AccordionItem>
               <AccordionItem id="b">
                 <AccordionTrigger>How do I install?</AccordionTrigger>
-                <AccordionContent>Run npx slipstream-ui init in your project.</AccordionContent>
+                <AccordionContent>Run npx @slipstream-ui/cli@latest init in your project.</AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
@@ -58,7 +58,7 @@ export default function Example() {
       </AccordionItem>
       <AccordionItem id="b">
         <AccordionTrigger>How do I install?</AccordionTrigger>
-        <AccordionContent>Run npx slipstream-ui init in your project.</AccordionContent>
+        <AccordionContent>Run npx @slipstream-ui/cli@latest init in your project.</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

@@ -133,6 +133,11 @@
   "version": "0.8.0",
   "sourceDir": "command-palette",
   "exportName": "CommandPalette",
+  "componentId": "command-palette",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/command-palette",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

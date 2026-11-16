@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { MessageKey } from '@slipstream-ui/i18n';
 import { useI18n } from '@slipstream-ui/i18n/react';
 import { PACKAGES, npmPackageUrl } from '@/lib/site';
+import { COMPONENT_COUNT } from '@/lib/component-count';
+import { VERSION } from '@/lib/version';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -94,6 +96,9 @@ export function Footer() {
             />
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">{t('site.footer.tagline')}</p>
+          <p className="mt-2 font-mono text-xs text-muted-foreground">
+            v{VERSION} · {COMPONENT_COUNT} components · MIT
+          </p>
         </div>
         {COLUMNS.map((column) => (
           <div key={column.titleKey}>

@@ -2,9 +2,12 @@
 
 Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 
+> Component ID: `data-table`
 > Import: `import { DataTable } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/data-table
 > Registry: https://slipstreamui.com/registry/data-table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -50,6 +50,11 @@
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.8.0",
+  "componentId": "code-block",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/code-block",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

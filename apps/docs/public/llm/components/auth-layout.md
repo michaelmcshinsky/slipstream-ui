@@ -2,9 +2,12 @@
 
 Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.
 
+> Component ID: `auth-layout`
 > Import: `import { AuthLayout } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/auth-layout
 > Registry: https://slipstreamui.com/registry/auth-layout.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

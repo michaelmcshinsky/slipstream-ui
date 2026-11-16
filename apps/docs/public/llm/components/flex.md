@@ -2,9 +2,12 @@
 
 Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 
+> Component ID: `flex`
 > Import: `import { Flex } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/flex
 > Registry: https://slipstreamui.com/registry/flex.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

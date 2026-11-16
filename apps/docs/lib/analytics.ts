@@ -17,7 +17,11 @@ export type AnalyticsEvent =
   | 'github_click'
   | 'search_open'
   | 'search_select'
-  | 'feedback';
+  | 'feedback'
+  | 'feedback_reason'
+  | 'copy_for_ai'
+  | 'copy_jsx'
+  | 'consent';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 

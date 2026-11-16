@@ -6,6 +6,7 @@ slipstream-ui/
 ├── pnpm-workspace.yaml
 ├── turbo.json
 ├── README.md                     # overview + architecture
+├── release.json                  # release date + schema/manifest/registry versions
 ├── AGENTS.md                     # rules for AI agents working in this repo
 ├── STRUCTURE.md                  # this file
 ├── SETUP.md                      # local development setup
@@ -13,7 +14,7 @@ slipstream-ui/
 ├── SECURITY.md
 │
 ├── packages/
-│   ├── core/                     # @slipstream-ui/core — 63 components
+│   ├── core/                     # @slipstream-ui/core — 96 components
 │   │   ├── src/
 │   │   │   ├── components/<dir>/ # component + barrel + colocated tests
 │   │   │   ├── manifests/        # one COMPONENT_MANIFEST per component

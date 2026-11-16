@@ -19,7 +19,7 @@ export const ja: MarketingCopy = {
     promptPlaceholder: '試してみる…',
     send: '送信',
     agentStripLabel: 'スムーズに連携',
-    stats: ['コンポーネント', '機械可読な仕様', 'エージェント向け MCP ツール', '許可される幻覚プロパティ'],
+    stats: ['コンポーネント', '機械可読な仕様', 'エージェント向け MCP ツール', '正しい使用での誤検知'],
     featuresHeading: 'いまのソフトウェア開発の進め方に合わせて',
     featuresIntro:
       'UI の半分はモデルが書きます。Slipstream は学習データから拾った文書より良いものを渡します。問い合わせできる仕様と、自己検証できるガードレールです。',

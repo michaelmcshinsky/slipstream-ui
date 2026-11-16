@@ -2,9 +2,12 @@
 
 A chat message component that displays messages from users, assistants, or system prompts with optional avatars
 
+> Component ID: `message`
 > Import: `import { Message } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/message
 > Registry: https://slipstreamui.com/registry/message.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

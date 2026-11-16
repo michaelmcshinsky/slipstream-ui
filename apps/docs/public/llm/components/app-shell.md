@@ -2,9 +2,12 @@
 
 Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
 
+> Component ID: `app-shell`
 > Import: `import { AppShell } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/app-shell
 > Registry: https://slipstreamui.com/registry/app-shell.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

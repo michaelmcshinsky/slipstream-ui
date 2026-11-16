@@ -20,12 +20,21 @@ export function PageFeedback() {
     setAnswer(null);
   }, [pathname]);
 
-  const issueHref =
-    `${REPO_URL}/issues/new` +
-    `?title=${encodeURIComponent(t('site.feedback.issueTitle', { path: pathname }))}` +
-    `&body=${encodeURIComponent(
-      t('site.feedback.issueBody', { url: `https://slipstreamui.com${pathname}` })
-    )}`;
+  const issueBody = (reason?: string) =>
+    encodeURIComponent(
+      `Page: https://slipstreamui.com${pathname}\n` +
+        (reason ? `Problem: ${reason}\n` : '') +
+        `\nWhat I expected:\n\n\nWhat happened:\n\n\nFramework / package version (if relevant):\n\n`
+    );
+  const issueHref = `${REPO_URL}/issues/new?title=${encodeURIComponent(
+    t('site.feedback.issueTitle', { path: pathname })
+  )}&body=${issueBody()}`;
+
+  const reasons = [
+    { id: 'example', label: 'The example did not work' },
+    { id: 'install', label: 'Installation failed' },
+    { id: 'missing', label: 'Something is missing' },
+  ] as const;
 
   if (answer === 'yes') {
     return (
@@ -45,6 +54,22 @@ export function PageFeedback() {
           </a>{' '}
           {t('site.feedback.sorryTail')}
         </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {reasons.map((reason) => (
+            <a
+              key={reason.id}
+              href={`${REPO_URL}/issues/new?title=${encodeURIComponent(
+                t('site.feedback.issueTitle', { path: pathname })
+              )}&body=${issueBody(reason.label)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track('feedback_reason', { reason: reason.id, path: pathname })}
+              className="rounded-md border border-border px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              {reason.label}
+            </a>
+          ))}
+        </div>
         <button
           type="button"
           onClick={() => setAnswer(null)}

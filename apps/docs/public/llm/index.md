@@ -1,5 +1,11 @@
 # Slipstream UI — LLM Documentation Index
 
+> Version: 0.8.0 (2026-11-12) · manifest schema v1 · manifest v1
+> 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
+> Relationship graph: https://slipstreamui.com/registry/graph.json
+> Install: `npx @slipstream-ui/cli@latest init`
+
 The AI-first React component library. 113 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
@@ -7,6 +13,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
+- Changelog: https://slipstreamui.com/changelog
 
 ## Core components (@slipstream-ui/core) — 96
 

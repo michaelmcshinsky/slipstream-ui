@@ -19,7 +19,7 @@ export const es: MarketingCopy = {
     promptPlaceholder: 'Pruébame…',
     send: 'Enviar',
     agentStripLabel: 'Habla con fluidez con',
-    stats: ['componentes', 'especificaciones legibles por máquina', 'herramientas MCP para agentes', 'props inventadas permitidas'],
+    stats: ['componentes', 'especificaciones legibles por máquina', 'herramientas MCP para agentes', 'falsos positivos en uso válido'],
     featuresHeading: 'Creado para cómo se escribe el software hoy',
     featuresIntro:
       'La mitad de tu interfaz la escriben modelos. Slipstream les da algo mejor que documentación extraída de los datos de entrenamiento: una especificación que pueden consultar y una guía con la que pueden autocorregirse.',

@@ -2,9 +2,12 @@
 
 Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
 
+> Component ID: `block`
 > Import: `import { Block } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/block
 > Registry: https://slipstreamui.com/registry/block.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

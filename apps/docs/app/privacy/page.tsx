@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { MarketingPage } from '@/components/site/marketing-page';
 import { MarketingSections } from '@/components/site/marketing-sections';
+import { PrivacyPreferences } from '@/components/site/privacy-preferences';
 import { JsonLd } from '@/components/site/json-ld';
 import { webPageSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
@@ -30,6 +31,7 @@ export default async function PrivacyPage() {
         })}
       />
       <MarketingPage title={copy.title} description={copy.description} updated={copy.updated}>
+        <PrivacyPreferences />
         <MarketingSections sections={copy.sections} vars={marketingVars()} />
       </MarketingPage>
     </>

@@ -84,6 +84,11 @@
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
   "version": "0.8.0",
+  "componentId": "message-actions",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/message-actions",
   "type": "registry:component",
   "dependencies": [
     "@slipstream-ui/core"

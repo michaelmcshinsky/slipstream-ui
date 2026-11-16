@@ -127,6 +127,11 @@
   "version": "0.8.0",
   "sourceDir": "select",
   "exportName": "Select",
+  "componentId": "select",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/select",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

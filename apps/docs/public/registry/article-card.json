@@ -104,6 +104,11 @@
     "FeaturedPost",
     "ResourceHub"
   ],
+  "componentId": "article-card",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/article-card",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

@@ -2,9 +2,12 @@
 
 Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 
+> Component ID: `popover`
 > Import: `import { Popover } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/popover
 > Registry: https://slipstreamui.com/registry/popover.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

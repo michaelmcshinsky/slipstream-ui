@@ -80,6 +80,11 @@
     "Link",
     "Text"
   ],
+  "componentId": "contact-strip",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/contact-strip",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

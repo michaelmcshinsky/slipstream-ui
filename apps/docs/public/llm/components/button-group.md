@@ -2,9 +2,12 @@
 
 Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 
+> Component ID: `button-group`
 > Import: `import { ButtonGroup } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/button-group
 > Registry: https://slipstreamui.com/registry/button-group.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

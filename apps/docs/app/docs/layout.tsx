@@ -2,6 +2,7 @@ import { Navbar } from '@/components/site/navbar';
 import { Sidebar } from '@/components/site/sidebar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { PageFeedback } from '@/components/site/page-feedback';
+import { DocsPageMeta } from '@/components/site/docs-page-meta';
 import { DocsBreadcrumbs } from '@/components/site/docs-breadcrumbs';
 import { DocsTranslationNotice } from '@/components/site/docs-translation-notice';
 import { TableOfContents } from '@/components/table-of-contents';
@@ -27,6 +28,7 @@ export default function DocsLayout({
               <DocsTranslationNotice />
               {children}
               <PageFeedback />
+              <DocsPageMeta />
             </div>
           </main>
           <TableOfContents />

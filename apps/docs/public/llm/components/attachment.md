@@ -2,9 +2,12 @@
 
 File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.
 
+> Component ID: `attachment`
 > Import: `import { Attachment } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/attachment
 > Registry: https://slipstreamui.com/registry/attachment.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

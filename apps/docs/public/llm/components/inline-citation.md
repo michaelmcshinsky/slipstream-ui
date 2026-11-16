@@ -2,9 +2,12 @@
 
 Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.
 
+> Component ID: `inline-citation`
 > Import: `import { InlineCitation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/inline-citation
 > Registry: https://slipstreamui.com/registry/inline-citation.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

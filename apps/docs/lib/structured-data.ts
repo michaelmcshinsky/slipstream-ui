@@ -223,6 +223,21 @@ export function articleSchema({
   };
 }
 
+/** FAQPage for the homepage questions that are visible on the page. */
+export function faqSchema(items: { question: string; answer: string }[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${SITE.url}/#faq`,
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+}
+
 /** ItemList for the component directory - helps engines understand the catalog. */
 export function componentCollectionSchema(
   components: { name: string; path: string }[]

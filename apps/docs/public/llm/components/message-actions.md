@@ -2,9 +2,12 @@
 
 Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.
 
+> Component ID: `message-actions`
 > Import: `import { MessageActions } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/message-actions
 > Registry: https://slipstreamui.com/registry/message-actions.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

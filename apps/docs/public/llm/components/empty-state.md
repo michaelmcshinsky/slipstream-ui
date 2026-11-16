@@ -2,9 +2,12 @@
 
 Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
 
+> Component ID: `empty-state`
 > Import: `import { EmptyState } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/empty-state
 > Registry: https://slipstreamui.com/registry/empty-state.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

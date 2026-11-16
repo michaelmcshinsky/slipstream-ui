@@ -2,9 +2,12 @@
 
 Displays ordered reasoning steps with status indicators.
 
+> Component ID: `chain-thought`
 > Import: `import { ChainThought } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/chain-thought
 > Registry: https://slipstreamui.com/registry/chain-thought.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -167,6 +167,11 @@
   "version": "0.8.0",
   "sourceDir": "dialog",
   "exportName": "Dialog",
+  "componentId": "dialog",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/dialog",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

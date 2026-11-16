@@ -142,6 +142,11 @@
   "version": "0.8.0",
   "sourceDir": "tabs",
   "exportName": "Tabs",
+  "componentId": "tabs",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.8.0",
+  "docs": "https://slipstreamui.com/docs/components/tabs",
   "type": "registry:component",
   "dependencies": [
     "class-variance-authority",

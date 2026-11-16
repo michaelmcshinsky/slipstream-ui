@@ -2,9 +2,12 @@
 
 Native time field with an HH:MM contract and an optional clear button.
 
+> Component ID: `time-picker`
 > Import: `import { TimePicker } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/time-picker
 > Registry: https://slipstreamui.com/registry/time-picker.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
