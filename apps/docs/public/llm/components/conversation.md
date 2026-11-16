@@ -33,6 +33,9 @@ The Conversation component manages the display of multiple messages in a chat in
 | welcomeDescription | `string` | — | no | Supporting text in the welcome state |
 | welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| userLabel | `string` | — | no | Display name for the user role; override for localization |
+| assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
+| labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |
 | hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
 | isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
 | onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |

@@ -74,6 +74,8 @@ export type DataTableProps<T> = {
   emptyMessage?: string;
   /** Accessible label for the select-all checkbox (default "Select all rows"). */
   selectAllLabel?: string;
+  /** Selection summary template above the table; `{count}` is replaced (default "{count} selected"). */
+  selectedLabel?: string;
   /** Pin the header while the body scrolls (needs a max-height on the wrapper via className). */
   stickyHeader?: boolean;
   /** Compact row density. */
@@ -130,6 +132,7 @@ export function DataTable<T>({
   onRowClick,
   emptyMessage = 'No results.',
   selectAllLabel = 'Select all rows',
+  selectedLabel = '{count} selected',
   stickyHeader,
   density = 'default',
   zebra,
@@ -230,7 +233,7 @@ export function DataTable<T>({
     <div className={cn('w-full space-y-3', className)}>
       {selectionEnabled && selectedIds.length > 0 && bulkActions && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm">
-          <span className="font-medium">{selectedIds.length} selected</span>
+          <span className="font-medium">{selectedLabel.replace('{count}', String(selectedIds.length))}</span>
           <div className="flex flex-wrap items-center gap-2">{bulkActions}</div>
         </div>
       )}

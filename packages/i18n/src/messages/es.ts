@@ -137,6 +137,13 @@ export const es = {
     backHome: "Volver al inicio",
     lastUpdated: "Última actualización: {date}",
     loading: "Cargando página…",
+    translation: {
+      title: "Esta página solo está en inglés por ahora",
+      body: "La navegación, la búsqueda y la interfaz están traducidas, pero el cuerpo de la documentación todavía se está traduciendo.",
+      help: "Ayudar a traducir",
+      issueTitle: "Traducir la documentación al {locale}",
+      issueBody: "Página: {url}\n\nIdioma: {locale}\n\n¿Qué falta por traducir o corregir?\n",
+    },
     footer: {
       tagline: "La biblioteca de componentes React pensada para la IA. Tu IA lee la especificación, no el código.",
       docs: "Documentación",
@@ -162,6 +169,7 @@ export const es = {
       terms: "Términos",
       copyright: "© {year} Slipstream UI · Licencia MIT",
       builtStateless: "Creado sin estado: tú controlas el flujo de datos.",
+      helpTranslate: "Ayudar a traducir",
     },
     search: {
       dialogLabel: "Buscar en la documentación",

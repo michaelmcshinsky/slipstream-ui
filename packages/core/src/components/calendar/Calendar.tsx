@@ -241,7 +241,7 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                       aria-label={formatDateLabel(day.key, locale)}
                       className={cn(
                         'h-9 w-9 p-0 font-normal',
-                        !day.inMonth && 'text-muted-foreground/50',
+                        !day.inMonth && 'text-muted-foreground/80',
                         isBlocked && 'cursor-not-allowed opacity-40',
                         isToday && !isSelected && 'ring-1 ring-primary'
                       )}

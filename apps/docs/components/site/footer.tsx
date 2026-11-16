@@ -58,6 +58,7 @@ const COLUMNS: FooterColumn[] = [
       { labelKey: 'site.footer.license', href: `${REPO_URL}/blob/main/LICENSE`, external: true },
       { labelKey: 'site.footer.security', href: `${REPO_URL}/blob/main/SECURITY.md`, external: true },
       { labelKey: 'site.footer.reportIssue', href: `${REPO_URL}/issues`, external: true },
+      { labelKey: 'site.footer.helpTranslate', href: `${REPO_URL}/issues?q=label%3Ai18n`, external: true },
       { labelKey: 'site.footer.contact', href: '/contact' },
       { labelKey: 'site.footer.privacy', href: '/privacy' },
       { labelKey: 'site.footer.terms', href: '/terms' },

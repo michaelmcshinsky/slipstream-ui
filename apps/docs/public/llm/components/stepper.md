@@ -22,6 +22,7 @@ Wizards need orientation: where am I, what is done, what is next. A stepper buil
 | labelPlacement | `'inline' | 'below'` | `inline` | no | Horizontal only: place the label beside the marker or beneath it. |
 | alignTitles | `'start' | 'center'` | `center` | no | Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned. |
 | onStepClick | `(index: number) => void` | — | no | Makes steps clickable (for revisit flows). |
+| labels | `{ completed?: string; current?: string; upcoming?: string }` | — | no | Screen-reader state suffixes for each step. Default to the English " (completed)", " (current step)" and " (upcoming)". |
 
 ## Examples
 

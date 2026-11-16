@@ -194,6 +194,27 @@ describe('DataTable selection', () => {
     expect(onSelectedRowIdsChange).toHaveBeenCalledWith(['2', '1', '3']);
   });
 
+  it('localizes the selection summary with selectedLabel', () => {
+    render(
+      <DataTable
+        columns={[
+          { key: 'name', header: 'Name' },
+          { key: 'role', header: 'Role' },
+        ]}
+        data={[
+          { id: '1', name: 'Ada', role: 'Admin' },
+          { id: '2', name: 'Grace', role: 'Engineer' },
+        ]}
+        rowId={(row) => row.id}
+        selectedRowIds={['1', '2']}
+        onSelectedRowIdsChange={() => undefined}
+        bulkActions={<button type="button">Archive</button>}
+        selectedLabel="{count} seleccionados"
+      />
+    );
+    expect(screen.getByText('2 seleccionados')).toBeInTheDocument();
+  });
+
   it('respects isRowSelectable', () => {
     render(
       <DataTable

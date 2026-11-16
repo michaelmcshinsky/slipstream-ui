@@ -5,7 +5,8 @@
   // time, which leaves the WORKER_SELF_REFERENCE binding pointing at a Worker
   // that does not exist.
   "name": "slipstream-ui",
-  "main": ".open-next/worker.js",
+  // `worker.ts` wraps the OpenNext handler with the anonymous HTML cache.
+  "main": "./worker.ts",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {

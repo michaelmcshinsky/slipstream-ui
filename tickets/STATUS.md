@@ -135,7 +135,7 @@ Tickets: SLIP-070 through SLIP-087.
 | SLIP-062 | **Done** | Autocomplete, Breadcrumb, DatePicker/TimePicker, FileUpload, Search, CommandPalette, Toast, Skeleton, AppShell label props + tests/manifests |
 | SLIP-063 | **Done** | Message/Reasoning `formatTime`/`locale` timestamp props + starter wiring |
 | SLIP-064 | **Partial** | Docs provider, `lang`/`dir`, navbar switcher, translated shell nav and changelog page; path URLs/SEO/metadata pending |
-| SLIP-065 | Pending | Docs guides/component page translation |
+| SLIP-065 | **Partial** | Introduction and Quickstart translated in all seven locales through the typed `lib/docs-copy` registry; remaining docs bodies show the localized English-only notice with a help-translate link |
 | SLIP-066 | **Partial** | Dashboard provider, switcher, nav/sign-out/suspended copy; flows/currency/auth pending |
 | SLIP-067 | Pending | Transactional emails |
 | SLIP-068 | **Partial** | `en-XA` pseudo-locale + playground toggle + en/ar axe checks; visual regression pending |

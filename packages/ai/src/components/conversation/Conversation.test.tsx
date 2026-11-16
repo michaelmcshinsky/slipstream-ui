@@ -42,6 +42,20 @@ describe('Conversation', () => {
     expect(screen.queryByTestId('streaming-cursor')).not.toBeInTheDocument();
   });
 
+  it('localizes the role labels and chrome copy', () => {
+    const { container } = render(
+      <Conversation
+        messages={messages}
+        userLabel="Tú"
+        assistantLabel="Asistente"
+        labels={{ transcript: 'Transcripción de la conversación' }}
+      />
+    );
+    expect(screen.getByText('Tú')).toBeInTheDocument();
+    expect(screen.getByText('Asistente')).toBeInTheDocument();
+    expect(container.querySelector('[aria-label="Transcripción de la conversación"]')).not.toBeNull();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Conversation messages={messages} isLoading />);
     expect(await axe(container)).toHaveNoViolations();

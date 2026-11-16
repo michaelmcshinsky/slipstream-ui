@@ -38,6 +38,15 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Baselines were generated on Windows; regenerate them on the runner image
+      # with `pnpm test:visual:update` before making this blocking.
+      - name: Visual regression
+        continue-on-error: true
+        run: pnpm test:visual
+
       - name: Verify packaged styles
         run: node scripts/test-packaged-styles.mjs
 
