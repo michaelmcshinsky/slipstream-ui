@@ -115,6 +115,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'TableOfContents', href: '/docs/components/table-of-contents', content: 'table of contents toc on this page scrollspy anchor links navigation headings article onNavigate', group: 'Components' },
   { title: 'ConfirmDialog', href: '/docs/components/confirm-dialog', content: 'confirm dialog destructive delete confirmation pending async modal', group: 'Components' },
   { title: 'Link', href: '/docs/components/link', content: 'link anchor inline href external target rel noopener asChild router underline arrow muted', group: 'Components' },
+  { title: 'Image', href: '/docs/components/image', content: 'image img media picture src alt fallback fallbackSrc priority eager lazy width height intrinsic dimensions aspect ratio broken placeholder', group: 'Components' },
   { title: 'SectionHeading', href: '/docs/components/section-heading', content: 'section heading eyebrow title description actions marketing h2 level align', group: 'Components' },
   { title: 'SelectMenu', href: '/docs/components/select-menu', content: 'custom select listbox rich options descriptions icons groups multiple multi select form hidden input renderItem', group: 'Components' },
   { title: 'TableCard', href: '/docs/components/table-card', content: 'table card shell header actions toolbar footer pagination data table list page', group: 'Components' },
