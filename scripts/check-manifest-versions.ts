@@ -4,6 +4,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { MCP_TOOLS } from '../apps/docs/lib/site';
 
 const root = path.resolve(import.meta.dirname, '..');
 const packages = [
@@ -45,6 +46,16 @@ if (serverJson.version !== mcpVersion) {
 }
 if (serverPackage && serverPackage.version !== mcpVersion) {
   mismatches.push(`mcp-server/server.json packages[].version: ${String(serverPackage.version)} != ${mcpVersion}`);
+}
+
+// Keep the documented MCP tool list aligned with the registered handlers.
+const mcpIndexSource = fs.readFileSync(path.join(mcpDir, 'src', 'index.ts'), 'utf8');
+const handledTools = [...mcpIndexSource.matchAll(/case '([a-z_]+)':/g)].map((match) => match[1]);
+const documentedTools = [...MCP_TOOLS];
+if (handledTools.length !== documentedTools.length || handledTools.some((tool) => !documentedTools.includes(tool))) {
+  mismatches.push(
+    `mcp-server tools: registered [${handledTools.join(', ')}] != documented [${documentedTools.join(', ')}]`
+  );
 }
 
 if (mismatches.length > 0) {

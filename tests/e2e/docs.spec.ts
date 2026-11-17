@@ -9,6 +9,7 @@ test.describe('homepage conversion surface', () => {
     await expect(page.getByRole('heading', { name: 'Questions developers ask first' })).toBeVisible();
     await expect(page.getByText('65.7% structural recall').first()).toBeVisible();
     await expect(page.getByRole('link', { name: 'Benchmark methodology' }).first()).toBeVisible();
+    await expect(page.getByText('6 tools incl. validate_usage')).toBeVisible();
 
     const jsonLd = (await page.locator('script[type="application/ld+json"]').allTextContents()).join('\n');
     expect(jsonLd).toContain('FAQPage');

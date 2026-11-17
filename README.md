@@ -53,7 +53,7 @@ pnpm workspace + Turborepo monorepo:
 | `packages/themes` | `@slipstream-ui/themes` | `createTheme()` + default/dark/violet/zinc presets and the CSS-variable contract |
 | `packages/cli` | `@slipstream-ui/cli` | `init` / `add` / `list` / `diff` |
 | `packages/registry` | `@slipstream-ui/registry` | Shared manifest-registry resolution for the CLI and MCP server |
-| `packages/mcp-server` | `@slipstream-ui/mcp-server` | MCP server exposing five tools to AI clients |
+| `packages/mcp-server` | `@slipstream-ui/mcp-server` | MCP server exposing six tools to AI clients |
 | `apps/docs` | — | Next.js 16 App Router documentation + marketing site (built with this library) |
 | `apps/app` | — | Reference dashboard (auth, billing, admin) built with this library |
 | `apps/playground` | — | Vite sandbox for component work |
@@ -86,7 +86,7 @@ A hand-written inventory used to live here; it drifted. The generated files are 
 - [`/llm/index.md`](https://slipstreamui.com/llm/index.md) — full component index; per-component references at `/llm/components/<id>.md`
 - [`/registry/all.json`](https://slipstreamui.com/registry/all.json) — every manifest plus installer payload
 - [`/registry/graph.json`](https://slipstreamui.com/registry/graph.json) — composition/related edges for choosing a coherent set of components
-- **MCP server** — `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
+- **MCP server** - `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
 
 ```tsx
 import { Button } from '@slipstream-ui/core';

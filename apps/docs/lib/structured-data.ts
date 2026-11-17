@@ -96,7 +96,7 @@ export function softwareApplicationSchema(): Record<string, unknown> {
     featureList: [
       `${COMPONENT_COUNT} accessible React components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI)`,
       'COMPONENT_MANIFEST JSON for every component',
-      'MCP server with list_components, search_components, get_component_manifest, get_usage_examples and validate_usage',
+      'MCP server with recommend_components, list_components, search_components, get_component_manifest, get_usage_examples and validate_usage',
       'shadcn-compatible registry install path',
       'Stateless AI chat and agent components',
       'WCAG 2.2 AA target with automated axe coverage',

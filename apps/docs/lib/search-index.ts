@@ -25,7 +25,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'CLI', href: '/docs/cli', content: 'slipstream-ui init add list diff command terminal detection outdated', group: 'AI-First' },
   { title: 'Patterns', href: '/docs/patterns', content: 'recipes chat interface agent activity composed examples', group: 'AI-First' },
   { title: 'Templates', href: '/docs/templates', content: 'examples streaming chat agent dashboard rag citations copy-paste', group: 'AI-First' },
-  { title: 'MCP Server', href: '/docs/mcp', content: 'model context protocol claude cursor tools list_components get_manifest validate_usage search_components', group: 'AI-First', aliases: ['mcp server setup', 'claude code mcp', 'cursor mcp', 'connect my agent'] },
+  { title: 'MCP Server', href: '/docs/mcp', content: 'model context protocol claude cursor tools recommend_components list_components get_manifest validate_usage search_components', group: 'AI-First', aliases: ['mcp server setup', 'claude code mcp', 'cursor mcp', 'connect my agent'] },
   ...['Button', 'Input', 'Badge', 'Avatar', 'Spinner'].map((name) => ({
     title: name,
     href: `/docs/components/${name.toLowerCase()}`,

@@ -62,7 +62,7 @@ function closestProp(target: string, candidates: string[]): string | undefined {
 }
 
 /**
- * In-browser demo of the four MCP tools. It queries the SAME static
+ * In-browser demo of the core MCP tools. It queries the SAME static
  * /registry files the MCP server reads — no server, no API key — so the
  * flow agents run (list → manifest → validate) is inspectable by humans.
  */

@@ -191,6 +191,7 @@ Prefer these over HTML pages when generating code.
 
 ## MCP Server
 The MCP server provides tools for AI agents:
+- recommend_components - Recommend a coherent set for a goal (chat UI, filterable table, settings form, agent dashboard) with reasons and docs URLs
 - list_components - Query available components with filters
 - search_components - Find components by capability keywords
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component

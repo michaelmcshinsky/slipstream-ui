@@ -16,6 +16,7 @@ import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
+import { MCP_TOOL_COUNT } from '@/lib/site';
 import { VERSION } from '@/lib/version';
 import { track } from '@/lib/analytics';
 import { HOME_EXTRAS } from '@/lib/marketing/home-extras';
@@ -96,7 +97,7 @@ const COMPARISON: {
 }[] = [  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
   { capability: 'Components shipped', slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`, shadcn: 'UI primitives + AI Elements', assistantUi: 'Chat surface + primitives', mui: 'Broad UI set, no chat' },
   { capability: 'Per-component machine-readable spec', slipstream: 'Yes — props, a11y, anti-patterns', shadcn: 'Partial — registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
-  { capability: 'MCP server', slipstream: 'Yes — 5 tools incl. validate_usage', shadcn: 'Partial — browse/search/install', assistantUi: 'No', mui: 'Partial — agent skills' },
+  { capability: 'MCP server', slipstream: `Yes - ${MCP_TOOL_COUNT} tools incl. validate_usage`, shadcn: 'Partial - browse/search/install', assistantUi: 'No', mui: 'Partial - agent skills' },
   { capability: 'Validates generated JSX against the spec', slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
   { capability: 'llms.txt', slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
   { capability: 'Canonical markdown per component/page', slipstream: 'Yes — /llm/*.md', shadcn: 'Partial — MDX in repo', assistantUi: 'Yes — .md pages', mui: 'No' },
@@ -388,7 +389,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           {[
             { value: String(COMPONENT_COUNT), label: copy.stats[0] },
             { value: String(COMPONENT_COUNT), label: copy.stats[1] },
-            { value: '5', label: copy.stats[2] },
+            { value: String(MCP_TOOL_COUNT), label: copy.stats[2] },
             { value: '0', label: copy.stats[3] },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl border border-border bg-card p-6">

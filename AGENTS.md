@@ -95,7 +95,7 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 
 ## MCP server
 
-`packages/mcp-server` exposes: `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage`. Keep tool schemas and manifests consistent.
+`packages/mcp-server` exposes: `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage`. Keep tool schemas and manifests consistent.
 
 ## Releases
 

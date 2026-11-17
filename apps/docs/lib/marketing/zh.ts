@@ -129,7 +129,7 @@ export const zh: MarketingCopy = {
         mui: '否',
       },
       {
-        slipstream: '是 — 5 个工具，含 validate_usage',
+        slipstream: '是 — 6 个工具，含 validate_usage',
         shadcn: '部分 — 浏览、搜索、安装',
         assistantUi: '否',
         mui: '部分 — 代理技能',
@@ -184,7 +184,7 @@ export const zh: MarketingCopy = {
     ],
     agentPathTitle: '面向智能体开发者 →',
     agentPathBody:
-      '将 MCP 服务器接入 Claude Code 或 Cursor，在输出前运行 validate_usage，或提供 llms.txt 和 markdown 路由 —— 五个工具，三种使用方式。',
+      '将 MCP 服务器接入 Claude Code 或 Cursor，在输出前运行 validate_usage，或提供 llms.txt 和 markdown 路由 —— 六个工具，三种使用方式。',
     productPathTitle: '面向产品团队 →',
     productPathBody:
       '用无状态组件、jest-axe 覆盖和你自己的后端，发布生产级聊天界面 —— 流式 markdown、停止生成、引用和审批。',

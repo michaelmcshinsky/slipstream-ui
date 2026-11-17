@@ -129,7 +129,7 @@ export const ru: MarketingCopy = {
         mui: 'Нет',
       },
       {
-        slipstream: 'Да — 5 инструментов, включая validate_usage',
+        slipstream: 'Да — 6 инструментов, включая validate_usage',
         shadcn: 'Частично — просмотр, поиск, установка',
         assistantUi: 'Нет',
         mui: 'Частично — навыки для агентов',
@@ -184,7 +184,7 @@ export const ru: MarketingCopy = {
     ],
     agentPathTitle: 'Для разработчиков агентов →',
     agentPathBody:
-      'Подключите MCP-сервер к Claude Code или Cursor, запускайте validate_usage до вывода либо отдавайте llms.txt и markdown-маршруты — пять инструментов, три пути использования.',
+      'Подключите MCP-сервер к Claude Code или Cursor, запускайте validate_usage до вывода либо отдавайте llms.txt и markdown-маршруты — шесть инструментов, три пути использования.',
     productPathTitle: 'Для продуктовых команд →',
     productPathBody:
       'Выпускайте боевой чат-интерфейс — стриминговый markdown, остановку генерации, цитаты, подтверждения — на компонентах без состояния, с покрытием jest-axe и своим бэкендом.',

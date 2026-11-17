@@ -49,8 +49,19 @@ export function npmPackageUrl(name: string): string {
   return `https://www.npmjs.com/package/${name}`;
 }
 
-export const CONSENT_STORAGE_KEY = 'slipstream-consent';
-export const CONSENT_EVENT = 'slipstream-consent-change';
+/** MCP tools advertised by packages/mcp-server. Keep in sync with its tools/list. */
+export const MCP_TOOLS = [
+  'recommend_components',
+  'list_components',
+  'search_components',
+  'get_component_manifest',
+  'get_usage_examples',
+  'validate_usage',
+] as const;
+
+export const MCP_TOOL_COUNT = MCP_TOOLS.length;
+
+export const CONSENT_STORAGE_KEY = 'slipstream-consent';export const CONSENT_EVENT = 'slipstream-consent-change';
 
 export type ConsentValue = 'granted' | 'denied';
 

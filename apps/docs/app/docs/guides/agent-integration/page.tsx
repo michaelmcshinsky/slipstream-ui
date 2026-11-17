@@ -6,10 +6,11 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/guides/agent-integration', {
   title: 'MCP component library: connect your AI agent',
   description:
-    'Wire Claude Code, Cursor, or any MCP client to Slipstream UI: five MCP tools, validate_usage before emitting JSX, plus llms.txt and canonical markdown routes as fallbacks.',
+    'Wire Claude Code, Cursor, or any MCP client to Slipstream UI: six MCP tools, validate_usage before emitting JSX, plus llms.txt and canonical markdown routes as fallbacks.',
 });
 
 const TOOLS: { name: string; purpose: string }[] = [
+  { name: 'recommend_components', purpose: 'Turn a goal ("chat UI", "filterable table") into a coherent component set.' },
   { name: 'list_components', purpose: 'Browse components with package/tier filters.' },
   { name: 'search_components', purpose: 'Find components by capability keywords ("streaming", "citation").' },
   { name: 'get_component_manifest', purpose: 'Full COMPONENT_MANIFEST: props, defaults, examples, a11y.' },
@@ -54,7 +55,7 @@ export default function AgentIntegrationGuidePage() {
         />
       </div>
 
-      <h2 className="mt-10 scroll-m-20 text-2xl font-semibold tracking-tight">The five tools</h2>
+      <h2 className="mt-10 scroll-m-20 text-2xl font-semibold tracking-tight">The six tools</h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted">

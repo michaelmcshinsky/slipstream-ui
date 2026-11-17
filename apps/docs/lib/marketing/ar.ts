@@ -129,7 +129,7 @@ export const ar: MarketingCopy = {
         mui: 'لا',
       },
       {
-        slipstream: 'نعم — 5 أدوات منها validate_usage',
+        slipstream: 'نعم — 6 أدوات منها validate_usage',
         shadcn: 'جزئيًا — التصفح والبحث والتثبيت',
         assistantUi: 'لا',
         mui: 'جزئيًا — مهارات للوكلاء',
@@ -184,7 +184,7 @@ export const ar: MarketingCopy = {
     ],
     agentPathTitle: 'لمن يبني الوكلاء ←',
     agentPathBody:
-      'اربط خادم MCP بـ Claude Code أو Cursor، وشغّل validate_usage قبل الإخراج، أو قدّم llms.txt ومسارات markdown — خمس أدوات وثلاثة مسارات استهلاك.',
+      'اربط خادم MCP بـ Claude Code أو Cursor، وشغّل validate_usage قبل الإخراج، أو قدّم llms.txt ومسارات markdown — ست أدوات وثلاثة مسارات استهلاك.',
     productPathTitle: 'لفرق المنتج ←',
     productPathBody:
       'أطلق واجهة المحادثة الإنتاجية — markdown بالبث، وإيقاف التوليد، والاقتباسات، والموافقات — بمكونات بلا حالة وتغطية jest-axe وخادمك الخلفي.',

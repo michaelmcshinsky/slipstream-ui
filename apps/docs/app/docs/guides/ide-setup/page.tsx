@@ -49,7 +49,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
       </div>
       <p className="mt-3 text-sm text-muted-foreground">
         Verify inside Claude Code with <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">/mcp</code> — the
-        server should list five tools (list_components, search_components, get_component_manifest,
+        server should list six tools (recommend_components, list_components, search_components, get_component_manifest,
         get_usage_examples, validate_usage).
       </p>
 
@@ -69,7 +69,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
         />
       </div>
       <p className="mt-3 text-sm text-muted-foreground">
-        Settings → MCP shows the server status. Green = the five tools are available to Cursor&apos;s agent.
+        Settings → MCP shows the server status. Green = the six tools are available to Cursor&apos;s agent.
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">3. Windsurf</h2>

@@ -6,7 +6,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/mcp', {
   title: 'MCP Server',
   description:
-    'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: list_components, get_component_manifest, validate_usage keep agent-generated UI honest.',
+    'Connect Claude Code, Cursor, or any MCP client to Slipstream UI: recommend_components, list_components, get_component_manifest, validate_usage keep agent-generated UI honest.',
 });
 
 export default function MCPPage() {
@@ -126,6 +126,16 @@ search_components(query="streaming chat")
 
 // Find citation components and cap the result count
 search_components(query="citations grounding", limit=5)`} />
+
+        <h3 className="text-xl font-semibold mt-6 mb-3">recommend_components</h3>
+        <p className="text-muted-foreground mb-4">
+          Start from the goal, not a component name. Returns a coherent set with a reason and a docs
+          URL for each component, plus a note to read the manifest before generating code.
+        </p>
+        <CodeBlock language="text" code={`recommend_components(goal="agent dashboard with human approvals")
+
+// Limit and filter to the AI package
+recommend_components(goal="RAG answer with citations", limit=4, package="@slipstream-ui/ai")`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">get_component_manifest</h3>
         <p className="text-muted-foreground mb-4">

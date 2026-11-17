@@ -129,7 +129,7 @@ export const ja: MarketingCopy = {
         mui: 'いいえ',
       },
       {
-        slipstream: 'はい — 5 つのツール（validate_usage を含む）',
+        slipstream: 'はい — 6 つのツール（validate_usage を含む）',
         shadcn: '一部 — 閲覧・検索・インストール',
         assistantUi: 'いいえ',
         mui: '一部 — エージェントスキル',
@@ -184,7 +184,7 @@ export const ja: MarketingCopy = {
     ],
     agentPathTitle: 'エージェント開発者へ →',
     agentPathBody:
-      'MCP サーバーを Claude Code や Cursor に接続し、出力前に validate_usage を実行するか、llms.txt と markdown ルートを配信します。5 つのツール、3 つの利用経路。',
+      'MCP サーバーを Claude Code や Cursor に接続し、出力前に validate_usage を実行するか、llms.txt と markdown ルートを配信します。6 つのツール、3 つの利用経路。',
     productPathTitle: 'プロダクトチームへ →',
     productPathBody:
       '本番のチャット面（ストリーミング Markdown、生成停止、引用、承認）を、ステートレスなコンポーネントと jest-axe カバレッジ、自前のバックエンドで出荷できます。',

@@ -213,7 +213,7 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: 'The agent still invents props',
-            body: 'Confirm the MCP server is running and expose its five tools. Add a rules-file instruction that requires get_component_manifest and validate_usage before emitting JSX.',
+            body: 'Confirm the MCP server is running and expose its six tools. Add a rules-file instruction that requires get_component_manifest and validate_usage before emitting JSX.',
           },
           {
             title: 'Dark mode flashes the wrong theme',
@@ -379,7 +379,7 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: 'El agente sigue inventando props',
-            body: 'Confirma que el servidor MCP está en marcha y expone sus cinco herramientas. Añade al archivo de reglas una instrucción que exija get_component_manifest y validate_usage antes de emitir JSX.',
+            body: 'Confirma que el servidor MCP está en marcha y expone sus seis herramientas. Añade al archivo de reglas una instrucción que exija get_component_manifest y validate_usage antes de emitir JSX.',
           },
           {
             title: 'El modo oscuro parpadea con el tema equivocado',
@@ -545,7 +545,7 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: '代理仍然编造 props',
-            body: '确认 MCP 服务器正在运行并暴露其五个工具。在规则文件中添加指令，要求在输出 JSX 前调用 get_component_manifest 和 validate_usage。',
+            body: '确认 MCP 服务器正在运行并暴露其六个工具。在规则文件中添加指令，要求在输出 JSX 前调用 get_component_manifest 和 validate_usage。',
           },
           {
             title: '深色模式闪现错误的主题',
@@ -1043,7 +1043,7 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: 'Агент по-прежнему выдумывает props',
-            body: 'Убедитесь, что MCP-сервер запущен и предоставляет пять инструментов. Добавьте в файл правил требование вызывать get_component_manifest и validate_usage перед выводом JSX.',
+            body: 'Убедитесь, что MCP-сервер запущен и предоставляет шесть инструментов. Добавьте в файл правил требование вызывать get_component_manifest и validate_usage перед выводом JSX.',
           },
           {
             title: 'В тёмном режиме мелькает неверная тема',
@@ -1209,7 +1209,7 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: 'الوكيل لا يزال يختلق الخصائص',
-            body: 'تأكد من تشغيل خادم MCP وأنه يعرض أدواته الخمس. أضف إلى ملف القواعد تعليمة تفرض get_component_manifest وvalidate_usage قبل إخراج JSX.',
+            body: 'تأكد من تشغيل خادم MCP وأنه يعرض أدواته الست. أضف إلى ملف القواعد تعليمة تفرض get_component_manifest وvalidate_usage قبل إخراج JSX.',
           },
           {
             title: 'الوضع الداكن يعرض السمة الخاطئة لحظة',

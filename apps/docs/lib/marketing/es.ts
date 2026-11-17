@@ -129,7 +129,7 @@ export const es: MarketingCopy = {
         mui: 'No',
       },
       {
-        slipstream: 'Sí — 5 herramientas, incl. validate_usage',
+        slipstream: 'Sí — 6 herramientas, incl. validate_usage',
         shadcn: 'Parcial — explorar, buscar e instalar',
         assistantUi: 'No',
         mui: 'Parcial — skills para agentes',
@@ -184,7 +184,7 @@ export const es: MarketingCopy = {
     ],
     agentPathTitle: 'Para quien construye agentes →',
     agentPathBody:
-      'Conecta el servidor MCP a Claude Code o Cursor, ejecuta validate_usage antes de emitir o sirve llms.txt y las rutas markdown: cinco herramientas, tres formas de consumo.',
+      'Conecta el servidor MCP a Claude Code o Cursor, ejecuta validate_usage antes de emitir o sirve llms.txt y las rutas markdown: seis herramientas, tres formas de consumo.',
     productPathTitle: 'Para equipos de producto →',
     productPathBody:
       'Publica la superficie de chat de producción —markdown en streaming, detener generación, citas, aprobaciones— con componentes sin estado, cobertura jest-axe y tu propio backend.',
