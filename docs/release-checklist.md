@@ -33,7 +33,7 @@ Run from the repository root before tagging or publishing.
 ## Packaging
 
 - [ ] A changeset exists for every published package (`core`, `ai`, `themes`, `cli`, `registry`, `mcp-server`)
-- [ ] Add the release entry to `apps/docs/lib/releases.ts` and bump `release.json` before `version-packages`
+- [ ] Add the release entry to `apps/docs/lib/releases.ts` and bump `release.json` before `version-packages` (the version PR may be opened by CI; edit that branch and rerun `pnpm validate:manifests` — `version-packages` only warns, CI blocks the merge)
 - [ ] `packages/mcp-server/server.json` version matches `packages/mcp-server/package.json`
 - [ ] `pnpm generate:registry` and `pnpm generate:llm-docs` output is committed
 - [ ] `README.md` component counts match the manifests

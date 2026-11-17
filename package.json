@@ -35,7 +35,7 @@
     "test:starter": "pnpm --filter @slipstream-ui/core exec vitest run --config ../../apps/starters/ai-chat/vitest.config.ts",
     "dev:starter": "pnpm --filter slipstream-ai-chat-starter dev",
     "changeset": "changeset",
-    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts && tsx scripts/generate-registry.ts && tsx scripts/generate-llm-docs.ts && tsx scripts/check-release-readiness.ts",
+    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts && tsx scripts/generate-registry.ts && tsx scripts/generate-llm-docs.ts && tsx scripts/check-release-readiness.ts --warn",
     "release": "turbo run build && node scripts/publish.cjs",
     "deploy:docs": "pnpm --filter slipstream-ui-docs deploy",
     "submit:indexnow": "tsx scripts/submit-indexnow.ts",
@@ -45,7 +45,6 @@
     "test:packaged-styles": "node scripts/test-packaged-styles.mjs",
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "test:visual:update": "playwright test --config playwright.visual.config.ts --update-snapshots",
-    "test:e2e": "playwright test --config playwright.e2e.config.ts",
     "test:e2e": "playwright test --config playwright.e2e.config.ts",
     "test:e2e:report": "playwright show-report"
   },

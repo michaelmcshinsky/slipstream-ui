@@ -47,6 +47,7 @@ function isoDate(display: string): string | undefined {
 }
 
 const failures: string[] = [];
+const warnOnly = process.argv.includes('--warn');
 const latest = RELEASES[0];
 
 if (!latest) {
@@ -70,6 +71,12 @@ if (!latest) {
 if (failures.length > 0) {
   console.error('Release metadata is inconsistent:');
   for (const failure of failures) console.error(`  ${failure}`);
+  if (warnOnly) {
+    console.error(
+      '\n--warn: continuing. The version PR must add the site release entry and release.json date; validate:manifests enforces it before merge.'
+    );
+    process.exit(0);
+  }
   process.exit(1);
 }
 

@@ -49,7 +49,7 @@ jobs:
 
       - name: Start docs server
         run: |
-          pnpm --filter slipstream-ui-docs start -- -p 3114 &
+          pnpm --filter slipstream-ui-docs exec next start -p 3114 &
           for i in $(seq 1 30); do
             if curl -sf http://localhost:3114 >/dev/null; then exit 0; fi
             sleep 1
