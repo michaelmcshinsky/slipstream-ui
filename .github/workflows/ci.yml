@@ -61,10 +61,10 @@ jobs:
         run: pnpm test:e2e
 
       - name: Docs route smoke test
-        run: pnpm --filter slipstream-ui-docs smoke:routes -- http://localhost:3114
+        run: pnpm --filter slipstream-ui-docs exec tsx scripts/smoke-routes.ts http://localhost:3114
 
       - name: Accessibility audit
-        run: pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3114
+        run: pnpm --filter slipstream-ui-docs exec tsx scripts/audit-a11y.ts http://localhost:3114
 
       - name: Verify packaged styles
         run: node scripts/test-packaged-styles.mjs

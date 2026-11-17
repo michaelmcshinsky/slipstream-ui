@@ -1,7 +1,39 @@
-# Backlog status — 2026-11-08
+# Backlog status — 2026-11-17
 
 Canonical tickets: [`SLIP-*.md`](./SLIP-001.md) · Triage: [`TRIAGE.md`](./TRIAGE.md)
 Implementation plan: [`../docs/engineering-backlog.md`](../docs/engineering-backlog.md)
+
+## Release 0.9.0 (2026-11-17)
+
+Published to npm from CI with provenance, each with a GitHub release and tag:
+
+| Package | Version |
+|---|---|
+| `@slipstream-ui/core` | 0.9.0 |
+| `@slipstream-ui/ai` | 0.9.0 |
+| `@slipstream-ui/themes` | 0.9.0 |
+| `@slipstream-ui/mcp-server` | 0.5.0 |
+| `@slipstream-ui/i18n` | 0.5.0 |
+| `@slipstream-ui/cli` | 0.3.0 |
+| `@slipstream-ui/registry` | 0.2.2 (unchanged) |
+
+Highlights:
+
+- `recommend_components` MCP tool and `/registry/recommendations.json`.
+- `validate_usage` rejects unnamed icon-only controls; benchmark re-verified at
+  65.7% recall, 100% precision, 0 false positives.
+- Docs reliability: edge HTML cache for anonymous pages, all 135 routes in the
+  smoke gate, CheckboxGroup/Tooltip pages repaired.
+- `Image`, nested `SiteHeader` menus, `Popover` placement, `Calendar` +
+  `DatePickerPopover`, localized `Stepper`/`DataTable`/`Conversation` labels.
+- `primary-ink`/`success-ink` tokens and the full dark-mode/axe fixes.
+- CLI `add --dry-run`.
+- Next 16.4.6, hono 4.13.16, @hono/node-server 2.1.6, glob 14.0.3;
+  `check:audit` passes with one documented unpatched picomatch advisory.
+
+Verified before release: typecheck 17/17, lint 10/10, tests 15/15 tasks,
+build 13/13, 135-route smoke, 16 E2E, 58 axe page runs, Lighthouse 97-100,
+`validate:manifests`, `check:audit`, `bench:check`.
 
 ## Release 0.6.0 / 0.6.1 (2026-11-08)
 
