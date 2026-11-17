@@ -8,9 +8,12 @@ Run from the repository root before tagging or publishing.
 - [ ] `pnpm lint`
 - [ ] `pnpm typecheck`
 - [ ] `pnpm test`
-- [ ] `pnpm validate:manifests`
+- [ ] `pnpm validate:manifests` (schema, drift, versions, counts, tokens, release notes)
 - [ ] `pnpm check:llm`
 - [ ] `pnpm check:components`
+- [ ] `pnpm check:tokens`
+- [ ] `pnpm check:release`
+- [ ] `pnpm audit`
 - [ ] `node scripts/test-packaged-styles.mjs`
 - [ ] `pnpm verify:tailwind-v4`
 - [ ] `pnpm verify:tailwind3`
@@ -18,9 +21,19 @@ Run from the repository root before tagging or publishing.
 - [ ] `node scripts/audit-sizes.mjs` (budgets in `docs/bundle-size.md`)
 - [ ] `pnpm bench:check` when benchmark cases changed
 
+## Site evidence (built docs)
+
+- [ ] `pnpm --filter slipstream-ui-docs build`
+- [ ] `pnpm --filter slipstream-ui-docs start -- -p 3111`
+- [ ] `pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111` (58 page runs)
+- [ ] `pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111` (98–100 performance)
+- [ ] `E2E_BASE_URL=http://localhost:3111 pnpm test:e2e` (16 journeys)
+
 ## Packaging
 
 - [ ] A changeset exists for every published package (`core`, `ai`, `themes`, `cli`, `registry`, `mcp-server`)
+- [ ] Add the release entry to `apps/docs/lib/releases.ts` and bump `release.json` before `version-packages`
+- [ ] `packages/mcp-server/server.json` version matches `packages/mcp-server/package.json`
 - [ ] `pnpm generate:registry` and `pnpm generate:llm-docs` output is committed
 - [ ] `README.md` component counts match the manifests
 - [ ] `node scripts/test-packaged-styles.mjs` resolves the packed `styles.css`, `styles-full.css` and themes sheet
