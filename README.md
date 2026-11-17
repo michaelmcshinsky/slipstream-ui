@@ -14,7 +14,7 @@ The AI-first React component library — your AI already knows how to use it.
 **113 components** · 113 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
-[Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
+[Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [Articles](https://slipstreamui.com/articles) · [MCP server](https://slipstreamui.com/docs/mcp)
 
 ## Overview
 

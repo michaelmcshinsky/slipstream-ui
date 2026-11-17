@@ -47,6 +47,22 @@ jobs:
         continue-on-error: true
         run: pnpm test:visual
 
+      - name: Start docs server
+        run: |
+          pnpm --filter slipstream-ui-docs start -- -p 3114 &
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3114 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          echo "docs server did not start" >&2
+          exit 1
+
+      - name: E2E journeys
+        run: pnpm test:e2e
+
+      - name: Accessibility audit
+        run: pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3114
+
       - name: Verify packaged styles
         run: node scripts/test-packaged-styles.mjs
 

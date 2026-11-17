@@ -296,7 +296,18 @@ export const AI_COMPONENT_COUNT = ${aiList.length};
   const bulletList = (list: Manifest[]) =>
     list.map((m) => `- ${m.name} — ${m.description}`).join('\n');
 
+  const ARTICLES = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'apps', 'docs', 'content', 'articles.json'), 'utf8')
+  ) as { slug: string; title: string; description: string }[];
+
   let updated = replaceMarkerBlock(rootLlms, 'release', `\n${releaseBlock}\n`);
+  updated = replaceMarkerBlock(
+    updated,
+    'articles',
+    `\n## Articles\n\n${ARTICLES.map(
+      (article) => `- [${article.title}](https://slipstreamui.com/articles/${article.slug}) — ${article.description}`
+    ).join('\n')}\n`
+  );
   updated = replaceMarkerBlock(
     updated,
     'core',

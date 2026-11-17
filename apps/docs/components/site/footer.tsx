@@ -54,6 +54,7 @@ const COLUMNS: FooterColumn[] = [
     titleKey: 'site.footer.project',
     links: [
       { label: 'GitHub', href: REPO_URL, external: true },
+      { label: 'Articles', href: '/articles' },
       { labelKey: 'site.footer.about', href: '/about' },
       { labelKey: 'site.footer.accessibility', href: '/accessibility' },
       { labelKey: 'site.footer.contributing', href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, external: true },

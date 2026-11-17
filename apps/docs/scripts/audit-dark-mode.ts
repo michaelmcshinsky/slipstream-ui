@@ -38,6 +38,8 @@ const SITE_ROUTES = [
   '/docs/installation',
   '/docs/compatibility',
   '/playground',
+  '/articles',
+  '/articles/validation-benchmark-100-cases',
   '/docs/tailwind-v4',
   '/docs/theming',
   '/docs/roadmap',

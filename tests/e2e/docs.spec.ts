@@ -153,6 +153,40 @@ test.describe('command palette', () => {
   });
 });
 
+test.describe('articles', () => {
+  test('index lists the published articles', async ({ page }) => {
+    await page.goto('/articles');
+    await expect(page.getByRole('heading', { name: 'Articles', level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /We tested 100 AI-generated component usages/ })
+    ).toBeVisible();
+    await expect(page.getByRole('heading', { name: /component contract, not a component gallery/ })).toBeVisible();
+  });
+
+  test('server-renders the article body, table and Article JSON-LD', async ({ page, request }) => {
+    const raw = await (await request.get('/articles/validation-benchmark-100-cases')).text();
+    // No JavaScript: the benchmark numbers and table must be in the HTML.
+    expect(raw).toContain('65.7%');
+    expect(raw).toContain('False-positive rate');
+    expect(raw).toContain('<table');
+    expect(raw).toContain('Article');
+
+    await page.goto('/articles/validation-benchmark-100-cases');
+    await expect(
+      page.getByRole('heading', { name: /We tested 100 AI-generated component usages/ })
+    ).toBeVisible();
+    await expect(page.getByRole('cell', { name: 'Recall before repair' })).toBeVisible();
+    await expect(page.getByText('65.7%').first()).toBeVisible();
+  });
+
+  test('lists article URLs in the sitemap', async ({ request }) => {
+    const sitemap = await (await request.get('/sitemap.xml')).text();
+    expect(sitemap).toContain('/articles');
+    expect(sitemap).toContain('/articles/validation-benchmark-100-cases');
+    expect(sitemap).toContain('/articles/component-contract-not-gallery');
+  });
+});
+
 test.describe('machine-readable surfaces', () => {
   test('llms.txt, registry and graph describe the same release', async ({ request }) => {
     const llmsResponse = await request.get('/llms.txt');

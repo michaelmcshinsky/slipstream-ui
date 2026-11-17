@@ -16,7 +16,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? [['github'], ['list']] : [['list']],
   use: {
-    baseURL: 'http://localhost:3114',
+    baseURL: process.env.E2E_BASE_URL ?? 'http://localhost:3114',
     trace: 'on-first-retry',
     permissions: ['clipboard-read', 'clipboard-write'],
   },

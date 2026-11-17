@@ -97,7 +97,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | SEO-03 | Structured data breadth. | `Fixed` | Organization, WebSite, SoftwareApplication, TechArticle, Breadcrumb, CollectionPage already present; homepage adds FAQPage for visible questions. |
 | SEO-04 | Legacy Tailwind 2/3 documentation is still indexed. | `Owner` | Requires Search Console access to enumerate indexed URLs. A deprecation banner and `/docs/changelog` redirect exist; add redirects once the URL list is exported. |
 | SEO-05 | `/llms.txt`, `/llms-full.txt`, `/llm/**`, `/registry/**` must be release-aware. | `Fixed` | Release block includes version, date, schema/manifest versions, counts, canonical URLs, install command. |
-| SEO-06 | Article/content engine. | `Backlog` | Two technical articles exist in `docs/articles/`; publishing cadence is an editorial decision. |
+| SEO-06 | Article/content engine. | `Fixed` | Two technical articles now publish at `/articles` and `/articles/<slug>`, server-rendered from `apps/docs/content/articles/`, with GFM tables, `Article` JSON-LD, sitemap entries and an llms.txt article list. Cadence remains an editorial decision. |
 | SEO-07 | AI integration landing page. | `Verified` | `/docs/guides/agent-integration`, `/docs/guides/ide-setup`, `/docs/mcp`. |
 
 ## G. Architecture, CLI, MCP, security (P1)
@@ -150,11 +150,12 @@ pnpm --filter @slipstream-ui/mcp-server test
 pnpm --filter slipstream-ui-docs typecheck
 pnpm --filter slipstream-ui-docs lint
 pnpm --filter slipstream-ui-docs build
-pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # 50 page runs, 0 violations
+pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # 56 page runs, 0 violations
+pnpm test:e2e                     # 15 Playwright journeys, including SSR article content
 ```
 
-The a11y suite now includes `/playground` and the search-first component
-catalog in both light and dark mode.
+The a11y suite includes `/playground`, the search-first component catalog and
+both article routes in light and dark mode.
 
 Negative test run for the release gate: replacing the version in
 `apps/docs/public/llms.txt` with `0.7.0` makes `pnpm check:counts` exit 1 with
@@ -170,6 +171,8 @@ the expected/found diff.
 - `apps/docs/lib/releases.ts`, `apps/docs/app/changelog/page.tsx` — one release list.
 - `apps/docs/components/copy-for-ai.tsx`, `apps/docs/components/component-page.tsx` — Copy for AI.
 - `apps/docs/app/playground/page.tsx`, `apps/docs/components/site/playground.tsx` — playground.
+- `apps/docs/app/articles/**`, `apps/docs/lib/articles.ts`, `apps/docs/lib/markdown.tsx` — published article routes with a server-rendered markdown renderer.
+- `apps/docs/content/articles/*.md`, `apps/docs/content/articles.json` — canonical article source and metadata.
 - `apps/docs/components/component-catalog.tsx`, `apps/docs/app/docs/components/page.tsx` — search-first catalog.
 - `apps/docs/public/registry/graph.json` (generated), `scripts/generate-registry.ts`, `apps/docs/app/docs/ai-manifests/page.tsx`, `component-page.tsx` — relationship graph and dependency footprint.
 - `apps/docs/lib/search-index.ts`, `apps/docs/components/site/command-palette.tsx` — aliases.

@@ -44,6 +44,13 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 - @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
+<!-- generated:articles:start -->
+## Articles
+
+- [We tested 100 AI-generated component usages. Here is what the validator caught.](https://slipstreamui.com/articles/validation-benchmark-100-cases) — A reproducible 100-case benchmark: 30 valid usages and 70 defects across seven classes, with 65.7% structural recall, 100% precision, and zero false positives on valid cases.
+- [Give Claude Code a component contract, not a component gallery](https://slipstreamui.com/articles/component-contract-not-gallery) — Why machine-readable manifests matter more than another set of React components, and what a coding agent actually needs before it can generate correct UI.
+<!-- generated:articles:end -->
+
 <!-- generated:core:start -->
 ## Core components (@slipstream-ui/core) — 96
 

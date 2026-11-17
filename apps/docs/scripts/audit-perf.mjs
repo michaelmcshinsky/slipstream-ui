@@ -22,6 +22,7 @@ const ROUTES = process.env.PERF_ROUTES?.split(',') ?? [
   '/docs/components',
   '/docs/components/button',
   '/playground',
+  '/articles/validation-benchmark-100-cases',
 ];
 const CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo'];
 const METRICS = ['largest-contentful-paint', 'cumulative-layout-shift', 'total-blocking-time'];

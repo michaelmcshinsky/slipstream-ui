@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { ARTICLES } from '@/lib/articles';
 import { FLAT_NAV } from '@/lib/nav';
 import { RELEASE } from '@/lib/release';
 
@@ -15,6 +16,7 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: 'daily' 
   { path: '', priority: 1, changeFrequency: 'weekly' },
   { path: '/changelog', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/playground', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/articles', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/about', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/accessibility', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.5, changeFrequency: 'yearly' },
@@ -52,5 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: priorityFor(item.href),
   }));
 
-  return [...staticRoutes, ...docsRoutes];
+  const articleRoutes = ARTICLES.map((article) => ({
+    url: `${BASE_URL}/articles/${article.slug}`,
+    lastModified: new Date(article.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...docsRoutes, ...articleRoutes];
 }

@@ -42,6 +42,7 @@
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "test:visual:update": "playwright test --config playwright.visual.config.ts --update-snapshots",
     "test:e2e": "playwright test --config playwright.e2e.config.ts",
+    "test:e2e": "playwright test --config playwright.e2e.config.ts",
     "test:e2e:report": "playwright show-report"
   },
   "devDependencies": {
