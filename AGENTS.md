@@ -50,6 +50,7 @@ pnpm validate:manifests
 pnpm generate:registry
 pnpm generate:llm-docs
 pnpm test:e2e        # built docs on :3114
+pnpm check:tokens    # no hardcoded palette colors in component source
 ```
 
 Site audits (production build required):
@@ -69,7 +70,7 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 ## Styling and theming
 
 - Tailwind CSS **3.4** with `tooling/tailwind-config`; dark mode via `.dark` and CSS variables
-- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`). Never hardcode palette colors.
+- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`). Never hardcode palette colors. `pnpm check:tokens` enforces this in CI; the only allowlisted exception is the Button `contrast`/`onDark` variant.
 - Status text on a neutral surface uses `text-success` / `text-warning-ink` / `text-info-ink` / `text-destructive`; the solid `-foreground` tokens are only valid on top of their matching fill. `--primary` is tuned to clear 4.5:1 on tinted surfaces.
 - Never set theme variables on `document.documentElement` from a demo/component - scope them to the demo container (see `ThemeShowcase`), or they leak site-wide.
 - Dynamic class names are purged: use literal class maps or inline `style` (see `Grid`/`Drawer` size maps).

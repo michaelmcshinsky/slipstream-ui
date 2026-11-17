@@ -135,7 +135,8 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | OPS-04 | Public example gallery / community templates. | `Backlog` | Templates page covers five curated starting points. |
 | OPS-05 | Component relationship graph and dependency visualization. | `Fixed` | `/registry/graph.json` emits 113 nodes and 413 composition/related edges, checked for dangling links; component pages show the npm and registry dependency footprint. |
 | OPS-07 | Context-aware component selection ("build a dashboard with filters"). | `Fixed` | New MCP tool `recommend_components` maps a goal to a coherent component set with reasons and docs URLs; registered in `tools/list`, tested for chat/table/form/agent goals, limit and package filters. |
-| OPS-06 | Visual validation / token compliance. | `Backlog` | Playwright visual config exists; a design-system linter is a separate project. |
+| OPS-06 | Hardcoded palette colors bypass the token contract. | `Fixed` | `pnpm check:tokens` scans core/AI component source for palette utilities, allowlists only the Button contrast/onDark variants, and runs inside `validate:manifests`/CI. |
+| OPS-08 | Full visual/token validation of composed layouts. | `Backlog` | Playwright visual baselines cover the shell chrome; validating arbitrary compositions needs a separate design-system linter. |
 
 ---
 
