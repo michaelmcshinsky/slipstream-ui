@@ -55,7 +55,7 @@
     "@slipstream-ui/typescript-config": "workspace:*",
     "@slipstream-ui/vitest-config": "workspace:*",
     "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.8",
     "@types/react": "^19.0.0",
     "eslint": "^8.56.0",
