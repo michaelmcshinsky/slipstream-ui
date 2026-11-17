@@ -173,6 +173,16 @@
       "expectedIssue": "No defect."
     },
     {
+      "id": "valid-calendar",
+      "componentId": "calendar",
+      "prompt": "Create a correct Calendar usage. Month grid with ISO date keys, min/max bounds and full keyboard navigation.",
+      "candidateCode": "<Calendar />",
+      "fixedCode": "<Calendar />",
+      "expectedValid": true,
+      "defectClass": "none",
+      "expectedIssue": "No defect."
+    },
+    {
       "id": "valid-card",
       "componentId": "card",
       "prompt": "Create a correct Card usage. A content container with header, body, and footer sections for grouping related information",
@@ -293,114 +303,104 @@
       "expectedIssue": "No defect."
     },
     {
-      "id": "valid-data-table",
-      "componentId": "data-table",
-      "prompt": "Create a correct DataTable usage. Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.",
-      "candidateCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
-      "fixedCode": "<DataTable columns={[]} data={[]} rowId={() => {}} />",
-      "expectedValid": true,
-      "defectClass": "none",
-      "expectedIssue": "No defect."
-    },
-    {
       "id": "unknown-prop-accordion",
       "componentId": "accordion",
       "prompt": "Create a Accordion usage. Collapsible content sections with ARIA accordion semantics and keyboard navigation",
-      "candidateCode": "<Accordion data-hallucinated=\"true\" >Content</Accordion>",
+      "candidateCode": "<Accordion hallucinatedProp=\"true\" >Content</Accordion>",
       "fixedCode": "<Accordion>Content</Accordion>",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-alert",
       "componentId": "alert",
       "prompt": "Create a Alert usage. Inline alert for status messages with semantic variants (destructive, success, warning, info)",
-      "candidateCode": "<Alert data-hallucinated=\"true\" >Content</Alert>",
+      "candidateCode": "<Alert hallucinatedProp=\"true\" >Content</Alert>",
       "fixedCode": "<Alert>Content</Alert>",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-announcement-bar",
       "componentId": "announcement-bar",
       "prompt": "Create a AnnouncementBar usage. Dismissible announcement bar with optional action, tone and sticky positioning.",
-      "candidateCode": "<AnnouncementBar message=\"example\"  data-hallucinated=\"true\" />",
+      "candidateCode": "<AnnouncementBar message=\"example\"  hallucinatedProp=\"true\" />",
       "fixedCode": "<AnnouncementBar message=\"example\" />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-app-shell",
       "componentId": "app-shell",
       "prompt": "Create a AppShell usage. Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.",
-      "candidateCode": "<AppShell sections={[]}  data-hallucinated=\"true\" />",
+      "candidateCode": "<AppShell sections={[]}  hallucinatedProp=\"true\" />",
       "fixedCode": "<AppShell sections={[]} />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-applied-filters",
       "componentId": "applied-filters",
       "prompt": "Create a AppliedFilters usage. Applied-filter summary with a live count, removable chips and an edit action.",
-      "candidateCode": "<AppliedFilters filters={[]}  data-hallucinated=\"true\" />",
+      "candidateCode": "<AppliedFilters filters={[]}  hallucinatedProp=\"true\" />",
       "fixedCode": "<AppliedFilters filters={[]} />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-article-card",
       "componentId": "article-card",
       "prompt": "Create a ArticleCard usage. Linked article or resource card with media, eyebrow, title, summary and metadata.",
-      "candidateCode": "<ArticleCard title=\"example\" href=\"example\"  data-hallucinated=\"true\" />",
+      "candidateCode": "<ArticleCard title=\"example\" href=\"example\"  hallucinatedProp=\"true\" />",
       "fixedCode": "<ArticleCard title=\"example\" href=\"example\" />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-attachment",
       "componentId": "attachment",
       "prompt": "Create a Attachment / AttachmentList usage. File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.",
-      "candidateCode": "<Attachment attachment=\"example\" attachments={[]}  data-hallucinated=\"true\" />",
+      "candidateCode": "<Attachment attachment=\"example\" attachments={[]}  hallucinatedProp=\"true\" />",
       "fixedCode": "<Attachment attachment=\"example\" attachments={[]} />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-auth-layout",
       "componentId": "auth-layout",
       "prompt": "Create a AuthLayout usage. Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.",
-      "candidateCode": "<AuthLayout title=\"example\"  data-hallucinated=\"true\" />",
+      "candidateCode": "<AuthLayout title=\"example\"  hallucinatedProp=\"true\" />",
       "fixedCode": "<AuthLayout title=\"example\" />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-autocomplete",
       "componentId": "autocomplete",
       "prompt": "Create a Autocomplete usage. Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.",
-      "candidateCode": "<Autocomplete  data-hallucinated=\"true\" />",
+      "candidateCode": "<Autocomplete  hallucinatedProp=\"true\" />",
       "fixedCode": "<Autocomplete />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "unknown-prop-avatar",
       "componentId": "avatar",
       "prompt": "Create a Avatar usage. A user profile image component with fallback support and accessible image loading",
-      "candidateCode": "<Avatar  data-hallucinated=\"true\" />",
+      "candidateCode": "<Avatar  hallucinatedProp=\"true\" />",
       "fixedCode": "<Avatar />",
       "expectedValid": false,
       "defectClass": "unknown-prop",
-      "expectedIssue": "Unknown prop data-hallucinated."
+      "expectedIssue": "Unknown prop hallucinatedProp."
     },
     {
       "id": "missing-required-announcement-bar",

@@ -156,7 +156,7 @@ function generatedCases(): BenchmarkCase[] {
 
   for (const manifest of pool.slice(0, 10)) {
     const fixedCode = buildValidCode(manifest);
-    const candidateCode = insertAttribute(fixedCode, exportName(manifest), 'data-hallucinated="true"');
+    const candidateCode = insertAttribute(fixedCode, exportName(manifest), 'hallucinatedProp="true"');
     cases.push({
       id: `unknown-prop-${manifest.id}`,
       componentId: manifest.id,
@@ -165,7 +165,7 @@ function generatedCases(): BenchmarkCase[] {
       fixedCode,
       expectedValid: false,
       defectClass: 'unknown-prop',
-      expectedIssue: 'Unknown prop data-hallucinated.',
+      expectedIssue: 'Unknown prop hallucinatedProp.',
     });
   }
 

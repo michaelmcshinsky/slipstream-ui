@@ -116,6 +116,8 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | TECH-08 | Prompt-injection boundary in manifests. | `Verified` | Manifests are structured JSON; MCP responses are schema-shaped; no manifest text is executed. Documented as a boundary in `/docs/mcp`. |
 | TECH-09 | Supply chain: provenance, audit, lockfile. | `Verified` | Changesets publish with npm provenance in CI; `pnpm audit:packages`; lockfile committed. |
 | TECH-10 | 9 dependency advisories (8 moderate, 1 low) on `main`. | `Fixed` | `pnpm audit` is clean: Next 16.4.6 (app/docs/starter), hono 4.13.16, @hono/node-server 2.1.6, glob 14.0.3 via pinned overrides. Re-verified build, 15 test tasks, E2E, visual and axe. |
+| TECH-11 | Validator only checked props, enums and required fields; it could not catch an unnamed icon-only control. | `Fixed` | `validate_usage` now requires an accessible name on `size="icon"` (aria-label/aria-labelledby/title, alt text, text or expression children) and returns a fix. Three tests cover fail/pass/empty-label cases; copy and docs now state the exact scope. |
+| TECH-12 | State-machine and streaming invariants are not validated. | `Backlog` | The benchmark shows 10% recall for both classes. Needs manifest-level state rules; do not fake semantic coverage. |
 
 ## H. Legal, privacy and trust (P1)
 
@@ -140,6 +142,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | OPS-07 | Context-aware component selection ("build a dashboard with filters"). | `Fixed` | New MCP tool `recommend_components` maps a goal to a coherent component set with reasons and docs URLs; the same recipes publish as `/registry/recommendations.json`, checked so every id resolves to a graph node. Tests cover chat/table/form/RAG/agent goals, limit and package filters. |
 | OPS-06 | Hardcoded palette colors bypass the token contract. | `Fixed` | `pnpm check:tokens` scans core/AI component source for palette utilities, allowlists only the Button contrast/onDark variants, and runs inside `validate:manifests`/CI. |
 | OPS-08 | Full visual/token validation of composed layouts. | `Backlog` | Playwright visual baselines cover the shell chrome; validating arbitrary compositions needs a separate design-system linter. |
+| OPS-09 | The unknown-prop benchmark fixture used `data-*`, which the validator intentionally accepts, masking real recall. | `Fixed` | The fixture now uses `hallucinatedProp`; `bench:generate`/`bench:check`/`bench:test` are green and the mock baseline is re-verified at 65.7% recall, 100% precision, 0 false positives. |
 
 ---
 

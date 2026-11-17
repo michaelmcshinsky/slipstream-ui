@@ -95,7 +95,7 @@ export const HOME_EXTRAS: HomeExtras = {
       {
         question: 'What does validate_usage actually catch?',
         answer:
-          'Unknown props, missing required props, invalid enum values and documented composition violations. It is static: it does not prove runtime behaviour, visual correctness or WCAG conformance.',
+          'Unknown props, missing required props, invalid enum values, documented composition violations, and icon-only controls without an accessible name. It is static: it does not prove runtime behaviour, visual correctness or WCAG conformance.',
       },
       {
         question: 'Do I need an MCP client?',

@@ -159,9 +159,10 @@ get_usage_examples(componentId="dialog")`} />
         <h3 className="text-xl font-semibold mt-6 mb-3">validate_usage</h3>
         <p className="text-muted-foreground mb-4">
           Validate generated JSX against the component manifest before it ships. The validator
-          reports unknown (hallucinated) props, values outside a documented enum, and missing
-          required props, and returns the manifest&apos;s anti-patterns so the agent can re-check
-          intent. Every issue carries a <code className="rounded bg-muted px-1 py-0.5 text-sm">fix</code>{' '}
+          reports unknown (hallucinated) props, values outside a documented enum, missing
+          required props, missing compound roots, and icon-only controls without an accessible
+          name, and returns the manifest&apos;s anti-patterns so the agent can re-check intent.
+          Every issue carries a <code className="rounded bg-muted px-1 py-0.5 text-sm">fix</code>{' '}
           string with the concrete next action, so the agent can correct the code without a second
           round trip. It does not type-check expressions or render the component.
         </p>

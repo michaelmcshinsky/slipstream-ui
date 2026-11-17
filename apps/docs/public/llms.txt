@@ -197,7 +197,7 @@ The MCP server provides tools for AI agents:
 - search_components - Find components by capability keywords
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
-- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, and missing required props
+- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, missing required props, missing compound roots, and icon-only controls without an accessible name
 
 Add it to an MCP client:
 ```json

@@ -55,8 +55,8 @@ describe('validator coverage on generated cases', () => {
   });
 
   it('reports the specific defect for representative cases', async () => {
-    const unknown = await validateCode('accordion', '<Accordion defaultValue={[]} data-hallucinated="true">x</Accordion>');
-    expect(unknown.issues.some((issue) => issue.message.includes('Unknown prop "data-hallucinated"'))).toBe(true);
+    const unknown = await validateCode('accordion', '<Accordion defaultValue={[]} hallucinatedProp="true">x</Accordion>');
+    expect(unknown.issues.some((issue) => issue.message.includes('Unknown prop "hallucinatedProp"'))).toBe(true);
 
     const missing = await validateCode('app-shell', '<AppShell>Content</AppShell>');
     expect(missing.issues.some((issue) => issue.message.includes('Missing required prop'))).toBe(true);
