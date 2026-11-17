@@ -38,6 +38,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | REL-07 | README/llms/registry must agree on every release. | `Fixed` | CI gate `pnpm check:counts` (already wired into `validate:manifests`) now covers all four surfaces. |
 | REL-08 | "167 tests" style claims must be generated, not typed. | `Verified` | The homepage does not publish a test count; churnable numbers are count-derived. Test totals remain in release notes only. |
 | REL-09 | The MCP server advertised `version: 0.0.1` and `server.json` still said 0.2.0 while the package was 0.4.0. | `Fixed` | The server reads `package.json`; `scripts/check-manifest-versions.ts` fails when `server.json` disagrees with the package. |
+| REL-10 | A changeset bump can ship without matching site release notes. | `Fixed` | `scripts/check-release-readiness.ts` compares the newest `apps/docs/lib/releases.ts` entry (version + date) to the core package and `release.json`; negative-tested and wired into `validate:manifests`. |
 
 ## B. Installation and first-run (P0/P1)
 

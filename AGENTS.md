@@ -51,6 +51,7 @@ pnpm generate:registry
 pnpm generate:llm-docs
 pnpm test:e2e        # built docs on :3114
 pnpm check:tokens    # no hardcoded palette colors in component source
+pnpm check:release   # site release notes match packages + release.json
 ```
 
 Site audits (production build required):
