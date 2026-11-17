@@ -228,6 +228,16 @@ test.describe('machine-readable surfaces', () => {
     expect(graph.nodeCount).toBe(total);
     expect(graph.nodes).toHaveLength(total);
 
+    const recommendations = await (await request.get('/registry/recommendations.json')).json();
+    expect(recommendations.count).toBeGreaterThan(0);
+    expect(recommendations.recipes).toHaveLength(recommendations.count);
+    const graphIds = new Set(graph.nodes.map((node: { id: string }) => node.id));
+    for (const recipe of recommendations.recipes) {
+      for (const component of recipe.components) {
+        expect(graphIds.has(component.id)).toBe(true);
+      }
+    }
+
     const sitemap = await (await request.get('/sitemap.xml')).text();
     expect(sitemap).toContain('/playground');
     expect(sitemap).toContain('/docs/components/button');

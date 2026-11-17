@@ -217,6 +217,39 @@ function check(actual: Counts): Failure[] {
     });
   }
 
+  const recommendationsPath = path.join(ROOT, 'apps', 'docs', 'public', 'registry', 'recommendations.json');
+  const recommendations = JSON.parse(readRequired(recommendationsPath)) as {
+    count?: number;
+    recipes?: { keywords?: string[]; components?: { id?: string }[] }[];
+  };
+  const recipes = recommendations.recipes ?? [];
+  if (recommendations.count !== recipes.length || recipes.length === 0) {
+    failures.push({
+      surface: 'apps/docs/public/registry/recommendations.json count',
+      expected: `>0 recipes matching count`,
+      actual: `${recommendations.count ?? '?'} declared / ${recipes.length} listed`,
+    });
+  }
+  const unknownComponents = recipes
+    .flatMap((recipe) => recipe.components ?? [])
+    .filter((component) => !ids.has(component.id ?? ''))
+    .map((component) => component.id ?? '?');
+  if (unknownComponents.length > 0) {
+    failures.push({
+      surface: 'apps/docs/public/registry/recommendations.json components',
+      expected: 'every recommendation resolves to a graph node',
+      actual: [...new Set(unknownComponents)].join(', '),
+    });
+  }
+  const emptyKeywords = recipes.filter((recipe) => (recipe.keywords ?? []).length === 0).length;
+  if (emptyKeywords > 0) {
+    failures.push({
+      surface: 'apps/docs/public/registry/recommendations.json keywords',
+      expected: 'every recipe has at least one keyword',
+      actual: `${emptyKeywords} recipe(s) without keywords`,
+    });
+  }
+
   return failures;
 }
 

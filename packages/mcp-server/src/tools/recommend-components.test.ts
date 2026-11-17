@@ -32,6 +32,17 @@ describe('recommend_components tool', () => {
     expect(ids).toContain('filter-bar');
   });
 
+  it('recommends the RAG composition with citations', async () => {
+    const payload = payloadOf(
+      await recommendComponentsTool.handler({ goal: 'RAG answer with citations' })
+    );
+    const ids = payload.recommendations.map((entry) => entry.id);
+    expect(ids).toContain('source');
+    expect(ids).toContain('inline-citation');
+    const source = payload.recommendations.find((entry) => entry.id === 'source');
+    expect(source?.docs).toBe('https://slipstreamui.com/docs/components/sources');
+  });
+
   it('recommends the form composition for a settings form goal', async () => {
     const payload = payloadOf(
       await recommendComponentsTool.handler({ goal: 'settings form with toggles' })

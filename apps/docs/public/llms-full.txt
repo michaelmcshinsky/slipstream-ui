@@ -4,6 +4,7 @@
 > 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
+> Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
 The AI-first React component library. 113 components, each shipping a

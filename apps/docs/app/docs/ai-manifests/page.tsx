@@ -280,7 +280,8 @@ GET /llm/components/<id>.md        # full reference generated from the manifest`
         </p>
         <CodeBlock code={`GET /registry/all.json        # index of every component
 GET /registry/<id>.json       # manifest + shadcn installer payload
-GET /registry/graph.json      # component relationship graph (nodes + edges)`} language="text" />
+GET /registry/graph.json      # component relationship graph (nodes + edges)
+GET /registry/recommendations.json  # intent recipes behind recommend_components`} language="text" />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Relationship graph</h3>
         <p className="mb-4 text-muted-foreground">

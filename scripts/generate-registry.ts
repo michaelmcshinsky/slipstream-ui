@@ -12,6 +12,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { RECIPES } from '../packages/mcp-server/src/tools/recipes';
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'registry');
@@ -332,8 +333,29 @@ function main() {
   };
   fs.writeFileSync(path.join(OUT_DIR, 'graph.json'), JSON.stringify(graph, null, 2) + '\n');
 
+  // Same intent recipes the MCP recommend_components tool uses, published as
+  // a static artifact so non-MCP agents and the docs can read them.
+  const recommendations = {
+    name: 'slipstream-ui',
+    version: CORE_VERSION,
+    releaseDate: RELEASE.releaseDate,
+    schemaVersion: RELEASE.schemaVersion,
+    manifestVersion: RELEASE.manifestVersion,
+    generatedFrom: 'packages/mcp-server/src/tools/recipes.ts',
+    count: RECIPES.length,
+    recipes: RECIPES.map((recipe) => ({
+      keywords: recipe.keywords,
+      components: recipe.components.map(({ id, reason }) => ({
+        id,
+        reason,
+        docs: `https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[id] ?? id}`,
+      })),
+    })),
+  };
+  fs.writeFileSync(path.join(OUT_DIR, 'recommendations.json'), JSON.stringify(recommendations, null, 2) + '\n');
+
   console.log(
-    `Registry generated: ${entries.length} installable components and ${edges.length} graph edges -> ${path.relative(ROOT, OUT_DIR)}`
+    `Registry generated: ${entries.length} installable components, ${edges.length} graph edges and ${RECIPES.length} recommendation recipes -> ${path.relative(ROOT, OUT_DIR)}`
   );
 }
 

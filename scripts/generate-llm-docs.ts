@@ -231,6 +231,7 @@ function main() {
     `> ${manifests.length} components: ${coreList.length} in \`@slipstream-ui/core\` and ${aiList.length} in \`@slipstream-ui/ai\``,
     '> Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp',
     '> Relationship graph: https://slipstreamui.com/registry/graph.json',
+    '> Recommendation recipes: https://slipstreamui.com/registry/recommendations.json',
     '> Install: `npx @slipstream-ui/cli@latest init`',
   ].join('\n');
 

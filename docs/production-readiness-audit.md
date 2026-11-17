@@ -34,7 +34,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | REL-03 | The count gate checked section headings but not the summary line or version. | `Fixed` | `scripts/check-component-counts.ts` now validates the version line, the `N components: X in core and Y in ai` line, the registry index, and `llm/index.md`. |
 | REL-04 | No single release-metadata source (version, counts, schema/manifest version, release date). | `Fixed` | New `release.json` + `apps/docs/lib/release.ts`; consumed by docs, `llms.txt`, `/llm`, and `/registry`. |
 | REL-05 | Changelog duplicated the current version in metadata and prose. | `Fixed` | Releases moved to `apps/docs/lib/releases.ts`; metadata uses `VERSION` and the newest release. |
-| REL-06 | Registry payloads lacked a stable component id, docs URL, and manifest/schema versions. | `Fixed` | `scripts/generate-registry.ts` emits `componentId`, `packageVersion`, `manifestVersion`, `schemaVersion`, `docs`; `all.json` gains the release block. |
+| REL-06 | Registry payloads lacked a stable component id, docs URL, and manifest/schema versions. | `Fixed` | `scripts/generate-registry.ts` emits `componentId`, `packageVersion`, `manifestVersion`, `schemaVersion`, `docs`; `all.json` gains the release block, and `graph.json`/`recommendations.json` share the same version. |
 | REL-07 | README/llms/registry must agree on every release. | `Fixed` | CI gate `pnpm check:counts` (already wired into `validate:manifests`) now covers all four surfaces. |
 | REL-08 | "167 tests" style claims must be generated, not typed. | `Verified` | The homepage does not publish a test count; churnable numbers are count-derived. Test totals remain in release notes only. |
 | REL-09 | The MCP server advertised `version: 0.0.1` and `server.json` still said 0.2.0 while the package was 0.4.0. | `Fixed` | The server reads `package.json`; `scripts/check-manifest-versions.ts` fails when `server.json` disagrees with the package. |
@@ -136,7 +136,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | OPS-03 | Benchmark run with real models. | `Owner` | `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` required; harness and methodology are in `benchmarks/` and `docs/benchmarks.md`. |
 | OPS-04 | Public example gallery / community templates. | `Backlog` | Templates page covers five curated starting points. |
 | OPS-05 | Component relationship graph and dependency visualization. | `Fixed` | `/registry/graph.json` emits 113 nodes and 413 composition/related edges, checked for dangling links; component pages show the npm and registry dependency footprint. |
-| OPS-07 | Context-aware component selection ("build a dashboard with filters"). | `Fixed` | New MCP tool `recommend_components` maps a goal to a coherent component set with reasons and docs URLs; registered in `tools/list`, tested for chat/table/form/agent goals, limit and package filters. |
+| OPS-07 | Context-aware component selection ("build a dashboard with filters"). | `Fixed` | New MCP tool `recommend_components` maps a goal to a coherent component set with reasons and docs URLs; the same recipes publish as `/registry/recommendations.json`, checked so every id resolves to a graph node. Tests cover chat/table/form/RAG/agent goals, limit and package filters. |
 | OPS-06 | Hardcoded palette colors bypass the token contract. | `Fixed` | `pnpm check:tokens` scans core/AI component source for palette utilities, allowlists only the Button contrast/onDark variants, and runs inside `validate:manifests`/CI. |
 | OPS-08 | Full visual/token validation of composed layouts. | `Backlog` | Playwright visual baselines cover the shell chrome; validating arbitrary compositions needs a separate design-system linter. |
 
@@ -180,6 +180,7 @@ the expected/found diff.
 - `apps/docs/app/accessibility/scorecard/page.tsx`, `apps/docs/lib/a11y-scorecard.ts` — per-component accessibility evidence with a fail-closed test.
 - `apps/docs/components/component-catalog.tsx`, `apps/docs/app/docs/components/page.tsx` — search-first catalog.
 - `apps/docs/public/registry/graph.json` (generated), `scripts/generate-registry.ts`, `apps/docs/app/docs/ai-manifests/page.tsx`, `component-page.tsx` — relationship graph and dependency footprint.
+- `packages/mcp-server/src/tools/recipes.ts`, `apps/docs/public/registry/recommendations.json` — shared intent recipes published as a static artifact.
 - `apps/docs/lib/search-index.ts`, `apps/docs/components/site/command-palette.tsx` — aliases.
 - `apps/docs/components/site/page-feedback.tsx`, `docs-page-meta.tsx` — feedback reasons and edit/a11y links.
 - `apps/docs/components/site/privacy-preferences.tsx`, `apps/docs/lib/site.ts`,

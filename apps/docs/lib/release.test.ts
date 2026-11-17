@@ -38,6 +38,22 @@ describe('release metadata', () => {
     }
   });
 
+  it('publishes recommendation recipes that resolve to graph nodes', () => {
+    const recommendations = readJson('../public/registry/recommendations.json');
+    const graph = readJson('../public/registry/graph.json');
+    const ids = new Set(graph.nodes.map((node: { id: string }) => node.id));
+
+    expect(recommendations.count).toBeGreaterThan(0);
+    expect(recommendations.recipes).toHaveLength(recommendations.count);
+    for (const recipe of recommendations.recipes) {
+      expect(recipe.keywords.length).toBeGreaterThan(0);
+      for (const component of recipe.components) {
+        expect(ids.has(component.id)).toBe(true);
+        expect(component.docs).toMatch(/^https:\/\/slipstreamui\.com\/docs\/components\//);
+      }
+    }
+  });
+
   it('formats one release line for agent surfaces', () => {
     expect(releaseLine()).toContain(`Version ${RELEASE.version}`);
     expect(releaseLine()).toContain(`${RELEASE.components.total} components`);
