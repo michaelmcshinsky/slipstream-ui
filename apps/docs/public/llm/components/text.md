@@ -6,7 +6,7 @@ Semantic paragraph text with a controlled type scale; renders a real p (or span 
 > Import: `import { Text } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/text
 > Registry: https://slipstreamui.com/registry/text.json
-> Tier: atom · Package: @slipstream-ui/core@0.8.0
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildAiInstruction } from './copy-for-ai';
+import { RELEASE } from './release';
 
 const manifest = {
   componentId: 'button',
@@ -27,7 +28,7 @@ describe('buildAiInstruction', () => {
 
   it('includes the release contract and canonical locations', () => {
     expect(text).toContain('# Slipstream UI — Button');
-    expect(text).toMatch(/Release: 0\.8\.0/);
+    expect(text).toMatch(new RegExp(`Release: ${RELEASE.version.replace(/\./g, '\\.')}`));
     expect(text).toContain('manifest schema v1');
     expect(text).toContain("import { Button } from '@slipstream-ui/core'");
     expect(text).toContain('https://slipstreamui.com/docs/components/button');

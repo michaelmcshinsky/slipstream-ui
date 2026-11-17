@@ -9,9 +9,24 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.9.0',
+    date: 'November 17, 2026',
+    tag: 'current',
+    highlights: [
+      'AI docs reliability: the edge HTML cache stores anonymous pages, the docs route smoke test renders all 135 routes, and every component page now resolves to its registry manifest (CheckboxGroup and Tooltip were repaired)',
+      'New MCP tool recommend_components turns a goal into a coherent component set with reasons and docs URLs; the same 14 recipes publish at /registry/recommendations.json',
+      'validate_usage now rejects icon-only controls without an accessible name and returns a concrete fix; the 100-case benchmark is re-verified at 65.7% recall, 100% precision and 0 false positives',
+      'Image (src -> fallbackSrc -> fallback), nested SiteHeader menus, Popover placement/collision handling, Calendar + DatePickerPopover, and localized labels for Stepper, DataTable and Conversation',
+      'Theme contract: primary-ink and success-ink tokens; dark-mode contrast, calendar outside-month text, modal focus restoration and target-size fixes found by the full axe/dark audits',
+      'CLI add --dry-run prints every create/overwrite/skip decision and writes nothing',
+      'Dependency refresh: Next 16.4.6, hono 4.13.16, @hono/node-server 2.1.6 and glob 14.0.3; check:audit allows only the documented unpatched picomatch advisory',
+      'Versioned packages: core/ai/themes 0.9.0, mcp-server 0.5.0, i18n 0.5.0, cli 0.3.0; registry remains 0.2.2',
+    ],
+  },
+  {
     version: '0.8.0',
     date: 'November 12, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'BottomNav - mobile bottom tab bar for 3-5 primary destinations, with aria-current on the active tab, count badges, disabled tabs, a router linkComponent, 44px minimum targets and safe-area padding',
       'Drawer resizable - left and right drawers get a focusable separator handle: drag it, or use Arrow keys (16px), Shift+Arrow (64px) and Home/End (bounds); minWidth, maxWidth, defaultWidth and onWidthChange persist the width',

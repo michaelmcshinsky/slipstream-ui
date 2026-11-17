@@ -1,5 +1,16 @@
 # @slipstream-ui/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- feat(cli): add `add --dry-run`
+  
+  `slipstream-ui add <component> --dry-run` prints every file that would be
+  created, overwritten or skipped, and writes nothing. It is covered by unit and
+  integration tests, so a destructive add can be inspected before it touches a
+  consumer project.
+
 ## 0.2.3
 
 ### Patch Changes

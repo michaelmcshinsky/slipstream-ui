@@ -6,7 +6,7 @@ Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, a
 > Import: `import { MessageActions } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message-actions
 > Registry: https://slipstreamui.com/registry/message-actions.json
-> Tier: atom · Package: @slipstream-ui/ai@0.8.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

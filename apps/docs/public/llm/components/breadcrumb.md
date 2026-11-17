@@ -6,7 +6,7 @@ Navigation breadcrumb trail with links and current-page indicator
 > Import: `import { Breadcrumb } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/breadcrumb
 > Registry: https://slipstreamui.com/registry/breadcrumb.json
-> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

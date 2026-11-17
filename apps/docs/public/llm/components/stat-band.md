@@ -6,7 +6,7 @@ Semantic description list of headline stats with labels, optional hints and colu
 > Import: `import { StatBand } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/stat-band
 > Registry: https://slipstreamui.com/registry/stat-band.json
-> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

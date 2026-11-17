@@ -6,7 +6,7 @@ Document row with file metadata, access status and an optional download action.
 > Import: `import { DocumentCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/document-card
 > Registry: https://slipstreamui.com/registry/document-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
