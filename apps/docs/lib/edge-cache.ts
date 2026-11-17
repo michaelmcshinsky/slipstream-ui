@@ -17,9 +17,15 @@
  * - `Authorization`, session cookies, RSC/prefetch headers and `_rsc` always
  *   bypass the cache, so personalised HTML is never shared.
  * - Only `200 text/html` responses without `content-encoding` are stored.
- * - Responses that set cookies or opt out (`no-store`, `private`, `no-cache`)
- *   are never stored. `set-cookie`/`vary` are dropped from the stored copy and
- *   the live response keeps its cookies untouched.
+ * - Responses that set cookies are never stored. `set-cookie`/`vary` are
+ *   dropped from the stored copy and the live response keeps its cookies
+ *   untouched.
+ * - A response that opts out with `no-store`, `private` or `no-cache` is never
+ *   stored unless `allowPrivateResponses` is set. The App Router marks every
+ *   docs page private because `app/layout.tsx` reads the locale cookie during
+ *   SSR; the request-level guard already rejects every request that could make
+ *   that render personal, so the response-level opt-out is redundant for
+ *   requests that reach the store path and is overridden there.
  * - Tracking parameters are stripped and the rest sorted so the key is stable.
  * - Bump `CACHE_VERSION` after a deploy that changes rendered markup in a way
  *   the TTL would otherwise mask.
@@ -64,6 +70,14 @@ export type EdgeCacheOptions = {
   sensitiveCookies?: string[];
   /** How long a stored page stays fresh, in seconds. */
   ttlSeconds: number;
+  /**
+   * Store responses whose app sent `private`, `no-store` or `no-cache`.
+   *
+   * Next marks the docs pages private because the App Router reads the locale
+   * cookie during SSR. Only enable this when `shouldBypassRequest` already
+   * rejects every personalised request, which it does for this site.
+   */
+  allowPrivateResponses?: boolean;
 };
 
 type CacheApi = {
@@ -160,7 +174,18 @@ export function cacheKeyFor(url: URL, options: EdgeCacheOptions): string {
   return `https://edge-cache.invalid/${options.site}/${CACHE_VERSION}${url.pathname}${query ? `?${query}` : ""}`;
 }
 
-export function isCacheableResponse(response: Response): boolean {
+export type CacheableResponsePolicy = {
+  /**
+   * Accept a response whose app sent `private`, `no-store` or `no-cache`.
+   * See `EdgeCacheOptions.allowPrivateResponses`.
+   */
+  allowPrivate?: boolean;
+};
+
+export function isCacheableResponse(
+  response: Response,
+  policy: CacheableResponsePolicy = {},
+): boolean {
   if (response.status !== 200) return false;
   const contentType = (response.headers.get("content-type") ?? "").toLowerCase();
   if (!contentType.startsWith("text/html")) return false;
@@ -171,7 +196,9 @@ export function isCacheableResponse(response: Response): boolean {
   if (response.headers.get("set-cookie")) return false;
 
   const cacheControl = (response.headers.get("cache-control") ?? "").toLowerCase();
-  if (/no-store|private|no-cache/.test(cacheControl)) return false;
+  if (!policy.allowPrivate && /no-store|private|no-cache/.test(cacheControl)) {
+    return false;
+  }
 
   return true;
 }
@@ -227,7 +254,13 @@ export async function edgeCacheFetch(
   }
 
   const response = await render();
-  if (!isCacheableResponse(response)) return response;
+  if (
+    !isCacheableResponse(response, {
+      allowPrivate: options.allowPrivateResponses,
+    })
+  ) {
+    return response;
+  }
 
   const stored = sanitizeForCache(response.clone(), options.ttlSeconds);
   ctx.waitUntil(cache.put(key, stored).catch(() => undefined));

@@ -32,6 +32,10 @@ const worker = {
       bypassPrefixes: [],
       // `lib/i18n-server.ts` (LOCALE_COOKIE): SSR renders the reader's locale.
       sensitiveCookies: ["slipstream-locale"],
+      // Next marks every docs page `private, no-cache, no-store` because the
+      // App Router reads the locale cookie. Requests carrying that cookie are
+      // already bypassed above, so store the anonymous renders anyway.
+      allowPrivateResponses: true,
       ttlSeconds: 60 * 60 * 6,
     });
   },
