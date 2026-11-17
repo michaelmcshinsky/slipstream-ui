@@ -30,7 +30,7 @@ const METRICS = ['largest-contentful-paint', 'cumulative-layout-shift', 'total-b
 async function measure(route) {
   // A fresh Chrome per measurement: reusing one instance across navigations
   // intermittently produces NO_NAVSTART and invalidates the trace.
-  const chrome = await launchChrome({ chromeFlags: ['--headless=new', '--no-sandbox'] });
+  const chrome = await launchChrome({ chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'] });
   try {
     const result = await lighthouse(
       `${BASE}${route}`,
@@ -64,7 +64,9 @@ function invalid(lhr) {
 async function main() {
   for (const route of ROUTES) {
     let lhr = await measure(route);
-    if (invalid(lhr)) {
+    // Lighthouse occasionally records NO_NAVSTART on a fresh Chrome. Retry up
+    // to twice before failing the route.
+    for (let attempt = 0; invalid(lhr) && attempt < 2; attempt += 1) {
       console.log(`\n${route}  retrying after ${lhr?.runtimeError?.code ?? 'an invalid trace'}`);
       lhr = await measure(route);
     }
