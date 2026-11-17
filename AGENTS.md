@@ -60,6 +60,7 @@ Site audits (production build required):
 pnpm --filter slipstream-ui-docs build
 pnpm --filter slipstream-ui-docs start -- -p 3111
 pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111
+pnpm --filter slipstream-ui-docs smoke:routes -- http://localhost:3111
 pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111
 pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111
 ```

@@ -26,6 +26,7 @@ Run from the repository root before tagging or publishing.
 - [ ] `pnpm --filter slipstream-ui-docs build`
 - [ ] `pnpm --filter slipstream-ui-docs start -- -p 3111`
 - [ ] `pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111` (58 page runs)
+- [ ] `pnpm --filter slipstream-ui-docs smoke:routes -- http://localhost:3111` (135 routes)
 - [ ] `pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111` (98–100 performance)
 - [ ] `E2E_BASE_URL=http://localhost:3111 pnpm test:e2e` (16 journeys)
 

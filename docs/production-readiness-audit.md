@@ -78,6 +78,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | DOC-10 | Bundle sizes must be published. | `Verified` | `docs/bundle-size.md` + `scripts/audit-sizes.mjs` with budgets; referenced from the release checklist. |
 | DOC-11 | The component index was a long unsearchable list. | `Fixed` | `/docs/components` now has a search-first catalog with category chips, live counts and an empty state. |
 | DOC-12 | The playground and maintenance links are English-first. | `Backlog` | Developer tooling copy is English; the localized docs shell remains around it. |
+| DOC-13 | Human component pages could stick on “Loading documentation…” or render without manifest sections. | `Fixed` | `CheckboxGroup` now points at the `checkbox` manifest instead of a nonexistent `checkbox-group.json`; the Tooltip demo is a client component so cloning its trigger no longer hits React error #130. `check:docs-links` fails on any missing registry payload, and `smoke:routes` renders all 135 routes, checks for the error boundary and probes client navigation. Both run in CI. |
 
 ## E. Accessibility (P1)
 

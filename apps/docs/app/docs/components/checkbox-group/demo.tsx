@@ -12,6 +12,7 @@ export default function CheckboxGroupPage() {
   return (
     <ComponentPage
       id="checkbox-group"
+      manifestId="checkbox"
       title="CheckboxGroup"
       description="Multi-select counterpart of RadioGroup: shared name, fieldset/legend context, the selection as string[], and vertical or horizontal layout."
       npmPackages="@slipstream-ui/core"

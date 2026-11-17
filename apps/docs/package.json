@@ -16,7 +16,8 @@
     "test:watch": "vitest",
     "audit:a11y": "tsx scripts/audit-a11y.ts",
     "audit:dark": "tsx scripts/audit-dark-mode.ts",
-    "audit:perf": "node scripts/audit-perf.mjs"
+    "audit:perf": "node scripts/audit-perf.mjs",
+    "smoke:routes": "tsx scripts/smoke-routes.ts"
   },
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",
