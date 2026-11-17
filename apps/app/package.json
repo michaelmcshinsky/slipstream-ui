@@ -14,7 +14,7 @@
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/db": "workspace:*",
     "@slipstream-ui/i18n": "workspace:*",
-    "jose": "^6.2.14",
+    "jose": "^6.2.17",
     "next": "^16.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
