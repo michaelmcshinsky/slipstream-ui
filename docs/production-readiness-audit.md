@@ -113,6 +113,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | TECH-07 | Security headers, CSP, security.txt. | `Verified` | `next.config.mjs` (CSP report-only, HSTS, frame denial), `_headers`, `.well-known/security.txt`, `SECURITY.md`. |
 | TECH-08 | Prompt-injection boundary in manifests. | `Verified` | Manifests are structured JSON; MCP responses are schema-shaped; no manifest text is executed. Documented as a boundary in `/docs/mcp`. |
 | TECH-09 | Supply chain: provenance, audit, lockfile. | `Verified` | Changesets publish with npm provenance in CI; `pnpm audit:packages`; lockfile committed. |
+| TECH-10 | 9 dependency advisories (8 moderate, 1 low) on `main`. | `Fixed` | `pnpm audit` is clean: Next 16.4.6 (app/docs/starter), hono 4.13.16, @hono/node-server 2.1.6, glob 14.0.3 via pinned overrides. Re-verified build, 15 test tasks, E2E, visual and axe. |
 
 ## H. Legal, privacy and trust (P1)
 
@@ -153,6 +154,7 @@ pnpm --filter slipstream-ui-docs lint
 pnpm --filter slipstream-ui-docs build
 pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # 58 page runs, 0 violations
 pnpm test:e2e                     # 16 Playwright journeys, including SSR article content
+pnpm audit                        # no known vulnerabilities
 ```
 
 The a11y suite includes `/playground`, the search-first component catalog, both

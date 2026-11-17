@@ -16,7 +16,7 @@
     "@slipstream-ui/i18n": "workspace:*",
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/themes": "workspace:*",
-    "next": "^16.4.3",
+    "next": "^16.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -40,3 +40,4 @@
     "vitest": "^5.0.5"
   }
 }
+
