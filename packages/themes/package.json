@@ -48,7 +48,7 @@
   "devDependencies": {
     "@slipstream-ui/eslint-config": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
-    "eslint": "^8.56.0",
+    "eslint": "^10.15.0",
     "tsup": "^9.0.0",
     "typescript": "^5.3.3",
     "@slipstream-ui/vitest-config": "workspace:*",
