@@ -13,7 +13,7 @@ Run from the repository root before tagging or publishing.
 - [ ] `pnpm check:components`
 - [ ] `pnpm check:tokens`
 - [ ] `pnpm check:release`
-- [ ] `pnpm audit`
+- [ ] `pnpm check:audit` (allowlists only the documented unpatched picomatch advisory)
 - [ ] `node scripts/test-packaged-styles.mjs`
 - [ ] `pnpm verify:tailwind-v4`
 - [ ] `pnpm verify:tailwind3`

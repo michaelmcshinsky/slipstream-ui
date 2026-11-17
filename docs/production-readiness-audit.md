@@ -118,6 +118,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 | TECH-10 | 9 dependency advisories (8 moderate, 1 low) on `main`. | `Fixed` | `pnpm audit` is clean: Next 16.4.6 (app/docs/starter), hono 4.13.16, @hono/node-server 2.1.6, glob 14.0.3 via pinned overrides. Re-verified build, 15 test tasks, E2E, visual and axe. |
 | TECH-11 | Validator only checked props, enums and required fields; it could not catch an unnamed icon-only control. | `Fixed` | `validate_usage` now requires an accessible name on `size="icon"` (aria-label/aria-labelledby/title, alt text, text or expression children) and returns a fix. Three tests cover fail/pass/empty-label cases; copy and docs now state the exact scope. |
 | TECH-12 | State-machine and streaming invariants are not validated. | `Backlog` | The benchmark shows 10% recall for both classes. Needs manifest-level state rules; do not fake semantic coverage. |
+| TECH-13 | New high advisory GHSA-fc5q-39xc-vjpf (picomatch) has no patched release. | `Owner` | Build-time only via Tailwind's watcher/fast-glob, not shipped at runtime. `pnpm check:audit` allowlists this GHSA with a dated reason and fails on any other high/critical finding; documented in SECURITY.md and the release checklist. |
 
 ## H. Legal, privacy and trust (P1)
 

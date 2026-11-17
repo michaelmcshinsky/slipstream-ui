@@ -16,6 +16,7 @@
     "check:tokens": "tsx scripts/check-token-compliance.ts",
     "check:release": "tsx scripts/check-release-readiness.ts",
     "check:docs-links": "tsx scripts/check-docs-manifest-links.ts",
+    "check:audit": "tsx scripts/check-audit.ts",
     "stamp:manifests": "tsx scripts/stamp-manifest-versions.ts",
     "check:counts": "tsx scripts/check-component-counts.ts",
     "report:manifests": "tsx scripts/report-manifest-gaps.ts",
