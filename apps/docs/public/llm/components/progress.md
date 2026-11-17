@@ -6,7 +6,7 @@ A determinate progress bar with role=progressbar and exact value semantics
 > Import: `import { Progress } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/progress
 > Registry: https://slipstreamui.com/registry/progress.json
-> Tier: atom · Package: @slipstream-ui/core@0.8.0
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

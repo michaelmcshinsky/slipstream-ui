@@ -6,7 +6,7 @@ Syntax-highlighted code block with language label and copy-to-clipboard button.
 > Import: `import { CodeBlock } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/code-block
 > Registry: https://slipstreamui.com/registry/code-block.json
-> Tier: atom · Package: @slipstream-ui/ai@0.8.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

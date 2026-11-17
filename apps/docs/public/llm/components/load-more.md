@@ -6,7 +6,7 @@ Load-more control with pending and end-of-list states.
 > Import: `import { LoadMore } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/load-more
 > Registry: https://slipstreamui.com/registry/load-more.json
-> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

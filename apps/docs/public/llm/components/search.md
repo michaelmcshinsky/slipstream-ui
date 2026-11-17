@@ -6,7 +6,7 @@ Select-with-search: type to filter a full-width dropdown of options, or arrow th
 > Import: `import { Search } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/search
 > Registry: https://slipstreamui.com/registry/search.json
-> Tier: molecule · Package: @slipstream-ui/core@0.8.0
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
