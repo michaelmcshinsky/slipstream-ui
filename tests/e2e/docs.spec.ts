@@ -154,6 +154,20 @@ test.describe('command palette', () => {
   });
 });
 
+test.describe('accessibility evidence', () => {
+  test('links from the statement and renders the per-component scorecard', async ({ page }) => {
+    await page.goto('/accessibility');
+    await page.getByRole('link', { name: /Per-component accessibility scorecard/ }).click();
+    await expect(page).toHaveURL(/\/accessibility\/scorecard$/);
+    await expect(
+      page.getByRole('heading', { name: 'Component accessibility scorecard', level: 1 })
+    ).toBeVisible();
+    await expect(page.getByText('Components', { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole('row', { name: /Button/ }).first()).toContainText('Yes');
+    await expect(page.getByRole('table')).toContainText('Manifest');
+  });
+});
+
 test.describe('articles', () => {
   test('index lists the published articles', async ({ page }) => {
     await page.goto('/articles');

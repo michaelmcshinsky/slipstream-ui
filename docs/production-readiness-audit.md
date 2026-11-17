@@ -84,7 +84,7 @@ homepage/docs at one version and component count, `llms.txt` at another.
 |---|---|---|---|
 | A11Y-01 | Automated coverage per component and per theme. | `Verified` | jest-axe per component; `audit:a11y` (13 routes × light/dark) and `audit:dark` (every manifest route) exit non-zero on violations. |
 | A11Y-02 | Public accessibility statement with limitations and reporting. | `Verified` | `/accessibility` covers target, testing, limitations, reporting. |
-| A11Y-03 | Component-level scorecard. | `Fixed` | Accessibility statement now states what is automated vs manual and publishes the tested surface count. |
+| A11Y-03 | Component-level scorecard. | `Fixed` | `/accessibility/scorecard` lists all 113 components with axe coverage, interaction tests, manifest requirement counts and docs/manifest links; a unit test fails if any component loses its axe assertion or manifest notes. |
 | A11Y-04 | Manual screen-reader and 400% zoom audit. | `Owner` | Requires real AT sessions; tracked as a release blocker for a WCAG conformance claim. |
 | A11Y-05 | Focus/announcement contracts for streaming. | `Verified` | Documented in `/docs/guides/accessibility-ai`; `Conversation` announces completion, not each token. |
 
@@ -150,12 +150,12 @@ pnpm --filter @slipstream-ui/mcp-server test
 pnpm --filter slipstream-ui-docs typecheck
 pnpm --filter slipstream-ui-docs lint
 pnpm --filter slipstream-ui-docs build
-pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # 56 page runs, 0 violations
-pnpm test:e2e                     # 15 Playwright journeys, including SSR article content
+pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111   # 58 page runs, 0 violations
+pnpm test:e2e                     # 16 Playwright journeys, including SSR article content
 ```
 
-The a11y suite includes `/playground`, the search-first component catalog and
-both article routes in light and dark mode.
+The a11y suite includes `/playground`, the search-first component catalog, both
+article routes and the component scorecard in light and dark mode.
 
 Negative test run for the release gate: replacing the version in
 `apps/docs/public/llms.txt` with `0.7.0` makes `pnpm check:counts` exit 1 with
@@ -173,6 +173,7 @@ the expected/found diff.
 - `apps/docs/app/playground/page.tsx`, `apps/docs/components/site/playground.tsx` — playground.
 - `apps/docs/app/articles/**`, `apps/docs/lib/articles.ts`, `apps/docs/lib/markdown.tsx` — published article routes with a server-rendered markdown renderer.
 - `apps/docs/content/articles/*.md`, `apps/docs/content/articles.json` — canonical article source and metadata.
+- `apps/docs/app/accessibility/scorecard/page.tsx`, `apps/docs/lib/a11y-scorecard.ts` — per-component accessibility evidence with a fail-closed test.
 - `apps/docs/components/component-catalog.tsx`, `apps/docs/app/docs/components/page.tsx` — search-first catalog.
 - `apps/docs/public/registry/graph.json` (generated), `scripts/generate-registry.ts`, `apps/docs/app/docs/ai-manifests/page.tsx`, `component-page.tsx` — relationship graph and dependency footprint.
 - `apps/docs/lib/search-index.ts`, `apps/docs/components/site/command-palette.tsx` — aliases.

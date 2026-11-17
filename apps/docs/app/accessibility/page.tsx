@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { MarketingPage } from '@/components/site/marketing-page';
 import { MarketingSections } from '@/components/site/marketing-sections';
 import { JsonLd } from '@/components/site/json-ld';
@@ -31,6 +32,11 @@ export default async function AccessibilityPage() {
       />
       <MarketingPage title={copy.title} description={copy.description} updated={copy.updated}>
         <MarketingSections sections={copy.sections} vars={marketingVars()} />
+        <p className="text-sm">
+          <Link href="/accessibility/scorecard" className="font-medium text-primary hover:underline">
+            Per-component accessibility scorecard →
+          </Link>
+        </p>
       </MarketingPage>
     </>
   );

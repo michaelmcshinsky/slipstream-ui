@@ -152,6 +152,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'State & threads guide', href: '/docs/guides/state-threads', content: 'guide stateless store messages persistence history prepend multi-thread branching zustand', group: 'Guides' },
   { title: 'Vercel AI SDK guide', href: '/docs/guides/vercel-ai-sdk', content: 'guide vercel ai sdk useChat adapter useSlipstreamMessages useSlipstreamStream tool invocations', group: 'Guides' },
   { title: 'Accessibility for AI UIs', href: '/docs/guides/accessibility-ai', content: 'guide accessibility streaming announcements live region focus keyboard reduced motion jest-axe', group: 'Guides' },
+  { title: 'Accessibility scorecard', href: '/accessibility/scorecard', content: 'scorecard axe interaction tests manifest accessibility requirements per component evidence', group: 'Guides', aliases: ['a11y coverage', 'accessibility tests', 'which components are tested'] },
   { title: 'IDE setup guide', href: '/docs/guides/ide-setup', content: 'guide claude code cursor windsurf mcp json config AGENTS rules setup troubleshooting', group: 'Guides' },
   { title: 'Testing guide', href: '/docs/guides/testing', content: 'guide testing jest-axe interaction streaming error CI drift validate_usage diff', group: 'Guides' },
   { title: 'React Hook Form guide', href: '/docs/guides/react-hook-form', content: 'guide react hook form rhf register controller formfield select checkbox datepicker timepicker errors aria-invalid', group: 'Guides' },

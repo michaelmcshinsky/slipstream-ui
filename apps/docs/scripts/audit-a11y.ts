@@ -44,6 +44,7 @@ const ROUTES = [
   '/docs/roadmap',
   '/about',
   '/accessibility',
+  '/accessibility/scorecard',
   '/contact',
   '/privacy',
   '/terms',

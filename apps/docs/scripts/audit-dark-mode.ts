@@ -40,6 +40,7 @@ const SITE_ROUTES = [
   '/playground',
   '/articles',
   '/articles/validation-benchmark-100-cases',
+  '/accessibility/scorecard',
   '/docs/tailwind-v4',
   '/docs/theming',
   '/docs/roadmap',
