@@ -92,6 +92,35 @@ describe('shouldBypassRequest', () => {
       expect(shouldBypassRequest(req, url, OPTIONS), name).toBe(true);
     }
   });
+
+  it('does not bypass for client-only cookies', () => {
+    // Theme, consent, analytics and Cloudflare's bot-management cookie are
+    // read in the browser or at the edge, not during SSR, so the anonymous
+    // HTML is still safe to share.
+    const req = request('/docs', {
+      headers: {
+        cookie: 'slipstream-theme=dark; slipstream-consent=granted; _ga=GA1.2.3; __cf_bm=abc',
+      },
+    });
+    expect(shouldBypassRequest(req, new URL('https://slipstreamui.com/docs'), OPTIONS)).toBe(false);
+  });
+
+  it('bypasses explicit no-store requests and framework paths', () => {
+    const cases: Array<[string, Request, string]> = [
+      [
+        'request cache-control',
+        request('/docs', { headers: { 'cache-control': 'no-store' } }),
+        '/docs',
+      ],
+      ['api', request('/api/search'), '/api/search'],
+      ['next assets', request('/_next/static/chunk.js'), '/_next/static/chunk.js'],
+      ['auth', request('/auth/sign-in'), '/auth/sign-in'],
+      ['embed', request('/embed/demo'), '/embed/demo'],
+    ];
+    for (const [name, req, path] of cases) {
+      expect(shouldBypassRequest(req, new URL(`https://slipstreamui.com${path}`), OPTIONS), name).toBe(true);
+    }
+  });
 });
 
 describe('isCacheableResponse', () => {
