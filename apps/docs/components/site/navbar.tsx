@@ -104,12 +104,12 @@ export function Navbar() {
                 track('search_open', { source: 'button' });
                 setPaletteOpen(true);
               }}
-              className="flex h-11 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
+              className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-muted/50 px-4 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
               aria-label={`${t('shell.search')} Ctrl+K`}
             >
               <svg
                 viewBox="0 0 16 16"
-                className="h-4 w-4"
+                className="h-4 w-4 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.6"
@@ -118,7 +118,7 @@ export function Navbar() {
                 <circle cx="7" cy="7" r="4.5" />
                 <path d="m10.5 10.5 3 3" strokeLinecap="round" />
               </svg>
-              <span className="hidden sm:inline">{t('shell.search')}</span>{' '}
+              <span className="hidden sm:inline">{t('shell.search')}</span>
               <kbd aria-hidden="true" className="hidden rounded border border-border bg-background px-1.5 font-mono text-[10px] sm:inline">Ctrl+K</kbd>
             </button>
             <button
