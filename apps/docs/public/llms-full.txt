@@ -595,7 +595,7 @@ File chips for prompts and messages. `Attachment` renders one file; `AttachmentL
 > Import: `import { Attachment } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/attachment
 > Registry: https://slipstreamui.com/registry/attachment.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1167,7 +1167,7 @@ Variant navigation for branched messages: previous/next arrows with an N/M posit
 > Import: `import { Branch } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/branch
 > Registry: https://slipstreamui.com/registry/branch.json
-> Tier: atom · Package: @slipstream-ui/ai@0.9.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1640,7 +1640,7 @@ Displays ordered reasoning steps with status indicators.
 > Import: `import { ChainThought } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/chain-thought
 > Registry: https://slipstreamui.com/registry/chain-thought.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1781,7 +1781,7 @@ Syntax-highlighted code block with language label and copy-to-clipboard button.
 > Import: `import { CodeBlock } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/code-block
 > Registry: https://slipstreamui.com/registry/code-block.json
-> Tier: atom · Package: @slipstream-ui/ai@0.9.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1822,7 +1822,7 @@ Cmd+K style command palette with lexical search, sectioned results and full keyb
 > Import: `import { CommandPalette } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/command-palette
 > Registry: https://slipstreamui.com/registry/command-palette.json
-> Tier: organism · Package: @slipstream-ui/ai@0.9.0
+> Tier: organism · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2032,7 +2032,7 @@ Human-in-the-loop approval gate for agent actions. Pauses execution until the us
 > Import: `import { Confirmation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/confirmation
 > Registry: https://slipstreamui.com/registry/confirmation.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2195,7 +2195,7 @@ A container for displaying a list of chat messages with auto-scroll and loading 
 > Import: `import { Conversation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/conversation
 > Registry: https://slipstreamui.com/registry/conversation.json
-> Tier: organism · Package: @slipstream-ui/ai@0.9.0
+> Tier: organism · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4309,7 +4309,7 @@ Perplexity-style inline citation chip that reveals the source title and snippet 
 > Import: `import { InlineCitation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/inline-citation
 > Registry: https://slipstreamui.com/registry/inline-citation.json
-> Tier: atom · Package: @slipstream-ui/ai@0.9.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5028,7 +5028,7 @@ A chat message component that displays messages from users, assistants, or syste
 > Import: `import { Message } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message
 > Registry: https://slipstreamui.com/registry/message.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5156,7 +5156,7 @@ Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, a
 > Import: `import { MessageActions } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message-actions
 > Registry: https://slipstreamui.com/registry/message-actions.json
-> Tier: atom · Package: @slipstream-ui/ai@0.9.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5870,7 +5870,7 @@ A textarea input for entering chat prompts with auto-resize, keyboard shortcuts,
 > Import: `import { PromptInput } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/prompt-input
 > Registry: https://slipstreamui.com/registry/prompt-input.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6221,7 +6221,7 @@ A collapsible component for displaying AI reasoning steps and chain-of-thought p
 > Import: `import { Reasoning } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/reasoning
 > Registry: https://slipstreamui.com/registry/reasoning.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6329,7 +6329,7 @@ Streaming-optimized markdown renderer for AI responses with GFM support, streami
 > Import: `import { Response } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/response
 > Registry: https://slipstreamui.com/registry/response.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7189,7 +7189,7 @@ Displays citations and references for an AI response. `Source` renders a single 
 > Import: `import { Source } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/sources
 > Registry: https://slipstreamui.com/registry/source.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7465,7 +7465,7 @@ Shows that an AI response is currently streaming.
 > Import: `import { StreamingIndicator } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/streaming-indicator
 > Registry: https://slipstreamui.com/registry/streaming-indicator.json
-> Tier: atom · Package: @slipstream-ui/ai@0.9.0
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7502,7 +7502,7 @@ Displays clickable follow-up prompts for AI interactions.
 > Import: `import { Suggestions } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/suggestions
 > Registry: https://slipstreamui.com/registry/suggestions.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8416,7 +8416,7 @@ A component for displaying AI tool/function calls with status, arguments, and re
 > Import: `import { ToolCall } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/tool-call
 > Registry: https://slipstreamui.com/registry/tool-call.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.9.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
