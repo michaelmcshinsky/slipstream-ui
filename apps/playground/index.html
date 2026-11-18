@@ -3,13 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Slipstream UI Playground</title>
     <script>
       // Apply persisted theme before first paint to avoid a flash.
+      // Updates <meta name="color-scheme"> to sync with localStorage override.
       try {
         var stored = localStorage.getItem('slipstream-theme');
+        var meta = document.querySelector('meta[name="color-scheme"]');
         if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark');
+          meta.content = 'dark';
+        } else if (stored === 'light') {
+          meta.content = 'light';
         }
       } catch {}
     </script>

@@ -16,20 +16,34 @@ function App() {
   const [themeName, setThemeName] = useState('default');
   const [dark, setDark] = useState(false);
 
-  // Sync with the `.dark` class set by the pre-paint script / toggle.
+  // Sync with the <meta name="color-scheme"> set by the pre-paint script / toggle.
   useEffect(() => {
-    const el = document.documentElement;
-    setDark(el.classList.contains('dark'));
-    const observer = new MutationObserver(() => setDark(el.classList.contains('dark')));
-    observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
+    if (!meta) return;
+    setDark(meta.content === 'dark');
+    const observer = new MutationObserver(() => setDark(meta.content === 'dark'));
+    observer.observe(meta, { attributes: true, attributeFilter: ['content'] });
     return () => observer.disconnect();
   }, []);
 
   function toggleDark() {
-    const next = !dark;
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('slipstream-theme', next ? 'dark' : 'light');
-    setDark(next);
+    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
+    if (!meta) return;
+    const current = meta.content;
+    const isDark = current === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemScheme = prefersDark ? 'dark' : 'light';
+
+    // If next matches system, remove override (revert to system)
+    const value = next === systemScheme ? 'light dark' : next;
+    meta.content = value;
+    if (value === 'light dark') {
+      localStorage.removeItem('slipstream-theme');
+    } else {
+      localStorage.setItem('slipstream-theme', value);
+    }
+    setDark(next === 'dark');
   }
 
   function togglePseudo() {
