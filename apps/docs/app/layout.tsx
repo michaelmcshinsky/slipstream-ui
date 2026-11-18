@@ -89,12 +89,16 @@ export const viewport: Viewport = {
 /**
  * Applies the persisted theme before first paint so reloads never flash the
  * wrong color scheme. Runs inline in <head> by virtue of being rendered here.
+ * Updates <meta name="color-scheme"> to sync with localStorage override.
  */
 const THEME_INIT_SCRIPT = `
 try {
   const stored = localStorage.getItem('slipstream-theme');
+  const meta = document.querySelector('meta[name="color-scheme"]');
   if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
+    meta.content = 'dark';
+  } else if (stored === 'light') {
+    meta.content = 'light';
   }
   if (localStorage.getItem('slipstream-consent')) {
     document.documentElement.classList.add('consent-decided');
@@ -113,6 +117,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={directionFor(locale)} suppressHydrationWarning>
       <head>
+        <meta name="color-scheme" content="light dark" />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />

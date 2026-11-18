@@ -22,17 +22,24 @@ export function Navbar() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
-  // Sync with the class applied by the pre-paint theme script in the root layout.
+  // Sync with the <meta name="color-scheme"> set by the pre-paint script in the root layout.
   useEffect(() => {
-    setDark(document.documentElement.classList.contains('dark'));
+    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
+    if (!meta) return;
+    setDark(meta.content === 'dark');
+    const observer = new MutationObserver(() => setDark(meta.content === 'dark'));
+    observer.observe(meta, { attributes: true, attributeFilter: ['content'] });
+    return () => observer.disconnect();
   }, []);
 
   // Follow live OS theme changes while the user hasn't chosen an explicit preference.
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     function onChange(e: MediaQueryListEvent) {
+      const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
+      if (!meta) return;
       if (localStorage.getItem('slipstream-theme')) return;
-      document.documentElement.classList.toggle('dark', e.matches);
+      meta.content = e.matches ? 'dark' : 'light';
       setDark(e.matches);
     }
     mq.addEventListener('change', onChange);
@@ -56,10 +63,23 @@ export function Navbar() {
   }, []);
 
   function toggleDark() {
-    const next = !dark;
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('slipstream-theme', next ? 'dark' : 'light');
-    setDark(next);
+    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
+    if (!meta) return;
+    const current = meta.content;
+    const isDark = current === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemScheme = prefersDark ? 'dark' : 'light';
+
+    // If next matches system, remove override (revert to system)
+    const value = next === systemScheme ? 'light dark' : next;
+    meta.content = value;
+    if (value === 'light dark') {
+      localStorage.removeItem('slipstream-theme');
+    } else {
+      localStorage.setItem('slipstream-theme', value);
+    }
+    setDark(next === 'dark');
   }
 
   return (

@@ -275,11 +275,18 @@ const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
     // Merge forwarded ref with internal handle (auto-resize needs it).
     React.useImperativeHandle(ref, () => textareaRef.current!);
 
-    // Auto-resize textarea
+    // Auto-resize textarea using CSS field-sizing: content (with JS fallback)
     React.useEffect(() => {
       if (textareaRef.current) {
-        textareaRef.current.style.height = 'auto';
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        // Check if field-sizing is supported
+        if (CSS.supports('field-sizing', 'content')) {
+          textareaRef.current.style.height = 'auto';
+          (textareaRef.current.style as CSSStyleDeclaration & { fieldSizing?: string }).fieldSizing = 'content';
+        } else {
+          // Fallback: imperative resize using scrollHeight
+          textareaRef.current.style.height = 'auto';
+          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
       }
     }, [value]);
 
@@ -315,6 +322,10 @@ const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
+        // IME-safe: don't submit while composing (CJK input)
+        if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) {
+          return;
+        }
         handleSubmit();
       }
     };
@@ -359,8 +370,10 @@ const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
           'placeholder:text-muted-foreground',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           'disabled:cursor-not-allowed disabled:opacity-50',
-          'min-h-[40px] max-h-[200px] overflow-y-auto'
+          'min-h-[40px] max-h-[200px] overflow-y-auto',
+          'field-sizing-content'
         )}
+        style={{ fieldSizing: 'content' }}
       />
     );
 
@@ -443,6 +456,10 @@ const PromptInputTextarea = React.forwardRef<
       onKeyDown={(event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
           event.preventDefault();
+          // IME-safe: don't submit while composing (CJK input)
+          if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) {
+            return;
+          }
           submit();
         }
         onKeyDown?.(event);
@@ -456,6 +473,7 @@ const PromptInputTextarea = React.forwardRef<
         'min-h-[40px]',
         className
       )}
+      style={{ fieldSizing: 'content' }}
       {...props}
     />
   );
