@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { LocaleSwitcher, useI18n } from '@slipstream-ui/i18n/react';
 import { track } from '@/lib/analytics';
+import { applyTheme, persistTheme, THEME_STORAGE_KEY } from '@/lib/theme';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -22,13 +23,13 @@ export function Navbar() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
-  // Sync with the <meta name="color-scheme"> set by the pre-paint script in the root layout.
+  // Sync with the `.dark` class set by the pre-paint script in the root layout.
   useEffect(() => {
-    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
-    if (!meta) return;
-    setDark(meta.content === 'dark');
-    const observer = new MutationObserver(() => setDark(meta.content === 'dark'));
-    observer.observe(meta, { attributes: true, attributeFilter: ['content'] });
+    setDark(document.documentElement.classList.contains('dark'));
+    const observer = new MutationObserver(() =>
+      setDark(document.documentElement.classList.contains('dark')),
+    );
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
   }, []);
 
@@ -36,10 +37,8 @@ export function Navbar() {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     function onChange(e: MediaQueryListEvent) {
-      const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
-      if (!meta) return;
-      if (localStorage.getItem('slipstream-theme')) return;
-      meta.content = e.matches ? 'dark' : 'light';
+      if (localStorage.getItem(THEME_STORAGE_KEY)) return;
+      applyTheme(e.matches);
       setDark(e.matches);
     }
     mq.addEventListener('change', onChange);
@@ -63,23 +62,10 @@ export function Navbar() {
   }, []);
 
   function toggleDark() {
-    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
-    if (!meta) return;
-    const current = meta.content;
-    const isDark = current === 'dark';
-    const next = isDark ? 'light' : 'dark';
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const systemScheme = prefersDark ? 'dark' : 'light';
-
-    // If next matches system, remove override (revert to system)
-    const value = next === systemScheme ? 'light dark' : next;
-    meta.content = value;
-    if (value === 'light dark') {
-      localStorage.removeItem('slipstream-theme');
-    } else {
-      localStorage.setItem('slipstream-theme', value);
-    }
-    setDark(next === 'dark');
+    const next = !document.documentElement.classList.contains('dark');
+    applyTheme(next);
+    persistTheme(next, window.matchMedia('(prefers-color-scheme: dark)').matches);
+    setDark(next);
   }
 
   return (

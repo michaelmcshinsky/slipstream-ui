@@ -79,7 +79,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  colorScheme: 'light dark',
+  // No `colorScheme` here: the root layout renders its own
+  // <meta name="color-scheme"> that the theme script keeps in sync, and a
+  // second "light dark" meta from the viewport export would shadow it.
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#111113' },
@@ -89,17 +91,17 @@ export const viewport: Viewport = {
 /**
  * Applies the persisted theme before first paint so reloads never flash the
  * wrong color scheme. Runs inline in <head> by virtue of being rendered here.
- * Updates <meta name="color-scheme"> to sync with localStorage override.
+ * Toggles the `.dark` class (token source of truth) and syncs every
+ * <meta name="color-scheme"> so UA chrome follows the same scheme.
  */
 const THEME_INIT_SCRIPT = `
 try {
   const stored = localStorage.getItem('slipstream-theme');
-  const meta = document.querySelector('meta[name="color-scheme"]');
-  if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    meta.content = 'dark';
-  } else if (stored === 'light') {
-    meta.content = 'light';
-  }
+  const dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (dark) document.documentElement.classList.add('dark');
+  document.querySelectorAll('meta[name="color-scheme"]').forEach(function (meta) {
+    meta.content = dark ? 'dark' : 'light';
+  });
   if (localStorage.getItem('slipstream-consent')) {
     document.documentElement.classList.add('consent-decided');
   }
