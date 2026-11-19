@@ -377,7 +377,6 @@ export const ko: MarketingCopy = {
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: '우편 주소',
   },
   accessibility: {
     title: '접근성 선언',

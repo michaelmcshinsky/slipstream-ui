@@ -375,7 +375,6 @@ export const zh: MarketingCopy = {
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: '邮寄地址',
   },
   accessibility: {
     title: '无障碍声明',

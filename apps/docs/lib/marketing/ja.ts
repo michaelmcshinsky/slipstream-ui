@@ -377,7 +377,6 @@ export const ja: MarketingCopy = {
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: '郵送先',
   },
   accessibility: {
     title: 'アクセシビリティ声明',

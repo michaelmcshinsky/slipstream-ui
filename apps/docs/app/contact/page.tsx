@@ -56,17 +56,6 @@ export default async function ContactPage() {
             </section>
           ))}
         </div>
-
-        <section className="mt-10">
-          <h2 className="text-lg font-semibold text-foreground">{copy.addressHeading}</h2>
-          <address className="mt-3 not-italic text-sm leading-relaxed text-muted-foreground">
-            {SITE.contact.address.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </address>
-        </section>
       </MarketingPage>
     </>
   );

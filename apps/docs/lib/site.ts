@@ -1,9 +1,8 @@
 /**
  * Single source of truth for site-level identity and contact details.
  *
- * IMPORTANT: fill `contact.email` and `contact.address` with the real
- * business details before publishing legal pages — everything on the site
- * reads from here.
+ * IMPORTANT: fill `contact.email` with the real business details before
+ * publishing legal pages — everything on the site reads from here.
  */
 export const SITE = {
   name: 'Slipstream UI',
@@ -13,9 +12,6 @@ export const SITE = {
   contact: {
     // TODO(owner): replace with the real support inbox.
     email: 'support@slipstreamui.com',
-    // TODO(owner): replace with the real postal address (required for the
-    // privacy/terms pages and any EU-facing contact obligations).
-    address: ['Slipstream UI', 'Postal address to be confirmed', 'United States'],
     hours: 'Replies within 2 business days',
   },
   social: {
