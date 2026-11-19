@@ -17,7 +17,12 @@ export type Article = ArticleMeta & {
   content: string;
   /** Markdown without the leading H1 or published-byline, for the page body. */
   body: string;
+  /** Approximate reading time at 200 wpm, minimum 1 minute. */
+  readingMinutes: number;
 };
+
+/** Metadata safe to serialize into client components (no markdown bodies). */
+export type ArticleSummary = ArticleMeta & { readingMinutes: number };
 
 /**
  * Resolve the content directory from either the docs app cwd (Next build,
@@ -45,7 +50,8 @@ function load(meta: ArticleMeta): Article {
     .replace(/^#\s+.+\n+/, '')
     .replace(/^\*Published[^\n]*\*\n+/, '')
     .trimStart();
-  return { ...meta, content, body };
+  const readingMinutes = Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+  return { ...meta, content, body, readingMinutes };
 }
 
 const seen = new Set<string>();
@@ -59,6 +65,12 @@ export const ARTICLES: Article[] = (metadata as ArticleMeta[])
   .slice()
   .sort((a, b) => b.date.localeCompare(a.date))
   .map(load);
+
+/** Strip an article down to the metadata safe for client components. */
+export function toArticleSummary(article: Article): ArticleSummary {
+  const { slug, title, description, date, file, tags, readingMinutes } = article;
+  return { slug, title, description, date, file, tags, readingMinutes };
+}
 
 export function getArticle(slug: string): Article | undefined {
   return ARTICLES.find((article) => article.slug === slug);

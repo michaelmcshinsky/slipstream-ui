@@ -240,18 +240,7 @@ export const en = {
       decline: 'Decline',
       accept: 'Accept all',
     },
-    thankYou: {
-    title: "Message received",
-    description: "Thanks for reaching out — we read every message and reply within two business days.",
-    nextHeading: "What happens next",
-    step1: "We confirm receipt by email if you included a reachable address.",
-    step2: "Bug reports are triaged on GitHub; features are added to the roadmap discussion.",
-    step3: "If we need more detail, we reply directly to your message.",
-    readDocs: "Read the docs",
-    browse: "Browse components",
-    backHome: "Back home",
-    },
-    notFound: {
+        notFound: {
       title: 'This page streamed into the void',
       description:
         'The page you requested does not exist — and unlike our components, it never shipped a manifest declaring that.',

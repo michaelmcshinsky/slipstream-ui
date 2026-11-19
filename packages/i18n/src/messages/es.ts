@@ -240,18 +240,7 @@ export const es = {
       decline: "Rechazar",
       accept: "Aceptar todo",
     },
-    thankYou: {
-    title: "Mensaje recibido",
-    description: "Gracias por escribirnos: leemos todos los mensajes y respondemos en dos días laborables.",
-    nextHeading: "Qué ocurre ahora",
-    step1: "Confirmamos la recepción por correo si incluiste una dirección válida.",
-    step2: "Los errores se revisan en GitHub; las funciones se añaden a la discusión de la hoja de ruta.",
-    step3: "Si necesitamos más detalles, respondemos directamente a tu mensaje.",
-    readDocs: "Leer la documentación",
-    browse: "Explorar componentes",
-    backHome: "Volver al inicio",
-    },
-    notFound: {
+        notFound: {
       title: "Esta página se transmitió al vacío",
       description: "La página que solicitaste no existe y, a diferencia de nuestros componentes, nunca incluyó un manifiesto que lo declarara.",
       home: "Volver al inicio",

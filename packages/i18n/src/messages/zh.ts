@@ -240,18 +240,7 @@ export const zh = {
       decline: "拒绝",
       accept: "全部接受",
     },
-    thankYou: {
-    title: "已收到消息",
-    description: "感谢联系 —— 我们会阅读每一条消息，并在两个工作日内回复。",
-    nextHeading: "接下来会发生什么",
-    step1: "如果你提供了可送达的地址，我们会通过电子邮件确认收到。",
-    step2: "错误报告会在 GitHub 上分诊；功能建议会加入路线图讨论。",
-    step3: "如果我们需要更多细节，会直接回复你的消息。",
-    readDocs: "阅读文档",
-    browse: "浏览组件",
-    backHome: "返回首页",
-    },
-    notFound: {
+        notFound: {
       title: "此页面已流入虚空",
       description: "你请求的页面不存在 —— 与我们的组件不同，它从未发布过声明这一点的清单。",
       home: "返回首页",
