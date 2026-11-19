@@ -61,6 +61,12 @@ export type ThemeColors = {
 export type Theme = {
   name: string;
   colors: ThemeColors;
+  /**
+   * UA color scheme for this theme. Emitted as `color-scheme` so native
+   * chrome (scrollbars, form controls, date pickers) follows the theme
+   * instead of the operating system preference.
+   */
+  colorScheme?: 'light' | 'dark';
   borderRadius?: string;
   radius?: {
     lg: string;

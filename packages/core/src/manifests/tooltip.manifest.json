@@ -26,6 +26,17 @@
       "description": "Delay before showing on hover, in milliseconds"
     },
     {
+      "name": "variant",
+      "type": "'default' | 'inverse'",
+      "required": false,
+      "defaultValue": "default",
+      "description": "Bubble palette. default uses the popover surface; inverse flips it (dark bubble in light mode, light bubble in dark mode).",
+      "enum": [
+        "default",
+        "inverse"
+      ]
+    },
+    {
       "name": "children",
       "type": "ReactNode",
       "required": true,

@@ -19,6 +19,10 @@ Give users immediate feedback while generated content is arriving.
 |---|---|---|---|---|
 | isStreaming | `boolean` | — | yes | Whether the indicator is visible. |
 | text | `string` | `Generating…` | no | Status text. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Dot and label scale. |
+| tone | `'primary' | 'muted' | 'current'` | `primary` | no | Dot colour: brand primary, muted foreground, or the inherited text colour. |
+| dotCount | `number` | `3` | no | How many dots pulse. |
+| showLabel | `boolean` | `true` | no | Render the label beside the dots; the text stays the accessible name either way. |
 
 ## Examples
 

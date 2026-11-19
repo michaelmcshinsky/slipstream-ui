@@ -18,6 +18,44 @@
       "defaultValue": "Generating…",
       "required": false,
       "description": "Status text."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "defaultValue": "md",
+      "required": false,
+      "description": "Dot and label scale.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    {
+      "name": "tone",
+      "type": "'primary' | 'muted' | 'current'",
+      "defaultValue": "primary",
+      "required": false,
+      "description": "Dot colour: brand primary, muted foreground, or the inherited text colour.",
+      "enum": [
+        "primary",
+        "muted",
+        "current"
+      ]
+    },
+    {
+      "name": "dotCount",
+      "type": "number",
+      "defaultValue": "3",
+      "required": false,
+      "description": "How many dots pulse."
+    },
+    {
+      "name": "showLabel",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Render the label beside the dots; the text stays the accessible name either way."
     }
   ],
   "examples": [
@@ -52,7 +90,7 @@
   "files": [
     {
       "path": "components/slipstream/streaming/StreamingIndicator.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type StreamingIndicatorProps = {\n  isStreaming: boolean;\n  className?: string;\n  text?: string;\n};\n\n/**\n * Animated three-dot streaming indicator. Announces the streaming state\n * to screen readers via role=\"status\" / aria-live so assistive tech\n * users know generation is in progress.\n */\nconst StreamingIndicator = React.forwardRef<HTMLDivElement, StreamingIndicatorProps>(\n  ({ isStreaming, className, text = 'Generating...', ...props }, ref) => {\n    if (!isStreaming) {\n      return null;\n    }\n\n    return (\n      <div\n        ref={ref}\n        role=\"status\"\n        aria-live=\"polite\"\n        aria-label={text}\n        className={cn('flex items-center gap-2 text-sm text-muted-foreground', className)}\n        {...props}\n      >\n        <div className=\"flex gap-1\" aria-hidden=\"true\">\n          {[0, 150, 300].map((delay) => (\n            <span\n              key={delay}\n              className=\"w-2 h-2 bg-primary rounded-full animate-pulse motion-reduce:animate-none\"\n              style={{ animationDelay: `${delay}ms` }}\n            />\n          ))}\n        </div>\n        <span>{text}</span>\n      </div>\n    );\n  }\n);\nStreamingIndicator.displayName = 'StreamingIndicator';\n\nexport { StreamingIndicator };\n",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type StreamingIndicatorProps = {\n  isStreaming: boolean;\n  className?: string;\n  /** Label announced and rendered next to the dots. */\n  text?: string;\n  /** Dot scale. Default 'md'. */\n  size?: 'sm' | 'md' | 'lg';\n  /** Dot colour. Default 'primary'. */\n  tone?: 'primary' | 'muted' | 'current';\n  /** How many dots to pulse. Default 3. */\n  dotCount?: number;\n  /** Render the label beside the dots. Default true. */\n  showLabel?: boolean;\n};\n\n/** Literal maps so the scanner keeps every size/tone utility. */\nconst DOT_SIZE = { sm: 'w-1.5 h-1.5', md: 'w-2 h-2', lg: 'w-2.5 h-2.5' } as const;\nconst TEXT_SIZE = { sm: 'text-xs', md: 'text-sm', lg: 'text-base' } as const;\nconst DOT_TONE = {\n  primary: 'bg-primary',\n  muted: 'bg-muted-foreground',\n  current: 'bg-current',\n} as const;\n\n/**\n * Animated three-dot streaming indicator. Announces the streaming state\n * to screen readers via role=\"status\" / aria-live so assistive tech\n * users know generation is in progress.\n */\nconst StreamingIndicator = React.forwardRef<HTMLDivElement, StreamingIndicatorProps>(\n  (\n    {\n      isStreaming,\n      className,\n      text = 'Generating...',\n      size = 'md',\n      tone = 'primary',\n      dotCount = 3,\n      showLabel = true,\n      ...props\n    },\n    ref\n  ) => {\n    if (!isStreaming) {\n      return null;\n    }\n\n    return (\n      <div\n        ref={ref}\n        role=\"status\"\n        aria-live=\"polite\"\n        aria-label={text}\n        className={cn(\n          'flex items-center gap-2 text-muted-foreground',\n          TEXT_SIZE[size],\n          className\n        )}\n        {...props}\n      >\n        <div className=\"flex gap-1\" aria-hidden=\"true\">\n          {Array.from({ length: Math.max(1, dotCount) }, (_, index) => (\n            <span\n              key={index}\n              className={cn(\n                'rounded-full animate-pulse motion-reduce:animate-none',\n                DOT_SIZE[size],\n                DOT_TONE[tone]\n              )}\n              style={{ animationDelay: `${index * 150}ms` }}\n            />\n          ))}\n        </div>\n        {showLabel && <span>{text}</span>}\n      </div>\n    );\n  }\n);\nStreamingIndicator.displayName = 'StreamingIndicator';\n\nexport { StreamingIndicator };\n",
       "type": "registry:component"
     },
     {
@@ -62,7 +100,7 @@
     },
     {
       "path": "components/slipstream/manifests/streaming-indicator.manifest.json",
-      "content": "{\n  \"id\": \"streaming-indicator\",\n  \"name\": \"StreamingIndicator\",\n  \"tier\": \"atom\",\n  \"description\": \"Shows that an AI response is currently streaming.\",\n  \"designIntent\": \"Give users immediate feedback while generated content is arriving.\",\n  \"props\": [\n    {\n      \"name\": \"isStreaming\",\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"description\": \"Whether the indicator is visible.\"\n    },\n    {\n      \"name\": \"text\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Generating…\",\n      \"required\": false,\n      \"description\": \"Status text.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Generating state\",\n      \"code\": \"<StreamingIndicator isStreaming={true} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status text\",\n      \"implementation\": \"The state includes human-readable text in addition to animation.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.9.1\",\n  \"sourceDir\": \"streaming\",\n  \"exportName\": \"StreamingIndicator\"\n}\n",
+      "content": "{\n  \"id\": \"streaming-indicator\",\n  \"name\": \"StreamingIndicator\",\n  \"tier\": \"atom\",\n  \"description\": \"Shows that an AI response is currently streaming.\",\n  \"designIntent\": \"Give users immediate feedback while generated content is arriving.\",\n  \"props\": [\n    {\n      \"name\": \"isStreaming\",\n      \"type\": \"boolean\",\n      \"required\": true,\n      \"description\": \"Whether the indicator is visible.\"\n    },\n    {\n      \"name\": \"text\",\n      \"type\": \"string\",\n      \"defaultValue\": \"Generating…\",\n      \"required\": false,\n      \"description\": \"Status text.\"\n    },\n    {\n      \"name\": \"size\",\n      \"type\": \"'sm' | 'md' | 'lg'\",\n      \"defaultValue\": \"md\",\n      \"required\": false,\n      \"description\": \"Dot and label scale.\",\n      \"enum\": [\n        \"sm\",\n        \"md\",\n        \"lg\"\n      ]\n    },\n    {\n      \"name\": \"tone\",\n      \"type\": \"'primary' | 'muted' | 'current'\",\n      \"defaultValue\": \"primary\",\n      \"required\": false,\n      \"description\": \"Dot colour: brand primary, muted foreground, or the inherited text colour.\",\n      \"enum\": [\n        \"primary\",\n        \"muted\",\n        \"current\"\n      ]\n    },\n    {\n      \"name\": \"dotCount\",\n      \"type\": \"number\",\n      \"defaultValue\": \"3\",\n      \"required\": false,\n      \"description\": \"How many dots pulse.\"\n    },\n    {\n      \"name\": \"showLabel\",\n      \"type\": \"boolean\",\n      \"defaultValue\": \"true\",\n      \"required\": false,\n      \"description\": \"Render the label beside the dots; the text stays the accessible name either way.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Generating state\",\n      \"code\": \"<StreamingIndicator isStreaming={true} />\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Status text\",\n      \"implementation\": \"The state includes human-readable text in addition to animation.\"\n    }\n  ],\n  \"package\": \"@slipstream-ui/ai\",\n  \"importPath\": \"@slipstream-ui/ai\",\n  \"version\": \"0.9.1\",\n  \"sourceDir\": \"streaming\",\n  \"exportName\": \"StreamingIndicator\"\n}\n",
       "type": "registry:item"
     }
   ]

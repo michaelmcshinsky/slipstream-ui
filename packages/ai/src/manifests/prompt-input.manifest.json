@@ -100,6 +100,22 @@
       "description": "Additional CSS classes to apply to the container"
     },
     {
+      "name": "density",
+      "type": "'comfortable' | 'compact'",
+      "defaultValue": "comfortable",
+      "required": false,
+      "description": "Composer padding and minimum height.",
+      "enum": ["comfortable", "compact"]
+    },
+    {
+      "name": "surface",
+      "type": "'default' | 'none' | 'card' | 'muted'",
+      "defaultValue": "default",
+      "required": false,
+      "description": "Field surface: the bordered input, no fill, or a tinted panel.",
+      "enum": ["default", "none", "card", "muted"]
+    },
+    {
       "name": "onStop",
       "type": "() => void",
       "required": false,

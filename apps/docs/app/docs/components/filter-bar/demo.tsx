@@ -46,6 +46,8 @@ export default function FilterBarPage() {
             >
               <Select
                 label="Status"
+                labelHidden
+                className="h-9"
                 value={status}
                 onValueChange={(next) => setStatus(next as string)}
                 options={[
@@ -68,10 +70,12 @@ export default function FilterBarPage() {
   onReset={resetFilters}
   activeCount={activeFilters}
 >
-  <Select label="Status" options={statusOptions} value={status} onValueChange={setStatus} />
+  <Select label="Status" labelHidden className="h-9" options={statusOptions} value={status} onValueChange={setStatus} />
 </FilterBar>`}
         usage={`// FilterBar narrows results; creation actions belong in PageHeader actions.
-// Omit onSearchChange to use the bar for selects only.`}
+// Omit onSearchChange to use the bar for selects only.
+// labelHidden keeps a control's name for screen readers without pushing the
+// select below the search field, so the row stays on one baseline.`}
         types={`type FilterBarProps = {
   searchValue?: string;
   onSearchChange?: (value: string) => void;

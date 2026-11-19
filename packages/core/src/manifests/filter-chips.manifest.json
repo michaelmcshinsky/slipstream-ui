@@ -17,6 +17,18 @@
       "description": "Active filters: key, label, optional value and onRemove."
     },
     {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Chip scale: padding, text size and remove-button icon size.",
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    {
       "name": "onClearAll",
       "type": "() => void",
       "required": false,

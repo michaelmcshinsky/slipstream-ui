@@ -201,29 +201,42 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
     // Expansion animation via grid-template-rows (0fr -> 1fr): supported
     // in Chrome 117+/Firefox 66+/Safari 17+, and degrades to an instant
     // toggle elsewhere because the rows value simply stops interpolating.
-    // The `hidden` attribute stays bound to `open` (synchronous) so panels
-    // are removed from the a11y tree and tab order the moment they close.
+    //
+    // Closing keeps the panel mounted for the transition window. Binding
+    // `hidden` straight to `open` removed the panel on the closing frame, so
+    // collapse was a jump cut with no animation at all.
+    const [mounted, setMounted] = React.useState(open);
     const [expanded, setExpanded] = React.useState(open);
+
     React.useEffect(() => {
-      if (!open) {
-        setExpanded(false);
-        return;
-      }
       const reduce =
         typeof window.matchMedia === 'function' &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (open) {
+        setMounted(true);
+        if (reduce) {
+          setExpanded(true);
+          return;
+        }
+        // Paint the collapsed frame first so the row transition has a start.
+        let second = 0;
+        const first = requestAnimationFrame(() => {
+          second = requestAnimationFrame(() => setExpanded(true));
+        });
+        return () => {
+          cancelAnimationFrame(first);
+          cancelAnimationFrame(second);
+        };
+      }
+
+      setExpanded(false);
       if (reduce) {
-        setExpanded(true);
+        setMounted(false);
         return;
       }
-      let second = 0;
-      const first = requestAnimationFrame(() => {
-        second = requestAnimationFrame(() => setExpanded(true));
-      });
-      return () => {
-        cancelAnimationFrame(first);
-        cancelAnimationFrame(second);
-      };
+      const timer = setTimeout(() => setMounted(false), 320);
+      return () => clearTimeout(timer);
     }, [open]);
 
     return (
@@ -232,16 +245,16 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
         id={`${id}-panel`}
         role="region"
         aria-labelledby={`${id}-trigger`}
-        hidden={!open}
+        aria-hidden={open ? undefined : true}
+        hidden={!mounted}
         className={cn(
-          // No display utility while closed: author styles would beat the
+          // No display utility while unmounted: author styles would beat the
           // UA [hidden] rule and keep the collapsed panel visible.
-          open &&
+          mounted &&
             cn(
-              'grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none',
-              expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+              'grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none',
+              expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] pointer-events-none opacity-0'
             ),
-          !open && 'grid-rows-[0fr]',
           className
         )}
         {...props}

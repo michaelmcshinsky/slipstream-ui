@@ -16,6 +16,14 @@ describe('PromptInput', () => {
     expect(textarea).toHaveValue('');
   });
 
+  it('supports a transparent, tighter composer', () => {
+    render(<PromptInput onSubmit={() => undefined} surface="none" density="compact" />);
+    const textarea = screen.getByRole('textbox');
+    expect(textarea).toHaveClass('bg-transparent');
+    expect(textarea).toHaveClass('min-h-[36px]');
+    expect(textarea).not.toHaveClass('bg-background');
+  });
+
   it('inserts a newline on Shift+Enter instead of submitting', async () => {
     const user = userEvent.setup();
     const handleSubmit = vi.fn();

@@ -26,7 +26,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         onChange?.(event);
       }}
       className={cn(
-        'h-4 w-4 shrink-0 rounded-full border border-primary',
+        'h-4 w-4 shrink-0 rounded-full border border-primary accent-primary',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'checked:bg-primary checked:text-primary-foreground',

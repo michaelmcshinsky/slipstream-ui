@@ -67,6 +67,18 @@ describe('Drawer', () => {
 });
 
 describe('Drawer animate (optional slide)', () => {
+  it('dims the backdrop so content never flashes through on close', () => {
+    render(
+      <Drawer open animate onOpenChange={vi.fn()} title="Sliding" side="right">
+        body
+      </Drawer>
+    );
+    const backdrop = document.body.querySelector('.fixed.inset-0');
+    expect(backdrop).toHaveClass('bg-background/80');
+    expect(backdrop).toHaveClass('animate-in');
+    expect(backdrop?.className).toContain('fade-in-0');
+  });
+
   it('applies side-aware slide-in classes when animate is on', () => {
     render(
       <Drawer open animate onOpenChange={vi.fn()} title="Sliding" side="left">

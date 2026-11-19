@@ -41,6 +41,12 @@ export type ConversationProps = {
   /** Called with the chosen starter prompt text. */
   onWelcomeSelect?: (prompt: string) => void;
 
+  // --- Density and surface -------------------------------------------------
+  /** Padding and gap scale for the transcript and its bubbles. Default 'comfortable'. */
+  density?: 'comfortable' | 'compact' | 'tight';
+  /** Bubble surface forwarded to every message. Default 'auto'. */
+  messageSurface?: 'auto' | 'none' | 'card' | 'muted' | 'primary';
+
   // --- Localization -------------------------------------------------------
   /** Display name for the user role; override for localization. */
   userLabel?: string;
@@ -75,6 +81,13 @@ const DEFAULT_WELCOME_SUGGESTIONS = [
   'Summarize a topic for me',
 ];
 
+/** Literal maps so the scanner keeps every transcript density utility. */
+const TRANSCRIPT_DENSITY = {
+  comfortable: 'gap-4 p-4',
+  compact: 'gap-3 p-3',
+  tight: 'gap-2 p-2',
+} as const;
+
 function transcriptToMarkdown(messages: MessageType[]): string {
   return messages
     .map((message) => {
@@ -107,6 +120,8 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
     welcomeDescription = DEFAULT_WELCOME_DESCRIPTION,
     welcomeSuggestions = DEFAULT_WELCOME_SUGGESTIONS,
     onWelcomeSelect,
+    density = 'comfortable',
+    messageSurface = 'auto',
     userLabel,
     assistantLabel,
     labels,
@@ -214,7 +229,10 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
           ref={scrollRef}
           tabIndex={0}
           aria-label={labels?.transcript ?? 'Conversation transcript'}
-          className="flex flex-col gap-4 p-4 overflow-y-auto h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className={cn(
+            'flex flex-col overflow-y-auto h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            TRANSCRIPT_DENSITY[density]
+          )}
         >
           {(hasMoreHistory || isLoadingMore) && (
             <button
@@ -259,6 +277,8 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
                   message.role === 'user' ? userAvatarFallback : assistantAvatarFallback
                 }
                 renderContent={renderContent}
+                density={density}
+                surface={messageSurface}
                 userLabel={userLabel}
                 assistantLabel={assistantLabel}
                 isStreaming={message.id === streamingMessageId}
@@ -282,6 +302,8 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
               showAvatar={showAvatars}
               avatarSrc={assistantAvatarSrc}
               avatarFallback={assistantAvatarFallback}
+              density={density}
+              surface={messageSurface}
               className="bg-muted/50"
               renderContent={(content) => (
                 <span className="text-muted-foreground animate-pulse motion-reduce:animate-none">{content}</span>

@@ -17,6 +17,36 @@
       "defaultValue": "Generating…",
       "required": false,
       "description": "Status text."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "defaultValue": "md",
+      "required": false,
+      "description": "Dot and label scale.",
+      "enum": ["sm", "md", "lg"]
+    },
+    {
+      "name": "tone",
+      "type": "'primary' | 'muted' | 'current'",
+      "defaultValue": "primary",
+      "required": false,
+      "description": "Dot colour: brand primary, muted foreground, or the inherited text colour.",
+      "enum": ["primary", "muted", "current"]
+    },
+    {
+      "name": "dotCount",
+      "type": "number",
+      "defaultValue": "3",
+      "required": false,
+      "description": "How many dots pulse."
+    },
+    {
+      "name": "showLabel",
+      "type": "boolean",
+      "defaultValue": "true",
+      "required": false,
+      "description": "Render the label beside the dots; the text stays the accessible name either way."
     }
   ],
   "examples": [

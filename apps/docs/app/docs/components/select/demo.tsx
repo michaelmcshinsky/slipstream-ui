@@ -22,7 +22,8 @@ export default function SelectPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'options', type: 'SelectOption[]', defaultValue: 'required', description: '{ value, label, disabled? } entries' },
-        { name: 'label', type: 'string', defaultValue: '—', description: 'Visible, associated label' },
+        { name: 'label', type: 'string', defaultValue: '-', description: 'Visible, associated label' },
+        { name: 'labelHidden', type: 'boolean', defaultValue: 'false', description: 'Keep the label for screen readers but hide it visually (filter bars, toolbars)' },
         { name: 'value', type: 'string', defaultValue: '—', description: 'Controlled selected value' },
         { name: 'defaultValue', type: 'string', defaultValue: '—', description: 'Uncontrolled initial value' },
         { name: 'onChange', type: 'React.ChangeEventHandler<HTMLSelectElement>', defaultValue: '-', description: 'Native change event; compatible with react-hook-form register()' },

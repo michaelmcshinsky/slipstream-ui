@@ -16,6 +16,17 @@ describe('Conversation', () => {
     expect(screen.getByText('Hi, how can I help?')).toBeInTheDocument();
   });
 
+  it('forwards density and surface to every message', () => {
+    const { container } = render(
+      <Conversation messages={messages} density="tight" messageSurface="none" />
+    );
+    const bubbles = container.querySelectorAll('[aria-busy], .flex.rounded-lg');
+    expect(bubbles.length).toBeGreaterThan(0);
+    const first = bubbles[0] as HTMLElement;
+    expect(first).toHaveClass('p-2');
+    expect(first).toHaveClass('bg-transparent');
+  });
+
   it('shows a loading placeholder while isLoading is true', () => {
     render(<Conversation messages={messages} isLoading />);
     expect(screen.getByText('Thinking...')).toBeInTheDocument();

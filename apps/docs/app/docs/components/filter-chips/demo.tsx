@@ -24,6 +24,7 @@ export default function FilterChipsPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'filters', type: 'FilterChip[]', defaultValue: 'required', description: 'Active filters: key, label, optional value and onRemove.' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Chip scale: padding, text size and remove-button icon size.' },
         { name: 'onClearAll', type: '() => void', description: 'Shows a clear-all action when provided.' },
         { name: 'clearLabel', type: 'string', defaultValue: "'Clear all'", description: 'Label for the clear-all action.' },
         { name: 'emptyLabel', type: 'string', description: 'Shown when there are no active filters. Nothing renders when omitted.' },
@@ -63,10 +64,34 @@ export default function FilterChipsPage() {
 
 type FilterChipsProps = {
   filters: FilterChip[];
+  size?: 'sm' | 'md' | 'lg';
   onClearAll?: () => void;
   clearLabel?: string;
   emptyLabel?: string;
 };`}
+      />
+
+      <DemoCard
+        title="Sizes"
+        preview={
+          <div className="space-y-4">
+            {(['sm', 'md', 'lg'] as const).map((size) => (
+              <FilterChips
+                key={size}
+                size={size}
+                filters={[
+                  { key: 'industry', label: 'Industry', value: 'Technology' },
+                  { key: 'region', label: 'Region', value: 'Mountain' },
+                ]}
+              />
+            ))}
+          </div>
+        }
+        code={`<FilterChips size="sm" filters={filters} />
+<FilterChips size="md" filters={filters} />
+<FilterChips size="lg" filters={filters} />`}
+        usage={`// Pick the scale that matches the density of the surrounding toolbar.
+// Chips, their remove icons and the clear-all action scale together.`}
       />
     </ComponentPage>
   );

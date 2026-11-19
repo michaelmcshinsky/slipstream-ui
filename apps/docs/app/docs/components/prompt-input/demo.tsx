@@ -90,6 +90,18 @@ export default function PromptInputPage() {
           defaultValue: "'Stop generating'",
           description: "Accessible label for the stop button",
         },
+        {
+          name: "density",
+          type: "'comfortable' | 'compact'",
+          defaultValue: "'comfortable'",
+          description: "Composer padding and minimum height",
+        },
+        {
+          name: "surface",
+          type: "'default' | 'none' | 'card' | 'muted'",
+          defaultValue: "'default'",
+          description: "Field surface: bordered input, no fill, or a tinted panel",
+        },
       ]}
       accessibility={[
         "Enter submits; Shift+Enter inserts a newline.",

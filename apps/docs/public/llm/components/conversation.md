@@ -36,6 +36,8 @@ The Conversation component manages the display of multiple messages in a chat in
 | welcomeDescription | `string` | — | no | Supporting text in the welcome state |
 | welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the transcript and its message bubbles. |
+| messageSurface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface forwarded to every Message; none gives a borderless transcript. |
 | userLabel | `string` | — | no | Display name for the user role; override for localization |
 | assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
 | labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |

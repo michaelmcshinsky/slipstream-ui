@@ -111,7 +111,7 @@ export function Navbar() {
                 setPaletteOpen(true);
               }}
               className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-muted/50 px-4 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
-              aria-label={`${t('shell.search')} Ctrl+K`}
+              aria-label={t('shell.searchAria')}
             >
               <svg
                 viewBox="0 0 16 16"

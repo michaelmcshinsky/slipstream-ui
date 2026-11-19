@@ -20,6 +20,7 @@ Tooltip provides supplementary context on hover and keyboard focus. It appears w
 | content | `string` | — | yes | The tooltip text |
 | side | `'top' | 'bottom' | 'left' | 'right'` | `top` | no | Placement relative to the trigger |
 | delay | `number` | `300` | no | Delay before showing on hover, in milliseconds |
+| variant | `'default' | 'inverse'` | `default` | no | Bubble palette. default uses the popover surface; inverse flips it (dark bubble in light mode, light bubble in dark mode). |
 | children | `ReactNode` | — | yes | The trigger element |
 | className | `string` | — | no | Additional CSS classes to apply |
 

@@ -19,6 +19,17 @@ describe('FilterChips', () => {
     expect(onRemove).toHaveBeenCalled();
   });
 
+  it('scales the chip set with size', () => {
+    const { rerender, container } = render(
+      <FilterChips size="sm" filters={[{ key: 'type', label: 'Type', value: 'PE' }]} />
+    );
+    expect(container.querySelector('span.text-xs')).not.toBeNull();
+    rerender(
+      <FilterChips size="lg" filters={[{ key: 'type', label: 'Type', value: 'PE' }]} />
+    );
+    expect(container.querySelector('span.text-base')).not.toBeNull();
+  });
+
   it('renders a clear-all action', () => {
     const onClearAll = vi.fn();
     render(

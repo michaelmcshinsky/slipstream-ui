@@ -18,6 +18,7 @@ Filter bars collapse, scroll or hide on mobile, so users lose track of what is a
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | filters | `FilterChip[]` | — | yes | Active filters: key, label, optional value and onRemove. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Chip scale: padding, text size and remove-button icon size. |
 | onClearAll | `() => void` | — | no | Shows a clear-all action when provided. |
 | clearLabel | `string` | `Clear all` | no | Label for the clear-all action. |
 | emptyLabel | `string` | — | no | Shown when there are no active filters. Nothing renders when omitted. |

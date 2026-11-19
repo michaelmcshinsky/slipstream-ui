@@ -155,6 +155,22 @@
       "description": "Called when a welcome suggestion is clicked"
     },
     {
+      "name": "density",
+      "type": "'comfortable' | 'compact' | 'tight'",
+      "defaultValue": "comfortable",
+      "required": false,
+      "description": "Padding and gap scale for the transcript and its message bubbles.",
+      "enum": ["comfortable", "compact", "tight"]
+    },
+    {
+      "name": "messageSurface",
+      "type": "'auto' | 'none' | 'card' | 'muted' | 'primary'",
+      "defaultValue": "auto",
+      "required": false,
+      "description": "Bubble surface forwarded to every Message; none gives a borderless transcript.",
+      "enum": ["auto", "none", "card", "muted", "primary"]
+    },
+    {
       "name": "userLabel",
       "type": "string",
       "required": false,

@@ -20,6 +20,20 @@ describe('Select', () => {
     expect(select).toBeInTheDocument();
   });
 
+  it('can hide the label visually while keeping it accessible', () => {
+    render(
+      <Select
+        label="Status"
+        labelHidden
+        options={[{ value: 'all', label: 'All' }]}
+        defaultValue="all"
+      />
+    );
+    const label = screen.getByText('Status');
+    expect(label).toHaveClass('sr-only');
+    expect(screen.getByRole('combobox', { name: 'Status' })).toBeInTheDocument();
+  });
+
   it('supports uncontrolled defaultValue', () => {
     render(<Select options={options} defaultValue="sm" aria-label="Size" />);
     expect(screen.getByRole('combobox', { name: 'Size' })).toHaveValue('sm');

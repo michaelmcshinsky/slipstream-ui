@@ -26,6 +26,8 @@ The PromptInput component provides a specialized input for chat interfaces. It h
 | showSendButton | `boolean` | `true` | no | Whether to show the send button |
 | sendButtonText | `string` | `Send` | no | Text or icon for the send button |
 | className | `string` | — | no | Additional CSS classes to apply to the container |
+| density | `'comfortable' | 'compact'` | `comfortable` | no | Composer padding and minimum height. |
+| surface | `'default' | 'none' | 'card' | 'muted'` | `default` | no | Field surface: the bordered input, no fill, or a tinted panel. |
 | onStop | `() => void` | — | no | While loading, the send button becomes a stop button that calls this handler. |
 | stopButtonText | `string` | `Stop generating` | no | Accessible label for the stop button; enables localization. |
 | attachments | `AttachmentItem[]` | — | no | Controlled attachment list shown as chips above the input |

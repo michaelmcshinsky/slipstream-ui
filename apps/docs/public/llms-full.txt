@@ -2225,6 +2225,8 @@ The Conversation component manages the display of multiple messages in a chat in
 | welcomeDescription | `string` | — | no | Supporting text in the welcome state |
 | welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the transcript and its message bubbles. |
+| messageSurface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface forwarded to every Message; none gives a borderless transcript. |
 | userLabel | `string` | — | no | Display name for the user role; override for localization |
 | assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
 | labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |
@@ -3514,6 +3516,7 @@ Filter bars collapse, scroll or hide on mobile, so users lose track of what is a
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | filters | `FilterChip[]` | — | yes | Active filters: key, label, optional value and onRemove. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Chip scale: padding, text size and remove-button icon size. |
 | onClearAll | `() => void` | — | no | Shows a clear-all action when provided. |
 | clearLabel | `string` | `Clear all` | no | Label for the clear-all action. |
 | emptyLabel | `string` | — | no | Shown when there are no active filters. Nothing renders when omitted. |
@@ -5054,6 +5057,8 @@ The Message component renders individual chat messages with proper styling based
 | onEditContent | `(content: string) => void` | — | no | Enables edit-and-resubmit; called with the edited content |
 | formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
 | locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
+| density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the bubble. |
+| surface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface. auto keeps the role-based tint (user = primary tint, assistant = muted); none is transparent for a borderless transcript. |
 
 ## Examples
 
@@ -5890,6 +5895,8 @@ The PromptInput component provides a specialized input for chat interfaces. It h
 | showSendButton | `boolean` | `true` | no | Whether to show the send button |
 | sendButtonText | `string` | `Send` | no | Text or icon for the send button |
 | className | `string` | — | no | Additional CSS classes to apply to the container |
+| density | `'comfortable' | 'compact'` | `comfortable` | no | Composer padding and minimum height. |
+| surface | `'default' | 'none' | 'card' | 'muted'` | `default` | no | Field surface: the bordered input, no fill, or a tinted panel. |
 | onStop | `() => void` | — | no | While loading, the send button becomes a stop button that calls this handler. |
 | stopButtonText | `string` | `Stop generating` | no | Accessible label for the stop button; enables localization. |
 | attachments | `AttachmentItem[]` | — | no | Controlled attachment list shown as chips above the input |
@@ -6696,6 +6703,7 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 |---|---|---|---|---|
 | options | `SelectOption[]` | — | no | Flat options ({ value, label, disabled? }). Ignored when groups is provided. |
 | label | `string` | — | no | Visible label rendered and associated via htmlFor/aria |
+| labelHidden | `boolean` | `false` | no | Keep the label for assistive tech but hide it visually, so the control lines up with sibling inputs in a filter bar or toolbar. |
 | value | `string | string[]` | — | no | Controlled value (string, or string[] when multiple). |
 | defaultValue | `string | string[]` | — | no | Initial value when uncontrolled. |
 | onChange | `React.ChangeEventHandler<HTMLSelectElement>` | — | no | Native change event, compatible with react-hook-form register(). |
@@ -7478,6 +7486,10 @@ Give users immediate feedback while generated content is arriving.
 |---|---|---|---|---|
 | isStreaming | `boolean` | — | yes | Whether the indicator is visible. |
 | text | `string` | `Generating…` | no | Status text. |
+| size | `'sm' | 'md' | 'lg'` | `md` | no | Dot and label scale. |
+| tone | `'primary' | 'muted' | 'current'` | `primary` | no | Dot colour: brand primary, muted foreground, or the inherited text colour. |
+| dotCount | `number` | `3` | no | How many dots pulse. |
+| showLabel | `boolean` | `true` | no | Render the label beside the dots; the text stays the accessible name either way. |
 
 ## Examples
 
@@ -8542,6 +8554,7 @@ Tooltip provides supplementary context on hover and keyboard focus. It appears w
 | content | `string` | — | yes | The tooltip text |
 | side | `'top' | 'bottom' | 'left' | 'right'` | `top` | no | Placement relative to the trigger |
 | delay | `number` | `300` | no | Delay before showing on hover, in milliseconds |
+| variant | `'default' | 'inverse'` | `default` | no | Bubble palette. default uses the popover surface; inverse flips it (dark bubble in light mode, light bubble in dark mode). |
 | children | `ReactNode` | — | yes | The trigger element |
 | className | `string` | — | no | Additional CSS classes to apply |
 

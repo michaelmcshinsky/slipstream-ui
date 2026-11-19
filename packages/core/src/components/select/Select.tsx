@@ -23,6 +23,11 @@ export type SelectProps = Omit<
   /** Optgroups with a heading per section. Takes precedence over `options` and `children`. */
   groups?: SelectOptionGroup[];
   label?: string;
+  /**
+   * Keep the label for assistive tech but hide it visually, so the control
+   * lines up with sibling inputs in a filter bar or toolbar.
+   */
+  labelHidden?: boolean;
   /** Renders a disabled empty option — the native "choose one" affordance. */
   placeholder?: string;
   /** Native multi-select: value/onChange switch to string[]. */
@@ -43,7 +48,7 @@ export type SelectProps = Omit<
  * <option>/<optgroup> children for dynamic lists.
  */
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { options, groups, label, placeholder, multiple = false, value, defaultValue, onChange, onValueChange, children, id, className, ...props },
+  { options, groups, label, labelHidden = false, placeholder, multiple = false, value, defaultValue, onChange, onValueChange, children, id, className, ...props },
   ref,
 ) {
   const generatedId = React.useId();
@@ -59,7 +64,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
   return (
     <div className="flex w-full flex-col gap-1.5">
       {label && (
-        <label id={labelId} htmlFor={selectId} className="text-sm font-medium">
+        <label id={labelId} htmlFor={selectId} className={labelHidden ? 'sr-only' : 'text-sm font-medium'}>
           {label}
         </label>
       )}
