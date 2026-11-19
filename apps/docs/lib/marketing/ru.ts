@@ -377,7 +377,6 @@ export const ru: MarketingCopy = {
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: 'Почтовый адрес',
   },
   accessibility: {
     title: 'Заявление о доступности',

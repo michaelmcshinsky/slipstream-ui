@@ -377,7 +377,6 @@ export const ar: MarketingCopy = {
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: 'العنوان البريدي',
   },
   accessibility: {
     title: 'بيان إمكانية الوصول',

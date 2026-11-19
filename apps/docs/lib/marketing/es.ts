@@ -378,7 +378,6 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: 'Dirección postal',
   },
   accessibility: {
     title: 'Declaración de accesibilidad',

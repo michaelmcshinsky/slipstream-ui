@@ -385,7 +385,6 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         ctaHref: '{repo}/blob/main/SECURITY.md',
       },
     ],
-    addressHeading: 'Postal address',
   },
   accessibility: {
     title: 'Accessibility statement',

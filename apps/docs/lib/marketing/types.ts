@@ -32,7 +32,6 @@ export type ContactCopy = {
   title: string;
   description: string;
   channels: ContactChannel[];
-  addressHeading: string;
 };
 
 export type LabCopy = {
