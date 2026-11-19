@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Card,
@@ -28,9 +28,13 @@ export default function NewsletterSettingsPage() {
     timezone: 'America/Denver',
   });
 
-  const [subscriptions, setSubscriptions] = useState<Array<{ type: string; status: string }>>([]);
   const [contentTypes, setContentTypes] = useState<Array<{ type: string; label: string; description: string }>>([]);
   const [frequencies, setFrequencies] = useState<Array<{ value: string; label: string; description: string }>>([]);
+
+  useEffect(() => {
+    void loadPreferences();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function loadPreferences() {
     try {
@@ -40,12 +44,6 @@ export default function NewsletterSettingsPage() {
       setPreferences(data.preferences);
       setContentTypes(data.contentTypes ?? []);
       setFrequencies(data.frequencies ?? []);
-      setSubscriptions(
-        Object.entries(data.preferences).map(([key, value]) => ({
-          type: key,
-          status: value ? 'active' : 'inactive',
-        }))
-      );
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load preferences');
     } finally {
@@ -70,40 +68,6 @@ export default function NewsletterSettingsPage() {
       setError(err instanceof Error ? err.message : 'Failed to save preferences');
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function handleSubscribe(type: 'daily' | 'weekly') {
-    setError(null);
-    setMessage(null);
-    try {
-      const response = await fetch('/api/newsletter/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type }),
-      });
-      if (!response.ok) throw new Error('Failed to subscribe');
-      setMessage(`Subscribed to ${type} newsletter`);
-      await loadPreferences();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to subscribe');
-    }
-  }
-
-  async function handleUnsubscribe(type: 'daily' | 'weekly') {
-    setError(null);
-    setMessage(null);
-    try {
-      const response = await fetch('/api/newsletter/unsubscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type }),
-      });
-      if (!response.ok) throw new Error('Failed to unsubscribe');
-      setMessage(`Unsubscribed from ${type} newsletter`);
-      await loadPreferences();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to unsubscribe');
     }
   }
 
