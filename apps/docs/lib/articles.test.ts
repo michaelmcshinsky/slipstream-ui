@@ -1,4 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import metadata from '../content/articles.json';
+import { ARTICLE_CONTENT } from './article-content.generated';
 import { ARTICLES, articlePath, firstHeading, getArticle } from './articles';
 
 describe('article content', () => {
@@ -28,5 +32,16 @@ describe('article content', () => {
 
   it('returns undefined for an unknown slug', () => {
     expect(getArticle('does-not-exist')).toBeUndefined();
+  });
+
+  it('keeps the generated content module in sync with the markdown files', () => {
+    // The docs Worker has no filesystem, so lib/articles.ts reads the
+    // generated module instead of content/articles/*.md. This test is the
+    // drift gate: regenerate with `pnpm generate:article-content`.
+    const dir = path.join(process.cwd(), 'content', 'articles');
+    for (const meta of metadata as { slug: string; file: string }[]) {
+      const onDisk = fs.readFileSync(path.join(dir, meta.file), 'utf8').replace(/\r\n/g, '\n');
+      expect(ARTICLE_CONTENT[meta.slug], `stale generated content for ${meta.slug}`).toBe(onDisk);
+    }
   });
 });
