@@ -2,9 +2,12 @@
 
 Email capture block with inline or stacked layout, pending state, success and failure feedback.
 
+> Component ID: `newsletter`
 > Import: `import { Newsletter } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/newsletter
 > Registry: https://slipstreamui.com/registry/newsletter.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

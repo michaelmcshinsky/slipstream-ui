@@ -2,7 +2,9 @@ import { Navbar } from '@/components/site/navbar';
 import { Sidebar } from '@/components/site/sidebar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { PageFeedback } from '@/components/site/page-feedback';
+import { DocsPageMeta } from '@/components/site/docs-page-meta';
 import { DocsBreadcrumbs } from '@/components/site/docs-breadcrumbs';
+import { DocsTranslationNotice } from '@/components/site/docs-translation-notice';
 import { TableOfContents } from '@/components/table-of-contents';
 
 export default function DocsLayout({
@@ -23,8 +25,10 @@ export default function DocsLayout({
             {/* Centered reading column inside the full-width shell. */}
             <div className="mx-auto mt-4 w-full max-w-4xl lg:mt-0">
               <DocsBreadcrumbs />
+              <DocsTranslationNotice />
               {children}
               <PageFeedback />
+              <DocsPageMeta />
             </div>
           </main>
           <TableOfContents />

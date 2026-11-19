@@ -2,9 +2,12 @@
 
 Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.
 
+> Component ID: `site-footer`
 > Import: `import { SiteFooter } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/site-footer
 > Registry: https://slipstreamui.com/registry/site-footer.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

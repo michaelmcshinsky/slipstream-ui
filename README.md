@@ -11,10 +11,10 @@ The AI-first React component library — your AI already knows how to use it.
 [![GitHub stars](https://img.shields.io/github/stars/michaelmcshinsky/slipstream-ui?style=flat&logo=github)](https://github.com/michaelmcshinsky/slipstream-ui/stargazers)
 
 <!-- generated:stats:start -->
-**112 components** · 112 machine-readable specs · MCP `validate_usage` · MIT
+**113 components** · 113 machine-readable specs · MCP `validate_usage` · MIT
 <!-- generated:stats:end -->
 
-[Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [MCP server](https://slipstreamui.com/docs/mcp)
+[Docs](https://slipstreamui.com/docs) · [Changelog](https://slipstreamui.com/changelog) · [Templates](https://slipstreamui.com/docs/templates) · [Articles](https://slipstreamui.com/articles) · [MCP server](https://slipstreamui.com/docs/mcp)
 
 ## Overview
 
@@ -48,12 +48,12 @@ pnpm workspace + Turborepo monorepo:
 
 | Path | Published as | Role |
 |---|---|---|
-| `packages/core` | `@slipstream-ui/core` | 92 components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
-| `packages/ai` | `@slipstream-ui/ai` | 17 AI components: chat, streaming markdown, tool calls, reasoning, approvals |
+| `packages/core` | `@slipstream-ui/core` | Core components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography |
+| `packages/ai` | `@slipstream-ui/ai` | AI components: chat, streaming markdown, tool calls, reasoning, approvals |
 | `packages/themes` | `@slipstream-ui/themes` | `createTheme()` + default/dark/violet/zinc presets and the CSS-variable contract |
 | `packages/cli` | `@slipstream-ui/cli` | `init` / `add` / `list` / `diff` |
 | `packages/registry` | `@slipstream-ui/registry` | Shared manifest-registry resolution for the CLI and MCP server |
-| `packages/mcp-server` | `@slipstream-ui/mcp-server` | MCP server exposing five tools to AI clients |
+| `packages/mcp-server` | `@slipstream-ui/mcp-server` | MCP server exposing six tools to AI clients |
 | `apps/docs` | — | Next.js 16 App Router documentation + marketing site (built with this library) |
 | `apps/app` | — | Reference dashboard (auth, billing, admin) built with this library |
 | `apps/playground` | — | Vite sandbox for component work |
@@ -73,16 +73,21 @@ Every component flows through the same path, and CI enforces it:
 
 ## Component inventory
 
-**Core (92):** Accordion, Alert, AnnouncementBar, AppShell, AppliedFilters, ArticleCard, AuthLayout, Autocomplete, Avatar, Badge, Block, Breadcrumb, Button, ButtonGroup, Card, Checkbox, ComparisonTable, ConfirmDialog, ContactStrip, Container, CTASection, DataTable, DatePicker, DateRangePicker, DealCard, Dialog, DocumentCard, Drawer, EmptyState, EntityCard, FeatureGrid, FeatureRow, Fieldset, FileUpload, FilterBar, FilterChips, FilterPanel, Flex, Form, FormField, FormLayout, Grid, Heading, Hero, Input, InputGroup, Label, Link, List, LoadMore, LogoCloud, Menu, MetricCard, MultiSelect, Newsletter, PageHeader, Pagination, PasswordInput, Popover, ProcessSteps, Progress, Prose, Radio/RadioGroup/RadioCard, RangeSlider, Search, Section, SectionHeading, SegmentedControl, Select, SelectMenu, Separator, SiteFooter, SiteHeader, Skeleton, Spinner, StatBand, Stepper, Switch, Table, TableCard, Tabs, TableOfContents, Testimonial, Text, Textarea, TimePicker, Timeline, Toast/Toaster, TombstoneCard, Tooltip.
+The authoritative list is generated from the manifests:
 
-**AI (17):** Attachment, Branch, ChainThought, CodeBlock, CommandPalette, Confirmation, Conversation, InlineCitation, Message, MessageActions, PromptInput, Reasoning, Response, Sources, Streaming, Suggestions, ToolCall.
+- [Component catalog](https://slipstreamui.com/docs/components) — searchable, grouped, with live demos
+- [`/registry/all.json`](https://slipstreamui.com/registry/all.json) — every component id, package, tier and docs URL
+
+A hand-written inventory used to live here; it drifted. The generated files are the source of truth.
 
 ## For AI agents
 
 - [`/llms.txt`](https://slipstreamui.com/llms.txt) — top-level agent index
 - [`/llm/index.md`](https://slipstreamui.com/llm/index.md) — full component index; per-component references at `/llm/components/<id>.md`
 - [`/registry/all.json`](https://slipstreamui.com/registry/all.json) — every manifest plus installer payload
-- **MCP server** — `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
+- [`/registry/graph.json`](https://slipstreamui.com/registry/graph.json) — composition/related edges for choosing a coherent set of components
+- [`/registry/recommendations.json`](https://slipstreamui.com/registry/recommendations.json) — the intent recipes behind `recommend_components`
+- **MCP server** - `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
 
 ```tsx
 import { Button } from '@slipstream-ui/core';

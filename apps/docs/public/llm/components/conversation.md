@@ -2,9 +2,12 @@
 
 A container for displaying a list of chat messages with auto-scroll and loading states
 
+> Component ID: `conversation`
 > Import: `import { Conversation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/conversation
 > Registry: https://slipstreamui.com/registry/conversation.json
-> Tier: organism · Package: @slipstream-ui/ai
+> Tier: organism · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -35,6 +38,9 @@ The Conversation component manages the display of multiple messages in a chat in
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
 | density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the transcript and its message bubbles. |
 | messageSurface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface forwarded to every Message; none gives a borderless transcript. |
+| userLabel | `string` | — | no | Display name for the user role; override for localization |
+| assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
+| labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |
 | hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
 | isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
 | onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |

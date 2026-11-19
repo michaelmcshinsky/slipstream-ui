@@ -1,0 +1,2870 @@
+{
+  "name": "slipstream-ui",
+  "version": "0.9.0",
+  "releaseDate": "2026-11-17",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "nodeCount": 113,
+  "edgeCount": 413,
+  "docs": "https://slipstreamui.com/docs/ai-manifests",
+  "nodes": [
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/accordion"
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/alert"
+    },
+    {
+      "id": "announcement-bar",
+      "name": "AnnouncementBar",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/announcement-bar"
+    },
+    {
+      "id": "app-shell",
+      "name": "AppShell",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/app-shell"
+    },
+    {
+      "id": "applied-filters",
+      "name": "AppliedFilters",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/applied-filters"
+    },
+    {
+      "id": "article-card",
+      "name": "ArticleCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/article-card"
+    },
+    {
+      "id": "attachment",
+      "name": "Attachment / AttachmentList",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/attachment"
+    },
+    {
+      "id": "auth-layout",
+      "name": "AuthLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/auth-layout"
+    },
+    {
+      "id": "autocomplete",
+      "name": "Autocomplete",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/autocomplete"
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/avatar"
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/badge"
+    },
+    {
+      "id": "block",
+      "name": "Block",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/block"
+    },
+    {
+      "id": "bottom-nav",
+      "name": "BottomNav",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/bottom-nav"
+    },
+    {
+      "id": "branch",
+      "name": "Branch",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/branch"
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/breadcrumb"
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/button"
+    },
+    {
+      "id": "button-group",
+      "name": "ButtonGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/button-group"
+    },
+    {
+      "id": "calendar",
+      "name": "Calendar",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/calendar"
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/card"
+    },
+    {
+      "id": "chain-thought",
+      "name": "ChainThought",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/chain-thought"
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/checkbox"
+    },
+    {
+      "id": "code-block",
+      "name": "CodeBlock",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/code-block"
+    },
+    {
+      "id": "command-palette",
+      "name": "CommandPalette",
+      "package": "@slipstream-ui/ai",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/command-palette"
+    },
+    {
+      "id": "comparison-table",
+      "name": "ComparisonTable",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/comparison-table"
+    },
+    {
+      "id": "confirm-dialog",
+      "name": "ConfirmDialog",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/confirm-dialog"
+    },
+    {
+      "id": "confirmation",
+      "name": "Confirmation",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/confirmation"
+    },
+    {
+      "id": "contact-strip",
+      "name": "ContactStrip",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/contact-strip"
+    },
+    {
+      "id": "container",
+      "name": "Container",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/container"
+    },
+    {
+      "id": "conversation",
+      "name": "Conversation",
+      "package": "@slipstream-ui/ai",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/conversation"
+    },
+    {
+      "id": "cta-section",
+      "name": "CTASection",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/cta-section"
+    },
+    {
+      "id": "data-table",
+      "name": "DataTable",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/data-table"
+    },
+    {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/date-picker"
+    },
+    {
+      "id": "date-picker-popover",
+      "name": "DatePickerPopover",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/date-picker-popover"
+    },
+    {
+      "id": "date-range-picker",
+      "name": "DateRangePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/date-range-picker"
+    },
+    {
+      "id": "deal-card",
+      "name": "DealCard",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/deal-card"
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/dialog"
+    },
+    {
+      "id": "document-card",
+      "name": "DocumentCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/document-card"
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/drawer"
+    },
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/empty-state"
+    },
+    {
+      "id": "entity-card",
+      "name": "EntityCard",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/entity-card"
+    },
+    {
+      "id": "feature-grid",
+      "name": "FeatureGrid",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/feature-grid"
+    },
+    {
+      "id": "feature-row",
+      "name": "FeatureRow",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/feature-row"
+    },
+    {
+      "id": "fieldset",
+      "name": "Fieldset",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/fieldset"
+    },
+    {
+      "id": "file-upload",
+      "name": "FileUpload",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/file-upload"
+    },
+    {
+      "id": "filter-bar",
+      "name": "FilterBar",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/filter-bar"
+    },
+    {
+      "id": "filter-chips",
+      "name": "FilterChips",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/filter-chips"
+    },
+    {
+      "id": "filter-panel",
+      "name": "FilterPanel",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/filter-panel"
+    },
+    {
+      "id": "flex",
+      "name": "Flex / FlexItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/flex"
+    },
+    {
+      "id": "form",
+      "name": "Form",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/form"
+    },
+    {
+      "id": "form-field",
+      "name": "FormField",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/form-field"
+    },
+    {
+      "id": "form-layout",
+      "name": "FormLayout",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/form-layout"
+    },
+    {
+      "id": "grid",
+      "name": "Grid / GridItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/grid"
+    },
+    {
+      "id": "heading",
+      "name": "Heading",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/heading"
+    },
+    {
+      "id": "hero",
+      "name": "Hero",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/hero"
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/image"
+    },
+    {
+      "id": "inline-citation",
+      "name": "InlineCitation",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/inline-citation"
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/input"
+    },
+    {
+      "id": "input-group",
+      "name": "InputGroup",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/input-group"
+    },
+    {
+      "id": "label",
+      "name": "Label",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/label"
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/link"
+    },
+    {
+      "id": "link-tabs",
+      "name": "LinkTabs",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/link-tabs"
+    },
+    {
+      "id": "list",
+      "name": "List / ListItem",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/list"
+    },
+    {
+      "id": "load-more",
+      "name": "LoadMore",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/load-more"
+    },
+    {
+      "id": "logo-cloud",
+      "name": "LogoCloud",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/logo-cloud"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/menu"
+    },
+    {
+      "id": "message",
+      "name": "Message",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/message"
+    },
+    {
+      "id": "message-actions",
+      "name": "MessageActions",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/message-actions"
+    },
+    {
+      "id": "metric-card",
+      "name": "MetricCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/metric-card"
+    },
+    {
+      "id": "multi-select",
+      "name": "MultiSelect",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/multi-select"
+    },
+    {
+      "id": "newsletter",
+      "name": "Newsletter",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/newsletter"
+    },
+    {
+      "id": "page-header",
+      "name": "PageHeader",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/page-header"
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/pagination"
+    },
+    {
+      "id": "password-input",
+      "name": "PasswordInput",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/password-input"
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/popover"
+    },
+    {
+      "id": "process-steps",
+      "name": "ProcessSteps",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/process-steps"
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/progress"
+    },
+    {
+      "id": "prompt-input",
+      "name": "PromptInput",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/prompt-input"
+    },
+    {
+      "id": "prose",
+      "name": "Prose",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/prose"
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/radio"
+    },
+    {
+      "id": "range-slider",
+      "name": "RangeSlider",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/range-slider"
+    },
+    {
+      "id": "reasoning",
+      "name": "Reasoning",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/reasoning"
+    },
+    {
+      "id": "response",
+      "name": "Response",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/response"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/search"
+    },
+    {
+      "id": "section",
+      "name": "Section",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/section"
+    },
+    {
+      "id": "section-heading",
+      "name": "SectionHeading",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/section-heading"
+    },
+    {
+      "id": "segmented-control",
+      "name": "SegmentedControl",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/segmented-control"
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/select"
+    },
+    {
+      "id": "select-menu",
+      "name": "SelectMenu",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/select-menu"
+    },
+    {
+      "id": "separator",
+      "name": "Separator",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/separator"
+    },
+    {
+      "id": "site-footer",
+      "name": "SiteFooter",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/site-footer"
+    },
+    {
+      "id": "site-header",
+      "name": "SiteHeader",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/site-header"
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/skeleton"
+    },
+    {
+      "id": "source",
+      "name": "Source / Sources",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/sources"
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/spinner"
+    },
+    {
+      "id": "stat-band",
+      "name": "StatBand",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/stat-band"
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/stepper"
+    },
+    {
+      "id": "streaming-indicator",
+      "name": "StreamingIndicator",
+      "package": "@slipstream-ui/ai",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/streaming-indicator"
+    },
+    {
+      "id": "suggestions",
+      "name": "Suggestions",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/suggestions"
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/switch"
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/table"
+    },
+    {
+      "id": "table-card",
+      "name": "TableCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/table-card"
+    },
+    {
+      "id": "table-of-contents",
+      "name": "TableOfContents",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/table-of-contents"
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/tabs"
+    },
+    {
+      "id": "testimonial",
+      "name": "Testimonial",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/testimonial"
+    },
+    {
+      "id": "text",
+      "name": "Text",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/text"
+    },
+    {
+      "id": "textarea",
+      "name": "Textarea",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/textarea"
+    },
+    {
+      "id": "theme-toggle",
+      "name": "ThemeToggle",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/theme-toggle"
+    },
+    {
+      "id": "time-picker",
+      "name": "TimePicker",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/time-picker"
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/timeline"
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/toast"
+    },
+    {
+      "id": "tombstone-card",
+      "name": "TombstoneCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/tombstone-card"
+    },
+    {
+      "id": "tool-call",
+      "name": "ToolCall",
+      "package": "@slipstream-ui/ai",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/tool-call"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/tooltip"
+    }
+  ],
+  "edges": [
+    {
+      "from": "accordion",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "accordion",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "alert",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "alert",
+      "to": "toast",
+      "type": "related"
+    },
+    {
+      "from": "announcement-bar",
+      "to": "alert",
+      "type": "related"
+    },
+    {
+      "from": "announcement-bar",
+      "to": "site-header",
+      "type": "composition"
+    },
+    {
+      "from": "announcement-bar",
+      "to": "site-header",
+      "type": "related"
+    },
+    {
+      "from": "app-shell",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "app-shell",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "app-shell",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "app-shell",
+      "to": "drawer",
+      "type": "composition"
+    },
+    {
+      "from": "app-shell",
+      "to": "drawer",
+      "type": "related"
+    },
+    {
+      "from": "app-shell",
+      "to": "menu",
+      "type": "related"
+    },
+    {
+      "from": "applied-filters",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "applied-filters",
+      "to": "filter-chips",
+      "type": "related"
+    },
+    {
+      "from": "applied-filters",
+      "to": "filter-panel",
+      "type": "composition"
+    },
+    {
+      "from": "applied-filters",
+      "to": "filter-panel",
+      "type": "related"
+    },
+    {
+      "from": "article-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "auth-layout",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "auth-layout",
+      "to": "form",
+      "type": "composition"
+    },
+    {
+      "from": "auth-layout",
+      "to": "form",
+      "type": "related"
+    },
+    {
+      "from": "auth-layout",
+      "to": "password-input",
+      "type": "related"
+    },
+    {
+      "from": "autocomplete",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "autocomplete",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "autocomplete",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "autocomplete",
+      "to": "search",
+      "type": "composition"
+    },
+    {
+      "from": "autocomplete",
+      "to": "search",
+      "type": "related"
+    },
+    {
+      "from": "autocomplete",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "avatar",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "avatar",
+      "to": "message",
+      "type": "composition"
+    },
+    {
+      "from": "avatar",
+      "to": "message",
+      "type": "related"
+    },
+    {
+      "from": "badge",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "badge",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "badge",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "badge",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "badge",
+      "to": "tooltip",
+      "type": "related"
+    },
+    {
+      "from": "block",
+      "to": "heading",
+      "type": "related"
+    },
+    {
+      "from": "block",
+      "to": "text",
+      "type": "related"
+    },
+    {
+      "from": "bottom-nav",
+      "to": "app-shell",
+      "type": "composition"
+    },
+    {
+      "from": "bottom-nav",
+      "to": "app-shell",
+      "type": "related"
+    },
+    {
+      "from": "bottom-nav",
+      "to": "badge",
+      "type": "composition"
+    },
+    {
+      "from": "bottom-nav",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "bottom-nav",
+      "to": "site-header",
+      "type": "related"
+    },
+    {
+      "from": "breadcrumb",
+      "to": "link",
+      "type": "composition"
+    },
+    {
+      "from": "breadcrumb",
+      "to": "menu",
+      "type": "related"
+    },
+    {
+      "from": "breadcrumb",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "button-group",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "button-group",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "button-group",
+      "to": "tabs",
+      "type": "composition"
+    },
+    {
+      "from": "button-group",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "button",
+      "to": "dialog",
+      "type": "composition"
+    },
+    {
+      "from": "button",
+      "to": "link",
+      "type": "related"
+    },
+    {
+      "from": "button",
+      "to": "tooltip",
+      "type": "related"
+    },
+    {
+      "from": "calendar",
+      "to": "date-picker-popover",
+      "type": "composition"
+    },
+    {
+      "from": "calendar",
+      "to": "date-picker-popover",
+      "type": "related"
+    },
+    {
+      "from": "calendar",
+      "to": "date-picker",
+      "type": "related"
+    },
+    {
+      "from": "calendar",
+      "to": "date-range-picker",
+      "type": "related"
+    },
+    {
+      "from": "calendar",
+      "to": "popover",
+      "type": "composition"
+    },
+    {
+      "from": "calendar",
+      "to": "popover",
+      "type": "related"
+    },
+    {
+      "from": "card",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "card",
+      "to": "separator",
+      "type": "related"
+    },
+    {
+      "from": "card",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "checkbox",
+      "to": "label",
+      "type": "composition"
+    },
+    {
+      "from": "checkbox",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "checkbox",
+      "to": "radio",
+      "type": "related"
+    },
+    {
+      "from": "checkbox",
+      "to": "switch",
+      "type": "related"
+    },
+    {
+      "from": "command-palette",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "command-palette",
+      "to": "prompt-input",
+      "type": "composition"
+    },
+    {
+      "from": "command-palette",
+      "to": "prompt-input",
+      "type": "related"
+    },
+    {
+      "from": "comparison-table",
+      "to": "data-table",
+      "type": "related"
+    },
+    {
+      "from": "comparison-table",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "comparison-table",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "comparison-table",
+      "to": "table",
+      "type": "related"
+    },
+    {
+      "from": "confirm-dialog",
+      "to": "alert",
+      "type": "related"
+    },
+    {
+      "from": "confirm-dialog",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "confirm-dialog",
+      "to": "dialog",
+      "type": "composition"
+    },
+    {
+      "from": "confirm-dialog",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "contact-strip",
+      "to": "link",
+      "type": "related"
+    },
+    {
+      "from": "contact-strip",
+      "to": "site-footer",
+      "type": "composition"
+    },
+    {
+      "from": "contact-strip",
+      "to": "site-footer",
+      "type": "related"
+    },
+    {
+      "from": "contact-strip",
+      "to": "text",
+      "type": "related"
+    },
+    {
+      "from": "container",
+      "to": "block",
+      "type": "related"
+    },
+    {
+      "from": "container",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "container",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "conversation",
+      "to": "message",
+      "type": "composition"
+    },
+    {
+      "from": "conversation",
+      "to": "message",
+      "type": "related"
+    },
+    {
+      "from": "conversation",
+      "to": "prompt-input",
+      "type": "composition"
+    },
+    {
+      "from": "conversation",
+      "to": "prompt-input",
+      "type": "related"
+    },
+    {
+      "from": "cta-section",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "cta-section",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "cta-section",
+      "to": "hero",
+      "type": "related"
+    },
+    {
+      "from": "cta-section",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "cta-section",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "data-table",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "data-table",
+      "to": "pagination",
+      "type": "composition"
+    },
+    {
+      "from": "data-table",
+      "to": "pagination",
+      "type": "related"
+    },
+    {
+      "from": "data-table",
+      "to": "skeleton",
+      "type": "related"
+    },
+    {
+      "from": "data-table",
+      "to": "table",
+      "type": "composition"
+    },
+    {
+      "from": "data-table",
+      "to": "table",
+      "type": "related"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "calendar",
+      "type": "composition"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "calendar",
+      "type": "related"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "date-picker",
+      "type": "related"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "date-range-picker",
+      "type": "related"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "date-picker-popover",
+      "to": "popover",
+      "type": "related"
+    },
+    {
+      "from": "date-picker",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "date-picker",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "date-picker",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "date-picker",
+      "to": "time-picker",
+      "type": "related"
+    },
+    {
+      "from": "date-range-picker",
+      "to": "applied-filters",
+      "type": "related"
+    },
+    {
+      "from": "date-range-picker",
+      "to": "date-picker",
+      "type": "related"
+    },
+    {
+      "from": "date-range-picker",
+      "to": "filter-panel",
+      "type": "composition"
+    },
+    {
+      "from": "date-range-picker",
+      "to": "filter-panel",
+      "type": "related"
+    },
+    {
+      "from": "deal-card",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "deal-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "deal-card",
+      "to": "entity-card",
+      "type": "related"
+    },
+    {
+      "from": "deal-card",
+      "to": "load-more",
+      "type": "composition"
+    },
+    {
+      "from": "deal-card",
+      "to": "load-more",
+      "type": "related"
+    },
+    {
+      "from": "dialog",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "dialog",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "dialog",
+      "to": "confirmation",
+      "type": "related"
+    },
+    {
+      "from": "dialog",
+      "to": "drawer",
+      "type": "related"
+    },
+    {
+      "from": "dialog",
+      "to": "toast",
+      "type": "related"
+    },
+    {
+      "from": "document-card",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "document-card",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "document-card",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "document-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "document-card",
+      "to": "file-upload",
+      "type": "related"
+    },
+    {
+      "from": "drawer",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "drawer",
+      "to": "dialog",
+      "type": "composition"
+    },
+    {
+      "from": "drawer",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "drawer",
+      "to": "form",
+      "type": "related"
+    },
+    {
+      "from": "drawer",
+      "to": "popover",
+      "type": "related"
+    },
+    {
+      "from": "empty-state",
+      "to": "alert",
+      "type": "related"
+    },
+    {
+      "from": "empty-state",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "empty-state",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "empty-state",
+      "to": "data-table",
+      "type": "related"
+    },
+    {
+      "from": "entity-card",
+      "to": "avatar",
+      "type": "related"
+    },
+    {
+      "from": "entity-card",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "entity-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "entity-card",
+      "to": "deal-card",
+      "type": "related"
+    },
+    {
+      "from": "entity-card",
+      "to": "document-card",
+      "type": "related"
+    },
+    {
+      "from": "feature-grid",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "feature-grid",
+      "to": "feature-row",
+      "type": "related"
+    },
+    {
+      "from": "feature-grid",
+      "to": "process-steps",
+      "type": "related"
+    },
+    {
+      "from": "feature-grid",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "feature-row",
+      "to": "feature-grid",
+      "type": "related"
+    },
+    {
+      "from": "feature-row",
+      "to": "hero",
+      "type": "related"
+    },
+    {
+      "from": "feature-row",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "feature-row",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "fieldset",
+      "to": "checkbox",
+      "type": "related"
+    },
+    {
+      "from": "fieldset",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "fieldset",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "fieldset",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "fieldset",
+      "to": "radio",
+      "type": "related"
+    },
+    {
+      "from": "file-upload",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "file-upload",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "file-upload",
+      "to": "progress",
+      "type": "related"
+    },
+    {
+      "from": "filter-bar",
+      "to": "data-table",
+      "type": "related"
+    },
+    {
+      "from": "filter-bar",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "filter-bar",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "filter-bar",
+      "to": "select",
+      "type": "composition"
+    },
+    {
+      "from": "filter-bar",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "filter-chips",
+      "to": "filter-bar",
+      "type": "composition"
+    },
+    {
+      "from": "filter-chips",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "filter-chips",
+      "to": "range-slider",
+      "type": "related"
+    },
+    {
+      "from": "filter-chips",
+      "to": "segmented-control",
+      "type": "composition"
+    },
+    {
+      "from": "filter-chips",
+      "to": "segmented-control",
+      "type": "related"
+    },
+    {
+      "from": "filter-panel",
+      "to": "applied-filters",
+      "type": "related"
+    },
+    {
+      "from": "filter-panel",
+      "to": "date-range-picker",
+      "type": "related"
+    },
+    {
+      "from": "filter-panel",
+      "to": "drawer",
+      "type": "composition"
+    },
+    {
+      "from": "filter-panel",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "filter-panel",
+      "to": "multi-select",
+      "type": "related"
+    },
+    {
+      "from": "filter-panel",
+      "to": "range-slider",
+      "type": "related"
+    },
+    {
+      "from": "flex",
+      "to": "block",
+      "type": "composition"
+    },
+    {
+      "from": "flex",
+      "to": "block",
+      "type": "related"
+    },
+    {
+      "from": "form-field",
+      "to": "autocomplete",
+      "type": "related"
+    },
+    {
+      "from": "form-field",
+      "to": "fieldset",
+      "type": "composition"
+    },
+    {
+      "from": "form-field",
+      "to": "fieldset",
+      "type": "related"
+    },
+    {
+      "from": "form-field",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "form-field",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "form-field",
+      "to": "search",
+      "type": "related"
+    },
+    {
+      "from": "form-layout",
+      "to": "fieldset",
+      "type": "composition"
+    },
+    {
+      "from": "form-layout",
+      "to": "fieldset",
+      "type": "related"
+    },
+    {
+      "from": "form-layout",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "form-layout",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "form-layout",
+      "to": "form",
+      "type": "composition"
+    },
+    {
+      "from": "form-layout",
+      "to": "form",
+      "type": "related"
+    },
+    {
+      "from": "form",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "form",
+      "to": "fieldset",
+      "type": "related"
+    },
+    {
+      "from": "form",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "form",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "form",
+      "to": "form-layout",
+      "type": "composition"
+    },
+    {
+      "from": "form",
+      "to": "form-layout",
+      "type": "related"
+    },
+    {
+      "from": "form",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "grid",
+      "to": "block",
+      "type": "related"
+    },
+    {
+      "from": "grid",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "grid",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "heading",
+      "to": "block",
+      "type": "related"
+    },
+    {
+      "from": "heading",
+      "to": "text",
+      "type": "composition"
+    },
+    {
+      "from": "heading",
+      "to": "text",
+      "type": "related"
+    },
+    {
+      "from": "hero",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "hero",
+      "to": "cta-section",
+      "type": "related"
+    },
+    {
+      "from": "hero",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "hero",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "hero",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "hero",
+      "to": "stat-band",
+      "type": "related"
+    },
+    {
+      "from": "image",
+      "to": "article-card",
+      "type": "related"
+    },
+    {
+      "from": "image",
+      "to": "entity-card",
+      "type": "related"
+    },
+    {
+      "from": "image",
+      "to": "hero",
+      "type": "related"
+    },
+    {
+      "from": "image",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "input-group",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "input-group",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "input-group",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "input-group",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "input-group",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "input-group",
+      "to": "search",
+      "type": "related"
+    },
+    {
+      "from": "input",
+      "to": "form",
+      "type": "composition"
+    },
+    {
+      "from": "input",
+      "to": "form",
+      "type": "related"
+    },
+    {
+      "from": "input",
+      "to": "label",
+      "type": "composition"
+    },
+    {
+      "from": "input",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "input",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "input",
+      "to": "textarea",
+      "type": "related"
+    },
+    {
+      "from": "label",
+      "to": "checkbox",
+      "type": "related"
+    },
+    {
+      "from": "label",
+      "to": "input",
+      "type": "composition"
+    },
+    {
+      "from": "label",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "label",
+      "to": "radio",
+      "type": "related"
+    },
+    {
+      "from": "label",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "label",
+      "to": "textarea",
+      "type": "related"
+    },
+    {
+      "from": "link-tabs",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "link-tabs",
+      "to": "link",
+      "type": "related"
+    },
+    {
+      "from": "link-tabs",
+      "to": "page-header",
+      "type": "composition"
+    },
+    {
+      "from": "link-tabs",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "link-tabs",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "link",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "link",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "link",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "list",
+      "to": "block",
+      "type": "composition"
+    },
+    {
+      "from": "list",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "list",
+      "to": "menu",
+      "type": "related"
+    },
+    {
+      "from": "list",
+      "to": "table",
+      "type": "related"
+    },
+    {
+      "from": "load-more",
+      "to": "data-table",
+      "type": "related"
+    },
+    {
+      "from": "load-more",
+      "to": "deal-card",
+      "type": "related"
+    },
+    {
+      "from": "load-more",
+      "to": "entity-card",
+      "type": "related"
+    },
+    {
+      "from": "load-more",
+      "to": "pagination",
+      "type": "related"
+    },
+    {
+      "from": "logo-cloud",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "logo-cloud",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "logo-cloud",
+      "to": "stat-band",
+      "type": "related"
+    },
+    {
+      "from": "logo-cloud",
+      "to": "testimonial",
+      "type": "related"
+    },
+    {
+      "from": "menu",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "menu",
+      "to": "tooltip",
+      "type": "related"
+    },
+    {
+      "from": "message",
+      "to": "avatar",
+      "type": "related"
+    },
+    {
+      "from": "message",
+      "to": "conversation",
+      "type": "composition"
+    },
+    {
+      "from": "message",
+      "to": "conversation",
+      "type": "related"
+    },
+    {
+      "from": "message",
+      "to": "prompt-input",
+      "type": "composition"
+    },
+    {
+      "from": "message",
+      "to": "prompt-input",
+      "type": "related"
+    },
+    {
+      "from": "metric-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "metric-card",
+      "to": "progress",
+      "type": "related"
+    },
+    {
+      "from": "multi-select",
+      "to": "applied-filters",
+      "type": "composition"
+    },
+    {
+      "from": "multi-select",
+      "to": "applied-filters",
+      "type": "related"
+    },
+    {
+      "from": "multi-select",
+      "to": "filter-chips",
+      "type": "related"
+    },
+    {
+      "from": "multi-select",
+      "to": "filter-panel",
+      "type": "composition"
+    },
+    {
+      "from": "multi-select",
+      "to": "filter-panel",
+      "type": "related"
+    },
+    {
+      "from": "multi-select",
+      "to": "select-menu",
+      "type": "related"
+    },
+    {
+      "from": "newsletter",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "newsletter",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "newsletter",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "newsletter",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "newsletter",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "page-header",
+      "to": "breadcrumb",
+      "type": "composition"
+    },
+    {
+      "from": "page-header",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "page-header",
+      "to": "heading",
+      "type": "related"
+    },
+    {
+      "from": "page-header",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "pagination",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "pagination",
+      "to": "table",
+      "type": "composition"
+    },
+    {
+      "from": "pagination",
+      "to": "table",
+      "type": "related"
+    },
+    {
+      "from": "password-input",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "password-input",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "password-input",
+      "to": "input-group",
+      "type": "related"
+    },
+    {
+      "from": "password-input",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "popover",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "popover",
+      "to": "menu",
+      "type": "related"
+    },
+    {
+      "from": "popover",
+      "to": "tooltip",
+      "type": "related"
+    },
+    {
+      "from": "process-steps",
+      "to": "feature-grid",
+      "type": "related"
+    },
+    {
+      "from": "process-steps",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "process-steps",
+      "to": "stepper",
+      "type": "related"
+    },
+    {
+      "from": "process-steps",
+      "to": "timeline",
+      "type": "related"
+    },
+    {
+      "from": "progress",
+      "to": "skeleton",
+      "type": "composition"
+    },
+    {
+      "from": "progress",
+      "to": "skeleton",
+      "type": "related"
+    },
+    {
+      "from": "progress",
+      "to": "spinner",
+      "type": "related"
+    },
+    {
+      "from": "prompt-input",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "prompt-input",
+      "to": "conversation",
+      "type": "composition"
+    },
+    {
+      "from": "prompt-input",
+      "to": "conversation",
+      "type": "related"
+    },
+    {
+      "from": "prose",
+      "to": "code-block",
+      "type": "related"
+    },
+    {
+      "from": "prose",
+      "to": "heading",
+      "type": "related"
+    },
+    {
+      "from": "prose",
+      "to": "table-of-contents",
+      "type": "composition"
+    },
+    {
+      "from": "prose",
+      "to": "table-of-contents",
+      "type": "related"
+    },
+    {
+      "from": "prose",
+      "to": "text",
+      "type": "related"
+    },
+    {
+      "from": "radio",
+      "to": "checkbox",
+      "type": "related"
+    },
+    {
+      "from": "radio",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "radio",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "range-slider",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "range-slider",
+      "to": "filter-chips",
+      "type": "related"
+    },
+    {
+      "from": "range-slider",
+      "to": "filter-panel",
+      "type": "composition"
+    },
+    {
+      "from": "range-slider",
+      "to": "segmented-control",
+      "type": "related"
+    },
+    {
+      "from": "reasoning",
+      "to": "conversation",
+      "type": "related"
+    },
+    {
+      "from": "reasoning",
+      "to": "message",
+      "type": "composition"
+    },
+    {
+      "from": "reasoning",
+      "to": "message",
+      "type": "related"
+    },
+    {
+      "from": "reasoning",
+      "to": "tool-call",
+      "type": "composition"
+    },
+    {
+      "from": "reasoning",
+      "to": "tool-call",
+      "type": "related"
+    },
+    {
+      "from": "search",
+      "to": "autocomplete",
+      "type": "composition"
+    },
+    {
+      "from": "search",
+      "to": "autocomplete",
+      "type": "related"
+    },
+    {
+      "from": "search",
+      "to": "command-palette",
+      "type": "related"
+    },
+    {
+      "from": "search",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "search",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "search",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "section-heading",
+      "to": "heading",
+      "type": "related"
+    },
+    {
+      "from": "section-heading",
+      "to": "page-header",
+      "type": "composition"
+    },
+    {
+      "from": "section-heading",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "section-heading",
+      "to": "text",
+      "type": "related"
+    },
+    {
+      "from": "section",
+      "to": "container",
+      "type": "composition"
+    },
+    {
+      "from": "section",
+      "to": "container",
+      "type": "related"
+    },
+    {
+      "from": "section",
+      "to": "cta-section",
+      "type": "related"
+    },
+    {
+      "from": "section",
+      "to": "hero",
+      "type": "composition"
+    },
+    {
+      "from": "section",
+      "to": "hero",
+      "type": "related"
+    },
+    {
+      "from": "section",
+      "to": "page-header",
+      "type": "related"
+    },
+    {
+      "from": "segmented-control",
+      "to": "filter-chips",
+      "type": "composition"
+    },
+    {
+      "from": "segmented-control",
+      "to": "filter-chips",
+      "type": "related"
+    },
+    {
+      "from": "segmented-control",
+      "to": "select-menu",
+      "type": "related"
+    },
+    {
+      "from": "segmented-control",
+      "to": "tabs",
+      "type": "composition"
+    },
+    {
+      "from": "segmented-control",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "select-menu",
+      "to": "autocomplete",
+      "type": "related"
+    },
+    {
+      "from": "select-menu",
+      "to": "form-field",
+      "type": "composition"
+    },
+    {
+      "from": "select-menu",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "select-menu",
+      "to": "menu",
+      "type": "related"
+    },
+    {
+      "from": "select-menu",
+      "to": "select",
+      "type": "composition"
+    },
+    {
+      "from": "select-menu",
+      "to": "select",
+      "type": "related"
+    },
+    {
+      "from": "select",
+      "to": "button",
+      "type": "composition"
+    },
+    {
+      "from": "select",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "select",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "separator",
+      "to": "skeleton",
+      "type": "related"
+    },
+    {
+      "from": "site-footer",
+      "to": "link",
+      "type": "related"
+    },
+    {
+      "from": "site-footer",
+      "to": "separator",
+      "type": "related"
+    },
+    {
+      "from": "site-footer",
+      "to": "site-header",
+      "type": "composition"
+    },
+    {
+      "from": "site-footer",
+      "to": "site-header",
+      "type": "related"
+    },
+    {
+      "from": "site-header",
+      "to": "app-shell",
+      "type": "related"
+    },
+    {
+      "from": "site-header",
+      "to": "drawer",
+      "type": "composition"
+    },
+    {
+      "from": "site-header",
+      "to": "link",
+      "type": "related"
+    },
+    {
+      "from": "site-header",
+      "to": "site-footer",
+      "type": "composition"
+    },
+    {
+      "from": "site-header",
+      "to": "site-footer",
+      "type": "related"
+    },
+    {
+      "from": "skeleton",
+      "to": "progress",
+      "type": "related"
+    },
+    {
+      "from": "skeleton",
+      "to": "spinner",
+      "type": "related"
+    },
+    {
+      "from": "stat-band",
+      "to": "hero",
+      "type": "related"
+    },
+    {
+      "from": "stat-band",
+      "to": "metric-card",
+      "type": "related"
+    },
+    {
+      "from": "stat-band",
+      "to": "section",
+      "type": "composition"
+    },
+    {
+      "from": "stat-band",
+      "to": "section",
+      "type": "related"
+    },
+    {
+      "from": "stepper",
+      "to": "drawer",
+      "type": "composition"
+    },
+    {
+      "from": "stepper",
+      "to": "form",
+      "type": "composition"
+    },
+    {
+      "from": "stepper",
+      "to": "form",
+      "type": "related"
+    },
+    {
+      "from": "stepper",
+      "to": "progress",
+      "type": "related"
+    },
+    {
+      "from": "stepper",
+      "to": "tabs",
+      "type": "related"
+    },
+    {
+      "from": "switch",
+      "to": "checkbox",
+      "type": "related"
+    },
+    {
+      "from": "switch",
+      "to": "label",
+      "type": "composition"
+    },
+    {
+      "from": "switch",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "table-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "table-card",
+      "to": "data-table",
+      "type": "composition"
+    },
+    {
+      "from": "table-card",
+      "to": "data-table",
+      "type": "related"
+    },
+    {
+      "from": "table-card",
+      "to": "filter-bar",
+      "type": "composition"
+    },
+    {
+      "from": "table-card",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "table-card",
+      "to": "pagination",
+      "type": "composition"
+    },
+    {
+      "from": "table-card",
+      "to": "pagination",
+      "type": "related"
+    },
+    {
+      "from": "table-card",
+      "to": "table",
+      "type": "related"
+    },
+    {
+      "from": "table-of-contents",
+      "to": "breadcrumb",
+      "type": "related"
+    },
+    {
+      "from": "table-of-contents",
+      "to": "prose",
+      "type": "composition"
+    },
+    {
+      "from": "table-of-contents",
+      "to": "prose",
+      "type": "related"
+    },
+    {
+      "from": "table",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "table",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "tabs",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "tabs",
+      "to": "separator",
+      "type": "related"
+    },
+    {
+      "from": "testimonial",
+      "to": "avatar",
+      "type": "related"
+    },
+    {
+      "from": "testimonial",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "text",
+      "to": "block",
+      "type": "composition"
+    },
+    {
+      "from": "text",
+      "to": "block",
+      "type": "related"
+    },
+    {
+      "from": "text",
+      "to": "heading",
+      "type": "composition"
+    },
+    {
+      "from": "text",
+      "to": "heading",
+      "type": "related"
+    },
+    {
+      "from": "textarea",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "textarea",
+      "to": "label",
+      "type": "composition"
+    },
+    {
+      "from": "textarea",
+      "to": "label",
+      "type": "related"
+    },
+    {
+      "from": "theme-toggle",
+      "to": "app-shell",
+      "type": "related"
+    },
+    {
+      "from": "theme-toggle",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "theme-toggle",
+      "to": "site-header",
+      "type": "composition"
+    },
+    {
+      "from": "theme-toggle",
+      "to": "site-header",
+      "type": "related"
+    },
+    {
+      "from": "time-picker",
+      "to": "date-picker",
+      "type": "composition"
+    },
+    {
+      "from": "time-picker",
+      "to": "date-picker",
+      "type": "related"
+    },
+    {
+      "from": "time-picker",
+      "to": "form-field",
+      "type": "related"
+    },
+    {
+      "from": "time-picker",
+      "to": "input",
+      "type": "related"
+    },
+    {
+      "from": "timeline",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "timeline",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "timeline",
+      "to": "separator",
+      "type": "related"
+    },
+    {
+      "from": "toast",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "toast",
+      "to": "confirmation",
+      "type": "related"
+    },
+    {
+      "from": "tombstone-card",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "tombstone-card",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "tombstone-card",
+      "to": "deal-card",
+      "type": "related"
+    },
+    {
+      "from": "tombstone-card",
+      "to": "entity-card",
+      "type": "related"
+    },
+    {
+      "from": "tool-call",
+      "to": "conversation",
+      "type": "related"
+    },
+    {
+      "from": "tool-call",
+      "to": "message",
+      "type": "composition"
+    },
+    {
+      "from": "tool-call",
+      "to": "message",
+      "type": "related"
+    },
+    {
+      "from": "tool-call",
+      "to": "reasoning",
+      "type": "composition"
+    },
+    {
+      "from": "tool-call",
+      "to": "reasoning",
+      "type": "related"
+    },
+    {
+      "from": "tooltip",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "tooltip",
+      "to": "label",
+      "type": "related"
+    }
+  ]
+}

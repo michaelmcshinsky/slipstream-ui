@@ -49,6 +49,9 @@ pnpm test
 pnpm validate:manifests
 pnpm generate:registry
 pnpm generate:llm-docs
+pnpm test:e2e        # built docs on :3114
+pnpm check:tokens    # no hardcoded palette colors in component source
+pnpm check:release   # site release notes match packages + release.json
 ```
 
 Site audits (production build required):
@@ -56,9 +59,10 @@ Site audits (production build required):
 ```bash
 pnpm --filter slipstream-ui-docs build
 pnpm --filter slipstream-ui-docs start -- -p 3111
-pnpm --filter slipstream-ui-docs audit:a11y -- http://localhost:3111
+pnpm --filter slipstream-ui-docs audit:a11y http://localhost:3111
+pnpm --filter slipstream-ui-docs smoke:routes http://localhost:3111
 pnpm --filter slipstream-ui-docs audit:dark -- http://localhost:3111
-pnpm --filter slipstream-ui-docs audit:perf -- http://localhost:3111
+pnpm --filter slipstream-ui-docs audit:perf http://localhost:3111
 ```
 
 `audit:a11y` runs axe-core over 13 routes in light and dark mode and exits non-zero on WCAG 2.2 A/AA violations. `audit:dark` derives a route from every core and AI manifest plus the docs/marketing routes, forces the `.dark` theme, verifies the theme applied, runs axe, flags large light surfaces, and writes `reports/dark-mode-audit.md` plus per-route screenshots. `audit:perf` reports Lighthouse mobile scores plus LCP/CLS/TBT.
@@ -68,7 +72,7 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 ## Styling and theming
 
 - Tailwind CSS **3.4** with `tooling/tailwind-config`; dark mode via `.dark` and CSS variables
-- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`). Never hardcode palette colors.
+- Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-border`). Never hardcode palette colors. `pnpm check:tokens` enforces this in CI; the only allowlisted exception is the Button `contrast`/`onDark` variant.
 - Status text on a neutral surface uses `text-success` / `text-warning-ink` / `text-info-ink` / `text-destructive`; the solid `-foreground` tokens are only valid on top of their matching fill. `--primary` is tuned to clear 4.5:1 on tinted surfaces.
 - Never set theme variables on `document.documentElement` from a demo/component - scope them to the demo container (see `ThemeShowcase`), or they leak site-wide.
 - Dynamic class names are purged: use literal class maps or inline `style` (see `Grid`/`Drawer` size maps).
@@ -87,17 +91,20 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 
 - Metadata per route (server components export `metadata`; client pages get a one-line layout)
 - Component pages pair `page.tsx` + `demo.tsx`; keep them in sync with the manifest
+- Articles live in `apps/docs/content/articles/*.md` with metadata in `articles.json`; the `/articles` routes, sitemap, footer link, search entries and llms.txt list are generated from that pair. Keep the metadata title identical to the markdown H1 (a unit test enforces it).
 - Site config (contact email/address) lives in `apps/docs/lib/site.ts`
 - Analytics is consent-gated: GA4 (`GA_MEASUREMENT_ID` in `lib/analytics.ts`, overridable per environment with `NEXT_PUBLIC_GA_MEASUREMENT_ID`), or a Plausible-style script via `NEXT_PUBLIC_ANALYTICS_SRC`; never load before consent
 - Search-engine verification: Bing (`msvalidate.01` meta in `app/layout.tsx` plus `app/BingSiteAuth.xml`); IndexNow key at `public/<key>.txt`, and the docs deploy submits the sitemap to IndexNow (`pnpm submit:indexnow`)
 
 ## MCP server
 
-`packages/mcp-server` exposes: `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage`. Keep tool schemas and manifests consistent.
+`packages/mcp-server` exposes: `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage`. Keep tool schemas and manifests consistent.
 
 ## Releases
 
 Changesets with a linked `core`/`ai`/`themes` group. Add a changeset for any published-package change; CI publishes on version commits with provenance.
+
+Release metadata lives in `/release.json` (`releaseDate`, schema/manifest versions). Bump `releaseDate` there when cutting a release; `pnpm check:counts` and `scripts/check-manifest-versions.ts` fail if `llms.txt`, the registry, the LLM index, the README stats, or `packages/mcp-server/server.json` disagree with the packages.
 
 ## Priority order
 
@@ -105,3 +112,5 @@ Changesets with a linked `core`/`ai`/`themes` group. Add a changeset for any pub
 2. Maintainability and readability
 3. Performance
 4. Convention
+
+

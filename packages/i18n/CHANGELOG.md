@@ -1,5 +1,22 @@
 # @slipstream-ui/i18n
 
+## 0.5.0
+
+### Minor Changes
+
+- [#121](https://github.com/michaelmcshinsky/slipstream-ui/pull/121) [`f1d340c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f1d340c960e93c452a59dbe63a53ca35102c4fae) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - feat(i18n): localize the marketing lab, chat demo and docs shell
+  
+  `Stepper` accepts `labels` (`completed`, `current`, `upcoming`) so the
+  screen-reader state suffix is no longer English-only. `DataTable` accepts
+  `selectedLabel` (`{count} selected` by default) for the selection summary
+  above the table. `Conversation` accepts `userLabel`, `assistantLabel` and
+  `labels` (`transcript`, `responseComplete`, `loadEarlier`, `loadingEarlier`,
+  `latest`, `download`) and forwards the role labels to each `Message`.
+  
+  The docs shell gained a `site.translation` message group used by the
+  "this page is English only for now" notice, and `LocaleSwitcher` now uses
+  logical padding and inset so the caret stays on the trailing side in RTL.
+
 ## 0.4.0
 
 ### Minor Changes

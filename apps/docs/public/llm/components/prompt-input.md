@@ -2,9 +2,12 @@
 
 A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button
 
+> Component ID: `prompt-input`
 > Import: `import { PromptInput } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/prompt-input
 > Registry: https://slipstreamui.com/registry/prompt-input.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

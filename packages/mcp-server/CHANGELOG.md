@@ -1,5 +1,20 @@
 # @slipstream-ui/mcp-server
 
+## 0.5.0
+
+### Minor Changes
+
+- feat(mcp): add recommend_components and unnamed icon-button validation
+  
+  `recommend_components` turns a goal ("chat UI", "filterable table", "settings
+  form", "agent dashboard") into a coherent component set with a reason and docs
+  URL for each id. The same 14 recipes publish as
+  `/registry/recommendations.json` for agents that do not use MCP.
+  
+  `validate_usage` now requires an accessible name on `size="icon"` controls
+  (`aria-label`, `aria-labelledby`, `title`, nested alt text, text or expression
+  children) and returns a concrete fix. Empty labels still fail.
+
 ## 0.4.0
 
 ### Minor Changes

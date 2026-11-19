@@ -39,7 +39,8 @@ export function resolveComponentsDir(projectRoot: string): ResolvedComponentsDir
     config = fs.readJsonSync(configPath) as SlipstreamConfig;
   } catch (error) {
     throw new Error(
-      `Could not parse ${path.basename(configPath)}: ${error instanceof Error ? error.message : String(error)}`
+      `Could not parse ${path.basename(configPath)}: ${error instanceof Error ? error.message : String(error)}`,
+      { cause: error }
     );
   }
 

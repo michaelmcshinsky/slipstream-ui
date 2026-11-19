@@ -2,9 +2,12 @@
 
 Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 
+> Component ID: `input-group`
 > Import: `import { InputGroup } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/input-group
 > Registry: https://slipstreamui.com/registry/input-group.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

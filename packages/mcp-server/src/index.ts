@@ -9,11 +9,15 @@ import { getComponentManifestTool } from './tools/get-manifest';
 import { getUsageExamplesTool } from './tools/get-usage-examples';
 import { validateUsageTool } from './tools/validate-usage';
 import { searchComponentsTool } from './tools/search-components';
+import { recommendComponentsTool } from './tools/recommend-components';
+import packageJson from '../package.json';
 
 const server = new Server(
   {
     name: 'slipstream-ui-mcp-server',
-    version: '0.0.1',
+    // Read from the package manifest so the advertised server version cannot
+    // drift from the published package.
+    version: packageJson.version,
   },
   {
     capabilities: {
@@ -31,6 +35,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       getUsageExamplesTool.definition,
       validateUsageTool.definition,
       searchComponentsTool.definition,
+      recommendComponentsTool.definition,
     ],
   };
 });
@@ -50,6 +55,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return await getUsageExamplesTool.handler(args);
       case 'search_components':
         return await searchComponentsTool.handler(args);
+      case 'recommend_components':
+        return await recommendComponentsTool.handler(args);
       default:
         throw new Error(`Unknown tool: ${name}`);
     }

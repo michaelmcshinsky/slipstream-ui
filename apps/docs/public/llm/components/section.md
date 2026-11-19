@@ -2,9 +2,12 @@
 
 Full-width page section with a surface tone, vertical rhythm and an optional centered container.
 
+> Component ID: `section`
 > Import: `import { Section } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/section
 > Registry: https://slipstreamui.com/registry/section.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

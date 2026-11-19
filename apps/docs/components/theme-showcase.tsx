@@ -43,7 +43,7 @@ function applyThemeToElement(element: HTMLElement, theme: Theme) {
 /**
  * Live theme showcase: switch between the shipped presets and watch real
  * components re-theme instantly via CSS variables. Each preset has a light
- * and dark variant; the correct one is applied based on the `.dark` class.
+ * and dark variant; the correct one is applied based on the `.dark` class on <html>.
  *
  * Variables are set on this component's subtree, never on `:root`: a demo
  * must not leak its palette (and its contrast values) into the whole site or
@@ -54,12 +54,12 @@ export function ThemeShowcase() {
   const [isDark, setIsDark] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Sync with the `.dark` class on <html>, set by the navbar toggle / pre-paint script.
+  // Sync with the `.dark` class toggled by the navbar / pre-paint script.
   useEffect(() => {
-    const el = document.documentElement;
-    setIsDark(el.classList.contains('dark'));
-    const observer = new MutationObserver(() => setIsDark(el.classList.contains('dark')));
-    observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    const read = () => setIsDark(document.documentElement.classList.contains('dark'));
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
   }, []);
 

@@ -137,6 +137,13 @@ export const ja = {
     backHome: "ホームに戻る",
     lastUpdated: "最終更新: {date}",
     loading: "ページを読み込み中…",
+    translation: {
+      title: "このページは現在英語のみです",
+      body: "ナビゲーション、検索、インターフェースは翻訳済みですが、ドキュメント本文は翻訳中です。",
+      help: "翻訳に協力する",
+      issueTitle: "ドキュメントの{locale}翻訳",
+      issueBody: "ページ: {url}\n\n言語: {locale}\n\n翻訳や修正が必要な箇所はどこですか？\n",
+    },
     footer: {
       tagline: "AI ファーストの React コンポーネントライブラリ。AI はコードではなく仕様を読みます。",
       docs: "ドキュメント",
@@ -162,6 +169,7 @@ export const ja = {
       terms: "利用規約",
       copyright: "© {year} Slipstream UI · MIT ライセンス",
       builtStateless: "ステートレス設計 — データフローはあなたが所有します。",
+      helpTranslate: "翻訳に協力する",
     },
     search: {
       dialogLabel: "ドキュメントを検索",
@@ -232,18 +240,7 @@ export const ja = {
       decline: "拒否",
       accept: "すべて許可",
     },
-    thankYou: {
-    title: "メッセージを受け取りました",
-    description: "ご連絡ありがとうございます。すべてのメッセージを読み、2 営業日以内に返信します。",
-    nextHeading: "次に起こること",
-    step1: "到達可能なアドレスを記載いただいた場合、メールで受領を確認します。",
-    step2: "バグ報告は GitHub でトリアージし、機能要望はロードマップの議論に追加します。",
-    step3: "詳細が必要な場合は、メッセージに直接返信します。",
-    readDocs: "ドキュメントを読む",
-    browse: "コンポーネントを見る",
-    backHome: "ホームに戻る",
-    },
-    notFound: {
+        notFound: {
       title: "このページは虚空へストリーミングされました",
       description: "リクエストされたページは存在しません。コンポーネントと違い、それを宣言するマニフェストもありませんでした。",
       home: "ホームに戻る",
@@ -271,6 +268,7 @@ export const ja = {
     billing: '請求',
     team: 'チーム',
     settings: '設定',
+    newsletter: 'ニュースレター',
     licenses: 'ライセンス',
     admin: '管理者',
     signOut: 'サインアウト',

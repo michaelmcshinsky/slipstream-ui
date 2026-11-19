@@ -2,9 +2,12 @@
 
 Collapsible content sections with ARIA accordion semantics and keyboard navigation
 
+> Component ID: `accordion`
 > Import: `import { Accordion } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/accordion
 > Registry: https://slipstreamui.com/registry/accordion.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -39,7 +42,7 @@ Single-open accordion for FAQs
   </AccordionItem>
   <AccordionItem id="b">
     <AccordionTrigger>How do I install?</AccordionTrigger>
-    <AccordionContent>Run npx slipstream-ui init.</AccordionContent>
+    <AccordionContent>Run npx @slipstream-ui/cli@latest init.</AccordionContent>
   </AccordionItem>
 </Accordion>
 ```

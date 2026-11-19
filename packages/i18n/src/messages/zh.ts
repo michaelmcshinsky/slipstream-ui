@@ -137,6 +137,13 @@ export const zh = {
     backHome: "返回首页",
     lastUpdated: "最后更新：{date}",
     loading: "正在加载页面…",
+    translation: {
+      title: "此页面目前仅提供英文版本",
+      body: "导航、搜索和界面已翻译，文档正文仍在翻译中。",
+      help: "帮助翻译",
+      issueTitle: "将文档翻译为{locale}",
+      issueBody: "页面：{url}\n\n语言：{locale}\n\n需要翻译或修正哪些内容？\n",
+    },
     footer: {
       tagline: "AI 优先的 React 组件库。你的 AI 读取规范，而不是源码。",
       docs: "文档",
@@ -162,6 +169,7 @@ export const zh = {
       terms: "条款",
       copyright: "© {year} Slipstream UI · MIT 许可证",
       builtStateless: "无状态构建 —— 数据流由你掌控。",
+      helpTranslate: "帮助翻译",
     },
     search: {
       dialogLabel: "搜索文档",
@@ -232,18 +240,7 @@ export const zh = {
       decline: "拒绝",
       accept: "全部接受",
     },
-    thankYou: {
-    title: "已收到消息",
-    description: "感谢联系 —— 我们会阅读每一条消息，并在两个工作日内回复。",
-    nextHeading: "接下来会发生什么",
-    step1: "如果你提供了可送达的地址，我们会通过电子邮件确认收到。",
-    step2: "错误报告会在 GitHub 上分诊；功能建议会加入路线图讨论。",
-    step3: "如果我们需要更多细节，会直接回复你的消息。",
-    readDocs: "阅读文档",
-    browse: "浏览组件",
-    backHome: "返回首页",
-    },
-    notFound: {
+        notFound: {
       title: "此页面已流入虚空",
       description: "你请求的页面不存在 —— 与我们的组件不同，它从未发布过声明这一点的清单。",
       home: "返回首页",
@@ -271,6 +268,7 @@ export const zh = {
     billing: '账单',
     team: '团队',
     settings: '设置',
+    newsletter: '新闻通讯',
     licenses: '许可证',
     admin: '管理',
     signOut: '退出登录',

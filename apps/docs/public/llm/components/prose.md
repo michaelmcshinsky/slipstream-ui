@@ -2,9 +2,12 @@
 
 Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 
+> Component ID: `prose`
 > Import: `import { Prose } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/prose
 > Registry: https://slipstreamui.com/registry/prose.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

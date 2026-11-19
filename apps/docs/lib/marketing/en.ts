@@ -19,7 +19,7 @@ export const en: MarketingCopy = {
     promptPlaceholder: 'Try me…',
     send: 'Send',
     agentStripLabel: 'Speaks fluently to',
-    stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'hallucinated props allowed'],
+    stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'false positives on valid usage'],
     featuresHeading: 'Built for the way software is written now',
     featuresIntro:
       'Half your UI is written by models. Slipstream gives them something better than docs scraped from training data: a spec they can query, and a guardrail they can self-check against.',
@@ -117,6 +117,71 @@ export const en: MarketingCopy = {
         body: 'When you need a battle-tested chat runtime: streaming, tools, and generative UI as the core product.',
       },
     ],
+    comparisonRows: [
+      {
+        slipstream: 'npm packages (ESM + CJS)',
+        shadcn: 'copy-in source via CLI',
+        assistantUi: 'npm packages',
+        mui: 'npm packages',
+      },
+      {
+        slipstream: '{componentCount} ({coreComponentCount} UI + {aiComponentCount} AI)',
+        shadcn: 'UI primitives + AI Elements',
+        assistantUi: 'Chat surface + primitives',
+        mui: 'Broad UI set, no chat',
+      },
+      {
+        slipstream: 'Yes — props, a11y, anti-patterns',
+        shadcn: 'Partial — registry.json (files, deps)',
+        assistantUi: 'No',
+        mui: 'No',
+      },
+      {
+        slipstream: 'Yes — 6 tools incl. validate_usage',
+        shadcn: 'Partial — browse/search/install',
+        assistantUi: 'No',
+        mui: 'Partial — agent skills',
+      },
+      { slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
+      { slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
+      {
+        slipstream: 'Yes — /llm/*.md',
+        shadcn: 'Partial — MDX in repo',
+        assistantUi: 'Yes — .md pages',
+        mui: 'No',
+      },
+      {
+        slipstream: 'Yes — {aiComponentCount} built-in',
+        shadcn: 'Yes — AI Elements (separate)',
+        assistantUi: 'Yes — core focus',
+        mui: 'No',
+      },
+      {
+        slipstream: 'Stateless — bring your own',
+        shadcn: 'Components only',
+        assistantUi: 'Runtime adapters (AI SDK, LangGraph, custom)',
+        mui: 'n/a — no chat components',
+      },
+      {
+        slipstream: 'Tailwind + CSS variables',
+        shadcn: 'Tailwind + CSS variables',
+        assistantUi: 'Tailwind',
+        mui: 'Emotion + theme object',
+      },
+      {
+        slipstream: '4 (Default, Dark, Violet, Zinc)',
+        shadcn: 'CSS-variable themes',
+        assistantUi: 'CSS variables',
+        mui: 'theme object',
+      },
+      {
+        slipstream: 'react, react-dom',
+        shadcn: 'react',
+        assistantUi: 'react',
+        mui: 'react, @emotion/react, @emotion/styled',
+      },
+      { slipstream: 'MIT', shadcn: 'MIT', assistantUi: 'MIT', mui: 'MIT' },
+    ],
     templatesHeading: 'Start from a template',
     templatesIntro: 'Complete, copy-paste patterns built entirely from Slipstream components.',
     browseTemplates: 'Browse all templates →',
@@ -127,7 +192,7 @@ export const en: MarketingCopy = {
     ],
     agentPathTitle: 'For agent builders →',
     agentPathBody:
-      'Wire the MCP server into Claude Code or Cursor, run validate_usage before emit, or serve llms.txt and markdown routes — five tools, three consumption paths.',
+      'Wire the MCP server into Claude Code or Cursor, run validate_usage before emit, or serve llms.txt and markdown routes — six tools, three consumption paths.',
     productPathTitle: 'For product teams →',
     productPathBody:
       'Ship the production chat surface — streaming markdown, stop-generation, citations, approvals — with stateless components, jest-axe coverage, and your own backend.',
@@ -135,6 +200,105 @@ export const en: MarketingCopy = {
     ctaBody:
       '{componentCount} components · {componentCount} machine-readable specs · validate generated usage before it ships.',
     startBuilding: 'Start building',
+    demo: {
+      you: 'You',
+      assistant: 'Assistant',
+      initialMessage: 'What makes Slipstream UI different?',
+      reply: `Slipstream UI ships **{componentCount} production-ready components** ({coreComponentCount} core + {aiComponentCount} AI), each with a machine-readable \`COMPONENT_MANIFEST\`.
+
+The live lab on this page runs the real library: DataTable selection + pagination, MetricCard, SelectMenu, InputGroup, ButtonGroup, ConfirmDialog, Drawer, imperative toasts and the Stepper.
+
+Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`,
+      anyMcpClient: 'Any MCP client',
+      transcriptLabel: 'Conversation transcript',
+      responseComplete: 'Response complete.',
+    },
+    lab: {
+      eyebrow: 'Live demo',
+      title: 'The framework, running on this page',
+      description:
+        'No screenshots. Every control below is a Slipstream component — selection, pagination, menus, overlays, toasts and wizards included.',
+      footer:
+        'Every component ships a COMPONENT_MANIFEST, tests and a live docs page — this lab is the same library your agent queries over MCP.',
+      tabs: { data: 'Data', forms: 'Forms', overlays: 'Overlays', flow: 'Flow' },
+      data: {
+        caption: 'Automation runs',
+        activeRuns: 'Active runs',
+        thisWeek: 'this week',
+        selected: 'Selected',
+        selectedOne: '{count} selected',
+        selectedOther: '{count} selected',
+        useTheCheckboxes: 'use the checkboxes',
+        successRate: 'Success rate',
+        vsLastWeek: 'vs last week',
+        columns: { workflow: 'Workflow', status: 'Status', owner: 'Owner', seats: 'Seats' },
+        runs: {
+          onboardingEmails: 'Onboarding emails',
+          invoiceSync: 'Invoice sync',
+          churnScoring: 'Churn scoring',
+          weeklyDigest: 'Weekly digest',
+          leadEnrichment: 'Lead enrichment',
+          accessReview: 'Access review',
+        },
+        statuses: { success: 'success', warning: 'warning', info: 'info' },
+        archive: 'Archive',
+        clear: 'Clear',
+        archivedOne: '{count} run archived',
+        archivedOther: '{count} runs archived',
+      },
+      forms: {
+        selectMenuCaption: 'SelectMenu — rich options, groups',
+        inputGroupCaption: 'InputGroup — flush addons',
+        buttonGroupCaption: 'ButtonGroup — joined segments',
+        planLabel: 'Plan',
+        domainLabel: 'Site domain',
+        viewModeLabel: 'View mode',
+        views: { list: 'List', board: 'Board', calendar: 'Calendar' },
+        plans: {
+          free: { label: 'Free', description: '1 project, community support' },
+          pro: { label: 'Pro', description: 'Unlimited projects, priority support' },
+          team: { label: 'Team', description: 'SSO, audit log, shared billing' },
+        },
+        planGroups: { individual: 'Individual', business: 'Business' },
+        summary: 'plan: {plan} · view: {view} · domain: {domain}',
+      },
+      overlays: {
+        deleteProject: 'Delete project…',
+        openDrawer: 'Open drawer',
+        description:
+          'ConfirmDialog handles focus trap, Escape and an async pending state; toasts are imperative (toast.success()) and stack above every overlay.',
+        confirmTitle: 'Delete project?',
+        confirmDescription: 'This permanently removes the project and its runs. This cannot be undone.',
+        confirm: 'Delete',
+        deleted: 'Project deleted',
+        savedTitle: 'Saved',
+        savedBody: 'Your changes are live',
+        rateLimitedTitle: 'Rate limited',
+        rateLimitedBody: 'Retrying in 3s',
+        headsUpTitle: 'Heads up',
+        headsUpBody: 'New version available',
+        drawerTitle: 'Filter runs',
+        drawerDescription: 'Drawer with a form, Escape and backdrop dismissal.',
+        noteLabel: 'Note',
+        notePlaceholder: 'Only failed runs, last 24h…',
+        apply: 'Apply',
+        applied: 'Filter applied',
+        noNote: 'No note added',
+      },
+      flow: {
+        steps: {
+          basics: { label: 'Basics', description: 'Name and owner' },
+          access: { label: 'Access', description: 'Roles and SSO' },
+          billing: { label: 'Billing', description: 'Plan and seats' },
+          review: { label: 'Review' },
+        },
+        summary: 'Step {current} of {total} — {label}',
+        descriptionSuffix: ' ({description})',
+        back: 'Back',
+        next: 'Next',
+        states: { completed: ' (completed)', current: ' (current step)', upcoming: ' (upcoming)' },
+      },
+    },
   },
   about: {
     title: 'About Slipstream UI',
@@ -200,18 +364,28 @@ export const en: MarketingCopy = {
   },
   contact: {
     title: 'Contact',
-    description: 'Reach the maintainers by email, GitHub, or the form below.',
-    emailHeading: 'Email',
-    issuesHeading: 'Issues & discussions',
-    issuesBody: 'Bugs and feature requests are best filed on [GitHub]({repo}/issues).',
+    description: 'Reach the maintainers on GitHub — bug reports, questions, and security reports each have a dedicated channel.',
+    channels: [
+      {
+        heading: 'Bug reports',
+        body: 'Something broken or behaving unexpectedly? [Open an issue]({repo}/issues/new) with the page, the assistive technology or agent you used, and what you expected.',
+        ctaLabel: 'Open an issue',
+        ctaHref: '{repo}/issues/new',
+      },
+      {
+        heading: 'Questions & ideas',
+        body: 'Usage questions, feature ideas, and "does this exist?" all belong in [GitHub Discussions]({repo}/discussions).',
+        ctaLabel: 'Start a discussion',
+        ctaHref: '{repo}/discussions',
+      },
+      {
+        heading: 'Security',
+        body: 'Please do not file security vulnerabilities publicly. Follow the [security policy]({repo}/blob/main/SECURITY.md) for private reporting.',
+        ctaLabel: 'Read SECURITY.md',
+        ctaHref: '{repo}/blob/main/SECURITY.md',
+      },
+    ],
     addressHeading: 'Postal address',
-    formHeading: 'Send a message',
-    nameLabel: 'Name',
-    emailLabel: 'Email',
-    messageLabel: 'Message',
-    send: 'Send message',
-    privacyNote: 'We use your message only to reply. See the privacy policy for details.',
-    honeypotLabel: "Don't fill this out:",
   },
   accessibility: {
     title: 'Accessibility statement',
@@ -272,6 +446,23 @@ export const en: MarketingCopy = {
         ],
       },
       {
+        heading: 'Component coverage',
+        blocks: [
+          {
+            type: 'p',
+            text: 'All {componentCount} components ship a jest-axe assertion and an accessibility section in their COMPONENT_MANIFEST. Interactive components also have keyboard and focus tests.',
+          },
+          {
+            type: 'ul',
+            items: [
+              '**Automated:** axe rules per component, light and dark route audits, keyboard interaction tests, reduced-motion variants, and role/state assertions.',
+              '**In progress:** manual screen-reader task passes (NVDA, VoiceOver), 400% zoom, and RTL reading order with translated content.',
+              '**Not claimed:** conformance for every composition a consumer builds. Passing component tests is not the same as a conforming product.',
+            ],
+          },
+        ],
+      },
+      {
         heading: 'Known limitations',
         blocks: [
           {
@@ -312,7 +503,7 @@ export const en: MarketingCopy = {
               '`slipstream-consent` — your cookie choice, so we do not ask again.',
             ],
           },
-          { type: 'p', text: 'Neither value is sent to a server. Clearing site data resets both.' },
+          { type: 'p', text: 'Neither value is sent to a server. You can reset both from [Privacy preferences](#preferences).' },
         ],
       },
       {
@@ -324,7 +515,7 @@ export const en: MarketingCopy = {
           },
           {
             type: 'p',
-            text: 'We never load advertising, retargeting, or session-replay scripts. You can withdraw consent at any time by clearing this site data in your browser - that also removes the `_ga` cookies - and the banner will appear again on your next visit.',
+            text: 'We never load advertising, retargeting, or session-replay scripts. You can change or withdraw consent at any time in [Privacy preferences](#preferences); resetting removes the `_ga` cookies and the banner appears again on your next visit.',
           },
         ],
       },
@@ -343,6 +534,10 @@ export const en: MarketingCopy = {
           {
             type: 'p',
             text: 'The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No cookies are set by that request. The only other third-party resource is the Google Analytics tag described above, and it loads only after you accept analytics.',
+          },
+          {
+            type: 'p',
+            text: 'Processors and their purpose: Netlify (hosting, request logs and contact forms), Google (analytics, only with consent), GitHub (public repository data and the star count), and npm (package distribution and download counts).',
           },
         ],
       },
@@ -416,6 +611,37 @@ export const en: MarketingCopy = {
           {
             type: 'p',
             text: 'The site, documentation, manifests, MCP tooling and packages are provided **as is**, without warranty of any kind, express or implied, including fitness for a particular purpose. You are responsible for reviewing generated code and for your own product decisions.',
+          },
+        ],
+      },
+      {
+        heading: 'Generated code and validation',
+        blocks: [
+          {
+            type: 'ul',
+            items: [
+              '`validate_usage` checks the props, required props and documented composition rules in a component manifest. It does not prove runtime behaviour, visual correctness, security or functional completeness.',
+              'Automated accessibility checks are evidence of coverage, not a WCAG conformance certification. Manual testing in your own product remains your responsibility.',
+              'You are responsible for reviewing, testing and securing any code you or an agent generate, including code generated with Slipstream UI manifests or MCP tools.',
+            ],
+          },
+        ],
+      },
+      {
+        heading: 'Trademarks and brand',
+        blocks: [
+          {
+            type: 'p',
+            text: 'The MIT license covers the source code. It does not grant rights to the Slipstream UI name, logo or other brand identifiers. Forked or modified distributions must not imply endorsement by the project.',
+          },
+        ],
+      },
+      {
+        heading: 'Security',
+        blocks: [
+          {
+            type: 'p',
+            text: 'Report vulnerabilities privately through the process in [SECURITY.md]({repo}/blob/main/SECURITY.md) or GitHub security advisories. Please do not open a public issue for an unfixed vulnerability.',
           },
         ],
       },

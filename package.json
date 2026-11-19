@@ -12,7 +12,11 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "test": "turbo run test --concurrency=2",
-    "validate:manifests": "tsx scripts/validate-manifests.ts && tsx scripts/check-manifest-sync.ts && tsx scripts/check-manifest-versions.ts && tsx scripts/check-component-counts.ts",
+    "validate:manifests": "tsx scripts/validate-manifests.ts && tsx scripts/check-manifest-sync.ts && tsx scripts/check-manifest-versions.ts && tsx scripts/check-component-counts.ts && tsx scripts/check-token-compliance.ts && tsx scripts/check-release-readiness.ts && tsx scripts/check-docs-manifest-links.ts",
+    "check:tokens": "tsx scripts/check-token-compliance.ts",
+    "check:release": "tsx scripts/check-release-readiness.ts",
+    "check:docs-links": "tsx scripts/check-docs-manifest-links.ts",
+    "check:audit": "tsx scripts/check-audit.ts",
     "stamp:manifests": "tsx scripts/stamp-manifest-versions.ts",
     "check:counts": "tsx scripts/check-component-counts.ts",
     "report:manifests": "tsx scripts/report-manifest-gaps.ts",
@@ -31,18 +35,25 @@
     "test:starter": "pnpm --filter @slipstream-ui/core exec vitest run --config ../../apps/starters/ai-chat/vitest.config.ts",
     "dev:starter": "pnpm --filter slipstream-ai-chat-starter dev",
     "changeset": "changeset",
-    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts && tsx scripts/generate-registry.ts && tsx scripts/generate-llm-docs.ts",
+    "version-packages": "changeset version && tsx scripts/stamp-manifest-versions.ts && tsx scripts/generate-registry.ts && tsx scripts/generate-llm-docs.ts && tsx scripts/check-release-readiness.ts --warn",
     "release": "turbo run build && node scripts/publish.cjs",
     "deploy:docs": "pnpm --filter slipstream-ui-docs deploy",
     "submit:indexnow": "tsx scripts/submit-indexnow.ts",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "generate:llm-docs": "tsx scripts/generate-llm-docs.ts",
     "audit:packages": "tsx scripts/audit-packages.ts",
-    "test:packaged-styles": "node scripts/test-packaged-styles.mjs"
+    "test:packaged-styles": "node scripts/test-packaged-styles.mjs",
+    "test:visual": "playwright test --config playwright.visual.config.ts",
+    "test:visual:update": "playwright test --config playwright.visual.config.ts --update-snapshots",
+    "test:e2e": "playwright test --config playwright.e2e.config.ts",
+    "test:e2e:report": "playwright show-report",
+    "generate:article-content": "tsx scripts/generate-article-content.ts",
+    "generate:a11y-scorecard": "tsx scripts/generate-a11y-scorecard.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
+    "@playwright/test": "1.65.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -132,7 +143,12 @@
       "@modelcontextprotocol/sdk@>=1.10.0 <1.30.1": ">=1.30.1",
       "@hono/node-server@>=1.19.10 <2.1.3": ">=2.1.3",
       "qs@>=6.7.0 <=6.16.0": ">=6.16.1",
+      "next@>=16.3.0 <16.4.6": ">=16.4.6",
+      "hono@<4.13.16": ">=4.13.16",
+      "@hono/node-server@>=2.0.0 <2.1.6": ">=2.1.6",
+      "glob@>=9.0.0 <14.0.2": ">=14.0.3",
       "@types/node": "^22.0.0"
     }
   }
 }
+

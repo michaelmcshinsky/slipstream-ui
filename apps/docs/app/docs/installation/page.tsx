@@ -7,7 +7,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/installation', {
   title: 'Installation',
   description:
-    'Install Slipstream UI via pnpm packages, the npx slipstream-ui CLI, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
+    'Install Slipstream UI via pnpm packages, the @slipstream-ui/cli command, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
 });
 
 export default function InstallationPage() {
@@ -368,10 +368,19 @@ export default defineConfig({
 
 @layer base {
   :root {
+    color-scheme: light dark;
     /* ... CSS variables from step 3 ... */
   }
-  .dark {
+
+  /* Map <meta name="color-scheme"> to CSS color-scheme property */
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
     color-scheme: dark;
+  }
+  :root:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  .dark {
     /* ... dark CSS variables ... */
   }
 }`} />
@@ -379,18 +388,25 @@ export default defineConfig({
 import './globals.css';
 
 // Pre-paint theme script (avoids flash of wrong theme)
+// Updates <meta name="color-scheme"> to sync with localStorage override.
 const THEME_INIT = \`
 try {
   const stored = localStorage.getItem('slipstream-theme');
+  const meta = document.querySelector('meta[name="color-scheme"]');
   if (stored === 'dark' || (!stored && matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
+    meta.content = 'dark';
+  } else if (stored === 'light') {
+    meta.content = 'light';
   }
 } catch {}\`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: THEME_INIT }} /></head>
+      <head>
+        <meta name="color-scheme" content="light dark" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>{children}</body>
     </html>
   );

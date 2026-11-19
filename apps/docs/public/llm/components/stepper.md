@@ -2,9 +2,12 @@
 
 Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 
+> Component ID: `stepper`
 > Import: `import { Stepper } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/stepper
 > Registry: https://slipstreamui.com/registry/stepper.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -22,6 +25,7 @@ Wizards need orientation: where am I, what is done, what is next. A stepper buil
 | labelPlacement | `'inline' | 'below'` | `inline` | no | Horizontal only: place the label beside the marker or beneath it. |
 | alignTitles | `'start' | 'center'` | `center` | no | Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned. |
 | onStepClick | `(index: number) => void` | — | no | Makes steps clickable (for revisit flows). |
+| labels | `{ completed?: string; current?: string; upcoming?: string }` | — | no | Screen-reader state suffixes for each step. Default to the English " (completed)", " (current step)" and " (upcoming)". |
 
 ## Examples
 

@@ -2,9 +2,12 @@
 
 Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 
+> Component ID: `toast`
 > Import: `import { ToastProvider } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/toast
 > Registry: https://slipstreamui.com/registry/toast.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

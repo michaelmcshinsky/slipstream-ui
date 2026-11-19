@@ -2,9 +2,12 @@
 
 Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 
+> Component ID: `hero`
 > Import: `import { Hero } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/hero
 > Registry: https://slipstreamui.com/registry/hero.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

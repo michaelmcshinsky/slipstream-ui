@@ -2,9 +2,12 @@
 
 Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 
+> Component ID: `form`
 > Import: `import { Form } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form
 > Registry: https://slipstreamui.com/registry/form.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

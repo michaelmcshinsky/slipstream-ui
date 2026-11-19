@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import HomePage from '@/components/site/home-page';
 import { JsonLd } from '@/components/site/json-ld';
-import { softwareApplicationSchema } from '@/lib/structured-data';
+import { faqSchema, softwareApplicationSchema } from '@/lib/structured-data';
+import { HOME_EXTRAS } from '@/lib/marketing/home-extras';
 import { withSeo } from '@/lib/seo';
 import { getServerLocale } from '@/lib/i18n-server';
 import { getMarketingCopy } from '@/lib/marketing';
@@ -21,6 +22,7 @@ export default async function Page() {
   return (
     <>
       <JsonLd data={softwareApplicationSchema()} />
+      <JsonLd data={faqSchema(HOME_EXTRAS.faq.items)} />
       <HomePage copy={copy} />
     </>
   );

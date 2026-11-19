@@ -171,6 +171,24 @@
       "enum": ["auto", "none", "card", "muted", "primary"]
     },
     {
+      "name": "userLabel",
+      "type": "string",
+      "required": false,
+      "description": "Display name for the user role; override for localization"
+    },
+    {
+      "name": "assistantLabel",
+      "type": "string",
+      "required": false,
+      "description": "Display name for the assistant role; override for localization"
+    },
+    {
+      "name": "labels",
+      "type": "{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }",
+      "required": false,
+      "description": "Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label"
+    },
+    {
       "name": "hasMoreHistory",
       "type": "boolean",
       "required": false,
@@ -300,7 +318,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.8.0",
+  "version": "0.9.1",
   "sourceDir": "conversation",
   "exportName": "Conversation"
 }

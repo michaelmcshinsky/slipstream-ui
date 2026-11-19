@@ -2,9 +2,12 @@
 
 Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 
+> Component ID: `testimonial`
 > Import: `import { Testimonial } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/testimonial
 > Registry: https://slipstreamui.com/registry/testimonial.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

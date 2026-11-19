@@ -2,9 +2,12 @@
 
 A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 
+> Component ID: `checkbox`
 > Import: `import { Checkbox } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/checkbox
 > Registry: https://slipstreamui.com/registry/checkbox.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

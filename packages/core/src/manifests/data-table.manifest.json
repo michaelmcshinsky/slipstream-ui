@@ -173,6 +173,13 @@
       "description": "Accessible label for the select-all checkbox."
     },
     {
+      "name": "selectedLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "'{count} selected'",
+      "description": "Selection summary shown above the table while rows are selected. `{count}` is replaced with the selection size."
+    },
+    {
       "name": "className",
       "type": "string",
       "required": false,
@@ -315,7 +322,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "sourceDir": "data-table",
   "exportName": "DataTable"
 }

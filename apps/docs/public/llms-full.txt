@@ -1,14 +1,22 @@
 # Slipstream UI — LLM Documentation Index
 
-The AI-first React component library. 112 components, each shipping a
+> Version: 0.9.0 (2026-11-17) · manifest schema v1 · manifest v1
+> 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
+> Relationship graph: https://slipstreamui.com/registry/graph.json
+> Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
+> Install: `npx @slipstream-ui/cli@latest init`
+
+The AI-first React component library. 113 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
+- Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 95
+## Core components (@slipstream-ui/core) — 96
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -57,6 +65,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Grid / GridItem](https://slipstreamui.com/llm/components/grid.md) — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - [Heading](https://slipstreamui.com/llm/components/heading.md) — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - [Hero](https://slipstreamui.com/llm/components/hero.md) — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- [Image](https://slipstreamui.com/llm/components/image.md) — A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
 - [Input](https://slipstreamui.com/llm/components/input.md) — A text input field with support for various input types and standard HTML input attributes
 - [InputGroup](https://slipstreamui.com/llm/components/input-group.md) — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - [Label](https://slipstreamui.com/llm/components/label.md) — An accessible form label that associates with its control
@@ -152,9 +161,12 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 
 Collapsible content sections with ARIA accordion semantics and keyboard navigation
 
+> Component ID: `accordion`
 > Import: `import { Accordion } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/accordion
 > Registry: https://slipstreamui.com/registry/accordion.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -189,7 +201,7 @@ Single-open accordion for FAQs
   </AccordionItem>
   <AccordionItem id="b">
     <AccordionTrigger>How do I install?</AccordionTrigger>
-    <AccordionContent>Run npx slipstream-ui init.</AccordionContent>
+    <AccordionContent>Run npx @slipstream-ui/cli@latest init.</AccordionContent>
   </AccordionItem>
 </Accordion>
 ```
@@ -219,9 +231,12 @@ Single-open accordion for FAQs
 
 Inline alert for status messages with semantic variants (destructive, success, warning, info)
 
+> Component ID: `alert`
 > Import: `import { Alert } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/alert
 > Registry: https://slipstreamui.com/registry/alert.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -284,9 +299,12 @@ Confirmation of a completed action
 
 Dismissible announcement bar with optional action, tone and sticky positioning.
 
+> Component ID: `announcement-bar`
 > Import: `import { AnnouncementBar } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/announcement-bar
 > Registry: https://slipstreamui.com/registry/announcement-bar.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -344,9 +362,12 @@ A branded announcement with a link and dismissal.
 
 Application frame with a sectioned sidebar, sticky header and scrolling main; the sidebar becomes a left Drawer on small screens.
 
+> Component ID: `app-shell`
 > Import: `import { AppShell } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/app-shell
 > Registry: https://slipstreamui.com/registry/app-shell.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -443,9 +464,12 @@ Skip the sidebar when the product is a single surface.
 
 Applied-filter summary with a live count, removable chips and an edit action.
 
+> Component ID: `applied-filters`
 > Import: `import { AppliedFilters } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/applied-filters
 > Registry: https://slipstreamui.com/registry/applied-filters.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -502,9 +526,12 @@ A count, removable chip and edit action.
 
 Linked article or resource card with media, eyebrow, title, summary and metadata.
 
+> Component ID: `article-card`
 > Import: `import { ArticleCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/article-card
 > Registry: https://slipstreamui.com/registry/article-card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -564,9 +591,12 @@ A linked article tile for a resource grid.
 
 File chips for prompts and messages. `Attachment` renders one file; `AttachmentList` renders a wrapping row. Display-only: upload and file-system logic stay in the consumer.
 
+> Component ID: `attachment`
 > Import: `import { Attachment } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/attachment
 > Registry: https://slipstreamui.com/registry/attachment.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -610,9 +640,12 @@ Show what files are part of a conversation turn (name, size, type, thumbnail, up
 
 Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets.
 
+> Component ID: `auth-layout`
 > Import: `import { AuthLayout } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/auth-layout
 > Registry: https://slipstreamui.com/registry/auth-layout.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -673,9 +706,12 @@ Form lives inside the card.
 
 Free-text type-ahead input with a portalled listbox: static or async options, grouped headings, descriptions and custom rows.
 
+> Component ID: `autocomplete`
 > Import: `import { Autocomplete } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/autocomplete
 > Registry: https://slipstreamui.com/registry/autocomplete.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -786,9 +822,12 @@ The native autoComplete attribute passes through — browser autofill and the su
 
 A user profile image component with fallback support and accessible image loading
 
+> Component ID: `avatar`
 > Import: `import { Avatar } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/avatar
 > Registry: https://slipstreamui.com/registry/avatar.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -879,9 +918,12 @@ Avatar with styled fallback background
 
 A small status indicator component for displaying tags, counts, or status information
 
+> Component ID: `badge`
 > Import: `import { Badge } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/badge
 > Registry: https://slipstreamui.com/registry/badge.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -989,9 +1031,12 @@ Badge for status indicators
 
 Semantic container (div by default, swappable element) — the structural counterpart to Text (p).
 
+> Component ID: `block`
 > Import: `import { Block } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/block
 > Registry: https://slipstreamui.com/registry/block.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1049,9 +1094,12 @@ Layout wrappers should still mean something: section, article, figure. Block is 
 
 Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.
 
+> Component ID: `bottom-nav`
 > Import: `import { BottomNav } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/bottom-nav
 > Registry: https://slipstreamui.com/registry/bottom-nav.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1115,9 +1163,12 @@ Three primary destinations with one active tab.
 
 Variant navigation for branched messages: previous/next arrows with an N/M position indicator.
 
+> Component ID: `branch`
 > Import: `import { Branch } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/branch
 > Registry: https://slipstreamui.com/registry/branch.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1156,9 +1207,12 @@ Let users compare alternative AI responses without leaving the transcript flow.
 
 Navigation breadcrumb trail with links and current-page indicator
 
+> Component ID: `breadcrumb`
 > Import: `import { Breadcrumb } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/breadcrumb
 > Registry: https://slipstreamui.com/registry/breadcrumb.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1227,9 +1281,12 @@ Breadcrumb with a chevron separator
 
 A clickable button component with variants for different visual styles and sizes
 
+> Component ID: `button`
 > Import: `import { Button } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/button
 > Registry: https://slipstreamui.com/registry/button.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1331,9 +1388,12 @@ Button styled as a link, using asChild for composition
 
 Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group.
 
+> Component ID: `button-group`
 > Import: `import { ButtonGroup } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/button-group
 > Registry: https://slipstreamui.com/registry/button-group.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1412,9 +1472,12 @@ Mix variants freely as long as each button keeps a border.
 
 Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 
+> Component ID: `calendar`
 > Import: `import { Calendar } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/calendar
 > Registry: https://slipstreamui.com/registry/calendar.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1488,9 +1551,12 @@ Locale-aware week start and a predicate for holidays.
 
 A content container with header, body, and footer sections for grouping related information
 
+> Component ID: `card`
 > Import: `import { Card } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/card
 > Registry: https://slipstreamui.com/registry/card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1570,9 +1636,12 @@ Minimal card without header or footer
 
 Displays ordered reasoning steps with status indicators.
 
+> Component ID: `chain-thought`
 > Import: `import { ChainThought } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/chain-thought
 > Registry: https://slipstreamui.com/registry/chain-thought.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1604,9 +1673,12 @@ Provide a compact progress view for multi-step agent work.
 
 A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 
+> Component ID: `checkbox`
 > Import: `import { Checkbox } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/checkbox
 > Registry: https://slipstreamui.com/registry/checkbox.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1705,9 +1777,12 @@ Shared name, legend context, selection as string[]
 
 Syntax-highlighted code block with language label and copy-to-clipboard button.
 
+> Component ID: `code-block`
 > Import: `import { CodeBlock } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/code-block
 > Registry: https://slipstreamui.com/registry/code-block.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1743,9 +1818,12 @@ Display AI-generated or referenced code readably with one-click copy.
 
 Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation
 
+> Component ID: `command-palette`
 > Import: `import { CommandPalette } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/command-palette
 > Registry: https://slipstreamui.com/registry/command-palette.json
-> Tier: organism · Package: @slipstream-ui/ai
+> Tier: organism · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1817,9 +1895,12 @@ useEffect(() => {
 
 Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 
+> Component ID: `comparison-table`
 > Import: `import { ComparisonTable } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/comparison-table
 > Registry: https://slipstreamui.com/registry/comparison-table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1879,9 +1960,12 @@ A highlighted recommended column and mixed boolean/text cells.
 
 Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
 
+> Component ID: `confirm-dialog`
 > Import: `import { ConfirmDialog } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/confirm-dialog
 > Registry: https://slipstreamui.com/registry/confirm-dialog.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1944,9 +2028,12 @@ Async-safe destructive confirmation.
 
 Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.
 
+> Component ID: `confirmation`
 > Import: `import { Confirmation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/confirmation
 > Registry: https://slipstreamui.com/registry/confirmation.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -1991,9 +2078,12 @@ Make destructive or consequential tool calls require explicit user consent.
 
 Compact labelled contact rows with optional icons and links.
 
+> Component ID: `contact-strip`
 > Import: `import { ContactStrip } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/contact-strip
 > Registry: https://slipstreamui.com/registry/contact-strip.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2047,9 +2137,12 @@ Phone and email rows with links.
 
 Centered, width-constrained page container with shared gutters and four width presets.
 
+> Component ID: `container`
 > Import: `import { Container } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/container
 > Registry: https://slipstreamui.com/registry/container.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2098,9 +2191,12 @@ Shared width and gutters for a page header and its content.
 
 A container for displaying a list of chat messages with auto-scroll and loading states
 
+> Component ID: `conversation`
 > Import: `import { Conversation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/conversation
 > Registry: https://slipstreamui.com/registry/conversation.json
-> Tier: organism · Package: @slipstream-ui/ai
+> Tier: organism · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2131,6 +2227,9 @@ The Conversation component manages the display of multiple messages in a chat in
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
 | density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the transcript and its message bubbles. |
 | messageSurface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface forwarded to every Message; none gives a borderless transcript. |
+| userLabel | `string` | — | no | Display name for the user role; override for localization |
+| assistantLabel | `string` | — | no | Display name for the assistant role; override for localization |
+| labels | `{ transcript?: string; responseComplete?: string; loadEarlier?: string; loadingEarlier?: string; latest?: string; download?: string }` | — | no | Localized chrome copy: transcript landmark, completion announcement, history control, scroll pill and download label |
 | hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
 | isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
 | onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |
@@ -2218,9 +2317,12 @@ More compact conversation without avatars
 
 Full-width conversion band with eyebrow, headline, supporting copy and actions.
 
+> Component ID: `cta-section`
 > Import: `import { CTASection } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/cta-section
 > Registry: https://slipstreamui.com/registry/cta-section.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2291,9 +2393,12 @@ A lighter band aligned to the page grid.
 
 Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 
+> Component ID: `data-table`
 > Import: `import { DataTable } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/data-table
 > Registry: https://slipstreamui.com/registry/data-table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2323,6 +2428,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | selectAllLabel | `string` | `'Select all rows'` | no | Accessible label for the select-all checkbox. |
+| selectedLabel | `string` | `'{count} selected'` | no | Selection summary shown above the table while rows are selected. `{count}` is replaced with the selection size. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 | selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
 | onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |
@@ -2402,9 +2508,12 @@ Pass sort props + onSortChange to let the backend own ordering; DataTable render
 
 Native date field with an ISO-string contract, min/max passthrough and an optional clear button.
 
+> Component ID: `date-picker`
 > Import: `import { DatePicker } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/date-picker
 > Registry: https://slipstreamui.com/registry/date-picker.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2458,9 +2567,12 @@ Controlled ISO value with a clear button.
 
 Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 
+> Component ID: `date-picker-popover`
 > Import: `import { DatePickerPopover } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/date-picker-popover
 > Registry: https://slipstreamui.com/registry/date-picker-popover.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2543,9 +2655,12 @@ Hidden input carries the ISO value.
 
 Start/end date range with ISO strings and quick presets.
 
+> Component ID: `date-range-picker`
 > Import: `import { DateRangePicker } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/date-range-picker
 > Registry: https://slipstreamui.com/registry/date-range-picker.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2605,9 +2720,12 @@ A controlled range with two presets.
 
 Deal opportunity card with sector, status, metrics, NDA/CIM badges and access actions.
 
+> Component ID: `deal-card`
 > Import: `import { DealCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/deal-card
 > Registry: https://slipstreamui.com/registry/deal-card.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2684,9 +2802,12 @@ A deal card with access badges and one action.
 
 Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, size presets, optional header/footer slots, a scrollable body, and opt-in fade motion.
 
+> Component ID: `dialog`
 > Import: `import { Dialog } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/dialog
 > Registry: https://slipstreamui.com/registry/dialog.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2756,9 +2877,12 @@ const [open, setOpen] = useState(false);
 
 Document row with file metadata, access status and an optional download action.
 
+> Component ID: `document-card`
 > Import: `import { DocumentCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/document-card
 > Registry: https://slipstreamui.com/registry/document-card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2817,9 +2941,12 @@ A downloadable document with metadata.
 
 Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration).
 
+> Component ID: `drawer`
 > Import: `import { Drawer } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/drawer
 > Registry: https://slipstreamui.com/registry/drawer.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2916,9 +3043,12 @@ The workhorse: side panel that keeps context visible.
 
 Placeholder for empty collections, zero-result searches and unconfigured features, with title, description and action slots.
 
+> Component ID: `empty-state`
 > Import: `import { EmptyState } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/empty-state
 > Registry: https://slipstreamui.com/registry/empty-state.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -2974,9 +3104,12 @@ Title, explanation and one primary action.
 
 Firm or member profile card with logo, type, location, stats, tags and actions.
 
+> Component ID: `entity-card`
 > Import: `import { EntityCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/entity-card
 > Registry: https://slipstreamui.com/registry/entity-card.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3041,9 +3174,12 @@ A firm card with stats, tags and a profile link.
 
 Grid of feature or benefit cards with an icon, title, copy and optional link.
 
+> Component ID: `feature-grid`
 > Import: `import { FeatureGrid } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/feature-grid
 > Registry: https://slipstreamui.com/registry/feature-grid.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3098,9 +3234,12 @@ A two-column feature group with one linked card.
 
 Alternating media and copy row for mid-page feature sections.
 
+> Component ID: `feature-row`
 > Import: `import { FeatureRow } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/feature-row
 > Registry: https://slipstreamui.com/registry/feature-row.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3159,9 +3298,12 @@ A standard feature row with media on the right.
 
 Groups related form controls in a native fieldset with a legend, optional description, and an error slot.
 
+> Component ID: `fieldset`
 > Import: `import { Fieldset } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/fieldset
 > Registry: https://slipstreamui.com/registry/fieldset.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3225,9 +3367,12 @@ Errors that belong to the whole group live on the fieldset, not each control.
 
 Drag-and-drop file picker with a removable file list and per-file progress bars.
 
+> Component ID: `file-upload`
 > Import: `import { FileUpload } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/file-upload
 > Registry: https://slipstreamui.com/registry/file-upload.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3286,9 +3431,12 @@ Native input + drop zone + progress.
 
 List-page filter strip: search field, filter controls, reset affordance and trailing actions.
 
+> Component ID: `filter-bar`
 > Import: `import { FilterBar } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/filter-bar
 > Registry: https://slipstreamui.com/registry/filter-bar.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3352,9 +3500,12 @@ Search, filters, reset and count in one strip.
 
 Active-filter summary with removable chips and a clear-all action.
 
+> Component ID: `filter-chips`
 > Import: `import { FilterChips } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/filter-chips
 > Registry: https://slipstreamui.com/registry/filter-chips.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3415,9 +3566,12 @@ A removable summary of two applied filters.
 
 Structured filter panel with collapsible sections and reset/apply actions.
 
+> Component ID: `filter-panel`
 > Import: `import { FilterPanel } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/filter-panel
 > Registry: https://slipstreamui.com/registry/filter-panel.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3481,9 +3635,12 @@ A sidebar filter panel with collapsible sections.
 
 Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls.
 
+> Component ID: `flex`
 > Import: `import { Flex } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/flex
 > Registry: https://slipstreamui.com/registry/flex.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3556,9 +3713,12 @@ FlexItem values render via inline style — arbitrary numeric utilities would be
 
 Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row — native submit and validation untouched.
 
+> Component ID: `form`
 > Import: `import { Form } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form
 > Registry: https://slipstreamui.com/registry/form.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3629,9 +3789,12 @@ Fields space evenly on the md token; errors come from FormField.
 
 Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically.
 
+> Component ID: `form-field`
 > Import: `import { FormField } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form-field
 > Registry: https://slipstreamui.com/registry/form-field.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3710,9 +3873,12 @@ Error replaces the hint, flips aria-invalid on the control, and announces via ro
 
 Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset.
 
+> Component ID: `form-layout`
 > Import: `import { FormLayout } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/form-layout
 > Registry: https://slipstreamui.com/registry/form-layout.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3779,9 +3945,12 @@ Exact 16px gaps; fields wrap into rows of two.
 
 Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 
+> Component ID: `grid`
 > Import: `import { Grid } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/grid
 > Registry: https://slipstreamui.com/registry/grid.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3851,9 +4020,12 @@ Literal grid-cols-*/col-span-* classes are compiled (they exist verbatim in sour
 
 Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 
+> Component ID: `heading`
 > Import: `import { Heading } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/heading
 > Registry: https://slipstreamui.com/registry/heading.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -3905,9 +4077,12 @@ Document structure and visual size are different axes: screen readers and SEO ne
 
 Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
 
+> Component ID: `hero`
 > Import: `import { Hero } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/hero
 > Registry: https://slipstreamui.com/registry/hero.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4037,13 +4212,108 @@ Media behind the copy; the scrim and ink invert automatically in dark mode.
 
 ---
 
+# Image
+
+A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
+
+> Component ID: `image`
+> Import: `import { Image } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/image
+> Registry: https://slipstreamui.com/registry/image.json
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
+
+## Design intent
+
+Organizer images are hotlinked and periodically 403, move, or die. Image keeps cards and banners free of broken-image boxes and layout shift by always emitting intrinsic dimensions, trying a known-good fallback source, and finally rendering consumer-provided fallback content. Priority is opt-in for the one above-the-fold image per page.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| src | `string` | — | yes | Primary image URL; hotlinked sources are expected |
+| alt | `string` | — | yes | Accessible description of the image content |
+| fallbackSrc | `string` | — | no | Second URL tried before the fallback node, such as generated placeholder art |
+| fallback | `React.ReactNode` | — | no | Content rendered when every URL has failed (icon, initials, empty panel) |
+| priority | `boolean` | `false` | no | Load eagerly with high fetch priority for the LCP image |
+| width | `number` | `1200` | no | Intrinsic width used to reserve layout space (CLS) |
+| height | `number` | `630` | no | Intrinsic height used to reserve layout space (CLS) |
+| className | `string` | — | no | Classes applied to the image element |
+| imgClassName | `string` | — | no | Additional image classes, merged with className |
+| style | `React.CSSProperties` | — | no | Inline styles for the image element |
+
+## Examples
+
+### Event card image
+
+Hotlinked organizer image with a generated fallback
+
+```tsx
+<Image
+  src={event.imageUrl}
+  fallbackSrc="/images/event-placeholder.svg"
+  alt={`${event.title} event image`}
+  width={1200}
+  height={630}
+/>
+```
+
+### Hero image
+
+The single above-the-fold image loads eagerly
+
+```tsx
+<Image
+  src="/hero.jpg"
+  alt="Dancers on the competition floor"
+  width={1600}
+  height={900}
+  priority
+/>
+```
+
+### Initials fallback
+
+Render an identity tile when no image survives
+
+```tsx
+<Image
+  src={org.imageUrl ?? ''}
+  alt={org.name}
+  width={96}
+  height={96}
+  fallback={<span aria-hidden>{initials(org.name)}</span>}
+/>
+```
+
+## Anti-patterns
+
+- **Don't omit width and height** — Without intrinsic dimensions the browser cannot reserve space and a failed image shifts the page. The defaults exist so there is no reason to omit them; override them to the real aspect ratio.
+- **Don't set priority on every image** — Only one image should compete for LCP priority. Marking a grid eager delays everything else.
+- **Don't describe the component in alt text** — Alt text describes the content. Screen readers already announce that it is an image.
+
+## Accessibility
+
+- **Alternative text**: alt is required by the type system and rendered on every img
+- **Layout stability**: Intrinsic width and height are always rendered, including after a fallback swap
+- **Failed image**: A failed chain renders fallback content instead of a broken-image glyph
+
+## Composition
+
+- Related: ArticleCard, EntityCard, Hero, PageHeader
+
+---
+
 # InlineCitation
 
 Perplexity-style inline citation chip that reveals the source title and snippet on hover or keyboard focus.
 
+> Component ID: `inline-citation`
 > Import: `import { InlineCitation } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/inline-citation
 > Registry: https://slipstreamui.com/registry/inline-citation.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4079,9 +4349,12 @@ Attribute individual claims inside a response to their source without leaving th
 
 A text input field with support for various input types and standard HTML input attributes
 
+> Component ID: `input`
 > Import: `import { Input } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/input
 > Registry: https://slipstreamui.com/registry/input.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4188,9 +4461,12 @@ Input for file uploads with styled file button
 
 Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 
+> Component ID: `input-group`
 > Import: `import { InputGroup } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/input-group
 > Registry: https://slipstreamui.com/registry/input-group.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4278,9 +4554,12 @@ The unit sits flush right; the outline communicates editability.
 
 An accessible form label that associates with its control
 
+> Component ID: `label`
 > Import: `import { Label } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/label
 > Registry: https://slipstreamui.com/registry/label.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4337,9 +4616,12 @@ Marking required fields explicitly
 
 Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 
+> Component ID: `link`
 > Import: `import { Link } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/link
 > Registry: https://slipstreamui.com/registry/link.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4397,9 +4679,12 @@ Preserves prefetch and modified-click behavior.
 
 Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 
+> Component ID: `link-tabs`
 > Import: `import { LinkTabs } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/link-tabs
 > Registry: https://slipstreamui.com/registry/link-tabs.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4464,9 +4749,12 @@ The active item receives aria-current="page"; prefix matching keeps parent secti
 
 Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 
+> Component ID: `list`
 > Import: `import { List } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/list
 > Registry: https://slipstreamui.com/registry/list.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4539,9 +4827,12 @@ onClick renders the row content inside a <button> — keyboard and screen-reader
 
 Load-more control with pending and end-of-list states.
 
+> Component ID: `load-more`
 > Import: `import { LoadMore } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/load-more
 > Registry: https://slipstreamui.com/registry/load-more.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4591,9 +4882,12 @@ A load-more control below a card grid.
 
 Trust strip for member, customer or partner logos with captions, columns and optional links.
 
+> Component ID: `logo-cloud`
 > Import: `import { LogoCloud } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/logo-cloud
 > Registry: https://slipstreamui.com/registry/logo-cloud.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4651,9 +4945,12 @@ Decorative logo art with the name supplied as accessible text.
 
 Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 
+> Component ID: `menu`
 > Import: `import { Menu } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/menu
 > Registry: https://slipstreamui.com/registry/menu.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4730,9 +5027,12 @@ Dropdown with labeled actions and a destructive item
 
 A chat message component that displays messages from users, assistants, or system prompts with optional avatars
 
+> Component ID: `message`
 > Import: `import { Message } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/message
 > Registry: https://slipstreamui.com/registry/message.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4857,9 +5157,12 @@ Message with avatar hidden for more compact display
 
 Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, and regenerate. Every action is a callback; the component holds no conversation state.
 
+> Component ID: `message-actions`
 > Import: `import { MessageActions } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/message-actions
 > Registry: https://slipstreamui.com/registry/message-actions.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4906,9 +5209,12 @@ Collect user trust signals (copy, rating, regeneration) with minimal API surface
 
 KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 
+> Component ID: `metric-card`
 > Import: `import { MetricCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/metric-card
 > Registry: https://slipstreamui.com/registry/metric-card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -4965,9 +5271,12 @@ Deltas carry arrows as well as color.
 
 Searchable multi-select filter with visible removable chips and a checkbox panel.
 
+> Component ID: `multi-select`
 > Import: `import { MultiSelect } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/multi-select
 > Registry: https://slipstreamui.com/registry/multi-select.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5036,9 +5345,12 @@ Selected industries stay visible as chips.
 
 Email capture block with inline or stacked layout, pending state, success and failure feedback.
 
+> Component ID: `newsletter`
 > Import: `import { Newsletter } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/newsletter
 > Registry: https://slipstreamui.com/registry/newsletter.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5099,9 +5411,12 @@ Inline email capture with consent copy.
 
 Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.
 
+> Component ID: `page-header`
 > Import: `import { PageHeader } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/page-header
 > Registry: https://slipstreamui.com/registry/page-header.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5167,9 +5482,12 @@ One h1, one action cluster.
 
 Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or currentPage/totalPages and derives the count (plus a Showing X-Y of Z summary) from total/pageSize.
 
+> Component ID: `pagination`
 > Import: `import { Pagination } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/pagination
 > Registry: https://slipstreamui.com/registry/pagination.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5264,9 +5582,12 @@ Show more page buttons around the current page
 
 Password field with an accessible show/hide toggle (aria-pressed), built on Input.
 
+> Component ID: `password-input`
 > Import: `import { PasswordInput } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/password-input
 > Registry: https://slipstreamui.com/registry/password-input.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5312,9 +5633,12 @@ Input props pass through.
 
 Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip and collision control, closing on outside click and Escape
 
+> Component ID: `popover`
 > Import: `import { Popover } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/popover
 > Registry: https://slipstreamui.com/registry/popover.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5422,9 +5746,12 @@ PopoverAnchor places the panel against the field, not the wrapper.
 
 Ordered process cards with derived step numbers or custom icons.
 
+> Component ID: `process-steps`
 > Import: `import { ProcessSteps } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/process-steps
 > Registry: https://slipstreamui.com/registry/process-steps.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5479,9 +5806,12 @@ Three numbered process steps.
 
 A determinate progress bar with role=progressbar and exact value semantics
 
+> Component ID: `progress`
 > Import: `import { Progress } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/progress
 > Registry: https://slipstreamui.com/registry/progress.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5541,9 +5871,12 @@ Progress through a finite set of steps
 
 A textarea input for entering chat prompts with auto-resize, keyboard shortcuts, and send button
 
+> Component ID: `prompt-input`
 > Import: `import { PromptInput } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/prompt-input
 > Registry: https://slipstreamui.com/registry/prompt-input.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5685,9 +6018,12 @@ Shows loading state and disables while AI is responding
 
 Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures.
 
+> Component ID: `prose`
 > Import: `import { Prose } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/prose
 > Registry: https://slipstreamui.com/registry/prose.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5734,9 +6070,12 @@ Wrap MDX/remark output; keep Shiki/KaTeX as-is.
 
 Native radio buttons grouped for mutually exclusive choices, with an accessible fieldset/legend wrapper
 
+> Component ID: `radio`
 > Import: `import { Radio } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/radio
 > Registry: https://slipstreamui.com/registry/radio.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5815,9 +6154,12 @@ Group driven by parent state
 
 Dual-thumb numeric range slider with labeled native inputs and formatted values.
 
+> Component ID: `range-slider`
 > Import: `import { RangeSlider } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/range-slider
 > Registry: https://slipstreamui.com/registry/range-slider.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5882,9 +6224,12 @@ A five-to-one-hundred million revenue filter.
 
 A collapsible component for displaying AI reasoning steps and chain-of-thought processes
 
+> Component ID: `reasoning`
 > Import: `import { Reasoning } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/reasoning
 > Registry: https://slipstreamui.com/registry/reasoning.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -5987,9 +6332,12 @@ Reasoning steps with timing information
 
 Streaming-optimized markdown renderer for AI responses with GFM support, streaming-safe repair of incomplete syntax, and highlighted code blocks with copy.
 
+> Component ID: `response`
 > Import: `import { Response } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/response
 > Registry: https://slipstreamui.com/registry/response.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6031,9 +6379,12 @@ Render AI output as rich content without flicker or broken partial syntax while 
 
 Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query.
 
+> Component ID: `search`
 > Import: `import { Search } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/search
 > Registry: https://slipstreamui.com/registry/search.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6108,9 +6459,12 @@ const options = [
 
 Full-width page section with a surface tone, vertical rhythm and an optional centered container.
 
+> Component ID: `section`
 > Import: `import { Section } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/section
 > Registry: https://slipstreamui.com/registry/section.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6179,9 +6533,12 @@ A tinted band with a wider content cap.
 
 Section heading block: eyebrow, title (level 2-4), description and actions, with left/center alignment and three sizes.
 
+> Component ID: `section-heading`
 > Import: `import { SectionHeading } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/section-heading
 > Registry: https://slipstreamui.com/registry/section-heading.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6240,9 +6597,12 @@ Eyebrow + title + copy + action link.
 
 Single- or multi-select segmented control for view and filter switches.
 
+> Component ID: `segmented-control`
 > Import: `import { SegmentedControl } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/segmented-control
 > Registry: https://slipstreamui.com/registry/segmented-control.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6326,9 +6686,12 @@ Pressed buttons for independent filters.
 
 Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 
+> Component ID: `select`
 > Import: `import { Select } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/select
 > Registry: https://slipstreamui.com/registry/select.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6432,9 +6795,12 @@ When the option list is already JSX (dynamic labels, optgroups from data), pass 
 
 Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms.
 
+> Component ID: `select-menu`
 > Import: `import { SelectMenu } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/select-menu
 > Registry: https://slipstreamui.com/registry/select-menu.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6518,9 +6884,12 @@ Hidden inputs make the selection submit with the form.
 
 A visual divider between content blocks, decorative or semantic
 
+> Component ID: `separator`
 > Import: `import { Separator } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/separator
 > Registry: https://slipstreamui.com/registry/separator.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6582,9 +6951,12 @@ Vertical line between actions
 
 Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent.
 
+> Component ID: `site-footer`
 > Import: `import { SiteFooter } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/site-footer
 > Registry: https://slipstreamui.com/registry/site-footer.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6641,9 +7013,12 @@ Brand, columns and legal row.
 
 Marketing/site header: sticky bar with brand, horizontal navigation with prefix-aware active states, right-aligned actions and a mobile drawer.
 
+> Component ID: `site-header`
 > Import: `import { SiteHeader } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/site-header
 > Registry: https://slipstreamui.com/registry/site-header.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6654,7 +7029,7 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | brand | `ReactNode` | — | yes | Brand slot (logo/lockup), wrapped in a link to /. |
-| items | `SiteNavItem[]` | — | yes | Primary nav: { href, label, external? }. |
+| items | `SiteNavItem[]` | — | yes | Primary nav. A plain item is { href, label, external? }; an item with `columns` renders as a mega-panel disclosure (desktop) and a <details> group (mobile). |
 | activeHref | `string` | — | no | Current route for active styling (aria-current=page). |
 | match | `'prefix' | 'exact'` | `prefix` | no | Prefix highlights parents of the current route; exact only identical hrefs. |
 | actions | `ReactNode` | — | no | Right-aligned actions (theme toggle, GitHub, CTA). |
@@ -6686,6 +7061,32 @@ Prefix-active nav with a mobile drawer.
 />
 ```
 
+### Persona mega menus
+
+Nested persona panels on desktop and <details> groups in the mobile drawer.
+
+```tsx
+<SiteHeader
+  brand={<span>Acme</span>}
+  items={[
+    {
+      label: 'Dancers',
+      columns: [
+        {
+          heading: 'Plan your season',
+          items: [
+            { href: '/events', label: 'All events', description: 'Every genre in Utah' },
+            { href: '/deadlines', label: 'Deadlines' },
+          ],
+        },
+      ],
+    },
+    { href: '/directory', label: 'Directory' },
+  ]}
+  activeHref={pathname}
+/>
+```
+
 ## Anti-patterns
 
 - **Don't use it for admin rails** — Vertical app navigation belongs in Sidebar + AppShell.
@@ -6693,7 +7094,8 @@ Prefix-active nav with a mobile drawer.
 ## Accessibility
 
 - **Current page**: aria-current=page on the active link (prefix or exact matching)
-- **Mobile navigation**: Burger opens a focus-trapped Drawer with the same items
+- **Mobile navigation**: Burger opens a focus-trapped Drawer with the same items; nested items render as native <details> disclosures
+- **Mega panels**: Trigger mirrors aria-expanded/aria-controls; panels open on hover or click, stay open while tabbing, close on Escape or an outside pointer
 
 ## Composition
 
@@ -6715,9 +7117,12 @@ Prefix-active nav with a mobile drawer.
 
 A loading placeholder that mirrors the shape of upcoming content
 
+> Component ID: `skeleton`
 > Import: `import { Skeleton } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/skeleton
 > Registry: https://slipstreamui.com/registry/skeleton.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6788,9 +7193,12 @@ Announcing the loading state to screen readers
 
 Displays citations and references for an AI response. `Source` renders a single citation; `Sources` renders a numbered list with an overflow count.
 
+> Component ID: `source`
 > Import: `import { Source } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/sources
 > Registry: https://slipstreamui.com/registry/source.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6836,9 +7244,12 @@ Make generated answers transparent by showing where information came from.
 
 Indeterminate loading indicator with accessible status semantics.
 
+> Component ID: `spinner`
 > Import: `import { Spinner } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/spinner
 > Registry: https://slipstreamui.com/registry/spinner.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6886,9 +7297,12 @@ Communicate in-progress states without layout shift; inherit text color so it ad
 
 Semantic description list of headline stats with labels, optional hints and column presets.
 
+> Component ID: `stat-band`
 > Import: `import { StatBand } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/stat-band
 > Registry: https://slipstreamui.com/registry/stat-band.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6952,9 +7366,12 @@ Four stats aligned to the left.
 
 Multi-step flow indicator: ordered list, aria-current step, text state for complete/current/upcoming, horizontal or vertical, numbered or dots.
 
+> Component ID: `stepper`
 > Import: `import { Stepper } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/stepper
 > Registry: https://slipstreamui.com/registry/stepper.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -6972,6 +7389,7 @@ Wizards need orientation: where am I, what is done, what is next. A stepper buil
 | labelPlacement | `'inline' | 'below'` | `inline` | no | Horizontal only: place the label beside the marker or beneath it. |
 | alignTitles | `'start' | 'center'` | `center` | no | Center a title vertically against its marker when that step has no description. Titles with a description stay top aligned. |
 | onStepClick | `(index: number) => void` | — | no | Makes steps clickable (for revisit flows). |
+| labels | `{ completed?: string; current?: string; upcoming?: string }` | — | no | Screen-reader state suffixes for each step. Default to the English " (completed)", " (current step)" and " (upcoming)". |
 
 ## Examples
 
@@ -7051,9 +7469,12 @@ No numbers, small markers, for tight toolbars or mobile.
 
 Shows that an AI response is currently streaming.
 
+> Component ID: `streaming-indicator`
 > Import: `import { StreamingIndicator } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/streaming-indicator
 > Registry: https://slipstreamui.com/registry/streaming-indicator.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7089,9 +7510,12 @@ Give users immediate feedback while generated content is arriving.
 
 Displays clickable follow-up prompts for AI interactions.
 
+> Component ID: `suggestions`
 > Import: `import { Suggestions } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/suggestions
 > Registry: https://slipstreamui.com/registry/suggestions.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7124,9 +7548,12 @@ Help users discover useful next actions without composing every prompt from scra
 
 A toggle switch for binary settings, with role=switch and aria-checked
 
+> Component ID: `switch`
 > Import: `import { Switch } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/switch
 > Registry: https://slipstreamui.com/registry/switch.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7188,9 +7615,12 @@ Switch driven by parent state
 
 Semantic data table with headers, body, footer, and accessible caption
 
+> Component ID: `table`
 > Import: `import { Table } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/table
 > Registry: https://slipstreamui.com/registry/table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7252,9 +7682,12 @@ Table with caption, headers, and data rows
 
 Table shell with title/description, header actions, optional toolbar, edge-to-edge body and a footer row.
 
+> Component ID: `table-card`
 > Import: `import { TableCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/table-card
 > Registry: https://slipstreamui.com/registry/table-card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7324,9 +7757,12 @@ Header, toolbar, table and pagination in one surface.
 
 Sticky 'On this page' navigation with real anchor links, nested levels and aria-current, plus a useScrollSpy hook for the active heading.
 
+> Component ID: `table-of-contents`
 > Import: `import { TableOfContents } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/table-of-contents
 > Registry: https://slipstreamui.com/registry/table-of-contents.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7397,9 +7833,12 @@ Update local state when a heading is chosen; the anchor still scrolls and update
 
 Tabbed content container with ARIA tablist semantics and keyboard navigation
 
+> Component ID: `tabs`
 > Import: `import { Tabs } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/tabs
 > Registry: https://slipstreamui.com/registry/tabs.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7474,9 +7913,12 @@ Tabs driven by parent state
 
 Semantic written testimonial with quote, person, role, company, avatar and logo slots.
 
+> Component ID: `testimonial`
 > Import: `import { Testimonial } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/testimonial
 > Registry: https://slipstreamui.com/registry/testimonial.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7535,9 +7977,12 @@ A card testimonial with attribution.
 
 Semantic paragraph text with a controlled type scale; renders a real p (or span with inline).
 
+> Component ID: `text`
 > Import: `import { Text } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/text
 > Registry: https://slipstreamui.com/registry/text.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7590,9 +8035,12 @@ block by default; inline for span-level flow.
 
 A multi-line text input styled to match Input, wrapping the native textarea
 
+> Component ID: `textarea`
 > Import: `import { Textarea } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/textarea
 > Registry: https://slipstreamui.com/registry/textarea.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7655,9 +8103,12 @@ Labelled textarea with a hint
 
 Presentational light/dark toggle with accessible labels and sun/moon state.
 
+> Component ID: `theme-toggle`
 > Import: `import { ThemeToggle } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/theme-toggle
 > Registry: https://slipstreamui.com/registry/theme-toggle.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7719,9 +8170,12 @@ function change(next: 'light' | 'dark') {
 
 Native time field with an HH:MM contract and an optional clear button.
 
+> Component ID: `time-picker`
 > Import: `import { TimePicker } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/time-picker
 > Registry: https://slipstreamui.com/registry/time-picker.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7770,9 +8224,12 @@ Controlled HH:MM value.
 
 Vertical chronology for experience, activity and audit trails, built on an ordered list.
 
+> Component ID: `timeline`
 > Import: `import { Timeline } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/timeline
 > Registry: https://slipstreamui.com/registry/timeline.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7822,9 +8279,12 @@ Period label, title and supporting line per entry.
 
 Accessible notifications: tree-scoped provider/hook plus an imperative toast() API rendered by <Toaster />.
 
+> Component ID: `toast`
 > Import: `import { ToastProvider } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/toast
 > Registry: https://slipstreamui.com/registry/toast.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7903,9 +8363,12 @@ toast({ title: 'Saved' });
 
 Placeholder card for archived, closed or unavailable marketplace items.
 
+> Component ID: `tombstone-card`
 > Import: `import { TombstoneCard } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/tombstone-card
 > Registry: https://slipstreamui.com/registry/tombstone-card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -7961,9 +8424,12 @@ A muted card that explains why the listing is unavailable.
 
 A component for displaying AI tool/function calls with status, arguments, and results
 
+> Component ID: `tool-call`
 > Import: `import { ToolCall } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/tool-call
 > Registry: https://slipstreamui.com/registry/tool-call.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -8070,9 +8536,12 @@ Tool call with result hidden
 
 Hover/focus tooltip with aria-describedby association, delay, and Escape dismissal
 
+> Component ID: `tooltip`
 > Import: `import { Tooltip } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/tooltip
 > Registry: https://slipstreamui.com/registry/tooltip.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -2,9 +2,12 @@
 
 Ordered process cards with derived step numbers or custom icons.
 
+> Component ID: `process-steps`
 > Import: `import { ProcessSteps } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/process-steps
 > Registry: https://slipstreamui.com/registry/process-steps.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

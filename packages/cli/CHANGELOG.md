@@ -1,5 +1,34 @@
 # @slipstream-ui/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- [#137](https://github.com/michaelmcshinsky/slipstream-ui/pull/137) [`7e59910`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7e5991043bf14b5adf44b97b48e09f100e3ba0dd) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Modern Web Guidance modernization fixes across the repository:
+  
+  - **Dark mode toggles**: Updated all apps (app, playground, ai-chat starter, docs) to use `<meta name="color-scheme">` with CSS `:has()` selector mapping instead of toggling `.dark` class on `<html>`. This follows the modern-web-guidance `dark-mode-toggle` guide for proper color-scheme synchronization.
+  
+  - **Form field auto-sizing**: Updated `PromptInput` to use CSS `field-sizing: content` with progressive enhancement fallback instead of imperative scrollHeight resizing.
+  
+  - **IME-safe enter-to-submit**: Added composition checks (`event.nativeEvent.isComposing` and `keyCode === 229`) to all Enter handlers in PromptInput and Message components to prevent premature submission during CJK input.
+  
+  - **Modern array methods**: Replaced `[...messages].reverse().find()` with `messages.findLast()` in ai-chat starter.
+  
+  - **Error cause chaining**: Updated CLI config to use `{ cause: error }` option when throwing errors.
+  
+  Updated documentation in docs app to reflect the new dark mode approach.
+
+## 0.3.0
+
+### Minor Changes
+
+- feat(cli): add `add --dry-run`
+  
+  `slipstream-ui add <component> --dry-run` prints every file that would be
+  created, overwritten or skipped, and writes nothing. It is covered by unit and
+  integration tests, so a destructive add can be inspected before it touches a
+  consumer project.
+
 ## 0.2.3
 
 ### Patch Changes

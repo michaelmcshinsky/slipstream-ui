@@ -2,9 +2,12 @@
 
 A clickable button component with variants for different visual styles and sizes
 
+> Component ID: `button`
 > Import: `import { Button } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/button
 > Registry: https://slipstreamui.com/registry/button.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

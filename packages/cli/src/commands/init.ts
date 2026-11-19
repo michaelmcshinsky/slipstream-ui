@@ -267,7 +267,7 @@ export const initCommand = new Command('init')
       }
       console.log('\nNext steps:');
       console.log(chalk.gray('  1. Import components from @slipstream-ui/core and @slipstream-ui/ai'));
-      console.log(chalk.gray('     or install source copies: npx @slipstream-ui/cli add <component>'));
+      console.log(chalk.gray('     or install source copies: npx @slipstream-ui/cli@latest add <component>'));
       console.log(chalk.gray('  2. Customize the theme via @slipstream-ui/themes createTheme()'));
       console.log(chalk.gray('  3. Check the docs at https://slipstreamui.com/docs'));
     } catch (error) {

@@ -2,9 +2,12 @@
 
 Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 
+> Component ID: `grid`
 > Import: `import { Grid } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/grid
 > Registry: https://slipstreamui.com/registry/grid.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

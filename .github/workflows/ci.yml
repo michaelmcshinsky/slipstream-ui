@@ -38,6 +38,34 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Baselines were generated on Windows; regenerate them on the runner image
+      # with `pnpm test:visual:update` before making this blocking.
+      - name: Visual regression
+        continue-on-error: true
+        run: pnpm test:visual
+
+      - name: Start docs server
+        run: |
+          pnpm --filter slipstream-ui-docs exec next start -p 3114 &
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3114 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          echo "docs server did not start" >&2
+          exit 1
+
+      - name: E2E journeys
+        run: pnpm test:e2e
+
+      - name: Docs route smoke test
+        run: pnpm --filter slipstream-ui-docs exec tsx scripts/smoke-routes.ts http://localhost:3114
+
+      - name: Accessibility audit
+        run: pnpm --filter slipstream-ui-docs exec tsx scripts/audit-a11y.ts http://localhost:3114
+
       - name: Verify packaged styles
         run: node scripts/test-packaged-styles.mjs
 
@@ -64,7 +92,7 @@ jobs:
         run: pnpm generate:llm-docs
 
       - name: Check generated files are committed
-        run: git diff --exit-code -- README.md apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llm apps/docs/public/registry
+        run: git diff --exit-code -- README.md llms.txt release.json apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llms-full.txt apps/docs/public/llm apps/docs/public/registry
 
       - name: Check LLM documentation surfaces
         run: pnpm check:llm

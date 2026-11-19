@@ -10,7 +10,9 @@
  *
  * Component lists inside llms.txt live between `<!-- generated:*:start/end -->`
  * markers and are derived from the manifests, so llms.txt can never drift from
- * the real component count. Prose outside the markers stays hand-written.
+ * the real component count. The release block is generated the same way from
+ * release.json + the core package version. Prose outside the markers stays
+ * hand-written.
  *
  * Mirrors assistant-ui's `.md` route convention: every page an agent needs is
  * fetchable as clean markdown without scraping HTML.
@@ -24,6 +26,19 @@ const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'llm');
 const LLMS_ROOT_PATH = path.join(ROOT, 'llms.txt');
 const LLMS_PUBLIC_PATH = path.join(ROOT, 'apps', 'docs', 'public', 'llms.txt');
+
+/** Release metadata shared by every generated artifact (see release.json). */
+const RELEASE = JSON.parse(fs.readFileSync(path.join(ROOT, 'release.json'), 'utf8')) as {
+  schemaVersion: number;
+  manifestVersion: number;
+  registrySchemaVersion: number;
+  releaseDate: string;
+};
+const CORE_VERSION = (
+  JSON.parse(fs.readFileSync(path.join(ROOT, 'packages', 'core', 'package.json'), 'utf8')) as {
+    version: string;
+  }
+).version;
 
 /** Loose structural types for the manifest fields this script renders. */
 interface ManifestProp {
@@ -61,6 +76,7 @@ interface Manifest {
   package: string;
   importPath: string;
   exportName?: string;
+  version?: string;
   props?: ManifestProp[];
   examples?: ManifestExample[];
   antiPatterns?: ManifestAntiPattern[];
@@ -135,15 +151,21 @@ function compositionSection(rules: ManifestCompositionRule[] = [], related: stri
   return out + '\n';
 }
 
+/** Manifest id -> docs route id, for the names that differ. */
+const DOCS_ROUTE_ID: Record<string, string> = { source: 'sources' };
+
 function componentToMarkdown(manifest: Manifest) {
   return [
     `# ${manifest.name}`,
     '',
     manifest.description,
     '',
+    `> Component ID: \`${manifest.id}\``,
     `> Import: \`import { ${manifest.exportName ?? manifest.name.replace(/\s/g, '')} } from '${manifest.importPath}'\``,
+    `> Docs: https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[manifest.id] ?? manifest.id}`,
     `> Registry: https://slipstreamui.com/registry/${manifest.id}.json`,
-    `> Tier: ${manifest.tier} · Package: ${manifest.package}`,
+    `> Tier: ${manifest.tier} · Package: ${manifest.package}@${manifest.version ?? CORE_VERSION}`,
+    `> Manifest schema: v${RELEASE.schemaVersion} · manifest: v${RELEASE.manifestVersion}`,
     '',
     '## Design intent',
     '',
@@ -198,7 +220,24 @@ function main() {
   const listItems = (list: Manifest[]) =>
     list.map((m) => `- [${m.name}](https://slipstreamui.com/llm/components/${m.id}.md) — ${m.description}`).join('\n');
 
+  /**
+   * One release header for every agent-facing artifact. The audit's P0 finding
+   * was a site that advertised three versions at once; this block is generated
+   * from release.json + the package version and validated by
+   * scripts/check-component-counts.ts, so it cannot drift silently.
+   */
+  const releaseBlock = [
+    `> Version: ${CORE_VERSION} (${RELEASE.releaseDate}) · manifest schema v${RELEASE.schemaVersion} · manifest v${RELEASE.manifestVersion}`,
+    `> ${manifests.length} components: ${coreList.length} in \`@slipstream-ui/core\` and ${aiList.length} in \`@slipstream-ui/ai\``,
+    '> Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp',
+    '> Relationship graph: https://slipstreamui.com/registry/graph.json',
+    '> Recommendation recipes: https://slipstreamui.com/registry/recommendations.json',
+    '> Install: `npx @slipstream-ui/cli@latest init`',
+  ].join('\n');
+
   const index = `# Slipstream UI — LLM Documentation Index
+
+${releaseBlock}
 
 The AI-first React component library. ${manifests.length} components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
@@ -207,6 +246,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - Manifest registry: https://slipstreamui.com/registry/all.json
 - Single-file corpus: https://slipstreamui.com/llms-full.txt
 - shadcn-compatible install: \`npx shadcn@latest add https://slipstreamui.com/registry/<id>.json\`
+- Changelog: https://slipstreamui.com/changelog
 
 ## Core components (@slipstream-ui/core) — ${coreList.length}
 
@@ -257,8 +297,20 @@ export const AI_COMPONENT_COUNT = ${aiList.length};
   const bulletList = (list: Manifest[]) =>
     list.map((m) => `- ${m.name} — ${m.description}`).join('\n');
 
-  let updated = replaceMarkerBlock(
-    rootLlms,
+  const ARTICLES = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'apps', 'docs', 'content', 'articles.json'), 'utf8')
+  ) as { slug: string; title: string; description: string }[];
+
+  let updated = replaceMarkerBlock(rootLlms, 'release', `\n${releaseBlock}\n`);
+  updated = replaceMarkerBlock(
+    updated,
+    'articles',
+    `\n## Articles\n\n${ARTICLES.map(
+      (article) => `- [${article.title}](https://slipstreamui.com/articles/${article.slug}) — ${article.description}`
+    ).join('\n')}\n`
+  );
+  updated = replaceMarkerBlock(
+    updated,
     'core',
     `\n## Core components (@slipstream-ui/core) — ${coreList.length}\n\n${bulletList(coreList)}\n`
   );

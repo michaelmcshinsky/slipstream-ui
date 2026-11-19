@@ -47,6 +47,21 @@ export type ConversationProps = {
   /** Bubble surface forwarded to every message. Default 'auto'. */
   messageSurface?: 'auto' | 'none' | 'card' | 'muted' | 'primary';
 
+  // --- Localization -------------------------------------------------------
+  /** Display name for the user role; override for localization. */
+  userLabel?: string;
+  /** Display name for the assistant role; override for localization. */
+  assistantLabel?: string;
+  /** Localized chrome copy: landmark, announcements and history controls. */
+  labels?: {
+    transcript?: string;
+    responseComplete?: string;
+    loadEarlier?: string;
+    loadingEarlier?: string;
+    latest?: string;
+    download?: string;
+  };
+
   // --- History pagination --------------------------------------------------
   /** Older history exists; renders a "load earlier" control at the top. */
   hasMoreHistory?: boolean;
@@ -107,6 +122,9 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
     onWelcomeSelect,
     density = 'comfortable',
     messageSurface = 'auto',
+    userLabel,
+    assistantLabel,
+    labels,
     hasMoreHistory = false,
     isLoadingMore = false,
     onLoadMore,
@@ -123,10 +141,10 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
     const prevStreamingRef = React.useRef<string | undefined>(undefined);
     React.useEffect(() => {
       if (prevStreamingRef.current && !streamingMessageId) {
-        setAnnouncement('Response complete.');
+        setAnnouncement(labels?.responseComplete ?? 'Response complete.');
       }
       prevStreamingRef.current = streamingMessageId;
-    }, [streamingMessageId]);
+    }, [streamingMessageId, labels?.responseComplete]);
 
     // Track pinned state on scroll so the jump-to-latest pill can appear.
     React.useEffect(() => {
@@ -210,7 +228,7 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
         <div
           ref={scrollRef}
           tabIndex={0}
-          aria-label="Conversation transcript"
+          aria-label={labels?.transcript ?? 'Conversation transcript'}
           className={cn(
             'flex flex-col overflow-y-auto h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
             TRANSCRIPT_DENSITY[density]
@@ -223,7 +241,7 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
               disabled={isLoadingMore}
               className="mx-auto rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
             >
-              {isLoadingMore ? 'Loading…' : 'Load earlier messages'}
+              {isLoadingMore ? (labels?.loadingEarlier ?? 'Loading…') : (labels?.loadEarlier ?? 'Load earlier messages')}
             </button>
           )}
 
@@ -261,6 +279,8 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
                 renderContent={renderContent}
                 density={density}
                 surface={messageSurface}
+                userLabel={userLabel}
+                assistantLabel={assistantLabel}
                 isStreaming={message.id === streamingMessageId}
                 error={messageErrors?.[message.id]}
                 onRetry={
@@ -301,7 +321,7 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
           <button
             type="button"
             onClick={handleDownload}
-            aria-label="Download transcript"
+            aria-label={labels?.download ?? 'Download transcript'}
             className="absolute top-2 right-2 z-10 rounded-md border border-border bg-background/90 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             ↓ .md
@@ -312,7 +332,7 @@ const Conversation = React.forwardRef<HTMLDivElement, ConversationProps>(
           <button
             type="button"
             onClick={scrollToLatest}
-            aria-label="Scroll to latest message"
+            aria-label={labels?.latest ?? 'Scroll to latest message'}
             className="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 rounded-full border border-border bg-background/95 px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             ↓ Latest

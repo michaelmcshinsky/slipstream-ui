@@ -2,9 +2,12 @@
 
 A content container with header, body, and footer sections for grouping related information
 
+> Component ID: `card`
 > Import: `import { Card } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/card
 > Registry: https://slipstreamui.com/registry/card.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

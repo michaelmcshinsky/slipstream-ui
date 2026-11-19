@@ -2,9 +2,12 @@
 
 Presentational light/dark toggle with accessible labels and sun/moon state.
 
+> Component ID: `theme-toggle`
 > Import: `import { ThemeToggle } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/theme-toggle
 > Registry: https://slipstreamui.com/registry/theme-toggle.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

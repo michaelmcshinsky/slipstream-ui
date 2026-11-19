@@ -33,12 +33,19 @@ const ROUTES = [
   '/docs/components/table-of-contents',
   '/docs/components/tool-call',
   '/docs/components/confirmation',
+  '/docs/components',
+  '/playground',
+  '/articles',
+  '/articles/validation-benchmark-100-cases',
+  '/articles/component-contract-not-gallery',
+  '/articles/seven-ways-ai-generated-ui-breaks',
   '/docs/mcp',
   '/docs/templates',
   '/changelog',
   '/docs/roadmap',
   '/about',
   '/accessibility',
+  '/accessibility/scorecard',
   '/contact',
   '/privacy',
   '/terms',
@@ -51,6 +58,22 @@ type AxeViolation = { id: string; impact: string | null; help: string; nodes: Ax
 
 async function auditPage(page: Page, route: string): Promise<AxeViolation[]> {
   await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle' });
+  // axe must evaluate the hydrated app, not the SSR snapshot: CodeBlock adds
+  // tabIndex to a <pre> only when it actually overflows, and it learns that in
+  // a post-hydration effect. Auditing earlier reports scrollable-region-focusable
+  // false positives on code blocks that are correctly wired once hydrated.
+  await page
+    .waitForFunction(
+      () => {
+        for (const el of Array.from(document.querySelectorAll('pre.overflow-x-auto'))) {
+          if (el.scrollWidth > el.clientWidth + 1 && !el.hasAttribute('tabindex')) return false;
+        }
+        return true;
+      },
+      undefined,
+      { timeout: 10_000 }
+    )
+    .catch(() => undefined);
   await page.addScriptTag({ content: axeSource });
   const results = (await page.evaluate(async () => {
     // @ts-expect-error injected by addScriptTag

@@ -1,0 +1,510 @@
+{
+  "name": "slipstream-ui",
+  "version": "0.9.0",
+  "releaseDate": "2026-11-17",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "generatedFrom": "packages/mcp-server/src/tools/recipes.ts",
+  "count": 14,
+  "recipes": [
+    {
+      "keywords": [
+        "chat",
+        "conversation",
+        "messaging",
+        "assistant",
+        "chatbot"
+      ],
+      "components": [
+        {
+          "id": "conversation",
+          "reason": "Scroll-managed message transcript",
+          "docs": "https://slipstreamui.com/docs/components/conversation"
+        },
+        {
+          "id": "prompt-input",
+          "reason": "Composer with attachments and stop control",
+          "docs": "https://slipstreamui.com/docs/components/prompt-input"
+        },
+        {
+          "id": "message",
+          "reason": "User/assistant message rows",
+          "docs": "https://slipstreamui.com/docs/components/message"
+        },
+        {
+          "id": "response",
+          "reason": "Streaming-safe markdown responses",
+          "docs": "https://slipstreamui.com/docs/components/response"
+        },
+        {
+          "id": "streaming-indicator",
+          "reason": "Generating state with an accessible label",
+          "docs": "https://slipstreamui.com/docs/components/streaming-indicator"
+        },
+        {
+          "id": "message-actions",
+          "reason": "Copy, retry and feedback controls",
+          "docs": "https://slipstreamui.com/docs/components/message-actions"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "agent",
+        "tool",
+        "approval",
+        "human in the loop",
+        "workflow"
+      ],
+      "components": [
+        {
+          "id": "tool-call",
+          "reason": "Tool status, arguments and results",
+          "docs": "https://slipstreamui.com/docs/components/tool-call"
+        },
+        {
+          "id": "confirmation",
+          "reason": "Approval gate before a destructive action",
+          "docs": "https://slipstreamui.com/docs/components/confirmation"
+        },
+        {
+          "id": "chain-thought",
+          "reason": "Agent task progress",
+          "docs": "https://slipstreamui.com/docs/components/chain-thought"
+        },
+        {
+          "id": "reasoning",
+          "reason": "Collapsible reasoning steps",
+          "docs": "https://slipstreamui.com/docs/components/reasoning"
+        },
+        {
+          "id": "prompt-input",
+          "reason": "Task composer",
+          "docs": "https://slipstreamui.com/docs/components/prompt-input"
+        },
+        {
+          "id": "conversation",
+          "reason": "Agent transcript",
+          "docs": "https://slipstreamui.com/docs/components/conversation"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "rag",
+        "citation",
+        "citations",
+        "source",
+        "sources",
+        "grounded"
+      ],
+      "components": [
+        {
+          "id": "source",
+          "reason": "Numbered reference list",
+          "docs": "https://slipstreamui.com/docs/components/sources"
+        },
+        {
+          "id": "inline-citation",
+          "reason": "Per-claim citation chips",
+          "docs": "https://slipstreamui.com/docs/components/inline-citation"
+        },
+        {
+          "id": "response",
+          "reason": "Markdown answer body",
+          "docs": "https://slipstreamui.com/docs/components/response"
+        },
+        {
+          "id": "conversation",
+          "reason": "Answer transcript",
+          "docs": "https://slipstreamui.com/docs/components/conversation"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "dashboard",
+        "admin",
+        "analytics",
+        "metrics",
+        "overview"
+      ],
+      "components": [
+        {
+          "id": "app-shell",
+          "reason": "Sidebar + header application frame",
+          "docs": "https://slipstreamui.com/docs/components/app-shell"
+        },
+        {
+          "id": "metric-card",
+          "reason": "KPI tiles",
+          "docs": "https://slipstreamui.com/docs/components/metric-card"
+        },
+        {
+          "id": "data-table",
+          "reason": "Sortable, paginated data",
+          "docs": "https://slipstreamui.com/docs/components/data-table"
+        },
+        {
+          "id": "filter-bar",
+          "reason": "Search and reset controls",
+          "docs": "https://slipstreamui.com/docs/components/filter-bar"
+        },
+        {
+          "id": "page-header",
+          "reason": "Page title and actions",
+          "docs": "https://slipstreamui.com/docs/components/page-header"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "table",
+        "data grid",
+        "list",
+        "sort",
+        "filterable"
+      ],
+      "components": [
+        {
+          "id": "data-table",
+          "reason": "Columns, sorting, pagination and selection",
+          "docs": "https://slipstreamui.com/docs/components/data-table"
+        },
+        {
+          "id": "filter-bar",
+          "reason": "Filter/search toolbar",
+          "docs": "https://slipstreamui.com/docs/components/filter-bar"
+        },
+        {
+          "id": "pagination",
+          "reason": "Page navigation",
+          "docs": "https://slipstreamui.com/docs/components/pagination"
+        },
+        {
+          "id": "badge",
+          "reason": "Status cells",
+          "docs": "https://slipstreamui.com/docs/components/badge"
+        },
+        {
+          "id": "empty-state",
+          "reason": "Zero-result state",
+          "docs": "https://slipstreamui.com/docs/components/empty-state"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "form",
+        "input",
+        "validation",
+        "submit",
+        "fields"
+      ],
+      "components": [
+        {
+          "id": "form",
+          "reason": "Semantic form with submit handling",
+          "docs": "https://slipstreamui.com/docs/components/form"
+        },
+        {
+          "id": "form-field",
+          "reason": "Label, hint and error wiring",
+          "docs": "https://slipstreamui.com/docs/components/form-field"
+        },
+        {
+          "id": "input",
+          "reason": "Text input",
+          "docs": "https://slipstreamui.com/docs/components/input"
+        },
+        {
+          "id": "textarea",
+          "reason": "Multi-line text",
+          "docs": "https://slipstreamui.com/docs/components/textarea"
+        },
+        {
+          "id": "select",
+          "reason": "Native select",
+          "docs": "https://slipstreamui.com/docs/components/select"
+        },
+        {
+          "id": "checkbox",
+          "reason": "Boolean choice",
+          "docs": "https://slipstreamui.com/docs/components/checkbox"
+        },
+        {
+          "id": "button",
+          "reason": "Submit action",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "settings",
+        "preferences",
+        "profile",
+        "account",
+        "toggle",
+        "toggles"
+      ],
+      "components": [
+        {
+          "id": "form",
+          "reason": "Settings form",
+          "docs": "https://slipstreamui.com/docs/components/form"
+        },
+        {
+          "id": "form-layout",
+          "reason": "Sectioned form layout",
+          "docs": "https://slipstreamui.com/docs/components/form-layout"
+        },
+        {
+          "id": "input",
+          "reason": "Text fields",
+          "docs": "https://slipstreamui.com/docs/components/input"
+        },
+        {
+          "id": "switch",
+          "reason": "On/off preferences",
+          "docs": "https://slipstreamui.com/docs/components/switch"
+        },
+        {
+          "id": "select",
+          "reason": "Option pickers",
+          "docs": "https://slipstreamui.com/docs/components/select"
+        },
+        {
+          "id": "button",
+          "reason": "Save action",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "auth",
+        "login",
+        "sign in",
+        "signup",
+        "sign up",
+        "password"
+      ],
+      "components": [
+        {
+          "id": "auth-layout",
+          "reason": "Centered or split auth surface",
+          "docs": "https://slipstreamui.com/docs/components/auth-layout"
+        },
+        {
+          "id": "form-field",
+          "reason": "Field labels and errors",
+          "docs": "https://slipstreamui.com/docs/components/form-field"
+        },
+        {
+          "id": "input",
+          "reason": "Email field",
+          "docs": "https://slipstreamui.com/docs/components/input"
+        },
+        {
+          "id": "password-input",
+          "reason": "Password reveal control",
+          "docs": "https://slipstreamui.com/docs/components/password-input"
+        },
+        {
+          "id": "button",
+          "reason": "Submit action",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "upload",
+        "file",
+        "attachment",
+        "drag and drop"
+      ],
+      "components": [
+        {
+          "id": "file-upload",
+          "reason": "Drag-and-drop file picker",
+          "docs": "https://slipstreamui.com/docs/components/file-upload"
+        },
+        {
+          "id": "progress",
+          "reason": "Per-file progress",
+          "docs": "https://slipstreamui.com/docs/components/progress"
+        },
+        {
+          "id": "form-field",
+          "reason": "Label and error wiring",
+          "docs": "https://slipstreamui.com/docs/components/form-field"
+        },
+        {
+          "id": "button",
+          "reason": "Upload action",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "onboarding",
+        "wizard",
+        "step",
+        "stepper",
+        "checkout"
+      ],
+      "components": [
+        {
+          "id": "stepper",
+          "reason": "Step progress and navigation",
+          "docs": "https://slipstreamui.com/docs/components/stepper"
+        },
+        {
+          "id": "form",
+          "reason": "Step form",
+          "docs": "https://slipstreamui.com/docs/components/form"
+        },
+        {
+          "id": "form-layout",
+          "reason": "Consistent field spacing",
+          "docs": "https://slipstreamui.com/docs/components/form-layout"
+        },
+        {
+          "id": "button",
+          "reason": "Next/back actions",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "modal",
+        "dialog",
+        "confirm",
+        "delete"
+      ],
+      "components": [
+        {
+          "id": "dialog",
+          "reason": "Focus-trapped modal",
+          "docs": "https://slipstreamui.com/docs/components/dialog"
+        },
+        {
+          "id": "confirm-dialog",
+          "reason": "Destructive confirmation flow",
+          "docs": "https://slipstreamui.com/docs/components/confirm-dialog"
+        },
+        {
+          "id": "button",
+          "reason": "Trigger and confirm actions",
+          "docs": "https://slipstreamui.com/docs/components/button"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "navigation",
+        "nav",
+        "menu",
+        "header",
+        "sidebar"
+      ],
+      "components": [
+        {
+          "id": "site-header",
+          "reason": "Marketing/app header",
+          "docs": "https://slipstreamui.com/docs/components/site-header"
+        },
+        {
+          "id": "app-shell",
+          "reason": "Sidebar application frame",
+          "docs": "https://slipstreamui.com/docs/components/app-shell"
+        },
+        {
+          "id": "breadcrumb",
+          "reason": "Hierarchy trail",
+          "docs": "https://slipstreamui.com/docs/components/breadcrumb"
+        },
+        {
+          "id": "link-tabs",
+          "reason": "Route-based tabs",
+          "docs": "https://slipstreamui.com/docs/components/link-tabs"
+        },
+        {
+          "id": "bottom-nav",
+          "reason": "Mobile primary destinations",
+          "docs": "https://slipstreamui.com/docs/components/bottom-nav"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "notification",
+        "toast",
+        "alert",
+        "status"
+      ],
+      "components": [
+        {
+          "id": "toast",
+          "reason": "Transient notification with actions",
+          "docs": "https://slipstreamui.com/docs/components/toast"
+        },
+        {
+          "id": "alert",
+          "reason": "Inline status message",
+          "docs": "https://slipstreamui.com/docs/components/alert"
+        },
+        {
+          "id": "badge",
+          "reason": "Compact status label",
+          "docs": "https://slipstreamui.com/docs/components/badge"
+        }
+      ]
+    },
+    {
+      "keywords": [
+        "marketing",
+        "landing",
+        "homepage",
+        "hero",
+        "pricing"
+      ],
+      "components": [
+        {
+          "id": "hero",
+          "reason": "Landing hero",
+          "docs": "https://slipstreamui.com/docs/components/hero"
+        },
+        {
+          "id": "feature-grid",
+          "reason": "Feature benefits",
+          "docs": "https://slipstreamui.com/docs/components/feature-grid"
+        },
+        {
+          "id": "cta-section",
+          "reason": "Conversion band",
+          "docs": "https://slipstreamui.com/docs/components/cta-section"
+        },
+        {
+          "id": "testimonial",
+          "reason": "Social proof",
+          "docs": "https://slipstreamui.com/docs/components/testimonial"
+        },
+        {
+          "id": "stat-band",
+          "reason": "Proof metrics",
+          "docs": "https://slipstreamui.com/docs/components/stat-band"
+        },
+        {
+          "id": "site-footer",
+          "reason": "Footer navigation",
+          "docs": "https://slipstreamui.com/docs/components/site-footer"
+        }
+      ]
+    }
+  ]
+}

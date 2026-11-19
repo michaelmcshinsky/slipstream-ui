@@ -64,6 +64,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs/ai-first', label: 'Overview', labelKey: 'nav.items.overview' },
       { href: '/docs/ai-manifests', label: 'COMPONENT_MANIFEST' },
       { href: '/docs/cli', label: 'CLI' },
+      { href: '/playground', label: 'Playground' },
       { href: '/docs/patterns', label: 'Patterns', labelKey: 'nav.items.patterns' },
       { href: '/docs/templates', label: 'Templates', labelKey: 'nav.items.templates' },
       { href: '/docs/mcp', label: 'MCP Server', labelKey: 'nav.items.mcpServer' },
@@ -142,6 +143,7 @@ export const NAV_SECTIONS: NavSection[] = [
         title: 'Content',
         titleKey: 'nav.groups.content',
         items: [
+          { href: '/docs/components/image', label: 'Image' },
           { href: '/docs/components/article-card', label: 'ArticleCard' },
           { href: '/docs/components/newsletter', label: 'Newsletter' },
           { href: '/docs/components/contact-strip', label: 'ContactStrip' },

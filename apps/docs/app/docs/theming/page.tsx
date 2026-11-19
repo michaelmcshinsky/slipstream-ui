@@ -97,10 +97,32 @@ const customTheme = createTheme({
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Dark Mode</h2>
         <p className="text-muted-foreground mb-4">
-          To enable dark mode, add the <code className="bg-muted px-2 py-1 rounded">dark</code> class to a parent element (typically the <code className="bg-muted px-2 py-1 rounded">html</code> or <code className="bg-muted px-2 py-1 rounded">body</code> tag):
+          To enable dark mode, update the <code className="bg-muted px-2 py-1 rounded">{'<meta name="color-scheme">'}</code> element in the document head. This controls the CSS <code className="bg-muted px-2 py-1 rounded">color-scheme</code> property, which affects <code className="bg-muted px-2 py-1 rounded">light-dark()</code>, system colors, and native UI. Map the meta tag to CSS using the <code className="bg-muted px-2 py-1 rounded">:has()</code> selector:
+        </p>
+        <CodeBlock language="css" code={`/* In your global CSS */
+:root {
+  color-scheme: light dark;
+}
+
+/* Map <meta name="color-scheme"> to CSS color-scheme property */
+:root:has(> head > meta[name="color-scheme"][content="dark"]) {
+  color-scheme: dark;
+}
+:root:has(> head > meta[name="color-scheme"][content="light"]) {
+  color-scheme: light;
+}
+
+/* Dark mode variables (unchanged) */
+.dark {
+  --background: 220 6% 7%;
+  /* ... */
+}`} />
+        <p className="text-muted-foreground mt-4 mb-4">
+          Toggle by updating the meta tag content (<code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">light dark</code>, <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">light</code>, or <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">dark</code>):
         </p>
         <CodeBlock language="css" code={`// Toggle dark mode
-document.documentElement.classList.toggle('dark')`} />
+const meta = document.querySelector('meta[name="color-scheme"]');
+meta.content = 'dark'; // or 'light', or 'light dark' for system`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
         <p className="text-muted-foreground mb-4">

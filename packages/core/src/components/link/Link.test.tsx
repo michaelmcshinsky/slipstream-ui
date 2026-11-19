@@ -8,7 +8,8 @@ describe('Link', () => {
     render(<Link href="/docs">Docs</Link>);
     const link = screen.getByRole('link', { name: 'Docs' });
     expect(link).toHaveAttribute('href', '/docs');
-    expect(link).toHaveClass('text-primary');
+    expect(link).toHaveClass('text-primary-ink');
+    expect(link).not.toHaveClass('text-primary');
   });
 
   it('auto-detects external URLs and adds rel/noopener', () => {

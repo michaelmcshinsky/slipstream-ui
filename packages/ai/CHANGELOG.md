@@ -1,5 +1,113 @@
 # @slipstream-ui/ai
 
+## 0.9.1
+
+### Patch Changes
+
+- [#137](https://github.com/michaelmcshinsky/slipstream-ui/pull/137) [`7e59910`](https://github.com/michaelmcshinsky/slipstream-ui/commit/7e5991043bf14b5adf44b97b48e09f100e3ba0dd) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Modern Web Guidance modernization fixes across the repository:
+  
+  - **Dark mode toggles**: Updated all apps (app, playground, ai-chat starter, docs) to use `<meta name="color-scheme">` with CSS `:has()` selector mapping instead of toggling `.dark` class on `<html>`. This follows the modern-web-guidance `dark-mode-toggle` guide for proper color-scheme synchronization.
+  
+  - **Form field auto-sizing**: Updated `PromptInput` to use CSS `field-sizing: content` with progressive enhancement fallback instead of imperative scrollHeight resizing.
+  
+  - **IME-safe enter-to-submit**: Added composition checks (`event.nativeEvent.isComposing` and `keyCode === 229`) to all Enter handlers in PromptInput and Message components to prevent premature submission during CJK input.
+  
+  - **Modern array methods**: Replaced `[...messages].reverse().find()` with `messages.findLast()` in ai-chat starter.
+  
+  - **Error cause chaining**: Updated CLI config to use `{ cause: error }` option when throwing errors.
+  
+  Updated documentation in docs app to reflect the new dark mode approach.
+
+## 0.9.0
+
+### Minor Changes
+
+- [#121](https://github.com/michaelmcshinsky/slipstream-ui/pull/121) [`f1d340c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f1d340c960e93c452a59dbe63a53ca35102c4fae) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - feat(i18n): localize the marketing lab, chat demo and docs shell
+  
+  `Stepper` accepts `labels` (`completed`, `current`, `upcoming`) so the
+  screen-reader state suffix is no longer English-only. `DataTable` accepts
+  `selectedLabel` (`{count} selected` by default) for the selection summary
+  above the table. `Conversation` accepts `userLabel`, `assistantLabel` and
+  `labels` (`transcript`, `responseComplete`, `loadEarlier`, `loadingEarlier`,
+  `latest`, `download`) and forwards the role labels to each `Message`.
+  
+  The docs shell gained a `site.translation` message group used by the
+  "this page is English only for now" notice, and `LocaleSwitcher` now uses
+  logical padding and inset so the caret stays on the trailing side in RTL.
+
+- [#124](https://github.com/michaelmcshinsky/slipstream-ui/pull/124) [`afdab6f`](https://github.com/michaelmcshinsky/slipstream-ui/commit/afdab6f40000cae6e9771185c8cf528cad3fbbf1) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - feat(core): add Image, nested SiteHeader menus, and a primary ink token
+  
+  `Image` fills the last media gap in the library: `src` → `fallbackSrc` →
+  `fallback` node, intrinsic `width`/`height` on every render, `decoding="async"`,
+  and `priority` for the single LCP image. It is manifested with the fallback and
+  alt-text rules.
+  
+  `SiteHeader` accepts nested `columns` on an item. Desktop renders a disclosure
+  trigger with `aria-expanded`/`aria-controls`, opens on hover or click, stays
+  open while tabbing, and closes on Escape or an outside pointer. The mobile
+  drawer renders the same groups as native `<details>` disclosures.
+  
+  `primary-ink` joins the theme contract: a darker primary for text roles on
+  light surfaces and `primary/10` tints, and the lightened primary in dark mode.
+  `Link`, the Sidebar active item, `PageHeader`/`SectionHeading` eyebrows,
+  `ArticleCard`/`CTASection` eyebrows, and the highlighted `ComparisonTable`
+  column now use it. `bg-primary` is unchanged for fills.
+  
+  The dark-mode \destructive\ text token is lightened slightly so it clears 4.5:1 on the popover surface; the previous value missed by 0.002.
+
+- [#110](https://github.com/michaelmcshinsky/slipstream-ui/pull/110) [`ef31109`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ef311099c8603e6e791aa8b13b7c2b8caae33b1e) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - feat(core): Popover placement and a Calendar date grid
+  
+  `PopoverContent` gained `side`, `align`, `sideOffset`, `alignOffset`,
+  `collisionPadding` and `matchTriggerWidth`, plus a `PopoverAnchor` element. The
+  panel now flips to the opposite side when the preferred one cannot fit, clamps
+  inside the viewport, and repositions on scroll instead of closing.
+  
+  Note: the old panel right-aligned to the trigger; the default is now
+  `align="start"`, which left-aligns. Consumers that relied on the previous
+  right edge can pass `align="end"`.
+  
+  New `Calendar` renders a six-week month grid with ISO `YYYY-MM-DD` values,
+  min/max, `isDateDisabled`, locale-aware labels, week start, and keyboard
+  navigation (arrows, Home/End, PageUp/PageDown, Enter) with a single roving tab
+  stop. `DatePickerPopover` composes `Popover` + `Calendar` for a themed date
+  field that still posts an ISO value through a hidden input.
+
+### Patch Changes
+
+- [#121](https://github.com/michaelmcshinsky/slipstream-ui/pull/121) [`f1d340c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f1d340c960e93c452a59dbe63a53ca35102c4fae) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - fix(a11y): dark-mode contrast and naming findings from the full audit
+  
+  - Calendar outside-month days move from `text-muted-foreground/50` (2.94:1 on
+    the dark background) to `/80` (5.1:1).
+  - Dark `destructive` lifts from 64% to 65% lightness: 4.47:1 → 4.64:1 as text
+    on the popover surface.
+  - The docs search button's accessible name now matches its rendered text, and
+    the shortcut hint uses the same string as the label.
+
+- [#119](https://github.com/michaelmcshinsky/slipstream-ui/pull/119) [`ac1eea6`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ac1eea61ac2d3352862c72d6b08f4286149d03e7) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - fix(ai): render unlabelled fenced code as a block, and stop repairing identifiers
+  
+  - `Response` treated a fenced block with no language and a single line as inline code,
+    because the inline test looked at the text after its trailing newline was stripped. It
+    now tests the source text, so ```` ```\nfoo\n``` ```` renders through `CodeBlock`.
+  - `closeIncompleteMarkdown` no longer appends a stray closer for identifiers: complete
+    inline code spans are ignored when counting emphasis, and intraword underscores in
+    `snake_case` are not treated as italic markers.
+  - `CodeBlock` and `Response` now ship the jest-axe assertion the component pipeline
+    requires, plus coverage for clipboard failure, overflow tab stops, unknown languages,
+    empty input, raw HTML and unsafe link protocols, and dark-theme syntax switching.
+
+- [#110](https://github.com/michaelmcshinsky/slipstream-ui/pull/110) [`ef31109`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ef311099c8603e6e791aa8b13b7c2b8caae33b1e) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - fix(a11y): add a success ink token for text on success tints
+  
+  `text-success` on `bg-success/10` measured 4.11:1 in light mode, under the
+  4.5:1 minimum for small text. `success-ink` joins `warning-ink` and `info-ink`:
+  5.6:1 on a 10% tint in light mode and 7.9:1 on the dark card.
+  
+  The ToolCall `completed` chip, the Confirmation `approved` chip and the Alert
+  `success` variant now use `text-success-ink`. A themes test pins both values and
+  fails if the plain `success` token ever starts passing on a tint (which would
+  mean the token contract changed).
+- Updated dependencies [[`f1d340c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f1d340c960e93c452a59dbe63a53ca35102c4fae), [`f1d340c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f1d340c960e93c452a59dbe63a53ca35102c4fae), [`afdab6f`](https://github.com/michaelmcshinsky/slipstream-ui/commit/afdab6f40000cae6e9771185c8cf528cad3fbbf1), [`acdd742`](https://github.com/michaelmcshinsky/slipstream-ui/commit/acdd7424d7943c439a64bfe6959cb4a8b6a4aca3), [`ef31109`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ef311099c8603e6e791aa8b13b7c2b8caae33b1e), [`ef31109`](https://github.com/michaelmcshinsky/slipstream-ui/commit/ef311099c8603e6e791aa8b13b7c2b8caae33b1e)]:
+  - @slipstream-ui/core@0.9.0
+
 ## 0.8.0
 
 ### Patch Changes

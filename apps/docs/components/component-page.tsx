@@ -6,8 +6,9 @@ import { CodeBlock } from '@slipstream-ui/ai';
 import { useI18n } from '@slipstream-ui/i18n/react';
 import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
+import { CopyForAi } from './copy-for-ai';
 import { JsonLd } from './site/json-ld';
-import { techArticleSchema } from '@/lib/structured-data';
+import { breadcrumbSchema, techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
@@ -40,6 +41,8 @@ type RegistryManifest = {
   antiPatterns?: ManifestAntiPattern[];
   compositionRules?: ManifestCompositionRule[];
   relatedComponents?: string[];
+  dependencies?: string[];
+  registryDependencies?: string[];
 };
 
 /** "MessageActions" / "InlineCitation" → route id used by /docs/components/<id>. */
@@ -122,18 +125,29 @@ export function ComponentPage({
           section: 'Components',
         })}
       />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Docs', path: '/docs' },
+          { name: 'Components', path: '/docs/components' },
+          { name: title, path: `/docs/components/${id}` },
+        ])}
+      />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
-        {/* Canonical markdown for agents — mirrors assistant-ui's .md convention. */}
-        <a
-          href={`/llm/components/${manifestId ?? id}.md`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          title={t('site.page.markdownTitle', { href: `/llm/components/${manifestId ?? id}.md` })}
-        >
-          <span aria-hidden="true">⧉</span> {t('site.page.markdownForAgents')}
-        </a>
+        {/* Two agent hand-offs: the canonical markdown page, and a compact
+            instruction copied from the same registry payload validate_usage reads. */}
+        <div className="flex flex-wrap items-start gap-2">
+          <CopyForAi componentId={manifestId ?? id} />
+          <a
+            href={`/llm/components/${manifestId ?? id}.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            title={t('site.page.markdownTitle', { href: `/llm/components/${manifestId ?? id}.md` })}
+          >
+            <span aria-hidden="true">⧉</span> {t('site.page.markdownForAgents')}
+          </a>
+        </div>
       </div>
       <p className="mt-2 text-lg text-muted-foreground">{description}</p>
 
@@ -224,6 +238,40 @@ export function ComponentPage({
               </p>
             )}
           </div>
+        </section>
+      )}
+
+      {((manifest?.dependencies ?? []).length > 0 || (manifest?.registryDependencies ?? []).length > 0) && (
+        <section className="mt-10">
+          <h2 className="mb-2 text-xl font-semibold">Dependencies</h2>
+          <p className="mb-3 text-sm text-muted-foreground">
+            What the registry installs alongside this component. Package imports already include these.
+          </p>
+          {(manifest?.dependencies ?? []).length > 0 && (
+            <div className="mb-3">
+              <h3 className="text-sm font-medium">npm packages</h3>
+              <ul className="mt-1 flex flex-wrap gap-1.5">
+                {(manifest?.dependencies ?? []).map((dependency) => (
+                  <li
+                    key={dependency}
+                    className="rounded border border-border bg-muted/50 px-2 py-0.5 font-mono text-xs"
+                  >
+                    {dependency}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {(manifest?.registryDependencies ?? []).length > 0 && (
+            <div>
+              <h3 className="text-sm font-medium">Registry items</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {(manifest?.registryDependencies ?? [])
+                  .map((url) => url.slice(url.lastIndexOf('/') + 1).replace(/\.json$/, ''))
+                  .join(', ')}
+              </p>
+            </div>
+          )}
         </section>
       )}
 

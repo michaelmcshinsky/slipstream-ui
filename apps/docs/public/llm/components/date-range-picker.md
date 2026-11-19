@@ -2,9 +2,12 @@
 
 Start/end date range with ISO strings and quick presets.
 
+> Component ID: `date-range-picker`
 > Import: `import { DateRangePicker } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/date-range-picker
 > Registry: https://slipstreamui.com/registry/date-range-picker.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

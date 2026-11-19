@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { LocaleSwitcher, useI18n } from '@slipstream-ui/i18n/react';
 import { track } from '@/lib/analytics';
+import { applyTheme, persistTheme, THEME_STORAGE_KEY } from '@/lib/theme';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -22,17 +23,22 @@ export function Navbar() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [dark, setDark] = useState(false);
 
-  // Sync with the class applied by the pre-paint theme script in the root layout.
+  // Sync with the `.dark` class set by the pre-paint script in the root layout.
   useEffect(() => {
     setDark(document.documentElement.classList.contains('dark'));
+    const observer = new MutationObserver(() =>
+      setDark(document.documentElement.classList.contains('dark')),
+    );
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
   }, []);
 
   // Follow live OS theme changes while the user hasn't chosen an explicit preference.
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     function onChange(e: MediaQueryListEvent) {
-      if (localStorage.getItem('slipstream-theme')) return;
-      document.documentElement.classList.toggle('dark', e.matches);
+      if (localStorage.getItem(THEME_STORAGE_KEY)) return;
+      applyTheme(e.matches);
       setDark(e.matches);
     }
     mq.addEventListener('change', onChange);
@@ -56,9 +62,9 @@ export function Navbar() {
   }, []);
 
   function toggleDark() {
-    const next = !dark;
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('slipstream-theme', next ? 'dark' : 'light');
+    const next = !document.documentElement.classList.contains('dark');
+    applyTheme(next);
+    persistTheme(next, window.matchMedia('(prefers-color-scheme: dark)').matches);
     setDark(next);
   }
 
@@ -107,9 +113,19 @@ export function Navbar() {
               className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-muted/50 px-4 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
               aria-label={t('shell.searchAria')}
             >
-              <span aria-hidden="true">⌕</span>
+              <svg
+                viewBox="0 0 16 16"
+                className="h-4 w-4 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="7" cy="7" r="4.5" />
+                <path d="m10.5 10.5 3 3" strokeLinecap="round" />
+              </svg>
               <span className="hidden sm:inline">{t('shell.search')}</span>
-              <kbd className="hidden rounded border border-border bg-background px-1.5 font-mono text-[10px] sm:inline">⌘K</kbd>
+              <kbd aria-hidden="true" className="hidden rounded border border-border bg-background px-1.5 font-mono text-[10px] sm:inline">Ctrl+K</kbd>
             </button>
             <button
               type="button"

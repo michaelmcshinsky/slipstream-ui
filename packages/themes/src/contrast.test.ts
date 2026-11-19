@@ -77,6 +77,30 @@ describe('semantic ink tokens', () => {
     }
   });
 
+
+  it('destructive text clears 4.5:1 on the popover surface', () => {
+    for (const mode of [false, true]) {
+      const theme = createTheme({ darkMode: mode });
+      expect(
+        contrast(hslToRgb(theme.colors.destructive), hslToRgb(theme.colors.popover))
+      ).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('primary ink clears 4.5:1 on white and on a primary tint', () => {
+    const theme = createTheme({ brandColor: '224 89% 58%' });
+    const tint = over(theme.colors.primary, WHITE, 0.1);
+    expect(contrast(hslToRgb(theme.colors['primary-ink']), WHITE)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(hslToRgb(theme.colors['primary-ink']), tint)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('dark-mode primary ink clears 4.5:1 on the dark card', () => {
+    const theme = createTheme({ brandColor: '224 89% 58%', darkMode: true });
+    expect(
+      contrast(hslToRgb(theme.colors['primary-ink']), hslToRgb(theme.colors.card))
+    ).toBeGreaterThanOrEqual(4.5);
+  });
+
   it('every theme colour parses as unitless HSL', () => {
     for (const mode of [false, true]) {
       const theme = createTheme({ darkMode: mode });

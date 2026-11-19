@@ -1,3 +1,5 @@
+'use client';
+
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, Button, Input, Tooltip } from '@slipstream-ui/core';

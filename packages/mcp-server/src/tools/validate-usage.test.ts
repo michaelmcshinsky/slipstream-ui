@@ -62,6 +62,45 @@ describe('validate_usage tool', () => {
     expect(payload.usageCount).toBe(1);
   });
 
+  it('flags an icon-only button with no accessible name', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<Button size="icon"><SearchIcon /></Button>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(false);
+    expect(
+      payload.issues.some((issue: { message: string }) => issue.message.includes('no accessible name'))
+    ).toBe(true);
+  });
+
+  it('accepts an icon button when a name is present', async () => {
+    for (const code of [
+      '<Button size="icon" aria-label="Search"><SearchIcon /></Button>',
+      '<Button size="icon" aria-labelledby="search-label"><SearchIcon /></Button>',
+      '<Button size="icon">?</Button>',
+      '<Button size="icon">{icon}</Button>',
+      '<Button size="icon"><img src="/search.svg" alt="Search" /></Button>',
+    ]) {
+      const result = await validateUsageTool.handler({ componentId: 'button', code });
+      const payload = JSON.parse(result.content[0].text);
+      expect(payload.valid, code).toBe(true);
+      expect(
+        payload.issues.some((issue: { message: string }) => issue.message.includes('no accessible name')),
+        code
+      ).toBe(false);
+    }
+  });
+
+  it('rejects an empty aria-label on an icon button', async () => {
+    const result = await validateUsageTool.handler({
+      componentId: 'button',
+      code: '<Button size="icon" aria-label=""><SearchIcon /></Button>',
+    });
+    const payload = JSON.parse(result.content[0].text);
+    expect(payload.valid).toBe(false);
+  });
+
   it('returns anti-patterns to check', async () => {
     const result = await validateUsageTool.handler({
       componentId: 'source',

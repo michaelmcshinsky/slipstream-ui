@@ -40,6 +40,9 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     // passes AA both as button background and as link text)
     primary: darkMode ? lightenForDark(baseColor) : baseColor,
     'primary-foreground': darkMode ? inkForDark(baseColor) : '0 0% 100%',
+    // Text-safe primary: darker on light surfaces (4.5:1 on white and on a
+    // primary/10 tint), the already-lightened primary on dark surfaces.
+    'primary-ink': darkMode ? lightenForDark(baseColor) : darkenForInk(baseColor),
 
     // Secondary / muted / accent
     secondary: darkMode ? '220 5% 16%' : '214 45% 96%',
@@ -50,7 +53,7 @@ export function createTheme(config: ThemeConfig = {}): Theme {
     'accent-foreground': darkMode ? '220 9% 95%' : '222 47% 11%',
 
     // Destructive — dark text carries AA on bg and card; solid fills take ink
-    destructive: darkMode ? '0 76% 64%' : '348 68% 44%',
+    destructive: darkMode ? '0 80% 68%' : '348 68% 43%',
     'destructive-foreground': darkMode ? '220 30% 8%' : '0 0% 100%',
 
     // Status colors (success / warning / info) — unitless hues.
@@ -138,6 +141,18 @@ function lightenForDark(hsl: string): string {
   const light = Math.max(parsed.l, 70);
   const sat = Math.min(95, Math.max(parsed.s, 60));
   return `${Math.round(parsed.h)} ${Math.round(sat)}% ${Math.round(light)}%`;
+}
+
+/**
+ * Light surfaces need a darker primary for text. Eighteen points below the
+ * fill colour clears 4.5:1 on white and on a 10% brand tint for the Utah
+ * blue (58% -> 40%); the floor keeps very light brands readable.
+ */
+function darkenForInk(hsl: string): string {
+  const parsed = parseHsl(hsl);
+  if (!parsed) return '224 89% 40%';
+  const light = Math.min(45, Math.max(30, parsed.l - 18));
+  return `${Math.round(parsed.h)} ${Math.round(parsed.s)}% ${Math.round(light)}%`;
 }
 
 /** Matching ink (near-black, lightly tinted) for the light-blue primary. */

@@ -291,7 +291,7 @@ export function ChatShell() {
             <p className="mt-1 text-xs text-muted-foreground">{t('app.activityDescription')}</p>
             <Separator className="my-3" />
             {(() => {
-              const latest = [...messages].reverse().find((message) => message.role === 'assistant');
+              const latest = messages.findLast((message: ChatMessage) => message.role === 'assistant');
               if (!latest) return <p className="text-sm text-muted-foreground">{t('app.noActivity')}</p>;
               return (
                 <div className="space-y-4">
@@ -324,7 +324,7 @@ export function ChatShell() {
                   {latest.tools.length === 0 && latest.reasoning.length === 0 && !latest.approval && (
                     <p className="text-sm text-muted-foreground">{t('app.noActivity')}</p>
                   )}
-                  {latest.tools.map((tool) => (
+                  {latest.tools.map((tool: ChatMessage['tools'][0]) => (
                     <ToolCall
                       key={tool.id}
                       toolCall={tool}
@@ -354,7 +354,7 @@ export function ChatShell() {
                       }}
                     />
                   )}
-                  {latest.citations.map((citation, index) => (
+                  {latest.citations.map((citation: ChatMessage['citations'][0], index) => (
                     <Source key={citation.id} source={citation} index={index + 1} />
                   ))}
                 </div>

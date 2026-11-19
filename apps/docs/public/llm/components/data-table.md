@@ -2,9 +2,12 @@
 
 Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 
+> Component ID: `data-table`
 > Import: `import { DataTable } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/data-table
 > Registry: https://slipstreamui.com/registry/data-table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
@@ -34,6 +37,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
 | selectAllLabel | `string` | `'Select all rows'` | no | Accessible label for the select-all checkbox. |
+| selectedLabel | `string` | `'{count} selected'` | no | Selection summary shown above the table while rows are selected. `{count}` is replaced with the selection size. |
 | className | `string` | — | no | Additional classes for the table wrapper. |
 | selectedRowIds | `string[]` | — | no | Selected row ids (controlled) — enables the leading selection column. |
 | onSelectedRowIdsChange | `(ids: string[]) => void` | — | no | Fires after a row or select-all toggle. |

@@ -8,12 +8,18 @@ import { withSeo } from '@/lib/seo';
 import { getServerLocale } from '@/lib/i18n-server';
 import { getMarketingCopy } from '@/lib/marketing';
 
+const description =
+  'Reach the Slipstream UI maintainers on GitHub: bug reports, questions, and security reports each have a dedicated channel.';
+
 export const metadata: Metadata = withSeo('/contact', {
   title: 'Contact',
-  description:
-    'Get in touch with the Slipstream UI maintainers: email, postal address, GitHub issues, and a contact form for anything else.',
+  description,
   alternates: { canonical: '/contact' },
 });
+
+function resolve(text: string): string {
+  return text.replaceAll('{repo}', SITE.repo);
+}
 
 export default async function ContactPage() {
   const locale = await getServerLocale();
@@ -25,97 +31,42 @@ export default async function ContactPage() {
         data={webPageSchema({
           type: 'ContactPage',
           name: 'Contact Slipstream UI',
-          description:
-            'Get in touch with the Slipstream UI maintainers: email, postal address, GitHub issues, and a contact form for anything else.',
+          description,
           path: '/contact',
         })}
       />
       <MarketingPage title={copy.title} description={copy.description}>
-        <div className="grid gap-8 sm:grid-cols-2">
-          <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-foreground">{copy.emailHeading}</h2>
-            <p>
-              <a className="text-primary underline underline-offset-2 hover:text-primary/80" href={`mailto:${SITE.contact.email}`}>
-                {SITE.contact.email}
-              </a>
-            </p>
-            <h2 className="pt-2 text-lg font-semibold text-foreground">{copy.issuesHeading}</h2>
-            <p>
-              <RichText text={copy.issuesBody.replace('{repo}', SITE.repo)} />
-            </p>
-            <h2 className="pt-2 text-lg font-semibold text-foreground">{copy.addressHeading}</h2>
-            <address className="not-italic">
-              {SITE.contact.address.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </address>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-semibold text-foreground">{copy.formHeading}</h2>
-            <form
-              name="contact"
-              method="POST"
-              action="/thank-you"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              className="space-y-3"
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              <p className="hidden">
-                <label>
-                  {copy.honeypotLabel} <input name="bot-field" />
-                </label>
-              </p>
-              <div className="space-y-1.5">
-                <label htmlFor="contact-name" className="text-sm font-medium text-foreground">
-                  {copy.nameLabel}
-                </label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  required
-                  autoComplete="name"
-                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {copy.channels.map((channel) => (
+            <section key={channel.heading} className="flex flex-col rounded-xl border border-border bg-card p-6">
+              <h2 className="text-lg font-semibold text-foreground">{channel.heading}</h2>
+              <div className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                <RichText text={resolve(channel.body)} />
               </div>
-              <div className="space-y-1.5">
-                <label htmlFor="contact-email" className="text-sm font-medium text-foreground">
-                  {copy.emailLabel}
-                </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label htmlFor="contact-message" className="text-sm font-medium text-foreground">
-                  {copy.messageLabel}
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  required
-                  rows={5}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                />
-              </div>
-              <button
-                type="submit"
-                className="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {copy.send}
-              </button>
-              <p className="text-xs">{copy.privacyNote}</p>
-            </form>
-          </section>
+              {channel.ctaLabel && channel.ctaHref && (
+                <a
+                  href={resolve(channel.ctaHref)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  {channel.ctaLabel}
+                </a>
+              )}
+            </section>
+          ))}
         </div>
+
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold text-foreground">{copy.addressHeading}</h2>
+          <address className="mt-3 not-italic text-sm leading-relaxed text-muted-foreground">
+            {SITE.contact.address.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </address>
+        </section>
       </MarketingPage>
     </>
   );

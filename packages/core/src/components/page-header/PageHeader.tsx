@@ -47,7 +47,7 @@ export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(func
     <div ref={ref} className={cn('flex flex-col gap-2', align === 'center' && 'items-center text-center', className)} {...props}>
       {breadcrumbs && <div className="text-sm text-muted-foreground">{breadcrumbs}</div>}
       {eyebrow && (
-        <div className={cn('text-xs font-medium uppercase tracking-wide text-primary', eyebrowClassName)}>{eyebrow}</div>
+        <div className={cn('text-xs font-medium uppercase tracking-wide text-primary-ink', eyebrowClassName)}>{eyebrow}</div>
       )}
       <div className={cn('flex w-full flex-wrap items-start justify-between gap-3', align === 'center' && 'justify-center')}>
         <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>

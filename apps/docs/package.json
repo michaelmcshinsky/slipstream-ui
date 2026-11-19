@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && next build",
+    "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && tsx ../../scripts/generate-article-content.ts && tsx ../../scripts/generate-a11y-scorecard.ts && next build",
     "start": "next start",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy && tsx ../../scripts/submit-indexnow.ts --soft",
@@ -12,9 +12,12 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "audit:a11y": "tsx scripts/audit-a11y.ts",
     "audit:dark": "tsx scripts/audit-dark-mode.ts",
-    "audit:perf": "node scripts/audit-perf.mjs"
+    "audit:perf": "node scripts/audit-perf.mjs",
+    "smoke:routes": "tsx scripts/smoke-routes.ts"
   },
   "dependencies": {
     "@slipstream-ui/ai": "workspace:*",
@@ -30,6 +33,7 @@
     "@slipstream-ui/eslint-config": "workspace:*",
     "@slipstream-ui/tailwind-config": "workspace:*",
     "@slipstream-ui/typescript-config": "workspace:*",
+    "@vitejs/plugin-react": "^6.2.1",
     "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.0",
@@ -39,6 +43,7 @@
     "chrome-launcher": "^1.2.2",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
+    "jsdom": "^30.1.3",
     "lighthouse": "^13.6.0",
     "playwright-core": "^1.65.0",
     "postcss": "^8.4.32",
@@ -46,6 +51,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.23.15",
     "typescript": "^5.3.3",
+    "vitest": "^5.0.5",
     "wrangler": "^4.158.0"
   }
 }

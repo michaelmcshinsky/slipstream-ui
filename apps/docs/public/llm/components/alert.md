@@ -2,9 +2,12 @@
 
 Inline alert for status messages with semantic variants (destructive, success, warning, info)
 
+> Component ID: `alert`
 > Import: `import { Alert } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/alert
 > Registry: https://slipstreamui.com/registry/alert.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

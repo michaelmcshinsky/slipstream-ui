@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "validation-benchmark-100-cases",
+    "title": "We tested 100 AI-generated component usages. Here is what the validator caught.",
+    "description": "A reproducible 100-case benchmark: 30 valid usages and 70 defects across seven classes, with 65.7% structural recall, 100% precision, and zero false positives on valid cases.",
+    "date": "2026-11-05",
+    "file": "100-case-validation-benchmark.md",
+    "tags": ["Benchmark", "validate_usage", "MCP"]
+  },
+  {
+    "slug": "component-contract-not-gallery",
+    "title": "Give Claude Code a component contract, not a component gallery",
+    "description": "Why machine-readable manifests matter more than another set of React components, and what a coding agent actually needs before it can generate correct UI.",
+    "date": "2026-11-05",
+    "file": "component-contract-not-gallery.md",
+    "tags": ["AI-first", "Manifests", "Claude Code"]
+  },
+  {
+    "slug": "seven-ways-ai-generated-ui-breaks",
+    "title": "Seven ways AI-generated UI breaks, with real before/after cases",
+    "description": "Walkthrough of seven real defect classes from the 100-case benchmark: hallucinated props, missing required props, invalid enums, orphaned compound parts, and the accessibility and state classes the validator still misses.",
+    "date": "2026-11-18",
+    "file": "seven-ways-ai-generated-ui-breaks.md",
+    "tags": ["Benchmark", "validate_usage", "Case study"]
+  }
+]

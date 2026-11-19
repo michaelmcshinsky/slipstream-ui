@@ -2,9 +2,12 @@
 
 Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 
+> Component ID: `heading`
 > Import: `import { Heading } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/heading
 > Registry: https://slipstreamui.com/registry/heading.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

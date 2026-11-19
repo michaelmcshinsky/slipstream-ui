@@ -2,9 +2,12 @@
 
 Dual-thumb numeric range slider with labeled native inputs and formatted values.
 
+> Component ID: `range-slider`
 > Import: `import { RangeSlider } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/range-slider
 > Registry: https://slipstreamui.com/registry/range-slider.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

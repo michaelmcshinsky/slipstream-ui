@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Button } from '@slipstream-ui/core';
 import {
   CodeBlock,
@@ -14,20 +15,73 @@ import { Navbar } from '@/components/site/navbar';
 import { StickyCta } from '@/components/site/sticky-cta';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
-import { ThemeShowcase } from '@/components/theme-showcase';
-import { LiveLab } from '@/components/site/live-lab';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
+import { MCP_TOOL_COUNT } from '@/lib/site';
 import { VERSION } from '@/lib/version';
 import { track } from '@/lib/analytics';
+import { HOME_EXTRAS } from '@/lib/marketing/home-extras';
 import type { HomeCopy } from '@/lib/marketing';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
-const DEMO_REPLY = `Slipstream UI ships **${COMPONENT_COUNT} production-ready components** (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI), each with a machine-readable \`COMPONENT_MANIFEST\`.
+/**
+ * Below-the-fold interactive islands are split out of the initial bundle.
+ * The lab and theme previews are large client trees; loading them after the
+ * hero cuts main-thread work without changing the server-rendered copy above.
+ */
+const LiveLab = dynamic(() => import('@/components/site/live-lab').then((mod) => mod.LiveLab), {
+  ssr: false,
+  loading: () => <div className="min-h-[620px]" aria-hidden="true" />,
+});
+const ThemeShowcase = dynamic(
+  () => import('@/components/theme-showcase').then((mod) => mod.ThemeShowcase),
+  { ssr: false, loading: () => <div className="min-h-[380px]" aria-hidden="true" /> }
+);
 
-The live lab on this page runs the real library: DataTable selection + pagination, MetricCard, SelectMenu, InputGroup, ButtonGroup, ConfirmDialog, Drawer, imperative toasts and the Stepper.
+/**
+ * Mounts its children only when the placeholder is near the viewport. This
+ * keeps the dynamic chunks' import and hydration off the initial main thread.
+ */
+function Deferred({ children, minHeight }: { children: React.ReactNode; minHeight: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(false);
 
-Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`;
+  useEffect(() => {
+    if (show || !ref.current || typeof IntersectionObserver === 'undefined') {
+      setShow(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [show]);
+
+  return (
+    <div ref={ref}>
+      {show ? children : <div style={{ minHeight }} aria-hidden="true" />}
+    </div>
+  );
+}
+
+/** Demo reply in the active locale; counts are interpolated per render. */
+function fillCounts(text: string): string {
+  return text
+    .replaceAll('{componentCount}', String(COMPONENT_COUNT))
+    .replaceAll('{coreComponentCount}', String(CORE_COMPONENT_COUNT))
+    .replaceAll('{aiComponentCount}', String(AI_COMPONENT_COUNT));
+}
+
+function demoReply(copy: HomeCopy['demo']): string {
+  return fillCounts(copy.reply);
+}
 
 /**
  * Facts below reflect each project's public documentation and published
@@ -40,11 +94,10 @@ const COMPARISON: {
   shadcn: string;
   assistantUi: string;
   mui: string;
-}[] = [
-  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
+}[] = [  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
   { capability: 'Components shipped', slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`, shadcn: 'UI primitives + AI Elements', assistantUi: 'Chat surface + primitives', mui: 'Broad UI set, no chat' },
   { capability: 'Per-component machine-readable spec', slipstream: 'Yes — props, a11y, anti-patterns', shadcn: 'Partial — registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
-  { capability: 'MCP server', slipstream: 'Yes — 5 tools incl. validate_usage', shadcn: 'Partial — browse/search/install', assistantUi: 'No', mui: 'Partial — agent skills' },
+  { capability: 'MCP server', slipstream: `Yes - ${MCP_TOOL_COUNT} tools incl. validate_usage`, shadcn: 'Partial - browse/search/install', assistantUi: 'No', mui: 'Partial - agent skills' },
   { capability: 'Validates generated JSX against the spec', slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
   { capability: 'llms.txt', slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
   { capability: 'Canonical markdown per component/page', slipstream: 'Yes — /llm/*.md', shadcn: 'Partial — MDX in repo', assistantUi: 'Yes — .md pages', mui: 'No' },
@@ -58,7 +111,7 @@ const COMPARISON: {
 
 function LandingChatDemo({ copy }: { copy: HomeCopy }) {
   const [messages, setMessages] = useState<MessageType[]>([
-    { id: '1', role: 'user', content: 'What makes Slipstream UI different?' },
+    { id: '1', role: 'user', content: copy.demo.initialMessage },
   ]);
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -67,6 +120,7 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
     const userId = Date.now().toString();
     setMessages((prev) => [...prev, { id: userId, role: 'user', content: value }]);
 
+    const reply = demoReply(copy.demo);
     const replyId = `${Date.now()}-a`;
     timers.current.push(
       setTimeout(() => {
@@ -76,11 +130,11 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
         let cursor = 0;
         const tick = () => {
           cursor += 6;
-          if (cursor >= DEMO_REPLY.length) {
+          if (cursor >= reply.length) {
             setStreamingId(null);
             return;
           }
-          const partial = DEMO_REPLY.slice(0, cursor);
+          const partial = reply.slice(0, cursor);
           setMessages((prev) =>
             prev.map((message) => (message.id === replyId ? { ...message, content: partial } : message))
           );
@@ -110,6 +164,9 @@ function LandingChatDemo({ copy }: { copy: HomeCopy }) {
           welcomeTitle={copy.welcomeTitle}
           welcomeSuggestions={copy.welcomeSuggestions}
           onWelcomeSelect={handleSubmit}
+          userLabel={copy.demo.you}
+          assistantLabel={copy.demo.assistant}
+          labels={{ transcript: copy.demo.transcriptLabel, responseComplete: copy.demo.responseComplete }}
         />
       </div>
       <div className="border-t border-border p-3">
@@ -143,7 +200,110 @@ function CopyInstallPill({ copy }: { copy: HomeCopy }) {
   );
 }
 
-const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex', 'Any MCP client'];
+function InstallSection() {
+  const { install } = HOME_EXTRAS;
+  const [copied, setCopied] = useState(false);
+
+  async function copyCommand() {
+    try {
+      await navigator.clipboard.writeText(install.command);
+      track('install_copy', { command: 'init', location: 'home_steps' });
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable.
+    }
+  }
+
+  return (
+    <section id="start" className="border-b border-border">
+      <div className="container mx-auto px-4 py-20">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{install.eyebrow}</p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight">{install.title}</h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">{install.description}</p>
+
+        <ol className="mt-8 grid gap-4 md:grid-cols-5">
+          {install.steps.map((step, index) => (
+            <li key={step.title} className="rounded-xl border border-border bg-card p-4">
+              <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, '0')}</span>
+              <h3 className="mt-1.5 text-sm font-semibold">{step.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <div className="rounded-xl border border-border bg-card p-5">
+            <p className="text-sm font-medium">Recommended path</p>
+            <button
+              type="button"
+              onClick={copyCommand}
+              className="mt-3 flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-muted px-4 py-3 text-left font-mono text-sm transition-colors hover:bg-accent"
+            >
+              <span className="truncate">{install.command}</span>
+              <span className="shrink-0 text-xs text-muted-foreground">{copied ? 'copied' : 'copy'}</span>
+            </button>
+            <div className="mt-4 flex flex-wrap gap-3 text-xs">
+              <Link href="/docs/installation" className="font-medium text-primary hover:underline">
+                Installation guide
+              </Link>
+              <Link href="/docs/getting-started" className="font-medium text-primary hover:underline">
+                Five-minute quickstart
+              </Link>
+              <Link href="/playground" className="font-medium text-primary hover:underline">
+                Try it in the browser
+              </Link>
+              <a
+                href={install.licenseLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                MIT license
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-5">
+            <h3 className="text-sm font-semibold">{install.freeTitle}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{install.freeBody}</p>
+            <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
+              {install.freeItems.map((item) => (
+                <div key={item.label} className="flex items-center justify-between gap-2 rounded-md bg-muted/60 px-2.5 py-1.5">
+                  <dt className="text-muted-foreground">{item.label}</dt>
+                  <dd className="font-medium">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{install.freeNote}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  const { faq } = HOME_EXTRAS;
+  return (
+    <section className="border-t border-border bg-muted/30">
+      <div className="container mx-auto px-4 py-20">
+        <h2 className="text-3xl font-bold tracking-tight">{faq.title}</h2>
+        <p className="mt-2 max-w-2xl text-muted-foreground">{faq.intro}</p>
+        <dl className="mt-8 grid gap-4 md:grid-cols-2">
+          {faq.items.map((item) => (
+            <div key={item.question} className="rounded-xl border border-border bg-card p-5">
+              <dt className="text-sm font-semibold">{item.question}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex'];
 
 export default function LandingPage({ copy }: { copy: HomeCopy }) {
   return (
@@ -167,7 +327,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <Link
                 href="/changelog"
-                title={`See what's new in v${VERSION}`}
+                title={`v${VERSION} — ${copy.whatsNew}`}
                 className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
               >
                 v{VERSION} <span className="ml-1.5 text-primary">{copy.whatsNew}</span>
@@ -213,10 +373,15 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           {AGENTS.map((agent) => (
             <span key={agent} className="font-medium">{agent}</span>
           ))}
+          <span className="font-medium">{copy.demo.anyMcpClient}</span>
         </div>
       </section>
 
-      <LiveLab />
+      <InstallSection />
+
+      <Deferred minHeight={620}>
+        <LiveLab copy={copy.lab} />
+      </Deferred>
 
       {/* Stats band */}
       <section className="container mx-auto px-4 py-14">
@@ -224,7 +389,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           {[
             { value: String(COMPONENT_COUNT), label: copy.stats[0] },
             { value: String(COMPONENT_COUNT), label: copy.stats[1] },
-            { value: '5', label: copy.stats[2] },
+            { value: String(MCP_TOOL_COUNT), label: copy.stats[2] },
             { value: '0', label: copy.stats[3] },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl border border-border bg-card p-6">
@@ -233,6 +398,12 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             </div>
           ))}
         </dl>
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
+          {HOME_EXTRAS.benchmarkNote}{' '}
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+            Benchmark methodology
+          </a>
+        </p>
       </section>
 
       {/* Feature bento */}
@@ -331,6 +502,12 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <p className="mt-3 text-xs text-muted-foreground">{copy.validatorCards[2].note}</p>
           </div>
         </div>
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
+          {HOME_EXTRAS.benchmarkNote}{' '}
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+            Read the methodology
+          </a>
+        </p>
       </section>
 
       {/* Theme showcase */}
@@ -338,7 +515,9 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <div className="container mx-auto max-w-4xl px-4 py-20">
           <h2 className="mb-3 text-3xl font-bold tracking-tight">{copy.themesHeading}</h2>
           <p className="mb-8 max-w-2xl text-muted-foreground">{copy.themesIntro}</p>
-          <ThemeShowcase />
+          <Deferred minHeight={380}>
+            <ThemeShowcase />
+          </Deferred>
         </div>
       </section>
 
@@ -358,15 +537,18 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
               </tr>
             </thead>
             <tbody>
-              {COMPARISON.map((row, index) => (
-                <tr key={row.capability} className="border-t border-border">
-                  <td className="p-3">{copy.comparisonCapabilities[index] ?? row.capability}</td>
-                  <td className="p-3 text-center">{row.slipstream}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.shadcn}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.assistantUi}</td>
-                  <td className="p-3 text-center text-muted-foreground">{row.mui}</td>
-                </tr>
-              ))}
+              {COMPARISON.map((row, index) => {
+                const values = copy.comparisonRows[index] ?? row;
+                return (
+                  <tr key={row.capability} className="border-t border-border">
+                    <td className="p-3">{copy.comparisonCapabilities[index] ?? row.capability}</td>
+                    <td className="p-3 text-center">{fillCounts(values.slipstream)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.shadcn)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.assistantUi)}</td>
+                    <td className="p-3 text-center text-muted-foreground">{fillCounts(values.mui)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -439,6 +621,8 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
           </Link>
         </div>
       </section>
+
+      <FaqSection />
 
       {/* CTA */}
       <section className="container mx-auto px-4 py-24 text-center">

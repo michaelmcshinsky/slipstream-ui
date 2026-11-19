@@ -3,3 +3,4 @@ packages:
   - "apps/*"
   - "apps/starters/*"
   - "tooling/*"
+  - 'tests/*'

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import fs from 'node:fs';
-import path from 'node:path';
 import Link from 'next/link';
+import registryJson from '@/public/registry/all.json';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 import { NAV_SECTIONS, navGroupLabel, type NavItem } from '@/lib/nav';
 import { JsonLd } from '@/components/site/json-ld';
+import { ComponentCatalog } from '@/components/component-catalog';
+import type { CatalogGroup } from '@/lib/component-catalog';
 import { componentCollectionSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
 import { getServerI18n } from '@/lib/i18n-server';
@@ -20,26 +21,17 @@ type RegistryEntry = {
 };
 
 /**
- * Registry index read at build/render time so cards can show tier +
- * description without shipping the whole registry to the client. Falls
- * back to name-only cards if the generated file is missing.
+ * Registry index imported at build time so cards can show tier + description
+ * without shipping the whole registry to the client. A static import (not a
+ * runtime fs read) because the docs deploy target is a Cloudflare Worker with
+ * no filesystem access to public/.
  */
-function loadRegistryIndex(): Record<string, RegistryEntry> {
-  try {
-    const file = path.join(process.cwd(), 'public', 'registry', 'all.json');
-    const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as {
-      components?: { id: string; tier?: string; description?: string }[];
-    };
-    return Object.fromEntries(
-      (parsed.components ?? []).map((component) => [
-        component.id,
-        { tier: component.tier, description: component.description },
-      ])
-    );
-  } catch {
-    return {};
-  }
-}
+const REGISTRY_INDEX: Record<string, RegistryEntry> = Object.fromEntries(
+  (registryJson.components ?? []).map((component) => [
+    component.id,
+    { tier: component.tier, description: component.description },
+  ])
+);
 
 function idFromHref(href: string): string {
   return href.slice(href.lastIndexOf('/') + 1);
@@ -47,33 +39,23 @@ function idFromHref(href: string): string {
 
 export default async function ComponentsOverviewPage() {
   const { t } = await getServerI18n();
-  const registry = loadRegistryIndex();
+  const registry = REGISTRY_INDEX;
   const section = NAV_SECTIONS.find((s) => s.title === 'Components');
   const overview: NavItem | undefined = section?.items?.[0];
   const groups = section?.groups ?? [];
 
-  const renderCard = (item: NavItem) => {
-    const entry = registry[idFromHref(item.href)];
-    return (
-      <Link
-        key={item.href}
-        href={item.href}
-        className="block rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="font-semibold">{item.label}</h3>
-          {entry?.tier && (
-            <span className="shrink-0 rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-              {entry.tier}
-            </span>
-          )}
-        </div>
-        {entry?.description && (
-          <p className="mt-1 text-sm text-muted-foreground">{entry.description}</p>
-        )}
-      </Link>
-    );
-  };
+  const catalogGroups: CatalogGroup[] = groups.map((group) => ({
+    title: navGroupLabel(group, t),
+    items: group.items.map((item) => {
+      const entry = registry[idFromHref(item.href)];
+      return {
+        label: item.label,
+        href: item.href,
+        tier: entry?.tier,
+        description: entry?.description,
+      };
+    }),
+  }));
 
   return (
     <div>
@@ -97,7 +79,7 @@ export default async function ComponentsOverviewPage() {
       </p>
       <p className="text-sm text-muted-foreground mb-8">
         Install any of them via{' '}
-        <code className="bg-muted px-2 py-1 rounded">npx slipstream-ui add &lt;id&gt;</code> or the{' '}
+        <code className="bg-muted px-2 py-1 rounded">npx @slipstream-ui/cli@latest add &lt;id&gt;</code> or the{' '}
         <Link href="/docs/installation" className="text-primary underline underline-offset-2 hover:text-primary/80">
           shadcn-compatible registry
         </Link>
@@ -118,17 +100,7 @@ export default async function ComponentsOverviewPage() {
         </div>
       )}
 
-      <div className="space-y-10">
-        {groups.map((group) => (
-          <section key={group.title}>
-            <h2 className="text-2xl font-semibold mb-1">{navGroupLabel(group, t)}</h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              {group.items.length} component{group.items.length === 1 ? '' : 's'}
-            </p>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{group.items.map(renderCard)}</div>
-          </section>
-        ))}
-      </div>
+      <ComponentCatalog groups={catalogGroups} total={COMPONENT_COUNT} />
     </div>
   );
 }

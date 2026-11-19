@@ -2,9 +2,12 @@
 
 Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding.
 
+> Component ID: `bottom-nav`
 > Import: `import { BottomNav } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/bottom-nav
 > Registry: https://slipstreamui.com/registry/bottom-nav.json
-> Tier: organism · Package: @slipstream-ui/core
+> Tier: organism · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

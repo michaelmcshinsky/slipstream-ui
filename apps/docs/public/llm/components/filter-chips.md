@@ -2,9 +2,12 @@
 
 Active-filter summary with removable chips and a clear-all action.
 
+> Component ID: `filter-chips`
 > Import: `import { FilterChips } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/filter-chips
 > Registry: https://slipstreamui.com/registry/filter-chips.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

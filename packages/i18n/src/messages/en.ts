@@ -135,6 +135,13 @@ export const en = {
     backHome: "Back to home",
     lastUpdated: "Last updated: {date}",
     loading: 'Loading page…',
+    translation: {
+      title: 'This page is in English only for now',
+      body: 'The navigation, search and interface are translated, but the documentation body is still being translated.',
+      help: 'Help translate',
+      issueTitle: 'Translate the docs into {locale}',
+      issueBody: 'Page: {url}\n\nLocale: {locale}\n\nWhat needs translating or correcting?\n',
+    },
     footer: {
       tagline: 'The AI-first React component library. Your AI reads the spec, not the source.',
       docs: 'Docs',
@@ -160,6 +167,7 @@ export const en = {
       terms: 'Terms',
       copyright: '© {year} Slipstream UI · MIT License',
       builtStateless: 'Built stateless — you own your data flow.',
+      helpTranslate: 'Help translate',
     },
     search: {
       dialogLabel: 'Search documentation',
@@ -232,18 +240,7 @@ export const en = {
       decline: 'Decline',
       accept: 'Accept all',
     },
-    thankYou: {
-    title: "Message received",
-    description: "Thanks for reaching out — we read every message and reply within two business days.",
-    nextHeading: "What happens next",
-    step1: "We confirm receipt by email if you included a reachable address.",
-    step2: "Bug reports are triaged on GitHub; features are added to the roadmap discussion.",
-    step3: "If we need more detail, we reply directly to your message.",
-    readDocs: "Read the docs",
-    browse: "Browse components",
-    backHome: "Back home",
-    },
-    notFound: {
+        notFound: {
       title: 'This page streamed into the void',
       description:
         'The page you requested does not exist — and unlike our components, it never shipped a manifest declaring that.',
@@ -272,6 +269,7 @@ export const en = {
     billing: 'Billing',
     team: 'Team',
     settings: 'Settings',
+    newsletter: 'Newsletter',
     licenses: 'Licenses',
     admin: 'Admin',
     signOut: 'Sign out',

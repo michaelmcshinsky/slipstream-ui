@@ -2,9 +2,12 @@
 
 Accessible select built on the native <select> with flat options, optgroups, a placeholder row and native multi-select.
 
+> Component ID: `select`
 > Import: `import { Select } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/select
 > Registry: https://slipstreamui.com/registry/select.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

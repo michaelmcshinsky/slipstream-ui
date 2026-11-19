@@ -2,9 +2,12 @@
 
 Compact labelled contact rows with optional icons and links.
 
+> Component ID: `contact-strip`
 > Import: `import { ContactStrip } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/contact-strip
 > Registry: https://slipstreamui.com/registry/contact-strip.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

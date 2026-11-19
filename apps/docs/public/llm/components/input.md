@@ -2,9 +2,12 @@
 
 A text input field with support for various input types and standard HTML input attributes
 
+> Component ID: `input`
 > Import: `import { Input } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/input
 > Registry: https://slipstreamui.com/registry/input.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -2,9 +2,12 @@
 
 A component for displaying AI tool/function calls with status, arguments, and results
 
+> Component ID: `tool-call`
 > Import: `import { ToolCall } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/tool-call
 > Registry: https://slipstreamui.com/registry/tool-call.json
-> Tier: molecule · Package: @slipstream-ui/ai
+> Tier: molecule · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

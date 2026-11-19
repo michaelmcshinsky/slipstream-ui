@@ -2,9 +2,12 @@
 
 Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 
+> Component ID: `comparison-table`
 > Import: `import { ComparisonTable } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/comparison-table
 > Registry: https://slipstreamui.com/registry/comparison-table.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

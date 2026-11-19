@@ -2,9 +2,12 @@
 
 An accessible form label that associates with its control
 
+> Component ID: `label`
 > Import: `import { Label } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/label
 > Registry: https://slipstreamui.com/registry/label.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

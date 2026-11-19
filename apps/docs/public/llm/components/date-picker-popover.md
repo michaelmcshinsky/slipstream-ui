@@ -2,9 +2,12 @@
 
 Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 
+> Component ID: `date-picker-popover`
 > Import: `import { DatePickerPopover } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/date-picker-popover
 > Registry: https://slipstreamui.com/registry/date-picker-popover.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

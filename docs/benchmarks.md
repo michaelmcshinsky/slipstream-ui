@@ -1,6 +1,7 @@
 # Validation benchmark
 
 **Published:** 2026-11-05
+**Re-verified:** 2026-11-17 (mock baseline)
 **Dataset:** [`benchmarks/cases/cases.json`](../benchmarks/cases/cases.json)
 **Harness:** [`benchmarks/`](../benchmarks/)
 **Baseline provider:** `mock` (deterministic; measures the validator, not a model)
@@ -22,6 +23,9 @@ It answers two separate questions:
 - **100 cases**: 30 valid, 70 defective, 10 per defect class.
 - **7 classes**: unknown prop, invalid enum, missing required prop, invalid
   composition, invalid accessibility, unsupported state, invalid streaming state.
+- **Unknown-prop fixture**: uses `hallucinatedProp`, not a `data-*` attribute.
+  `data-*` attributes are intentionally accepted as native HTML, so they are not
+  a valid hallucinated prop.
 - **4 conditions**: docs only (A), TypeScript source (B), manifest only (C),
   manifest + validator + repair (D).
 - **Provider**: mock, so every condition receives the same known candidate
@@ -97,6 +101,9 @@ then, marketing must not imply zero hallucinations.
 - The validator is a heuristic parser, not an AST/TypeScript checker. It does
   not evaluate expressions.
 - The ground truth is the authored case, not a human review of model output.
+- The validator checks props, required props, enums, missing compound roots and
+  icon-only accessible names. It does not model most accessibility rules,
+  state-machine contradictions, or streaming semantics.
 - Scores are comparable only within the same dataset version, provider and model.
 
 ## Next steps

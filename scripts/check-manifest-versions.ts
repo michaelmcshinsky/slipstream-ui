@@ -4,6 +4,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { MCP_TOOLS } from '../apps/docs/lib/site';
 
 const root = path.resolve(import.meta.dirname, '..');
 const packages = [
@@ -29,7 +30,38 @@ if (mismatches.length > 0) {
   console.error('Manifest versions do not match their package version:');
   for (const mismatch of mismatches) console.error(`  ${mismatch}`);
   console.error('Run `pnpm stamp:manifests` after bumping the packages.');
+}
+
+// The MCP registry descriptor is a second published surface for the same
+// package; keep its version and the nested package entry in lockstep.
+const mcpDir = path.join(root, 'packages', 'mcp-server');
+const mcpVersion = JSON.parse(fs.readFileSync(path.join(mcpDir, 'package.json'), 'utf8')).version;
+const serverJson = JSON.parse(fs.readFileSync(path.join(mcpDir, 'server.json'), 'utf8')) as {
+  version?: string;
+  packages?: { identifier?: string; version?: string }[];
+};
+const serverPackage = serverJson.packages?.find((entry) => entry.identifier === '@slipstream-ui/mcp-server');
+if (serverJson.version !== mcpVersion) {
+  mismatches.push(`mcp-server/server.json: ${String(serverJson.version)} != ${mcpVersion}`);
+}
+if (serverPackage && serverPackage.version !== mcpVersion) {
+  mismatches.push(`mcp-server/server.json packages[].version: ${String(serverPackage.version)} != ${mcpVersion}`);
+}
+
+// Keep the documented MCP tool list aligned with the registered handlers.
+const mcpIndexSource = fs.readFileSync(path.join(mcpDir, 'src', 'index.ts'), 'utf8');
+const handledTools = [...mcpIndexSource.matchAll(/case '([a-z_]+)':/g)].map((match) => match[1]);
+const documentedTools = [...MCP_TOOLS];
+if (handledTools.length !== documentedTools.length || handledTools.some((tool) => !documentedTools.includes(tool))) {
+  mismatches.push(
+    `mcp-server tools: registered [${handledTools.join(', ')}] != documented [${documentedTools.join(', ')}]`
+  );
+}
+
+if (mismatches.length > 0) {
+  console.error('Published version surfaces disagree with their packages:');
+  for (const mismatch of mismatches) console.error(`  ${mismatch}`);
   process.exit(1);
 }
 
-console.log('Manifest versions match their package versions.');
+console.log('Manifest and MCP registry versions match their package versions.');

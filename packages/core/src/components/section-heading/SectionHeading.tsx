@@ -48,7 +48,7 @@ export const SectionHeading = React.forwardRef<HTMLDivElement, SectionHeadingPro
       {...props}
     >
       <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>
-        {eyebrow && <div className={cn('mb-1 text-xs font-medium uppercase tracking-wide text-primary', eyebrowClassName)}>{eyebrow}</div>}
+        {eyebrow && <div className={cn('mb-1 text-xs font-medium uppercase tracking-wide text-primary-ink', eyebrowClassName)}>{eyebrow}</div>}
         <Heading className={cn('font-semibold tracking-tight', sizeClasses[size], titleClassName)}>{title}</Heading>
         {description && (
           <p className={cn('mt-2 max-w-2xl text-muted-foreground', align === 'center' ? 'mx-auto' : '', descriptionClassName)}>{description}</p>

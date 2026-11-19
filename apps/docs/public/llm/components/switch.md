@@ -2,9 +2,12 @@
 
 A toggle switch for binary settings, with role=switch and aria-checked
 
+> Component ID: `switch`
 > Import: `import { Switch } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/switch
 > Registry: https://slipstreamui.com/registry/switch.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

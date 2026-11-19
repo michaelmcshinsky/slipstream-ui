@@ -1,20 +1,25 @@
 import type { MetadataRoute } from 'next';
+import { ARTICLES } from '@/lib/articles';
 import { FLAT_NAV } from '@/lib/nav';
+import { RELEASE } from '@/lib/release';
 
 const BASE_URL = 'https://slipstreamui.com';
 
 /**
- * Sitemap priorities encode what the site wants indexed first. Everything is
- * listed with a stable, hand-bumped date; the alternative (build time) makes
- * every deploy look like a full-content change.
+ * Sitemap priorities encode what the site wants indexed first. `lastModified`
+ * comes from release.json so every surface describes the same release instead
+ * of every deploy looking like a full-content change.
  */
-const LAST_UPDATED = new Date('2026-11-10');
+const LAST_UPDATED = new Date(RELEASE.releaseDate);
 
 const STATIC_ROUTES: { path: string; priority: number; changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly' }[] = [
   { path: '', priority: 1, changeFrequency: 'weekly' },
   { path: '/changelog', priority: 0.8, changeFrequency: 'weekly' },
+  { path: '/playground', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/articles', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/about', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/accessibility', priority: 0.4, changeFrequency: 'monthly' },
+  { path: '/accessibility/scorecard', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.5, changeFrequency: 'yearly' },
   { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/terms', priority: 0.3, changeFrequency: 'yearly' },
@@ -50,5 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: priorityFor(item.href),
   }));
 
-  return [...staticRoutes, ...docsRoutes];
+  const articleRoutes = ARTICLES.map((article) => ({
+    url: `${BASE_URL}/articles/${article.slug}`,
+    lastModified: new Date(article.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...docsRoutes, ...articleRoutes];
 }

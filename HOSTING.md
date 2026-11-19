@@ -50,6 +50,29 @@ pnpm --filter slipstream-ui-docs dev
 | Packages | npm | Changesets + `pnpm release` |
 | Docs | Cloudflare Workers (OpenNext) | Worker `slipstream-ui` (repo `apps/docs`); cookie-based locale prevents static export |
 
+### Edge HTML cache
+
+`apps/docs/worker.ts` wraps the OpenNext handler in a 6-hour HTML cache
+(`apps/docs/lib/edge-cache.ts`). It is deliberately narrow:
+
+- Only anonymous `GET` requests for public paths are cached. `POST`/`HEAD`,
+  `Authorization`, RSC/router headers, `_rsc`, request `no-store`, session
+  cookies and the `slipstream-locale` cookie bypass the cache.
+- `/api`, `/_next`, `/auth` and `/embed` always bypass.
+- Only `200 text/html` responses without `Content-Encoding` or `Set-Cookie`
+  are stored. `Set-Cookie` and `Vary` are stripped from the stored copy; the
+  live response keeps them.
+- Next marks docs pages `private` because the root layout reads the locale
+  cookie during SSR. `allowPrivateResponses` is enabled only because every
+  request that could make that render personal is already bypassed; do not
+  reuse this option for a page whose SSR reads another cookie without adding
+  that cookie to `sensitiveCookies`.
+- Bump `CACHE_VERSION` after a deploy that changes rendered markup in a way
+  the TTL would otherwise mask.
+- Tests: `apps/docs/lib/edge-cache.test.ts` covers the privacy boundary,
+  `Set-Cookie` rejection, cache hits, locale bypass and the no-Cache-API
+  fallback.
+
 ### Deploy / provision
 
 - `pnpm --filter slipstream-ui-docs deploy` (or `pnpm deploy:docs` from the root). That script also submits the sitemap's URLs to IndexNow by ending with `tsx ../../scripts/submit-indexnow.ts --soft`: `https://www.bing.com/indexnow` first, then the shared endpoint for Yandex, Seznam and Naver (`INDEXNOW_ENDPOINTS` overrides the pair). The key is committed at `apps/docs/public/<key>.txt` and served from the site root. Submissions target the canonical domain (`SITE.url`) unless `INDEXNOW_ORIGIN` or `--origin` names another origin; `--limit` and `--dry-run` spot-check, and `--soft` keeps a rejected submission from failing an otherwise good deploy.

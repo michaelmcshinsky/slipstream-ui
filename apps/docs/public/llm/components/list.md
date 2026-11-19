@@ -2,9 +2,12 @@
 
 Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
 
+> Component ID: `list`
 > Import: `import { List } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/list
 > Registry: https://slipstreamui.com/registry/list.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

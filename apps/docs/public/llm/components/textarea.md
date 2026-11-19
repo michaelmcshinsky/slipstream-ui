@@ -2,9 +2,12 @@
 
 A multi-line text input styled to match Input, wrapping the native textarea
 
+> Component ID: `textarea`
 > Import: `import { Textarea } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/textarea
 > Registry: https://slipstreamui.com/registry/textarea.json
-> Tier: atom · Package: @slipstream-ui/core
+> Tier: atom · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

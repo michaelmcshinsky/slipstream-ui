@@ -39,7 +39,7 @@ async function* eventsFor(messages: ChatMessage[], signal: AbortSignal, locale: 
     yield* streamOpenAI(messages, signal, locale);
     return;
   }
-  const prompt = [...messages].reverse().find((message) => message.role === 'user')?.text ?? '';
+  const prompt = messages.findLast((message) => message.role === 'user')?.text ?? '';
   yield* streamMock(prompt, { delayMs: Number.parseInt(process.env.MOCK_DELAY_MS ?? '18', 10), locale });
 }
 

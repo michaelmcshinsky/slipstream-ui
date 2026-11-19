@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { MessageKey } from '@slipstream-ui/i18n';
 import { useI18n } from '@slipstream-ui/i18n/react';
 import { PACKAGES, npmPackageUrl } from '@/lib/site';
+import { COMPONENT_COUNT } from '@/lib/component-count';
+import { VERSION } from '@/lib/version';
 
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
@@ -52,12 +54,14 @@ const COLUMNS: FooterColumn[] = [
     titleKey: 'site.footer.project',
     links: [
       { label: 'GitHub', href: REPO_URL, external: true },
+      { label: 'Articles', href: '/articles' },
       { labelKey: 'site.footer.about', href: '/about' },
       { labelKey: 'site.footer.accessibility', href: '/accessibility' },
       { labelKey: 'site.footer.contributing', href: `${REPO_URL}/blob/main/CONTRIBUTING.md`, external: true },
       { labelKey: 'site.footer.license', href: `${REPO_URL}/blob/main/LICENSE`, external: true },
       { labelKey: 'site.footer.security', href: `${REPO_URL}/blob/main/SECURITY.md`, external: true },
       { labelKey: 'site.footer.reportIssue', href: `${REPO_URL}/issues`, external: true },
+      { labelKey: 'site.footer.helpTranslate', href: `${REPO_URL}/issues?q=label%3Ai18n`, external: true },
       { labelKey: 'site.footer.contact', href: '/contact' },
       { labelKey: 'site.footer.privacy', href: '/privacy' },
       { labelKey: 'site.footer.terms', href: '/terms' },
@@ -93,6 +97,9 @@ export function Footer() {
             />
           </Link>
           <p className="mt-3 max-w-48 text-sm text-muted-foreground">{t('site.footer.tagline')}</p>
+          <p className="mt-2 font-mono text-xs text-muted-foreground">
+            v{VERSION} · {COMPONENT_COUNT} components · MIT
+          </p>
         </div>
         {COLUMNS.map((column) => (
           <div key={column.titleKey}>

@@ -137,6 +137,13 @@ export const ko = {
     backHome: "홈으로 돌아가기",
     lastUpdated: "최종 업데이트: {date}",
     loading: "페이지를 불러오는 중…",
+    translation: {
+      title: "이 페이지는 현재 영어로만 제공됩니다",
+      body: "탐색, 검색, 인터페이스는 번역되었지만 문서 본문은 아직 번역 중입니다.",
+      help: "번역 돕기",
+      issueTitle: "문서 {locale} 번역",
+      issueBody: "페이지: {url}\n\n언어: {locale}\n\n번역하거나 고쳐야 할 부분은 무엇인가요?\n",
+    },
     footer: {
       tagline: "AI 우선 React 컴포넌트 라이브러리. AI가 소스가 아닌 명세를 읽습니다.",
       docs: "문서",
@@ -162,6 +169,7 @@ export const ko = {
       terms: "이용 약관",
       copyright: "© {year} Slipstream UI · MIT 라이선스",
       builtStateless: "상태 없이 구축 — 데이터 흐름은 직접 소유합니다.",
+      helpTranslate: "번역 돕기",
     },
     search: {
       dialogLabel: "문서 검색",
@@ -232,18 +240,7 @@ export const ko = {
       decline: "거부",
       accept: "모두 허용",
     },
-    thankYou: {
-    title: "메시지를 받았습니다",
-    description: "연락해 주셔서 감사합니다. 모든 메시지를 읽고 영업일 기준 2일 이내에 답변합니다.",
-    nextHeading: "다음 단계",
-    step1: "연락 가능한 주소를 포함했다면 이메일로 접수를 확인합니다.",
-    step2: "버그 보고는 GitHub에서 분류하고, 기능 요청은 로드맵 논의에 추가합니다.",
-    step3: "추가 정보가 필요하면 메시지에 직접 답변합니다.",
-    readDocs: "문서 읽기",
-    browse: "컴포넌트 둘러보기",
-    backHome: "홈으로",
-    },
-    notFound: {
+        notFound: {
       title: "이 페이지는 허공으로 스트리밍되었습니다",
       description: "요청한 페이지가 존재하지 않습니다. 컴포넌트와 달리 그 사실을 선언하는 매니페스트도 없었습니다.",
       home: "홈으로",
@@ -271,6 +268,7 @@ export const ko = {
     billing: '결제',
     team: '팀',
     settings: '설정',
+    newsletter: '뉴스레터',
     licenses: '라이선스',
     admin: '관리자',
     signOut: '로그아웃',

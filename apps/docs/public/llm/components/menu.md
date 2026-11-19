@@ -2,9 +2,12 @@
 
 Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 
+> Component ID: `menu`
 > Import: `import { Menu } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/menu
 > Registry: https://slipstreamui.com/registry/menu.json
-> Tier: molecule · Package: @slipstream-ui/core
+> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 

@@ -16,12 +16,7 @@
  */
 @layer base {
   :root {
-    /*
-     * Pin the UA color scheme to the site theme. Without this, a dark OS
-     * preference leaks dark native chrome (scrollbar track, unchecked
-     * checkboxes/radios, the date picker panel) into light mode.
-     */
-    color-scheme: light;
+    color-scheme: light dark;
     --background: 0 0% 100%;
     --foreground: 222 85% 7%;
     --card: 0 0% 100%;
@@ -71,8 +66,15 @@
     --motion-ease-out: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .dark {
+  /* Map <meta name="color-scheme"> to CSS color-scheme property */
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
     color-scheme: dark;
+  }
+  :root:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  .dark {
     --background: 220 6% 7%;
     --foreground: 220 9% 95%;
     --card: 220 5% 12%;
@@ -96,7 +98,7 @@
     --muted-foreground: 220 6% 68%;
     --accent: 220 5% 16%;
     --accent-foreground: 220 9% 95%;
-    --destructive: 0 76% 64%;
+    --destructive: 0 76% 65%;
     --destructive-foreground: 220 30% 8%;
     --success: 142 62% 52%;
     --success-foreground: 220 30% 8%;

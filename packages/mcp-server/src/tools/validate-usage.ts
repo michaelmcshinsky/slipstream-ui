@@ -17,6 +17,8 @@ type ComponentUsage = {
   attributes: ComponentAttribute[];
   selfClosing: boolean;
   hasChildren: boolean;
+  /** Raw JSX between the opening and closing tag, used for a11y heuristics. */
+  childrenCode: string;
 };
 
 type ComponentValidation = {
@@ -192,13 +194,17 @@ function findComponentUsages(code: string, exportName: string): ComponentUsage[]
     const attributes = parseAttributes(raw);
 
     let hasChildren = false;
+    let childrenCode = '';
     if (!selfClosing) {
       const after = code.slice(end + 1);
       const closing = new RegExp(`</${exportName}\\s*>`).exec(after);
-      hasChildren = closing !== null && after.slice(0, closing.index).trim().length > 0;
+      if (closing) {
+        childrenCode = after.slice(0, closing.index);
+        hasChildren = childrenCode.trim().length > 0;
+      }
     }
 
-    usages.push({ attributes, selfClosing, hasChildren });
+    usages.push({ attributes, selfClosing, hasChildren, childrenCode });
     searchFrom = end + 1;
   }
 
@@ -241,6 +247,32 @@ function closestMatch(value: string, candidates: string[]): string | undefined {
 
 function exportNameOf(manifest: RegistryManifest): string {
   return manifest.exportName ?? manifest.name.replace(/\s/g, '');
+}
+
+/**
+ * Conservative accessible-name heuristic for icon-only triggers.
+ *
+ * Passing requires an aria-label/aria-labelledby/title, nested alt text, text
+ * children, or an expression child (we cannot prove an expression is empty, so
+ * it is treated as a potential name to avoid false positives).
+ */
+function hasAccessibleName(usage: ComponentUsage): boolean {
+  const label = usage.attributes.find((attribute) =>
+    ['aria-label', 'aria-labelledby', 'title'].includes(attribute.name)
+  );
+  if (label && (label.value === undefined || label.value.trim().length > 0)) return true;
+
+  const children = usage.childrenCode.trim();
+  if (!children) return false;
+  if (/\balt\s*=\s*["'][^"']+["']/.test(children)) return true;
+  if (/\{[^}]+\}/.test(children)) return true;
+
+  const textOnly = children.replace(/<[^>]*>/g, ' ').trim();
+  return textOnly.length > 0;
+}
+
+function isIconSize(usage: ComponentUsage): boolean {
+  return usage.attributes.some((attribute) => attribute.name === 'size' && attribute.value === 'icon');
 }
 
 /** Validate every usage of one component in a single source string. */
@@ -321,6 +353,14 @@ function validateComponentUsage(
         fix: `Add ${fixes.join(', ')} to <${exportName}>.`,
       });
     }
+
+    if (isIconSize(usage) && !hasAccessibleName(usage)) {
+      issues.push({
+        severity: 'error',
+        message: `Icon-only <${exportName}> has no accessible name (${where}). Screen readers announce an unlabeled button.`,
+        fix: `Add aria-label="Describe the action" (or visible text) to <${exportName}>. A tooltip does not replace the accessible name.`,
+      });
+    }
   }
 
   return {
@@ -364,7 +404,7 @@ export const validateUsageTool: McpTool = {
   definition: {
     name: 'validate_usage',
     description:
-      'Validate generated JSX against Slipstream UI manifests before emitting it. Detects unknown (hallucinated) props, invalid enum values and missing required props, and returns a concrete fix for each issue. Pass componentId + code for one component, or files to validate a whole tree and infer every Slipstream component used in each file.',
+      'Validate generated JSX against Slipstream UI manifests before emitting it. Detects unknown (hallucinated) props, invalid enum values, missing required props, missing compound roots, and icon-only controls without an accessible name, and returns a concrete fix for each issue. Pass componentId + code for one component, or files to validate a whole tree and infer every Slipstream component used in each file.',
     inputSchema: {
       type: 'object',
       properties: {

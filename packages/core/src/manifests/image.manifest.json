@@ -1,0 +1,142 @@
+{
+  "id": "image",
+  "name": "Image",
+  "tier": "atom",
+  "description": "A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag",
+  "designIntent": "Organizer images are hotlinked and periodically 403, move, or die. Image keeps cards and banners free of broken-image boxes and layout shift by always emitting intrinsic dimensions, trying a known-good fallback source, and finally rendering consumer-provided fallback content. Priority is opt-in for the one above-the-fold image per page.",
+  "props": [
+    {
+      "name": "src",
+      "type": "string",
+      "required": true,
+      "description": "Primary image URL; hotlinked sources are expected",
+      "examples": [
+        "https://organizer.example/event.jpg",
+        "/images/event-placeholder.svg"
+      ]
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "required": true,
+      "description": "Accessible description of the image content",
+      "examples": [
+        "Fall Classic ballroom competition floor",
+        "Studio storefront on Main Street"
+      ]
+    },
+    {
+      "name": "fallbackSrc",
+      "type": "string",
+      "required": false,
+      "description": "Second URL tried before the fallback node, such as generated placeholder art"
+    },
+    {
+      "name": "fallback",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Content rendered when every URL has failed (icon, initials, empty panel)"
+    },
+    {
+      "name": "priority",
+      "type": "boolean",
+      "defaultValue": "false",
+      "required": false,
+      "description": "Load eagerly with high fetch priority for the LCP image"
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "defaultValue": "1200",
+      "required": false,
+      "description": "Intrinsic width used to reserve layout space (CLS)"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "defaultValue": "630",
+      "required": false,
+      "description": "Intrinsic height used to reserve layout space (CLS)"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Classes applied to the image element"
+    },
+    {
+      "name": "imgClassName",
+      "type": "string",
+      "required": false,
+      "description": "Additional image classes, merged with className"
+    },
+    {
+      "name": "style",
+      "type": "React.CSSProperties",
+      "required": false,
+      "description": "Inline styles for the image element"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Event card image",
+      "code": "<Image\n  src={event.imageUrl}\n  fallbackSrc=\"/images/event-placeholder.svg\"\n  alt={`${event.title} event image`}\n  width={1200}\n  height={630}\n/>",
+      "description": "Hotlinked organizer image with a generated fallback"
+    },
+    {
+      "title": "Hero image",
+      "code": "<Image\n  src=\"/hero.jpg\"\n  alt=\"Dancers on the competition floor\"\n  width={1600}\n  height={900}\n  priority\n/>",
+      "description": "The single above-the-fold image loads eagerly"
+    },
+    {
+      "title": "Initials fallback",
+      "code": "<Image\n  src={org.imageUrl ?? ''}\n  alt={org.name}\n  width={96}\n  height={96}\n  fallback={<span aria-hidden>{initials(org.name)}</span>}\n/>",
+      "description": "Render an identity tile when no image survives"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't omit width and height",
+      "explanation": "Without intrinsic dimensions the browser cannot reserve space and a failed image shifts the page. The defaults exist so there is no reason to omit them; override them to the real aspect ratio.",
+      "example": "// Avoid: no dimensions\n<Image src={src} alt={alt} />\n\n// Prefer: real aspect ratio\n<Image src={src} alt={alt} width={1200} height={630} />"
+    },
+    {
+      "title": "Don't set priority on every image",
+      "explanation": "Only one image should compete for LCP priority. Marking a grid eager delays everything else.",
+      "example": "// Avoid: every card eager\nitems.map((item) => <Image priority ... />)\n\n// Prefer: first item only\nitems.map((item, index) => <Image priority={index === 0} ... />)"
+    },
+    {
+      "title": "Don't describe the component in alt text",
+      "explanation": "Alt text describes the content. Screen readers already announce that it is an image.",
+      "example": "// Avoid: <Image alt=\"Image of a dancer\" />\n// Prefer: <Image alt=\"Dancer mid-turn on the floor\" />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Alternative text",
+      "implementation": "alt is required by the type system and rendered on every img",
+      "userRequirements": "Describe the content; use an empty alt only for decorative images"
+    },
+    {
+      "feature": "Layout stability",
+      "implementation": "Intrinsic width and height are always rendered, including after a fallback swap",
+      "userRequirements": "Pass the real aspect ratio for the surface"
+    },
+    {
+      "feature": "Failed image",
+      "implementation": "A failed chain renders fallback content instead of a broken-image glyph",
+      "userRequirements": "Provide a fallback for cards where the image carries meaning"
+    }
+  ],
+  "relatedComponents": [
+    "ArticleCard",
+    "EntityCard",
+    "Hero",
+    "PageHeader"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.9.0",
+  "sourceDir": "image",
+  "exportName": "Image"
+}

@@ -49,8 +49,19 @@ export function npmPackageUrl(name: string): string {
   return `https://www.npmjs.com/package/${name}`;
 }
 
-export const CONSENT_STORAGE_KEY = 'slipstream-consent';
-export const CONSENT_EVENT = 'slipstream-consent-change';
+/** MCP tools advertised by packages/mcp-server. Keep in sync with its tools/list. */
+export const MCP_TOOLS = [
+  'recommend_components',
+  'list_components',
+  'search_components',
+  'get_component_manifest',
+  'get_usage_examples',
+  'validate_usage',
+] as const;
+
+export const MCP_TOOL_COUNT = MCP_TOOLS.length;
+
+export const CONSENT_STORAGE_KEY = 'slipstream-consent';export const CONSENT_EVENT = 'slipstream-consent-change';
 
 export type ConsentValue = 'granted' | 'denied';
 
@@ -72,4 +83,23 @@ export function writeConsent(value: ConsentValue): void {
     /* storage blocked — consent simply isn't persisted */
   }
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
+}
+
+/** Remove the stored choice so the banner returns and analytics stops loading. */
+export function clearConsent(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+    // GA4 sets _ga and _ga_<container>. Expire both so "reset" is not a
+    // promise the browser cannot keep.
+    for (const entry of document.cookie.split(';')) {
+      const name = entry.split('=')[0]?.trim();
+      if (name && (name === '_ga' || name.startsWith('_ga_'))) {
+        document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+      }
+    }
+  } catch {
+    /* storage blocked — nothing to clear */
+  }
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: null }));
 }

@@ -82,7 +82,7 @@
   "examples": [
     {
       "title": "FAQ accordion",
-      "code": "<Accordion defaultValue={['a']}>\n  <AccordionItem id=\"a\">\n    <AccordionTrigger>What is Slipstream?</AccordionTrigger>\n    <AccordionContent>An AI-first component system.</AccordionContent>\n  </AccordionItem>\n  <AccordionItem id=\"b\">\n    <AccordionTrigger>How do I install?</AccordionTrigger>\n    <AccordionContent>Run npx slipstream-ui init.</AccordionContent>\n  </AccordionItem>\n</Accordion>",
+      "code": "<Accordion defaultValue={['a']}>\n  <AccordionItem id=\"a\">\n    <AccordionTrigger>What is Slipstream?</AccordionTrigger>\n    <AccordionContent>An AI-first component system.</AccordionContent>\n  </AccordionItem>\n  <AccordionItem id=\"b\">\n    <AccordionTrigger>How do I install?</AccordionTrigger>\n    <AccordionContent>Run npx @slipstream-ui/cli@latest init.</AccordionContent>\n  </AccordionItem>\n</Accordion>",
       "description": "Single-open accordion for FAQs"
     }
   ],
@@ -138,7 +138,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "sourceDir": "accordion",
   "exportName": "Accordion"
 }

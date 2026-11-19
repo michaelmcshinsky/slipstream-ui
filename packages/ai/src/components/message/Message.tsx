@@ -174,6 +174,10 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>((
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' && !event.shiftKey) {
                     event.preventDefault();
+                    // IME-safe: don't submit while composing (CJK input)
+                    if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) {
+                      return;
+                    }
                     commitEdit();
                   }
                   if (event.key === 'Escape') setIsEditing(false);

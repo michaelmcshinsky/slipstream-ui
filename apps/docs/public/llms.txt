@@ -2,12 +2,19 @@
 
 > Single-file corpus (all components): https://slipstreamui.com/llms-full.txt
 > Per-component markdown: https://slipstreamui.com/llm/components/<id>.md
-> Version: 0.7.0 (2026-11-10) — changelog: https://slipstreamui.com/changelog
+
+<!-- generated:release:start -->
+> Version: 0.9.0 (2026-11-17) · manifest schema v1 · manifest v1
+> 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
+> Relationship graph: https://slipstreamui.com/registry/graph.json
+> Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
+> Install: `npx @slipstream-ui/cli@latest init`
+<!-- generated:release:end -->
 
 ## Overview
 Slipstream UI is an AI-first React component library designed for AI-assisted development. Every component ships a machine-readable COMPONENT_MANIFEST so coding agents like Claude, Cursor, and Copilot can generate correct UI the first time.
 
-- 109 components: 92 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 - MIT licensed, open source at https://github.com/michaelmcshinsky/slipstream-ui
 - React 18/19, TypeScript, Tailwind CSS 3.4 and v4
 - WCAG 2.2 AA target with automated axe coverage in both themes
@@ -38,8 +45,16 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - @slipstream-ui/cli - CLI tool for installation and management
 - @slipstream-ui/i18n - Locale provider, message catalogs and RTL support
 
+<!-- generated:articles:start -->
+## Articles
+
+- [We tested 100 AI-generated component usages. Here is what the validator caught.](https://slipstreamui.com/articles/validation-benchmark-100-cases) — A reproducible 100-case benchmark: 30 valid usages and 70 defects across seven classes, with 65.7% structural recall, 100% precision, and zero false positives on valid cases.
+- [Give Claude Code a component contract, not a component gallery](https://slipstreamui.com/articles/component-contract-not-gallery) — Why machine-readable manifests matter more than another set of React components, and what a coding agent actually needs before it can generate correct UI.
+- [Seven ways AI-generated UI breaks, with real before/after cases](https://slipstreamui.com/articles/seven-ways-ai-generated-ui-breaks) — Walkthrough of seven real defect classes from the 100-case benchmark: hallucinated props, missing required props, invalid enums, orphaned compound parts, and the accessibility and state classes the validator still misses.
+<!-- generated:articles:end -->
+
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 95
+## Core components (@slipstream-ui/core) — 96
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -88,6 +103,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Grid / GridItem — Typed CSS grid with column counts per breakpoint (literal utilities that survive purging), auto-fit min-column mode, and GridItem spans.
 - Heading — Semantic heading (h1-h6) with a safe default scale and an optional visual-size override.
 - Hero — Responsive marketing hero with badge, eyebrow, headline, copy, actions and an optional media slot.
+- Image — A resilient image with a two-step fallback chain, intrinsic dimensions, and an LCP priority flag
 - Input — A text input field with support for various input types and standard HTML input attributes
 - InputGroup — Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control.
 - Label — An accessible form label that associates with its control
@@ -177,11 +193,12 @@ Prefer these over HTML pages when generating code.
 
 ## MCP Server
 The MCP server provides tools for AI agents:
+- recommend_components - Recommend a coherent set for a goal (chat UI, filterable table, settings form, agent dashboard) with reasons and docs URLs
 - list_components - Query available components with filters
 - search_components - Find components by capability keywords
 - get_component_manifest - Get full COMPONENT_MANIFEST for a specific component
 - get_usage_examples - Get usage examples, composition rules, and anti-patterns
-- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, and missing required props
+- validate_usage - Validate generated JSX against a component manifest before emitting; reports unknown props, invalid enum values, missing required props, missing compound roots, and icon-only controls without an accessible name
 
 Add it to an MCP client:
 ```json

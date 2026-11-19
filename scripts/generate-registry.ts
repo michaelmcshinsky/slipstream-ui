@@ -12,9 +12,23 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { RECIPES } from '../packages/mcp-server/src/tools/recipes';
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'registry');
+const RELEASE = JSON.parse(fs.readFileSync(path.join(ROOT, 'release.json'), 'utf8')) as {
+  schemaVersion: number;
+  manifestVersion: number;
+  registrySchemaVersion: number;
+  releaseDate: string;
+};
+const CORE_VERSION = (
+  JSON.parse(fs.readFileSync(path.join(ROOT, 'packages', 'core', 'package.json'), 'utf8')) as {
+    version: string;
+  }
+).version;
+/** Manifest id -> docs route id, for the two names that differ. */
+const DOCS_ROUTE_ID: Record<string, string> = { source: 'sources' };
 const PACKAGES = [
   { name: '@slipstream-ui/core', dir: path.join(ROOT, 'packages', 'core') },
   { name: '@slipstream-ui/ai', dir: path.join(ROOT, 'packages', 'ai') },
@@ -188,6 +202,13 @@ function main() {
     const payload = {
       $schema: 'https://slipstreamui.com/schemas/manifest-v1.json',
       ...manifest,
+      // Release contract: an agent must never combine a manifest from one
+      // version with docs from another.
+      componentId: manifest.id,
+      schemaVersion: RELEASE.schemaVersion,
+      manifestVersion: RELEASE.manifestVersion,
+      packageVersion: packageVersion,
+      docs: `https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[manifest.id] ?? manifest.id}`,
       // Stamped from the published package so the registry never advertises a
       // stale per-component version.
       version: packageVersion,
@@ -236,21 +257,106 @@ function main() {
 
   const index = {
     name: 'slipstream-ui',
-    schemaVersion: 1,
+    schemaVersion: RELEASE.registrySchemaVersion,
+    manifestVersion: RELEASE.manifestVersion,
+    version: CORE_VERSION,
+    releaseDate: RELEASE.releaseDate,
     count: entries.length,
+    counts: {
+      core: entries.filter(({ manifest }) => manifest.package === '@slipstream-ui/core').length,
+      ai: entries.filter(({ manifest }) => manifest.package === '@slipstream-ui/ai').length,
+    },
     install: 'npx shadcn@latest add https://slipstreamui.com/registry/<id>.json',
+    cliInstall: 'npx @slipstream-ui/cli@latest init',
+    docs: 'https://slipstreamui.com/docs/components',
     components: entries.map(({ manifest }) => ({
       id: manifest.id,
       name: manifest.name,
       package: manifest.package,
       tier: manifest.tier,
       description: manifest.description,
+      docs: `https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[manifest.id] ?? manifest.id}`,
       registry: `/registry/${manifest.id}.json`,
     })),
   };
   fs.writeFileSync(path.join(OUT_DIR, 'all.json'), JSON.stringify(index, null, 2) + '\n');
 
-  console.log(`Registry generated: ${entries.length} installable components -> ${path.relative(ROOT, OUT_DIR)}`);
+  // Machine-readable component relationship graph. Manifests already declare
+  // composition rules and related components; this exposes them as one edge
+  // list an agent can traverse before choosing a set of components.
+  const toId = (name: string) =>
+    name
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/\s+/g, '-')
+      .toLowerCase();
+  const nameToId = new Map<string, string>();
+  for (const { manifest } of entries) {
+    nameToId.set(manifest.name.toLowerCase(), manifest.id);
+    nameToId.set(toId(manifest.name), manifest.id);
+  }
+
+  const edgeKeys = new Set<string>();
+  for (const { manifest } of entries) {
+    const from = manifest.id;
+    const rules = (manifest.compositionRules ?? []) as { component?: string }[];
+    for (const rule of rules) {
+      if (!rule.component) continue;
+      const to = nameToId.get(rule.component.toLowerCase()) ?? nameToId.get(toId(rule.component));
+      if (to && to !== from) edgeKeys.add(JSON.stringify({ from, to, type: 'composition' }));
+    }
+    for (const related of (manifest.relatedComponents ?? []) as string[]) {
+      const to = nameToId.get(related.toLowerCase()) ?? nameToId.get(toId(related));
+      if (to && to !== from) edgeKeys.add(JSON.stringify({ from, to, type: 'related' }));
+    }
+  }
+  const edges = [...edgeKeys]
+    .map((key) => JSON.parse(key) as { from: string; to: string; type: 'composition' | 'related' })
+    .sort((a, b) => `${a.from}:${a.to}:${a.type}`.localeCompare(`${b.from}:${b.to}:${b.type}`));
+
+  const graph = {
+    name: 'slipstream-ui',
+    version: CORE_VERSION,
+    releaseDate: RELEASE.releaseDate,
+    schemaVersion: RELEASE.schemaVersion,
+    manifestVersion: RELEASE.manifestVersion,
+    nodeCount: entries.length,
+    edgeCount: edges.length,
+    docs: 'https://slipstreamui.com/docs/ai-manifests',
+    nodes: entries.map(({ manifest }) => ({
+      id: manifest.id,
+      name: manifest.name,
+      package: manifest.package,
+      tier: manifest.tier,
+      docs: `https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[manifest.id] ?? manifest.id}`,
+    })),
+    edges,
+  };
+  fs.writeFileSync(path.join(OUT_DIR, 'graph.json'), JSON.stringify(graph, null, 2) + '\n');
+
+  // Same intent recipes the MCP recommend_components tool uses, published as
+  // a static artifact so non-MCP agents and the docs can read them.
+  const recommendations = {
+    name: 'slipstream-ui',
+    version: CORE_VERSION,
+    releaseDate: RELEASE.releaseDate,
+    schemaVersion: RELEASE.schemaVersion,
+    manifestVersion: RELEASE.manifestVersion,
+    generatedFrom: 'packages/mcp-server/src/tools/recipes.ts',
+    count: RECIPES.length,
+    recipes: RECIPES.map((recipe) => ({
+      keywords: recipe.keywords,
+      components: recipe.components.map(({ id, reason }) => ({
+        id,
+        reason,
+        docs: `https://slipstreamui.com/docs/components/${DOCS_ROUTE_ID[id] ?? id}`,
+      })),
+    })),
+  };
+  fs.writeFileSync(path.join(OUT_DIR, 'recommendations.json'), JSON.stringify(recommendations, null, 2) + '\n');
+
+  console.log(
+    `Registry generated: ${entries.length} installable components, ${edges.length} graph edges and ${RECIPES.length} recommendation recipes -> ${path.relative(ROOT, OUT_DIR)}`
+  );
 }
 
 main();

@@ -2,9 +2,12 @@
 
 Variant navigation for branched messages: previous/next arrows with an N/M position indicator.
 
+> Component ID: `branch`
 > Import: `import { Branch } from '@slipstream-ui/ai'`
+> Docs: https://slipstreamui.com/docs/components/branch
 > Registry: https://slipstreamui.com/registry/branch.json
-> Tier: atom · Package: @slipstream-ui/ai
+> Tier: atom · Package: @slipstream-ui/ai@0.9.1
+> Manifest schema: v1 · manifest: v1
 
 ## Design intent
 
