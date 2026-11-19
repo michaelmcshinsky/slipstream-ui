@@ -279,6 +279,7 @@ export const ru = {
     billing: 'Оплата',
     team: 'Команда',
     settings: 'Настройки',
+    newsletter: 'Рассылка',
     licenses: 'Лицензии',
     admin: 'Администратор',
     signOut: 'Выйти',

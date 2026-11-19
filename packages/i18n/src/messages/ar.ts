@@ -279,6 +279,7 @@ export const ar = {
     billing: 'الفواتير',
     team: 'الفريق',
     settings: 'الإعدادات',
+    newsletter: 'النشرة البريدية',
     licenses: 'التراخيص',
     admin: 'الإدارة',
     signOut: 'تسجيل الخروج',
