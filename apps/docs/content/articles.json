@@ -14,5 +14,13 @@
     "date": "2026-11-05",
     "file": "component-contract-not-gallery.md",
     "tags": ["AI-first", "Manifests", "Claude Code"]
+  },
+  {
+    "slug": "seven-ways-ai-generated-ui-breaks",
+    "title": "Seven ways AI-generated UI breaks, with real before/after cases",
+    "description": "Walkthrough of seven real defect classes from the 100-case benchmark: hallucinated props, missing required props, invalid enums, orphaned compound parts, and the accessibility and state classes the validator still misses.",
+    "date": "2026-11-18",
+    "file": "seven-ways-ai-generated-ui-breaks.md",
+    "tags": ["Benchmark", "validate_usage", "Case study"]
   }
 ]
