@@ -19,6 +19,17 @@ describe('Timeline', () => {
     expect(screen.getByText('Platform team')).toBeInTheDocument();
   });
 
+  it('draws one connector rail per item except the last', () => {
+    const { container } = render(
+      <Timeline items={[{ title: 'One' }, { title: 'Two' }, { title: 'Three' }]} />
+    );
+    const rails = container.querySelectorAll('li > span[aria-hidden="true"]');
+    expect(rails).toHaveLength(2);
+    // The rail spans from the dot's lower edge into the next item's dot.
+    expect(rails[0]).toHaveClass('top-4');
+    expect(rails[0]).toHaveClass('-bottom-7');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Timeline items={[{ title: 'Started' }]} />);
     expect(await axe(container)).toHaveNoViolations();

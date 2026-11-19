@@ -24,6 +24,13 @@
       "description": "Visible label rendered and associated via htmlFor/aria"
     },
     {
+      "name": "labelHidden",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Keep the label for assistive tech but hide it visually, so the control lines up with sibling inputs in a filter bar or toolbar."
+    },
+    {
       "name": "value",
       "type": "string | string[]",
       "required": false,

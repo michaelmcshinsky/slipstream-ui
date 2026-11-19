@@ -13,6 +13,7 @@ export default function TooltipPage() {
         { name: 'content', type: 'string', description: 'The tooltip text.' },
         { name: 'side', type: "'top' | 'bottom' | 'left' | 'right'", defaultValue: "'top'", description: 'Placement relative to the trigger.' },
         { name: 'delay', type: 'number', defaultValue: '300', description: 'Delay before showing on hover, in ms. Use 0 for instant hints.' },
+        { name: 'variant', type: "'default' | 'inverse'", defaultValue: "'default'", description: 'Bubble palette; inverse is dark in light mode and light in dark mode.' },
         { name: 'children', type: 'ReactElement', description: 'Exactly one trigger element (button, input, icon…).' },
       ]}
       accessibility={[
@@ -108,8 +109,28 @@ export default function TooltipPage() {
   content: string;
   side?: 'top' | 'bottom' | 'left' | 'right';
   delay?: number;
+  variant?: 'default' | 'inverse';
   children: ReactElement;
 };`}
+      />
+
+      <DemoCard
+        title="Inverse bubble"
+        preview={
+          <div className="flex flex-wrap gap-4">
+            <Tooltip content="Popover surface" delay={0}>
+              <Button variant="outline">Default</Button>
+            </Tooltip>
+            <Tooltip content="Dark in light mode, light in dark mode" delay={0} variant="inverse">
+              <Button variant="outline">Inverse</Button>
+            </Tooltip>
+          </div>
+        }
+        code={`<Tooltip content="Dark bubble" variant="inverse">
+  <Button>Inverse</Button>
+</Tooltip>`}
+        usage={`// variant="inverse" uses the inverse surface tokens, so one option covers
+// both modes: navy bubble in light mode, white bubble in dark mode.`}
       />
     </ComponentPage>
   );

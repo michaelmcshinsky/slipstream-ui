@@ -16,6 +16,12 @@
  */
 @layer base {
   :root {
+    /*
+     * Pin the UA color scheme to the site theme. Without this, a dark OS
+     * preference leaks dark native chrome (scrollbar track, unchecked
+     * checkboxes/radios, the date picker panel) into light mode.
+     */
+    color-scheme: light;
     --background: 0 0% 100%;
     --foreground: 222 85% 7%;
     --card: 0 0% 100%;

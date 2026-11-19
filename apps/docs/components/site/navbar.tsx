@@ -104,7 +104,7 @@ export function Navbar() {
                 track('search_open', { source: 'button' });
                 setPaletteOpen(true);
               }}
-              className="flex h-11 items-center gap-2 rounded-md border border-border bg-muted/50 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
+              className="flex h-11 items-center gap-2.5 rounded-md border border-border bg-muted/50 px-4 text-sm text-muted-foreground transition-colors hover:bg-muted sm:h-9"
               aria-label={t('shell.searchAria')}
             >
               <span aria-hidden="true">⌕</span>

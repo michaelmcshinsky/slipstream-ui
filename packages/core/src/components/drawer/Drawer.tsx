@@ -306,9 +306,16 @@ export function Drawer({
       )
     : undefined;
 
+  // The backdrop dims and fades with the panel. Without it the page showed
+  // through at full brightness while the drawer slid out, which read as a
+  // content flash during close.
+  const backdropMotion = animate
+    ? cn('motion-reduce:animate-none', exiting ? 'animate-out fade-out-0' : 'animate-in fade-in-0')
+    : undefined;
+
   return createPortal(
     <div
-      className="fixed inset-0 z-50"
+      className={cn('fixed inset-0 z-50 bg-background/80', backdropMotion)}
       onMouseDown={(event) => {
         if (closeOnBackdrop && event.target === event.currentTarget) requestClose();
       }}

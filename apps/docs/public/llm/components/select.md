@@ -16,6 +16,7 @@ Native selects keep platform keyboard, mobile picker and screen-reader behavior 
 |---|---|---|---|---|
 | options | `SelectOption[]` | — | no | Flat options ({ value, label, disabled? }). Ignored when groups is provided. |
 | label | `string` | — | no | Visible label rendered and associated via htmlFor/aria |
+| labelHidden | `boolean` | `false` | no | Keep the label for assistive tech but hide it visually, so the control lines up with sibling inputs in a filter bar or toolbar. |
 | value | `string | string[]` | — | no | Controlled value (string, or string[] when multiple). |
 | defaultValue | `string | string[]` | — | no | Initial value when uncontrolled. |
 | onChange | `React.ChangeEventHandler<HTMLSelectElement>` | — | no | Native change event, compatible with react-hook-form register(). |

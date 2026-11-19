@@ -33,6 +33,8 @@ The Conversation component manages the display of multiple messages in a chat in
 | welcomeDescription | `string` | — | no | Supporting text in the welcome state |
 | welcomeSuggestions | `string[]` | — | no | Starter prompts shown in the welcome state |
 | onWelcomeSelect | `(prompt: string) => void` | — | no | Called when a welcome suggestion is clicked |
+| density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the transcript and its message bubbles. |
+| messageSurface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface forwarded to every Message; none gives a borderless transcript. |
 | hasMoreHistory | `boolean` | — | no | Whether older history pages exist (enables infinite scroll) |
 | isLoadingMore | `boolean` | — | no | Whether a history page is currently loading |
 | onLoadMore | `() => void` | — | no | Called when the user scrolls to the top to load older messages |

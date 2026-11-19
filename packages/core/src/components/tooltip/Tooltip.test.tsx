@@ -18,6 +18,21 @@ describe('Tooltip', () => {
     });
   });
 
+  it('renders the inverse palette on request', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tooltip content="Dark bubble" delay={0} variant="inverse">
+        <button>Hover me</button>
+      </Tooltip>
+    );
+    await user.hover(screen.getByRole('button'));
+    await waitFor(() => {
+      const bubble = screen.getByRole('tooltip');
+      expect(bubble).toHaveClass('bg-inverse');
+      expect(bubble).toHaveClass('text-inverse-foreground');
+    });
+  });
+
   it('hides the tooltip on unhover', async () => {
     const user = userEvent.setup();
     render(

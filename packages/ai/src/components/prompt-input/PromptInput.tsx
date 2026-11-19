@@ -217,6 +217,10 @@ export type PromptInputProps = {
   disabled?: boolean;
   isLoading?: boolean;
   className?: string;
+  /** Composer padding scale. Default 'comfortable'. */
+  density?: 'comfortable' | 'compact';
+  /** Field surface: the default bordered input, no fill, or a tinted panel. */
+  surface?: 'default' | 'none' | 'card' | 'muted';
   autoFocus?: boolean;
   maxLength?: number;
   showSendButton?: boolean;
@@ -225,8 +229,20 @@ export type PromptInputProps = {
   children?: React.ReactNode;
 };
 
-const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
-  ({
+/** Literal maps so the scanner keeps every composer density/surface utility. */
+const COMPOSER_DENSITY = {
+  comfortable: 'px-3 py-2 min-h-[40px]',
+  compact: 'px-2.5 py-1.5 min-h-[36px]',
+} as const;
+
+const COMPOSER_SURFACE = {
+  default: 'border border-input bg-background',
+  none: 'border border-transparent bg-transparent',
+  card: 'border border-border bg-card',
+  muted: 'border border-border bg-muted',
+} as const;
+
+const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(({
     onSubmit,
     onStop,
     attachments: controlledAttachments,
@@ -243,6 +259,8 @@ const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
     disabled = false,
     isLoading = false,
     className,
+    density = 'comfortable',
+    surface = 'default',
     autoFocus = false,
     maxLength,
     showSendButton = true,
@@ -355,11 +373,13 @@ const PromptInputRoot = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(
         maxLength={maxLength}
         rows={1}
         className={cn(
-          'flex-1 resize-none rounded-md border border-input bg-background px-3 py-2 text-sm',
+          'flex-1 resize-none rounded-md text-sm',
+          COMPOSER_SURFACE[surface],
+          COMPOSER_DENSITY[density],
           'placeholder:text-muted-foreground',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           'disabled:cursor-not-allowed disabled:opacity-50',
-          'min-h-[40px] max-h-[200px] overflow-y-auto'
+          'max-h-[200px] overflow-y-auto'
         )}
       />
     );

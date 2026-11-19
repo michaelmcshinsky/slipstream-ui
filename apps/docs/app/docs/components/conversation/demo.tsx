@@ -35,6 +35,8 @@ export default function ConversationPage() {
         { name: 'showAvatars', type: 'boolean', defaultValue: 'true', description: 'Whether to show avatars for messages' },
         { name: 'loadingMessage', type: 'string', defaultValue: "'Thinking...'", description: 'Text to display while loading' },
         { name: 'renderContent', type: '(content: string) => ReactNode', defaultValue: 'undefined', description: 'Custom renderer applied to every message (e.g. markdown)' },
+        { name: 'density', type: "'comfortable' | 'compact' | 'tight'", defaultValue: "'comfortable'", description: 'Transcript padding/gap, forwarded to every bubble' },
+        { name: 'messageSurface', type: "'auto' | 'none' | 'card' | 'muted' | 'primary'", defaultValue: "'auto'", description: 'Bubble surface forwarded to every message; none gives a borderless transcript' },
         { name: 'streamingMessageId', type: 'string', defaultValue: 'undefined', description: 'ID of the message still generating; shows its cursor and auto-scrolls' },
       ]}
       accessibility={[

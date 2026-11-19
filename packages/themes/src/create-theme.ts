@@ -97,6 +97,7 @@ export function createTheme(config: ThemeConfig = {}): Theme {
   return {
     name: 'custom',
     colors,
+    colorScheme: darkMode ? 'dark' : 'light',
     borderRadius,
     radius: {
       lg: borderRadius,
@@ -164,6 +165,12 @@ export function themeToCssVariables(theme: Theme): string {
     const cssVarName = key.replace(/([A-Z])/g, '-$1').toLowerCase();
     return `--${cssVarName}: ${value};`;
   });
+
+  // Native chrome follows the theme, not the OS: an unset color-scheme lets a
+  // dark OS preference paint dark scrollbars and form controls in light mode.
+  if (theme.colorScheme) {
+    vars.unshift(`color-scheme: ${theme.colorScheme};`);
+  }
 
   // Multi-token radius: Tailwind maps rounded-{sm,md,lg} to these variables.
   const radius = theme.radius ?? {

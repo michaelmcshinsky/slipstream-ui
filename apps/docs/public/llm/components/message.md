@@ -29,6 +29,8 @@ The Message component renders individual chat messages with proper styling based
 | onEditContent | `(content: string) => void` | — | no | Enables edit-and-resubmit; called with the edited content |
 | formatTime | `(date: Date) => string` | — | no | Formats message or step timestamps. Defaults to the runtime toLocaleTimeString(). |
 | locale | `string` | — | no | BCP-47 locale used by the default timestamp formatter. |
+| density | `'comfortable' | 'compact' | 'tight'` | `comfortable` | no | Padding and gap scale for the bubble. |
+| surface | `'auto' | 'none' | 'card' | 'muted' | 'primary'` | `auto` | no | Bubble surface. auto keeps the role-based tint (user = primary tint, assistant = muted); none is transparent for a borderless transcript. |
 
 ## Examples
 

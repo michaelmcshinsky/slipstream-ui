@@ -15,6 +15,13 @@ export type MessageProps = {
   userLabel?: string;
   /** Display name for the assistant role; override for localization. */
   assistantLabel?: string;
+  /** Padding and gap scale. Default 'comfortable'. */
+  density?: 'comfortable' | 'compact' | 'tight';
+  /**
+   * Bubble surface. `auto` keeps the role-based tint (user = primary tint,
+   * assistant = muted); `none` is transparent for a borderless transcript.
+   */
+  surface?: 'auto' | 'none' | 'card' | 'muted' | 'primary';
   /** Formats the message timestamp; defaults to the runtime's toLocaleTimeString(). */
   formatTime?: (date: Date) => string;
   /** BCP-47 locale used by the default timestamp formatter. */
@@ -46,8 +53,21 @@ export type MessageProps = {
   onEditContent?: (content: string) => void;
 };
 
-const Message = React.forwardRef<HTMLDivElement, MessageProps>(
-  (
+/** Literal maps so the scanner keeps every density/surface utility. */
+const DENSITY_CLASSES = {
+  comfortable: 'gap-3 p-4',
+  compact: 'gap-2.5 p-3',
+  tight: 'gap-2 p-2',
+} as const;
+
+const SURFACE_CLASSES = {
+  none: 'bg-transparent',
+  card: 'border border-border bg-card',
+  muted: 'bg-muted',
+  primary: 'bg-primary/10',
+} as const;
+
+const Message = React.forwardRef<HTMLDivElement, MessageProps>((
     {
       message,
       className,
@@ -56,6 +76,8 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       avatarFallback,
       userLabel = 'You',
       assistantLabel = 'Assistant',
+      density = 'comfortable',
+      surface = 'auto',
       formatTime,
       locale,
       renderContent,
@@ -103,8 +125,9 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         ref={ref}
         aria-busy={isStreaming || undefined}
         className={cn(
-          'flex gap-3 p-4 rounded-lg',
-          isUser ? 'bg-primary/10' : 'bg-muted',
+          'flex rounded-lg',
+          DENSITY_CLASSES[density],
+          surface === 'auto' ? (isUser ? 'bg-primary/10' : 'bg-muted') : SURFACE_CLASSES[surface],
           isSystem && 'border-l-4 border-muted-foreground',
           error && 'border border-destructive/40',
           className

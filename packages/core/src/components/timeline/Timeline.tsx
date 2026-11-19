@@ -28,7 +28,19 @@ export const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(functi
     <ol ref={ref} className={cn('relative flex flex-col gap-6', className)} {...props}>
       {items.map((item, index) => (
         <li key={`${item.title}-${index}`} className="relative flex gap-4">
-          <div className="flex flex-col items-center">
+          {/*
+            One rail per item, absolutely positioned so it starts at the dot's
+            bottom edge and runs through the list gap into the next dot. A
+            flex-column connector stops at the item box, which left a visible
+            break at every item boundary.
+          */}
+          {index < items.length - 1 && (
+            <span
+              aria-hidden="true"
+              className="absolute left-[5.5px] top-4 -bottom-7 w-px bg-border"
+            />
+          )}
+          <div className="relative z-10 flex flex-col items-center">
             <span
               aria-hidden="true"
               className={cn(
@@ -36,7 +48,6 @@ export const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(functi
                 item.muted ? 'border-border bg-background' : 'border-primary bg-primary'
               )}
             />
-            {index < items.length - 1 && <span aria-hidden="true" className="mt-1 w-px flex-1 bg-border" />}
           </div>
           <div className="min-w-0 pb-1">
             {item.period && (

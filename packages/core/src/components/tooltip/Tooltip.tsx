@@ -11,6 +11,11 @@ export type TooltipProps = {
   side?: 'top' | 'bottom' | 'left' | 'right';
   /** Delay before showing on hover, in milliseconds. */
   delay?: number;
+  /**
+   * Bubble palette. `default` uses the popover surface; `inverse` flips the
+   * surface (dark bubble in light mode, light bubble in dark mode).
+   */
+  variant?: 'default' | 'inverse';
   className?: string;
   /** A single focusable element; receives aria-describedby when open. */
   children: React.ReactElement;
@@ -19,6 +24,15 @@ export type TooltipProps = {
 type Position = { top: number; left: number; transform: string };
 
 const GAP = 8;
+
+/**
+ * Literal class maps so the Tailwind scanner keeps both palettes. `inverse`
+ * reuses the inverse surface tokens: navy in light mode, white in dark mode.
+ */
+const VARIANTS: Record<NonNullable<TooltipProps['variant']>, string> = {
+  default: 'border-border bg-popover text-popover-foreground',
+  inverse: 'border-inverse-border bg-inverse text-inverse-foreground',
+};
 
 /**
  * Hover/focus tooltip built on aria-describedby. Shows on pointer
@@ -30,7 +44,7 @@ const GAP = 8;
  * scroll the container (the reported "tooltip causes scroll" bug).
  */
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  ({ content, side = 'top', delay = 300, className, children }, ref) => {
+  ({ content, side = 'top', delay = 300, variant = 'default', className, children }, ref) => {
     const [open, setOpen] = React.useState(false);
     const [pos, setPos] = React.useState<Position | null>(null);
     const anchorRef = React.useRef<HTMLDivElement | null>(null);
@@ -113,7 +127,10 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               id={id}
               role="tooltip"
               style={{ position: 'fixed', top: pos.top, left: pos.left, transform: pos.transform, zIndex: 60 }}
-              className="pointer-events-none w-max max-w-xs rounded-md border border-border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
+              className={cn(
+                'pointer-events-none w-max max-w-xs rounded-md border px-3 py-1.5 text-xs shadow-md',
+                VARIANTS[variant]
+              )}
             >
               {content}
             </div>,

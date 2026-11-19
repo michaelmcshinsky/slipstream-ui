@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
@@ -44,14 +44,25 @@ describe('Accordion', () => {
     render(<BasicAccordion defaultValue={['a']} />);
     expect(screen.getByText('Content A')).toBeVisible();
     await user.click(screen.getByText('Section A'));
-    expect(screen.getByText('Content A')).not.toBeVisible();
+    // The panel stays mounted through the collapse transition, then hides.
+    await waitFor(() => expect(screen.getByText('Content A')).not.toBeVisible());
+  });
+
+  it('animates the collapse instead of hiding the panel on the same frame', async () => {
+    const user = userEvent.setup();
+    render(<BasicAccordion defaultValue={['a']} />);
+    await user.click(screen.getByText('Section A'));
+    const panel = screen.getByText('Content A').closest('[role="region"]');
+    expect(panel).not.toHaveAttribute('hidden');
+    expect(panel).toHaveClass('grid-rows-[0fr]');
+    await waitFor(() => expect(panel).toHaveAttribute('hidden'));
   });
 
   it('closes the other item when collapsible (single-open)', async () => {
     const user = userEvent.setup();
     render(<BasicAccordion defaultValue={['a']} collapsible />);
     await user.click(screen.getByText('Section B'));
-    expect(screen.getByText('Content A')).not.toBeVisible();
+    await waitFor(() => expect(screen.getByText('Content A')).not.toBeVisible());
     expect(screen.getByText('Content B')).toBeVisible();
   });
 

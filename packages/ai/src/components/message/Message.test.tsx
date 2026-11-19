@@ -22,6 +22,21 @@ describe('Message', () => {
     expect(screen.getByText('What is the capital of France?')).toBeInTheDocument();
   });
 
+  it('supports a borderless surface and tighter density', () => {
+    const { container } = render(
+      <Message message={assistantMessage} surface="none" density="tight" />
+    );
+    const bubble = container.firstChild as HTMLElement;
+    expect(bubble).toHaveClass('bg-transparent');
+    expect(bubble).toHaveClass('p-2');
+    expect(bubble).not.toHaveClass('bg-muted');
+  });
+
+  it('supports an explicit surface colour', () => {
+    const { container } = render(<Message message={assistantMessage} surface="card" />);
+    expect(container.firstChild).toHaveClass('bg-card');
+  });
+
   it('defaults to English role labels', () => {
     render(
       <div>

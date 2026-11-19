@@ -27,6 +27,8 @@ export default function MessagePage() {
         { name: 'avatarFallback', type: 'string', defaultValue: 'undefined', description: 'Fallback text for avatar' },
         { name: 'userLabel', type: 'string', defaultValue: "'You'", description: 'Display name for user messages (localization)' },
         { name: 'assistantLabel', type: 'string', defaultValue: "'Assistant'", description: 'Display name for assistant messages (localization)' },
+        { name: 'density', type: "'comfortable' | 'compact' | 'tight'", defaultValue: "'comfortable'", description: 'Padding and gap scale for the bubble' },
+        { name: 'surface', type: "'auto' | 'none' | 'card' | 'muted' | 'primary'", defaultValue: "'auto'", description: 'Bubble surface; auto keeps the role tint, none is transparent' },
         { name: 'renderContent', type: '(content: string) => ReactNode', defaultValue: 'undefined', description: 'Custom content renderer (e.g. markdown); replaces plain-text rendering' },
         { name: 'isStreaming', type: 'boolean', defaultValue: 'false', description: 'Shows a typing cursor and sets aria-busy while generating' },
       ]}
