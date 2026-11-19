@@ -21,21 +21,22 @@ model User {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  sessions      Session[]
-  memberships   Membership[]
-  sentInvites   TeamInvite[]         @relation("InvitedBy")
-  subscriptions Subscription[]
-  payments      Payment[]
-  licenseKeys   LicenseKey[]
-  apiKeys       ApiKey[]
-  resetTokens   PasswordResetToken[]
-  auditLogs     AuditLog[]
-  mockCheckouts MockCheckout[]
-  emailVerifications EmailVerificationToken[]
+  sessions              Session[]
+  memberships           Membership[]
+  sentInvites           TeamInvite[]         @relation("InvitedBy")
+  subscriptions         Subscription[]
+  payments              Payment[]
+  licenseKeys           LicenseKey[]
+  apiKeys               ApiKey[]
+  resetTokens           PasswordResetToken[]
+  auditLogs             AuditLog[]
+  mockCheckouts         MockCheckout[]
+  emailVerifications    EmailVerificationToken[]
+  newsletterPreferences NewsletterPreference?
+  newsletterSubscriptions NewsletterSubscription[]
+  newsletterDeliveries NewsletterDelivery[]
 }
 
-/// Single-use email verification tokens. Raw tokens are never
-/// stored; only their hash. Conditional claims prevent double-consumption.
 model EmailVerificationToken {
   id        String    @id @default(cuid())
   userId    String
@@ -245,7 +246,7 @@ model AuditLog {
 model EmailDelivery {
   id        String   @id @default(cuid())
   toEmail   String
-  kind      String // password_reset | invite | email_verify
+  kind      String // password_reset | invite | email_verify | newsletter
   subject   String
   bodyText  String
   tokenHash String?
@@ -256,5 +257,73 @@ model EmailDelivery {
   updatedAt DateTime @updatedAt
 
   @@index([toEmail, kind])
+  @@index([status])
+}
+
+/// Newsletter content items aggregated from various sources
+model NewsletterContent {
+  id          String   @id @default(cuid())
+  type        String   // audit_log | release | github | custom
+  title       String
+  summary     String
+  url         String?
+  metadata    String?  // JSON with source-specific data
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([type, publishedAt])
+  @@index([publishedAt])
+}
+
+/// User newsletter preferences
+model NewsletterPreference {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyEnabled  Boolean  @default(false)
+  weeklyEnabled Boolean  @default(true)
+  // Content type preferences (JSON array of enabled types)
+  contentTypes  String   @default("[]")
+  // Frequency: daily, weekly, or both
+  frequency     String   @default("weekly") // daily | weekly | both
+  timezone      String   @default("America/Denver")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+/// Newsletter subscription tracking (for unsubscribes, etc.)
+model NewsletterSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // daily | weekly
+  status    String   @default("active") // active | unsubscribed | bounced
+  unsubscribedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, type])
+  @@index([status])
+
+  deliveries NewsletterDelivery[]
+}
+
+/// Newsletter delivery records
+model NewsletterDelivery {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionId String
+  subscription  NewsletterSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  type          String   // daily | weekly
+  subject       String
+  htmlContent   String
+  textContent   String
+  status        String   @default("QUEUED") // QUEUED | SENT | FAILED
+  sentAt        DateTime?
+  error         String?
+  createdAt     DateTime @default(now())
+
+  @@index([userId, type, createdAt])
   @@index([status])
 }

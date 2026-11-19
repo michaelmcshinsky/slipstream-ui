@@ -11,6 +11,7 @@ const LINKS = [
   { href: '/dashboard/licenses', labelKey: 'shell.licenses' },
   { href: '/dashboard/team', labelKey: 'shell.team' },
   { href: '/dashboard/settings', labelKey: 'shell.settings' },
+  { href: '/dashboard/settings/newsletter', labelKey: 'shell.newsletter' },
 ] as const;
 
 export function DashboardNav({ isAdmin }: { isAdmin?: boolean }) {

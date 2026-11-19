@@ -280,6 +280,7 @@ export const en = {
     billing: 'Billing',
     team: 'Team',
     settings: 'Settings',
+    newsletter: 'Newsletter',
     licenses: 'Licenses',
     admin: 'Admin',
     signOut: 'Sign out',
