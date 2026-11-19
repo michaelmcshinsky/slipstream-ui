@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { ArticleSummary } from '@/lib/articles';
 
-// lib/articles reads the filesystem at module load, so the path helper is
-// inlined here for the client bundle.
+// Only the type import above is safe for the client bundle; lib/articles
+// pulls in the generated markdown, so the path helper is inlined here.
 function articleHref(slug: string): string {
   return `/articles/${slug}`;
 }

@@ -1,6 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import metadata from '../content/articles.json';
+import { ARTICLE_CONTENT } from './article-content.generated';
 
 export type ArticleMeta = {
   slug: string;
@@ -24,28 +23,14 @@ export type Article = ArticleMeta & {
 /** Metadata safe to serialize into client components (no markdown bodies). */
 export type ArticleSummary = ArticleMeta & { readingMinutes: number };
 
-/**
- * Resolve the content directory from either the docs app cwd (Next build,
- * vitest) or the repo root (scripts and ad-hoc Node runs).
- */
-function contentDir(): string {
-  const candidates = [
-    path.join(process.cwd(), 'content', 'articles'),
-    path.join(process.cwd(), 'apps', 'docs', 'content', 'articles'),
-  ];
-  const found = candidates.find((candidate) => fs.existsSync(candidate));
-  if (!found) {
-    throw new Error(`Article content directory not found. Tried:\n${candidates.join('\n')}`);
-  }
-  return found;
-}
-
 function load(meta: ArticleMeta): Article {
-  const filePath = path.join(contentDir(), meta.file);
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Article file missing for "${meta.slug}": ${filePath}`);
+  // Markdown is inlined by scripts/generate-article-content.ts: the docs
+  // deploy target is a Cloudflare Worker with no content/ directory, so a
+  // runtime fs read would 500 every /articles route.
+  const content = ARTICLE_CONTENT[meta.slug];
+  if (content === undefined) {
+    throw new Error(`No generated content for article "${meta.slug}" — run pnpm generate:article-content`);
   }
-  const content = fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
   const body = content
     .replace(/^#\s+.+\n+/, '')
     .replace(/^\*Published[^\n]*\*\n+/, '')

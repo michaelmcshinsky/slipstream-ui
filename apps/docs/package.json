@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && next build",
+    "build": "tsx ../../scripts/generate-registry.ts && tsx ../../scripts/generate-llm-docs.ts && tsx ../../scripts/generate-article-content.ts && tsx ../../scripts/generate-a11y-scorecard.ts && next build",
     "start": "next start",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy && tsx ../../scripts/submit-indexnow.ts --soft",

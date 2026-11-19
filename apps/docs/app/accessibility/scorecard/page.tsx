@@ -4,7 +4,7 @@ import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { JsonLd } from '@/components/site/json-ld';
-import { buildAccessibilityScorecard } from '@/lib/a11y-scorecard';
+import { ACCESSIBILITY_SCORECARD } from '@/lib/a11y-scorecard.generated';
 import { webPageSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = withSeo('/accessibility/scorecard', {
 });
 
 export default function AccessibilityScorecardPage() {
-  const { rows, summary } = buildAccessibilityScorecard();
+  const { rows, summary } = ACCESSIBILITY_SCORECARD;
   const stats = [
     { label: 'Components', value: summary.total },
     { label: 'With axe assertion', value: summary.withAxe },

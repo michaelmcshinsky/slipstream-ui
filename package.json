@@ -46,7 +46,9 @@
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "test:visual:update": "playwright test --config playwright.visual.config.ts --update-snapshots",
     "test:e2e": "playwright test --config playwright.e2e.config.ts",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "generate:article-content": "tsx scripts/generate-article-content.ts",
+    "generate:a11y-scorecard": "tsx scripts/generate-a11y-scorecard.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",

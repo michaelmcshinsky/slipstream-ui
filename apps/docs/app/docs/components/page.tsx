@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import fs from 'node:fs';
-import path from 'node:path';
 import Link from 'next/link';
+import registryJson from '@/public/registry/all.json';
 import { COMPONENT_COUNT } from '@/lib/component-count';
 import { NAV_SECTIONS, navGroupLabel, type NavItem } from '@/lib/nav';
 import { JsonLd } from '@/components/site/json-ld';
@@ -22,26 +21,17 @@ type RegistryEntry = {
 };
 
 /**
- * Registry index read at build/render time so cards can show tier +
- * description without shipping the whole registry to the client. Falls
- * back to name-only cards if the generated file is missing.
+ * Registry index imported at build time so cards can show tier + description
+ * without shipping the whole registry to the client. A static import (not a
+ * runtime fs read) because the docs deploy target is a Cloudflare Worker with
+ * no filesystem access to public/.
  */
-function loadRegistryIndex(): Record<string, RegistryEntry> {
-  try {
-    const file = path.join(process.cwd(), 'public', 'registry', 'all.json');
-    const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as {
-      components?: { id: string; tier?: string; description?: string }[];
-    };
-    return Object.fromEntries(
-      (parsed.components ?? []).map((component) => [
-        component.id,
-        { tier: component.tier, description: component.description },
-      ])
-    );
-  } catch {
-    return {};
-  }
-}
+const REGISTRY_INDEX: Record<string, RegistryEntry> = Object.fromEntries(
+  (registryJson.components ?? []).map((component) => [
+    component.id,
+    { tier: component.tier, description: component.description },
+  ])
+);
 
 function idFromHref(href: string): string {
   return href.slice(href.lastIndexOf('/') + 1);
@@ -49,7 +39,7 @@ function idFromHref(href: string): string {
 
 export default async function ComponentsOverviewPage() {
   const { t } = await getServerI18n();
-  const registry = loadRegistryIndex();
+  const registry = REGISTRY_INDEX;
   const section = NAV_SECTIONS.find((s) => s.title === 'Components');
   const overview: NavItem | undefined = section?.items?.[0];
   const groups = section?.groups ?? [];

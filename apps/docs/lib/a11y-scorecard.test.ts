@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { COMPONENT_COUNT } from './component-count';
 import { buildAccessibilityScorecard } from './a11y-scorecard';
+import { ACCESSIBILITY_SCORECARD } from './a11y-scorecard.generated';
 
 const { rows, summary } = buildAccessibilityScorecard();
 
@@ -34,5 +35,12 @@ describe('accessibility scorecard', () => {
   it('counts interaction tests without pretending they cover every component', () => {
     expect(summary.withInteraction).toBeGreaterThan(0);
     expect(summary.withInteraction).toBeLessThanOrEqual(COMPONENT_COUNT);
+  });
+
+  it('keeps the generated snapshot in sync with the manifests and tests', () => {
+    // The page renders ACCESSIBILITY_SCORECARD because the Worker has no
+    // filesystem; this is the drift gate. Regenerate with
+    // `pnpm generate:a11y-scorecard`.
+    expect(ACCESSIBILITY_SCORECARD).toEqual(buildAccessibilityScorecard());
   });
 });
