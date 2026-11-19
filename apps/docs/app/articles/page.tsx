@@ -5,7 +5,7 @@ import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { JsonLd } from '@/components/site/json-ld';
 import { ArticleIndex } from '@/components/site/article-index';
-import { ARTICLES, articlePath, type ArticleSummary } from '@/lib/articles';
+import { ARTICLES, articlePath, toArticleSummary } from '@/lib/articles';
 import { webPageSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
 
@@ -28,15 +28,7 @@ function formatDate(iso: string): string {
 
 export default function ArticlesPage() {
   const [featured, ...rest] = ARTICLES;
-  const summaries: ArticleSummary[] = rest.map(({ slug, title, description: desc, date, file, tags, readingMinutes }) => ({
-    slug,
-    title,
-    description: desc,
-    date,
-    file,
-    tags,
-    readingMinutes,
-  }));
+  const summaries = rest.map(toArticleSummary);
 
   return (
     <div className="min-h-screen bg-background">

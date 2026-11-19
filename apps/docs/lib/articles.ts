@@ -66,6 +66,12 @@ export const ARTICLES: Article[] = (metadata as ArticleMeta[])
   .sort((a, b) => b.date.localeCompare(a.date))
   .map(load);
 
+/** Strip an article down to the metadata safe for client components. */
+export function toArticleSummary(article: Article): ArticleSummary {
+  const { slug, title, description, date, file, tags, readingMinutes } = article;
+  return { slug, title, description, date, file, tags, readingMinutes };
+}
+
 export function getArticle(slug: string): Article | undefined {
   return ARTICLES.find((article) => article.slug === slug);
 }
