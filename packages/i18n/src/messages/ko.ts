@@ -279,6 +279,7 @@ export const ko = {
     billing: '결제',
     team: '팀',
     settings: '설정',
+    newsletter: '뉴스레터',
     licenses: '라이선스',
     admin: '관리자',
     signOut: '로그아웃',

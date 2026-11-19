@@ -1,0 +1,24 @@
+{
+  "name": "Daily Newsletter Generation",
+  "description": "Generates and sends daily newsletter digest to subscribed users",
+  "schedule": {
+    "kind": "daily",
+    "timezone": "America/Denver",
+    "hour": 7,
+    "minute": 0
+  },
+  "model": {
+    "providerId": "openrouter",
+    "modelId": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "action": {
+    "kind": "agent",
+    "instructions": "Call the newsletter cron endpoint to generate and send daily newsletters. Use the GET method with the cron secret and frequency=daily.",
+    "model": {
+      "providerId": "openrouter",
+      "modelId": "nvidia/nemotron-3-ultra-550b-a55b:free"
+    }
+  },
+  "executionTarget": "cloud",
+  "maximumRuntimeMs": 300000
+}

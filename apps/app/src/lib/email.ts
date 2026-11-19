@@ -9,7 +9,7 @@ import { prisma } from '@slipstream-ui/db';
  * messages cannot silently die in stdout.
  */
 
-export type EmailKind = 'password_reset' | 'invite' | 'email_verify';
+export type EmailKind = 'password_reset' | 'invite' | 'email_verify' | 'newsletter';
 
 export type OutboundEmail = {
   to: string;
@@ -17,6 +17,10 @@ export type OutboundEmail = {
   subject: string;
   /** Plain-text body. Must already contain any user-provided values escaped. */
   text: string;
+  /** Optional HTML alternative; user-provided values must be escaped. */
+  html?: string;
+  /** RFC 5322 headers, e.g. List-Unsubscribe on newsletter mail. */
+  headers?: Record<string, string>;
   /** Raw action token; only its hash is persisted, and only log+dev-link transports may see it. */
   token?: string;
   /** Hash of the token for dedup/audit. */
@@ -65,7 +69,14 @@ export function httpTransport(webhookUrl: string): EmailTransport {
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ to: email.to, kind: email.kind, subject: email.subject, text: email.text }),
+        body: JSON.stringify({
+          to: email.to,
+          kind: email.kind,
+          subject: email.subject,
+          text: email.text,
+          ...(email.html ? { html: email.html } : {}),
+          ...(email.headers ? { headers: email.headers } : {}),
+        }),
       });
       if (!response.ok) {
         throw new Error(`Email webhook responded ${response.status}`);

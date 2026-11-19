@@ -279,6 +279,7 @@ export const zh = {
     billing: '账单',
     team: '团队',
     settings: '设置',
+    newsletter: '新闻通讯',
     licenses: '许可证',
     admin: '管理',
     signOut: '退出登录',

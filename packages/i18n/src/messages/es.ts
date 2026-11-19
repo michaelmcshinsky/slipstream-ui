@@ -279,6 +279,7 @@ export const es = {
     billing: 'Facturación',
     team: 'Equipo',
     settings: 'Ajustes',
+    newsletter: 'Boletín',
     licenses: 'Licencias',
     admin: 'Administración',
     signOut: 'Cerrar sesión',

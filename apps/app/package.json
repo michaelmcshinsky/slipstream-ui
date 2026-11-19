@@ -14,6 +14,7 @@
     "@slipstream-ui/core": "workspace:*",
     "@slipstream-ui/db": "workspace:*",
     "@slipstream-ui/i18n": "workspace:*",
+    "@slipstream-ui/newsletter": "workspace:*",
     "jose": "^6.2.14",
     "next": "^16.4.6",
     "react": "^18.2.0",
@@ -38,4 +39,3 @@
     "vitest": "^5.0.5"
   }
 }
-

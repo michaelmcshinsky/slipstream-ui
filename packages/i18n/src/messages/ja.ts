@@ -279,6 +279,7 @@ export const ja = {
     billing: '請求',
     team: 'チーム',
     settings: '設定',
+    newsletter: 'ニュースレター',
     licenses: 'ライセンス',
     admin: '管理者',
     signOut: 'サインアウト',
