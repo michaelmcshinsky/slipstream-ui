@@ -121,7 +121,11 @@
       "defaultValue": "comfortable",
       "required": false,
       "description": "Padding and gap scale for the bubble.",
-      "enum": ["comfortable", "compact", "tight"]
+      "enum": [
+        "comfortable",
+        "compact",
+        "tight"
+      ]
     },
     {
       "name": "surface",
@@ -129,7 +133,13 @@
       "defaultValue": "auto",
       "required": false,
       "description": "Bubble surface. auto keeps the role-based tint (user = primary tint, assistant = muted); none is transparent for a borderless transcript.",
-      "enum": ["auto", "none", "card", "muted", "primary"]
+      "enum": [
+        "auto",
+        "none",
+        "card",
+        "muted",
+        "primary"
+      ]
     }
   ],
   "examples": [
@@ -257,7 +267,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "sourceDir": "message",
   "exportName": "Message"
 }

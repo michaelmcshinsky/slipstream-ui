@@ -6,7 +6,7 @@ Single- or multi-select segmented control for view and filter switches.
 > Import: `import { SegmentedControl } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/segmented-control
 > Registry: https://slipstreamui.com/registry/segmented-control.json
-> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

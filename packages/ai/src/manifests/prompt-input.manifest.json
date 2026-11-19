@@ -105,7 +105,10 @@
       "defaultValue": "comfortable",
       "required": false,
       "description": "Composer padding and minimum height.",
-      "enum": ["comfortable", "compact"]
+      "enum": [
+        "comfortable",
+        "compact"
+      ]
     },
     {
       "name": "surface",
@@ -113,7 +116,12 @@
       "defaultValue": "default",
       "required": false,
       "description": "Field surface: the bordered input, no fill, or a tinted panel.",
-      "enum": ["default", "none", "card", "muted"]
+      "enum": [
+        "default",
+        "none",
+        "card",
+        "muted"
+      ]
     },
     {
       "name": "onStop",
@@ -344,7 +352,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "sourceDir": "prompt-input",
   "exportName": "PromptInput"
 }
