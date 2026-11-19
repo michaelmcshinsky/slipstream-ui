@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type { ReactNode } from 'react';
+import { ScrollablePre, ScrollableRegion } from '@/components/scrollable-region';
 
 /** Local class joiner: this file is a server component, so it must not pull
  *  the client-barrel `cn` helper from @slipstream-ui/core. */
@@ -290,12 +291,12 @@ export function MarkdownContent({ markdown, className }: { markdown: string; cla
           }
           case 'code':
             return (
-              <pre
+              <ScrollablePre
                 key={`c-${blockIndex}`}
                 className="mt-5 overflow-x-auto rounded-xl border border-border bg-muted/60 p-4 font-mono text-xs leading-relaxed text-foreground"
               >
                 <code>{block.code}</code>
-              </pre>
+              </ScrollablePre>
             );
           case 'blockquote':
             return (
@@ -308,7 +309,7 @@ export function MarkdownContent({ markdown, className }: { markdown: string; cla
             );
           case 'table':
             return (
-              <div key={`t-${blockIndex}`} className="mt-5 overflow-x-auto rounded-xl border border-border">
+              <ScrollableRegion key={`t-${blockIndex}`} label="Table" className="mt-5 overflow-x-auto rounded-xl border border-border">
                 <table className="w-full text-sm">
                   <thead className="bg-muted">
                     <tr>
@@ -351,7 +352,7 @@ export function MarkdownContent({ markdown, className }: { markdown: string; cla
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </ScrollableRegion>
             );
           case 'hr':
             return <hr key={`hr-${blockIndex}`} className="mt-8 border-border" />;
