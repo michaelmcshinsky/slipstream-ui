@@ -102,7 +102,20 @@ try {
   document.querySelectorAll('meta[name="color-scheme"]').forEach(function (meta) {
     meta.content = dark ? 'dark' : 'light';
   });
-  if (localStorage.getItem('slipstream-consent')) {
+  // Mirror of parseStoredConsent in lib/site.ts: only a fresh timestamped
+  // JSON choice counts as decided (180 days). Legacy bare strings re-prompt.
+  var consentRaw = localStorage.getItem('slipstream-consent');
+  var consentDecided = false;
+  if (consentRaw) {
+    try {
+      var consent = JSON.parse(consentRaw);
+      consentDecided =
+        (consent.v === 'granted' || consent.v === 'denied') &&
+        typeof consent.at === 'number' &&
+        (Date.now() - consent.at) < 15552000000;
+    } catch (e) { consentDecided = false; }
+  }
+  if (consentDecided) {
     document.documentElement.classList.add('consent-decided');
   }
 } catch {}

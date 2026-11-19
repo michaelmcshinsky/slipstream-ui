@@ -63,13 +63,48 @@ export const MCP_TOOL_COUNT = MCP_TOOLS.length;
 
 export const CONSENT_STORAGE_KEY = 'slipstream-consent';export const CONSENT_EVENT = 'slipstream-consent-change';
 
+/**
+ * Consent choices expire so returning visitors periodically re-confirm.
+ * 180 days matches common EU consent-refresh guidance; adjust if the privacy
+ * policy states a different period.
+ */
+export const CONSENT_MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000;
+
 export type ConsentValue = 'granted' | 'denied';
+
+type StoredConsent = { v: ConsentValue; at: number };
+
+function isConsentValue(value: unknown): value is ConsentValue {
+  return value === 'granted' || value === 'denied';
+}
+
+function parseStoredConsent(raw: string | null): ConsentValue | null {
+  if (!raw) return null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (typeof parsed === 'object' && parsed !== null) {
+      const { v, at } = parsed as Partial<StoredConsent>;
+      if (
+        isConsentValue(v) &&
+        typeof at === 'number' &&
+        Number.isFinite(at) &&
+        Date.now() - at < CONSENT_MAX_AGE_MS
+      ) {
+        return v;
+      }
+    }
+  } catch {
+    /* not JSON -- see legacy handling below */
+  }
+  // Legacy shape: a bare 'granted'/'denied' string with no timestamp. Age is
+  // unknowable, so treat it as expired and let the banner re-prompt once.
+  return null;
+}
 
 export function readConsent(): ConsentValue | null {
   if (typeof window === 'undefined') return null;
   try {
-    const value = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-    return value === 'granted' || value === 'denied' ? value : null;
+    return parseStoredConsent(window.localStorage.getItem(CONSENT_STORAGE_KEY));
   } catch {
     return null;
   }
@@ -77,8 +112,9 @@ export function readConsent(): ConsentValue | null {
 
 export function writeConsent(value: ConsentValue): void {
   if (typeof window === 'undefined') return;
+  const stored: StoredConsent = { v: value, at: Date.now() };
   try {
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, value);
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(stored));
   } catch {
     /* storage blocked — consent simply isn't persisted */
   }

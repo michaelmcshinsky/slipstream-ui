@@ -213,7 +213,8 @@ async function main(): Promise<void> {
   await context.addInitScript(() => {
     try {
       localStorage.setItem('slipstream-theme', 'dark');
-      localStorage.setItem('slipstream-consent', 'denied');
+      // Timestamped JSON shape -- see parseStoredConsent in lib/site.ts.
+      localStorage.setItem('slipstream-consent', JSON.stringify({ v: 'denied', at: Date.now() }));
     } catch {
       // Storage can be blocked in hardened profiles; the class below still applies the theme.
     }
