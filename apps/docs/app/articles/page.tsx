@@ -4,7 +4,8 @@ import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
 import { JsonLd } from '@/components/site/json-ld';
-import { ARTICLES, articlePath } from '@/lib/articles';
+import { ArticleIndex } from '@/components/site/article-index';
+import { ARTICLES, articlePath, type ArticleSummary } from '@/lib/articles';
 import { webPageSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
 
@@ -16,7 +17,27 @@ export const metadata: Metadata = withSeo('/articles', {
   description,
 });
 
+function formatDate(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
 export default function ArticlesPage() {
+  const [featured, ...rest] = ARTICLES;
+  const summaries: ArticleSummary[] = rest.map(({ slug, title, description: desc, date, file, tags, readingMinutes }) => ({
+    slug,
+    title,
+    description: desc,
+    date,
+    file,
+    tags,
+    readingMinutes,
+  }));
+
   return (
     <div className="min-h-screen bg-background">
       <JsonLd
@@ -37,32 +58,28 @@ export default function ArticlesPage() {
           <h1 className="mt-2 text-4xl font-bold tracking-tight">Articles</h1>
           <p className="mt-3 text-lg text-muted-foreground">{description}</p>
 
-          <div className="mt-10 space-y-5">
-            {ARTICLES.map((article) => (
-              <article key={article.slug} className="rounded-xl border border-border bg-card p-6">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                  <time dateTime={article.date}>{article.date}</time>
-                  {article.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-border px-2 py-0.5">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight">
-                  <Link href={articlePath(article.slug)} className="hover:text-primary">
-                    {article.title}
-                  </Link>
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{article.description}</p>
-                <Link
-                  href={articlePath(article.slug)}
-                  className="mt-4 inline-flex text-sm font-medium text-primary hover:underline"
-                >
-                  Read the article →
-                </Link>
-              </article>
-            ))}
-          </div>
+          {featured && (
+            <Link
+              href={articlePath(featured.slug)}
+              className="group mt-10 block rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50 sm:p-8"
+            >
+              <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary">Latest</span>
+                <time dateTime={featured.date}>{formatDate(featured.date)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{featured.readingMinutes} min read</span>
+              </div>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight group-hover:text-primary sm:text-3xl">
+                {featured.title}
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">{featured.description}</p>
+              <span className="mt-4 inline-flex text-sm font-medium text-primary">
+                Read the article →
+              </span>
+            </Link>
+          )}
+
+          <ArticleIndex articles={summaries} />
         </div>
       </main>
       <Footer />

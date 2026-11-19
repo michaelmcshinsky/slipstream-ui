@@ -48,7 +48,6 @@ export function GET(): Response {
     '',
     'User-agent: *',
     'Allow: /',
-    'Disallow: /thank-you',
     '',
     ...AI_CRAWLERS.flatMap((agent) => [`User-agent: ${agent}`, 'Allow: /', '']),
     `Sitemap: ${SITE_URL}/sitemap.xml`,

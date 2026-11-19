@@ -17,7 +17,12 @@ export type Article = ArticleMeta & {
   content: string;
   /** Markdown without the leading H1 or published-byline, for the page body. */
   body: string;
+  /** Approximate reading time at 200 wpm, minimum 1 minute. */
+  readingMinutes: number;
 };
+
+/** Metadata safe to serialize into client components (no markdown bodies). */
+export type ArticleSummary = ArticleMeta & { readingMinutes: number };
 
 /**
  * Resolve the content directory from either the docs app cwd (Next build,
@@ -45,7 +50,8 @@ function load(meta: ArticleMeta): Article {
     .replace(/^#\s+.+\n+/, '')
     .replace(/^\*Published[^\n]*\*\n+/, '')
     .trimStart();
-  return { ...meta, content, body };
+  const readingMinutes = Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+  return { ...meta, content, body, readingMinutes };
 }
 
 const seen = new Set<string>();

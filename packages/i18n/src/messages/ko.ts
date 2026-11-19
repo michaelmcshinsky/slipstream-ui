@@ -240,18 +240,7 @@ export const ko = {
       decline: "거부",
       accept: "모두 허용",
     },
-    thankYou: {
-    title: "메시지를 받았습니다",
-    description: "연락해 주셔서 감사합니다. 모든 메시지를 읽고 영업일 기준 2일 이내에 답변합니다.",
-    nextHeading: "다음 단계",
-    step1: "연락 가능한 주소를 포함했다면 이메일로 접수를 확인합니다.",
-    step2: "버그 보고는 GitHub에서 분류하고, 기능 요청은 로드맵 논의에 추가합니다.",
-    step3: "추가 정보가 필요하면 메시지에 직접 답변합니다.",
-    readDocs: "문서 읽기",
-    browse: "컴포넌트 둘러보기",
-    backHome: "홈으로",
-    },
-    notFound: {
+        notFound: {
       title: "이 페이지는 허공으로 스트리밍되었습니다",
       description: "요청한 페이지가 존재하지 않습니다. 컴포넌트와 달리 그 사실을 선언하는 매니페스트도 없었습니다.",
       home: "홈으로",

@@ -19,20 +19,20 @@ export type AccessibilityCopy = LegalPageCopy;
 export type PrivacyCopy = LegalPageCopy;
 export type TermsCopy = LegalPageCopy;
 
+export type ContactChannel = {
+  heading: string;
+  /** Rich text (markdown links allowed); the {repo} placeholder is replaced with the GitHub URL. */
+  body: string;
+  ctaLabel?: string;
+  /** Supports the {repo} placeholder. */
+  ctaHref?: string;
+};
+
 export type ContactCopy = {
   title: string;
   description: string;
-  emailHeading: string;
-  issuesHeading: string;
-  issuesBody: string;
+  channels: ContactChannel[];
   addressHeading: string;
-  formHeading: string;
-  nameLabel: string;
-  emailLabel: string;
-  messageLabel: string;
-  send: string;
-  privacyNote: string;
-  honeypotLabel: string;
 };
 
 export type LabCopy = {
