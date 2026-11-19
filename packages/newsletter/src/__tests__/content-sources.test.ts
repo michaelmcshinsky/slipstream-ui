@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AuditLogContentSource, ReleaseContentSource, GitHubContentSource, CustomContentSource, createDefaultRegistry } from '../lib/content-sources';
-import type { NewsletterGenerationOptions, NewsletterContentItem } from '../types';
+import { AuditLogContentSource, ReleaseContentSource, CustomContentSource, createDefaultRegistry } from '../lib/content-sources';
+import type { NewsletterGenerationOptions } from '../types';
 
 // Mock Prisma
 vi.mock('@slipstream-ui/db', () => ({

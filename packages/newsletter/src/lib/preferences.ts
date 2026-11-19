@@ -115,7 +115,6 @@ export async function subscribeToNewsletter(userId: string, type: 'daily' | 'wee
   });
 
   // Also update preferences to enable this frequency
-  const prefs = await getNewsletterPreferences(userId);
   if (type === 'daily') {
     await updateNewsletterPreferences(userId, { dailyEnabled: true });
   } else {

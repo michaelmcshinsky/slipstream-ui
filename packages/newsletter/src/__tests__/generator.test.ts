@@ -4,7 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NewsletterGenerator, createNewsletterGenerator } from '../generators/newsletter';
-import type { UserWithPreferences, NewsletterContentItem, NewsletterContentType } from '../types';
+import type { UserWithPreferences, NewsletterContentItem } from '../types';
 
 // Mock dependencies
 vi.mock('@slipstream-ui/db', () => ({
@@ -28,7 +28,6 @@ vi.mock('../lib/content-sources', () => ({
   createDefaultRegistry: vi.fn(),
 }));
 
-import { prisma } from '@slipstream-ui/db';
 
 // Unsubscribe links are HMAC-signed; tests need a deterministic secret.
 process.env.NEWSLETTER_UNSUBSCRIBE_SECRET = 'test-unsubscribe-secret';
@@ -107,7 +106,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue(mockItems),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       const result = await generator.generateForUser(mockUser, 'daily');
 
       expect(result).not.toBeNull();
@@ -127,7 +126,7 @@ describe('NewsletterGenerator', () => {
         preferences: { ...mockUser.preferences!, contentTypes: ['audit_log'] },
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       await generator.generateForUser(userWithCustomTypes, 'daily');
 
       expect(registry.fetchAllContent).toHaveBeenCalledWith(
@@ -144,7 +143,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue([]),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       const result = await generator.generate({ frequency: 'daily' });
 
       expect(result).toBeNull();
@@ -155,7 +154,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue(mockItems),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       const result = await generator.generate({ frequency: 'daily' });
 
       expect(result).not.toBeNull();
@@ -168,7 +167,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue(mockItems),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       await generator.generate({ frequency: 'daily' });
 
       expect(registry.fetchAllContent).toHaveBeenCalledWith(
@@ -183,7 +182,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue(mockItems),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       await generator.generate({ frequency: 'weekly' });
 
       expect(registry.fetchAllContent).toHaveBeenCalledWith(
@@ -198,7 +197,7 @@ describe('NewsletterGenerator', () => {
         fetchAllContent: vi.fn().mockResolvedValue(mockItems),
       };
 
-      const generator = new NewsletterGenerator(registry as any);
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
       await generator.generate({
         frequency: 'daily',
         contentTypes: ['release', 'custom'],

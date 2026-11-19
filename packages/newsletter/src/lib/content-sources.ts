@@ -95,10 +95,7 @@ export class ReleaseContentSource implements ContentSource {
     return 'release';
   }
 
-  async fetchContent(options: NewsletterGenerationOptions): Promise<NewsletterContentItem[]> {
-    const since = options.since ?? new Date(Date.now() - (options.frequency === 'daily' ? 24 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000));
-    const until = options.until ?? new Date();
-
+  async fetchContent(_options: NewsletterGenerationOptions): Promise<NewsletterContentItem[]> {
     // Check for release.json and changelog files
     const releases: NewsletterContentItem[] = [];
 
@@ -109,6 +106,31 @@ export class ReleaseContentSource implements ContentSource {
     return releases;
   }
 }
+
+/** Minimal GitHub REST API shapes used by the newsletter source. */
+type GitHubCommit = {
+  sha: string;
+  html_url: string;
+  commit: { message: string; author: { name: string; date: string } };
+};
+type GitHubRelease = {
+  id: number;
+  name: string | null;
+  tag_name: string;
+  body: string | null;
+  html_url: string;
+  published_at: string;
+  prerelease: boolean;
+  draft: boolean;
+};
+type GitHubPull = {
+  id: number;
+  number: number;
+  title: string;
+  html_url: string;
+  user: { login: string };
+  merged_at: string | null;
+};
 
 /**
  * GitHub content source - fetches commits, PRs, releases
@@ -166,8 +188,8 @@ export class GitHubContentSource implements ContentSource {
 
     if (!response.ok) return [];
 
-    const data = await response.json();
-    return data.map((commit: any) => ({
+    const data = (await response.json()) as GitHubCommit[];
+    return data.map((commit) => ({
       id: `github-commit-${commit.sha}`,
       type: 'github' as NewsletterContentType,
       title: commit.commit.message.split('\n')[0],
@@ -196,10 +218,10 @@ export class GitHubContentSource implements ContentSource {
 
     if (!response.ok) return [];
 
-    const data = await response.json();
+    const data = (await response.json()) as GitHubRelease[];
     return data
-      .filter((release: any) => new Date(release.published_at) >= since && new Date(release.published_at) <= until)
-      .map((release: any) => ({
+      .filter((release) => new Date(release.published_at) >= since && new Date(release.published_at) <= until)
+      .map((release) => ({
         id: `github-release-${release.id}`,
         type: 'github' as NewsletterContentType,
         title: release.name || release.tag_name,
@@ -228,10 +250,10 @@ export class GitHubContentSource implements ContentSource {
 
     if (!response.ok) return [];
 
-    const data = await response.json();
+    const data = (await response.json()) as GitHubPull[];
     return data
-      .filter((pr: any) => pr.merged_at && new Date(pr.merged_at) >= since && new Date(pr.merged_at) <= until)
-      .map((pr: any) => ({
+      .filter((pr) => pr.merged_at && new Date(pr.merged_at) >= since && new Date(pr.merged_at) <= until)
+      .map((pr) => ({
         id: `github-pr-${pr.id}`,
         type: 'github' as NewsletterContentType,
         title: pr.title,
@@ -242,8 +264,8 @@ export class GitHubContentSource implements ContentSource {
           author: pr.user.login,
           merged: true,
         },
-        publishedAt: new Date(pr.merged_at!),
-        createdAt: new Date(pr.merged_at!),
+        publishedAt: new Date(pr.merged_at as string),
+        createdAt: new Date(pr.merged_at as string),
       }));
   }
 }
@@ -256,7 +278,7 @@ export class CustomContentSource implements ContentSource {
     return 'custom';
   }
 
-  async fetchContent(options: NewsletterGenerationOptions): Promise<NewsletterContentItem[]> {
+  async fetchContent(_options: NewsletterGenerationOptions): Promise<NewsletterContentItem[]> {
     // This would typically fetch from a CMS, database table, or file system
     // For now, return empty - implement based on your content management system
     return [];

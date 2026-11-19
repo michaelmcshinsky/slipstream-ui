@@ -8,7 +8,6 @@ import type {
   NewsletterGenerationOptions,
   GeneratedNewsletter,
   UserWithPreferences,
-  NewsletterContentItem,
   NewsletterContentType,
   NewsletterSubscription,
 } from '../types';
