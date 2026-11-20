@@ -17,6 +17,23 @@
           meta.content = 'light';
         }
       } catch {}
+      // Mirror of parseStoredConsent in src/lib/analytics.ts: only a fresh
+      // timestamped JSON choice counts as decided (180 days). Repeat visitors
+      // never see the cookie banner flash.
+      try {
+        var consentRaw = localStorage.getItem('slipstream-consent');
+        var consentDecided = false;
+        if (consentRaw) {
+          var consent = JSON.parse(consentRaw);
+          consentDecided =
+            (consent.v === 'granted' || consent.v === 'denied') &&
+            typeof consent.at === 'number' &&
+            (Date.now() - consent.at) < 15552000000;
+        }
+        if (consentDecided) {
+          document.documentElement.classList.add('consent-decided');
+        }
+      } catch {}
     </script>
   </head>
   <body>

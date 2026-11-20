@@ -2,11 +2,15 @@ import path from 'node:path';
 import os from 'node:os';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  // The app tsconfig extends the Next preset (`jsx: preserve`), so tests need
+  // the React plugin to transform JSX for vitest.
+  plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(rootDir, 'src') },
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -14,7 +18,7 @@ export default defineConfig({
   cacheDir: path.join(rootDir, '.vitest-cache'),
   test: {
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
     // Prisma + SQLite integration tests issue many sequential writes and run
     // alongside other suites when invoked through turbo, so the 5s default
     // times out under load.

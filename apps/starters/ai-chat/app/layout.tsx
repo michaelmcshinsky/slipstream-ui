@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { directionFor, getMessages, resolveLocale, translate } from '@slipstream-ui/i18n';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
+import { Analytics } from '@/src/components/analytics';
 import './globals.css';
 
 async function requestLocale() {
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <I18nProvider locale={locale} messages={messages}>
           {children}
         </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -95,3 +95,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Set pre-paint when a consent choice is already stored, so the banner
+   never flashes for returning visitors. */
+html.consent-decided [data-cookie-banner] {
+  display: none;
+}

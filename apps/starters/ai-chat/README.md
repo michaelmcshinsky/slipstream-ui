@@ -93,6 +93,8 @@ extra configuration.
    `NEXT_PUBLIC_CHECKOUT_URL` in the environment.
 3. Build command: `pnpm build`; output: Next.js default.
 4. Keep `NEXT_PUBLIC_ANALYTICS_ENDPOINT` unset unless you have a consent flow.
+5. `NEXT_PUBLIC_GA_MEASUREMENT_ID` enables GA4 pageview tracking; leave it
+   unset unless you have a consent mechanism, since gtag.js sets cookies.
 
 The API route runs on the Node runtime and streams SSE. If your host buffers
 responses, disable buffering for `/api/chat` or move the stream to a dedicated

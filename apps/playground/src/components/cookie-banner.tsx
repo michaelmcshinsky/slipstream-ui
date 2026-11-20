@@ -1,0 +1,70 @@
+import { useEffect, useState } from 'react';
+import { CONSENT_EVENT, readConsent, writeConsent, type ConsentValue } from '../lib/analytics';
+import { useI18n } from '@slipstream-ui/i18n/react';
+
+/**
+ * Cookie consent banner. Analytics is only loaded after "Accept all"
+ * (see components/analytics.tsx); "Decline" keeps the playground fully
+ * functional.
+ *
+ * Repeat visitors are hidden before first paint by the `consent-decided`
+ * class the inline script in index.html adds.
+ */
+export function CookieBanner() {
+  const { t } = useI18n();
+  const [consent, setConsent] = useState<ConsentValue | null>(null);
+
+  useEffect(() => {
+    setConsent(readConsent());
+    const onChange = (event: Event) => {
+      setConsent((event as CustomEvent<ConsentValue>).detail);
+    };
+    window.addEventListener(CONSENT_EVENT, onChange);
+    return () => window.removeEventListener(CONSENT_EVENT, onChange);
+  }, []);
+
+  if (consent !== null) return null;
+
+  const choose = (value: ConsentValue) => {
+    writeConsent(value);
+    setConsent(value);
+  };
+
+  return (
+    <div
+      role="region"
+      aria-label={t('site.cookie.regionLabel')}
+      data-cookie-banner
+      className="fixed inset-x-0 bottom-0 z-[70] border-t border-border bg-card px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-lg sm:px-6"
+    >
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-muted-foreground">
+          {t('site.cookie.message')}{' '}
+          <a
+            href="https://slipstreamui.com/privacy"
+            className="text-primary underline underline-offset-2 hover:text-primary/80"
+          >
+            {t('site.cookie.privacyLink')}
+          </a>
+          .
+        </p>
+        <div className="flex shrink-0 gap-2">
+          <button
+            type="button"
+            onClick={() => choose('denied')}
+            className="inline-flex h-11 items-center rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t('site.cookie.decline')}
+          </button>
+          <button
+            type="button"
+            onClick={() => choose('granted')}
+            className="inline-flex h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t('site.cookie.accept')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
