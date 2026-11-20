@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import { directionFor, getMessages, resolveLocale } from '@slipstream-ui/i18n';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
 import '../styles/globals.css';
+import { Analytics } from '@/components/analytics';
+import { CookieBanner } from '@/components/cookie-banner';
 
 export const metadata: Metadata = {
   title: { default: 'Slipstream Dashboard', template: '%s | Slipstream' },
@@ -25,6 +27,23 @@ try {
   } else if (stored === 'light') {
     meta.content = 'light';
   }
+  // Mirror of parseStoredConsent in lib/analytics.ts: only a fresh timestamped
+  // JSON choice counts as decided (180 days). Repeat visitors never see the
+  // cookie banner flash.
+  var consentRaw = localStorage.getItem('slipstream-consent');
+  var consentDecided = false;
+  if (consentRaw) {
+    try {
+      var consent = JSON.parse(consentRaw);
+      consentDecided =
+        (consent.v === 'granted' || consent.v === 'denied') &&
+        typeof consent.at === 'number' &&
+        (Date.now() - consent.at) < 15552000000;
+    } catch (e) { consentDecided = false; }
+  }
+  if (consentDecided) {
+    document.documentElement.classList.add('consent-decided');
+  }
 } catch {}
 `;
 
@@ -40,7 +59,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <I18nProvider locale={locale} messages={messages}>{children}</I18nProvider>
+        <I18nProvider locale={locale} messages={messages}>
+          {children}
+          <CookieBanner />
+        </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );

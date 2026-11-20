@@ -4,6 +4,8 @@ import { Conversation, PromptInput, Reasoning, ToolCall, Sources, Suggestions, C
 import { defaultTheme, darkTheme, violetTheme, violetDarkTheme } from '@slipstream-ui/themes';
 import { LocaleSwitcher } from '@slipstream-ui/i18n/react';
 import { useI18n } from '@slipstream-ui/i18n/react';
+import { Analytics } from './components/analytics';
+import { CookieBanner } from './components/cookie-banner';
 
 function App() {
   const { t, pseudo } = useI18n();
@@ -347,6 +349,8 @@ function App() {
           <p>Built with Slipstream UI • AI-first React component library</p>
         </footer>
       </div>
+      <Analytics />
+      <CookieBanner />
     </div>
   );
 }
