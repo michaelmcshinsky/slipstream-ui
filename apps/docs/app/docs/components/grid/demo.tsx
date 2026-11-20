@@ -12,13 +12,13 @@ export default function GridPage() {
       propsRows={[
         { name: 'cols', type: 'number', description: 'Base column count (1-6).' },
         { name: 'smCols / mdCols / lgCols', type: 'number', description: 'Column counts from each breakpoint up (1-6).' },
-        { name: 'minCol', type: 'string', description: 'Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)) — cards wrap responsively. Overrides cols*.' },
+        { name: 'minCol', type: 'string', description: 'Auto-fit mode: repeat(auto-fit, minmax(<minCol>, 1fr)): cards wrap responsively. Overrides cols*.' },
         { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl'", defaultValue: "'md'", description: 'Token gap between cells.' },
         { name: 'as', type: "'div' | 'span' | 'section' | 'ul'", defaultValue: "'div'", description: "Semantic element (use 'ul' with GridItem as=\"li\")." },
         { name: 'span / smSpan / mdSpan / lgSpan', type: 'number', description: 'GridItem column spans per breakpoint (1-6).' },
       ]}
       accessibility={[
-        'Visual column reflow never reorders DOM nodes — reading order equals source order.',
+        'Visual column reflow never reorders DOM nodes: reading order equals source order.',
         'List grids pair as="ul" with GridItem as="li" for item semantics.',
         'Order cells by reading priority, not visual position.',
       ]}
@@ -35,7 +35,7 @@ export default function GridPage() {
                       <CardTitle className="text-sm">{name}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-3 pt-0">
-                      <Text size="xs" muted>Wraps at every width — no breakpoint math.</Text>
+                      <Text size="xs" muted>Wraps at every width: no breakpoint math.</Text>
                     </CardContent>
                   </Card>
                 )

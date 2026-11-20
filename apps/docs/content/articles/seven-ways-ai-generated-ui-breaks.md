@@ -5,7 +5,7 @@
 Our [100-case validation benchmark](/articles/validation-benchmark-100-cases)
 reported the numbers: 65.7% recall, 100% precision, zero false positives. The
 numbers are easy to quote and hard to picture. This article walks through the
-actual cases — the broken JSX an agent produces, what the validator reports, and
+actual cases: the broken JSX an agent produces, what the validator reports, and
 what a repair looks like.
 
 Every example below is a real entry in `benchmarks/cases/cases.json`, run through
@@ -15,7 +15,7 @@ reproductions of each defect class, not full component trees.
 ## 1. The hallucinated prop
 
 Agents guess API names from training data. When the guess is wrong, the prop is
-simply invented:
+invented:
 
 ```tsx
 // candidate
@@ -103,7 +103,7 @@ values; the validator enforces them.
 
 Compound components are where agents fail most creatively. Rendering `TabPanel`
 without `Tabs`, or `DialogContent` without `Dialog`, produces markup that looks
-plausible and behaves incorrectly — context is missing, state is unreachable,
+plausible and behaves incorrectly: context is missing, state is unreachable,
 and no type error points at the real problem.
 
 ## 5. The placeholder that is not a label
@@ -118,7 +118,7 @@ Input is labelled only by placeholder text.
 
 This one is in the benchmark's honest-miss column. The validator does not yet
 catch accessible-name violations derived from the manifest's accessibility
-section — recall on that class is 40%. We publish the miss because it is the
+section: recall on that class is 40%. We publish the miss because it is the
 roadmap: accessible-name checks are next, and the same 100 cases will measure
 whether they work.
 
@@ -132,8 +132,8 @@ whether they work.
 Reasoning reports a duration while still streaming.
 ```
 
-State-machine invariants — `isStreaming` alongside `duration`, `isLoading`
-alongside `hasError` — are semantic, not structural. Current recall on these
+State-machine invariants (`isStreaming` alongside `duration`, `isLoading`
+alongside `hasError`) are semantic, not structural. Current recall on these
 classes is 10%. They need prop-combination rules in the manifest, not just prop
 lists. Same story: measured, published, queued.
 
@@ -166,7 +166,7 @@ failure only appears mid-conversation.
 
 The pattern is consistent: the validator is strong exactly where the failure is
 structural and the manifest is unambiguous, and weak exactly where judgment is
-required. That is the correct shape for a first version — precise, honest about
+required. That is the correct shape for a first version: precise, honest about
 its boundary, and improvable against a fixed dataset.
 
 ## Try it yourself

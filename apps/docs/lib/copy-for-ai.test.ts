@@ -27,7 +27,7 @@ describe('buildAiInstruction', () => {
   const text = buildAiInstruction(manifest, 'button');
 
   it('includes the release contract and canonical locations', () => {
-    expect(text).toContain('# Slipstream UI — Button');
+    expect(text).toContain('# Slipstream UI: Button');
     expect(text).toMatch(new RegExp(`Release: ${RELEASE.version.replace(/\./g, '\\.')}`));
     expect(text).toContain('manifest schema v1');
     expect(text).toContain("import { Button } from '@slipstream-ui/core'");

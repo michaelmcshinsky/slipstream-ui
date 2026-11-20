@@ -65,7 +65,7 @@ export default function SelectMenuPage() {
   ]}
 />`}
         usage={`// Unlike Select (native <select>), option content is not limited to text.
-// Prefer Select when plain labels are enough — it gets the platform picker.`}
+// Prefer Select when plain labels are enough: it gets the platform picker.`}
         types={`type SelectMenuItem = {
   value: string;
   label: string;

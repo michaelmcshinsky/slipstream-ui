@@ -25,7 +25,7 @@ export default function AlertPage() {
           <div className="w-full space-y-3">
             <Alert>
               <AlertTitle>Heads up</AlertTitle>
-              <AlertDescription>Neutral information — the default variant.</AlertDescription>
+              <AlertDescription>Neutral information: the default variant.</AlertDescription>
             </Alert>
             <Alert variant="info">
               <AlertTitle>New: validate_usage</AlertTitle>
@@ -37,7 +37,7 @@ export default function AlertPage() {
             </Alert>
             <Alert variant="warning">
               <AlertTitle>Token expires soon</AlertTitle>
-              <AlertDescription>Your API key rotates in 7 days — update your agents.</AlertDescription>
+              <AlertDescription>Your API key rotates in 7 days: update your agents.</AlertDescription>
             </Alert>
             <Alert variant="destructive">
               <AlertTitle>Error</AlertTitle>
@@ -49,7 +49,7 @@ export default function AlertPage() {
 
 <Alert>
   <AlertTitle>Heads up</AlertTitle>
-  <AlertDescription>Neutral information — the default variant.</AlertDescription>
+  <AlertDescription>Neutral information: the default variant.</AlertDescription>
 </Alert>
 <Alert variant="info">…</Alert>
 <Alert variant="success">…</Alert>
@@ -81,7 +81,7 @@ export default function AlertPage() {
 </Alert>`}
         usage={`import { Alert } from '@slipstream-ui/core';
 
-// role="alert" is built in — the content is announced when it mounts
+// role="alert" is built in: the content is announced when it mounts
 <Alert variant="destructive">Payment failed. Try again.</Alert>`}
         types={`type AlertProps = {
   variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info';

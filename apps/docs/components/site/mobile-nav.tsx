@@ -10,7 +10,7 @@ export function MobileNav() {
   const pathname = usePathname();
   const { t } = useI18n();
 
-  // Only top-level sections on mobile — listing every component pill here
+  // Only top-level sections on mobile: listing every component pill here
   // overflowed narrow viewports and truncated labels ("COMPON…").
   const sections = NAV_SECTIONS.map((section) => ({
     href: sectionFirstHref(section),

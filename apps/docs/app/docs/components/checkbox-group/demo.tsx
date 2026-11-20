@@ -27,7 +27,7 @@ export default function CheckboxGroupPage() {
       ]}
       accessibility={[
         'Renders a native fieldset/legend so the group name is announced before each option.',
-        'Selection lives in a string[] — perfect for form state, URLs, and API payloads.',
+        'Selection lives in a string[]: perfect for form state, URLs, and API payloads.',
         'Keyboard behavior is the platform’s: Tab reaches the group, Space toggles the focused box.',
       ]}
     >
@@ -104,7 +104,7 @@ export default function CheckboxGroupPage() {
   <CheckboxGroupItem value="slack" label="Slack" />
   <CheckboxGroupItem value="pager" label="PagerDuty" />
 </CheckboxGroup>`}
-        usage={`// Horizontal lays options in a wrapping row — ideal for short
+        usage={`// Horizontal lays options in a wrapping row: ideal for short
 // parallel labels; keep vertical for long or nested sets.`}
       />
 
@@ -134,7 +134,7 @@ export default function CheckboxGroupPage() {
   <CheckboxGroupItem value="json" label="JSON" />
 </CheckboxGroup>`}
         usage={`// Group-scoped validation (required selection) belongs on the group's
-// error slot — it renders role=alert next to the legend, one fieldset
+// error slot: it renders role=alert next to the legend, one fieldset
 // total. For layout grouping of unrelated controls, use Fieldset.`}
       />
     </ComponentPage>

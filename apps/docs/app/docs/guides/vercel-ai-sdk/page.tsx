@@ -7,7 +7,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/guides/vercel-ai-sdk', {
   title: 'Vercel AI SDK integration',
   description:
-    'Bridge the Vercel AI SDK useChat state into Slipstream Conversation, Message, and ToolCall with useSlipstreamMessages and useSlipstreamStream — no runtime lock-in.',
+    'Bridge the Vercel AI SDK useChat state into Slipstream Conversation, Message, and ToolCall with useSlipstreamMessages and useSlipstreamStream: no runtime lock-in.',
 });
 
 export default function VercelAiSdkGuidePage() {
@@ -20,11 +20,11 @@ export default function VercelAiSdkGuidePage() {
         Slipstream ships a runtime-independent adapter: give it the chat state your AI SDK (or any
         chat library) already produces, get back exactly the props{' '}
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">Conversation</code> wants.
-        Your route handlers stay untouched — the adapter only reads state on the client.
+        Your route handlers stay untouched: the adapter only reads state on the client.
       </p>
 
       <div className="mt-6 rounded-xl border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
-        The adapter imports <strong className="text-foreground">no SDK code</strong> — it consumes a
+        The adapter imports <strong className="text-foreground">no SDK code</strong>: it consumes a
         structural shape (<code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">{'{ id, role, content, toolInvocations }'}</code>,
         status strings, error). Anything producing that shape works: AI SDK <em>useChat</em>,{' '}
         <em>useCompletion</em>, LangGraph adapters, or your own store.
@@ -99,7 +99,7 @@ export function AiSdkChat() {
             <tr className="border-t border-border">
               <td className="p-3 font-mono text-xs">useSlipstreamMessages</td>
               <td className="p-3 text-muted-foreground">
-                <code className="font-mono text-xs">messages</code> — Slipstream Message[] with tool
+                <code className="font-mono text-xs">messages</code>: Slipstream Message[] with tool
                 calls under <code className="font-mono text-xs">metadata.toolCalls</code>
               </td>
             </tr>
@@ -135,7 +135,7 @@ import { toSlipstreamMessage, toSlipstreamToolCalls } from '@slipstream-ui/ai';`
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/guides/streaming" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
           <h3 className="font-semibold">Streaming fundamentals</h3>
-          <p className="mt-1 text-sm text-muted-foreground">What the adapter abstracts — raw transports.</p>
+          <p className="mt-1 text-sm text-muted-foreground">What the adapter abstracts: raw transports.</p>
         </Link>
         <Link href="/docs/guides/state-threads" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
           <h3 className="font-semibold">State &amp; threads</h3>

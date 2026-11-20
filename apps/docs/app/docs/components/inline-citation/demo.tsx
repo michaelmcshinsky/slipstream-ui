@@ -32,7 +32,7 @@ export default function InlineCitationPage() {
             <Message showAvatar={false} message={{
               id: 'demo',
               role: 'assistant',
-              content: 'Placeholder — content rendered below.',
+              content: 'Placeholder: content rendered below.',
             }} />
             <div className="pl-12 text-sm">
               Most enterprises now run LLM features in production{' '}

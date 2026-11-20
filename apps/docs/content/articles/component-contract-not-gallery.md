@@ -4,7 +4,7 @@
 
 Coding agents are good at writing React. They are bad at knowing your component
 API. The failure is quiet: the code compiles, the page renders, and then a prop
-that never existed shows up in review — or worse, in production.
+that never existed shows up in review, or worse, in production.
 
 A gallery does not fix this. A contract does.
 
@@ -24,8 +24,8 @@ on. That average is not your design system.
 
 ## A contract has three parts
 
-**1. A machine-readable manifest per component.** Not a prose page — a JSON
-object with the prop schema, required flags, defaults, enums, anti-patterns,
+**1. A machine-readable manifest per component.** A JSON object, not a prose
+page, with the prop schema, required flags, defaults, enums, anti-patterns,
 accessibility requirements and composition rules.
 
 **2. A discovery surface the agent can call.** An MCP server exposes

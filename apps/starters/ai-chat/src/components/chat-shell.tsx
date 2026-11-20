@@ -367,10 +367,10 @@ export function ChatShell() {
             <p className="mt-1 text-xs text-muted-foreground">{t('app.backendDescription')}</p>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               <li>
-                <code className="text-foreground">CHAT_BACKEND=mock</code> — {t('app.backendMock')}
+                <code className="text-foreground">CHAT_BACKEND=mock</code>: {t('app.backendMock')}
               </li>
               <li>
-                <code className="text-foreground">CHAT_BACKEND=openai</code> — {t('app.backendOpenAI')}
+                <code className="text-foreground">CHAT_BACKEND=openai</code>: {t('app.backendOpenAI')}
               </li>
               <li>{t('app.backendCustom')}</li>
             </ul>

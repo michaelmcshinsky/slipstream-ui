@@ -12,7 +12,7 @@ import { getServerI18n } from '@/lib/i18n-server';
 
 export const metadata: Metadata = withSeo('/docs/components', {
   title: 'Components',
-  description: `Browse all ${COMPONENT_COUNT} Slipstream UI components — core atoms and AI interaction molecules — with documentation, live demos, props, and accessibility notes.`,
+  description: `Browse all ${COMPONENT_COUNT} Slipstream UI components (core atoms and AI interaction molecules), with documentation, live demos, props, and accessibility notes.`,
 });
 
 type RegistryEntry = {

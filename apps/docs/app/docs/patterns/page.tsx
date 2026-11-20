@@ -22,7 +22,7 @@ const recipes: Recipe[] = [
     id: 'streaming-chat',
     title: 'Streaming chat',
     description:
-      'The baseline assistant surface: stream markdown tokens as they arrive, repair incomplete syntax mid-stream, stop generation on demand, and pin the viewport to the latest message. Wire the `send` body to any transport — fetch SSE, Vercel AI SDK, or a raw ReadableStream.',
+      'The baseline assistant surface: stream markdown tokens as they arrive, repair incomplete syntax mid-stream, stop generation on demand, and pin the viewport to the latest message. Wire the `send` body to any transport: fetch SSE, Vercel AI SDK, or a raw ReadableStream.',
     components: ['Conversation', 'Response', 'PromptInput', 'MessageActions'],
     code: `const [messages, setMessages] = useState<Message[]>([]);
 const [streamingId, setStreamingId] = useState<string | null>(null);
@@ -60,7 +60,7 @@ async function send(text: string) {
     id: 'tool-calling',
     title: 'Tool-calling UI',
     description:
-      'Render the agent\'s tool lifecycle — pending → running → success/error — with arguments and results inspectable. Failures stay inline with a retry affordance instead of collapsing the transcript.',
+      'Render the agent\'s tool lifecycle: pending → running → success/error, with arguments and results inspectable. Failures stay inline with a retry affordance instead of collapsing the transcript.',
     components: ['ToolCall', 'Reasoning', 'ChainThought'],
     code: `<ToolCall
   toolCall={{
@@ -177,7 +177,7 @@ export default function PatternsPage() {
     <div>
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">Patterns</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-        Full recipes for the surfaces AI products actually ship. Every one is stateless — you own
+        Full recipes for the surfaces AI products actually ship. Every one is stateless: you own
         the transport and the state. Prefer a complete copy-paste app? Start from the{' '}
         <Link href="/docs/templates" className="font-medium text-primary underline underline-offset-2">
           templates
@@ -224,7 +224,7 @@ export default function PatternsPage() {
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           None of these recipes import a model SDK. Swap the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">fetch</code>{' '}
           call for Vercel AI SDK's <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">useChat</code>, a LangGraph stream, or
-          WebSocket frames — the components only consume <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">messages</code> and{' '}
+          WebSocket frames: the components only consume <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">messages</code> and{' '}
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">streamingMessageId</code>. See{' '}
           <Link href="/docs/components/conversation" className="font-medium text-primary underline underline-offset-2">
             Conversation

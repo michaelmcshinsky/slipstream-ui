@@ -15,14 +15,14 @@ export default function ButtonGroupPage() {
     <ComponentPage
       id="button-group"
       title="ButtonGroup"
-      description="Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded — a single outline around the group."
+      description="Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded: a single outline around the group."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'orientation', type: "'horizontal' | 'vertical'", defaultValue: "'horizontal'", description: 'Stacked segments share vertical edges; default lays them side by side.' },
-        { name: 'children', type: 'ReactNode', description: 'Direct Button children — each keeps its own variant/size but must keep a border.' },
+        { name: 'children', type: 'ReactNode', description: 'Direct Button children: each keeps its own variant/size but must keep a border.' },
       ]}
       accessibility={[
-        'role=group — always pass aria-label (or aria-labelledby) so the group name precedes its buttons.',
+        'role=group: always pass aria-label (or aria-labelledby) so the group name precedes its buttons.',
         'Focus rings lift above neighbours (relative + z-10) instead of clipping.',
         'Native tab order; for exclusive views with panels prefer Tabs.',
       ]}
@@ -44,7 +44,7 @@ export default function ButtonGroupPage() {
               ))}
             </ButtonGroup>
             <p className="text-sm text-muted-foreground">
-              view: <code className="text-foreground">{view}</code> — segments share one outline; the active
+              view: <code className="text-foreground">{view}</code>: segments share one outline; the active
               segment carries the primary surface.
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function ButtonGroupPage() {
               </Button>
             </ButtonGroup>
             <p className="text-sm text-muted-foreground">
-              step <span className="font-medium text-foreground">{step}</span> — stacked segments share the
+              step <span className="font-medium text-foreground">{step}</span>: stacked segments share the
               horizontal edge.
             </p>
           </div>

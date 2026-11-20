@@ -20,8 +20,8 @@ export default function ThemingPage() {
       <div className="mb-10 rounded-xl border border-border bg-card p-5">
         <h2 className="text-xl font-semibold mb-1">Live switcher</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          Default, Violet, and Zinc presets below are applied through CSS variables in real time —
-          no rebuilds, no screenshots.
+          Default, Violet, and Zinc presets below are applied through CSS variables in real time,
+          with no rebuilds and no screenshots.
         </p>
         <ThemeShowcase />
       </div>
@@ -147,7 +147,7 @@ const brandTheme = createTheme({
         <h2 className="text-2xl font-semibold mt-8 mb-4">Layering (z-index scale)</h2>
         <p className="text-muted-foreground mb-4">
           Components use a small, documented ladder instead of ad-hoc numbers. Extend it rather than
-          inventing new values — stacking bugs come from stray <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">z-[500]</code>s.
+          inventing new values: stacking bugs come from stray <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">z-[500]</code>s.
         </p>
         <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-sm">
@@ -164,7 +164,7 @@ const brandTheme = createTheme({
                 ['Sticky headers', 'z-30', 'AppShell header, table headers'],
                 ['Site chrome', 'z-40', 'Marketing navbar, doc banner'],
                 ['Overlays', 'z-50', 'Dialog, Drawer, Menu, Popover, Tooltip, Autocomplete listbox'],
-                ['Notifications', 'z-60', 'Toaster — always above overlays'],
+                ['Notifications', 'z-60', 'Toaster: always above overlays'],
               ].map(([layer, value, usedBy]) => (
                 <tr key={layer} className="border-t border-border">
                   <td className="p-3">{layer}</td>

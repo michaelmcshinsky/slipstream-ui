@@ -35,7 +35,7 @@ export default function TimelinePage() {
     { title: 'Engineer', period: '2020 — 2023' },
   ]}
 />`}
-        usage={`// Keep the array in chronological order (newest-first is fine) — don't
+        usage={`// Keep the array in chronological order (newest-first is fine): don't
 // reverse with CSS, which would break reading order.`}
         types={`type TimelineItem = {
   title: string;

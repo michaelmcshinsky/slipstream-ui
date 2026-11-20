@@ -7,7 +7,7 @@ import { DemoCard } from '@/components/demo-card';
 
 const VARIANTS = [
   'The capital of France is Paris.',
-  "It's Paris — home to roughly two million people.",
+  "It's Paris: home to roughly two million people.",
   'Paris is the capital and largest city of France.',
 ];
 
@@ -18,7 +18,7 @@ export default function BranchPage() {
     <ComponentPage
       id="branch"
       title="Branch"
-      description="Variant navigation for branched messages: ‹ N / M › controls that let users compare alternative AI responses. Purely presentational — you swap the content."
+      description="Variant navigation for branched messages: ‹ N / M › controls that let users compare alternative AI responses. Purely presentational: you swap the content."
       propsRows={[
         { name: 'count', type: 'number', description: 'Total variants; renders nothing below 2.' },
         { name: 'selected', type: 'number', description: 'Controlled zero-based index.' },

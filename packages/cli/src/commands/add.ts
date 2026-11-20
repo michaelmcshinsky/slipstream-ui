@@ -165,7 +165,7 @@ export const addCommand = new Command('add')
       const skipped = plan.filter((entry) => entry.action === 'skip').length;
 
       if (dryRun) {
-        spinner.succeed(chalk.cyan(`Dry run: ${component} — no files written`));
+        spinner.succeed(chalk.cyan(`Dry run: ${component}, no files written`));
         console.log(chalk.gray(`\nPlanned changes in ${componentsDir.relative}:`));
         for (const item of plan) {
           const prefix =

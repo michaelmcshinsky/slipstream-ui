@@ -63,16 +63,16 @@ export default function DataTablePage() {
         { name: 'emptyMessage', type: 'string', defaultValue: "'No results.'", description: 'Shown when data is empty.' },
         { name: 'renderSortIcon', type: "(state: 'none' | 'asc' | 'desc') => ReactNode", description: 'Replace the default ▲/▼/↕ header glyphs with custom markup.' },
         { name: 'stickyHeader', type: 'boolean', defaultValue: 'false', description: 'Pin the header while the body scrolls (pair with a max-height on className).' },
-        { name: 'density', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Row density — compact shrinks text and cell padding.' },
+        { name: 'density', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Row density: compact shrinks text and cell padding.' },
         { name: 'zebra', type: 'boolean', defaultValue: 'false', description: 'Zebra-striped rows for long tables.' },
         { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Render skeleton rows; tbody is aria-busy while loading.' },
-        { name: 'loadingRows', type: 'number', defaultValue: 'page size (else 5)', description: 'Skeleton row count — match it to visible data so replacing placeholders does not shift the table. Row heights follow density.' },
-        { name: 'columns[].onClick', type: '(row: T) => void', description: 'Column-level callback — the cell content renders as a keyboard-operable button.' },
+        { name: 'loadingRows', type: 'number', defaultValue: 'page size (else 5)', description: 'Skeleton row count: match it to visible data so replacing placeholders does not shift the table. Row heights follow density.' },
+        { name: 'columns[].onClick', type: '(row: T) => void', description: 'Column-level callback: the cell content renders as a keyboard-operable button.' },
       ]}
       accessibility={[
         'Sortable headers expose aria-sort (ascending/descending/none) and toggle via a real button.',
         'Native <caption> names the table; headers are th[scope=col].',
-        'With onRowClick rows are tabIndex=0 and activate on Enter/Space — still provide an in-cell link as the primary path.',
+        'With onRowClick rows are tabIndex=0 and activate on Enter/Space: still provide an in-cell link as the primary path.',
         'The result count is aria-live=polite; pagination reuses Pagination (aria-current=page).',
       ]}
       browserNotes={[
@@ -94,7 +94,7 @@ export default function DataTablePage() {
             <p className="text-xs text-muted-foreground">
               Clicked row:{' '}
               <code className="rounded bg-muted px-1 py-0.5 font-mono">{clicked ?? 'none yet'}</code>{' '}
-              — click headers to sort, or Tab to a row and press Enter.
+             : click headers to sort, or Tab to a row and press Enter.
             </p>
           </div>
         }
@@ -229,7 +229,7 @@ type DataTableProps<<T>> = {
             <p className="text-xs text-muted-foreground">
               Title cell clicked:{' '}
               <code className="rounded bg-muted px-1 py-0.5 font-mono">{cellClick ?? 'none yet'}</code>{' '}
-              — click a Title cell (its own onClick), or sort with the custom ↑/↓/⇅ icons.
+             : click a Title cell (its own onClick), or sort with the custom ↑/↓/⇅ icons.
             </p>
           </div>
         }
@@ -246,11 +246,11 @@ type DataTableProps<<T>> = {
   zebra
   density="compact"
   loading={isLoading}
-  loadingRows={rows.length}          // skeleton matches data — no jump
+  loadingRows={rows.length}          // skeleton matches data: no jump
   renderSortIcon={(s) => (s === 'none' ? '⇅' : s === 'asc' ? '↑' : '↓')}
 />`}
         usage={`// Server-side sort: onSortChange fires on every header toggle while
-// DataTable keeps aria-sort honest — fetch and replace data yourself.
+// DataTable keeps aria-sort honest: fetch and replace data yourself.
 <DataTable
   columns={columns}
   data={serverRows}

@@ -16,7 +16,7 @@ export default function CardPage() {
     <ComponentPage
       id="card"
       title="Card"
-      description="Content container with header, body, and footer sections — bordered, borderless, or compact via className."
+      description="Content container with header, body, and footer sections: bordered, borderless, or compact via className."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'children', type: 'ReactNode', description: 'Card sub-components: CardHeader, CardTitle, CardDescription, CardContent, CardFooter.' },
@@ -26,7 +26,7 @@ export default function CardPage() {
       ]}
       accessibility={[
         'CardTitle renders as h3; maintain logical heading order in your page.',
-        'Cards are generic containers — give interactive content inside them real labels and roles.',
+        'Cards are generic containers: give interactive content inside them real labels and roles.',
         'Do not nest landmark roles (header/footer inside cards stay neutral divs).',
       ]}
     >
@@ -109,7 +109,7 @@ export default function CardPage() {
                   <CardTitle>Borderless card</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
-                  <code className="rounded bg-background px-1">border-0 shadow-none</code> — sits on the page like a panel.
+                  <code className="rounded bg-background px-1">border-0 shadow-none</code>: sits on the page like a panel.
                 </CardContent>
               </Card>
             </div>
@@ -131,13 +131,13 @@ export default function CardPage() {
                   <CardTitle>Raised card</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
-                  <code className="rounded bg-muted px-1">border-0 shadow-md</code> — emphasis without a border.
+                  <code className="rounded bg-muted px-1">border-0 shadow-md</code>: emphasis without a border.
                 </CardContent>
               </Card>
             </div>
           </div>
         }
-        code={`{/* Variants are className recipes — no extra components needed */}
+        code={`{/* Variants are className recipes: no extra components needed */}
 
 {/* Borderless */}
 <Card className="border-0 bg-muted/40 shadow-none">…</Card>
@@ -159,12 +159,12 @@ export default function CardPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Header only</CardTitle>
-                <CardDescription>Cards compose — use the sections you need.</CardDescription>
+                <CardDescription>Cards compose: use the sections you need.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="p-0">
               <CardContent className="p-4">
-                <p className="text-sm text-muted-foreground">Content only — no header, no footer.</p>
+                <p className="text-sm text-muted-foreground">Content only: no header, no footer.</p>
               </CardContent>
               <div className="flex items-center justify-between border-t border-border px-4 py-3 text-xs text-muted-foreground">
                 <span>Footer via CardFooter</span>

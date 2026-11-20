@@ -21,7 +21,7 @@ export default function TooltipPage() {
       accessibility={[
         'aria-describedby is injected into the trigger so the hint is announced with focus.',
         'Escape dismisses the tooltip without moving focus.',
-        'The tooltip also shows on keyboard focus — never hide essential information in hover-only UI.',
+        'The tooltip also shows on keyboard focus: never hide essential information in hover-only UI.',
         'Tooltips are supplementary: keep the trigger itself labeled (aria-label or visible text).',
       ]}
     >
@@ -68,7 +68,7 @@ export default function TooltipPage() {
             <Tooltip content="Shows after 300ms (default)">
               <Button>Default delay</Button>
             </Tooltip>
-            <Tooltip content="Instant hint — no wait" delay={0}>
+            <Tooltip content="Instant hint: no wait" delay={0}>
               <Button variant="secondary">delay={0}</Button>
             </Tooltip>
             <Tooltip content="Slower reveal for dense UIs" delay={700}>
@@ -97,7 +97,7 @@ export default function TooltipPage() {
   <Button size="icon" aria-label="Keyboard shortcuts">⌘</Button>
 </Tooltip>
 
-{/* Works on any single element — badges, inputs, links */}
+{/* Works on any single element: badges, inputs, links */}
 <Tooltip content="Copy share link" side="top">
   <Badge variant="outline" tabIndex={0}>Share</Badge>
 </Tooltip>`}

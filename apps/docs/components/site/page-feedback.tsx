@@ -8,7 +8,7 @@ import { track } from '@/lib/analytics';
 const REPO_URL = 'https://github.com/michaelmcshinsky/slipstream-ui';
 
 /**
- * "Was this page helpful?" — feedback routes to a pre-filled GitHub issue, so
+ * "Was this page helpful?": feedback routes to a pre-filled GitHub issue, so
  * no backend is required. Resets when the reader navigates to another page.
  */
 export function PageFeedback() {

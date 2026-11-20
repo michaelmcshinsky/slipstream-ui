@@ -168,7 +168,7 @@ export const ko = {
       privacy: "개인정보",
       terms: "이용 약관",
       copyright: "© {year} Slipstream UI · MIT 라이선스",
-      builtStateless: "상태 없이 구축 — 데이터 흐름은 직접 소유합니다.",
+      builtStateless: "상태 없이 구축: 데이터 흐름은 직접 소유합니다.",
       helpTranslate: "번역 돕기",
     },
     search: {

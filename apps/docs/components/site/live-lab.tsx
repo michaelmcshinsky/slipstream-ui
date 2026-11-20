@@ -377,7 +377,7 @@ function FlowPane({ copy }: { copy: LabCopy }) {
 
 /**
  * Interactive lab on the marketing homepage. Everything here is built from
- * the shipped library — data table selection/pagination, metric cards,
+ * the shipped library: data table selection/pagination, metric cards,
  * SelectMenu/InputGroup/ButtonGroup, confirm + drawer + imperative toasts,
  * and the stepper. All copy comes from the active locale's marketing catalog.
  */

@@ -36,13 +36,13 @@ export default function RadioPage() {
             <RadioGroup name="demo-plan" legend="Choose a plan" defaultValue="free">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="plan-free" value="free" label="Free — 1 project" />
+                  <RadioGroupItem id="plan-free" value="free" label="Free: 1 project" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="plan-pro" value="pro" label="Pro — unlimited projects" />
+                  <RadioGroupItem id="plan-pro" value="pro" label="Pro: unlimited projects" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="plan-team" value="team" label="Team — SSO + audit log" />
+                  <RadioGroupItem id="plan-team" value="team" label="Team: SSO + audit log" />
                 </div>
                 <div className="flex items-center gap-2">
                   <RadioGroupItem id="plan-legacy" value="legacy" label="Legacy plan (unavailable)" disabled />
@@ -61,9 +61,9 @@ export default function RadioPage() {
         code={`import { RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
 
 <RadioGroup name="plan" legend="Choose a plan" defaultValue="free">
-  <RadioGroupItem value="free" label="Free — 1 project" />
-  <RadioGroupItem value="pro" label="Pro — unlimited projects" />
-  <RadioGroupItem value="team" label="Team — SSO + audit log" />
+  <RadioGroupItem value="free" label="Free: 1 project" />
+  <RadioGroupItem value="pro" label="Pro: unlimited projects" />
+  <RadioGroupItem value="team" label="Team: SSO + audit log" />
   <RadioGroupItem value="legacy" label="Legacy plan" disabled />
 </RadioGroup>
 
@@ -101,7 +101,7 @@ type RadioGroupItemProps = {
       />
 
       <DemoCard
-        title="RadioCard — clickable sections (interactive)"
+        title="RadioCard: clickable sections (interactive)"
         preview={
           <div className="w-full max-w-2xl">
             <RadioGroup name="demo-card-plan" legend="Choose a plan" defaultValue="pro" orientation="horizontal">

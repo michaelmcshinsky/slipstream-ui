@@ -16,7 +16,7 @@ export default function AttachmentPage() {
     <ComponentPage
       id="attachment"
       title="Attachment"
-      description="File chips for prompts and messages. Display-only — upload logic stays in your app. Attachment renders one file; AttachmentList renders a wrapping row."
+      description="File chips for prompts and messages. Display-only: upload logic stays in your app. Attachment renders one file; AttachmentList renders a wrapping row."
       accessibility={[
         'Remove controls include the file name in their accessible label.',
         'The uploading state is announced via role=status.',

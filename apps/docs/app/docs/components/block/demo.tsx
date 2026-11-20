@@ -7,17 +7,17 @@ export default function BlockPage() {
     <ComponentPage
       id="block"
       title="Block"
-      description="Semantic container (div by default, swappable element) — the structural counterpart to Text (p)."
+      description="Semantic container (div by default, swappable element): the structural counterpart to Text (p)."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'as', type: "'div' | 'span' | 'section' | 'article' | 'figure' | 'header' | 'footer' | 'nav' | 'main' | 'aside'", defaultValue: "'div'", description: 'Semantic element to render.' },
-        { name: 'inline', type: 'boolean', defaultValue: 'false', description: 'Shorthand for as="span" — inline flow.' },
+        { name: 'inline', type: 'boolean', defaultValue: 'false', description: 'Shorthand for as="span": inline flow.' },
         { name: 'muted', type: 'boolean', defaultValue: 'false', description: "Use the muted-foreground token for the block's text." },
       ]}
       accessibility={[
-        'Element choice is explicit — pick the element matching the content role (section/article/figure).',
+        'Element choice is explicit: pick the element matching the content role (section/article/figure).',
         'Block adds no interactive behavior; children keep their own keyboard/ARIA contracts.',
-        'Copy belongs in Text (p), not Block — document semantics stay queryable.',
+        'Copy belongs in Text (p), not Block: document semantics stay queryable.',
       ]}
     >
       <DemoCard
@@ -27,7 +27,7 @@ export default function BlockPage() {
             <Block as="section" className="rounded-lg border border-border p-4">
               <Heading level={3} size="sm">as="section"</Heading>
               <Text size="sm" muted>
-                A titled region — screen readers can jump between sections.
+                A titled region: screen readers can jump between sections.
               </Text>
             </Block>
             <div className="flex gap-4">
@@ -46,7 +46,7 @@ export default function BlockPage() {
 
 <Block as="section" className="rounded-lg border border-border p-4">
   <Heading level={3} size="sm">as="section"</Heading>
-  <Text size="sm" muted>A titled region — screen readers can jump between sections.</Text>
+  <Text size="sm" muted>A titled region: screen readers can jump between sections.</Text>
 </Block>
 
 <Block as="article" className="flex-1">…</Block>
@@ -58,7 +58,7 @@ export default function BlockPage() {
         preview={
           <div className="w-full space-y-3">
             <Block className="rounded-lg border border-border bg-muted/40 p-4">
-              <Text size="sm">Block with utilities — the layout-friendly default div.</Text>
+              <Text size="sm">Block with utilities: the layout-friendly default div.</Text>
             </Block>
             <Text size="sm" muted>
               Inline blocks stay in flow:{' '}
@@ -72,7 +72,7 @@ export default function BlockPage() {
         code={`{/* Decorate with utilities when a surface is needed */}
 <Block className="rounded-lg border border-border bg-muted/40 p-4">…</Block>
 
-{/* Inline flow — renders a <span> */}
+{/* Inline flow: renders a <span> */}
 <Block inline className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">token</Block>`}
         usage={`import { Block } from '@slipstream-ui/core';
 

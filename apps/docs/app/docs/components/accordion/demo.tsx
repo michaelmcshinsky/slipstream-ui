@@ -24,7 +24,7 @@ export default function AccordionPage() {
         'The header is clickable edge-to-edge (w-full) in closed and open states; icon is pinned far right.',
       ]}
       browserNotes={[
-        'Expansion animates via grid-template-rows interpolation (Chrome/Edge 117+, Safari 17+, recent Firefox). Older browsers toggle panels instantly — no functionality lost.',
+        'Expansion animates via grid-template-rows interpolation (Chrome/Edge 117+, Safari 17+, recent Firefox). Older browsers toggle panels instantly: no functionality lost.',
         'prefers-reduced-motion: reduce disables the animation.',
       ]}
     >
@@ -145,7 +145,7 @@ export default function Example() {
 
 {/* Token gap instead: gap="lg" */}
 <Accordion variant="borderless" gap="lg">…</Accordion>`}
-        usage={`// Default (bordered card with dividers) — unchanged
+        usage={`// Default (bordered card with dividers): unchanged
 <Accordion>…</Accordion>
 
 // Variants combine: borderless + token spacing

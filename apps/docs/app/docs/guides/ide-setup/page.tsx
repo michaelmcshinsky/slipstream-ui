@@ -22,7 +22,7 @@ export default function IdeSetupGuidePage() {
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">0. Install</h2>
       <div className="mt-4">
-        <CodeBlock language="bash" code={`# In your project (dev dependency — agents run it locally)
+        <CodeBlock language="bash" code={`# In your project (dev dependency: agents run it locally)
 pnpm add -D @slipstream-ui/mcp-server
 
 # Verify the binary answers on stdio
@@ -32,7 +32,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Claude Code</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Project-scoped config lives in <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">.mcp.json</code>{' '}
-        at the repo root (commit it — teammates and CI share it):
+        at the repo root (commit it: teammates and CI share it):
       </p>
       <div className="mt-4">
         <CodeBlock
@@ -48,7 +48,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
         />
       </div>
       <p className="mt-3 text-sm text-muted-foreground">
-        Verify inside Claude Code with <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">/mcp</code> — the
+        Verify inside Claude Code with <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">/mcp</code>: the
         server should list six tools (recommend_components, list_components, search_components, get_component_manifest,
         get_usage_examples, validate_usage).
       </p>
@@ -57,7 +57,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
       <div className="mt-4">
         <CodeBlock
           language="json"
-          code={`// .cursor/mcp.json  (project)  — or ~/.cursor/mcp.json (global)
+          code={`// .cursor/mcp.json (project) or ~/.cursor/mcp.json (global)
 {
   "mcpServers": {
     "slipstream-ui": {
@@ -103,7 +103,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
           code={`# UI components
 This project uses Slipstream UI. Before writing any component JSX:
 1. search_components / get_component_manifest for the component you need.
-2. Follow its props exactly — never invent prop names.
+2. Follow its props exactly: never invent prop names.
 3. Run validate_usage on the generated JSX before finishing.
 4. Respect anti-patterns and composition rules from the manifest.`}
         />
@@ -121,7 +121,7 @@ Healthy run:  search_components("chat input")
               validate_usage(...)  -> ok
               diff shown
 
-Unhealthy run: props like onSubmitChat / isBusy appear — the agent skipped
+Unhealthy run: props like onSubmitChat / isBusy appear: the agent skipped
 the tools. Strengthen the rules file, then re-ask.`}
         />
       </div>
@@ -130,9 +130,9 @@ the tools. Strengthen the rules file, then re-ask.`}
       <div className="mt-4 space-y-4">
         {[
           ['Server shows "failed to start"', 'Use the full local path to node_modules/@slipstream-ui/mcp-server/dist/index.js instead of npx if your sandbox blocks npx downloads.'],
-          ['Tools listed but always error', 'The server reads manifests from the installed packages — run pnpm install and confirm @slipstream-ui/core is present.'],
+          ['Tools listed but always error', 'The server reads manifests from the installed packages: run pnpm install and confirm @slipstream-ui/core is present.'],
           ['Agent never calls the tools', 'Rules file missing or too weak; name the tools explicitly (see step 4). Also check the agent has MCP permission enabled.'],
-          ['Global vs project scope', 'Project-scoped configs (committed) beat global ones — they version the tool access with the codebase.'],
+          ['Global vs project scope', 'Project-scoped configs (committed) beat global ones: they version the tool access with the codebase.'],
         ].map(([symptom, fix]) => (
           <div key={symptom} className="rounded-xl border border-border bg-card p-4">
             <p className="font-medium">{symptom}</p>

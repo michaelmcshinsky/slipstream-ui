@@ -44,7 +44,7 @@ export function buildAiInstruction(manifest: RegistryManifest, componentId: stri
   const optional = props.filter((prop) => !prop.required);
 
   const lines: string[] = [
-    `# Slipstream UI — ${name}`,
+    `# Slipstream UI: ${name}`,
     '',
     manifest.description ?? '',
     '',
@@ -67,7 +67,7 @@ export function buildAiInstruction(manifest: RegistryManifest, componentId: stri
       ? props.map((prop) => {
           const flags = [prop.required ? 'required' : 'optional'];
           if (prop.defaultValue !== undefined) flags.push(`default: ${String(prop.defaultValue)}`);
-          return `- ${prop.name ?? 'prop'} (${prop.type ?? 'unknown'}) — ${flags.join(', ')}${prop.description ? ` — ${prop.description}` : ''}`;
+          return `- ${prop.name ?? 'prop'} (${prop.type ?? 'unknown'}): ${flags.join(', ')}${prop.description ? `. ${prop.description}` : ''}`;
         })
       : ['- No public props.']),
   ];
@@ -90,7 +90,7 @@ export function buildAiInstruction(manifest: RegistryManifest, componentId: stri
   if (antiPatterns.length > 0) {
     lines.push('', '## Anti-patterns');
     for (const pattern of antiPatterns) {
-      lines.push(`- ${pattern.title ?? 'Avoid'}${pattern.explanation ? ` — ${pattern.explanation}` : ''}`);
+      lines.push(`- ${pattern.title ?? 'Avoid'}${pattern.explanation ? `: ${pattern.explanation}` : ''}`);
       if (pattern.example) lines.push('', '```tsx', pattern.example, '```');
     }
   }
@@ -107,7 +107,7 @@ export function buildAiInstruction(manifest: RegistryManifest, componentId: stri
   if (composition.length > 0 || (manifest.relatedComponents ?? []).length > 0) {
     lines.push('', '## Composition');
     for (const rule of composition) {
-      lines.push(`- ${rule.component ?? 'Sibling'} — ${rule.relationship ?? ''}`.trim());
+      lines.push(`- ${rule.component ?? 'Sibling'}: ${rule.relationship ?? ''}`.trim());
     }
     if ((manifest.relatedComponents ?? []).length > 0) {
       lines.push(`- Related: ${(manifest.relatedComponents ?? []).join(', ')}`);

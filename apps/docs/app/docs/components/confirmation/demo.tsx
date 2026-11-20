@@ -13,7 +13,7 @@ export default function ConfirmationPage() {
     <ComponentPage
       id="confirmation"
       title="Confirmation"
-      description="Human-in-the-loop approval gate for agent actions. Pauses tool execution until the user approves or rejects — the standard pattern for destructive operations."
+      description="Human-in-the-loop approval gate for agent actions. Pauses tool execution until the user approves or rejects: the standard pattern for destructive operations."
       propsRows={[
         { name: 'title', type: 'string', description: 'Summary of the action requiring approval.' },
         { name: 'description', type: 'string', description: 'Detail: affected resource or risk note.' },
@@ -31,7 +31,7 @@ export default function ConfirmationPage() {
       accessibility={[
         'Pending state renders role=alertdialog labeled by the title.',
         'Outcome chip announces Approved/Rejected.',
-        'Never auto-approve on timeout — keep waiting or fail explicitly.',
+        'Never auto-approve on timeout: keep waiting or fail explicitly.',
       ]}
     >
       <DemoCard
@@ -70,7 +70,7 @@ export default function ConfirmationPage() {
             />
             <Confirmation title="Info gate" description="Neutral blue accent for non-risky pauses." variant="info" />
             <Confirmation title="Success flow" description="Green accent for confirm-to-continue steps." variant="success" />
-            <Confirmation title="Warning (default)" description="The default amber accent — same as omitting variant." />
+            <Confirmation title="Warning (default)" description="The default amber accent: same as omitting variant." />
           </div>
         }
         code={`import { Confirmation } from '@slipstream-ui/ai';
@@ -112,7 +112,7 @@ export default function ConfirmationPage() {
             />
             <Confirmation
               title="Read-only gate"
-              description="showActions hides the buttons — pair with a controlled status driven by your own UI."
+              description="showActions hides the buttons: pair with a controlled status driven by your own UI."
               showActions={false}
             />
           </div>

@@ -7,12 +7,12 @@ export default function SkeletonPage() {
     <ComponentPage
       id="skeleton"
       title="Skeleton"
-      description="Loading placeholder that mirrors the shape of upcoming content — sized via props, not ad-hoc classes."
+      description="Loading placeholder that mirrors the shape of upcoming content: sized via props, not ad-hoc classes."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'height', type: 'string', description: "Tailwind height class (e.g. 'h-4') applied to the block." },
         { name: 'width', type: 'string', defaultValue: "'w-full'", description: "Tailwind width class (e.g. 'w-48') applied to the block." },
-        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", defaultValue: "'md'", description: 'Corner preset — use full for avatars/dots, none for tables.' },
+        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", defaultValue: "'md'", description: 'Corner preset: use full for avatars/dots, none for tables.' },
         { name: 'className', type: 'string', description: 'Escape hatch for anything the props do not cover.' },
       ]}
       accessibility={[

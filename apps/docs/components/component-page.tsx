@@ -12,10 +12,10 @@ import { breadcrumbSchema, techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
-  /** Route/nav id, e.g. "sources" — drives pagination and the URL. */
+  /** Route/nav id, e.g. "sources": drives pagination and the URL. */
   id: string;
   /**
-   * COMPONENT_MANIFEST id when it differs from the route id — drives the
+   * COMPONENT_MANIFEST id when it differs from the route id: drives the
    * registry fetch, install commands, and /llm markdown link
    * (route "sources" -> manifest "source").
    */
@@ -32,7 +32,7 @@ export type ComponentPageProps = {
 };
 
 /**
- * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json — only the
+ * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json: only the
  * fields the human docs surface beyond the hand-written props table.
  */
 type ManifestAntiPattern = { title?: string; explanation?: string; example?: string };
@@ -53,14 +53,14 @@ function toComponentId(name: string): string {
     .toLowerCase();
 }
 
-/** Doc routes that exist today — related-component links are gated on this. */
+/** Doc routes that exist today: related-component links are gated on this. */
 const COMPONENT_HREFS = new Set(
   FLAT_NAV.filter((item) => item.href.startsWith('/docs/components/')).map((item) => item.href)
 );
 
 /**
  * Fetches a component's manifest slice from /registry/<manifestId>.json.
- * Returns null while loading or when the file is absent — sections derived
+ * Returns null while loading or when the file is absent: sections derived
  * from it simply do not render (graceful degradation).
  */
 function useRegistryManifest(manifestId: string): RegistryManifest | null {
@@ -74,7 +74,7 @@ function useRegistryManifest(manifestId: string): RegistryManifest | null {
         if (!cancelled && data) setManifest(data);
       })
       .catch(() => {
-        // Registry file absent — render without the manifest-derived sections.
+        // Registry file absent: render without the manifest-derived sections.
       });
     return () => {
       cancelled = true;
@@ -212,7 +212,7 @@ export function ComponentPage({
                       component: rule.component ?? t('site.page.sibling'),
                     })}
                   </span>
-                  {rule.relationship && <span className="text-muted-foreground"> — {rule.relationship}</span>}
+                  {rule.relationship && <span className="text-muted-foreground">: {rule.relationship}</span>}
                 </p>
                 {rule.example && (
                   <div className="mt-2">
@@ -290,7 +290,7 @@ export function ComponentPage({
                 ['Chrome', '111+ (Mar 2023)'],
                 ['Edge', '111+ (Mar 2023)'],
                 ['Firefox', '121+ (Dec 2023)'],
-                ['Safari', '17.2+ — macOS & iOS (Dec 2023)'],
+                ['Safari', '17.2+: macOS & iOS (Dec 2023)'],
               ].map(([browser, versions]) => (
                 <tr key={browser} className="border-t border-border">
                   <td className="p-3 font-medium">{browser}</td>

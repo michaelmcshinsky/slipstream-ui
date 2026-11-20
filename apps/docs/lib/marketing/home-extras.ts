@@ -34,7 +34,7 @@ export const HOME_EXTRAS: HomeExtras = {
     eyebrow: 'Start building',
     title: 'Start building in minutes',
     description:
-      'One command scaffolds the theme, component directory and registry config. Then take the path that fits your stack — package imports or owned source.',
+      'One command scaffolds the theme, component directory and registry config. Then take the path that fits your stack: package imports or owned source.',
     steps: [
       {
         title: 'Run the CLI',

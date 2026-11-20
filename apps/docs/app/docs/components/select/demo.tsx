@@ -92,7 +92,7 @@ export default function SelectPage() {
   ]}
 />
 
-{/* Native multi-select — value/onChange are string[] */}
+{/* Native multi-select: value/onChange are string[] */}
 <Select
   label="Alert channels"
   multiple

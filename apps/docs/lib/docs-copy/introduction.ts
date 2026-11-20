@@ -1,6 +1,6 @@
 import type { DocsCopyByLocale } from './types';
 
-/** Code blocks are identifiers and comments — identical in every locale. */
+/** Code blocks are identifiers and comments: identical in every locale. */
 const ARCHITECTURE_CODE = `source + manifest + tests
       │
       ├─ pnpm validate:manifests   # schema + TypeScript↔manifest drift
@@ -29,14 +29,14 @@ export const introduction: DocsCopyByLocale = {
     lead: [
       'Slipstream UI is an AI-first React component library. Every component ships with a ',
       { code: 'COMPONENT_MANIFEST' },
-      ' — a machine-readable specification that lets coding agents like Claude, Cursor, and Copilot generate correct UI the first time.',
+      ': a machine-readable specification that lets coding agents like Claude, Cursor, and Copilot generate correct UI the first time.',
     ],
     blocks: [
       { kind: 'h2', text: 'What makes it different?' },
       {
         kind: 'p',
         parts: [
-          'Traditional libraries document for humans and hope models figure it out from training data — which is where hallucinated props come from. Slipstream documents for both of you: humans get this site, agents get manifests over MCP, canonical markdown routes, and a ',
+          'Traditional libraries document for humans and hope models figure it out from training data, which is where hallucinated props come from. Slipstream documents for both of you: humans get this site, agents get manifests over MCP, canonical markdown routes, and a ',
           { code: 'validate_usage' },
           ' tool that checks their output before it ships.',
         ],
@@ -60,15 +60,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} components: atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography',
+            ': {coreComponentCount} components (atoms, molecules, overlays, forms, data display, app/marketing chrome, content typography)',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} AI chat and agent components (stateless; you own state and transport)',
+            ': {aiComponentCount} AI chat and agent components (stateless; you own state and transport)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() and presets over a CSS-variable token contract',
+            ': createTheme() and presets over a CSS-variable token contract',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -78,11 +78,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             ', ',
             { code: '@slipstream-ui/i18n' },
-            ' — install, registry, agent, and locale helpers sharing the same manifests',
+            ': install, registry, agent, and locale helpers sharing the same manifests',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — the docs you are reading and a reference dashboard, both built with this library',
+            ': the docs you are reading and a reference dashboard, both built with this library',
           ],
         ],
       },
@@ -131,7 +131,7 @@ export const introduction: DocsCopyByLocale = {
           {
             href: '/docs/installation',
             title: 'Installation',
-            body: 'Packages, CLI, or shadcn-compatible registry — pick your workflow.',
+            body: 'Packages, CLI, or shadcn-compatible registry. Pick your workflow.',
             index: '01',
           },
           {
@@ -189,7 +189,7 @@ export const introduction: DocsCopyByLocale = {
           { code: 'COMPONENT_MANIFEST' },
           ' with a ',
           { code: 'version' },
-          ' field. The manifest schema is validated in CI — prop schemas, TypeScript types, and manifests are checked for drift on every commit.',
+          ' field. The manifest schema is validated in CI: prop schemas, TypeScript types, and manifests are checked for drift on every commit.',
         ],
       },
       {
@@ -228,7 +228,7 @@ export const introduction: DocsCopyByLocale = {
     lead: [
       'Slipstream UI es una biblioteca de componentes React pensada para la IA. Cada componente incluye un ',
       { code: 'COMPONENT_MANIFEST' },
-      ' — una especificación legible por máquina que permite a agentes de código como Claude, Cursor y Copilot generar la interfaz correcta a la primera.',
+      ': una especificación legible por máquina que permite a agentes de código como Claude, Cursor y Copilot generar la interfaz correcta a la primera.',
     ],
     blocks: [
       { kind: 'h2', text: '¿Qué la hace diferente?' },
@@ -259,15 +259,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} componentes: átomos, moléculas, superposiciones, formularios, visualización de datos, chrome de aplicación y marketing, tipografía de contenido',
+            ': {coreComponentCount} componentes: átomos, moléculas, superposiciones, formularios, visualización de datos, chrome de aplicación y marketing, tipografía de contenido',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} componentes de chat y agentes de IA (sin estado; tú controlas el estado y el transporte)',
+            ': {aiComponentCount} componentes de chat y agentes de IA (sin estado; tú controlas el estado y el transporte)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() y presets sobre un contrato de tokens con variables CSS',
+            ': createTheme() y presets sobre un contrato de tokens con variables CSS',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -277,11 +277,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             ', ',
             { code: '@slipstream-ui/i18n' },
-            ' — helpers de instalación, registro, agentes e idioma que comparten los mismos manifiestos',
+            ': helpers de instalación, registro, agentes e idioma que comparten los mismos manifiestos',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — la documentación que estás leyendo y un panel de referencia, ambos construidos con esta biblioteca',
+            ': la documentación que estás leyendo y un panel de referencia, ambos construidos con esta biblioteca',
           ],
         ],
       },
@@ -458,15 +458,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} 个组件：原子、分子、浮层、表单、数据展示、应用/营销 chrome、内容排版',
+            ': {coreComponentCount} 个组件：原子、分子、浮层、表单、数据展示、应用/营销 chrome、内容排版',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} 个 AI 聊天与代理组件（无状态；状态与传输由你掌控）',
+            ': {aiComponentCount} 个 AI 聊天与代理组件（无状态；状态与传输由你掌控）',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() 以及基于 CSS 变量令牌契约的预设',
+            ': createTheme() 以及基于 CSS 变量令牌契约的预设',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -476,11 +476,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             '、',
             { code: '@slipstream-ui/i18n' },
-            ' — 共享同一套 manifest 的安装、注册表、代理与本地化辅助工具',
+            ': 共享同一套 manifest 的安装、注册表、代理与本地化辅助工具',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — 你正在阅读的文档站与参考仪表盘，两者都用这个库构建',
+            ': 你正在阅读的文档站与参考仪表盘，两者都用这个库构建',
           ],
         ],
       },
@@ -626,14 +626,14 @@ export const introduction: DocsCopyByLocale = {
     lead: [
       'Slipstream UI は AI ファーストの React コンポーネントライブラリです。すべてのコンポーネントには ',
       { code: 'COMPONENT_MANIFEST' },
-      ' が付属します — コーディングエージェント(Claude、Cursor、Copilot など)が最初から正しい UI を生成できるようにする機械可読な仕様です。',
+      ' が付属します: コーディングエージェント(Claude、Cursor、Copilot など)が最初から正しい UI を生成できるようにする機械可読な仕様です。',
     ],
     blocks: [
       { kind: 'h2', text: '何が違うのか？' },
       {
         kind: 'p',
         parts: [
-          '従来のライブラリは人間向けにドキュメントを書き、モデルが訓練データから推測することを期待します — それが幻覚 props の原因です。Slipstream は両方のためにドキュメントを書きます。人間にはこのサイトを、エージェントには MCP 経由の manifest、正規の markdown ルート、そして出力を出荷前にチェックする ',
+          '従来のライブラリは人間向けにドキュメントを書き、モデルが訓練データから推測することを期待します: それが幻覚 props の原因です。Slipstream は両方のためにドキュメントを書きます。人間にはこのサイトを、エージェントには MCP 経由の manifest、正規の markdown ルート、そして出力を出荷前にチェックする ',
           { code: 'validate_usage' },
           ' ツールを提供します。',
         ],
@@ -657,15 +657,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} コンポーネント:原子、分子、オーバーレイ、フォーム、データ表示、アプリ/マーケティング chrome、コンテンツタイポグラフィ',
+            ': {coreComponentCount} コンポーネント:原子、分子、オーバーレイ、フォーム、データ表示、アプリ/マーケティング chrome、コンテンツタイポグラフィ',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} 個の AI チャットおよびエージェントコンポーネント(ステートレス。状態と転送はあなたが管理)',
+            ': {aiComponentCount} 個の AI チャットおよびエージェントコンポーネント(ステートレス。状態と転送はあなたが管理)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() と、CSS 変数トークン契約に基づくプリセット',
+            ': createTheme() と、CSS 変数トークン契約に基づくプリセット',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -675,11 +675,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             '、',
             { code: '@slipstream-ui/i18n' },
-            ' — 同じ manifest を共有するインストール、レジストリ、エージェント、ロケールのヘルパー',
+            ': 同じ manifest を共有するインストール、レジストリ、エージェント、ロケールのヘルパー',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — いま読んでいるドキュメントと参照ダッシュボード。どちらもこのライブラリで構築されています',
+            ': いま読んでいるドキュメントと参照ダッシュボード。どちらもこのライブラリで構築されています',
           ],
         ],
       },
@@ -728,7 +728,7 @@ export const introduction: DocsCopyByLocale = {
           {
             href: '/docs/installation',
             title: 'インストール',
-            body: 'パッケージ、CLI、または shadcn 互換レジストリ — ワークフローを選ぶ。',
+            body: 'パッケージ、CLI、または shadcn 互換レジストリ: ワークフローを選ぶ。',
             index: '01',
           },
           {
@@ -856,15 +856,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount}개 컴포넌트: 아톰, 분자, 오버레이, 폼, 데이터 표시, 앱/마케팅 크롬, 콘텐츠 타이포그래피',
+            ': {coreComponentCount}개 컴포넌트: 아톰, 분자, 오버레이, 폼, 데이터 표시, 앱/마케팅 크롬, 콘텐츠 타이포그래피',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount}개 AI 채팅 및 에이전트 컴포넌트(무상태; 상태와 전송은 직접 관리)',
+            ': {aiComponentCount}개 AI 채팅 및 에이전트 컴포넌트(무상태; 상태와 전송은 직접 관리)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme()와 CSS 변수 토큰 계약 기반 프리셋',
+            ': createTheme()와 CSS 변수 토큰 계약 기반 프리셋',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -874,11 +874,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             ', ',
             { code: '@slipstream-ui/i18n' },
-            ' — 같은 매니페스트를 공유하는 설치, 레지스트리, 에이전트, 로캘 헬퍼',
+            ': 같은 매니페스트를 공유하는 설치, 레지스트리, 에이전트, 로캘 헬퍼',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — 지금 읽고 있는 문서와 참조 대시보드로, 둘 다 이 라이브러리로 만들어졌습니다',
+            ': 지금 읽고 있는 문서와 참조 대시보드로, 둘 다 이 라이브러리로 만들어졌습니다',
           ],
         ],
       },
@@ -927,7 +927,7 @@ export const introduction: DocsCopyByLocale = {
           {
             href: '/docs/installation',
             title: '설치',
-            body: '패키지, CLI 또는 shadcn 호환 레지스트리 — 워크플로를 선택하세요.',
+            body: '패키지, CLI 또는 shadcn 호환 레지스트리: 워크플로를 선택하세요.',
             index: '01',
           },
           {
@@ -1022,16 +1022,16 @@ export const introduction: DocsCopyByLocale = {
     whatsNew: 'Что нового →',
     title: 'Введение',
     lead: [
-      'Slipstream UI — React-библиотека компонентов, созданная для ИИ. Каждый компонент поставляется с ',
+      'Slipstream UI: React-библиотека компонентов, созданная для ИИ. Каждый компонент поставляется с ',
       { code: 'COMPONENT_MANIFEST' },
-      ' — машиночитаемой спецификацией, которая позволяет агентам вроде Claude, Cursor и Copilot генерировать правильный интерфейс с первого раза.',
+      ': машиночитаемой спецификацией, которая позволяет агентам вроде Claude, Cursor и Copilot генерировать правильный интерфейс с первого раза.',
     ],
     blocks: [
       { kind: 'h2', text: 'Чем это отличается?' },
       {
         kind: 'p',
         parts: [
-          'Традиционные библиотеки пишут документацию для людей и надеются, что модели разберутся по обучающим данным — отсюда и берутся выдуманные props. Slipstream документирует для обоих: людям достаётся этот сайт, агентам — манифесты по MCP, канонические markdown-маршруты и инструмент ',
+          'Традиционные библиотеки пишут документацию для людей и надеются, что модели разберутся по обучающим данным: отсюда и берутся выдуманные props. Slipstream документирует для обоих: людям достаётся этот сайт, агентам: манифесты по MCP, канонические markdown-маршруты и инструмент ',
           { code: 'validate_usage' },
           ', который проверяет результат до публикации.',
         ],
@@ -1044,7 +1044,7 @@ export const introduction: DocsCopyByLocale = {
           { code: 'packages/core' },
           ' и ',
           { code: 'packages/ai' },
-          ', темы — в ',
+          ', темы: в ',
           { code: '@slipstream-ui/themes' },
           '. Каждый компонент проходит один и тот же конвейер, и CI это обеспечивает:',
         ],
@@ -1055,15 +1055,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} компонентов: атомы, молекулы, оверлеи, формы, отображение данных, chrome приложений и маркетинга, типографика контента',
+            ': {coreComponentCount} компонентов: атомы, молекулы, оверлеи, формы, отображение данных, chrome приложений и маркетинга, типографика контента',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} компонентов чата и ИИ-агентов (без состояния; состояние и транспорт — на вашей стороне)',
+            ': {aiComponentCount} компонентов чата и ИИ-агентов (без состояния; состояние и транспорт: на вашей стороне)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() и пресеты на основе контракта токенов CSS-переменных',
+            ': createTheme() и пресеты на основе контракта токенов CSS-переменных',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -1073,11 +1073,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             ', ',
             { code: '@slipstream-ui/i18n' },
-            ' — помощники для установки, реестра, агентов и локалей, использующие те же манифесты',
+            ': помощники для установки, реестра, агентов и локалей, использующие те же манифесты',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — документация, которую вы читаете, и эталонная панель, обе собраны на этой библиотеке',
+            ': документация, которую вы читаете, и эталонная панель, обе собраны на этой библиотеке',
           ],
         ],
       },
@@ -1114,7 +1114,7 @@ export const introduction: DocsCopyByLocale = {
       {
         kind: 'p',
         parts: [
-          'Полные инструкции по настройке — в разделе ',
+          'Полные инструкции по настройке: в разделе ',
           { link: { href: '/docs/installation', text: 'Установка' } },
           '.',
         ],
@@ -1126,7 +1126,7 @@ export const introduction: DocsCopyByLocale = {
           {
             href: '/docs/installation',
             title: 'Установка',
-            body: 'Пакеты, CLI или реестр, совместимый с shadcn, — выберите свой сценарий.',
+            body: 'Пакеты, CLI или реестр, совместимый с shadcn,: выберите свой сценарий.',
             index: '01',
           },
           {
@@ -1155,7 +1155,7 @@ export const introduction: DocsCopyByLocale = {
         parts: [
           'Slipstream UI следует ',
           { strong: 'семантическому версионированию' },
-          '. Текущая мажорная версия — ',
+          '. Текущая мажорная версия: ',
           { strong: '0.x' },
           ', поэтому API может меняться между минорными релизами, пока библиотека движется к 1.0.',
         ],
@@ -1223,14 +1223,14 @@ export const introduction: DocsCopyByLocale = {
     lead: [
       'Slipstream UI مكتبة مكونات React موجهة للذكاء الاصطناعي. يأتي كل مكوّن مع ',
       { code: 'COMPONENT_MANIFEST' },
-      ' — مواصفة قابلة للقراءة آليًا تتيح لوكلاء البرمجة مثل Claude وCursor وCopilot توليد واجهة صحيحة من المرة الأولى.',
+      ': مواصفة قابلة للقراءة آليًا تتيح لوكلاء البرمجة مثل Claude وCursor وCopilot توليد واجهة صحيحة من المرة الأولى.',
     ],
     blocks: [
       { kind: 'h2', text: 'ما الذي يميزها؟' },
       {
         kind: 'p',
         parts: [
-          'توثّق المكتبات التقليدية للبشر وتأمل أن يستنتج النماذج من بيانات التدريب — ومن هنا تأتي الخصائص المتوهمة. أما Slipstream فتوثّق لكليهما: يحصل البشر على هذا الموقع، ويحصل الوكلاء على المواصفات عبر MCP ومسارات markdown المعتمدة وأداة ',
+          'توثّق المكتبات التقليدية للبشر وتأمل أن يستنتج النماذج من بيانات التدريب: ومن هنا تأتي الخصائص المتوهمة. أما Slipstream فتوثّق لكليهما: يحصل البشر على هذا الموقع، ويحصل الوكلاء على المواصفات عبر MCP ومسارات markdown المعتمدة وأداة ',
           { code: 'validate_usage' },
           ' التي تتحقق من مخرجاتهم قبل النشر.',
         ],
@@ -1254,15 +1254,15 @@ export const introduction: DocsCopyByLocale = {
         items: [
           [
             { code: '@slipstream-ui/core' },
-            ' — {coreComponentCount} مكوّنًا: الذرات والجزيئات والطبقات والنماذج وعرض البيانات وهيكل التطبيقات والتسويق وتنسيق المحتوى',
+            ': {coreComponentCount} مكوّنًا: الذرات والجزيئات والطبقات والنماذج وعرض البيانات وهيكل التطبيقات والتسويق وتنسيق المحتوى',
           ],
           [
             { code: '@slipstream-ui/ai' },
-            ' — {aiComponentCount} مكوّنًا للدردشة ووكلاء الذكاء الاصطناعي (بلا حالة؛ الحالة والنقل مسؤوليتك)',
+            ': {aiComponentCount} مكوّنًا للدردشة ووكلاء الذكاء الاصطناعي (بلا حالة؛ الحالة والنقل مسؤوليتك)',
           ],
           [
             { code: '@slipstream-ui/themes' },
-            ' — createTheme() وإعدادات مسبقة على عقد رموز بمتغيرات CSS',
+            ': createTheme() وإعدادات مسبقة على عقد رموز بمتغيرات CSS',
           ],
           [
             { code: '@slipstream-ui/cli' },
@@ -1272,11 +1272,11 @@ export const introduction: DocsCopyByLocale = {
             { code: '@slipstream-ui/mcp-server' },
             ' و',
             { code: '@slipstream-ui/i18n' },
-            ' — أدوات مساعدة للتثبيت والسجل والوكلاء واللغات تشترك في المواصفات نفسها',
+            ': أدوات مساعدة للتثبيت والسجل والوكلاء واللغات تشترك في المواصفات نفسها',
           ],
           [
             { strong: 'apps/docs · apps/app · apps/playground' },
-            ' — الوثائق التي تقرأها ولوحة مرجعية، وكلتاهما مبنية بهذه المكتبة',
+            ': الوثائق التي تقرأها ولوحة مرجعية، وكلتاهما مبنية بهذه المكتبة',
           ],
         ],
       },
@@ -1325,7 +1325,7 @@ export const introduction: DocsCopyByLocale = {
           {
             href: '/docs/installation',
             title: 'التثبيت',
-            body: 'حزم أو CLI أو سجل متوافق مع shadcn — اختر سير عملك.',
+            body: 'حزم أو CLI أو سجل متوافق مع shadcn: اختر سير عملك.',
             index: '01',
           },
           {
@@ -1383,7 +1383,7 @@ export const introduction: DocsCopyByLocale = {
           { code: 'COMPONENT_MANIFEST' },
           ' يحوي حقل ',
           { code: 'version' },
-          '. يُتحقق من مخطط المواصفة في CI — تُفحص مخططات الخصائص وأنواع TypeScript والمواصفات بحثًا عن أي انحراف في كل إيداع.',
+          '. يُتحقق من مخطط المواصفة في CI: تُفحص مخططات الخصائص وأنواع TypeScript والمواصفات بحثًا عن أي انحراف في كل إيداع.',
         ],
       },
       {

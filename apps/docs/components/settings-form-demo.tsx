@@ -10,7 +10,7 @@ type FormErrors = {
 
 /**
  * Live demo of the settings form template: FormField error wiring, switch
- * rows, and a success state — all validation runs client-side.
+ * rows, and a success state: all validation runs client-side.
  */
 export function SettingsFormDemo() {
   const [name, setName] = useState('Ada Lovelace');
@@ -58,7 +58,7 @@ export function SettingsFormDemo() {
         id="sf-email"
         label="Email"
         error={errors.email}
-        hint="Used for account notices — never shared."
+        hint="Used for account notices: never shared."
         required
       >
         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
@@ -87,7 +87,7 @@ export function SettingsFormDemo() {
 
       <div className="flex items-center gap-3">
         <Button type="submit">Save settings</Button>
-        <p className="text-xs text-muted-foreground">Try submitting — the email is invalid.</p>
+        <p className="text-xs text-muted-foreground">Try submitting: the email is invalid.</p>
       </div>
     </form>
   );

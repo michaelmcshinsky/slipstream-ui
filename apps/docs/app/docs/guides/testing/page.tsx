@@ -21,7 +21,7 @@ export default function TestingGuidePage() {
         JSX). Slipstream ships tooling for all three.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Layer 1 — jest-axe</h2>
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Layer 1: jest-axe</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Every component in the library ships an axe suite; do the same for your compositions. The
         three states that matter for chat UIs: resting, streaming, and error.
@@ -57,7 +57,7 @@ describe('ChatSurface', () => {
       </div>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
-        Layer 2 — interaction tests
+        Layer 2: interaction tests
       </h2>
       <div className="mt-4">
         <CodeBlock
@@ -84,13 +84,13 @@ it('renders a retry card when the stream fails', async () => {
         />
       </div>
       <p className="mt-3 text-sm text-muted-foreground">
-        jsdom lacks scroll APIs — mock them once in setup (the ai package does:{' '}
+        jsdom lacks scroll APIs: mock them once in setup (the ai package does:{' '}
         <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">Element.prototype.scrollIntoView = vi.fn()</code>,{' '}
         <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">scrollTo = vi.fn()</code>).
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
-        Layer 3 — spec drift in CI
+        Layer 3: spec drift in CI
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         The library enforces manifest ↔ TypeScript sync; your app can enforce the same idea for the
@@ -117,12 +117,12 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
       </div>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
-        Bonus — validate agent-written JSX
+        Bonus: validate agent-written JSX
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         If your pipeline lets an agent generate UI, run{' '}
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">validate_usage</code> on
-        the result before merge — the same MCP tool, called as a step:
+        the result before merge: the same MCP tool, called as a step:
       </p>
       <div className="mt-4">
         <CodeBlock
@@ -151,7 +151,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
           />
         </div>
         <p className="mt-3 text-sm text-muted-foreground">
-          This is exactly what the Slipstream repo runs — see{' '}
+          This is exactly what the Slipstream repo runs: see{' '}
           <a
             href="https://github.com/michaelmcshinsky/slipstream-ui/blob/main/.github/workflows/ci.yml"
             target="_blank"

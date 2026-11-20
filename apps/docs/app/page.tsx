@@ -9,9 +9,9 @@ import { getMarketingCopy } from '@/lib/marketing';
 
 export const metadata: Metadata = withSeo('/', {
   // Absolute so the layout's "%s · Slipstream UI" template doesn't double the brand.
-  title: { absolute: 'Slipstream UI — the AI-first React component library' },
+  title: { absolute: 'Slipstream UI: the AI-first React component library' },
   description:
-    'AI-native React components with machine-readable specs, an MCP server, and a usage validator. Stateless, accessible, Tailwind-native — your AI writes correct UI the first time.',
+    'AI-native React components with machine-readable specs, an MCP server, and a usage validator. Stateless, accessible, Tailwind-native: your AI writes correct UI the first time.',
   alternates: { canonical: '/' },
 });
 

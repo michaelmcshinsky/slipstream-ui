@@ -18,8 +18,8 @@ export default function StateThreadsGuidePage() {
       <p className="mt-3 max-w-3xl text-lg leading-relaxed text-muted-foreground">
         Slipstream components are <strong className="text-foreground">stateless</strong>: they render
         the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">messages</code> you
-        pass and emit actions through callbacks. Everything else — threads, persistence, optimistic
-        updates — is your store. This guide is the recommended shape for that store.
+        pass and emit actions through callbacks. Everything else (threads, persistence, optimistic
+        updates) is your store. This guide is the recommended shape for that store.
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The message shape</h2>
@@ -27,16 +27,16 @@ export default function StateThreadsGuidePage() {
         <CodeBlock
           language="typescript"
           code={`type Message = {
-  id: string;                    // stable — used as React key, streaming target, error map key
+  id: string;                    // stable: used as React key, streaming target, error map key
   role: 'user' | 'assistant' | 'system' | 'tool';
-  content: string;               // markdown is fine — Response renders it
+  content: string;               // markdown is fine: Response renders it
   timestamp?: Date;
   metadata?: Record<string, unknown>;   // toolCalls, sources, branch info…
 };`}
         />
       </div>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-        <li>Never reuse ids — streaming, retry cards, and error maps all key off them.</li>
+        <li>Never reuse ids: streaming, retry cards, and error maps all key off them.</li>
         <li>Put auxiliary data (tool calls, citations) in <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">metadata</code>, not in content markup.</li>
         <li>Append optimistically for the user turn; replace-or-fill the assistant turn while streaming.</li>
       </ul>
@@ -54,7 +54,7 @@ export default function StateThreadsGuidePage() {
   errors?: Record<string, string>;   // messageId -> retryable failure
 };
 
-// One hook, plain state — swap for Zustand/Jotai/Redux/SWR freely.
+// One hook, plain state: swap for Zustand/Jotai/Redux/SWR freely.
 function useThread(initial: Thread) {
   const [thread, setThread] = useState(initial);
   const patch = (id: string, content: string) =>
@@ -86,7 +86,7 @@ function prependHistory(thread: Thread, older: Message[]): Thread {
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Multi-thread structure</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
-        Slipstream has no Thread component baked in — a thread list is just data next to the active
+        Slipstream has no Thread component baked in: a thread list is just data next to the active
         thread. The pattern used by the{' '}
         <Link href="/docs/templates" className="font-medium text-primary underline underline-offset-2">templates</Link>:
       </p>
@@ -110,7 +110,7 @@ const active = threads.find((t) => t.id === activeId);
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Branching</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Regeneration should <em>add</em> a variant, not overwrite. Store variants per message id and
-        hand the active variant to the list —{' '}
+        hand the active variant to the list.{' '}
         <Link href="/docs/components/branch" className="font-medium text-primary underline underline-offset-2">Branch</Link>{' '}
         renders the N/M navigator. Full recipe:{' '}
         <Link href="/docs/patterns#multi-branch" className="font-medium text-primary underline underline-offset-2">multi-branch conversations</Link>.
@@ -119,7 +119,7 @@ const active = threads.find((t) => t.id === activeId);
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
         <h2 className="font-semibold">Rules of thumb</h2>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
-          <li>Components never fetch — your store owns transport and persistence.</li>
+          <li>Components never fetch: your store owns transport and persistence.</li>
           <li>Serialize your own state; nothing Slipstream renders is required to round-trip.</li>
           <li>Stream into one id, fail into an error map keyed by the same id, retry by re-sending that id.</li>
         </ul>

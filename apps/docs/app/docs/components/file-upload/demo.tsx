@@ -47,7 +47,7 @@ export default function FileUploadPage() {
   accept=".pdf,.csv"
   progress={{ [files[0]?.name]: 42 }}
 />`}
-        usage={`// Files are plain File objects — you own the transport. Key progress by
+        usage={`// Files are plain File objects: you own the transport. Key progress by
 // file name and pass it in while uploading.`}
         types={`type FileUploadProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'> & {
   files?: File[];

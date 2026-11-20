@@ -59,7 +59,7 @@ function groupHasActive(group: NavGroup, pathname: string): boolean {
 export function Sidebar() {
   const pathname = usePathname();
   const { t } = useI18n();
-  // Explicit user toggles keyed by `section` or `section/group` — absence
+  // Explicit user toggles keyed by `section` or `section/group`: absence
   // falls back to the defaults below.
   const [toggled, setToggled] = useState<Record<string, boolean>>({});
   // Reveal the (otherwise transparent) scrollbar while the reader scrolls.
@@ -85,7 +85,7 @@ export function Sidebar() {
       const updated: Record<string, boolean> = { ...prev };
       if (next) {
         // Accordion behavior (item 0): opening one closes the others at the
-        // same level — sections close sections, groups close groups.
+        // same level: sections close sections, groups close groups.
         for (const existing of Object.keys(updated)) {
           if (existing !== key && !existing.includes('/') === isSection) delete updated[existing];
         }

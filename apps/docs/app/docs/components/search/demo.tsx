@@ -33,7 +33,7 @@ export default function SearchPage() {
       accessibility={[
         'Combobox pattern: aria-expanded/aria-controls/aria-activedescendant on the input.',
         'Keyboard: ArrowDown opens and moves, Home/End jump, Enter selects, Escape closes.',
-        'Option clicks keep focus in the input — typing continues immediately.',
+        'Option clicks keep focus in the input: typing continues immediately.',
         'The listbox portals with fixed positioning, so scrollable parents never clip it.',
       ]}
       browserNotes={[
@@ -44,7 +44,7 @@ export default function SearchPage() {
         title="Interactive"
         preview={
           <div className="w-full max-w-sm space-y-4">
-            <FormField id="search-assignee" label="Assign to" hint="Type to filter — arrows + Enter work too">
+            <FormField id="search-assignee" label="Assign to" hint="Type to filter: arrows + Enter work too">
               <Search options={PEOPLE} aria-label="Assignee" onValueChange={setAssignee} placeholder="Search people…" />
             </FormField>
             <p className="text-xs text-muted-foreground">

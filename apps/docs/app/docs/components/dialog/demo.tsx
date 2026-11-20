@@ -21,7 +21,7 @@ export default function DialogPage() {
         { name: 'onOpenChange', type: '(open: boolean) => void', defaultValue: 'required', description: 'Open/close requests' },
         { name: 'title', type: 'string', description: 'Accessible name + default header title (optional with a composed header)' },
         { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | '2xl'", defaultValue: "'md'", description: 'Panel max-width preset' },
-        { name: 'header', type: 'ReactNode', description: 'Replaces the default header — compose DialogHeader/DialogTitle/DialogDescription' },
+        { name: 'header', type: 'ReactNode', description: 'Replaces the default header: compose DialogHeader/DialogTitle/DialogDescription' },
         { name: 'footer', type: 'ReactNode', description: 'Action row under the body' },
         { name: 'scrollable', type: 'boolean', defaultValue: 'false', description: 'Cap the body height and scroll inside the panel' },
         { name: 'description', type: 'string', defaultValue: '-', description: 'Optional supporting text' },
@@ -80,7 +80,7 @@ export default function DialogPage() {
               open={openNoClose}
               onOpenChange={setOpenNoClose}
               title="Confirm in the body"
-              description="showClose hides the header ✕ — dismissal is via Escape, backdrop, or an explicit button below."
+              description="showClose hides the header ✕: dismissal is via Escape, backdrop, or an explicit button below."
               showClose={false}
             >
               <div className="flex justify-end gap-2">
@@ -165,7 +165,7 @@ export default function DialogPage() {
   …
 </Dialog>
 
-{/* Fully composed header — DialogTitle/Description pick up the aria ids */}
+{/* Fully composed header: DialogTitle/Description pick up the aria ids */}
 <Dialog
   open={open}
   onOpenChange={setOpen}

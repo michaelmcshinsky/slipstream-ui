@@ -10,7 +10,7 @@ export default function FormFieldPage() {
       description="Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'id', type: 'string', defaultValue: 'required', description: "The control's id — shared with the label's htmlFor and hint/error ids." },
+        { name: 'id', type: 'string', defaultValue: 'required', description: "The control's id: shared with the label's htmlFor and hint/error ids." },
         { name: 'label', type: 'string', defaultValue: 'required', description: 'Visible label text (kept for screen readers when labelHidden).' },
         { name: 'hint', type: 'string', description: 'Helper text under the control, wired via aria-describedby.' },
         { name: 'error', type: 'string', description: 'Validation error; replaces the hint, sets aria-invalid, announced via role=alert.' },
@@ -19,16 +19,16 @@ export default function FormFieldPage() {
         { name: 'labelPlacement', type: "'top' | 'left'", defaultValue: "'top'", description: 'Stack the label above the control or inline it to the left (fixed label column).' },
         { name: 'tooltip', type: 'string', description: 'Info icon rendered after the label; opens a tooltip with this text.' },
         { name: 'trailing', type: 'ReactNode', description: "Slot pinned to the far right of the label row (badge, link, action)." },
-        { name: 'children', type: 'ReactNode', description: 'Exactly one control element — id/aria wiring is cloned onto it.' },
+        { name: 'children', type: 'ReactNode', description: 'Exactly one control element: id/aria wiring is cloned onto it.' },
       ]}
       accessibility={[
         'Label pairs via htmlFor/id automatically.',
-        'aria-describedby points at the hint — or the error when one is present.',
+        'aria-describedby points at the hint: or the error when one is present.',
         'Errors render with role=alert and flip aria-invalid on the control.',
         'The required asterisk is aria-hidden; native required comes from the control itself.',
       ]}
       browserNotes={[
-        'id/aria cloning and role=alert are plain DOM — works in every supported browser.',
+        'id/aria cloning and role=alert are plain DOM: works in every supported browser.',
       ]}
     >
       <DemoCard
@@ -47,18 +47,18 @@ export default function FormFieldPage() {
               <Input type="password" defaultValue="short" />
             </FormField>
             <FormField id="ff-bio" label="Short bio" hint="Max 280 characters" labelHidden>
-              <Textarea placeholder="Visible label is hidden — click here to hear it read" maxLength={280} />
+              <Textarea placeholder="Visible label is hidden: click here to hear it read" maxLength={280} />
             </FormField>
           </div>
         }
         code={`import { FormField, Input, Textarea } from '@slipstream-ui/core';
 
-{/* Hint state — aria-describedby points at the hint */}
+{/* Hint state: aria-describedby points at the hint */}
 <FormField id="email" label="Email address" hint="We never share your email" required>
   <Input type="email" autoComplete="email" />
 </FormField>
 
-{/* Error state — hint is replaced, aria-invalid is set, role=alert announces */}
+{/* Error state: hint is replaced, aria-invalid is set, role=alert announces */}
 <FormField id="password" label="Password" error="Password must be at least 8 characters" required>
   <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 </FormField>
@@ -91,7 +91,7 @@ export default function FormFieldPage() {
             <FormField id="ff-name" label="Full name" required>
               <Input autoComplete="name" placeholder="Jane Doe" />
             </FormField>
-            <FormField id="ff-org" label="Organization" hint="Optional — used on invoices">
+            <FormField id="ff-org" label="Organization" hint="Optional: used on invoices">
               <Input placeholder="Analytical Engines Inc." />
             </FormField>
             <FormField id="ff-website" label="Website" error="Enter a valid URL (https://…)">
@@ -111,7 +111,7 @@ export default function FormFieldPage() {
   <FormField id="name" label="Full name" required>
     <Input autoComplete="name" />
   </FormField>
-  <FormField id="org" label="Organization" hint="Optional — used on invoices">
+  <FormField id="org" label="Organization" hint="Optional: used on invoices">
     <Input />
   </FormField>
   <FormField id="website" label="Website" error={errors.website}>

@@ -35,7 +35,7 @@ const SEED: Thread[] = [
 ];
 
 const REPLIES = [
-  'Thread-scoped reply — only the ACTIVE thread streams; background threads stay frozen snapshots.',
+  'Thread-scoped reply: only the ACTIVE thread streams; background threads stay frozen snapshots.',
   'State lives in your store: threads[], activeId. Components just render the active one.',
   'Switch threads mid-stream and back: the streaming id travels with its own thread.',
 ];
@@ -106,7 +106,7 @@ export function MultiThreadDemo() {
         <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-        <span className="ml-3 text-xs text-muted-foreground">multi-thread pattern — threads[] + activeId</span>
+        <span className="ml-3 text-xs text-muted-foreground">multi-thread pattern: threads[] + activeId</span>
       </div>
       <div className="flex h-[340px]">
         <div className="w-40 shrink-0 space-y-1 border-r border-border p-2">

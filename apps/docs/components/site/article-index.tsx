@@ -20,7 +20,7 @@ function formatDate(iso: string): string {
 }
 
 /**
- * Filterable list of article cards. Receives summaries only — the markdown
+ * Filterable list of article cards. Receives summaries only: the markdown
  * bodies stay on the server.
  */
 export function ArticleIndex({ articles }: { articles: ArticleSummary[] }) {

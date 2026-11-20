@@ -166,7 +166,7 @@ ${variantCode}
         }
         code={`import { Button } from '@slipstream-ui/core';
 
-{/* asChild keeps button styling but renders the child element —
+{/* asChild keeps button styling but renders the child element,
     ideal for Next.js <Link> or plain anchors. */}
 <Button asChild>
   <a href="/docs">Read the docs</a>

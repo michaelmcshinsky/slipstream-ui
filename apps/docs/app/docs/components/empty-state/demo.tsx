@@ -9,7 +9,7 @@ export default function EmptyStatePage() {
     <ComponentPage
       id="empty-state"
       title="EmptyState"
-      description="Placeholder for empty collections, zero-result searches and unconfigured features — title, description and action slots."
+      description="Placeholder for empty collections, zero-result searches and unconfigured features: title, description and action slots."
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Primary message.' },
@@ -19,7 +19,7 @@ export default function EmptyStatePage() {
         { name: 'secondaryAction', type: 'ReactNode', description: 'Secondary action beside the primary one.' },
         { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Compact padding for panels and table bodies.' },
       ]}
-      accessibility={['Actions are real controls, so they stay focusable and announced.', 'Use Alert for failures — empty is a normal state, not an error.']}
+      accessibility={['Actions are real controls, so they stay focusable and announced.', 'Use Alert for failures: empty is a normal state, not an error.']}
     >
       <DemoCard
         title="Empty collection"

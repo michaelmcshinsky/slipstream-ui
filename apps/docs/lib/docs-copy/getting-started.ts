@@ -1,7 +1,7 @@
 import type { DocsCopyByLocale } from './types';
 
 /**
- * Code samples are identifiers and sample values — English in every locale.
+ * Code samples are identifiers and sample values: English in every locale.
  * Only the surrounding prose is translated.
  */
 const CLI_CODE = `npx @slipstream-ui/cli@latest init`;
@@ -944,7 +944,7 @@ export const gettingStarted: DocsCopyByLocale = {
       {
         kind: 'p',
         parts: [
-          'Самый короткий путь — CLI: он определяет Next.js или Vite, создаёт ',
+          'Самый короткий путь: CLI: он определяет Next.js или Vite, создаёт ',
           { code: 'slipstream.config.json' },
           ', каталог компонентов и внедряет переменные темы.',
         ],
@@ -992,14 +992,14 @@ export const gettingStarted: DocsCopyByLocale = {
       {
         kind: 'p',
         parts: [
-          'Начните со структуры страницы: Section отвечает за полосу, Hero — за заголовок, а Card и Button — за контент. Провайдеры и глобальное состояние не нужны.',
+          'Начните со структуры страницы: Section отвечает за полосу, Hero: за заголовок, а Card и Button: за контент. Провайдеры и глобальное состояние не нужны.',
         ],
       },
       heroCode,
       {
         kind: 'p',
         parts: [
-          'Нужна другая форма? У Hero есть раздельные, центрированные, стековые и наложенные макеты; живые примеры — на ',
+          'Нужна другая форма? У Hero есть раздельные, центрированные, стековые и наложенные макеты; живые примеры: на ',
           { link: { href: '/docs/components/hero', text: 'странице Hero' } },
           '. Каждая страница компонента следует одной структуре: превью / код / использование / типы.',
         ],
@@ -1035,11 +1035,11 @@ export const gettingStarted: DocsCopyByLocale = {
           },
           {
             title: 'Переменные темы применяются ко всему документу',
-            body: 'Не задавайте переменные темы на document.documentElement из демо или компонента. Ограничьте их корнем приложения или обёрткой. Компонент ThemeShowcase — эталон для ограниченных превью.',
+            body: 'Не задавайте переменные темы на document.documentElement из демо или компонента. Ограничьте их корнем приложения или обёрткой. Компонент ThemeShowcase: эталон для ограниченных превью.',
           },
           {
             title: 'Клиентский хук падает в серверном компоненте',
-            body: 'Интерактивные компоненты (RangeSlider, TableOfContents, Stepper с onStepClick) — клиентские. Поместите их в файл с "use client" или импортируйте через клиентскую границу.',
+            body: 'Интерактивные компоненты (RangeSlider, TableOfContents, Stepper с onStepClick): клиентские. Поместите их в файл с "use client" или импортируйте через клиентскую границу.',
           },
           {
             title: 'Агент по-прежнему выдумывает props',

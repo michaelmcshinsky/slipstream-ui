@@ -40,7 +40,7 @@ export default function InputGroupPage() {
         { name: 'children', type: 'ReactNode', description: 'Nested field (Input/Textarea/Select) plus any InputGroupAddon slots.' },
       ]}
       accessibility={[
-        'The group is focusable chrome only — the nested input keeps focus, its label association, and keyboard behavior.',
+        'The group is focusable chrome only: the nested input keeps focus, its label association, and keyboard behavior.',
         'Mark decorative addons aria-hidden; include meaningful units in the field’s accessible name (aria-label="Amount in PLN").',
         'Disable addon buttons yourself when the field is disabled.',
       ]}
@@ -116,7 +116,7 @@ export default function InputGroupPage() {
   </InputGroupAddon>
 </InputGroup>`}
         usage={`// The outline is the affordance; the trailing button is the action.
-// The icon is decorative (aria-hidden) — the input carries the name.`}
+// The icon is decorative (aria-hidden): the input carries the name.`}
       />
 
       <DemoCard
@@ -147,7 +147,7 @@ export default function InputGroupPage() {
     <InputGroupAddon side="right" variant="muted">PLN</InputGroupAddon>
   </InputGroup>
 </FormField>`}
-        usage={`// Units belong in the group, not as placeholder text — the value
+        usage={`// Units belong in the group, not as placeholder text: the value
 // stays parseable and the label stays clean.`}
       />
     </ComponentPage>

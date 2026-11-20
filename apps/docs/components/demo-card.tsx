@@ -74,7 +74,7 @@ export function DemoCard({
           ))}
         </div>
         {/* Title sits OUTSIDE the tablist so it can never read as (or be
-            mistaken for) a clickable tab — demos titled "Usage" looked like
+            mistaken for) a clickable tab: demos titled "Usage" looked like
             a dead tab next to the real Usage tab. */}
         {title && <span className="shrink-0 text-xs text-muted-foreground">{title}</span>}
       </div>

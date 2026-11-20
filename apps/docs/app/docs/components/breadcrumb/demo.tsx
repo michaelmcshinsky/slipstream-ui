@@ -17,12 +17,12 @@ export default function BreadcrumbPage() {
       propsRows={[
         { name: 'items', type: 'BreadcrumbItem[]', description: 'Ordered breadcrumb items; the last is the current page.' },
         { name: 'separator', type: 'ReactNode', defaultValue: "'/'", description: 'Separator character between items.' },
-        { name: 'onItemClick', type: '(item, index) => void', description: 'Receives every link click and prevents default navigation — route with your own router, state machine, or analytics.' },
+        { name: 'onItemClick', type: '(item, index) => void', description: 'Receives every link click and prevents default navigation: route with your own router, state machine, or analytics.' },
       ]}
       accessibility={[
         'nav[aria-label=Breadcrumb] landmark for screen readers.',
         'Last item has aria-current=page.',
-        'onItemClick intercepts activation only — keyboard activation (Enter) fires it too.',
+        'onItemClick intercepts activation only: keyboard activation (Enter) fires it too.',
       ]}
     >
       <DemoCard
@@ -41,8 +41,8 @@ export default function BreadcrumbPage() {
             />
             <p className="text-xs text-muted-foreground" role="status">
               {lastClick
-                ? `Intercepted click — default navigation prevented for "${lastClick}".`
-                : 'Click Home or Docs — routing is intercepted by the callback.'}
+                ? `Intercepted click: default navigation prevented for "${lastClick}".`
+                : 'Click Home or Docs: routing is intercepted by the callback.'}
             </p>
           </div>
         }
@@ -57,7 +57,7 @@ export default function Example() {
         { label: 'Components' }, // no href = current page
       ]}
       onItemClick={(item, index) => {
-        // Default <a> navigation is prevented — route yourself
+        // Default <a> navigation is prevented: route yourself
         router.push(item.href!);
         track('breadcrumb_click', { item, index });
       }}

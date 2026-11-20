@@ -89,7 +89,7 @@ toast.error('Upload failed', 'Check your connection');
 toast.warning('Slow network', 'Retrying in 3s');
 toast.info('Heads up', 'New version available');
 toast({ title: 'Sticky', duration: 0 });`}
-        usage={`// Call from event handlers, data layers, or catch blocks — no hook,
+        usage={`// Call from event handlers, data layers, or catch blocks: no hook,
 // no provider required. Mount <Toaster /> once near the app root.
 //
 // Variant helpers: toast.success / error / warning / info

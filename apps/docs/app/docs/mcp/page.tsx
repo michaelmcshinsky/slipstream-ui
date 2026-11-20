@@ -118,7 +118,7 @@ list_components(package="@slipstream-ui/ai", tier="molecule")`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">search_components</h3>
         <p className="text-muted-foreground mb-4">
-          Semantic-ish keyword search over components by capability — faster than browsing when the
+          Semantic-ish keyword search over components by capability: faster than browsing when the
           agent knows what the UI should <em>do</em>, not what it is called.
         </p>
         <CodeBlock language="text" code={`// Find streaming-capable components
@@ -257,7 +257,7 @@ GET https://slipstreamui.com/registry/<id>.json`} />
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-          <li><strong>Zero Hallucination:</strong> AI agents get exact specifications, no guessing</li>
+          <li><strong>Exact specifications:</strong> agents read the prop schema, defaults, and anti-patterns instead of guessing</li>
           <li><strong>Real-time Updates:</strong> Always reflects the latest component API</li>
           <li><strong>Complete Information:</strong> Props, examples, accessibility, all in one query</li>
           <li><strong>Consistent Patterns:</strong> All agents follow the same usage patterns</li>

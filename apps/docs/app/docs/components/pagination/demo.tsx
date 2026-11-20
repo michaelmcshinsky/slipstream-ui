@@ -38,7 +38,7 @@ export default function PaginationPage() {
         preview={
           <div className="w-full space-y-5">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">showBoundaries — « jumps to page 1, » to page 10</span>
+              <span className="text-xs text-muted-foreground">showBoundaries: « jumps to page 1, » to page 10</span>
               <span className="font-mono text-xs text-muted-foreground">page {page} / 10</span>
             </div>
             <Pagination page={page} pageCount={10} onPageChange={setPage} showBoundaries />

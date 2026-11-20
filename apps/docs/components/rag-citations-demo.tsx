@@ -42,7 +42,7 @@ export function RagCitationsDemo() {
           Slipstream keeps agents honest by shipping a machine-readable spec with every component
           <InlineCitation source={SOURCES[0]}>[1]</InlineCitation>. Before emitting code, your agent
           can call <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">validate_usage</code>
-          <InlineCitation source={SOURCES[1]}>[2]</InlineCitation> to reject hallucinated props —
+          <InlineCitation source={SOURCES[1]}>[2]</InlineCitation> to reject hallucinated props,
           and streamed markdown renders cleanly even while tokens are still arriving
           <InlineCitation source={SOURCES[2]}>[3]</InlineCitation>.
         </p>
@@ -54,7 +54,7 @@ export function RagCitationsDemo() {
 
       {followUp && (
         <p className="border-t border-border pt-3 text-xs text-muted-foreground">
-          <span className="font-medium text-foreground">Next question:</span> {followUp} — wire this
+          <span className="font-medium text-foreground">Next question:</span> {followUp}: wire this
           to your transport to continue the conversation.
         </p>
       )}

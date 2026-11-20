@@ -13,7 +13,7 @@ export const ar: MarketingCopy = {
     starOnGithub: 'أضف نجمة على GitHub',
     copy: 'نسخ',
     copied: 'تم النسخ',
-    liveDemoNote: 'عرض حي — مبني بالكامل بـ Slipstream UI',
+    liveDemoNote: 'عرض حي: مبني بالكامل بـ Slipstream UI',
     welcomeTitle: 'اسأل عن Slipstream',
     welcomeSuggestions: ['ما الذي يميزه؟', 'كيف يعمل البيان؟'],
     promptPlaceholder: 'جرّبني…',
@@ -30,7 +30,7 @@ export const ar: MarketingCopy = {
       },
       {
         title: 'أداة MCP للتحقق من الاستخدام',
-        body: 'يتحقق الوكلاء من JSX المولّد مقابل البيان قبل الإخراج — يمكن كشف الخصائص المختلقة والحقول المطلوبة الناقصة قبل النشر.',
+        body: 'يتحقق الوكلاء من JSX المولّد مقابل البيان قبل الإخراج: يمكن كشف الخصائص المختلقة والحقول المطلوبة الناقصة قبل النشر.',
       },
       {
         title: 'سجل متوافق مع shadcn',
@@ -38,7 +38,7 @@ export const ar: MarketingCopy = {
       },
       {
         title: 'بلا حالة تمامًا',
-        body: 'لا ارتباط ببيئة تشغيل. استخدم أي خادم خلفي — Vercel AI SDK أو LangGraph أو بث خام. المكونات تعرض؛ وأنت تملك الحالة.',
+        body: 'لا ارتباط ببيئة تشغيل. استخدم أي خادم خلفي: Vercel AI SDK أو LangGraph أو بث خام. المكونات تعرض؛ وأنت تملك الحالة.',
       },
       {
         title: 'إمكانية وصول مختبَرة',
@@ -46,7 +46,7 @@ export const ar: MarketingCopy = {
       },
       {
         title: 'قابل للتخصيص حتى الرمز',
-        body: 'نداء واحد لـ createTheme() يُصدر كل متغير CSS. نصف القطر والوضع الداكن والتبديل الفوري — بلا إعادة بناء.',
+        body: 'نداء واحد لـ createTheme() يُصدر كل متغير CSS. نصف القطر والوضع الداكن والتبديل الفوري: بلا إعادة بناء.',
       },
     ],
     howHeading: 'كيف يستخدمه ذكاؤك الاصطناعي',
@@ -58,7 +58,7 @@ export const ar: MarketingCopy = {
       },
       {
         title: 'استعلام المواصفة',
-        body: 'يستدعي الوكيل get_component_manifest وget_usage_examples — خصائص دقيقة وقيم افتراضية وأنماط مضادة.',
+        body: 'يستدعي الوكيل get_component_manifest وget_usage_examples: خصائص دقيقة وقيم افتراضية وأنماط مضادة.',
       },
       {
         title: 'تحقق ذاتي',
@@ -74,7 +74,7 @@ export const ar: MarketingCopy = {
       { title: '3. استخدام صحيح', note: 'مُتحقق منه مقابل العقد نفسه الذي تقدمه وثائقك وخادم MCP والسجل.' },
     ],
     themesHeading: 'سمات تأتي مع المكتبة',
-    themesIntro: 'تتضمن إعدادات Default وViolet وZinc. بدّل أدناه — هذه سمة حية وليست لقطة شاشة.',
+    themesIntro: 'تتضمن إعدادات Default وViolet وZinc. بدّل أدناه: هذه سمة حية وليست لقطة شاشة.',
     comparisonHeading: 'كيف يُقارن',
     comparisonIntro: 'مكتبات أخرى توثّق للبشر. Slipstream يوثّق لكليكما.',
     comparisonCapability: 'القدرة',
@@ -94,7 +94,7 @@ export const ar: MarketingCopy = {
       'الترخيص',
     ],
     comparisonFootnote:
-      'يعكس الوثائق العامة والحزم المنشورة لكل مشروع حتى نوفمبر 2026 · ✅ متوفر · 🟡 جزئي أو بنموذج مختلف · — غير متوفر لهذا الغرض',
+      'يعكس الوثائق العامة والحزم المنشورة لكل مشروع حتى نوفمبر 2026 · ✅ متوفر · 🟡 جزئي أو بنموذج مختلف ·: غير متوفر لهذا الغرض',
     comparisonCards: [
       {
         title: 'اختر Slipstream',
@@ -123,36 +123,36 @@ export const ar: MarketingCopy = {
         mui: 'مجموعة واجهة واسعة دون دردشة',
       },
       {
-        slipstream: 'نعم — الخصائص وإمكانية الوصول والأنماط المضادة',
-        shadcn: 'جزئيًا — registry.json (الملفات والاعتماديات)',
+        slipstream: 'نعم: الخصائص وإمكانية الوصول والأنماط المضادة',
+        shadcn: 'جزئيًا: registry.json (الملفات والاعتماديات)',
         assistantUi: 'لا',
         mui: 'لا',
       },
       {
-        slipstream: 'نعم — 6 أدوات منها validate_usage',
-        shadcn: 'جزئيًا — التصفح والبحث والتثبيت',
+        slipstream: 'نعم: 6 أدوات منها validate_usage',
+        shadcn: 'جزئيًا: التصفح والبحث والتثبيت',
         assistantUi: 'لا',
-        mui: 'جزئيًا — مهارات للوكلاء',
+        mui: 'جزئيًا: مهارات للوكلاء',
       },
-      { slipstream: 'نعم — validate_usage', shadcn: 'لا', assistantUi: 'لا', mui: 'لا' },
+      { slipstream: 'نعم: validate_usage', shadcn: 'لا', assistantUi: 'لا', mui: 'لا' },
       { slipstream: 'نعم', shadcn: 'نعم', assistantUi: 'نعم', mui: 'لا' },
       {
-        slipstream: 'نعم — /llm/*.md',
-        shadcn: 'جزئيًا — MDX في المستودع',
-        assistantUi: 'نعم — صفحات .md',
+        slipstream: 'نعم: /llm/*.md',
+        shadcn: 'جزئيًا: MDX في المستودع',
+        assistantUi: 'نعم: صفحات .md',
         mui: 'لا',
       },
       {
-        slipstream: 'نعم — {aiComponentCount} مدمجة',
-        shadcn: 'نعم — AI Elements (منفصلة)',
-        assistantUi: 'نعم — التركيز الأساسي',
+        slipstream: 'نعم: {aiComponentCount} مدمجة',
+        shadcn: 'نعم: AI Elements (منفصلة)',
+        assistantUi: 'نعم: التركيز الأساسي',
         mui: 'لا',
       },
       {
-        slipstream: 'بلا حالة — أحضر خادمك',
+        slipstream: 'بلا حالة: أحضر خادمك',
         shadcn: 'مكونات فقط',
         assistantUi: 'مهايئات وقت التشغيل (AI SDK وLangGraph ومخصصة)',
-        mui: 'لا ينطبق — لا مكونات دردشة',
+        mui: 'لا ينطبق: لا مكونات دردشة',
       },
       {
         slipstream: 'Tailwind + متغيرات CSS',
@@ -184,10 +184,10 @@ export const ar: MarketingCopy = {
     ],
     agentPathTitle: 'لمن يبني الوكلاء ←',
     agentPathBody:
-      'اربط خادم MCP بـ Claude Code أو Cursor، وشغّل validate_usage قبل الإخراج، أو قدّم llms.txt ومسارات markdown — ست أدوات وثلاثة مسارات استهلاك.',
+      'اربط خادم MCP بـ Claude Code أو Cursor، وشغّل validate_usage قبل الإخراج، أو قدّم llms.txt ومسارات markdown: ست أدوات وثلاثة مسارات استهلاك.',
     productPathTitle: 'لفرق المنتج ←',
     productPathBody:
-      'أطلق واجهة المحادثة الإنتاجية — markdown بالبث، وإيقاف التوليد، والاقتباسات، والموافقات — بمكونات بلا حالة وتغطية jest-axe وخادمك الخلفي.',
+      'أطلق واجهة المحادثة الإنتاجية: markdown بالبث، وإيقاف التوليد، والاقتباسات، والموافقات: بمكونات بلا حالة وتغطية jest-axe وخادمك الخلفي.',
     ctaHeading: 'أطلق واجهات الذكاء الاصطناعي أسرع',
     ctaBody:
       '{componentCount} مكونًا · {componentCount} مواصفة مقروءة آليًا · تحقق من الاستخدام المولّد قبل النشر.',
@@ -239,9 +239,9 @@ export const ar: MarketingCopy = {
         archivedOther: 'تمت أرشفة {count} من التشغيلات',
       },
       forms: {
-        selectMenuCaption: 'SelectMenu — خيارات غنية ومجموعات',
-        inputGroupCaption: 'InputGroup — إضافات مدمجة',
-        buttonGroupCaption: 'ButtonGroup — أجزاء مترابطة',
+        selectMenuCaption: 'SelectMenu: خيارات غنية ومجموعات',
+        inputGroupCaption: 'InputGroup: إضافات مدمجة',
+        buttonGroupCaption: 'ButtonGroup: أجزاء مترابطة',
         planLabel: 'الخطة',
         domainLabel: 'نطاق الموقع',
         viewModeLabel: 'وضع العرض',
@@ -284,7 +284,7 @@ export const ar: MarketingCopy = {
           billing: { label: 'الفوترة', description: 'الخطة والمقاعد' },
           review: { label: 'المراجعة' },
         },
-        summary: 'الخطوة {current} من {total} — {label}',
+        summary: 'الخطوة {current} من {total}: {label}',
         descriptionSuffix: ' ({description})',
         back: 'رجوع',
         next: 'التالي',
@@ -303,7 +303,7 @@ export const ar: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: 'مساعدو البرمجة جيدون في كتابة React، وسيئون في تذكر أسماء الخصائص الدقيقة والحقول المطلوبة وقواعد إمكانية الوصول لنظام تصميم لم يروه من قبل. الحل المعتاد هو سياق أطول أو README أكبر — وكلاهما يخرج عن الصواب فور تغيّر مكوّن.',
+            text: 'مساعدو البرمجة جيدون في كتابة React، وسيئون في تذكر أسماء الخصائص الدقيقة والحقول المطلوبة وقواعد إمكانية الوصول لنظام تصميم لم يروه من قبل. الحل المعتاد هو سياق أطول أو README أكبر: وكلاهما يخرج عن الصواب فور تغيّر مكوّن.',
           },
           {
             type: 'p',
@@ -356,7 +356,7 @@ export const ar: MarketingCopy = {
   },
   contact: {
     title: 'اتصل بنا',
-    description: 'تواصل مع القائمين على الصيانة عبر GitHub — بلاغات الأخطاء والأسئلة وبلاغات الأمان لكل منها قناة مخصصة.',
+    description: 'تواصل مع القائمين على الصيانة عبر GitHub: بلاغات الأخطاء والأسئلة وبلاغات الأمان لكل منها قناة مخصصة.',
     channels: [
       {
         heading: 'بلاغات الأخطاء',
@@ -473,8 +473,8 @@ export const ar: MarketingCopy = {
           {
             type: 'ul',
             items: [
-              '`slipstream-theme` — تفضيلك للوضع الفاتح/الداكن، حتى لا يعرض الموقع السمة الخاطئة.',
-              '`slipstream-consent` — اختيارك بشأن ملفات تعريف الارتباط، حتى لا نسأل مرة أخرى.',
+              '`slipstream-theme`: تفضيلك للوضع الفاتح/الداكن، حتى لا يعرض الموقع السمة الخاطئة.',
+              '`slipstream-consent`: اختيارك بشأن ملفات تعريف الارتباط، حتى لا نسأل مرة أخرى.',
             ],
           },
           { type: 'p', text: 'لا تُرسَل أي من القيمتين إلى خادم. مسح بيانات الموقع يعيد ضبطهما.' },

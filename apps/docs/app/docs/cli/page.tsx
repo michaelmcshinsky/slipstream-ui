@@ -19,8 +19,8 @@ const COMMANDS = [
       { flag: '-d, --defaults', effect: 'Skip the interactive flow and use default configuration. Also allows re-running init when slipstream.config.json already exists.' },
     ],
     creates: [
-      'slipstream.config.json — componentsDir, style, packages, detected framework',
-      'components/slipstream/ — destination for copied source components',
+      'slipstream.config.json: componentsDir, style, packages, detected framework',
+      'components/slipstream/: destination for copied source components',
       'CSS variable theme block appended to your global stylesheet (Next/Vite candidates)',
     ],
     example: 'npx @slipstream-ui/cli@latest init --defaults',
@@ -29,7 +29,7 @@ const COMMANDS = [
     name: 'add',
     synopsis: 'npx @slipstream-ui/cli@latest add <component> [options]',
     description:
-      "Copy a component's real source files, the sibling components it imports, the shared utils, and its COMPONENT_MANIFEST into components/slipstream/. You own the code after it lands - edit it freely.",
+      "Copy a component's real source files, the sibling components it imports, the shared utils, and its COMPONENT_MANIFEST into components/slipstream/. You own the code after it lands, so edit it freely.",
     options: [
       { flag: '-o, --overwrite', effect: 'Replace existing copies of the component and its dependencies. Without it, existing files are skipped.' },
       { flag: '--dry-run', effect: 'Print every file that would be created, overwritten or skipped, and write nothing. Use it before adding into an existing design system.' },
@@ -69,7 +69,7 @@ const COMMANDS = [
 const FILES_WRITTEN = [
   { file: 'slipstream.config.json', when: 'init', purpose: 'Project config: component directory, style, package list, detected framework.' },
   { file: 'components/slipstream/<id>/', when: 'add', purpose: 'Component source files you now own and can edit.' },
-  { file: 'components/slipstream/manifests/<id>.manifest.json', when: 'add', purpose: 'The COMPONENT_MANIFEST — prop schema, anti-patterns, a11y rules.' },
+  { file: 'components/slipstream/manifests/<id>.manifest.json', when: 'add', purpose: 'The COMPONENT_MANIFEST: prop schema, anti-patterns, a11y rules.' },
   { file: 'Global stylesheet (CSS variables)', when: 'init', purpose: 'Theme variables appended to globals.css / index.css. An existing brand theme is extended with only the missing tokens.' },
 ];
 
@@ -105,7 +105,7 @@ export default function CliPage() {
     <div>
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight sm:text-4xl">CLI</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-        Initialize a project, copy components into your own codebase, and check for drift - all from{' '}
+        Initialize a project, copy components into your own codebase, and check for drift, all from{' '}
         <code className="rounded bg-muted px-1.5 py-0.5 text-base">npx @slipstream-ui/cli@latest</code>.
       </p>
 

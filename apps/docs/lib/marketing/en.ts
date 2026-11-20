@@ -13,7 +13,7 @@ export const en: MarketingCopy = {
     starOnGithub: 'Star on GitHub',
     copy: 'copy',
     copied: 'copied',
-    liveDemoNote: 'live demo — built entirely from Slipstream UI',
+    liveDemoNote: 'live demo · built entirely from Slipstream UI',
     welcomeTitle: 'Ask about Slipstream',
     welcomeSuggestions: ['What makes it different?', 'How does the manifest work?'],
     promptPlaceholder: 'Try me…',
@@ -30,7 +30,7 @@ export const en: MarketingCopy = {
       },
       {
         title: 'validate_usage MCP tool',
-        body: 'Agents validate generated JSX against the manifest before emitting — hallucinated props and missing requireds can be caught, not shipped.',
+        body: 'Agents validate generated JSX against the manifest before emitting. Hallucinated props and missing requireds can be caught, not shipped.',
       },
       {
         title: 'shadcn-compatible registry',
@@ -38,7 +38,7 @@ export const en: MarketingCopy = {
       },
       {
         title: 'Fully stateless',
-        body: 'No runtime lock-in. Bring any backend — Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.',
+        body: 'No runtime lock-in. Bring any backend: Vercel AI SDK, LangGraph, or raw streams. Components render; you own state.',
       },
       {
         title: 'Accessibility, tested',
@@ -46,7 +46,7 @@ export const en: MarketingCopy = {
       },
       {
         title: 'Themeable to the token',
-        body: 'One createTheme() call emits every CSS variable. Radius, dark mode, instant switching — no rebuilds.',
+        body: 'One createTheme() call emits every CSS variable. Radius, dark mode, instant switching. No rebuilds.',
       },
     ],
     howHeading: 'How your AI uses it',
@@ -58,7 +58,7 @@ export const en: MarketingCopy = {
       },
       {
         title: 'Query the spec',
-        body: 'The agent calls get_component_manifest and get_usage_examples — exact props, defaults, anti-patterns.',
+        body: 'The agent calls get_component_manifest and get_usage_examples: exact props, defaults, anti-patterns.',
       },
       {
         title: 'Self-validate',
@@ -82,7 +82,7 @@ export const en: MarketingCopy = {
     ],
     themesHeading: 'Themes that ship with the library',
     themesIntro:
-      'Default, Violet, and Zinc presets included. Switch below — this is live theming, not a screenshot.',
+      'Default, Violet, and Zinc presets included. Switch below. This is live theming, not a screenshot.',
     comparisonHeading: 'How it compares',
     comparisonIntro: 'Other libraries document for humans. Slipstream documents for both of you.',
     comparisonCapability: 'Capability',
@@ -102,7 +102,7 @@ export const en: MarketingCopy = {
       'License',
     ],
     comparisonFootnote:
-      'Reflects each project public documentation and published packages as of November 2026 · ✅ provided · 🟡 partial or a different model · — not provided for this purpose',
+      'Reflects each project public documentation and published packages as of November 2026 · ✅ provided · 🟡 partial or a different model ·: not provided for this purpose',
     comparisonCards: [
       {
         title: 'Choose Slipstream',
@@ -110,7 +110,7 @@ export const en: MarketingCopy = {
       },
       {
         title: 'Choose shadcn/ui + AI Elements',
-        body: 'When maximum ecosystem gravity and copy-in ownership of a very large primitive base matter most.',
+        body: 'When the largest ecosystem and copy-in ownership of a very large primitive base matter most.',
       },
       {
         title: 'Choose assistant-ui',
@@ -131,36 +131,36 @@ export const en: MarketingCopy = {
         mui: 'Broad UI set, no chat',
       },
       {
-        slipstream: 'Yes — props, a11y, anti-patterns',
-        shadcn: 'Partial — registry.json (files, deps)',
+        slipstream: 'Yes: props, a11y, anti-patterns',
+        shadcn: 'Partial: registry.json (files, deps)',
         assistantUi: 'No',
         mui: 'No',
       },
       {
-        slipstream: 'Yes — 6 tools incl. validate_usage',
-        shadcn: 'Partial — browse/search/install',
+        slipstream: 'Yes: 6 tools incl. validate_usage',
+        shadcn: 'Partial: browse/search/install',
         assistantUi: 'No',
-        mui: 'Partial — agent skills',
+        mui: 'Partial: agent skills',
       },
-      { slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
+      { slipstream: 'Yes: validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
       { slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
       {
-        slipstream: 'Yes — /llm/*.md',
-        shadcn: 'Partial — MDX in repo',
-        assistantUi: 'Yes — .md pages',
+        slipstream: 'Yes: /llm/*.md',
+        shadcn: 'Partial: MDX in repo',
+        assistantUi: 'Yes: .md pages',
         mui: 'No',
       },
       {
-        slipstream: 'Yes — {aiComponentCount} built-in',
-        shadcn: 'Yes — AI Elements (separate)',
-        assistantUi: 'Yes — core focus',
+        slipstream: 'Yes: {aiComponentCount} built-in',
+        shadcn: 'Yes: AI Elements (separate)',
+        assistantUi: 'Yes: core focus',
         mui: 'No',
       },
       {
-        slipstream: 'Stateless — bring your own',
+        slipstream: 'Stateless: bring your own',
         shadcn: 'Components only',
         assistantUi: 'Runtime adapters (AI SDK, LangGraph, custom)',
-        mui: 'n/a — no chat components',
+        mui: 'n/a: no chat components',
       },
       {
         slipstream: 'Tailwind + CSS variables',
@@ -192,10 +192,10 @@ export const en: MarketingCopy = {
     ],
     agentPathTitle: 'For agent builders →',
     agentPathBody:
-      'Wire the MCP server into Claude Code or Cursor, run validate_usage before emit, or serve llms.txt and markdown routes — six tools, three consumption paths.',
+      'Wire the MCP server into Claude Code or Cursor, run validate_usage before emit, or serve llms.txt and markdown routes: six tools, three consumption paths.',
     productPathTitle: 'For product teams →',
     productPathBody:
-      'Ship the production chat surface — streaming markdown, stop-generation, citations, approvals — with stateless components, jest-axe coverage, and your own backend.',
+      'Ship the production chat surface (streaming markdown, stop-generation, citations, approvals) with stateless components, jest-axe coverage, and your own backend.',
     ctaHeading: 'Ship AI interfaces faster',
     ctaBody:
       '{componentCount} components · {componentCount} machine-readable specs · validate generated usage before it ships.',
@@ -208,7 +208,7 @@ export const en: MarketingCopy = {
 
 The live lab on this page runs the real library: DataTable selection + pagination, MetricCard, SelectMenu, InputGroup, ButtonGroup, ConfirmDialog, Drawer, imperative toasts and the Stepper.
 
-Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns — then validates its own output before emitting code. Correct UI on the first try.`,
+Your agent queries the same manifests over MCP, reads the prop schema and anti-patterns, then validates its own output before emitting code. Correct UI on the first try.`,
       anyMcpClient: 'Any MCP client',
       transcriptLabel: 'Conversation transcript',
       responseComplete: 'Response complete.',
@@ -217,9 +217,9 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
       eyebrow: 'Live demo',
       title: 'The framework, running on this page',
       description:
-        'No screenshots. Every control below is a Slipstream component — selection, pagination, menus, overlays, toasts and wizards included.',
+        'Every control below is a Slipstream component, including selection, pagination, menus, overlays, toasts and wizards. No screenshots.',
       footer:
-        'Every component ships a COMPONENT_MANIFEST, tests and a live docs page — this lab is the same library your agent queries over MCP.',
+        'Every component ships a COMPONENT_MANIFEST, tests and a live docs page. This lab is the same library your agent queries over MCP.',
       tabs: { data: 'Data', forms: 'Forms', overlays: 'Overlays', flow: 'Flow' },
       data: {
         caption: 'Automation runs',
@@ -247,9 +247,9 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         archivedOther: '{count} runs archived',
       },
       forms: {
-        selectMenuCaption: 'SelectMenu — rich options, groups',
-        inputGroupCaption: 'InputGroup — flush addons',
-        buttonGroupCaption: 'ButtonGroup — joined segments',
+        selectMenuCaption: 'SelectMenu: rich options, groups',
+        inputGroupCaption: 'InputGroup: flush addons',
+        buttonGroupCaption: 'ButtonGroup: joined segments',
         planLabel: 'Plan',
         domainLabel: 'Site domain',
         viewModeLabel: 'View mode',
@@ -292,7 +292,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           billing: { label: 'Billing', description: 'Plan and seats' },
           review: { label: 'Review' },
         },
-        summary: 'Step {current} of {total} — {label}',
+        summary: 'Step {current} of {total}: {label}',
         descriptionSuffix: ' ({description})',
         back: 'Back',
         next: 'Next',
@@ -311,7 +311,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         blocks: [
           {
             type: 'p',
-            text: 'AI coding assistants are good at writing React, and bad at remembering the exact prop names, required fields, and accessibility rules of a design system they have never seen. The usual fix is more prompt context or a bigger README — both drift the moment a component changes.',
+            text: 'AI coding assistants are good at writing React, and bad at remembering the exact prop names, required fields, and accessibility rules of a design system they have never seen. The usual fix is more prompt context or a bigger README. Both drift the moment a component changes.',
           },
           {
             type: 'p',
@@ -364,7 +364,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
   },
   contact: {
     title: 'Contact',
-    description: 'Reach the maintainers on GitHub — bug reports, questions, and security reports each have a dedicated channel.',
+    description: 'Reach the maintainers on GitHub: bug reports, questions, and security reports each have a dedicated channel.',
     channels: [
       {
         heading: 'Bug reports',
@@ -498,8 +498,8 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           {
             type: 'ul',
             items: [
-              '`slipstream-theme` — your light/dark preference, so the site does not flash the wrong theme.',
-              '`slipstream-consent` — your cookie choice, so we do not ask again.',
+              '`slipstream-theme`: your light/dark preference, so the site does not flash the wrong theme.',
+              '`slipstream-consent`: your cookie choice, so we do not ask again.',
             ],
           },
           { type: 'p', text: 'Neither value is sent to a server. You can reset both from [Privacy preferences](#preferences).' },

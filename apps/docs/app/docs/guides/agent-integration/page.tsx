@@ -27,11 +27,11 @@ export default function AgentIntegrationGuidePage() {
       <p className="mt-3 max-w-3xl text-lg leading-relaxed text-muted-foreground">
         Slipstream is an <strong className="text-foreground">MCP component library</strong>: the spec your
         agent needs lives behind the Model Context Protocol, not in a README it has to guess from.
-        Three consumption paths, pick per tool — MCP first, markdown as fallback, raw JSON when you
+        Three consumption paths, pick per tool: MCP first, markdown as fallback, raw JSON when you
         want zero ceremony.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 1 — MCP server (recommended)</h2>
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 1: MCP server (recommended)</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Install <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">@slipstream-ui/mcp-server</code> and point
         your client at its <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">slipstream-mcp</code> binary
@@ -107,11 +107,11 @@ export default function AgentIntegrationGuidePage() {
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
-        Path 2 — canonical markdown routes
+        Path 2: canonical markdown routes
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         No MCP client? Every agent that can <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">fetch</code> can
-        read plain markdown — same content as the manifests, no HTML scraping:
+        read plain markdown: same content as the manifests, no HTML scraping:
       </p>
       <div className="mt-4">
         <CodeBlock
@@ -127,7 +127,7 @@ GET /llm/components/<id>.md    -> props, anti-patterns, a11y, composition`}
         pages are generated from the manifests on every build, so they cannot drift.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 3 — raw registry JSON</h2>
+      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 3: raw registry JSON</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         For build-time tooling, fetch the static registry directly:
       </p>
@@ -141,9 +141,9 @@ curl https://slipstreamui.com/registry/message.json     # full manifest + shadcn
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Tips</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-        <li>Give the agent the docs page link too — humans and agents read the same source of truth.</li>
+        <li>Give the agent the docs page link too: humans and agents read the same source of truth.</li>
         <li>Run <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code> in CI if your pipeline generates UI code.</li>
-        <li>Manifests carry anti-patterns and composition rules — surface them in your system prompt for even better output.</li>
+        <li>Manifests carry anti-patterns and composition rules: surface them in your system prompt for even better output.</li>
       </ul>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">

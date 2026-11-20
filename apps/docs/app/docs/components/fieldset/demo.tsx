@@ -16,12 +16,12 @@ export default function FieldsetPage() {
         { name: 'children', type: 'ReactNode', description: 'The controls this group names.' },
       ]}
       accessibility={[
-        'Native <fieldset>/<legend> — the legend is announced as the group name before each control.',
+        'Native <fieldset>/<legend>: the legend is announced as the group name before each control.',
         'The error slot renders with role=alert so group errors are announced when they appear.',
         'Always pass a legend (or an equivalent aria-label).',
       ]}
       browserNotes={[
-        'Pure native fieldset/legend semantics — supported in every browser; only the styling is Tailwind.',
+        'Pure native fieldset/legend semantics: supported in every browser; only the styling is Tailwind.',
       ]}
     >
       <DemoCard

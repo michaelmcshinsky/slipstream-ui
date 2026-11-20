@@ -179,7 +179,7 @@ function App() {
                 loadingMessage="Thinking..."
                 streamingMessageId={streamingId ?? undefined}
                 welcomeTitle="Welcome to Slipstream UI"
-                welcomeDescription="Try a starter prompt or type your own — responses stream token by token."
+                welcomeDescription="Try a starter prompt or type your own. Responses stream token by token."
                 welcomeSuggestions={['Explain what you can do', 'Write a haiku about components']}
                 onWelcomeSelect={(prompt) => handleSubmit(prompt)}
               />
@@ -291,12 +291,12 @@ function App() {
               message={{
                 id: 'demo',
                 role: 'assistant',
-                content: 'Stateless components with callbacks — copy, rate, or regenerate this response.',
+                content: 'Stateless components with callbacks. Copy, rate, or regenerate this response.',
               }}
             />
             <div className="pl-12">
               <MessageActions
-                content="Stateless components with callbacks — copy, rate, or regenerate this response."
+                content="Stateless components with callbacks. Copy, rate, or regenerate this response."
                 onFeedback={(rating) => window.alert(`Feedback: ${rating ?? 'cleared'}`)}
                 onRegenerate={() => window.alert('Regenerating...')}
               />

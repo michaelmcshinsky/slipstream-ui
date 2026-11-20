@@ -5,7 +5,7 @@ import { track } from '@/lib/analytics';
 import { buildAiInstruction, type RegistryManifest } from '@/lib/copy-for-ai';
 
 /**
- * "Copy for AI" — fetches the component's registry payload on demand so the
+ * "Copy for AI": fetches the component's registry payload on demand so the
  * docs page does not ship every manifest in its JS bundle.
  */
 export function CopyForAi({ componentId }: { componentId: string }) {
@@ -38,7 +38,7 @@ export function CopyForAi({ componentId }: { componentId: string }) {
       : state === 'copying'
         ? 'Building instruction…'
         : state === 'error'
-          ? 'Copy failed — try again'
+          ? 'Copy failed: try again'
           : 'Copy for AI';
 
   return (

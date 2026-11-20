@@ -57,7 +57,7 @@ export function StreamingChat() {
     const controller = new AbortController();
     abortRef.current = controller;
 
-    // Your transport — any endpoint that streams text chunks.
+    // Your transport: any endpoint that streams text chunks.
     const response = await fetch('/api/chat', {
       method: 'POST',
       body: JSON.stringify({ prompt: text }),
@@ -112,7 +112,7 @@ export function StreamingChat() {
   {
     name: 'Agent dashboard',
     description:
-      'Tool calls with human-in-the-loop approval, reasoning steps, and task progress — the pattern for autonomous agents.',
+      'Tool calls with human-in-the-loop approval, reasoning steps, and task progress: the pattern for autonomous agents.',
     features: ['Confirmation gate', 'ToolCall lifecycle', 'Reasoning panel', 'ChainThought'],
     code: `'use client';
 
@@ -164,7 +164,7 @@ export function AgentActivity({ toolCall }: { toolCall: ToolCallType }) {
   {
     name: 'RAG citations',
     description:
-      'Grounded answers with inline citations and a sources footer — the pattern for search and knowledge-base products.',
+      'Grounded answers with inline citations and a sources footer: the pattern for search and knowledge-base products.',
     features: ['InlineCitation chips', 'Sources footer', 'Suggestions'],
     code: `import {
   InlineCitation,
@@ -205,7 +205,7 @@ export function GroundedResponse({ result }: { result: GroundedAnswer }) {
   {
     name: 'Form with validation',
     description:
-      'Field-level validation, error states, and submit handling — the pattern for settings, signup, and data-entry flows.',
+      'Field-level validation, error states, and submit handling: the pattern for settings, signup, and data-entry flows.',
     features: ['Label + Input', 'Switch + Checkbox', 'Error states', 'Textarea + Select'],
     code: [
       "'use client';",
@@ -347,7 +347,7 @@ export function MultiThreadChat({ initial }: { initial: Thread[] }) {
     setThreads((prev) => prev.map((t) => (t.id === id ? { ...t, ...next } : t)));
 
   async function send(text: string) {
-    // Stream into the thread captured at send time — never "the active one",
+    // Stream into the thread captured at send time: never "the active one",
     // the user may switch threads mid-generation.
     const target = active.id;
     patch(target, { messages: [...active.messages, { id: crypto.randomUUID(), role: 'user', content: text }] });
@@ -390,7 +390,7 @@ export default function TemplatesPage() {
       <h1 className="text-4xl font-bold mb-4">Templates</h1>
       <p className="text-lg text-muted-foreground mb-8">
         Complete, copy-paste patterns built entirely from Slipstream UI components. Each one is
-        stateless — you own the data flow and transport.
+        stateless: you own the data flow and transport.
       </p>
 
       <div className="space-y-12">
@@ -411,7 +411,7 @@ export default function TemplatesPage() {
             {DEMOS[index] && (
               <div className="mb-4">
                 <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Live demo — try it
+                  Live demo: try it
                 </p>
                 {DEMOS[index]}
               </div>

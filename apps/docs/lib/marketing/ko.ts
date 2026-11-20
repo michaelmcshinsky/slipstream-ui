@@ -13,7 +13,7 @@ export const ko: MarketingCopy = {
     starOnGithub: 'GitHub에서 스타 주기',
     copy: '복사',
     copied: '복사됨',
-    liveDemoNote: '라이브 데모 — 전부 Slipstream UI로 제작',
+    liveDemoNote: '라이브 데모: 전부 Slipstream UI로 제작',
     welcomeTitle: 'Slipstream에 대해 물어보기',
     welcomeSuggestions: ['무엇이 다른가요?', '매니페스트는 어떻게 동작하나요?'],
     promptPlaceholder: '직접 사용해 보세요…',
@@ -94,7 +94,7 @@ export const ko: MarketingCopy = {
       '라이선스',
     ],
     comparisonFootnote:
-      '2026년 11월 기준 각 프로젝트의 공개 문서와 공개 패키지를 반영 · ✅ 제공 · 🟡 부분 제공 또는 다른 모델 · — 이 목적에는 미제공',
+      '2026년 11월 기준 각 프로젝트의 공개 문서와 공개 패키지를 반영 · ✅ 제공 · 🟡 부분 제공 또는 다른 모델 ·: 이 목적에는 미제공',
     comparisonCards: [
       {
         title: 'Slipstream 선택',
@@ -123,36 +123,36 @@ export const ko: MarketingCopy = {
         mui: '폭넓은 UI 세트, 채팅 없음',
       },
       {
-        slipstream: '예 — props, 접근성, 안티패턴',
-        shadcn: '일부 — registry.json(파일, 의존성)',
+        slipstream: '예: props, 접근성, 안티패턴',
+        shadcn: '일부: registry.json(파일, 의존성)',
         assistantUi: '아니요',
         mui: '아니요',
       },
       {
-        slipstream: '예 — validate_usage를 포함한 도구 5개',
-        shadcn: '일부 — 탐색, 검색, 설치',
+        slipstream: '예: validate_usage를 포함한 도구 5개',
+        shadcn: '일부: 탐색, 검색, 설치',
         assistantUi: '아니요',
-        mui: '일부 — 에이전트 스킬',
+        mui: '일부: 에이전트 스킬',
       },
-      { slipstream: '예 — validate_usage', shadcn: '아니요', assistantUi: '아니요', mui: '아니요' },
+      { slipstream: '예: validate_usage', shadcn: '아니요', assistantUi: '아니요', mui: '아니요' },
       { slipstream: '예', shadcn: '예', assistantUi: '예', mui: '아니요' },
       {
-        slipstream: '예 — /llm/*.md',
-        shadcn: '일부 — 저장소의 MDX',
-        assistantUi: '예 — .md 페이지',
+        slipstream: '예: /llm/*.md',
+        shadcn: '일부: 저장소의 MDX',
+        assistantUi: '예: .md 페이지',
         mui: '아니요',
       },
       {
-        slipstream: '예 — {aiComponentCount}개 내장',
-        shadcn: '예 — AI Elements(별도)',
-        assistantUi: '예 — 핵심 초점',
+        slipstream: '예: {aiComponentCount}개 내장',
+        shadcn: '예: AI Elements(별도)',
+        assistantUi: '예: 핵심 초점',
         mui: '아니요',
       },
       {
-        slipstream: '무상태 — 백엔드는 직접 연결',
+        slipstream: '무상태: 백엔드는 직접 연결',
         shadcn: '컴포넌트만',
         assistantUi: '런타임 어댑터(AI SDK, LangGraph, 커스텀)',
-        mui: '해당 없음 — 채팅 컴포넌트 없음',
+        mui: '해당 없음: 채팅 컴포넌트 없음',
       },
       {
         slipstream: 'Tailwind + CSS 변수',
@@ -239,9 +239,9 @@ export const ko: MarketingCopy = {
         archivedOther: '{count}개 실행 보관됨',
       },
       forms: {
-        selectMenuCaption: 'SelectMenu — 풍부한 옵션과 그룹',
-        inputGroupCaption: 'InputGroup — 이어진 애드온',
-        buttonGroupCaption: 'ButtonGroup — 연결된 세그먼트',
+        selectMenuCaption: 'SelectMenu: 풍부한 옵션과 그룹',
+        inputGroupCaption: 'InputGroup: 이어진 애드온',
+        buttonGroupCaption: 'ButtonGroup: 연결된 세그먼트',
         planLabel: '플랜',
         domainLabel: '사이트 도메인',
         viewModeLabel: '보기 모드',
@@ -284,7 +284,7 @@ export const ko: MarketingCopy = {
           billing: { label: '결제', description: '플랜과 좌석' },
           review: { label: '검토' },
         },
-        summary: '{total}단계 중 {current}단계 — {label}',
+        summary: '{total}단계 중 {current}단계: {label}',
         descriptionSuffix: ' ({description})',
         back: '뒤로',
         next: '다음',
@@ -356,7 +356,7 @@ export const ko: MarketingCopy = {
   },
   contact: {
     title: '문의',
-    description: '메인테이너에게는 GitHub으로 문의하세요 — 버그 신고, 질문, 보안 신고 각각 전용 채널이 있습니다.',
+    description: '메인테이너에게는 GitHub으로 문의하세요: 버그 신고, 질문, 보안 신고 각각 전용 채널이 있습니다.',
     channels: [
       {
         heading: '버그 신고',
@@ -473,8 +473,8 @@ export const ko: MarketingCopy = {
           {
             type: 'ul',
             items: [
-              '`slipstream-theme` — 라이트/다크 설정. 잘못된 테마가 깜빡이지 않게 합니다.',
-              '`slipstream-consent` — 쿠키 선택. 다시 묻지 않게 합니다.',
+              '`slipstream-theme`: 라이트/다크 설정. 잘못된 테마가 깜빡이지 않게 합니다.',
+              '`slipstream-consent`: 쿠키 선택. 다시 묻지 않게 합니다.',
             ],
           },
           { type: 'p', text: '두 값 모두 서버로 전송되지 않습니다. 사이트 데이터를 지우면 둘 다 초기화됩니다.' },

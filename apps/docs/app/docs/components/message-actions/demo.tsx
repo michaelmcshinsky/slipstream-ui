@@ -13,7 +13,7 @@ export default function MessageActionsPage() {
     <ComponentPage
       id="message-actions"
       title="MessageActions"
-      description="Feedback toolbar for AI responses: copy, thumbs up/down rating, and regenerate. Every action is a callback — the component holds no conversation state."
+      description="Feedback toolbar for AI responses: copy, thumbs up/down rating, and regenerate. Every action is a callback: the component holds no conversation state."
       accessibility={[
         'Root has role=toolbar with an accessible name.',
         'Rating buttons expose aria-pressed selection state.',
@@ -28,12 +28,12 @@ export default function MessageActionsPage() {
               message={{
                 id: 'demo',
                 role: 'assistant',
-                content: 'Slipstream UI components are stateless — you own the data flow.',
+                content: 'Slipstream UI components are stateless: you own the data flow.',
               }}
             />
             <div className="mt-2 pl-12">
               <MessageActions
-                content="Slipstream UI components are stateless — you own the data flow."
+                content="Slipstream UI components are stateless: you own the data flow."
                 onFeedback={setRating}
                 onRegenerate={() => setRegenerations((n) => n + 1)}
               />

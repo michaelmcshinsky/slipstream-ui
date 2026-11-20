@@ -93,7 +93,7 @@ export default function PopoverPage() {
   </PopoverContent>
 </Popover>
 
-{/* Width is a className — content flows inside */}
+{/* Width is a className: content flows inside */}
 <PopoverContent className="w-96">…</PopoverContent>`}
         types={"type PopoverProps = {\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n};"}
       />

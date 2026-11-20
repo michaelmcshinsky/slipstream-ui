@@ -6,7 +6,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/guides/ai-chat-ui', {
   title: 'React AI chat UI guide',
   description:
-    'Build a production React AI chat interface with Slipstream UI: streaming markdown, stop-generation, feedback actions, and accessible messages — stateless components, your backend.',
+    'Build a production React AI chat interface with Slipstream UI: streaming markdown, stop-generation, feedback actions, and accessible messages, with stateless components and your own backend.',
 });
 
 export default function AiChatUiGuidePage() {
@@ -18,7 +18,7 @@ export default function AiChatUiGuidePage() {
       <p className="mt-3 max-w-3xl text-lg leading-relaxed text-muted-foreground">
         A walkthrough of the production chat surface: message state, token streaming, markdown that
         survives partial tokens, an input with stop-generation, and feedback actions. Slipstream
-        components are stateless — you own the transport, they render.
+        components are stateless: you own the transport, they render.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3 text-sm">
@@ -46,7 +46,7 @@ npx shadcn@latest add https://slipstreamui.com/registry/conversation.json`} />
       <p className="mt-3 leading-relaxed text-muted-foreground">
         The entire surface is driven by <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">messages</code>{' '}
         and an optional <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">streamingMessageId</code>. No context
-        providers, no runtime lock-in — works with Vercel AI SDK, LangGraph, WebSockets, or a raw
+        providers, no runtime lock-in: works with Vercel AI SDK, LangGraph, WebSockets, or a raw
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm"> fetch</code> stream.
       </p>
       <div className="mt-4">

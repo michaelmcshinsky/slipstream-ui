@@ -7,7 +7,7 @@ import { withSeo } from '@/lib/seo';
 export const metadata: Metadata = withSeo('/docs/installation', {
   title: 'Installation',
   description:
-    'Install Slipstream UI via pnpm packages, the @slipstream-ui/cli command, or the shadcn-compatible registry — with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
+    'Install Slipstream UI via pnpm packages, the @slipstream-ui/cli command, or the shadcn-compatible registry: with manual Tailwind and CSS variable setup for Next.js, Vite, Remix, and Astro.',
 });
 
 export default function InstallationPage() {
@@ -19,7 +19,7 @@ export default function InstallationPage() {
       </p>
       <p className="mb-8 leading-relaxed text-muted-foreground">
         Slipstream UI is <strong className="text-foreground">React-first</strong>: every component is
-        a React 18+ / TypeScript component. It runs in any React environment — Next.js, Vite,
+        a React 18+ / TypeScript component. It runs in any React environment: Next.js, Vite,
         Remix, and Astro are all covered below. Framework-agnostic builds (Vue, Svelte, vanilla JS)
         are not on the roadmap yet; if your app renders React, you can use Slipstream.
       </p>
@@ -29,7 +29,7 @@ export default function InstallationPage() {
           <strong className="text-foreground">Migrating from the old slipstream-ui package?</strong>
           <p className="mt-1 text-muted-foreground">
             The original <code>slipstream-ui</code> npm package (v3.x, Tailwind 2/3 era) is deprecated and no longer maintained.
-            Use <code>@slipstream-ui/core</code> and <code>@slipstream-ui/ai</code> instead — they are unrelated to the old package
+            Use <code>@slipstream-ui/core</code> and <code>@slipstream-ui/ai</code> instead: they are unrelated to the old package
             and ship with machine-readable manifests, an MCP server, and a shadcn-compatible registry.
           </p>
         </div>
@@ -424,8 +424,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 import './index.css';
 import App from './App';
 
-// src/index.css — same CSS variables as above
-// tailwind.config.js — content paths include:
+// src/index.css: same CSS variables as above
+// tailwind.config.js: content paths include:
 //   './src/**/*.{ts,tsx}',
 //   './node_modules/@slipstream-ui/**/*.{js,ts,tsx}'`} />
 

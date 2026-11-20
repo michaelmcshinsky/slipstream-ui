@@ -31,7 +31,7 @@ export default function SeparatorPage() {
               <div className="flex items-center text-sm">Toolbar right</div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Also exported as <code className="rounded bg-muted px-1 py-0.5">Divider</code> — the same
+              Also exported as <code className="rounded bg-muted px-1 py-0.5">Divider</code>: the same
               primitive under a layout-friendly name.
             </p>
           </div>

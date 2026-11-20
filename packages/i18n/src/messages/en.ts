@@ -166,7 +166,7 @@ export const en = {
       privacy: 'Privacy',
       terms: 'Terms',
       copyright: '© {year} Slipstream UI · MIT License',
-      builtStateless: 'Built stateless — you own your data flow.',
+      builtStateless: 'Built stateless: you own your data flow.',
       helpTranslate: 'Help translate',
     },
     search: {
@@ -205,7 +205,7 @@ export const en = {
       markdownTitle: 'Canonical markdown reference at {href}',
       antiPatterns: 'Anti-patterns',
       antiPatternsDescription:
-        'is the MCP tool that rejects these mistakes — the same list agents see over MCP and in the canonical markdown.',
+        'is the MCP tool that rejects these mistakes: the same list agents see over MCP and in the canonical markdown.',
       accessibility: 'Accessibility',
       composition: 'Composition',
       composeWith: 'Compose with {component}',
@@ -216,7 +216,7 @@ export const en = {
       browser: 'Browser',
       testedVersions: 'Tested versions',
       browserNote:
-        'Slipstream components rely only on CSS custom properties, Flexbox/Grid, and ARIA — the everyday baseline of the last two years of evergreen releases. Anything newer is progressive enhancement: unsupported browsers keep full functionality with static behavior instead of animations.',
+        'Slipstream components rely only on CSS custom properties, Flexbox/Grid, and ARIA, the everyday baseline of the last two years of evergreen releases. Anything newer is progressive enhancement: unsupported browsers keep full functionality with static behavior instead of animations.',
       previous: '← Previous',
       next: 'Next →',
       paginationAria: 'Pagination',
@@ -225,8 +225,8 @@ export const en = {
       question: 'Was this page helpful?',
       yes: 'Yes',
       no: 'No',
-      thanks: 'Thanks — glad it helped.',
-      sorryLead: 'Sorry about that —',
+      thanks: 'Thanks, glad it helped.',
+      sorryLead: 'Sorry about that:',
       issueLink: 'open a pre-filled issue',
       sorryTail: 'and tell us what was missing or wrong.',
       back: 'Back',
@@ -243,7 +243,7 @@ export const en = {
         notFound: {
       title: 'This page streamed into the void',
       description:
-        'The page you requested does not exist — and unlike our components, it never shipped a manifest declaring that.',
+        'The page you requested does not exist, and unlike our components, it never shipped a manifest declaring that.',
       home: 'Back home',
       browse: 'Browse components',
     },

@@ -99,7 +99,7 @@ const PLAYGROUNDS: Playground[] = [
   {
     id: 'badge',
     name: 'Badge',
-    summary: 'Status, counts, and tags. Color alone never carries the meaning — the label does.',
+    summary: 'Status, counts, and tags. Color alone never carries the meaning: the label does.',
     defaults: { variant: 'success', size: 'md', label: 'Ready' },
     controls: [
       {

@@ -47,14 +47,14 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: 'Slipstream UI — the AI-first React component library',
+        alt: 'Slipstream UI: the AI-first React component library',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Slipstream UI',
-    description: 'The AI-first React component library — your AI reads the spec, not the source.',
+    description: 'The AI-first React component library: your AI reads the spec, not the source.',
     images: ['/og.png'],
   },
   robots: {

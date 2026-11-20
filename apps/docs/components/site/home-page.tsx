@@ -86,7 +86,7 @@ function demoReply(copy: HomeCopy['demo']): string {
 /**
  * Facts below reflect each project's public documentation and published
  * packages as checked in November 2026. Key: ✅ provided · 🟡 partial or a
- * different model · — not provided for this purpose.
+ * different model · ⛔ not provided for this purpose.
  */
 const COMPARISON: {
   capability: string;
@@ -96,13 +96,13 @@ const COMPARISON: {
   mui: string;
 }[] = [  { capability: 'Distribution model', slipstream: 'npm packages (ESM + CJS)', shadcn: 'copy-in source via CLI', assistantUi: 'npm packages', mui: 'npm packages' },
   { capability: 'Components shipped', slipstream: `${COMPONENT_COUNT} (${CORE_COMPONENT_COUNT} UI + ${AI_COMPONENT_COUNT} AI)`, shadcn: 'UI primitives + AI Elements', assistantUi: 'Chat surface + primitives', mui: 'Broad UI set, no chat' },
-  { capability: 'Per-component machine-readable spec', slipstream: 'Yes — props, a11y, anti-patterns', shadcn: 'Partial — registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
-  { capability: 'MCP server', slipstream: `Yes - ${MCP_TOOL_COUNT} tools incl. validate_usage`, shadcn: 'Partial - browse/search/install', assistantUi: 'No', mui: 'Partial - agent skills' },
-  { capability: 'Validates generated JSX against the spec', slipstream: 'Yes — validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
+  { capability: 'Per-component machine-readable spec', slipstream: 'Yes: props, a11y, anti-patterns', shadcn: 'Partial: registry.json (files, deps)', assistantUi: 'No', mui: 'No' },
+  { capability: 'MCP server', slipstream: `Yes: ${MCP_TOOL_COUNT} tools incl. validate_usage`, shadcn: 'Partial: browse/search/install', assistantUi: 'No', mui: 'Partial: agent skills' },
+  { capability: 'Validates generated JSX against the spec', slipstream: 'Yes: validate_usage', shadcn: 'No', assistantUi: 'No', mui: 'No' },
   { capability: 'llms.txt', slipstream: 'Yes', shadcn: 'Yes', assistantUi: 'Yes', mui: 'No' },
-  { capability: 'Canonical markdown per component/page', slipstream: 'Yes — /llm/*.md', shadcn: 'Partial — MDX in repo', assistantUi: 'Yes — .md pages', mui: 'No' },
-  { capability: 'AI chat components', slipstream: `Yes — ${AI_COMPONENT_COUNT} built-in`, shadcn: 'Yes — AI Elements (separate)', assistantUi: 'Yes — core focus', mui: 'No' },
-  { capability: 'State & transport', slipstream: 'Stateless — bring your own', shadcn: 'Components only', assistantUi: 'Runtime adapters (AI SDK, LangGraph, custom)', mui: 'n/a — no chat components' },
+  { capability: 'Canonical markdown per component/page', slipstream: 'Yes: /llm/*.md', shadcn: 'Partial: MDX in repo', assistantUi: 'Yes: .md pages', mui: 'No' },
+  { capability: 'AI chat components', slipstream: `Yes: ${AI_COMPONENT_COUNT} built-in`, shadcn: 'Yes: AI Elements (separate)', assistantUi: 'Yes: core focus', mui: 'No' },
+  { capability: 'State & transport', slipstream: 'Stateless: bring your own', shadcn: 'Components only', assistantUi: 'Runtime adapters (AI SDK, LangGraph, custom)', mui: 'n/a: no chat components' },
   { capability: 'Styling', slipstream: 'Tailwind + CSS variables', shadcn: 'Tailwind + CSS variables', assistantUi: 'Tailwind', mui: 'Emotion + theme object' },
   { capability: 'Theme presets', slipstream: '4 (Default, Dark, Violet, Zinc)', shadcn: 'CSS-variable themes', assistantUi: 'CSS variables', mui: 'theme object' },
   { capability: 'Peer dependencies', slipstream: 'react, react-dom', shadcn: 'react', assistantUi: 'react', mui: 'react, @emotion/react, @emotion/styled' },
@@ -327,7 +327,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <Link
                 href="/changelog"
-                title={`v${VERSION} — ${copy.whatsNew}`}
+                title={`v${VERSION}: ${copy.whatsNew}`}
                 className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 font-mono text-xs font-medium transition-colors hover:border-primary/40"
               >
                 v{VERSION} <span className="ml-1.5 text-primary">{copy.whatsNew}</span>

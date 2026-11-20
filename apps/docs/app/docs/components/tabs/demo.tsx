@@ -38,7 +38,7 @@ export default function TabsPage() {
                 Account summary, recent activity, and quick actions live here.
               </TabsContent>
               <TabsContent value="analytics" className="rounded-lg border border-border p-4 text-sm text-muted-foreground">
-                Charts of usage over time — conversations, tokens, and latency.
+                Charts of usage over time: conversations, tokens, and latency.
               </TabsContent>
             </Tabs>
           </div>
@@ -78,7 +78,7 @@ export default function TabsPage() {
             </Tabs>
           </div>
         }
-        code={`{/* variant="underline": no strip background — the 2px border
+        code={`{/* variant="underline": no strip background: the 2px border
     alone marks the active tab (item 18) */}
 <Tabs defaultValue="code" variant="underline">
   <TabsList>

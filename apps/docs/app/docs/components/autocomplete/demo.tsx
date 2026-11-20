@@ -20,11 +20,11 @@ export default function AutocompletePage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'suggestions', type: 'string[]', defaultValue: 'required', description: 'Suggestion labels offered while typing; free-form values stay allowed.' },
-        { name: 'value', type: 'string', description: 'Current text — standard controlled-input contract (wire onValueChange).' },
+        { name: 'value', type: 'string', description: 'Current text: standard controlled-input contract (wire onValueChange).' },
         { name: 'defaultValue', type: 'string', defaultValue: "''", description: 'Initial text when uncontrolled.' },
         { name: 'onValueChange', type: '(value: string) => void', description: 'Fires on every keystroke AND on suggestion selection.' },
         { name: 'emptyText', type: 'string', defaultValue: "'No suggestions'", description: 'Shown when no suggestion matches.' },
-        { name: 'autoComplete', type: 'string', description: 'Native autofill hint — passes through to the input alongside the custom list.' },
+        { name: 'autoComplete', type: 'string', description: 'Native autofill hint: passes through to the input alongside the custom list.' },
       ]}
       accessibility={[
         'Combobox pattern with aria-activedescendant; suggestions are role=option with aria-selected.',
@@ -39,7 +39,7 @@ export default function AutocompletePage() {
         title="Controlled"
         preview={
           <div className="w-full max-w-sm space-y-4">
-            <FormField id="ac-framework" label="Primary framework" hint="Type anything — free text is valid">
+            <FormField id="ac-framework" label="Primary framework" hint="Type anything: free text is valid">
               <Autocomplete
                 suggestions={FRAMEWORKS}
                 value={framework}
@@ -58,7 +58,7 @@ export default function AutocompletePage() {
 
 const [framework, setFramework] = useState('');
 
-<FormField id="framework" label="Primary framework" hint="Type anything — free text is valid">
+<FormField id="framework" label="Primary framework" hint="Type anything: free text is valid">
   <Autocomplete
     suggestions={['react', 'remix', 'next', 'vite', 'astro']}
     value={framework}

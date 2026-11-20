@@ -13,7 +13,7 @@ export const ja: MarketingCopy = {
     starOnGithub: 'GitHub でスター',
     copy: 'コピー',
     copied: 'コピーしました',
-    liveDemoNote: 'ライブデモ — すべて Slipstream UI で構築',
+    liveDemoNote: 'ライブデモ: すべて Slipstream UI で構築',
     welcomeTitle: 'Slipstream について質問',
     welcomeSuggestions: ['何が違うの？', 'マニフェストはどう動く？'],
     promptPlaceholder: '試してみる…',
@@ -94,7 +94,7 @@ export const ja: MarketingCopy = {
       'ライセンス',
     ],
     comparisonFootnote:
-      '2026年11月時点の各プロジェクトの公開ドキュメントと公開パッケージを反映 · ✅ 対応 · 🟡 一部対応または別モデル · — この目的では未対応',
+      '2026年11月時点の各プロジェクトの公開ドキュメントと公開パッケージを反映 · ✅ 対応 · 🟡 一部対応または別モデル ·: この目的では未対応',
     comparisonCards: [
       {
         title: 'Slipstream を選ぶ',
@@ -123,36 +123,36 @@ export const ja: MarketingCopy = {
         mui: '幅広い UI セット、チャットなし',
       },
       {
-        slipstream: 'はい — props、a11y、アンチパターン',
-        shadcn: '一部 — registry.json（ファイル、依存関係）',
+        slipstream: 'はい: props、a11y、アンチパターン',
+        shadcn: '一部: registry.json（ファイル、依存関係）',
         assistantUi: 'いいえ',
         mui: 'いいえ',
       },
       {
-        slipstream: 'はい — 6 つのツール（validate_usage を含む）',
-        shadcn: '一部 — 閲覧・検索・インストール',
+        slipstream: 'はい: 6 つのツール（validate_usage を含む）',
+        shadcn: '一部: 閲覧・検索・インストール',
         assistantUi: 'いいえ',
-        mui: '一部 — エージェントスキル',
+        mui: '一部: エージェントスキル',
       },
-      { slipstream: 'はい — validate_usage', shadcn: 'いいえ', assistantUi: 'いいえ', mui: 'いいえ' },
+      { slipstream: 'はい: validate_usage', shadcn: 'いいえ', assistantUi: 'いいえ', mui: 'いいえ' },
       { slipstream: 'はい', shadcn: 'はい', assistantUi: 'はい', mui: 'いいえ' },
       {
-        slipstream: 'はい — /llm/*.md',
-        shadcn: '一部 — リポジトリ内の MDX',
-        assistantUi: 'はい — .md ページ',
+        slipstream: 'はい: /llm/*.md',
+        shadcn: '一部: リポジトリ内の MDX',
+        assistantUi: 'はい: .md ページ',
         mui: 'いいえ',
       },
       {
-        slipstream: 'はい — {aiComponentCount} 個を内蔵',
-        shadcn: 'はい — AI Elements（別途）',
-        assistantUi: 'はい — 中心機能',
+        slipstream: 'はい: {aiComponentCount} 個を内蔵',
+        shadcn: 'はい: AI Elements（別途）',
+        assistantUi: 'はい: 中心機能',
         mui: 'いいえ',
       },
       {
-        slipstream: 'ステートレス — バックエンドは自由',
+        slipstream: 'ステートレス: バックエンドは自由',
         shadcn: 'コンポーネントのみ',
         assistantUi: 'ランタイムアダプター（AI SDK、LangGraph、独自）',
-        mui: '該当なし — チャットコンポーネントなし',
+        mui: '該当なし: チャットコンポーネントなし',
       },
       {
         slipstream: 'Tailwind + CSS 変数',
@@ -239,9 +239,9 @@ export const ja: MarketingCopy = {
         archivedOther: '{count} 件の実行をアーカイブしました',
       },
       forms: {
-        selectMenuCaption: 'SelectMenu — 豊富なオプションとグループ',
-        inputGroupCaption: 'InputGroup — 一体化したアドオン',
-        buttonGroupCaption: 'ButtonGroup — 連結したセグメント',
+        selectMenuCaption: 'SelectMenu: 豊富なオプションとグループ',
+        inputGroupCaption: 'InputGroup: 一体化したアドオン',
+        buttonGroupCaption: 'ButtonGroup: 連結したセグメント',
         planLabel: 'プラン',
         domainLabel: 'サイトのドメイン',
         viewModeLabel: '表示モード',
@@ -284,7 +284,7 @@ export const ja: MarketingCopy = {
           billing: { label: '請求', description: 'プランと席数' },
           review: { label: '確認' },
         },
-        summary: 'ステップ {current} / {total} — {label}',
+        summary: 'ステップ {current} / {total}: {label}',
         descriptionSuffix: '（{description}）',
         back: '戻る',
         next: '次へ',
@@ -356,7 +356,7 @@ export const ja: MarketingCopy = {
   },
   contact: {
     title: 'お問い合わせ',
-    description: 'メンテナーへの連絡は GitHub で — バグ報告、質問、セキュリティ報告それぞれに専用チャンネルがあります。',
+    description: 'メンテナーへの連絡は GitHub で: バグ報告、質問、セキュリティ報告それぞれに専用チャンネルがあります。',
     channels: [
       {
         heading: 'バグ報告',
@@ -473,8 +473,8 @@ export const ja: MarketingCopy = {
           {
             type: 'ul',
             items: [
-              '`slipstream-theme` — ライト/ダークの設定。誤ったテーマが一瞬表示されないようにします。',
-              '`slipstream-consent` — Cookie の選択。再度尋ねないようにします。',
+              '`slipstream-theme`: ライト/ダークの設定。誤ったテーマが一瞬表示されないようにします。',
+              '`slipstream-consent`: Cookie の選択。再度尋ねないようにします。',
             ],
           },
           { type: 'p', text: 'どちらもサーバーへ送信されません。サイトデータを消去すると両方リセットされます。' },

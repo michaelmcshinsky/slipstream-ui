@@ -56,7 +56,7 @@ setStreamingId(null);      // cursor stops, completion is announced`}
     if (done) break;
     buffer += decoder.decode(value, { stream: true });
 
-    // SSE lines: "data: {...}" — split on newlines, keep the tail.
+    // SSE lines: "data: {...}": split on newlines, keep the tail.
     const lines = buffer.split('\\n');
     buffer = lines.pop() ?? '';
     for (const line of lines) {
@@ -73,7 +73,7 @@ setStreamingId(null);      // cursor stops, completion is announced`}
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Keep the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">AbortController</code>{' '}
-        in a ref — PromptInput&apos;s stop button just calls it. Abort is not an error: stop writing
+        in a ref: PromptInput&apos;s stop button just calls it. Abort is not an error: stop writing
         and leave the partial text in place (users expect their stop to keep what arrived).
       </p>
       <div className="mt-4">
@@ -109,7 +109,7 @@ async function send(text: string) {
         unclosed code fences, dangling tables.{' '}
         <Link href="/docs/components/response" className="font-medium text-primary underline underline-offset-2">Response</Link>{' '}
         repairs those on every render (<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">parseIncompleteMarkdown</code>,
-        on by default) — never show raw asterisks while streaming.
+        on by default): never show raw asterisks while streaming.
       </p>
 
       <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
@@ -118,10 +118,10 @@ async function send(text: string) {
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
           <Link href="/docs/components/conversation" className="text-primary underline underline-offset-2">Conversation</Link>{' '}
-          auto-scrolls only while you are near the bottom — reading history is never yanked mid-stream.
+          auto-scrolls only while you are near the bottom: reading history is never yanked mid-stream.
         </li>
         <li>During streaming scrolls are instant (per-token smooth animations jank); user-triggered jumps are smooth.</li>
-        <li>The scroll-to-latest pill scrolls the container only — never the page.</li>
+        <li>The scroll-to-latest pill scrolls the container only: never the page.</li>
         <li>History prepend (loading older messages) keeps your anchor position stable.</li>
       </ul>
 
@@ -129,7 +129,7 @@ async function send(text: string) {
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
           Batch state updates (requestAnimationFrame or a 30–60ms timer) when your transport emits
-          sub-frame chunks — one setState per token will melt large transcripts.
+          sub-frame chunks: one setState per token will melt large transcripts.
         </li>
         <li>
           Keep deltas as strings; parse markdown lazily per message, not the whole transcript on
@@ -137,7 +137,7 @@ async function send(text: string) {
         </li>
         <li>
           Drop <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">response.body</code> readers
-          on abort — holding them keeps the connection open.
+          on abort: holding them keeps the connection open.
         </li>
       </ul>
 

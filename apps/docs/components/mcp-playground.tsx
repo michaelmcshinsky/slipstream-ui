@@ -63,7 +63,7 @@ function closestProp(target: string, candidates: string[]): string | undefined {
 
 /**
  * In-browser demo of the core MCP tools. It queries the SAME static
- * /registry files the MCP server reads — no server, no API key — so the
+ * /registry files the MCP server reads: no server, no API key: so the
  * flow agents run (list → manifest → validate) is inspectable by humans.
  */
 export function McpPlayground() {
@@ -152,7 +152,7 @@ export function McpPlayground() {
       : [];
     return JSON.stringify(
       {
-        query: query || '(empty — type a capability)',
+        query: query || '(empty: type a capability)',
         count: rows.length,
         matches: rows.map((c) => ({
           id: c.id,
@@ -244,7 +244,7 @@ export function McpPlayground() {
     <div className="overflow-hidden rounded-xl border border-border bg-card">
       <div className="border-b border-border bg-muted/50 px-4 py-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-sm font-semibold">Try the MCP tools — live, in your browser</p>
+          <p className="text-sm font-semibold">Try the MCP tools: live, in your browser</p>
           <span className="rounded-full border border-border bg-background px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
             same /registry manifests the server reads · {registry ? `${registry.count} components` : 'loading…'}
           </span>
@@ -364,7 +364,7 @@ export function McpPlayground() {
                 Validate props
               </button>
               <p className="text-xs text-muted-foreground">
-                The default payload has two hallucinated props — watch validate_usage catch them.
+                The default payload has two hallucinated props: watch validate_usage catch them.
               </p>
             </>
           )}
@@ -375,7 +375,7 @@ export function McpPlayground() {
         <div className="min-w-0">
           <p className="mb-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground">
             <span>tool result</span>
-            <span className="font-mono">GET {tool === 'validate_usage' ? 'validate_usage()' : `/registry — ${activeTool.label}`}</span>
+            <span className="font-mono">GET {tool === 'validate_usage' ? 'validate_usage()' : `/registry · ${activeTool.label}`}</span>
           </p>
           <div
             tabIndex={0}

@@ -288,7 +288,7 @@ GET /registry/recommendations.json  # intent recipes behind recommend_components
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">/registry/graph.json</code> turns the
           manifests&apos; <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">compositionRules</code> and{' '}
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">relatedComponents</code> into a traversable
-          edge list, so an agent can choose a coherent set — a Dialog with a Form, a Conversation with Messages — instead
+          edge list, so an agent can choose a coherent set (a Dialog with a Form, a Conversation with Messages) instead
           of one component at a time. Every edge resolves to a node; the count gate checks that.
         </p>
 

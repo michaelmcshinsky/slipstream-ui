@@ -18,7 +18,7 @@ const APPROVED_THOUGHTS = [
 ];
 
 const APPROVED_REASONING = [
-  { id: 'r1', content: 'Changed files only touch docs routes — safe to deploy' },
+  { id: 'r1', content: 'Changed files only touch docs routes: safe to deploy' },
   { id: 'r2', content: 'Build completed with zero type errors' },
   { id: 'r3', content: 'CDN cache invalidated for /docs/*' },
 ];
@@ -54,7 +54,7 @@ export function AgentDashboardDemo() {
       {decision === 'rejected' && (
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3">
           <p className="text-sm text-muted-foreground">
-            Deployment cancelled — no changes were made.
+            Deployment cancelled: no changes were made.
           </p>
           <button
             type="button"

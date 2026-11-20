@@ -27,7 +27,7 @@ export default function DrawerPage() {
         { name: 'description', type: 'string', description: 'Supporting line under the title (wired via aria-describedby).' },
         { name: 'side', type: "'left' | 'right' | 'top' | 'bottom'", defaultValue: "'right'", description: 'Edge the drawer slides from.' },
         { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | '2xl'", defaultValue: "'md'", description: 'Preset extent along the side axis (width for sides, height for top/bottom).' },
-        { name: 'width', type: 'number | string', description: 'Custom extent for left/right drawers — pixels (520) or any CSS length ("70vw"). Overrides size.' },
+        { name: 'width', type: 'number | string', description: 'Custom extent for left/right drawers: pixels (520) or any CSS length ("70vw"). Overrides size.' },
         { name: 'height', type: 'number | string', description: 'Custom extent for top/bottom drawers - pixels (320) or any CSS length ("60vh"). Overrides size.' },
         { name: 'resizable', type: 'boolean', defaultValue: 'false', description: 'Drag the inner edge to resize a left/right drawer. Arrow keys nudge 16px, Shift+Arrow 64px, Home/End jump to the bounds.' },
         { name: 'minWidth', type: 'number', defaultValue: '240', description: 'Lower width bound in pixels while resizable.' },
@@ -44,7 +44,7 @@ export default function DrawerPage() {
         'role=dialog + aria-modal, labelled by title, described by description; portals to body.',
         'Focus moves in on open, Tab/Shift+Tab are trapped, focus restores to the opener on close.',
         'Escape closes; backdrop click closes when closeOnBackdrop (default).',
-        'Body scrolls internally — the page behind never moves.',
+        'Body scrolls internally: the page behind never moves.',
       ]}
     >
       <DemoCard
@@ -119,7 +119,7 @@ export default function DrawerPage() {
               open={open}
               onOpenChange={setOpen}
               title="Filter results"
-              description="Narrow by status — Escape or the backdrop closes."
+              description="Narrow by status: Escape or the backdrop closes."
               side={side}
               width={customWidth ? Number(customWidth) : undefined}
               animate={animate}
@@ -191,7 +191,7 @@ export default function DrawerPage() {
         preview={
           <div className="flex w-full items-center justify-between gap-3">
             <p className="text-sm text-muted-foreground">
-              Common on mobile — an action sheet from the bottom edge.
+              Common on mobile: an action sheet from the bottom edge.
             </p>
             <Button variant="outline" onClick={() => setOpenBottom(true)}>
               Open bottom sheet
@@ -202,7 +202,7 @@ export default function DrawerPage() {
               title="Share conversation"
               side="bottom"
               size="sm"
-              description="Pick a destination — sm keeps it compact."
+              description="Pick a destination: sm keeps it compact."
             >
               <div className="flex flex-col gap-2">
                 <Button variant="ghost" onClick={() => setOpenBottom(false)}>Copy link</Button>

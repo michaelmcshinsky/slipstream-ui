@@ -168,7 +168,7 @@ export const ja = {
       privacy: "プライバシー",
       terms: "利用規約",
       copyright: "© {year} Slipstream UI · MIT ライセンス",
-      builtStateless: "ステートレス設計 — データフローはあなたが所有します。",
+      builtStateless: "ステートレス設計: データフローはあなたが所有します。",
       helpTranslate: "翻訳に協力する",
     },
     search: {

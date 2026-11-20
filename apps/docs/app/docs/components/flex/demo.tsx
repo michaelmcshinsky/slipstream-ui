@@ -16,7 +16,7 @@ export default function FlexPage() {
         { name: 'wrap', type: 'boolean', defaultValue: 'false', description: 'Allow items to wrap onto multiple lines.' },
         { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl'", defaultValue: "'md'", description: 'Token gap between children.' },
         { name: 'as', type: "'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer'", defaultValue: "'div'", description: 'Semantic element.' },
-        { name: 'grow / shrink / basis', type: 'boolean | string / string', description: 'Per-child flex values on FlexItem — emitted as inline style so nothing gets purged.' },
+        { name: 'grow / shrink / basis', type: 'boolean | string / string', description: 'Per-child flex values on FlexItem: emitted as inline style so nothing gets purged.' },
       ]}
       accessibility={[
         'Layout-only semantics: flex-wrap reflows visually while DOM (reading) order never changes.',
@@ -54,10 +54,10 @@ export default function FlexPage() {
           <div className="w-full">
             <Flex gap="lg">
               <FlexItem basis="10rem" shrink={false} className="rounded-lg border border-border bg-muted/40 p-3">
-                <Text size="xs" muted>Sidebar — basis 10rem, shrink-0</Text>
+                <Text size="xs" muted>Sidebar: basis 10rem, shrink-0</Text>
               </FlexItem>
               <FlexItem grow className="rounded-lg border border-border p-3">
-                <Text size="xs" muted>Content — grows to fill remaining space</Text>
+                <Text size="xs" muted>Content: grows to fill remaining space</Text>
               </FlexItem>
             </Flex>
             <div className="mt-4">
@@ -75,7 +75,7 @@ export default function FlexPage() {
         }
         code={`import { Flex, FlexItem } from '@slipstream-ui/core';
 
-{/* Fixed sidebar + growing content — flex values render as inline
+{/* Fixed sidebar + growing content: flex values render as inline
     style because runtime-built utility classes would be purged */}
 <Flex gap="lg">
   <FlexItem basis="10rem" shrink={false}>…</FlexItem>

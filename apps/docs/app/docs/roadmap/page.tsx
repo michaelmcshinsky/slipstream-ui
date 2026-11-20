@@ -34,7 +34,7 @@ const RELEASES: {
     version: '0.5.0',
     window: 'Shipped · November 2026',
     state: 'shipped',
-    focus: 'Migration-readiness round two — parity with shadcn/MUI-era apps',
+    focus: 'Migration-readiness round two: parity with shadcn/MUI-era apps',
     items: [
       `${COMPONENT_COUNT} components (${CORE_COMPONENT_COUNT} core + ${AI_COMPONENT_COUNT} AI)`,
       'Badge success/warning/info/primary/danger; Button primary/danger aliases + loading',

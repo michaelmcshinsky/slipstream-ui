@@ -16,28 +16,28 @@ export default function TextPage() {
         { name: 'muted', type: 'boolean', defaultValue: 'false', description: 'Use the muted-foreground token.' },
       ]}
       accessibility={[
-        'Renders real <p>/<span> — document semantics stay intact for reader modes and assistive tech.',
+        'Renders real <p>/<span>: document semantics stay intact for reader modes and assistive tech.',
         'Muted tone uses --muted-foreground (AA in both themes).',
-        'Never use Text where a Heading belongs — outline navigation depends on headings.',
+        'Never use Text where a Heading belongs: outline navigation depends on headings.',
       ]}
     >
       <DemoCard
         title="Sizes and weights"
         preview={
           <div className="w-full space-y-2">
-            <Text size="xl" weight="semibold">xl semibold — lead paragraph</Text>
-            <Text size="base">base — the default body paragraph, rendered as a real p element.</Text>
-            <Text size="sm" weight="medium">sm medium — emphasized supporting copy</Text>
-            <Text size="xs" muted>xs muted — captions, footnotes, meta lines</Text>
-            <Text size="lg">lg — short marketing lines</Text>
+            <Text size="xl" weight="semibold">xl semibold: lead paragraph</Text>
+            <Text size="base">base: the default body paragraph, rendered as a real p element.</Text>
+            <Text size="sm" weight="medium">sm medium: emphasized supporting copy</Text>
+            <Text size="xs" muted>xs muted: captions, footnotes, meta lines</Text>
+            <Text size="lg">lg: short marketing lines</Text>
           </div>
         }
         code={`import { Text } from '@slipstream-ui/core';
 
-<Text size="xl" weight="semibold">xl semibold — lead paragraph</Text>
-<Text>base — the default body paragraph.</Text>
-<Text size="sm" weight="medium">sm medium — emphasized supporting copy</Text>
-<Text size="xs" muted>xs muted — captions, footnotes</Text>`}
+<Text size="xl" weight="semibold">xl semibold: lead paragraph</Text>
+<Text>base: the default body paragraph.</Text>
+<Text size="sm" weight="medium">sm medium: emphasized supporting copy</Text>
+<Text size="xs" muted>xs muted: captions, footnotes</Text>`}
       />
 
       <DemoCard
@@ -45,7 +45,7 @@ export default function TextPage() {
         preview={
           <div className="w-full space-y-3">
             <Text size="sm">
-              Inline text flows with its neighbors —{' '}
+              Inline text flows with its neighbors:{' '}
               <Text inline weight="semibold" className="text-primary">
                 this fragment is a span
               </Text>{' '}
@@ -57,9 +57,9 @@ export default function TextPage() {
             </Text>
           </div>
         }
-        code={`{/* inline renders a <span> — stays in the paragraph's text flow */}
+        code={`{/* inline renders a <span>: stays in the paragraph's text flow */}
 <Text size="sm">
-  Inline text flows with its neighbors —{' '}
+  Inline text flows with its neighbors:{' '}
   <Text inline weight="semibold" className="text-primary">
     this fragment is a span
   </Text>{' '}
