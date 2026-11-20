@@ -58,18 +58,26 @@ export const noopTransport: EmailTransport = {
 };
 
 /**
- * Production transport: POSTs JSON { to, kind, subject, text } to
- * EMAIL_WEBHOOK_URL (any transactional-email gateway). Throws on non-2xx so
+ * Production transport: POSTs JSON { from?, to, kind, subject, text, html?,
+ * headers? } to EMAIL_WEBHOOK_URL (any transactional-email gateway). The
+ * `from` field carries EMAIL_FROM when configured; mail relays such as
+ * mail-relay/forms require a sender, so set EMAIL_FROM once a sending domain
+ * is verified. When unset or empty the field is omitted entirely and the
+ * provider's default sender applies (see .env.example). Throws on non-2xx so
  * delivery failures surface as FAILED records instead of silent loss.
  */
 export function httpTransport(webhookUrl: string): EmailTransport {
   return {
     name: 'http',
     async send(email) {
+      // Trim and omit when empty: an empty `from` would be an invalid sender
+      // for strict relays, and `undefined`/absent lets the provider default.
+      const from = process.env.EMAIL_FROM?.trim();
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          ...(from ? { from } : {}),
           to: email.to,
           kind: email.kind,
           subject: email.subject,
