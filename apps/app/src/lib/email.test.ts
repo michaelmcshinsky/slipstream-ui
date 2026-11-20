@@ -143,6 +143,7 @@ describe('production configuration validation', () => {
   });
 
   it('http transport posts JSON and throws on non-2xx', async () => {
+    vi.stubEnv('EMAIL_FROM', undefined);
     const ok = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 200 }));
     await httpTransport('https://hooks.test/x').send({ to: 'a@b.dev', kind: 'invite', subject: 's', text: 't' });
     expect(ok).toHaveBeenCalledWith('https://hooks.test/x', expect.objectContaining({ method: 'POST' }));
@@ -154,6 +155,31 @@ describe('production configuration validation', () => {
     await expect(
       httpTransport('https://hooks.test/x').send({ to: 'a@b.dev', kind: 'invite', subject: 's', text: 't' }),
     ).rejects.toThrow(/500/);
+    ok.mockRestore();
+    vi.unstubAllEnvs();
+  });
+
+  it('http transport includes `from` from EMAIL_FROM and omits it when unset or empty', async () => {
+    const ok = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 200 }));
+    const transport = httpTransport('https://hooks.test/x');
+    const email = { to: 'a@b.dev', kind: 'invite' as const, subject: 's', text: 't' };
+    const lastBody = () => JSON.parse(ok.mock.calls.at(-1)![1]!.body as string) as Record<string, unknown>;
+
+    vi.stubEnv('EMAIL_FROM', 'Slipstream <noreply@slipstream.dev>');
+    await transport.send(email);
+    expect(lastBody()).toMatchObject({ from: 'Slipstream <noreply@slipstream.dev>' });
+
+    // Whitespace-only and empty values are treated as unconfigured: strict
+    // relays reject an empty sender, so the provider default must apply.
+    vi.stubEnv('EMAIL_FROM', '   ');
+    await transport.send(email);
+    expect(lastBody()).not.toHaveProperty('from');
+
+    vi.stubEnv('EMAIL_FROM', '');
+    await transport.send(email);
+    expect(lastBody()).not.toHaveProperty('from');
+
+    vi.unstubAllEnvs();
     ok.mockRestore();
   });
 });
