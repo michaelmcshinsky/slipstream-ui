@@ -24,7 +24,11 @@
       "defaultValue": "md",
       "required": false,
       "description": "Dot and label scale.",
-      "enum": ["sm", "md", "lg"]
+      "enum": [
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     {
       "name": "tone",
@@ -32,7 +36,11 @@
       "defaultValue": "primary",
       "required": false,
       "description": "Dot colour: brand primary, muted foreground, or the inherited text colour.",
-      "enum": ["primary", "muted", "current"]
+      "enum": [
+        "primary",
+        "muted",
+        "current"
+      ]
     },
     {
       "name": "dotCount",
@@ -63,7 +71,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "sourceDir": "streaming",
   "exportName": "StreamingIndicator"
 }

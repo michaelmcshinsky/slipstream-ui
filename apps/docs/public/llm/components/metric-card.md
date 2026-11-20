@@ -6,7 +6,7 @@ KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 > Import: `import { MetricCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/metric-card
 > Registry: https://slipstreamui.com/registry/metric-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.9.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
