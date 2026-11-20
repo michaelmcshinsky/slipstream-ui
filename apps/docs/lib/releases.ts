@@ -9,9 +9,22 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.10.0',
+    date: 'November 20, 2026',
+    tag: 'current',
+    highlights: [
+      'Form-control contrast and overlay polish: createTheme() emits color-scheme so native chrome follows the theme, Checkbox/Radio use the brand accent, RangeSlider gets a visible thumb, and Tooltip gains an inverse variant',
+      'New props: Select labelHidden, FilterChips size, density and surface options across Message, Conversation and PromptInput, and StreamingIndicator size/tone/dotCount/showLabel',
+      'Visual fixes: Timeline connector rail, Drawer backdrop fade, and Accordion collapse animation',
+      'Newsletter subscriptions with daily/weekly digests in the dashboard app',
+      'Docs fixes: cookie consent expires after 180 days, runtime fs reads removed for the Cloudflare Worker, .dark restored as the theme source of truth, richer articles index, and a benchmark case-study article',
+      'Versioned packages: core/ai/themes 0.10.0, cli 0.3.1; mcp-server and i18n remain 0.5.0, registry 0.2.2',
+    ],
+  },
+  {
     version: '0.9.0',
     date: 'November 17, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'AI docs reliability: the edge HTML cache stores anonymous pages, the docs route smoke test renders all 135 routes, and every component page now resolves to its registry manifest (CheckboxGroup and Tooltip were repaired)',
       'New MCP tool recommend_components turns a goal into a coherent component set with reasons and docs URLs; the same 14 recipes publish at /registry/recommendations.json',
