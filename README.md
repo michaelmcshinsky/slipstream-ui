@@ -167,6 +167,25 @@ git push                  # CI publishes all unpublished versions with provenanc
 
 Published packages: `@slipstream-ui/{core,ai,themes,cli,registry,mcp-server}`.
 
+## Adoption
+
+Real numbers, updated 2026-11-20 (npm last-month downloads per package; packages overlap
+because one install can pull several):
+
+| Package | Monthly downloads |
+|---|---|
+| `@slipstream-ui/core` | 2,272 |
+| `@slipstream-ui/ai` | 1,927 |
+| `@slipstream-ui/themes` | 1,710 |
+| `@slipstream-ui/mcp-server` | 1,408 |
+| `@slipstream-ui/cli` | 1,074 |
+| `@slipstream-ui/registry` | 708 |
+
+GitHub: 3 stars, 0 forks ([repo](https://github.com/michaelmcshinsky/slipstream-ui)).
+The library is also used in production by several apps in the maintainer's portfolio.
+Early days — the [migration guide](docs/migration-guide.md) is the intended on-ramp from
+shadcn/ui.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) (guidelines for AI agents working in this repo). Security reports go through [SECURITY.md](SECURITY.md).
