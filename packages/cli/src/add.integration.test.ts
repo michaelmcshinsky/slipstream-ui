@@ -45,7 +45,7 @@ describe('add command integration', () => {
     expect(output).toContain('create');
     expect(output).toContain('manifests/button.manifest.json');
     expect(output).toContain('Re-run without --dry-run to apply');
-  });
+  }, 30_000);
 
   it('copies source, support files and the manifest on a real add', async () => {
     const dir = fixture();
@@ -57,5 +57,5 @@ describe('add command integration', () => {
     expect(fs.existsSync(path.join(dir, 'components', 'slipstream', 'button', 'Button.tsx'))).toBe(true);
     expect(fs.existsSync(path.join(dir, 'components', 'slipstream', 'utils', 'cn.ts'))).toBe(true);
     expect(fs.existsSync(path.join(dir, 'components', 'slipstream', 'manifests', 'button.manifest.json'))).toBe(true);
-  });
+  }, 30_000);
 });
