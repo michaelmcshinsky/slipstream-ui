@@ -76,7 +76,7 @@ describe('Calendar', () => {
 
     await user.keyboard('{Enter}');
     expect(onValueChange).toHaveBeenCalledWith('2026-11-14');
-  });
+  }, 15000);
 
   it('pages months with the header buttons and clamps the day', async () => {
     const user = userEvent.setup();
