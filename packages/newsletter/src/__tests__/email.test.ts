@@ -69,7 +69,7 @@ describe('Email Templates', () => {
       const html = generateHtmlEmail(mockData);
       expect(html).toContain('Activity'); // audit_log label
       expect(html).toContain('Release'); // release label
-      expect(html).toContain('#3b82f6'); // blue for audit_log
+      expect(html).toContain('#1c55f2'); // brand blue for audit_log
       expect(html).toContain('#22c55e'); // green for release
     });
 
