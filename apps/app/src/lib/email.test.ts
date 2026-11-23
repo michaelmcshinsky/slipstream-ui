@@ -50,6 +50,8 @@ describe('delivery records', () => {
     // The token column stores only the hash; the body is the message itself.
     expect(record.tokenHash).toBe(hashToken(token));
     expect(record.tokenHash).not.toBe(token);
+    expect(record.bodyText).not.toContain(token);
+    expect(record.bodyText).toContain('token=[redacted]');
   });
 
   it('records a FAILED delivery with a message-only error and rethrows', async () => {
@@ -72,14 +74,15 @@ describe('token hygiene and escaping', () => {
     );
   });
 
-  it('invite email HTML-escapes the inviter label', () => {
+  it('invite email keeps the inviter label literal in plain text', () => {
+    const inviterLabel = '<img src=x onerror=alert(1)>';
     const email = buildInviteEmail({
       to: 'a@b.dev',
-      inviterLabel: '<img src=x onerror=alert(1)>',
+      inviterLabel,
       inviteUrl: 'http://x/accept',
     });
-    expect(email.text).not.toContain('<img');
-    expect(email.text).toContain('&lt;img');
+    expect(email.text).toContain(inviterLabel);
+    expect(email.text).not.toContain('&lt;img');
   });
 
   it('the log transport never prints the token unless explicitly opted in', async () => {
@@ -129,6 +132,15 @@ describe('dedup and retry', () => {
     // Exceeding the cap makes the sweep skip the record.
     await prisma.emailDelivery.update({ where: { id: seeded.id }, data: { status: 'FAILED', attempts: 3 } });
     expect(await retryFailedDeliveries({ toEmail: to })).toBe(0);
+  });
+
+  it('does not retry token-bound FAILED deliveries from stored content', async () => {
+    const to = freshEmail();
+    const seeded = await prisma.emailDelivery.create({
+      data: { toEmail: to, kind: 'password_reset', subject: 's', bodyText: 'token=[redacted]', status: 'FAILED', attempts: 1, tokenHash: hashToken(generateToken()) },
+    });
+    expect(await retryFailedDeliveries({ toEmail: to })).toBe(0);
+    expect(await prisma.emailDelivery.findUniqueOrThrow({ where: { id: seeded.id } })).toMatchObject({ status: 'FAILED', attempts: 1 });
   });
 });
 

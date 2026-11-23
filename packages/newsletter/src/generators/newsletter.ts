@@ -266,7 +266,7 @@ export async function processQueuedDeliveries(
       if (!send) {
         throw new Error('processQueuedDeliveries requires a send function (e.g. deliverEmail)');
       }
-      const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstream-ui.com').replace(/\/+$/, '');
+      const appUrl = (process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
       const unsubscribeUrl = newsletterUnsubscribeUrl(appUrl, delivery.userId, delivery.type as 'daily' | 'weekly');
 
       await send({
