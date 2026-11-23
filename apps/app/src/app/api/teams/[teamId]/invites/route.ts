@@ -26,7 +26,7 @@ export async function POST(request: Request, { params }: Params) {
       invitedById: user.id,
     });
 
-    const inviteUrl = `${appUrl()}/api/invites/accept?token=${encodeURIComponent(result.token)}`;
+    const inviteUrl = `${appUrl()}/invite/accept?token=${encodeURIComponent(result.token)}`;
     // Deliver the invitation email; the URL is also returned for dev/tests.
     const inviter = await prisma.user.findUnique({ where: { id: user.id }, select: { email: true, name: true } });
     await deliverEmail({
@@ -38,6 +38,6 @@ export async function POST(request: Request, { params }: Params) {
       tokenHash: hashToken(result.token),
     });
 
-    return { inviteId: result.inviteId, inviteUrl: `/api/invites/accept?token=${result.token}` };
+    return { inviteId: result.inviteId, inviteUrl: `/invite/accept?token=${result.token}` };
   });
 }
