@@ -63,6 +63,8 @@ export const stripeProvider: BillingProvider = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       client_reference_id: teamId,
+      metadata: { teamId, plan },
+      subscription_data: { metadata: { teamId, plan } },
       success_url: `${process.env.APP_URL}/dashboard/billing?checkout=success`,
       cancel_url: `${process.env.APP_URL}/dashboard/billing?checkout=cancelled`,
     });

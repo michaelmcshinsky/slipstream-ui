@@ -4,6 +4,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { prisma, Prisma } from '@slipstream-ui/db';
 import { z } from 'zod';
 import { activateSubscription, downgradeToFree } from '@/lib/billing';
+import { getPlan } from '@/lib/plans';
 import { handle, badRequest } from '@/lib/api/handle';
 import { ApiError } from '@/lib/api/core';
 
@@ -14,13 +15,13 @@ const eventSchema = z.object({
 });
 const teamSchema = z.object({
   client_reference_id: z.string().nullish(),
-  metadata: z.object({ teamId: z.string().nullish() }).nullish(),
+  metadata: z.object({ teamId: z.string().nullish(), plan: z.string().nullish() }).nullish(),
 });
 const activationSchema = teamSchema.extend({
   customer: z.string().optional(),
   subscription: z.string().optional(),
   items: z.object({
-    data: z.array(z.object({ price: z.object({ nickname: z.string().nullish() }) })).optional(),
+    data: z.array(z.object({ price: z.object({ nickname: z.string().nullish(), id: z.string().nullish() }) })).optional(),
   }).nullish(),
 });
 const invoiceSchema = teamSchema.extend({
@@ -71,6 +72,25 @@ function teamIdFrom(object: z.infer<typeof teamSchema>): string {
   return object.client_reference_id ?? object.metadata?.teamId ?? '';
 }
 
+function stripePricePlan(priceId: string | null | undefined): string | undefined {
+  if (!priceId) return undefined;
+  for (const plan of ['PRO', 'TEAM', 'ENTERPRISE'] as const) {
+    if (process.env[`STRIPE_PRICE_${plan}`] === priceId) return plan;
+  }
+  return undefined;
+}
+
+function resolvePlan(object: z.infer<typeof activationSchema>): string {
+  const metadataPlan = object.metadata?.plan?.toUpperCase();
+  if (metadataPlan && getPlan(metadataPlan)) return metadataPlan;
+  const price = object.items?.data?.[0]?.price;
+  const byPriceId = stripePricePlan(price?.id);
+  if (byPriceId) return byPriceId;
+  const nickname = price?.nickname?.toUpperCase();
+  if (nickname && getPlan(nickname)) return nickname;
+  return 'PRO';
+}
+
 function billingAction(event: BillingEvent): BillingAction | null {
   switch (event.type) {
     case 'checkout.session.completed':
@@ -79,8 +99,7 @@ function billingAction(event: BillingEvent): BillingAction | null {
       const teamId = teamIdFrom(object);
       return async (db) => {
         if (!teamId) return;
-        const plan = (object.items?.data?.[0]?.price.nickname ?? 'PRO').toUpperCase();
-        await activateSubscription(teamId, plan, {
+        await activateSubscription(teamId, resolvePlan(object), {
           customerId: object.customer,
           subscriptionId: object.subscription,
         }, db);
@@ -91,9 +110,12 @@ function billingAction(event: BillingEvent): BillingAction | null {
       const object = validate(invoiceSchema, event.data.object);
       const teamId = teamIdFrom(object);
       return async (db) => {
-        if (!teamId && !object.customer) return;
+        const conditions: Prisma.SubscriptionWhereInput[] = [];
+        if (object.customer) conditions.push({ customerId: object.customer });
+        if (teamId) conditions.push({ teamId });
+        if (conditions.length === 0) return;
         const subscription = await db.subscription.findFirst({
-          where: { OR: [{ customerId: object.customer }, { teamId }] },
+          where: { OR: conditions },
         });
         if (subscription) {
           await db.payment.create({
