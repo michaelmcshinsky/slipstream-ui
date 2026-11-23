@@ -1,34 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { applyTheme, persistTheme, THEME_STORAGE_KEY } from '@/lib/theme';
 
-/** Toggles the color scheme via <meta name="color-scheme"> and persists the choice. */
+/** Toggles `.dark` on <html> and persists the choice (system-following when unset). */
 export function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
-    setDark(meta?.content === 'dark');
+    setDark(document.documentElement.classList.contains('dark'));
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (event: MediaQueryListEvent) => {
+      if (localStorage.getItem(THEME_STORAGE_KEY)) return;
+      applyTheme(event.matches);
+      setDark(event.matches);
+    };
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
   function toggle() {
-    const meta = document.querySelector('meta[name="color-scheme"]') as HTMLMetaElement | null;
-    if (!meta) return;
-    const current = meta.content;
-    const isDark = current === 'dark';
-    const next = isDark ? 'light' : 'dark';
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const systemScheme = prefersDark ? 'dark' : 'light';
-
-    // If next matches system, remove override (revert to system)
-    const value = next === systemScheme ? 'light dark' : next;
-    meta.content = value;
-    if (value === 'light dark') {
-      localStorage.removeItem('slipstream-theme');
-    } else {
-      localStorage.setItem('slipstream-theme', value);
-    }
-    setDark(next === 'dark');
+    const next = !document.documentElement.classList.contains('dark');
+    applyTheme(next);
+    persistTheme(next, window.matchMedia('(prefers-color-scheme: dark)').matches);
+    setDark(next);
   }
 
   return (

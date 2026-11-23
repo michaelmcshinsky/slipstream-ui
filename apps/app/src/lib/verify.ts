@@ -2,6 +2,7 @@ import { prisma } from '@slipstream-ui/db';
 import { generateToken, hashToken } from './tokens';
 import { deliverEmail } from './email';
 import { audit } from './audit';
+import { appUrl } from './app-url';
 
 /**
  * Email verification lifecycle.
@@ -27,12 +28,12 @@ export async function createEmailVerification(userId: string): Promise<{ token: 
 /** Deliver the verification email for a user; returns the issued token. */
 export async function sendVerificationEmail(user: { id: string; email: string }): Promise<{ token: string }> {
   const { token } = await createEmailVerification(user.id);
-  const appUrl = process.env.APP_URL ?? 'http://localhost:3000';
+  const baseUrl = appUrl();
   await deliverEmail({
     to: user.email,
     kind: 'email_verify',
     subject: 'Verify your email address',
-    text: `Confirm your email address: ${appUrl}/verify-email?token=${encodeURIComponent(token)}\nThis link expires in 24 hours.`,
+    text: `Confirm your email address: ${baseUrl}/verify-email?token=${encodeURIComponent(token)}\nThis link expires in 24 hours.`,
     token,
     tokenHash: hashToken(token),
   });

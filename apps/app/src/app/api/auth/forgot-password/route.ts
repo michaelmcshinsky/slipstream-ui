@@ -5,6 +5,7 @@ import { generateToken, hashToken } from '@/lib/tokens';
 import { deliverEmail, buildResetEmail } from '@/lib/email';
 import { handle, badRequest, z } from '@/lib/api/handle';
 import { parseBody } from '@/lib/api/core';
+import { appUrl } from '@/lib/app-url';
 
 export async function POST(request: Request) {
   return handle(request, async () => {
@@ -30,11 +31,10 @@ export async function POST(request: Request) {
     // Deliver through the configured transport; failures are recorded and
     // surface as a 500 so operators can retry. The response never
     // reveals whether the account exists.
-    const appUrl = process.env.APP_URL ?? 'http://localhost:3000';
     await deliverEmail({
       ...buildResetEmail({
         to: email,
-        resetUrl: `${appUrl}/reset?token=${encodeURIComponent(token)}`,
+        resetUrl: `${appUrl()}/reset-password?token=${encodeURIComponent(token)}`,
       }),
       token,
       tokenHash,
