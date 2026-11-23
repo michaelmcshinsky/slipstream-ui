@@ -1,95 +1,69 @@
 /**
  * Newsletter cron job endpoint
  * Called by OpenWork Automation on schedule
- * GET /api/cron/newsletter?frequency=daily|weekly&secret=...
+ * GET /api/cron/newsletter?frequency=daily|weekly with Authorization: Bearer <secret>
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import { createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries } from '@slipstream-ui/newsletter';
 import { deliverEmail } from '@/lib/email';
+import { handle, z, badRequest } from '@/lib/api/handle';
+import { errors, parseBody } from '@/lib/api/core';
 
-const CRON_SECRET = process.env.NEWSLETTER_CRON_SECRET;
+const frequencySchema = z.enum(['daily', 'weekly']);
+const postSchema = z.object({ frequency: frequencySchema });
 
-export async function GET(request: NextRequest) {
-  try {
-    // Verify cron secret
-    const { searchParams } = new URL(request.url);
-    const secret = searchParams.get('secret');
-    const frequency = searchParams.get('frequency') as 'daily' | 'weekly' | null;
+function bearerToken(request: Request): string | null {
+  const header = request.headers.get('authorization');
+  if (!header?.startsWith('Bearer ')) return null;
+  return header.slice(7).trim() || null;
+}
 
-    if (!CRON_SECRET || secret !== CRON_SECRET) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+function secretMatches(provided: string | null): boolean {
+  const expected = process.env.NEWSLETTER_CRON_SECRET;
+  if (!expected || !provided) return false;
+  const providedHash = createHash('sha256').update(provided).digest();
+  const expectedHash = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(providedHash, expectedHash);
+}
 
-    if (!frequency || !['daily', 'weekly'].includes(frequency)) {
-      return NextResponse.json({ error: 'Invalid frequency. Must be "daily" or "weekly"' }, { status: 400 });
-    }
-
-    // Generate and queue newsletters
-    const generator = createNewsletterGenerator(process.env.NEXT_PUBLIC_APP_URL);
-    const { queued, failed: queueFailed } = await queueNewsletterDeliveries(generator, frequency);
-
-    // Process queued deliveries
-    const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail);
-
-    return NextResponse.json({
-      success: true,
-      frequency,
-      queued,
-      sent,
-      failed: queueFailed + sendFailed,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error('Newsletter cron job failed:', error);
-    return NextResponse.json(
-      { error: 'Internal server error', message: error instanceof Error ? error.message : String(error) },
-      { status: 500 }
-    );
+function requireCronSecret(request: Request): void {
+  if (!secretMatches(bearerToken(request))) {
+    throw errors.unauthorized('Unauthorized.');
   }
+}
+
+async function runNewsletter(frequency: 'daily' | 'weekly') {
+  const generator = createNewsletterGenerator(process.env.NEXT_PUBLIC_APP_URL);
+  const { queued, failed: queueFailed } = await queueNewsletterDeliveries(generator, frequency);
+  const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail);
+  return {
+    success: true,
+    frequency,
+    queued,
+    sent,
+    failed: queueFailed + sendFailed,
+    timestamp: new Date().toISOString(),
+  };
+}
+
+export async function GET(request: Request) {
+  return handle(request, async () => {
+    requireCronSecret(request);
+    const parsed = frequencySchema.safeParse(new URL(request.url).searchParams.get('frequency'));
+    if (!parsed.success) badRequest('Invalid frequency. Must be "daily" or "weekly".');
+    return runNewsletter(parsed.data);
+  }, { routeName: 'cron.newsletter.get' });
 }
 
 /**
  * Manual trigger endpoint for testing
  * POST /api/cron/newsletter with { frequency: "daily" | "weekly" }
  */
-export async function POST(request: NextRequest) {
-  try {
-    // Verify cron secret
-    const authHeader = request.headers.get('authorization');
-    const expectedAuth = `Bearer ${CRON_SECRET}`;
-
-    if (!CRON_SECRET || authHeader !== expectedAuth) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const frequency = body.frequency as 'daily' | 'weekly' | null;
-
-    if (!frequency || !['daily', 'weekly'].includes(frequency)) {
-      return NextResponse.json({ error: 'Invalid frequency. Must be "daily" or "weekly"' }, { status: 400 });
-    }
-
-    // Generate and queue newsletters
-    const generator = createNewsletterGenerator(process.env.NEXT_PUBLIC_APP_URL);
-    const { queued, failed: queueFailed } = await queueNewsletterDeliveries(generator, frequency);
-
-    // Process queued deliveries
-    const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail);
-
-    return NextResponse.json({
-      success: true,
-      frequency,
-      queued,
-      sent,
-      failed: queueFailed + sendFailed,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error('Newsletter manual trigger failed:', error);
-    return NextResponse.json(
-      { error: 'Internal server error', message: error instanceof Error ? error.message : String(error) },
-      { status: 500 }
-    );
-  }
+export async function POST(request: Request) {
+  return handle(request, async () => {
+    requireCronSecret(request);
+    const body = await parseBody(request, postSchema);
+    return runNewsletter(body.frequency);
+  }, { routeName: 'cron.newsletter.post' });
 }

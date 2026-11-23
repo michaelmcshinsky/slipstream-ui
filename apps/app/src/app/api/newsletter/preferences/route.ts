@@ -4,8 +4,9 @@
  * PATCH: Update newsletter preferences
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { getSessionUser } from '@/lib/session';
+import { handle, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
+import { getSessionUser, requireUser } from '@/lib/session';
 import {
   getNewsletterPreferences,
   updateNewsletterPreferences,
@@ -13,52 +14,31 @@ import {
   getAvailableFrequencies,
 } from '@slipstream-ui/newsletter';
 
-export async function GET() {
-  try {
-    const user = await getSessionUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+const updateSchema = z.object({
+  dailyEnabled: z.boolean().optional(),
+  weeklyEnabled: z.boolean().optional(),
+  contentTypes: z.array(z.enum(['audit_log', 'release', 'github', 'custom'])).optional(),
+  frequency: z.enum(['daily', 'weekly', 'both']).optional(),
+  timezone: z.string().min(1).max(100).optional(),
+});
 
-    const preferences = await getNewsletterPreferences(user.id);
-    const contentTypes = getAvailableContentTypes();
-    const frequencies = getAvailableFrequencies();
-
-    return NextResponse.json({
-      preferences,
-      contentTypes,
-      frequencies,
-    });
-  } catch (error) {
-    console.error('Failed to get newsletter preferences:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
+export async function GET(request: Request) {
+  return handle(request, async () => {
+    const user = requireUser(await getSessionUser());
+    const [preferences, contentTypes, frequencies] = await Promise.all([
+      getNewsletterPreferences(user.id),
+      Promise.resolve(getAvailableContentTypes()),
+      Promise.resolve(getAvailableFrequencies()),
+    ]);
+    return { preferences, contentTypes, frequencies };
+  }, { routeName: 'newsletter.preferences.get' });
 }
 
-export async function PATCH(request: NextRequest) {
-  try {
-    const user = await getSessionUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { dailyEnabled, weeklyEnabled, contentTypes, frequency, timezone } = body;
-
-    const preferences = await updateNewsletterPreferences(user.id, {
-      dailyEnabled,
-      weeklyEnabled,
-      contentTypes,
-      frequency,
-      timezone,
-    });
-
-    return NextResponse.json({ preferences });
-  } catch (error) {
-    if (error instanceof Error && error.message.startsWith('Invalid')) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-    console.error('Failed to update newsletter preferences:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
+export async function PATCH(request: Request) {
+  return handle(request, async () => {
+    const user = requireUser(await getSessionUser());
+    const body = await parseBody(request, updateSchema);
+    const preferences = await updateNewsletterPreferences(user.id, body);
+    return { preferences };
+  }, { routeName: 'newsletter.preferences.patch' });
 }
