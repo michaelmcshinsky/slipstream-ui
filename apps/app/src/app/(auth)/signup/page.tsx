@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: 'Create account',
   description: 'Create your Slipstream UI account and start a 14-day trial.',
 };
-export default function SignupPage() {
-  return <AuthForm mode="signup" />;
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+  return <AuthForm mode="signup" next={next} />;
 }

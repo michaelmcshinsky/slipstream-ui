@@ -32,9 +32,6 @@ export default async function Home() {
             </Link>
           </>
         )}
-        <Link href="/pricing" className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
-          Pricing
-        </Link>
       </div>
     </main>
   );

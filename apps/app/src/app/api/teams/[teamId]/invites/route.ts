@@ -7,6 +7,7 @@ import { deliverEmail, buildInviteEmail } from '@/lib/email';
 import { hashToken } from '@/lib/tokens';
 import { handle, z } from '@/lib/api/handle';
 import { parseBody } from '@/lib/api/core';
+import { appUrl } from '@/lib/app-url';
 
 const createInviteSchema = z.object({ email: z.string().min(1, 'Email is required.'), role: z.string().nullish() });
 
@@ -25,8 +26,7 @@ export async function POST(request: Request, { params }: Params) {
       invitedById: user.id,
     });
 
-    const appUrl = process.env.APP_URL ?? 'http://localhost:3000';
-    const inviteUrl = `${appUrl}/api/invites/accept?token=${encodeURIComponent(result.token)}`;
+    const inviteUrl = `${appUrl()}/api/invites/accept?token=${encodeURIComponent(result.token)}`;
     // Deliver the invitation email; the URL is also returned for dev/tests.
     const inviter = await prisma.user.findUnique({ where: { id: user.id }, select: { email: true, name: true } });
     await deliverEmail({

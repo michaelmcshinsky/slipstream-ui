@@ -16,17 +16,17 @@ export const metadata: Metadata = {
 /**
  * Applies the persisted theme before first paint so reloads never flash the
  * wrong color scheme. Runs inline in <head> by virtue of being rendered here.
- * Updates <meta name="color-scheme"> to sync with localStorage override.
+ * Toggles the `.dark` class (token source of truth) and syncs
+ * <meta name="color-scheme"> so UA chrome follows the same scheme.
  */
 const THEME_INIT_SCRIPT = `
 try {
   const stored = localStorage.getItem('slipstream-theme');
-  const meta = document.querySelector('meta[name="color-scheme"]');
-  if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    meta.content = 'dark';
-  } else if (stored === 'light') {
-    meta.content = 'light';
-  }
+  const dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.classList.toggle('dark', dark);
+  document.querySelectorAll('meta[name="color-scheme"]').forEach(function (meta) {
+    meta.content = dark ? 'dark' : 'light';
+  });
   // Mirror of parseStoredConsent in lib/analytics.ts: only a fresh timestamped
   // JSON choice counts as decided (180 days). Repeat visitors never see the
   // cookie banner flash.

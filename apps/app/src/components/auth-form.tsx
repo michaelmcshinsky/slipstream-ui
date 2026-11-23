@@ -2,29 +2,36 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Card, CardTitle, inputClass } from '@/components/ui';
+import { Card, CardTitle, Field } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 import Link from 'next/link';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset';
 
-const COPY: Record<Mode, { title: string; action: string; footer: [string, string] }> = {
-  login: { title: 'Sign in', action: 'Sign in', footer: ['Need an account?', '/signup'] },
-  signup: { title: 'Create your account', action: 'Create account', footer: ['Already have an account?', '/login'] },
-  forgot: { title: 'Reset password', action: 'Send reset link', footer: ['Remembered it?', '/login'] },
-  reset: { title: 'Choose a new password', action: 'Update password', footer: ['Back to', '/login'] },
+type FooterLink = { prompt: string; href: string; label: string };
+
+const COPY: Record<Mode, { title: string; action: string; footer: FooterLink }> = {
+  login: { title: 'Sign in', action: 'Sign in', footer: { prompt: 'Need an account?', href: '/signup', label: 'Create account' } },
+  signup: { title: 'Create your account', action: 'Create account', footer: { prompt: 'Already have an account?', href: '/login', label: 'Sign in' } },
+  forgot: { title: 'Reset password', action: 'Send reset link', footer: { prompt: 'Remembered it?', href: '/login', label: 'Sign in' } },
+  reset: { title: 'Choose a new password', action: 'Update password', footer: { prompt: 'Back to', href: '/login', label: 'sign in' } },
 };
+
+function safeNext(next: string | undefined): string {
+  return next && next.startsWith('/') && !next.startsWith('//') ? next : '/dashboard';
+}
 
 /**
  * One form component for all four unauthenticated flows. The reset flow
  * reads ?token= from the URL; forgot returns the token inline in dev.
  */
-export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: string }) {
+export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; token?: string; next?: string }) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const copy = COPY[mode];
+  const errorProps = error ? { 'aria-invalid': true, 'aria-describedby': 'auth-error' } : {};
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -56,7 +63,7 @@ export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: st
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      const data = await response.json();
+      const data: unknown = await response.json().catch(() => null);
       if (!response.ok) {
         setError(extractErrorMessage(data));
         return;
@@ -73,8 +80,10 @@ export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: st
       if (mode === 'reset') {
         setNotice('Password updated. Redirecting…');
       }
-      router.push('/dashboard');
+      router.push(mode === 'login' || mode === 'signup' ? safeNext(next) : '/dashboard');
       router.refresh();
+    } catch {
+      setError('Something went wrong. Please try again.');
     } finally {
       setPending(false);
     }
@@ -85,34 +94,35 @@ export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: st
       <CardTitle>{copy.title}</CardTitle>
       <form onSubmit={onSubmit} className="space-y-4">
         {mode === 'signup' && (
-          <input name="name" placeholder="Your name" className={inputClass} autoComplete="name" />
+          <Field label="Name" name="name" autoComplete="name" {...errorProps} />
         )}
         {mode !== 'reset' && (
-          <input
+          <Field
+            label="Email"
             name="email"
             type="email"
             required
             placeholder="you@company.com"
-            className={inputClass}
             autoComplete="email"
+            {...errorProps}
           />
         )}
         {mode === 'reset' && !initialToken && (
-          <input name="token" required placeholder="Reset token" className={inputClass} />
+          <Field label="Reset token" name="token" required {...errorProps} />
         )}
         {(mode === 'login' || mode === 'signup' || mode === 'reset') && (
-          <input
+          <Field
+            label={mode === 'reset' ? 'New password' : 'Password'}
             name="password"
             type="password"
             required
             minLength={8}
-            placeholder={mode === 'reset' ? 'New password' : 'Password'}
-            className={inputClass}
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+            {...errorProps}
           />
         )}
 
-        {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+        {error && <p id="auth-error" role="alert" className="text-sm text-destructive">{error}</p>}
         {notice && <p role="status" className="text-sm text-primary">{notice}</p>}
 
         <button
@@ -124,11 +134,19 @@ export function AuthForm({ mode, token: initialToken }: { mode: Mode; token?: st
         </button>
       </form>
       <p className="mt-4 text-center text-xs text-muted-foreground">
-        {copy.footer[0]}{' '}
-        <Link href={copy.footer[1]} className="font-medium text-primary hover:underline">
-          {mode === 'forgot' ? 'sign in' : 'sign in'}
+        {copy.footer.prompt}{' '}
+        <Link href={copy.footer.href} className="font-medium text-primary hover:underline">
+          {copy.footer.label}
         </Link>
       </p>
+      {mode === 'login' && (
+        <p className="mt-2 text-center text-xs text-muted-foreground">
+          Forgot password?{' '}
+          <Link href="/forgot-password" className="font-medium text-primary hover:underline">
+            Reset it
+          </Link>
+        </p>
+      )}
     </Card>
   );
 }
