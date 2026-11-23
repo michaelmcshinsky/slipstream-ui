@@ -8,7 +8,7 @@ import { createHash, timingSafeEqual } from 'node:crypto';
 import { createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries } from '@slipstream-ui/newsletter';
 import { deliverEmail } from '@/lib/email';
 import { handle, z, badRequest } from '@/lib/api/handle';
-import { errors, parseBody } from '@/lib/api/core';
+import { errors, parseBody, ApiError } from '@/lib/api/core';
 
 const frequencySchema = z.enum(['daily', 'weekly']);
 const postSchema = z.object({ frequency: frequencySchema });
@@ -34,7 +34,13 @@ function requireCronSecret(request: Request): void {
 }
 
 async function runNewsletter(frequency: 'daily' | 'weekly') {
-  const generator = createNewsletterGenerator(process.env.NEXT_PUBLIC_APP_URL);
+  // Unsubscribe/preferences links are app routes, so they must be built from
+  // the app origin — never the docs origin or an unset public fallback.
+  const siteUrl = process.env.APP_URL?.replace(/\/+$/, '');
+  if (!siteUrl) {
+    throw new ApiError(503, 'newsletter_unconfigured', 'Newsletter app URL is not configured.');
+  }
+  const generator = createNewsletterGenerator(siteUrl);
   const { queued, failed: queueFailed } = await queueNewsletterDeliveries(generator, frequency);
   const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail);
   return {

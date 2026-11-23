@@ -28,7 +28,7 @@ export class NewsletterGenerator {
   private registry: ContentSourceRegistry;
   private siteUrl: string;
 
-  constructor(registry?: ContentSourceRegistry, siteUrl = 'https://slipstream-ui.com') {
+  constructor(registry?: ContentSourceRegistry, siteUrl = 'https://slipstreamui.com') {
     this.registry = registry ?? createDefaultRegistry(
       process.env.GITHUB_TOKEN,
       process.env.GITHUB_OWNER,
