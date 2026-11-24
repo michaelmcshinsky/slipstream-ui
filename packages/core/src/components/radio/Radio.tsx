@@ -131,7 +131,7 @@ const RadioGroupItem = React.forwardRef<HTMLInputElement, RadioGroupItemProps>(
           value={value}
           checked={group.value === value}
           onCheckedChange={(checked) => checked && group.onChange(value)}
-          className={className}
+          className={cn('peer', className)}
           {...props}
         />
         {label && (
