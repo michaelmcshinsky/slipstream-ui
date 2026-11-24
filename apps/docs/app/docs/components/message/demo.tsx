@@ -31,6 +31,13 @@ export default function MessagePage() {
         { name: 'surface', type: "'auto' | 'none' | 'card' | 'muted' | 'primary'", defaultValue: "'auto'", description: 'Bubble surface; auto keeps the role tint, none is transparent' },
         { name: 'renderContent', type: '(content: string) => ReactNode', defaultValue: 'undefined', description: 'Custom content renderer (e.g. markdown); replaces plain-text rendering' },
         { name: 'isStreaming', type: 'boolean', defaultValue: 'false', description: 'Shows a typing cursor and sets aria-busy while generating' },
+        { name: 'error', type: 'string', description: 'Generation failure text; renders an error card in place of content.' },
+        { name: 'onRetry', type: '() => void', description: 'Called when the user requests a retry after error; omit to hide the action.' },
+        { name: 'onEditContent', type: '(content: string) => void', description: 'Edit-and-resubmit affordance for user messages.' },
+        { name: 'labels', type: '{ retry?, edit?, save?, cancel? }', description: 'Localized action labels.' },
+        { name: 'formatTime', type: '(date: Date) => string', description: 'Custom timestamp formatter.' },
+        { name: 'locale', type: 'string', description: 'BCP-47 locale for the default timestamp formatter.' },
+        { name: 'className', type: 'string', description: 'Extra classes for the root element.' },
       ]}
       accessibility={[
         'Message role and content are announced by screen readers',
