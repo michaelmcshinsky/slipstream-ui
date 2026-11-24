@@ -146,7 +146,11 @@ test.describe('command palette', () => {
 
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
-    await dialog.getByRole('textbox').fill('ai typing indicator');
+    // Focus is applied by a React effect after hydration; waiting for it
+    // guarantees keystrokes reach the controlled input.
+    const input = dialog.getByRole('combobox');
+    await expect(input).toBeFocused();
+    await input.fill('ai typing indicator');
     await expect(dialog.getByRole('option', { name: /StreamingIndicator/ })).toBeVisible();
 
     await page.keyboard.press('Escape');
