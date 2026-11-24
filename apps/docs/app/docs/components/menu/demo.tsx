@@ -35,8 +35,8 @@ export default function MenuPage() {
           </div>
         }
         code={"import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Menu>\n          <MenuTrigger>Options</MenuTrigger>\n          <MenuContent>\n            <MenuLabel>Actions</MenuLabel>\n            <MenuItem>Profile</MenuItem>\n            <MenuItem>Settings</MenuItem>\n            <MenuSeparator />\n            <MenuItem destructive>Sign out</MenuItem>\n          </MenuContent>\n        </Menu>\n    </>\n  );\n}"}
-        usage={"import { Menu } from '@slipstream-ui/core';\n\n// Basic usage\n<Menu />"}
-        types={"type MenuProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n};"}
+        usage={"import { Menu, MenuContent, MenuItem, MenuTrigger } from '@slipstream-ui/core';\n\n// Menu is a compound component: trigger + content\n<Menu>\n  <MenuTrigger>Options</MenuTrigger>\n  <MenuContent>\n    <MenuItem>Profile</MenuItem>\n  </MenuContent>\n</Menu>"}
+        types={"type MenuProps = {\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n  children: React.ReactNode;\n};"}
       />
 
       <DemoCard
