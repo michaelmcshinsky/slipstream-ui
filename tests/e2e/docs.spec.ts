@@ -107,7 +107,7 @@ test.describe('component reference', () => {
 
     await page.getByRole('button', { name: /Copy for AI/ }).click();
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText()), { timeout: 10_000 }).toContain(
-      'Slipstream UI — Button'
+      '# Slipstream UI: Button'
     );
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain('manifest schema v1');
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain('## Required props');
