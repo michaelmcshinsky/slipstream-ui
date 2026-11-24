@@ -48,7 +48,7 @@ export default function ButtonPage() {
       description="A clickable button component with variants for different visual styles and sizes."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link'", defaultValue: "'default'", description: 'Visual style variant (solid and colored outline semantic colors pair with the status tokens)' },
+        { name: 'variant', type: "'default' | 'primary' | 'destructive' | 'danger' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link' | 'contrast' | 'onDark'", defaultValue: "'default'", description: 'Visual style variant. primary/danger are aliases of default/destructive; contrast/onDark are fixed-ink fills for always-dark surfaces (hero sections) that do not follow the theme.' },
         { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Renders the child element (e.g. <a>, <Link>) with button styling instead of a <button>.' },
@@ -150,6 +150,30 @@ ${variantCode}
 {/* Icon buttons need an accessible name */}
 <Button size="icon" aria-label="Open">→</Button>
 <Button size="icon" variant="outline" aria-label="Settings">⚙</Button>`}
+      />
+
+      <DemoCard
+        title="On dark surfaces"
+        preview={
+          <div className="w-full rounded-xl bg-slate-900 p-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="contrast">Get started</Button>
+              <Button variant="onDark">Learn more</Button>
+              <Button variant="ghost" className="text-white hover:bg-white/10 hover:text-white">Ghost</Button>
+            </div>
+            <p className="mt-3 text-xs text-slate-400">
+              contrast and onDark keep fixed ink/white colors in both themes — use them on always-dark hero surfaces.
+            </p>
+          </div>
+        }
+        code={`import { Button } from '@slipstream-ui/core'
+
+{/* Always-dark surface (e.g. a hero band): fixed-ink variants stay legible
+    in light and dark mode, unlike theme-aware fills. */}
+<div className="rounded-xl bg-slate-900 p-6">
+  <Button variant="contrast">Get started</Button>
+  <Button variant="onDark">Learn more</Button>
+</div>`}
       />
 
       <DemoCard

@@ -26,6 +26,10 @@ export default function PaginationPage() {
         { name: 'showBoundaries', type: 'boolean', defaultValue: 'false', description: 'Adds « and » buttons that jump to the first/last page.' },
         { name: 'showFirst / showLast', type: 'boolean', defaultValue: 'showBoundaries', description: 'Show or hide each boundary button independently (e.g. hide « once you are on page 1 instead of disabling it).' },
         { name: 'icons', type: '{ first?, previous?, next?, last? }', description: 'Replace the default ‹ › « » glyphs with your own markup.' },
+        { name: 'pageHrefs', type: 'Record<number, string>', description: 'Page-number → href map; renders links for server-rendered pagination.' },
+        { name: 'linkComponent', type: 'React.ElementType', description: 'Router link element used with pageHrefs.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent.' },
+        { name: 'labels', type: '{ pagination?, first?, previous?, next?, last?, page? }', description: 'Localized landmark and control labels.' },
       ]}
       accessibility={[
         'nav[aria-label=Pagination] landmark.',

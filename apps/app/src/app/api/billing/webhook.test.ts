@@ -219,13 +219,15 @@ describe('webhook billing transactions', () => {
     expect(await state(team.id)).toEqual(before);
   });
 
-  it('does not treat an unrelated payment uniqueness failure as event completion', async () => {
+  it('deduplicates the same invoice across invoice.paid and invoice.payment_succeeded', async () => {
     const { team, subscription } = await fixture();
     const object = { id: `in_${randomUUID()}`, customer: subscription.customerId, amount_paid: 2900 };
     expect((await send(event('invoice.paid', object))).status).toBe(200);
+    // Stripe emits both event types for one invoice; the second must be a
+    // recorded no-op, not a P2002 retry loop.
     const other = event('invoice.payment_succeeded', object);
-    expect((await send(other)).status).toBe(500);
-    expect(await prisma.billingWebhookEvent.count({ where: { eventId: other.id } })).toBe(0);
+    expect((await send(other)).status).toBe(200);
+    expect(await prisma.billingWebhookEvent.count({ where: { eventId: other.id } })).toBe(1);
     expect(await prisma.payment.count({ where: { teamId: team.id } })).toBe(1);
   });
 

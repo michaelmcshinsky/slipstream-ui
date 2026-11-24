@@ -46,6 +46,13 @@ describe('Reasoning', () => {
     expect(container).toBeEmptyDOMElement();
   });
 
+  it('renders a chevron affordance instead of a literal glyph', () => {
+    render(<Reasoning steps={steps} />);
+    const toggle = screen.getByRole('button');
+    expect(toggle.querySelector('svg')).toBeInTheDocument();
+    expect(toggle).not.toHaveTextContent('?');
+  });
+
   it('has no accessibility violations when collapsed', async () => {
     const { container } = render(<Reasoning steps={steps} />);
     expect(await axe(container)).toHaveNoViolations();

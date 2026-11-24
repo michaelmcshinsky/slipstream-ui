@@ -17,6 +17,17 @@ export const DEFAULT_PREFERENCES: NewsletterPreferences = {
 export const VALID_CONTENT_TYPES: NewsletterContentType[] = ['audit_log', 'release', 'github', 'custom'];
 export const VALID_FREQUENCIES: NewsletterFrequency[] = ['daily', 'weekly', 'both'];
 
+/** Corrupt JSON in the row must not 500 the preferences read; fall back to defaults. */
+export function parseContentTypes(raw: string): NewsletterContentType[] {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed.filter((t): t is NewsletterContentType => VALID_CONTENT_TYPES.includes(t as NewsletterContentType));
+  } catch {
+    // fall through to defaults
+  }
+  return DEFAULT_PREFERENCES.contentTypes;
+}
+
 /**
  * Get user's newsletter preferences
  */
@@ -32,8 +43,10 @@ export async function getNewsletterPreferences(userId: string): Promise<Newslett
   return {
     dailyEnabled: prefs.dailyEnabled,
     weeklyEnabled: prefs.weeklyEnabled,
-    contentTypes: JSON.parse(prefs.contentTypes) as NewsletterContentType[],
-    frequency: prefs.frequency as NewsletterFrequency,
+    contentTypes: parseContentTypes(prefs.contentTypes),
+    frequency: VALID_FREQUENCIES.includes(prefs.frequency as NewsletterFrequency)
+      ? (prefs.frequency as NewsletterFrequency)
+      : DEFAULT_PREFERENCES.frequency,
     timezone: prefs.timezone,
   };
 }
@@ -89,8 +102,10 @@ export async function updateNewsletterPreferences(
   return {
     dailyEnabled: prefs.dailyEnabled,
     weeklyEnabled: prefs.weeklyEnabled,
-    contentTypes: JSON.parse(prefs.contentTypes) as NewsletterContentType[],
-    frequency: prefs.frequency as NewsletterFrequency,
+    contentTypes: parseContentTypes(prefs.contentTypes),
+    frequency: VALID_FREQUENCIES.includes(prefs.frequency as NewsletterFrequency)
+      ? (prefs.frequency as NewsletterFrequency)
+      : DEFAULT_PREFERENCES.frequency,
     timezone: prefs.timezone,
   };
 }

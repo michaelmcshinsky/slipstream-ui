@@ -180,6 +180,21 @@ describe('DatePickerPopover field wiring', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('forwards FormField aria wiring to the trigger', () => {
+    render(
+      <DatePickerPopover
+        value="2026-11-13"
+        today={TODAY}
+        onValueChange={() => {}}
+        aria-describedby="start-hint"
+        aria-invalid
+      />
+    );
+    const trigger = screen.getByRole('button', { name: /Nov 13, 2026/ });
+    expect(trigger).toHaveAttribute('aria-describedby', 'start-hint');
+    expect(trigger).toHaveAttribute('aria-invalid', 'true');
+  });
+
   it('honours the requested side', async () => {
     const user = userEvent.setup();
     vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (

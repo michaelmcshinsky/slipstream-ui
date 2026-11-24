@@ -42,7 +42,7 @@ export default function EntityCardPage() {
                 { label: 'Via platform', value: '3' },
               ]}
               tags={['Industrials', 'Healthcare']}
-              href="/directory/example-group"
+              href="/about"
               actions={<Button size="sm" variant="outline">Contact</Button>}
             />
             <EntityCard
@@ -55,7 +55,7 @@ export default function EntityCardPage() {
                 { label: 'Active', value: 'Yes' },
               ]}
               tags={['Business services']}
-              href="/directory/northwind-labs"
+              href="/contact"
             />
           </Grid>
         }
@@ -68,7 +68,7 @@ export default function EntityCardPage() {
     { label: 'Via platform', value: '3' },
   ]}
   tags={['Industrials', 'Healthcare']}
-  href="/directory/example-group"
+  href="/about"
 />`}
         usage={`// ProfileCard is an alias for profile-oriented surfaces.
 // Logos are optional; initials keep the card identifiable.`}

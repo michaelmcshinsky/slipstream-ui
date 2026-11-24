@@ -249,6 +249,8 @@ model EmailDelivery {
   kind      String // password_reset | invite | email_verify | newsletter
   subject   String
   bodyText  String
+  bodyHtml  String?
+  headersJson String? // JSON-encoded RFC 5322 headers (e.g. List-Unsubscribe)
   tokenHash String?
   status    String   @default("QUEUED") // QUEUED | SENT | FAILED
   attempts  Int      @default(0)

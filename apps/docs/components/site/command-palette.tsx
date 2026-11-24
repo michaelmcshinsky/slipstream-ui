@@ -47,7 +47,9 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
 
   const go = useCallback(
     (href: string) => {
-      track('search_select', { href, query: query.trim() || '(browse)' });
+      // Never forward the raw query: it is free text and can contain names or
+      // other PII. The selected href plus the query length is enough signal.
+      track('search_select', { href, queryLength: query.trim().length });
       onOpenChange(false);
       router.push(href);
     },

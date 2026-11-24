@@ -16,6 +16,7 @@ export default function TimePickerPage() {
         { name: 'defaultValue', type: 'string', description: '"HH:MM", initial value.' },
         { name: 'onValueChange', type: '(value: string) => void', description: "Fired with the time string; '' when cleared." },
         { name: 'clearable', type: 'boolean', defaultValue: 'false', description: 'Shows a clear button once a value exists.' },
+        { name: 'clearLabel', type: 'string', defaultValue: "'Clear time'", description: 'Accessible label for the clear button.' },
       ]}
       accessibility={['Renders input[type=time]; the OS picker and keyboard editing apply.', 'Label the moment, not the control type.']}
     >
@@ -33,11 +34,12 @@ export default function TimePickerPage() {
 </FormField>`}
         usage={`// State stays "HH:MM"; format for display with Intl.DateTimeFormat.
 // Pair with DatePicker for scheduling UIs.`}
-        types={`type TimePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {
+        types={`type TimePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   clearable?: boolean;
+  clearLabel?: string;
 };`}
       />
     </ComponentPage>

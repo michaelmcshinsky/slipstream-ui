@@ -134,6 +134,34 @@ describe('dedup and retry', () => {
     expect(await retryFailedDeliveries({ toEmail: to })).toBe(0);
   });
 
+  it('retry preserves the stored HTML body and MIME headers', async () => {
+    const to = freshEmail();
+    const seeded = await prisma.emailDelivery.create({
+      data: {
+        toEmail: to,
+        kind: 'newsletter',
+        subject: 'Digest',
+        bodyText: 'plain',
+        bodyHtml: '<p>html</p>',
+        headersJson: JSON.stringify({ 'List-Unsubscribe': '<https://x/u>' }),
+        status: 'FAILED',
+        attempts: 1,
+      },
+    });
+    vi.stubEnv('EMAIL_TRANSPORT', 'http');
+    vi.stubEnv('EMAIL_WEBHOOK_URL', 'https://hooks.test/x');
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 200 }));
+    expect(await retryFailedDeliveries({ toEmail: to })).toBe(1);
+    const body = JSON.parse(fetchSpy.mock.calls[0]![1]!.body as string);
+    expect(body).toMatchObject({
+      html: '<p>html</p>',
+      headers: { 'List-Unsubscribe': '<https://x/u>' },
+    });
+    fetchSpy.mockRestore();
+    vi.unstubAllEnvs();
+    expect(await prisma.emailDelivery.findUniqueOrThrow({ where: { id: seeded.id } })).toMatchObject({ status: 'SENT' });
+  });
+
   it('does not retry token-bound FAILED deliveries from stored content', async () => {
     const to = freshEmail();
     const seeded = await prisma.emailDelivery.create({

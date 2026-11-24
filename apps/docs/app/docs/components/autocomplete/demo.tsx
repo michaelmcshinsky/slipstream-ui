@@ -19,7 +19,14 @@ export default function AutocompletePage() {
       description="Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'suggestions', type: 'string[]', defaultValue: 'required', description: 'Suggestion labels offered while typing; free-form values stay allowed.' },
+        { name: 'options', type: 'Array<string | AutocompleteOption>', description: 'Static suggestions offered while typing; free-form values stay allowed.' },
+        { name: 'suggestions', type: 'string[]', description: 'Deprecated — use options.' },
+        { name: 'loadOptions', type: '(query: string) => Promise<Array<string | AutocompleteOption>>', description: 'Async suggestion source; responses are debounced and stale ones discarded.' },
+        { name: 'renderOption', type: '(option, { active }) => ReactNode', description: 'Custom option row renderer.' },
+        { name: 'clearable', type: 'boolean', defaultValue: 'false', description: 'Show a clear button when the input has a value.' },
+        { name: 'debounceMs', type: 'number', defaultValue: '200', description: 'Debounce for loadOptions.' },
+        { name: 'suggestionsLabel', type: 'string', defaultValue: "'Suggestions'", description: 'Accessible label for the suggestion listbox.' },
+        { name: 'loadingText', type: 'string', description: 'Shown while async options load.' },
         { name: 'value', type: 'string', description: 'Current text: standard controlled-input contract (wire onValueChange).' },
         { name: 'defaultValue', type: 'string', defaultValue: "''", description: 'Initial text when uncontrolled.' },
         { name: 'onValueChange', type: '(value: string) => void', description: 'Fires on every keystroke AND on suggestion selection.' },
@@ -41,7 +48,7 @@ export default function AutocompletePage() {
           <div className="w-full max-w-sm space-y-4">
             <FormField id="ac-framework" label="Primary framework" hint="Type anything: free text is valid">
               <Autocomplete
-                suggestions={FRAMEWORKS}
+                options={FRAMEWORKS}
                 value={framework}
                 onValueChange={setFramework}
                 placeholder="re…"
@@ -60,7 +67,7 @@ const [framework, setFramework] = useState('');
 
 <FormField id="framework" label="Primary framework" hint="Type anything: free text is valid">
   <Autocomplete
-    suggestions={['react', 'remix', 'next', 'vite', 'astro']}
+    options={['react', 'remix', 'next', 'vite', 'astro']}
     value={framework}
     onValueChange={setFramework}
     name="framework"
@@ -73,15 +80,30 @@ const [framework, setFramework] = useState('');
 <Autocomplete
   name="country"
   autoComplete="country-name"
-  suggestions={countryNames}
+  options={countryNames}
   onValueChange={setCountry}
 />`}
-        types={`type AutocompleteProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'> & {
+        types={`type AutocompleteOption = {
+  value: string;
+  label?: string;
+  group?: string;
+  description?: string;
+};
+
+type AutocompleteProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'children' | 'size'> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  suggestions: string[];
+  options?: Array<string | AutocompleteOption>;
+  /** @deprecated Use options. */
+  suggestions?: string[];
+  loadOptions?: (query: string) => Promise<Array<string | AutocompleteOption>>;
+  renderOption?: (option, state: { active: boolean }) => ReactNode;
+  clearable?: boolean;
+  debounceMs?: number;
   emptyText?: string;
+  loadingText?: string;
+  suggestionsLabel?: string;
 };`}
       />
 
@@ -90,7 +112,7 @@ const [framework, setFramework] = useState('');
         preview={
           <div className="w-full max-w-sm space-y-4">
             <FormField id="ac-tag" label="Tag" hint="Suggestions help, custom tags are fine" labelHidden={false}>
-              <Autocomplete suggestions={TAGS} defaultValue={tag} onValueChange={setTag} name="tag" />
+              <Autocomplete options={TAGS} defaultValue={tag} onValueChange={setTag} name="tag" />
             </FormField>
             <p className="text-xs text-muted-foreground">
               Current value:{' '}
@@ -100,7 +122,7 @@ const [framework, setFramework] = useState('');
         }
         code={`{/* Uncontrolled: defaultValue + onValueChange mirrors native inputs */}
 <Autocomplete
-  suggestions={['design-systems', 'streaming', 'accessibility', 'mcp']}
+  options={['design-systems', 'streaming', 'accessibility', 'mcp']}
   defaultValue="streaming"
   onValueChange={setTag}
   name="tag"

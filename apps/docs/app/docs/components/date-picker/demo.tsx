@@ -16,7 +16,8 @@ export default function DatePickerPage() {
         { name: 'defaultValue', type: 'string', description: 'ISO date, initial value.' },
         { name: 'onValueChange', type: '(value: string) => void', description: "Fired with the ISO string; '' when cleared." },
         { name: 'clearable', type: 'boolean', defaultValue: 'false', description: 'Shows a clear button once a value exists.' },
-        { name: '…InputProps', type: 'InputProps', description: 'min, max, name, required, disabled all pass through.' },
+        { name: 'clearLabel', type: 'string', defaultValue: "'Clear date'", description: 'Accessible label for the clear button.' },
+        { name: '…InputProps', type: 'InputProps', description: 'min, max, name, required, disabled, onChange all pass through.' },
       ]}
       accessibility={['Renders input[type=date] so OS pickers, keyboard editing and locale formatting apply.', 'Always label the field (FormField or aria-label).']}
     >
@@ -34,11 +35,14 @@ export default function DatePickerPage() {
 </FormField>`}
         usage={`// The platform supplies the picker; keep state as an ISO string and format
 // for display at the edge (Intl.DateTimeFormat).`}
-        types={`type DatePickerProps = Omit<InputProps, 'type' | 'onChange' | 'value' | 'defaultValue'> & {
+        types={`type DatePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   clearable?: boolean;
+  clearLabel?: string;
+  // onChange and every other InputProps attribute pass through to the
+  // underlying <input type="date">.
 };`}
       />
     </ComponentPage>

@@ -4,7 +4,7 @@ import { AuthForm } from '@/components/auth-form';
 
 export const metadata: Metadata = {
   title: 'Create account',
-  description: 'Create your Slipstream UI account and start a 14-day trial.',
+  description: 'Create your Slipstream UI account.',
 };
 export default async function SignupPage({
   searchParams,

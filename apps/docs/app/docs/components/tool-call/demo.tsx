@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Checkbox, Select } from '@slipstream-ui/core';
 import { ToolCall, type ToolCallData } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
@@ -24,9 +25,12 @@ export default function ToolCallPage() {
       id="tool-call"
       title="ToolCall"
       description="A component for displaying AI tool/function calls with status, arguments, and results."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
-        { name: 'toolCall', type: 'ToolCall', defaultValue: 'required', description: 'Tool call object with name, arguments, status' },
+        { name: 'toolCall', type: 'ToolCallData', defaultValue: 'required', description: 'Tool call object with name, arguments, status' },
         { name: 'showResult', type: 'boolean', defaultValue: 'true', description: 'Whether to display the result' },
+        { name: 'labels', type: '{ pending?, running?, completed?, failed?, arguments?, result?, error? }', description: 'Localized status and section labels.' },
+        { name: 'className', type: 'string', description: 'Extra classes for the root element.' },
       ]}
       accessibility={[
         'Status shown with both color and text label',
@@ -47,26 +51,23 @@ export default function ToolCallPage() {
             </div>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Status</label>
-                <select
-                  aria-label="Tool call status"
+                <Select
+                  label="Status"
                   value={status}
                   onChange={(e) => setStatus(e.target.value as ToolCallStatus)}
-                  className="w-full p-2 border rounded bg-background"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="running">Running</option>
-                  <option value="completed">Completed</option>
-                  <option value="failed">Failed</option>
-                </select>
+                  options={[
+                    { value: 'pending', label: 'Pending' },
+                    { value: 'running', label: 'Running' },
+                    { value: 'completed', label: 'Completed' },
+                    { value: 'failed', label: 'Failed' },
+                  ]}
+                />
               </div>
               <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="showResult"
                   checked={showResult}
-                  onChange={(e) => setShowResult(e.target.checked)}
-                  className="rounded"
+                  onCheckedChange={setShowResult}
                 />
                 <label htmlFor="showResult" className="text-sm">Show Result</label>
               </div>

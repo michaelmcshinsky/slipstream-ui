@@ -37,12 +37,20 @@ export type ComponentPageProps = {
  */
 type ManifestAntiPattern = { title?: string; explanation?: string; example?: string };
 type ManifestCompositionRule = { component?: string; relationship?: string; example?: string };
+type ManifestContentGuideline = {
+  contentType?: string;
+  guidelines?: string[];
+  goodExamples?: string[];
+  badExamples?: string[];
+};
 type RegistryManifest = {
   antiPatterns?: ManifestAntiPattern[];
   compositionRules?: ManifestCompositionRule[];
   relatedComponents?: string[];
   dependencies?: string[];
   registryDependencies?: string[];
+  designIntent?: string;
+  contentGuidelines?: ManifestContentGuideline[];
 };
 
 /** "MessageActions" / "InlineCitation" → route id used by /docs/components/<id>. */
@@ -111,6 +119,8 @@ export function ComponentPage({
 
   const antiPatterns = manifest?.antiPatterns ?? [];
   const compositionRules = manifest?.compositionRules ?? [];
+  const contentGuidelines = manifest?.contentGuidelines ?? [];
+  const designIntent = manifest?.designIntent;
   const related = (manifest?.relatedComponents ?? []).filter((name) =>
     COMPONENT_HREFS.has(`/docs/components/${toComponentId(name)}`)
   );
@@ -150,6 +160,13 @@ export function ComponentPage({
         </div>
       </div>
       <p className="mt-2 text-lg text-muted-foreground">{description}</p>
+
+      {designIntent && (
+        <section className="mt-6">
+          <h2 className="text-lg font-semibold">{t('site.page.designIntent')}</h2>
+          <p className="mt-2 text-muted-foreground">{designIntent}</p>
+        </section>
+      )}
 
       <div className="mt-6">
         <InstallBox componentId={manifestId ?? id} npmPackages={npmPackages} />
@@ -197,6 +214,58 @@ export function ComponentPage({
               <li key={note}>{note}</li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {contentGuidelines.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-4 text-xl font-semibold">{t('site.page.contentGuidelines')}</h2>
+          <div className="space-y-4">
+            {contentGuidelines.map((group, index) => {
+              const good = group.goodExamples ?? [];
+              const bad = group.badExamples ?? [];
+              return (
+                <div key={group.contentType ?? index} className="rounded-xl border border-border bg-card p-4">
+                  {group.contentType && <p className="font-medium">{group.contentType}</p>}
+                  {group.guidelines && group.guidelines.length > 0 && (
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                      {group.guidelines.map((guideline) => (
+                        <li key={guideline}>{guideline}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {(good.length > 0 || bad.length > 0) && (
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {good.length > 0 && (
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-wide text-success">
+                            {t('site.page.goodExamples')}
+                          </p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                            {good.map((example) => (
+                              <li key={example}>{example}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {bad.length > 0 && (
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-wide text-destructive">
+                            {t('site.page.badExamples')}
+                          </p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                            {bad.map((example) => (
+                              <li key={example}>{example}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </section>
       )}
 

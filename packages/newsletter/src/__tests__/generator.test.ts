@@ -18,6 +18,7 @@ vi.mock('@slipstream-ui/db', () => ({
       findFirst: vi.fn(),
       findMany: vi.fn(),
       update: vi.fn(),
+      updateMany: vi.fn(),
     },
   },
 }));
@@ -213,6 +214,39 @@ describe('NewsletterGenerator', () => {
     });
   });
 
+  describe('generateForAllUsers', () => {
+    it('fetches shared content once per content-type group', async () => {
+      const registry = { fetchAllContent: vi.fn().mockResolvedValue(mockItems) };
+      const generator = new NewsletterGenerator(registry as unknown as ConstructorParameters<typeof NewsletterGenerator>[0]);
+      const preferences = {
+        dailyEnabled: true,
+        weeklyEnabled: true,
+        contentTypes: JSON.stringify(['audit_log']),
+        frequency: 'both',
+        timezone: 'UTC',
+      };
+      const subscriptionRow = (userId: string) => ({
+        id: `sub-${userId}`,
+        userId,
+        type: 'daily',
+        status: 'active',
+        user: { id: userId, email: `${userId}@example.com`, name: null, newsletterPreferences: preferences },
+      });
+      vi.mocked(prisma.newsletterSubscription.findMany).mockResolvedValue([
+        subscriptionRow('u1'),
+        subscriptionRow('u2'),
+      ] as never);
+
+      const results = await generator.generateForAllUsers('daily');
+
+      expect(results).toHaveLength(2);
+      expect(registry.fetchAllContent).toHaveBeenCalledTimes(1);
+      // Each user still gets their own unsubscribe URL.
+      expect(results[0].newsletter.htmlContent).toContain('u1');
+      expect(results[1].newsletter.htmlContent).toContain('u2');
+    });
+  });
+
   describe('createNewsletterGenerator', () => {
     it('creates generator with default registry', () => {
       const generator = createNewsletterGenerator();
@@ -257,18 +291,50 @@ describe('NewsletterGenerator', () => {
   });
 
   describe('processQueuedDeliveries', () => {
+    const queuedDelivery = {
+      id: 'delivery-1',
+      userId: 'user-1',
+      type: 'daily',
+      subject: 'Digest',
+      textContent: 't',
+      htmlContent: 'h',
+      user: { email: 'test@example.com' },
+      subscription: { status: 'active', type: 'daily' },
+    };
+
+    beforeEach(() => {
+      vi.mocked(prisma.newsletterDelivery.updateMany).mockResolvedValue({ count: 1 });
+    });
+
+    it('claims the row before sending and marks it SENT', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.update).mockResolvedValue({} as never);
+      const send = vi.fn().mockResolvedValue(undefined);
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(send).toHaveBeenCalledTimes(1);
+      expect(prisma.newsletterDelivery.updateMany).toHaveBeenCalledWith({
+        where: { id: 'delivery-1', status: { in: ['QUEUED', 'SENDING'] } },
+        data: { status: 'SENDING' },
+      });
+      expect(result).toEqual({ sent: 1, failed: 0, skipped: 0 });
+      expect(prisma.newsletterDelivery.update).toHaveBeenCalledWith({
+        where: { id: 'delivery-1' },
+        data: { status: 'SENT', sentAt: expect.any(Date) },
+      });
+    });
+
+    it('skips deliveries already claimed by another worker', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.updateMany).mockResolvedValue({ count: 0 });
+      const send = vi.fn();
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(send).not.toHaveBeenCalled();
+      expect(result).toEqual({ sent: 0, failed: 0, skipped: 1 });
+    });
+
     it('cancels queued mail when the subscription is no longer active', async () => {
       vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([
-        {
-          id: 'delivery-1',
-          userId: 'user-1',
-          type: 'daily',
-          subject: 'Digest',
-          textContent: 't',
-          htmlContent: 'h',
-          user: { email: 'test@example.com' },
-          subscription: { status: 'unsubscribed', type: 'daily' },
-        },
+        { ...queuedDelivery, subscription: { status: 'unsubscribed', type: 'daily' } },
       ] as never);
       const send = vi.fn();
       const result = await processQueuedDeliveries(10, send as never);

@@ -18,12 +18,6 @@
       "description": "The single source to render (Source component)"
     },
     {
-      "name": "onSelect",
-      "type": "(source: SourceItem) => void",
-      "required": false,
-      "description": "Called when the source chip is clicked"
-    },
-    {
       "name": "sources",
       "type": "SourceItem[]",
       "required": true,

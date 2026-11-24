@@ -1,3 +1,0 @@
-[build]
-  command = "pnpm exec turbo run build --filter=slipstream-ui-docs"
-  publish = "apps/docs/.next"
