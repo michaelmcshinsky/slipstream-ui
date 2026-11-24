@@ -89,7 +89,13 @@ export function httpTransport(webhookUrl: string): EmailTransport {
       const from = process.env.EMAIL_FROM?.trim();
       const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          // mail-relay routing hint; ignored by non-relay webhook targets.
+          // Newsletters are commercial mail and must stay off transactional-only
+          // providers like Cloudflare Email Service.
+          'x-mail-class': email.kind === 'newsletter' ? 'marketing' : 'transactional',
+        },
         body: JSON.stringify({
           ...(from ? { from } : {}),
           to: email.to,
