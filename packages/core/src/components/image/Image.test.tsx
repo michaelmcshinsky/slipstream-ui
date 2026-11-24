@@ -87,6 +87,30 @@ describe('Image', () => {
     expect(img).toHaveClass('object-cover');
   });
 
+  it('restarts the fallback chain when src changes', () => {
+    const { rerender } = render(
+      <Image
+        src="/broken.jpg"
+        fallbackSrc="/fallback.svg"
+        alt="Event"
+        fallback={<span data-testid="fallback">No image</span>}
+      />
+    );
+    fireEvent.error(screen.getByRole('img', { name: 'Event' }));
+    fireEvent.error(screen.getByRole('img', { name: 'Event' }));
+    expect(screen.getByTestId('fallback')).toBeInTheDocument();
+
+    rerender(
+      <Image
+        src="/new.jpg"
+        fallbackSrc="/fallback.svg"
+        alt="Event"
+        fallback={<span data-testid="fallback">No image</span>}
+      />
+    );
+    expect(screen.getByRole('img', { name: 'Event' })).toHaveAttribute('src', '/new.jpg');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<Image src="/event.jpg" alt="Fall Classic" />);
     expect(await axe(container)).toHaveNoViolations();

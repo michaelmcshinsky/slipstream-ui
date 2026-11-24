@@ -64,18 +64,21 @@ export const FilterPanel = React.forwardRef<HTMLElement, FilterPanelProps>(funct
   ref
 ) {
   const Tag = as as 'div';
-  const [open, setOpen] = React.useState<string[]>(
-    defaultOpen ?? sections.filter((section) => section.defaultOpen).map((section) => section.title)
-  );
+  // Sections are identified by index, not title: duplicate or
+  // punctuation-colliding titles must not share open state or DOM ids.
+  const [open, setOpen] = React.useState<number[]>(() => {
+    if (defaultOpen) {
+      return sections.flatMap((section, index) => (defaultOpen.includes(section.title) ? [index] : []));
+    }
+    return sections.flatMap((section, index) => (section.defaultOpen ? [index] : []));
+  });
 
-  const isOpen = (section: FilterSection) => !collapsible || open.includes(section.title);
+  const isOpen = (index: number) => !collapsible || open.includes(index);
 
-  const toggle = (section: FilterSection) => {
+  const toggle = (index: number) => {
     if (!collapsible) return;
     setOpen((current) =>
-      current.includes(section.title)
-        ? current.filter((title) => title !== section.title)
-        : [...current, section.title]
+      current.includes(index) ? current.filter((entry) => entry !== index) : [...current, index]
     );
   };
 
@@ -88,16 +91,17 @@ export const FilterPanel = React.forwardRef<HTMLElement, FilterPanelProps>(funct
         </div>
       )}
       <div className="divide-y divide-border">
-        {sections.map((section) => {
-          const expanded = isOpen(section);
+        {sections.map((section, index) => {
+          const expanded = isOpen(index);
+          const sectionId = `filter-section-${index}`;
           return (
-            <div key={section.title} className="px-4 py-3">
+            <div key={index} className="px-4 py-3">
               <h3>
                 <button
                   type="button"
-                  onClick={() => toggle(section)}
+                  onClick={() => toggle(index)}
                   aria-expanded={expanded}
-                  aria-controls={`filter-section-${section.title.replace(/\s+/g, '-').toLowerCase()}`}
+                  aria-controls={sectionId}
                   disabled={!collapsible}
                   className={cn(
                     'flex w-full items-center justify-between gap-2 text-left text-sm font-medium',
@@ -118,7 +122,7 @@ export const FilterPanel = React.forwardRef<HTMLElement, FilterPanelProps>(funct
                 </button>
               </h3>
               {expanded && (
-                <div id={`filter-section-${section.title.replace(/\s+/g, '-').toLowerCase()}`} className="mt-3">
+                <div id={sectionId} className="mt-3">
                   {section.content}
                 </div>
               )}

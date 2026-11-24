@@ -36,6 +36,16 @@ describe('FileUpload', () => {
     expect(screen.queryByText('report.pdf')).not.toBeInTheDocument();
   });
 
+  it('keeps same-named files distinct and removes only the clicked one', async () => {
+    const user = userEvent.setup();
+    render(<FileUpload aria-label="Uploads" />);
+    await user.upload(screen.getByLabelText(/Drop files here/), [file('a.txt'), file('a.txt')]);
+    expect(screen.getAllByText('a.txt')).toHaveLength(2);
+
+    await user.click(screen.getAllByRole('button', { name: 'Remove a.txt' })[0]);
+    expect(screen.getAllByText('a.txt')).toHaveLength(1);
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<FileUpload aria-label="Files" />);
     expect(await axe(container)).toHaveNoViolations();
