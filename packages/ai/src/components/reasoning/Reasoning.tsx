@@ -53,7 +53,18 @@ const Reasoning = React.forwardRef<HTMLDivElement, ReasoningProps>(
             aria-expanded={isExpanded}
             aria-controls={contentId}
           >
-            <span className={cn('transition-transform', isExpanded ? 'rotate-90' : '')}>?</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              className={cn('h-3.5 w-3.5 transition-transform', isExpanded ? 'rotate-90' : '')}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 4l4 4-4 4" />
+            </svg>
             <span>{headerText}</span>
             {isStreaming && (
               <span className="flex gap-0.5" aria-hidden="true">

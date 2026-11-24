@@ -9,6 +9,7 @@ export default function SourcesPage() {
       manifestId="source"
       title="Sources"
       description="Show citations and references alongside an AI response. Sources renders a numbered list; Source renders a single citation for custom layouts."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
         { name: 'sources', type: 'SourceItem[]', description: 'References to display (Sources).' },
         { name: 'maxDisplay', type: 'number', defaultValue: '3', description: 'Max references before an overflow indicator.' },

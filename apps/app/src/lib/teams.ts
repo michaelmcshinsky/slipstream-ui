@@ -132,7 +132,7 @@ export async function inviteMember(params: {
 
       const invite = await db.teamInvite.create({ data: { teamId: params.teamId, email, ...data } });
       return { inviteId: invite.id, token };
-    });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && ['P2002', 'P2034', 'P1008', 'P2028'].includes(error.code)) {
       throw new TeamError(409, 'Invitation changed concurrently. Retry the request.');
@@ -142,7 +142,8 @@ export async function inviteMember(params: {
 }
 
 export async function acceptInvite(token: string, userId: string): Promise<{ teamId: string }> {
-  return prisma.$transaction(async (db) => {
+  try {
+    return await prisma.$transaction(async (db) => {
     const invite = await db.teamInvite.findUnique({ where: { tokenHash: hashToken(token) } });
     const now = new Date();
     if (!invite || invite.acceptedAt || invite.expiresAt < now) {
@@ -176,5 +177,11 @@ export async function acceptInvite(token: string, userId: string): Promise<{ tea
       update: {},
     });
     return { teamId: invite.teamId };
-  });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && ['P2034', 'P1008', 'P2028'].includes(error.code)) {
+      throw new TeamError(409, 'Membership changed concurrently. Retry the request.');
+    }
+    throw error;
+  }
 }

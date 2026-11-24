@@ -26,7 +26,6 @@ export default function ConfirmationPage() {
         { name: 'labels', type: '{ approve?, reject?, approved?, rejected? }', description: 'Wording overrides for the buttons and outcome chips.' },
         { name: 'onApprove', type: '() => void', description: 'Called on approval.' },
         { name: 'onReject', type: '() => void', description: 'Called on rejection.' },
-        { name: 'labels', type: 'object', description: 'Label overrides for localization.' },
       ]}
       accessibility={[
         'Pending state renders role=alertdialog labeled by the title.',

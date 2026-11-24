@@ -32,7 +32,7 @@ export default function AnnouncementBarPage() {
           <div className="w-full overflow-hidden rounded-lg border border-border">
             <AnnouncementBar
               message="The 2026 Middle Market Review is live"
-              href="/forum"
+              href="/articles"
               actionLabel="Read it"
               tone="brand"
             />
@@ -41,7 +41,7 @@ export default function AnnouncementBarPage() {
         }
         code={`<AnnouncementBar
   message="The 2026 Middle Market Review is live"
-  href="/forum"
+  href="/articles"
   actionLabel="Read it"
   tone="brand"
 />`}

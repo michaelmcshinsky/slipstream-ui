@@ -165,6 +165,8 @@ export async function deliverEmail(email: OutboundEmail): Promise<{ id: string; 
       kind: email.kind,
       subject: email.subject,
       bodyText: storedBodyText(email),
+      bodyHtml: email.html ?? null,
+      headersJson: email.headers ? JSON.stringify(email.headers) : null,
       tokenHash: email.tokenHash,
       status: 'QUEUED',
     },
@@ -211,11 +213,16 @@ export async function retryFailedDeliveries(options: { toEmail?: string; kind?: 
   let resent = 0;
   for (const delivery of failed) {
     try {
+      const headers = delivery.headersJson
+        ? (JSON.parse(delivery.headersJson) as Record<string, string>)
+        : undefined;
       await getConfiguredTransport().send({
         to: delivery.toEmail,
         kind: delivery.kind as EmailKind,
         subject: delivery.subject,
         text: delivery.bodyText,
+        html: delivery.bodyHtml ?? undefined,
+        headers,
       });
       await prisma.emailDelivery.update({
         where: { id: delivery.id },

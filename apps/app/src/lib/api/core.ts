@@ -194,6 +194,27 @@ export function decodeCursor(cursor?: string): string | undefined {
   return decoded;
 }
 
+/**
+ * Keyset cursor for `ORDER BY <timestamp> DESC, id DESC` lists. Prisma's
+ * `cursor` option is keyed on a single unique field and does not compose
+ * with a composite sort, so timestamp-sorted lists paginate with an explicit
+ * `(sortValue, id)` where-clause instead. Cursor payload: `ISO|id`.
+ */
+export function decodeTimestampCursor(cursor?: string): { at: Date; id: string } | undefined {
+  const decoded = decodeCursor(cursor);
+  if (!decoded) return undefined;
+  const [iso, id, extra] = decoded.split('|');
+  const at = iso ? new Date(iso) : undefined;
+  if (!id || extra !== undefined || !at || Number.isNaN(at.getTime())) {
+    throw errors.badRequest('Invalid cursor.');
+  }
+  return { at, id };
+}
+
+export function encodeTimestampCursor(at: Date, id: string): string {
+  return Buffer.from(`${at.toISOString()}|${id}`).toString('base64url');
+}
+
 // ---------------------------------------------------------------------------
 // Rate limiting (per-identity sliding window)
 // ---------------------------------------------------------------------------

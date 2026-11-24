@@ -14,12 +14,14 @@ export default function SwitchPage() {
         { name: 'defaultChecked', type: 'boolean', defaultValue: 'false', description: 'Initial state when uncontrolled.' },
         { name: 'onCheckedChange', type: '(checked: boolean) => void', description: 'Fired when the user toggles the switch.' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the switch.' },
+        { name: 'name', type: 'string', description: 'Renders a hidden checkbox with this name so the state submits with a plain form.' },
+        { name: 'value', type: 'string | number | readonly string[]', defaultValue: "'on'", description: 'Value submitted by the hidden checkbox; only used together with name.' },
         { name: 'aria-label', type: 'string', description: 'Accessible name when no visible label is associated.' },
       ]}
       accessibility={[
         'role="switch" with aria-checked announces on/off state.',
         'Space and Enter toggle the switch.',
-        'Disabled switches are focusable-but-inert per native button semantics and announced as dimmed.',
+        'Disabled switches use the native disabled attribute: they leave the tab order and are announced as dimmed.',
         'Prefer a visible <Label> (htmlFor) over aria-label when space allows.',
       ]}
     >
@@ -63,6 +65,8 @@ export default function SwitchPage() {
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
+  name?: string;
+  value?: string | number | readonly string[];
 };`}
       />
 

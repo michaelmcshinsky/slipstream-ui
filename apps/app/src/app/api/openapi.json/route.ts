@@ -92,7 +92,22 @@ const spec = {
           },
         },
         responses: {
-          '200': { description: 'Validation result', content: { 'application/json': { schema: { $ref: '#/components/schemas/LicenseValidation' } } } },
+          // handle() wraps every success body in the { data, meta } envelope.
+          '200': {
+            description: 'Validation result',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['data', 'meta'],
+                  properties: {
+                    data: { $ref: '#/components/schemas/LicenseValidation' },
+                    meta: { type: 'object', properties: { requestId: { type: 'string' } } },
+                  },
+                },
+              },
+            },
+          },
           '429': { description: 'Rate limited (30/min per IP)' },
         },
       },

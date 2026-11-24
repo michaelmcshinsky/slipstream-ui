@@ -85,6 +85,16 @@ describe('RadioGroup', () => {
     expect(screen.getByLabelText('Pro')).toBeChecked();
   });
 
+  it('dims the label of disabled items via peer-disabled', () => {
+    render(
+      <RadioGroup name="plan" legend="Plan">
+        <RadioGroupItem value="free" label="Free" disabled />
+      </RadioGroup>
+    );
+    expect(screen.getByRole('radio')).toHaveClass('peer');
+    expect(screen.getByText('Free')).toHaveClass('peer-disabled:opacity-70');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(
       <RadioGroup name="plan" legend="Choose a plan">

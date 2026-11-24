@@ -32,7 +32,7 @@ export default function ArticleCardPage() {
           <Section padding="lg" className="rounded-lg">
             <Grid mdCols={2} gap="lg">
               <ArticleCard
-                href="/resources/migration-planning"
+                href="/articles/validation-benchmark-100-cases"
                 eyebrow="Guides"
                 title="How to plan a migration"
                 description="A practical guide to planning the work and the first steps of a migration."
@@ -40,7 +40,7 @@ export default function ArticleCardPage() {
                 media={<div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />}
               />
               <ArticleCard
-                href="/resources/valuation"
+                href="/articles/component-contract-not-gallery"
                 eyebrow="Comparison"
                 title="What teams look for"
                 description="The signals that shape a platform decision."
@@ -52,12 +52,12 @@ export default function ArticleCardPage() {
         }
         code={`<Grid mdCols={2} gap="lg">
   <ArticleCard
-    href="/resources/migration-planning"
+    href="/articles/validation-benchmark-100-cases"
     eyebrow="Guides"
     title="How to plan a migration"
     description="A practical guide to planning the work and the first steps."
     meta="8 min read"
-    media={<img src="/cover.jpg" alt="" />}
+    media={<div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />}
   />
 </Grid>`}
         usage={`// The whole card is a link. Keep actions outside the card.

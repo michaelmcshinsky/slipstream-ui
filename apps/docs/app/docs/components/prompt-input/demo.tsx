@@ -62,6 +62,60 @@ export default function PromptInputPage() {
             "Blocks submits; enables stop state when paired with onStop",
         },
         {
+          name: "attachments",
+          type: "AttachmentItem[]",
+          description:
+            "Externally owned attachment queue; omit for managed drag/drop + paste",
+        },
+        {
+          name: "onRemoveAttachment",
+          type: "(attachment: AttachmentItem) => void",
+          description: "Called when an attachment is removed",
+        },
+        {
+          name: "onAttachmentsChange",
+          type: "(attachments: AttachmentItem[]) => void",
+          description: "Called whenever the managed attachment queue changes",
+        },
+        {
+          name: "hasError",
+          type: "boolean",
+          defaultValue: "false",
+          description: "Marks submission as failed; the send control reflects the error state",
+        },
+        {
+          name: "accept",
+          type: "string",
+          description: "Accepted file types for attachments (e.g. 'image/*,.pdf')",
+        },
+        {
+          name: "multiple",
+          type: "boolean",
+          defaultValue: "false",
+          description: "Allow multiple file selection",
+        },
+        {
+          name: "maxFiles",
+          type: "number",
+          description: "Maximum number of attachments",
+        },
+        {
+          name: "maxFileSize",
+          type: "number",
+          description: "Maximum size per attachment in bytes",
+        },
+        {
+          name: "onAttachmentError",
+          type: "(error) => void",
+          description: "Called when an attachment fails validation",
+        },
+        {
+          name: "globalDrop",
+          type: "boolean",
+          defaultValue: "false",
+          description: "Accept file drops anywhere on the document",
+        },
+        {
           name: "maxLength",
           type: "number",
           description: "Maximum character count",
@@ -82,13 +136,15 @@ export default function PromptInputPage() {
           name: "sendButtonText",
           type: "string",
           defaultValue: "'Send'",
-          description: "Accessible label for the send button",
+          description:
+            "Accessible label for the built-in send button (simple mode; compound PromptInputSubmit uses its own labels)",
         },
         {
           name: "stopButtonText",
           type: "string",
           defaultValue: "'Stop generating'",
-          description: "Accessible label for the stop button",
+          description:
+            "Accessible label for the built-in stop button (simple mode; compound PromptInputSubmit uses its own labels)",
         },
         {
           name: "density",
@@ -102,6 +158,16 @@ export default function PromptInputPage() {
           defaultValue: "'default'",
           description: "Field surface: bordered input, no fill, or a tinted panel",
         },
+        {
+          name: "className",
+          type: "string",
+          description: "Extra classes for the root element",
+        },
+        {
+          name: "children",
+          type: "ReactNode",
+          description: "Compound primitives for custom layouts (PromptInputTextarea, PromptInputFooter, …)",
+        },
       ]}
       accessibility={[
         "Enter submits; Shift+Enter inserts a newline.",
@@ -110,64 +176,116 @@ export default function PromptInputPage() {
         "The textarea is disabled while loading, preventing double submits.",
       ]}
     >
-      {" "}
+      
+
       <DemoCard
         title="Basic"
         preview={
           <div className="w-full">
-            {" "}
+            
+
             <PromptInput
               onSubmit={handleSubmit}
               isLoading={isLoading}
               onStop={handleStop}
               placeholder="Ask something... (Enter sends, Shift+Enter adds a line)"
-            />{" "}
+            />
+
             {submitted.length > 0 && (
               <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-                {" "}
+                
+
                 {submitted.slice(-3).map((entry, index) => (
                   <li key={index}>↳ {entry}</li>
-                ))}{" "}
+                ))}
+
               </ul>
-            )}{" "}
+            )}
+
           </div>
         }
-        code={`import { PromptInput } from '@slipstream-ui/ai';// Basic<PromptInput onSubmit={(text) => send(text)} />// Cancellable generation: send button becomes a stop button while loading<PromptInput  onSubmit={send}  isLoading={isStreaming}  onStop={() => controller.abort()}/>`}
-      />{" "}
+        code={`import { PromptInput } from '@slipstream-ui/ai';
+
+// Basic
+<PromptInput onSubmit={(text) => send(text)} />
+
+// Cancellable generation: send button becomes a stop button while loading
+<PromptInput
+  onSubmit={send}
+  isLoading={isStreaming}
+  onStop={() => controller.abort()}
+/>`}
+      />
+
       <DemoCard
         title="Compound primitives"
         preview={
           <div className="w-full max-w-md">
-            {" "}
+            
+
             <PromptInput
               onSubmit={() => {}}
               globalDrop
               accept="image/*,.pdf"
               maxFiles={3}
             >
-              {" "}
-              <PromptInputTextarea placeholder="Ask anything… (⏎ to send)" />{" "}
+              
+
+              <PromptInputTextarea placeholder="Ask anything… (⏎ to send)" />
+
               <PromptInputFooter>
-                {" "}
+                
+
                 <PromptInputTools>
-                  {" "}
-                  <PromptInputActionAddAttachments />{" "}
+                  
+
+                  <PromptInputActionAddAttachments />
+
                   <PromptInputButton
                     tooltip={{ content: "Search the web", shortcut: "⌘K" }}
                     active={search}
                     onClick={() => setSearch((value) => !value)}
                   >
-                    {" "}
-                    <span aria-hidden="true">◎</span> Search{" "}
-                  </PromptInputButton>{" "}
-                </PromptInputTools>{" "}
-                <PromptInputSubmit />{" "}
-              </PromptInputFooter>{" "}
-            </PromptInput>{" "}
+                    
+
+                    <span aria-hidden="true">◎</span> Search
+
+                  </PromptInputButton>
+
+                </PromptInputTools>
+
+                <PromptInputSubmit />
+
+              </PromptInputFooter>
+
+            </PromptInput>
+
           </div>
         }
-        code={`import {  PromptInput,  PromptInputTextarea,  PromptInputFooter,  PromptInputTools,  PromptInputButton,  PromptInputActionAddAttachments,  PromptInputSubmit,} from '@slipstream-ui/ai';<PromptInput onSubmit={send} isLoading={loading} onStop={stop} globalDrop accept="image/*,.pdf">  <PromptInputTextarea placeholder="Ask anything..." />  <PromptInputFooter>    <PromptInputTools>      <PromptInputActionAddAttachments />      <PromptInputButton tooltip={{ content: 'Search the web', shortcut: '⌘K' }} active={search}>        Search      </PromptInputButton>    </PromptInputTools>    <PromptInputSubmit />  </PromptInputFooter></PromptInput>`}
-      />{" "}
+        code={`import {
+  PromptInput,
+  PromptInputTextarea,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputButton,
+  PromptInputActionAddAttachments,
+  PromptInputSubmit,
+} from '@slipstream-ui/ai';
+
+<PromptInput onSubmit={send} isLoading={loading} onStop={stop} globalDrop accept="image/*,.pdf">
+  <PromptInputTextarea placeholder="Ask anything..." />
+  <PromptInputFooter>
+    <PromptInputTools>
+      <PromptInputActionAddAttachments />
+      <PromptInputButton tooltip={{ content: 'Search the web', shortcut: '⌘K' }} active={search}>
+        Search
+      </PromptInputButton>
+    </PromptInputTools>
+    <PromptInputSubmit />
+  </PromptInputFooter>
+</PromptInput>`}
+      />
+
     </ComponentPage>
   );
 }

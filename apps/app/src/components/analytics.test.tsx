@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import type { ReactElement } from 'react';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
 import type { Locale } from '@slipstream-ui/i18n';
 import { writeConsent } from '@/lib/analytics';
@@ -15,13 +15,17 @@ function renderWithI18n(ui: ReactElement, locale: Locale = 'en') {
 const analyticsScript = () =>
   document.querySelector('script[data-slipstream-analytics="true"]');
 
+const GA_ID = 'G-TESTAPP1';
+
 describe('Analytics loader', () => {
   afterEach(() => {
     cleanup();
     document
       .querySelectorAll('script[data-slipstream-analytics="true"]')
       .forEach((node) => node.remove());
-    delete (window as unknown as Record<string, unknown>)['ga-disable-G-QDQXNJV9MD'];
+    delete (window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`];
+    vi.unstubAllEnvs();
+    vi.resetModules();
   });
   beforeEach(() => {
     window.localStorage.clear();
@@ -35,37 +39,77 @@ describe('Analytics loader', () => {
     expect(window.dataLayer).toBeUndefined();
   });
 
-  it('injects gtag.js and queues the config once consent is granted', () => {
+  it('stays disabled when no app GA4 property is configured', () => {
+    // DAT-021: the dashboard must not report into the docs site's property.
     writeConsent('granted');
     renderWithI18n(<Analytics />);
+    expect(analyticsScript()).toBeNull();
+    expect(window.dataLayer).toBeUndefined();
+  });
+});
+
+describe('Analytics loader with a configured GA4 property', () => {
+  // GA_MEASUREMENT_ID is a module-level const, so the env stub must be in
+  // place before the module graph is re-imported.
+  async function renderConfigured() {
+    vi.resetModules();
+    vi.stubEnv('NEXT_PUBLIC_GA_MEASUREMENT_ID', GA_ID);
+    const [{ Analytics: Configured }, { writeConsent: write }] = await Promise.all([
+      import('./analytics'),
+      import('@/lib/analytics'),
+    ]);
+    return { Configured, write };
+  }
+
+  afterEach(() => {
+    cleanup();
+    document
+      .querySelectorAll('script[data-slipstream-analytics="true"]')
+      .forEach((node) => node.remove());
+    delete (window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`];
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+  beforeEach(() => {
+    window.localStorage.clear();
+    delete window.gtag;
+    delete window.dataLayer;
+  });
+
+  it('injects gtag.js and queues the config once consent is granted', async () => {
+    const { Configured, write } = await renderConfigured();
+    write('granted');
+    renderWithI18n(<Configured />);
 
     const script = analyticsScript();
     expect(script).not.toBeNull();
     expect(script?.getAttribute('src')).toBe(
-      'https://www.googletagmanager.com/gtag/js?id=G-QDQXNJV9MD',
+      `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`,
     );
     expect(
       window.dataLayer?.some((entry) => Array.isArray(entry) && entry[0] === 'config'),
     ).toBe(true);
   });
 
-  it('does not inject a second tag on re-render', () => {
-    writeConsent('granted');
-    const { rerender } = renderWithI18n(<Analytics />);
-    rerender(<I18nProvider locale="en"><Analytics /></I18nProvider>);
+  it('does not inject a second tag on re-render', async () => {
+    const { Configured, write } = await renderConfigured();
+    write('granted');
+    const { rerender } = renderWithI18n(<Configured />);
+    rerender(<I18nProvider locale="en"><Configured /></I18nProvider>);
     expect(document.querySelectorAll('script[data-slipstream-analytics="true"]')).toHaveLength(1);
   });
 
-  it('removes the tag and sets the opt-out flag when consent is withdrawn', () => {
-    writeConsent('granted');
-    renderWithI18n(<Analytics />);
+  it('removes the tag and sets the opt-out flag when consent is withdrawn', async () => {
+    const { Configured, write } = await renderConfigured();
+    write('granted');
+    renderWithI18n(<Configured />);
     expect(analyticsScript()).not.toBeNull();
 
-    writeConsent('denied');
+    write('denied');
 
     expect(analyticsScript()).toBeNull();
     expect(
-      (window as unknown as Record<string, unknown>)['ga-disable-G-QDQXNJV9MD'],
+      (window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`],
     ).toBe(true);
   });
 });

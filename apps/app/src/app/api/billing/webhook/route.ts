@@ -118,6 +118,13 @@ function billingAction(event: BillingEvent): BillingAction | null {
           where: { OR: conditions },
         });
         if (subscription) {
+          // invoice.paid and invoice.payment_succeeded can both fire for the
+          // same Stripe invoice under different event ids; dedupe on the
+          // invoice's externalId so the payment is recorded exactly once.
+          if (object.id) {
+            const existing = await db.payment.findUnique({ where: { externalId: object.id } });
+            if (existing) return;
+          }
           await db.payment.create({
             data: {
               teamId: subscription.teamId,

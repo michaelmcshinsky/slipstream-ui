@@ -19,6 +19,9 @@ export default function SectionHeadingPage() {
         { name: 'level', type: '2 | 3 | 4', defaultValue: '2', description: 'Heading level rendered for the title.' },
         { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Text and action alignment.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Title scale.' },
+        { name: 'titleClassName', type: 'string', description: 'Extra classes for the title.' },
+        { name: 'descriptionClassName', type: 'string', description: 'Extra classes for the description.' },
+        { name: 'eyebrowClassName', type: 'string', description: 'Extra classes for the eyebrow.' },
       ]}
       accessibility={['Renders h2 by default (PageHeader owns the page h1).', 'Pass level={3} for nested subsections so the outline stays sequential.']}
     >
@@ -58,6 +61,9 @@ export default function SectionHeadingPage() {
   level?: 2 | 3 | 4;
   align?: 'left' | 'center';
   size?: 'sm' | 'md' | 'lg';
+  titleClassName?: string;
+  descriptionClassName?: string;
+  eyebrowClassName?: string;
 };`}
       />
     </ComponentPage>

@@ -10,6 +10,10 @@ export type ListProps = React.HTMLAttributes<HTMLUListElement> & {
   size?: 'default' | 'compact';
 };
 
+type ListDensity = 'default' | 'compact';
+
+const ListDensityContext = React.createContext<ListDensity>('default');
+
 /**
  * Semantic list container for groups of related rows (settings, results,
  * nav items). Renders a real <ul> so screen readers announce item counts;
@@ -17,17 +21,18 @@ export type ListProps = React.HTMLAttributes<HTMLUListElement> & {
  */
 const List = React.forwardRef<HTMLUListElement, ListProps>(
   ({ divided, bordered, size = 'default', className, ...props }, ref) => (
-    <ul
-      ref={ref}
-      className={cn(
-        'flex flex-col',
-        bordered && 'overflow-hidden rounded-lg border border-border bg-card',
-        divided && 'divide-y divide-border',
-        size === 'compact' ? 'gap-0' : 'gap-0',
-        className
-      )}
-      {...props}
-    />
+    <ListDensityContext.Provider value={size}>
+      <ul
+        ref={ref}
+        className={cn(
+          'flex flex-col',
+          bordered && 'overflow-hidden rounded-lg border border-border bg-card',
+          divided && 'divide-y divide-border',
+          className
+        )}
+        {...props}
+      />
+    </ListDensityContext.Provider>
   )
 );
 List.displayName = 'List';
@@ -53,7 +58,8 @@ export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> & {
 /** A single row inside a List. */
 const ListItem = React.forwardRef<HTMLLIElement, ListItemProps>(
   ({ leading, trailing, selected, onClick, description, disabled, className, children, ...props }, ref) => {
-    const padding = 'px-3 py-2.5';
+    const density = React.useContext(ListDensityContext);
+    const padding = density === 'compact' ? 'px-3 py-1.5' : 'px-3 py-2.5';
     const rowClass = cn(
       'flex w-full items-center gap-3 text-left text-sm',
       selected && 'bg-accent text-accent-foreground',

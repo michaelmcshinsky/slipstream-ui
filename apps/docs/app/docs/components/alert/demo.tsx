@@ -10,7 +10,7 @@ export default function AlertPage() {
       description="Inline alert for status messages with semantic variants."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info'", defaultValue: "'default'", description: 'Semantic style variant.' },
+        { name: 'variant', type: "'default' | 'destructive' | 'danger' | 'success' | 'warning' | 'info'", defaultValue: "'default'", description: 'Semantic style variant; danger is an alias of destructive kept for Bootstrap/shadcn-style codebases.' },
         { name: 'children', type: 'ReactNode', description: 'Alert content (AlertTitle and AlertDescription).' },
       ]}
       accessibility={[

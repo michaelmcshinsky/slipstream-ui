@@ -76,6 +76,24 @@ describe('List / ListItem', () => {
     expect(screen.getByRole('button', { name: 'Off' })).toBeDisabled();
   });
 
+  it('uses compact row padding only when size is compact', () => {
+    const { rerender } = render(
+      <List>
+        <ListItem>Row</ListItem>
+      </List>
+    );
+    expect(screen.getByText('Row').closest('li')?.firstElementChild).toHaveClass('py-2.5');
+
+    rerender(
+      <List size="compact">
+        <ListItem>Row</ListItem>
+      </List>
+    );
+    const compactRow = screen.getByText('Row').closest('li')?.firstElementChild;
+    expect(compactRow).toHaveClass('py-1.5');
+    expect(compactRow).not.toHaveClass('py-2.5');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(
       <List bordered divided>

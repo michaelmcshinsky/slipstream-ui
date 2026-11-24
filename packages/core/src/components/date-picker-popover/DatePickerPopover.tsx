@@ -32,6 +32,9 @@ export type DatePickerPopoverProps = {
   id?: string;
   className?: string;
   'aria-label'?: string;
+  /** Wired by FormField so hint/error copy is announced with the trigger. */
+  'aria-describedby'?: string;
+  'aria-invalid'?: boolean | 'true' | 'false';
 };
 
 /**
@@ -57,6 +60,8 @@ const DatePickerPopover = React.forwardRef<HTMLButtonElement, DatePickerPopoverP
       id,
       className,
       'aria-label': ariaLabel,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': ariaInvalid,
     },
     ref
   ) => {
@@ -81,6 +86,8 @@ const DatePickerPopover = React.forwardRef<HTMLButtonElement, DatePickerPopoverP
             id={id}
             disabled={disabled}
             aria-label={ariaLabel}
+            aria-describedby={ariaDescribedBy}
+            aria-invalid={ariaInvalid}
             className={cn(
               buttonVariants({ variant: 'outline' }),
               'w-full justify-start font-normal',

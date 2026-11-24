@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import { prisma } from '@slipstream-ui/db';
 import { Stat } from '@/components/ui';
+import { getPlan } from '@/lib/plans';
 
 
 export const metadata: Metadata = {
   title: 'Admin',
   description: 'Account-wide administration for Slipstream UI.',
 };
-const PLAN_PRICES: Record<string, number> = { PRO: 2900, TEAM: 9900, ENTERPRISE: 49900 };
-
 export const dynamic = 'force-dynamic';
 
 export default async function AdminOverviewPage() {
@@ -18,14 +17,17 @@ export default async function AdminOverviewPage() {
     prisma.user.count(),
     prisma.user.count({ where: { createdAt: { gte: since30d } } }),
     prisma.user.count({ where: { suspendedAt: { not: null } } }),
-    prisma.subscription.findMany({ where: { status: 'ACTIVE', plan: { not: 'FREE' } } }),
+    // MRR counts subscriptions that will renew: not already canceling.
+    prisma.subscription.findMany({
+      where: { status: 'ACTIVE', plan: { not: 'FREE' }, cancelAtPeriodEnd: false },
+    }),
     prisma.payment.aggregate({
       where: { status: 'PAID', createdAt: { gte: since30d } },
       _sum: { amountCents: true },
     }),
   ]);
 
-  const mrr = paidSubs.reduce((sum, sub) => sum + (PLAN_PRICES[sub.plan] ?? 0), 0);
+  const mrr = paidSubs.reduce((sum, sub) => sum + (getPlan(sub.plan)?.priceCents ?? 0), 0);
   const byPlan = paidSubs.reduce<Record<string, number>>((acc, sub) => {
     acc[sub.plan] = (acc[sub.plan] ?? 0) + 1;
     return acc;

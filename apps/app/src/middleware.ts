@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-const ALLOWED_API_ORIGINS = (process.env.API_ALLOWED_ORIGINS ?? '*').split(',');
+// Explicit allowlist of browser origins permitted to call /api/* cross-origin.
+// Empty by default: no Access-Control-Allow-Origin is emitted, so browsers
+// block cross-origin reads. Set API_ALLOWED_ORIGINS="https://app.example.com"
+// (comma-separated) for known frontends; '*' is allowed but discouraged.
+const ALLOWED_API_ORIGINS = (process.env.API_ALLOWED_ORIGINS ?? '').split(',').filter(Boolean);
 
 function corsHeaders(origin: string | null): Record<string, string> {
   const headers: Record<string, string> = {
@@ -9,7 +13,7 @@ function corsHeaders(origin: string | null): Record<string, string> {
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
-  // '*' allowed for public read-style endpoints; echo specific origin otherwise.
+  // Emit ACAO only for explicitly allowlisted origins (or '*' when configured).
   if (ALLOWED_API_ORIGINS.includes('*')) {
     headers['Access-Control-Allow-Origin'] = '*';
   } else if (origin && ALLOWED_API_ORIGINS.includes(origin)) {

@@ -92,4 +92,4 @@ The dataset is at `benchmarks/cases/cases.json`; results are written to
 `ANTHROPIC_API_KEY`.
 
 The full report, including limitations, is at
-[`docs/benchmarks.md`](../benchmarks.md).
+[`docs/benchmarks.md`](https://github.com/michaelmcshinsky/slipstream-ui/blob/main/docs/benchmarks.md).

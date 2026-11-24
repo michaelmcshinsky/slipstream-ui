@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardTitle, inputClass } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 type Member = {
   id: string;
@@ -28,8 +29,9 @@ export default function TeamPage() {
     fetch('/api/teams')
       .then((r) => r.json())
       .then((data) => {
-        setTeams(data.teams ?? []);
-        if (data.teams?.[0]) setActiveTeamId(data.teams[0].id);
+        const list = extractData<{ teams?: { id: string; name: string; role: string }[] }>(data)?.teams ?? [];
+        setTeams(list);
+        if (list[0]) setActiveTeamId(list[0].id);
       });
   }, []);
 
@@ -39,12 +41,16 @@ export default function TeamPage() {
     fetch(`/api/teams/${activeTeamId}`)
       .then((r) => r.json())
       .then((data) => {
-        if (data.error) {
-          setError(data.error);
+        const payload = extractData<{
+          team?: { memberships?: Member[]; invites?: Invite[] };
+          error?: string;
+        }>(data);
+        if (payload?.error || !payload?.team) {
+          setError(payload?.error ?? extractErrorMessage(data, 'Could not load team.'));
           return;
         }
-        setMembers(data.team.memberships ?? []);
-        setInvites(data.team.invites ?? []);
+        setMembers(payload.team.memberships ?? []);
+        setInvites(payload.team.invites ?? []);
       });
   }, [activeTeamId]);
 
@@ -60,12 +66,13 @@ export default function TeamPage() {
     });
     const data = await response.json();
     if (!response.ok) {
-      setError(data.error);
+      setError(extractErrorMessage(data));
       return;
     }
+    const invitePath = extractData<{ inviteUrl?: string }>(data)?.inviteUrl;
     // Dev convenience: the accept link is returned directly (would be emailed).
     const origin = window.location.origin;
-    setInviteUrl(`${origin}/api/invites/accept?token=${new URL(data.inviteUrl, origin).searchParams.get('token')}`);
+    setInviteUrl(`${origin}${invitePath}`);
     event.currentTarget.reset();
   }
 
@@ -73,7 +80,7 @@ export default function TeamPage() {
     if (!activeTeamId) return;
     await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
     const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
-    setMembers(data.team?.memberships ?? []);
+    setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
   async function changeRole(memberId: string, role: string) {
@@ -84,7 +91,7 @@ export default function TeamPage() {
       body: JSON.stringify({ role }),
     });
     const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
-    setMembers(data.team?.memberships ?? []);
+    setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
   async function createTeam(event: React.FormEvent<HTMLFormElement>) {
@@ -96,7 +103,11 @@ export default function TeamPage() {
       body: JSON.stringify({ name }),
     });
     const data = await response.json();
-    if (data.team) window.location.reload();
+    if (extractData<{ team?: { id: string } }>(data)?.team) {
+      window.location.reload();
+    } else {
+      setError(extractErrorMessage(data, 'Could not create team.'));
+    }
   }
 
   return (

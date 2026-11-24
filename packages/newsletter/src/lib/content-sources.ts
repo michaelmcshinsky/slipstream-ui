@@ -29,17 +29,18 @@ export class AuditLogContentSource implements ContentSource {
           gte: since,
           lte: until,
         },
-        // Only include actions that are interesting for newsletters
+        // Only include actions that are interesting for newsletters.
+        // Names must match the action strings emitted by apps/app audit() calls.
         action: {
           in: [
             'user.login',
-            'team.invite.accept',
-            'admin.user.suspend',
+            'user.signup',
             'team.created',
-            'subscription.updated',
-            'license.activated',
-            'api_key.created',
-            'project.deployed',
+            'team.invite.accepted',
+            'admin.user.suspend',
+            'license.issued',
+            'apikey.created',
+            'billing.canceled',
           ],
         },
       },
@@ -52,7 +53,7 @@ export class AuditLogContentSource implements ContentSource {
       type: 'audit_log' as NewsletterContentType,
       title: this.formatActionTitle(log.action),
       summary: this.formatActionSummary(log),
-      url: log.targetId ? `/admin/audit/${log.id}` : undefined,
+      url: log.targetId ? '/admin/audit' : undefined,
       metadata: {
         action: log.action,
         targetType: log.targetType,
@@ -68,13 +69,13 @@ export class AuditLogContentSource implements ContentSource {
   private formatActionTitle(action: string): string {
     const actionMap: Record<string, string> = {
       'user.login': 'User Login',
-      'team.invite.accept': 'Team Invitation Accepted',
+      'user.signup': 'New User Signup',
+      'team.invite.accepted': 'Team Invitation Accepted',
       'admin.user.suspend': 'User Suspended',
       'team.created': 'Team Created',
-      'subscription.updated': 'Subscription Updated',
-      'license.activated': 'License Activated',
-      'api_key.created': 'API Key Created',
-      'project.deployed': 'Project Deployed',
+      'license.issued': 'License Issued',
+      'apikey.created': 'API Key Created',
+      'billing.canceled': 'Subscription Canceled',
     };
     return actionMap[action] || action.replace(/\./g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   }
