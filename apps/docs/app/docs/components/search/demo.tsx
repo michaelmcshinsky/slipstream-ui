@@ -24,10 +24,12 @@ export default function SearchPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'options', type: 'SearchOption[]', defaultValue: 'required', description: 'The full option set; filtered client-side as the user types.' },
+        { name: 'value', type: 'string | null', description: 'Controlled selected value; null clears the selection.' },
         { name: 'defaultValue', type: 'string', description: 'Initially selected option value (display starts on its label).' },
         { name: 'onValueChange', type: '(value: string) => void', description: "Called with the selected option's value." },
         { name: 'placeholder', type: 'string', defaultValue: "'Search…'", description: 'Input placeholder while no query is typed.' },
         { name: 'emptyText', type: 'string', defaultValue: "'No matching results'", description: 'Shown when no option matches the query.' },
+        { name: 'listLabel', type: 'string', defaultValue: "'Search results'", description: 'Accessible label for the results listbox.' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the input and the dropdown.' },
       ]}
       accessibility={[
@@ -81,10 +83,12 @@ const options: SearchOption[] = [
 
 type SearchProps = {
   options: SearchOption[];
+  value?: string | null;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   emptyText?: string;
+  listLabel?: string;
   disabled?: boolean;
 };`}
       />
