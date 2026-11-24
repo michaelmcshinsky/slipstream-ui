@@ -6,7 +6,7 @@ Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per
 > Import: `import { Flex } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/flex
 > Registry: https://slipstreamui.com/registry/flex.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

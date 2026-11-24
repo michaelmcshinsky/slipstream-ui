@@ -6,7 +6,7 @@ Groups related form controls in a native fieldset with a legend, optional descri
 > Import: `import { Fieldset } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/fieldset
 > Registry: https://slipstreamui.com/registry/fieldset.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.0
+> Tier: atom · Package: @slipstream-ui/core@0.10.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

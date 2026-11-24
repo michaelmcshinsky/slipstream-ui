@@ -6,7 +6,7 @@ Placeholder for empty collections, zero-result searches and unconfigured feature
 > Import: `import { EmptyState } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/empty-state
 > Registry: https://slipstreamui.com/registry/empty-state.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
