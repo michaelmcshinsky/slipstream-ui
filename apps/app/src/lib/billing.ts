@@ -156,8 +156,8 @@ export async function downgradeToFree(teamId: string, db: Prisma.TransactionClie
 /**
  * Cancel a team's paid subscription. Mock mode cancels immediately; Stripe
  * mode schedules cancellation at period end via the Stripe API and only then
- * records it locally — success is reported only after the provider confirms
- *. Local-only "success" without a provider call is never allowed in
+ * records it locally — success is reported only after the provider confirms.
+ * Local-only "success" without a provider call is never allowed in
  * stripe mode.
  */
 export async function cancelSubscription(teamId: string, actorId: string): Promise<void> {
