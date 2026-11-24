@@ -20,5 +20,5 @@ export async function POST(request: Request) {
     );
     if (!body.key || !body.machineId) badRequest('key and machineId are required.');
     return validateLicense(body.key, body.machineId);
-  }, { public: true, rateLimit: { limit: 30, windowMs: 60_000 } });
+  }, { rateLimit: { limit: 30, windowMs: 60_000 } });
 }

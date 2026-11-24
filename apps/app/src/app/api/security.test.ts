@@ -162,7 +162,7 @@ describe('self-service license issuance requires paid entitlement', () => {
     const member = await makeUser(`lic-budget-m-${suffix}@test.dev`);
     const team = await makeTeam(owner.id, 'Budget Team');
     await subscribe(team.id, 'PRO', 2);
-    await prisma.membership.create({ data: { teamId: team.id, userId: member.id, role: 'MEMBER' } });
+    await prisma.membership.create({ data: { teamId: team.id, userId: member.id, role: 'ADMIN' } });
 
     // PRO budget is 3 activations; the first key consumes all of it.
     await issueLicense({ ownerId: owner.id, teamId: team.id, plan: 'PRO', maxActivations: 3 });

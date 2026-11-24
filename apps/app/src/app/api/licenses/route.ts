@@ -46,7 +46,9 @@ export async function POST(request: Request) {
     }
 
     if (!body.teamId) badRequest('teamId is required.');
-    await requireMembership(user.id, body.teamId, 'MEMBER');
+    // License keys are bearer secrets: issuance and key re-retrieval are
+    // limited to team admins, not every member.
+    await requireMembership(user.id, body.teamId, 'ADMIN');
 
     const subscription = await prisma.subscription.findUnique({ where: { teamId: body.teamId } });
     if (

@@ -4,7 +4,6 @@ import {
   CONSENT_MAX_AGE_MS,
   CONSENT_STORAGE_KEY,
   GA_MEASUREMENT_ID,
-  GA_SCRIPT_SRC,
   installGtag,
   readConsent,
   sanitizeAnalyticsLocation,

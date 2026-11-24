@@ -44,13 +44,15 @@ export async function validateLicense(key: string, machineId: string): Promise<V
 
   for (let attempt = 1; attempt <= ACTIVATION_CLAIM_ATTEMPTS; attempt++) {
     try {
+      // Serializable isolation makes the count+insert atomic against
+      // concurrent machines on Postgres; SQLite is serializable anyway.
       await prisma.$transaction(async (tx) => {
         const count = await tx.licenseActivation.count({ where: { licenseId: license.id } });
         if (count >= license.maxActivations) {
           throw new ActivationLimitReached(`Activation limit reached (${license.maxActivations}). Deactivate a machine first.`);
         }
         await tx.licenseActivation.create({ data: { licenseId: license.id, machineId } });
-      });
+      }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
       return { valid: true, plan: license.plan };
     } catch (error) {
       if (error instanceof ActivationLimitReached) {
@@ -65,7 +67,10 @@ export async function validateLicense(key: string, machineId: string): Promise<V
         return { valid: true, plan: license.plan };
       }
       const contention = error instanceof Prisma.PrismaClientKnownRequestError && ['P2034', 'P1008', 'P2028'].includes(error.code);
-      if (contention && attempt < ACTIVATION_CLAIM_ATTEMPTS) continue;
+      if (contention) {
+        if (attempt < ACTIVATION_CLAIM_ATTEMPTS) continue;
+        return { valid: false, reason: 'Activation is busy. Retry shortly.' };
+      }
       throw error;
     }
   }

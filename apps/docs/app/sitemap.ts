@@ -35,7 +35,8 @@ function priorityFor(href: string): number {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const seen = new Set<string>();
+  // Seed with static routes so nav entries like /playground aren't emitted twice.
+  const seen = new Set(STATIC_ROUTES.map((route) => route.path || '/'));
 
   const staticRoutes = STATIC_ROUTES.map(({ path, priority, changeFrequency }) => ({
     url: `${BASE_URL}${path}`,

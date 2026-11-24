@@ -10,8 +10,6 @@ export type HandleOptions = {
    * Pass a stable short name for hot routes.
    */
   routeName?: string;
-  /** Disable auth-based bucketing for public endpoints (falls back to IP). */
-  public?: boolean;
 };
 
 /**
