@@ -7,6 +7,9 @@ import { SEARCH_INDEX, type SearchEntry } from '@/lib/search-index';
 import { filterSearch } from '@/lib/search';
 import { track } from '@/lib/analytics';
 
+const LISTBOX_ID = 'site-command-palette-listbox';
+const optionId = (index: number) => `site-command-palette-option-${index}`;
+
 /**
  * ⌘K command palette (mantine/shadcn style): fuzzy search over docs,
  * keyboard-first navigation, grouped results.
@@ -31,12 +34,15 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
   }, [open, onOpenChange]);
 
   useEffect(() => {
-    if (open) {
-      setQuery('');
-      setActiveIndex(0);
-      // Focus after paint so the modal is mounted.
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
+    if (!open) return;
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setQuery('');
+    setActiveIndex(0);
+    // Focus after paint so the modal is mounted, and restore the trigger on
+    // close/unmount so keyboard users are not dropped on <body>.
+    requestAnimationFrame(() => inputRef.current?.focus());
+    return () => previouslyFocused?.focus();
   }, [open]);
 
   const go = useCallback(
@@ -51,7 +57,9 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setActiveIndex((index) => Math.min(index + 1, results.length - 1));
+      setActiveIndex((index) =>
+        results.length === 0 ? 0 : Math.min(index + 1, results.length - 1),
+      );
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       setActiveIndex((index) => Math.max(index - 1, 0));
@@ -60,8 +68,25 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
     }
   };
 
+  const onDialogKeyDown = (event: React.KeyboardEvent) => {
+    // The palette is a single-focus combobox: keep Tab inside the dialog so
+    // focus cannot escape to the page behind the overlay.
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      inputRef.current?.focus();
+    }
+  };
+
+  const activeOptionId =
+    results.length > 0 && activeIndex >= 0 && activeIndex < results.length
+      ? optionId(activeIndex)
+      : undefined;
+
   useEffect(() => {
-    listRef.current?.querySelector('[data-active="true"]')?.scrollIntoView({ block: 'nearest' });
+    const active = listRef.current?.querySelector('[data-active="true"]');
+    if (active instanceof HTMLElement && typeof active.scrollIntoView === 'function') {
+      active.scrollIntoView({ block: 'nearest' });
+    }
   }, [activeIndex]);
 
   if (!open) return null;
@@ -78,12 +103,19 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
         aria-label={t('site.search.dialogLabel')}
         className="w-full max-w-lg rounded-xl border border-border bg-background shadow-2xl"
         onClick={(event) => event.stopPropagation()}
+        onKeyDown={onDialogKeyDown}
       >
         {/* No overflow-hidden on the dialog: the input's focus ring follows
             its own rounded-t corners instead of being clipped at the
             dialog's corner radius. */}
         <input
           ref={inputRef}
+          role="combobox"
+          aria-expanded="true"
+          aria-haspopup="listbox"
+          aria-autocomplete="list"
+          aria-controls={results.length > 0 ? LISTBOX_ID : undefined}
+          aria-activedescendant={activeOptionId}
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
@@ -94,16 +126,22 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
           aria-label={t('site.search.inputLabel')}
           className="w-full rounded-t-xl border-b border-border bg-transparent px-4 py-3.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         />
-        <div ref={listRef} className="max-h-80 overflow-y-auto p-2" role="listbox" aria-label={t('site.search.resultsLabel')}>
+        <div
+          ref={listRef}
+          id={LISTBOX_ID}
+          className="max-h-80 overflow-y-auto p-2"
+          role={results.length > 0 ? 'listbox' : undefined}
+          aria-label={results.length > 0 ? t('site.search.resultsLabel') : undefined}
+        >
           {results.length === 0 ? (
             <p className="px-3 py-6 text-center text-sm text-muted-foreground">
               {t('site.search.noResults', { query })}
             </p>
           ) : (
             results.map((result, index) => (
-              <button
+              <div
                 key={result.href}
-                type="button"
+                id={optionId(index)}
                 role="option"
                 aria-selected={index === activeIndex}
                 data-active={index === activeIndex}
@@ -115,7 +153,7 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
               >
                 <span className="font-medium">{result.title}</span>
                 <span className="text-xs text-muted-foreground line-clamp-1">{result.group}</span>
-              </button>
+              </div>
             ))
           )}
         </div>

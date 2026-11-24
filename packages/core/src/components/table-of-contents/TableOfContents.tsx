@@ -66,7 +66,7 @@ export function TableOfContents({
                 className={cn(
                   '-ml-px block border-l py-1 pl-3 no-underline transition-colors',
                   active
-                    ? 'border-primary font-medium text-primary underline'
+                    ? 'border-primary font-medium text-primary-ink underline'
                     : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
                 )}
               >

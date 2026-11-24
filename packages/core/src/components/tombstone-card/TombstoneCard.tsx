@@ -66,7 +66,7 @@ export const TombstoneCard = React.forwardRef<HTMLElement, TombstoneCardProps>(f
         {href && (
           <Link
             href={href}
-            className="mt-auto text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="mt-auto text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {actionLabel}
           </Link>

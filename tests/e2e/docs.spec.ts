@@ -107,7 +107,7 @@ test.describe('component reference', () => {
 
     await page.getByRole('button', { name: /Copy for AI/ }).click();
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText()), { timeout: 10_000 }).toContain(
-      'Slipstream UI — Button'
+      '# Slipstream UI: Button'
     );
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain('manifest schema v1');
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain('## Required props');
@@ -146,7 +146,11 @@ test.describe('command palette', () => {
 
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
-    await dialog.getByRole('textbox').fill('ai typing indicator');
+    // Focus is applied by a React effect after hydration; waiting for it
+    // guarantees keystrokes reach the controlled input.
+    const input = dialog.getByRole('combobox');
+    await expect(input).toBeFocused();
+    await input.fill('ai typing indicator');
     await expect(dialog.getByRole('option', { name: /StreamingIndicator/ })).toBeVisible();
 
     await page.keyboard.press('Escape');

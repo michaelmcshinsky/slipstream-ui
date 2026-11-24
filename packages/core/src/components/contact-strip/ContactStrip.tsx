@@ -39,14 +39,14 @@ export const ContactStrip = React.forwardRef<HTMLUListElement, ContactStripProps
       {items.map((item) => (
         <li key={item.label} className={cn('flex min-w-0 items-start gap-3', align === 'center' && 'justify-center text-center')}>
           {item.icon && (
-            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary [&_svg]:size-4">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary-ink [&_svg]:size-4">
               {item.icon}
             </span>
           )}
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{item.label}</p>
             {item.href ? (
-              <Link href={item.href} className="mt-0.5 block break-words text-sm font-medium text-primary underline-offset-4 hover:underline">
+              <Link href={item.href} className="mt-0.5 block break-words text-sm font-medium text-primary-ink underline-offset-4 hover:underline">
                 {item.value}
               </Link>
             ) : (

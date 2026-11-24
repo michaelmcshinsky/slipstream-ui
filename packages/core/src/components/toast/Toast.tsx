@@ -110,7 +110,7 @@ function ToastRegion({
                 entry.action?.onClick();
                 onDismiss(entry.id);
               }}
-              className="mt-2 text-sm font-medium text-primary hover:underline"
+              className="mt-2 text-sm font-medium text-primary-ink hover:underline"
             >
               {entry.action.label}
             </button>

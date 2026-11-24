@@ -30,6 +30,7 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [confirmError, setConfirmError] = useState<string | null>(null);
   const copy = COPY[mode];
   const errorProps = error ? { 'aria-invalid': true, 'aria-describedby': 'auth-error' } : {};
 
@@ -37,9 +38,15 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
     event.preventDefault();
     setError(null);
     setNotice(null);
+    setConfirmError(null);
     setPending(true);
 
     const form = new FormData(event.currentTarget);
+    if (mode === 'signup' && form.get('password') !== form.get('confirmPassword')) {
+      setConfirmError('Passwords do not match.');
+      setPending(false);
+      return;
+    }
     let endpoint = '/api/auth/login';
     let body: Record<string, unknown> = {};
 
@@ -120,6 +127,25 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             {...errorProps}
           />
+        )}
+        {mode === 'signup' && (
+          <div className="space-y-1.5">
+            <Field
+              label="Confirm password"
+              name="confirmPassword"
+              type="password"
+              required
+              minLength={8}
+              autoComplete="new-password"
+              aria-invalid={Boolean(confirmError)}
+              aria-describedby={confirmError ? 'confirm-password-error' : undefined}
+            />
+            {confirmError && (
+              <p id="confirm-password-error" role="alert" className="text-sm text-destructive">
+                {confirmError}
+              </p>
+            )}
+          </div>
         )}
 
         {error && <p id="auth-error" role="alert" className="text-sm text-destructive">{error}</p>}

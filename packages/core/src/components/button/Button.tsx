@@ -30,7 +30,7 @@ const buttonVariants = cva(
           'border border-info/50 bg-background text-info-ink hover:border-info hover:bg-info/10',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-primary-ink underline-offset-4 hover:underline',
         // High-contrast fills for hero and other always-dark surfaces. These
         // do not read the theme surface, so they stay legible in both modes.
         // Fixed ink, not --primary: in dark mode --primary lightens and would

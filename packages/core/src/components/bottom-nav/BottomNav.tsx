@@ -101,7 +101,7 @@ export function BottomNav({
                   className={cn(
                     tabClass,
                     item.active
-                      ? 'text-primary'
+                      ? 'text-primary-ink'
                       : 'text-muted-foreground hover:text-foreground'
                   )}
                 >

@@ -5,6 +5,9 @@ const FIXTURE = 'http://127.0.0.1:4180';
 async function gotoFixture(page: Page, query: string) {
   await page.goto(`${FIXTURE}/?${query}`);
   await page.waitForLoadState('networkidle');
+  // Font swaps after first paint are the main source of cross-run pixel
+  // diffs in CI; wait for the font set to settle before screenshotting.
+  await page.evaluate(() => document.fonts.ready);
 }
 
 test.describe('AppShell', () => {

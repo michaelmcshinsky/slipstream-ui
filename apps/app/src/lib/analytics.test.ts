@@ -7,6 +7,7 @@ import {
   GA_SCRIPT_SRC,
   installGtag,
   readConsent,
+  sanitizeAnalyticsLocation,
   writeConsent,
 } from './analytics';
 
@@ -51,6 +52,23 @@ describe('consent record', () => {
   });
 });
 
+describe('sanitizeAnalyticsLocation', () => {
+  it('strips query strings and fragments so tokens never reach GA4', () => {
+    expect(
+      sanitizeAnalyticsLocation('https://app.slipstreamui.com/reset-password?token=secret#frag'),
+    ).toBe('https://app.slipstreamui.com/reset-password');
+    expect(sanitizeAnalyticsLocation('https://app.slipstreamui.com/verify-email?token=abc&next=/x')).toBe(
+      'https://app.slipstreamui.com/verify-email',
+    );
+  });
+
+  it('keeps the origin and pathname for normal pages', () => {
+    expect(sanitizeAnalyticsLocation('https://app.slipstreamui.com/dashboard/settings?tab=newsletter')).toBe(
+      'https://app.slipstreamui.com/dashboard/settings',
+    );
+  });
+});
+
 describe('GA4 configuration', () => {
   it('defaults to the shared Slipstream measurement ID', () => {
     expect(GA_MEASUREMENT_ID).toBe('G-QDQXNJV9MD');
@@ -60,6 +78,7 @@ describe('GA4 configuration', () => {
 
 describe('installGtag', () => {
   beforeEach(() => {
+    window.history.pushState({}, '', '/');
     delete window.gtag;
     delete window.dataLayer;
   });
@@ -86,5 +105,19 @@ describe('installGtag', () => {
     const shim = window.gtag;
     installGtag();
     expect(window.gtag).toBe(shim);
+  });
+
+  it('reports a sanitized page_location without query secrets', () => {
+    window.history.pushState({}, '', '/reset-password?token=secret-value');
+    installGtag();
+
+    const config = (window.dataLayer as unknown[][]).find(
+      (entry) => Array.isArray(entry) && entry[0] === 'config',
+    );
+    expect(config?.[2]).toEqual(
+      expect.objectContaining({
+        page_location: `${window.location.origin}/reset-password`,
+      }),
+    );
   });
 });

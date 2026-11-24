@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, inputClass } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
 type AuditRow = {
   id: string;
@@ -18,12 +19,18 @@ export default function AdminAuditPage() {
   const [error, setError] = useState<string | null>(null);
 
   async function load(filter = '') {
-    const response = await fetch(`/api/admin/audit?action=${encodeURIComponent(filter)}`);
-    if (!response.ok) {
-      setError('Admin access required.');
-      return;
+    setError(null);
+    try {
+      const response = await fetch(`/api/admin/audit?action=${encodeURIComponent(filter)}`);
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data, 'Admin access required.'));
+        return;
+      }
+      setLogs(extractData<{ logs?: AuditRow[] }>(data)?.logs ?? []);
+    } catch {
+      setError('Something went wrong. Please try again.');
     }
-    setLogs((await response.json()).logs ?? []);
   }
 
   useEffect(() => {

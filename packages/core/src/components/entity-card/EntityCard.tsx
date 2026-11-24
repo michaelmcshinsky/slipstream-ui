@@ -78,7 +78,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-base font-semibold tracking-tight">
             {href ? (
-              <Link href={href} className="rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <Link href={href} className="rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 {name}
               </Link>
             ) : (
@@ -116,7 +116,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
           {href && (
             <Link
               href={href}
-              className="text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               View profile
             </Link>
