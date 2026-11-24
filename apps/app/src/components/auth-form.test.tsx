@@ -86,6 +86,21 @@ describe('AuthForm', () => {
     expect(screen.getByLabelText('Email').getAttribute('aria-describedby')).toBe('auth-error');
   });
 
+  it('signup rejects mismatched passwords before calling the API', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+    render(<AuthForm mode="signup" />);
+
+    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'a@b.com' } });
+    fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } });
+    fireEvent.change(screen.getByLabelText('Confirm password'), { target: { value: 'different' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
+
+    expect((await screen.findByRole('alert')).textContent).toContain('Passwords do not match.');
+    expect(screen.getByLabelText('Confirm password').getAttribute('aria-invalid')).toBe('true');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('forgot mode hides the password field', () => {
     render(<AuthForm mode="forgot" />);
     expect(screen.getByLabelText('Email')).toBeTruthy();
