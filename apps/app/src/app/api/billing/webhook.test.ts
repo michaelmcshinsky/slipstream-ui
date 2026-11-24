@@ -294,4 +294,33 @@ describe('webhook billing transactions', () => {
     expect((await send(invoice)).status).toBe(200);
     expect(await prisma.payment.count({ where: { teamId: team.id } })).toBe(1);
   });
+
+  it('resolves the plan from checkout metadata before item fallbacks', async () => {
+    const { team } = await fixture();
+    const response = await send(event('checkout.session.completed', {
+      client_reference_id: team.id,
+      metadata: { teamId: team.id, plan: 'team' },
+    }));
+    expect(response.status).toBe(200);
+    expect(await prisma.subscription.findUnique({ where: { teamId: team.id } })).toMatchObject({ plan: 'TEAM' });
+  });
+
+  it('resolves the plan from the configured Stripe price id', async () => {
+    vi.stubEnv('STRIPE_PRICE_ENTERPRISE', 'price_ent_test');
+    const { team } = await fixture();
+    const response = await send(event('customer.subscription.updated', {
+      metadata: { teamId: team.id },
+      items: { data: [{ price: { id: 'price_ent_test', nickname: null } }] },
+    }));
+    expect(response.status).toBe(200);
+    expect(await prisma.subscription.findUnique({ where: { teamId: team.id } })).toMatchObject({ plan: 'ENTERPRISE' });
+  });
+
+  it('treats an invoice with neither team nor customer as a recorded no-op', async () => {
+    const before = await prisma.payment.count();
+    const delivery = event('invoice.paid', { amount_paid: 100 });
+    expect((await send(delivery)).status).toBe(200);
+    expect(await prisma.payment.count()).toBe(before);
+    expect(await prisma.billingWebhookEvent.count({ where: { eventId: delivery.id } })).toBe(1);
+  });
 });

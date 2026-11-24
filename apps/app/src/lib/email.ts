@@ -34,6 +34,20 @@ export type EmailTransport = {
 
 const MAX_DELIVERY_ATTEMPTS = 3;
 
+/**
+ * Token-bearing messages must not persist live action links. The delivery
+ * record keeps enough content for audit, but `token=` values are redacted so
+ * a DB read cannot replay a reset/verify/invite link.
+ */
+function redactActionTokens(text: string): string {
+  return text.replace(/([?&]token=)[^&\s]+/g, '$1[redacted]');
+}
+
+function storedBodyText(email: OutboundEmail): string {
+  if (!email.token && !email.tokenHash) return email.text;
+  return redactActionTokens(email.text);
+}
+
 /** Dev inbox: structured log line without the token (or link unless opted in). */
 export const logTransport: EmailTransport = {
   name: 'log',
@@ -144,7 +158,7 @@ export async function deliverEmail(email: OutboundEmail): Promise<{ id: string; 
       toEmail: email.to,
       kind: email.kind,
       subject: email.subject,
-      bodyText: email.text,
+      bodyText: storedBodyText(email),
       tokenHash: email.tokenHash,
       status: 'QUEUED',
     },
@@ -179,6 +193,9 @@ export async function retryFailedDeliveries(options: { toEmail?: string; kind?: 
     where: {
       status: 'FAILED',
       attempts: { lt: MAX_DELIVERY_ATTEMPTS },
+      // Token-bound deliveries are not retryable from stored content: the raw
+      // token is never persisted, so the recipient must request a fresh link.
+      tokenHash: null,
       ...(options.toEmail ? { toEmail: options.toEmail } : {}),
       ...(options.kind ? { kind: options.kind } : {}),
     },
@@ -227,11 +244,10 @@ export function buildResetEmail(params: { to: string; appName?: string; resetUrl
 /** Build a team-invite email body. */
 export function buildInviteEmail(params: { to: string; appName?: string; inviterLabel: string; inviteUrl: string }): OutboundEmail {
   const app = params.appName ?? 'Slipstream UI';
-  const inviter = escapeHtml(params.inviterLabel);
   return {
     to: params.to,
     kind: 'invite',
     subject: `You have been invited to a team on ${app}`,
-    text: `${inviter} invited you to join a team on ${app}.\nAccept the invitation: ${params.inviteUrl}`,
+    text: `${params.inviterLabel} invited you to join a team on ${app}.\nAccept the invitation: ${params.inviteUrl}`,
   };
 }

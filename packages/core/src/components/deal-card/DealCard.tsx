@@ -83,12 +83,12 @@ export const DealCard = React.forwardRef<HTMLElement, DealCardProps>(function De
     <Card ref={ref as never} className={cn('flex h-full flex-col overflow-hidden', className)} {...props}>
       <CardHeader className="gap-2 p-5 pb-3">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{sector}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary-ink">{sector}</p>
           <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
         </div>
         <h3 className="text-lg font-semibold leading-snug tracking-tight">
           {href ? (
-            <Link href={href} className="rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <Link href={href} className="rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               {title}
             </Link>
           ) : (

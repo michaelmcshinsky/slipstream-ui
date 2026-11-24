@@ -93,7 +93,7 @@ export function Toaster({ position = 'bottom-right', label = 'Notifications', di
                       entry.action?.onClick();
                       imperativeToast.dismiss(entry.id);
                     }}
-                    className="mt-2 text-sm font-medium text-primary hover:underline"
+                    className="mt-2 text-sm font-medium text-primary-ink hover:underline"
                   >
                     {entry.action.label}
                   </button>

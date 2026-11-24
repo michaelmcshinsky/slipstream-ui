@@ -19,31 +19,73 @@ type ApiKeyRow = {
   prefix: string;
 };
 
+type TeamRef = {
+  id: string;
+  name: string;
+  role?: string;
+};
+
+type TeamDetail = {
+  subscription?: { plan?: string; status?: string } | null;
+};
+
+const LICENSE_PLANS = ['PRO', 'TEAM', 'ENTERPRISE'] as const;
+type LicensePlan = (typeof LICENSE_PLANS)[number];
+
+function isLicensePlan(value: string | undefined): value is LicensePlan {
+  return !!value && (LICENSE_PLANS as readonly string[]).includes(value);
+}
+
 export default function LicensesPage() {
   const [licenses, setLicenses] = useState<License[]>([]);
   const [keys, setKeys] = useState<ApiKeyRow[]>([]);
+  const [teams, setTeams] = useState<TeamRef[]>([]);
+  const [teamId, setTeamId] = useState('');
+  const [plan, setPlan] = useState<LicensePlan>('PRO');
   const [newKey, setNewKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function load() {
-    const [licenseResponse, keyResponse] = await Promise.all([
-      fetch('/api/licenses').then((r) => r.json()),
-      fetch('/api/api-keys').then((r) => r.json()),
+    const [licenseResponse, keyResponse, teamResponse] = await Promise.all([
+      fetch('/api/licenses').then((r) => r.json().catch(() => null)),
+      fetch('/api/api-keys').then((r) => r.json().catch(() => null)),
+      fetch('/api/teams').then((r) => r.json().catch(() => null)),
     ]);
     setLicenses(extractData<{ licenses: License[] }>(licenseResponse)?.licenses ?? []);
     setKeys(extractData<{ keys: ApiKeyRow[] }>(keyResponse)?.keys ?? []);
+    const teamList = extractData<{ teams?: TeamRef[] }>(teamResponse)?.teams ?? [];
+    setTeams(teamList);
+    setTeamId((current) => (current && teamList.some((team) => team.id === current) ? current : teamList[0]?.id ?? ''));
   }
 
   useEffect(() => {
     load();
   }, []);
 
+  useEffect(() => {
+    if (!teamId) {
+      setPlan('PRO');
+      return;
+    }
+    fetch(`/api/teams/${teamId}`)
+      .then((r) => r.json())
+      .then((data: unknown) => {
+        const subscriptionPlan = extractData<{ team?: TeamDetail }>(data)?.team?.subscription?.plan;
+        setPlan(isLicensePlan(subscriptionPlan) ? subscriptionPlan : 'PRO');
+      })
+      .catch(() => setPlan('PRO'));
+  }, [teamId]);
+
   async function createLicense() {
     setError(null);
+    if (!teamId) {
+      setError('Select a team before issuing a license.');
+      return;
+    }
     const response = await fetch('/api/licenses', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan: 'PRO', note: 'Issued from dashboard' }),
+      body: JSON.stringify({ teamId, plan, note: 'Issued from dashboard' }),
     });
     const data = await response.json();
     if (!response.ok) {
@@ -94,15 +136,41 @@ export default function LicensesPage() {
       </div>
 
       <Card>
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <CardTitle>License keys</CardTitle>
-          <button
-            type="button"
-            onClick={createLicense}
-            className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            New license
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <select
+              aria-label="Team"
+              value={teamId}
+              onChange={(event) => setTeamId(event.target.value)}
+              className={inputClass}
+            >
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>{team.name}</option>
+              ))}
+            </select>
+            <select
+              aria-label="Plan"
+              value={plan}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (isLicensePlan(value)) setPlan(value);
+              }}
+              className={inputClass}
+            >
+              {LICENSE_PLANS.map((value) => (
+                <option key={value} value={value}>{value}</option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={createLicense}
+              disabled={!teamId}
+              className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+            >
+              New license
+            </button>
+          </div>
         </div>
         {error && <p role="alert" className="mb-3 text-sm text-destructive">{error}</p>}
         <div className="space-y-4">

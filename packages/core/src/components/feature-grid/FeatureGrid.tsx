@@ -48,14 +48,14 @@ export const FeatureGrid = React.forwardRef<HTMLUListElement, FeatureGridProps>(
   const content = (feature: FeatureItem) => (
     <>
       {feature.icon && (
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary [&_svg]:size-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary-ink [&_svg]:size-5">
           {feature.icon}
         </span>
       )}
       <h3 className="text-base font-semibold tracking-tight">{feature.title}</h3>
       {feature.description && <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>}
       {feature.href && feature.actionLabel && (
-        <span className="mt-auto pt-2 text-sm font-medium text-primary">
+        <span className="mt-auto pt-2 text-sm font-medium text-primary-ink">
           {feature.actionLabel} <span aria-hidden="true">→</span>
         </span>
       )}

@@ -108,11 +108,14 @@ export default function SelectPage() {
   options?: SelectOption[];
   groups?: { label: string; options: SelectOption[] }[];
   label?: string;
+  labelHidden?: boolean;
   placeholder?: string;
   multiple?: boolean;
+  size?: number;
   value?: string | string[];
   defaultValue?: string | string[];
-  onChange?: (value: string | string[]) => void;
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  onValueChange?: (value: string | string[]) => void;
 };`}
       />
     </ComponentPage>

@@ -6,12 +6,18 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getSessionUser } from '@/lib/session';
+import { handle, z } from '@/lib/api/handle';
+import { parseBody } from '@/lib/api/core';
+import { getSessionUser, requireUser } from '@/lib/session';
 import {
   unsubscribeFromNewsletter,
   verifyNewsletterUnsubscribeToken,
   type NewsletterUnsubscribeType,
 } from '@slipstream-ui/newsletter';
+
+const unsubscribeSchema = z.object({
+  type: z.enum(['daily', 'weekly']),
+});
 
 function htmlPage(title: string, body: string, status = 200): NextResponse {
   return new NextResponse(
@@ -25,32 +31,17 @@ function isNewsletterType(value: string | null): value is NewsletterUnsubscribeT
 }
 
 export async function POST(request: NextRequest) {
-  // Token flow first: mail clients POST here with no session (RFC 8058).
-  const { searchParams } = new URL(request.url);
-  if (searchParams.get('token')) {
-    return handleTokenPost(request);
-  }
-
-  try {
-    const user = await getSessionUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  return handle(request, async () => {
+    const { searchParams } = new URL(request.url);
+    if (searchParams.get('token')) {
+      return handleTokenPost(request);
     }
 
-    const body = await request.json();
-    const { type } = body;
-
-    if (!isNewsletterType(type)) {
-      return NextResponse.json({ error: 'Invalid type. Must be "daily" or "weekly"' }, { status: 400 });
-    }
-
-    await unsubscribeFromNewsletter(user.id, type);
-
-    return NextResponse.json({ success: true, type });
-  } catch (error) {
-    console.error('Failed to unsubscribe from newsletter:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
+    const user = requireUser(await getSessionUser());
+    const body = await parseBody(request, unsubscribeSchema);
+    await unsubscribeFromNewsletter(user.id, body.type);
+    return { success: true, type: body.type };
+  }, { routeName: 'newsletter.unsubscribe' });
 }
 
 /**
@@ -58,24 +49,26 @@ export async function POST(request: NextRequest) {
  * Shows a confirmation page; the form POSTs back to the same URL.
  */
 export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const token = searchParams.get('token');
-    const type = searchParams.get('type');
+  return handle(request, async () => {
+    try {
+      const { searchParams } = new URL(request.url);
+      const token = searchParams.get('token');
+      const type = searchParams.get('type');
 
-    if (!token || !isNewsletterType(type) || !verifyNewsletterUnsubscribeToken(token, type)) {
-      return htmlPage('Invalid unsubscribe link', '<p>This link is invalid or has expired.</p>', 400);
+      if (!token || !isNewsletterType(type) || !verifyNewsletterUnsubscribeToken(token, type)) {
+        return htmlPage('Invalid unsubscribe link', '<p>This link is invalid or has expired.</p>', 400);
+      }
+
+      const action = `/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}&type=${type}`;
+      return htmlPage(
+        'Unsubscribe',
+        `<p>Stop receiving the ${type} newsletter?</p><form method="POST" action="${action}"><button type="submit" style="padding:10px 20px;font-size:15px;cursor:pointer">Unsubscribe</button></form>`,
+      );
+    } catch (error) {
+      console.error('Failed to render unsubscribe page:', error);
+      return htmlPage('Error', '<p>An error occurred. Please try again or contact support.</p>', 500);
     }
-
-    const action = `/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}&type=${type}`;
-    return htmlPage(
-      'Unsubscribe',
-      `<p>Stop receiving the ${type} newsletter?</p><form method="POST" action="${action}"><button type="submit" style="padding:10px 20px;font-size:15px;cursor:pointer">Unsubscribe</button></form>`,
-    );
-  } catch (error) {
-    console.error('Failed to render unsubscribe page:', error);
-    return htmlPage('Error', '<p>An error occurred. Please try again or contact support.</p>', 500);
-  }
+  }, { routeName: 'newsletter.unsubscribe.get' });
 }
 
 /**

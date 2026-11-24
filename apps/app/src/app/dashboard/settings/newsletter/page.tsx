@@ -12,6 +12,35 @@ import {
   Separator,
   Badge,
 } from '@/components/ui';
+import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+
+type PreferencesState = {
+  dailyEnabled: boolean;
+  weeklyEnabled: boolean;
+  contentTypes: string[];
+  frequency: 'daily' | 'weekly' | 'both';
+  timezone: string;
+};
+
+type SubscriptionRow = {
+  type: string;
+  status: string;
+};
+
+type PreferencesPayload = {
+  preferences?: PreferencesState;
+  subscriptions?: SubscriptionRow[];
+  contentTypes?: Array<{ type: string; label: string; description: string }>;
+  frequencies?: Array<{ value: string; label: string; description: string }>;
+};
+
+const DEFAULT_PREFERENCES: PreferencesState = {
+  dailyEnabled: false,
+  weeklyEnabled: true,
+  contentTypes: [],
+  frequency: 'weekly',
+  timezone: 'America/Denver',
+};
 
 export default function NewsletterSettingsPage() {
   const router = useRouter();
@@ -20,13 +49,8 @@ export default function NewsletterSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const [preferences, setPreferences] = useState({
-    dailyEnabled: false,
-    weeklyEnabled: true,
-    contentTypes: [] as string[],
-    frequency: 'weekly' as 'daily' | 'weekly' | 'both',
-    timezone: 'America/Denver',
-  });
+  const [preferences, setPreferences] = useState<PreferencesState>(DEFAULT_PREFERENCES);
+  const [subscriptions, setSubscriptions] = useState<SubscriptionRow[]>([]);
 
   const [contentTypes, setContentTypes] = useState<Array<{ type: string; label: string; description: string }>>([]);
   const [frequencies, setFrequencies] = useState<Array<{ value: string; label: string; description: string }>>([]);
@@ -39,15 +63,42 @@ export default function NewsletterSettingsPage() {
   async function loadPreferences() {
     try {
       const response = await fetch('/api/newsletter/preferences');
-      if (!response.ok) throw new Error('Failed to load preferences');
-      const data = await response.json();
-      setPreferences(data.preferences);
-      setContentTypes(data.contentTypes ?? []);
-      setFrequencies(data.frequencies ?? []);
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to load preferences'));
+      const payload = extractData<PreferencesPayload>(data);
+      setPreferences(payload?.preferences ?? DEFAULT_PREFERENCES);
+      setSubscriptions(payload?.subscriptions ?? []);
+      setContentTypes(payload?.contentTypes ?? []);
+      setFrequencies(payload?.frequencies ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load preferences');
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function callSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
+    const response = await fetch(`/api/newsletter/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type }),
+    });
+    const data: unknown = await response.json().catch(() => null);
+    if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to update subscription.'));
+  }
+
+  async function updateSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
+    setSaving(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await callSubscription(type, subscribe);
+      setMessage(subscribe ? 'Subscribed.' : 'Unsubscribed.');
+      await loadPreferences();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update subscription.');
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -61,7 +112,25 @@ export default function NewsletterSettingsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(preferences),
       });
-      if (!response.ok) throw new Error('Failed to save preferences');
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to save preferences'));
+
+      // Preferences alone do not create NewsletterSubscription rows, which is
+      // what the cron actually sends to. Reconcile subscriptions with the
+      // enabled digest flags so the toggles control real delivery.
+      for (const target of [
+        { type: 'daily' as const, enabled: preferences.dailyEnabled },
+        { type: 'weekly' as const, enabled: preferences.weeklyEnabled },
+      ]) {
+        const currentlySubscribed = subscriptions.some(
+          (sub) => sub.type === target.type && sub.status === 'active',
+        );
+        if (target.enabled !== currentlySubscribed) {
+          await callSubscription(target.type, target.enabled);
+        }
+      }
+      await loadPreferences();
+
       setMessage('Preferences saved successfully');
       router.refresh();
     } catch (err) {
@@ -90,6 +159,10 @@ export default function NewsletterSettingsPage() {
     } else {
       setPreferences((prev) => ({ ...prev, dailyEnabled: true, weeklyEnabled: true }));
     }
+  }
+
+  function isSubscribed(type: 'daily' | 'weekly') {
+    return subscriptions.some((sub) => sub.type === type && sub.status === 'active');
   }
 
   if (loading) {
@@ -249,19 +322,30 @@ export default function NewsletterSettingsPage() {
       {/* Current Subscriptions Status */}
       <Card>
         <CardTitle>Subscription Status</CardTitle>
-        <div className="space-y-3 mt-4">
-          <div className="flex items-center justify-between">
-            <span>Daily Digest</span>
-            <Badge variant={preferences.dailyEnabled ? 'success' : 'secondary'}>
-              {preferences.dailyEnabled ? 'Subscribed' : 'Not subscribed'}
-            </Badge>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Weekly Digest</span>
-            <Badge variant={preferences.weeklyEnabled ? 'success' : 'secondary'}>
-              {preferences.weeklyEnabled ? 'Subscribed' : 'Not subscribed'}
-            </Badge>
-          </div>
+        <CardDescription className="mb-4">
+          These controls change your actual email subscriptions, independent of content preferences.
+        </CardDescription>
+        <div className="space-y-3">
+          {(['daily', 'weekly'] as const).map((type) => {
+            const subscribed = isSubscribed(type);
+            return (
+              <div key={type} className="flex items-center justify-between gap-3">
+                <span>{type === 'daily' ? 'Daily Digest' : 'Weekly Digest'}</span>
+                <div className="flex items-center gap-2">
+                  <Badge variant={subscribed ? 'success' : 'secondary'}>
+                    {subscribed ? 'Subscribed' : 'Not subscribed'}
+                  </Badge>
+                  <Button
+                    onClick={() => void updateSubscription(type, !subscribed)}
+                    disabled={saving}
+                    className="w-auto px-3 py-1.5 text-xs"
+                  >
+                    {subscribed ? 'Unsubscribe' : 'Subscribe'}
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Card>
     </div>

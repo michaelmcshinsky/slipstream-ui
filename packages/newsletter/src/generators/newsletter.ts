@@ -28,7 +28,7 @@ export class NewsletterGenerator {
   private registry: ContentSourceRegistry;
   private siteUrl: string;
 
-  constructor(registry?: ContentSourceRegistry, siteUrl = 'https://slipstream-ui.com') {
+  constructor(registry?: ContentSourceRegistry, siteUrl = 'https://slipstreamui.com') {
     this.registry = registry ?? createDefaultRegistry(
       process.env.GITHUB_TOKEN,
       process.env.GITHUB_OWNER,
@@ -198,6 +198,13 @@ export function createNewsletterGenerator(siteUrl?: string): NewsletterGenerator
   return new NewsletterGenerator(undefined, siteUrl);
 }
 
+function newsletterPeriodStart(frequency: 'daily' | 'weekly', now = new Date()): Date {
+  const day = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  if (frequency === 'daily') return new Date(day);
+  const weekday = (now.getUTCDay() + 6) % 7; // Monday = 0
+  return new Date(day - weekday * 24 * 60 * 60 * 1000);
+}
+
 /**
  * Generate and queue newsletter deliveries for all eligible users
  */
@@ -214,6 +221,21 @@ export async function queueNewsletterDeliveries(
       // Find the user's subscription for this frequency
       const subscription = user.subscriptions.find((s) => s.type === frequency && s.status === 'active');
       if (!subscription) continue;
+
+      // Idempotent per period: a scheduler retry or double-invocation must not
+      // queue a second copy of the same digest for the same subscription.
+      const periodStart = newsletterPeriodStart(frequency);
+      const existing = await prisma.newsletterDelivery.findFirst({
+        where: {
+          userId: user.id,
+          type: frequency,
+          subscriptionId: subscription.id,
+          status: { in: ['QUEUED', 'SENT'] },
+          createdAt: { gte: periodStart },
+        },
+        select: { id: true },
+      });
+      if (existing) continue;
 
       // Create delivery record
       await prisma.newsletterDelivery.create({
@@ -250,7 +272,7 @@ export async function processQueuedDeliveries(
     html?: string;
     headers?: Record<string, string>;
   }) => Promise<unknown>,
-): Promise<{ sent: number; failed: number }> {
+): Promise<{ sent: number; failed: number; skipped: number }> {
   const queued = await prisma.newsletterDelivery.findMany({
     where: { status: 'QUEUED' },
     take: batchSize,
@@ -260,13 +282,24 @@ export async function processQueuedDeliveries(
 
   let sent = 0;
   let failed = 0;
+  let skipped = 0;
 
   for (const delivery of queued) {
     try {
       if (!send) {
         throw new Error('processQueuedDeliveries requires a send function (e.g. deliverEmail)');
       }
-      const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstream-ui.com').replace(/\/+$/, '');
+      // Consent can change after queueing: never send to a subscription that
+      // is no longer active for this delivery type.
+      if (!delivery.subscription || delivery.subscription.status !== 'active' || delivery.subscription.type !== delivery.type) {
+        await prisma.newsletterDelivery.update({
+          where: { id: delivery.id },
+          data: { status: 'CANCELLED', error: 'recipient unsubscribed before send' },
+        });
+        skipped++;
+        continue;
+      }
+      const appUrl = (process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
       const unsubscribeUrl = newsletterUnsubscribeUrl(appUrl, delivery.userId, delivery.type as 'daily' | 'weekly');
 
       await send({
@@ -298,5 +331,5 @@ export async function processQueuedDeliveries(
     }
   }
 
-  return { sent, failed };
+  return { sent, failed, skipped };
 }

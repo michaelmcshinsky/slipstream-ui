@@ -20,8 +20,9 @@ export async function POST(request: Request) {
     if (!body.password) badRequest('Password is required.');
     assertStrongPassword(body.password);
 
+    // Never reveal whether an account already exists for this email.
     const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) badRequest('An account with that email already exists.');
+    if (existing) badRequest('We could not create your account. Check your details and try again.');
 
     // User + personal team + owner membership commit atomically: a failed
     // team creation must not leave an account without its owner scope.
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
       return { user, team };
     }).catch((error: unknown) => {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-        badRequest('An account with that email already exists.');
+        badRequest('We could not create your account. Check your details and try again.');
       }
       throw error;
     });

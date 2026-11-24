@@ -36,7 +36,7 @@ export const Prose = React.forwardRef<HTMLDivElement, ProseProps>(function Prose
         '[&_h4]:mb-2 [&_h4]:mt-6 [&_h4]:scroll-mt-24 [&_h4]:font-semibold',
         // Body copy
         '[&_p]:my-4 [&_p]:leading-7',
-        '[&_a]:text-primary [&_a]:underline [&_a]:decoration-primary/40 [&_a]:underline-offset-4 hover:[&_a]:decoration-primary',
+        '[&_a]:text-primary-ink [&_a]:underline [&_a]:decoration-primary/40 [&_a]:underline-offset-4 hover:[&_a]:decoration-primary',
         '[&_strong]:font-semibold [&_strong]:text-foreground [&_em]:italic',
         '[&_ul]:my-4 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6',
         '[&_ol]:my-4 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_ol]:pl-6',
