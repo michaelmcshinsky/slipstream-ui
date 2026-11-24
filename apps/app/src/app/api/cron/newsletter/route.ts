@@ -70,6 +70,7 @@ async function runNewsletter(frequency: 'daily' | 'weekly') {
   }
 }
 
+
 export async function GET(request: Request) {
   return handle(request, async () => {
     requireCronSecret(request);

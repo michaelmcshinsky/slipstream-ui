@@ -120,7 +120,7 @@ export const FilterChips = React.forwardRef<HTMLDivElement, FilterChipsProps>(fu
           type="button"
           onClick={onClearAll}
           className={cn(
-            'rounded-sm px-1 font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            'rounded-sm px-1 font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
             scale.clear
           )}
         >

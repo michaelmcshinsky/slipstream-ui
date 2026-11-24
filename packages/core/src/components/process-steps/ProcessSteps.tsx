@@ -40,7 +40,7 @@ export const ProcessSteps = React.forwardRef<HTMLOListElement, ProcessStepsProps
           key={step.title}
           className={cn('flex min-w-0 flex-col gap-4', align === 'center' && 'items-center text-center')}
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary [&_svg]:size-5">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary-ink [&_svg]:size-5">
             {step.icon ?? (numbered ? String(index + 1).padStart(2, '0') : null)}
           </span>
           <div className="min-w-0">

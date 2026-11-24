@@ -375,7 +375,7 @@ export async function processQueuedDeliveries(
         skipped++;
         continue;
       }
-      const appUrl = (siteUrl ?? process.env.APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
+      const appUrl = (siteUrl ?? process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
       const unsubscribeUrl = newsletterUnsubscribeUrl(appUrl, delivery.userId, delivery.type as 'daily' | 'weekly');
 
       await send({

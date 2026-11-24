@@ -9,11 +9,9 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 /**
  * Content Security Policy.
  *
- * Shipped as `Content-Security-Policy-Report-Only` first: Next injects inline
- * bootstrap scripts and the theme-init script, so an enforced policy would need
- * nonces threaded through the App Router before it can be turned on without
- * breaking hydration. Collect reports, then flip the header name once the only
- * remaining violations are ones we have deliberately allowed.
+ * Enforced directly: `script-src` already allows `'unsafe-inline'`, which
+ * covers Next's inline bootstrap and theme-init scripts, so there is no
+ * nonce dependency blocking enforcement. `'unsafe-eval'` stays dev-only.
  *
  * The Google origins below cover the consent-gated GA4 tag (gtag.js plus the
  * collection endpoints it posts to). If analytics is pointed at a
@@ -40,7 +38,7 @@ const contentSecurityPolicy = [
 ].join('; ');
 
 const securityHeaders = [
-  { key: 'Content-Security-Policy-Report-Only', value: contentSecurityPolicy },
+  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
   // frame-ancestors above is the modern control; X-Frame-Options covers legacy browsers.
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },

@@ -55,7 +55,7 @@ export const FeatureRow = React.forwardRef<HTMLDivElement, FeatureRowProps>(func
     >
       <div className={cn('min-w-0', mediaPosition === 'left' && 'lg:order-2')}>
         {eyebrow && (
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary-ink">{eyebrow}</p>
         )}
         <Heading className={cn('font-semibold tracking-tight text-balance', titleSizes[size])}>{title}</Heading>
         {description && (

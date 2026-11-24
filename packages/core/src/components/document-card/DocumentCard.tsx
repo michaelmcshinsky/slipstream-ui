@@ -56,7 +56,7 @@ export const DocumentCard = React.forwardRef<HTMLElement, DocumentCardProps>(fun
   return (
     <Card ref={ref as never} className={cn('w-full', className)} {...props}>
       <CardContent className="flex items-center gap-3 p-4">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary [&_svg]:size-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary-ink [&_svg]:size-5">
           {icon ?? <span className="text-[10px] font-bold uppercase tracking-wide">{fileType}</span>}
         </span>
         <div className="min-w-0 flex-1">
