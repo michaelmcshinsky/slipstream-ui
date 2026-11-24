@@ -68,7 +68,7 @@ export default function SegmentedControlPage() {
         code={`<SegmentedControl
   aria-label="Audience"
   value={audience}
-  onValueChange={setAudience}
+  onValueChange={(value) => setAudience(value as string)}
   options={[
     { value: 'teams', label: 'Teams' },
     { value: 'analysts', label: 'Analysts' },
@@ -80,7 +80,7 @@ export default function SegmentedControlPage() {
   aria-label="Report type"
   multiple
   value={types}
-  onValueChange={setTypes}
+  onValueChange={(value) => setTypes(value as string[])}
   options={reportTypes}
 />`}
         usage={`// Single-select: one string. Multi-select: string[].

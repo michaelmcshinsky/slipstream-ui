@@ -32,8 +32,8 @@ export type MenuProps = {
 };
 
 /**
- * Dropdown menu with keyboard navigation (arrows, Home/End, Escape),
- * typeahead, and proper ARIA menu semantics. Items are rendered in a
+ * Dropdown menu with keyboard navigation (arrows, Home/End, Escape)
+ * and proper ARIA menu semantics. Items are rendered in a
  * floating panel anchored to the trigger.
  */
 const Menu = React.forwardRef<HTMLDivElement, MenuProps>(

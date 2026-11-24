@@ -36,6 +36,8 @@ export default function SelectMenuPage() {
         { name: 'placeholder', type: 'string', defaultValue: "'Select…'", description: 'Shown when nothing is selected.' },
         { name: 'name', type: 'string', description: 'Renders hidden inputs so the selection submits with a form.' },
         { name: 'renderValue / renderItem', type: 'function', description: 'Custom trigger content and option rows.' },
+        { name: 'emptyText', type: 'string', defaultValue: "'No options'", description: 'Message shown in the listbox when items is empty.' },
+        { name: 'className', type: 'string', description: 'Escape hatch for the trigger button (inherited button attributes apply too).' },
       ]}
       accessibility={[
         'Select-only combobox + listbox pattern: aria-haspopup, aria-expanded, aria-activedescendant, aria-selected.',
@@ -58,7 +60,7 @@ export default function SelectMenuPage() {
 <SelectMenu
   aria-label="Plan"
   value={plan}
-  onValueChange={setPlan}
+  onValueChange={(next) => setPlan(next as string)}
   items={[
     { value: 'free', label: 'Free', description: '1 project', group: 'Individual' },
     { value: 'team', label: 'Team', description: 'SSO + audit log', group: 'Business' },
@@ -85,6 +87,7 @@ type SelectMenuProps = {
   name?: string;
   renderValue?: (selected: SelectMenuItem[]) => React.ReactNode;
   renderItem?: (item: SelectMenuItem, state: { selected: boolean; active: boolean }) => React.ReactNode;
+  emptyText?: string;
 };`}
       />
 
@@ -109,9 +112,9 @@ type SelectMenuProps = {
   aria-label="Alert channels"
   multiple
   name="channels"
-  items={channels}
-  value={selected}
-  onValueChange={setSelected}
+  items={CHANNELS}
+  value={channels}
+  onValueChange={(next) => setChannels(next as string[])}
 />`}
         usage={`// name renders one hidden input per selected value, so the selection
 // submits with a plain form and works with server actions.`}

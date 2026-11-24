@@ -28,6 +28,11 @@ export default function SelectPage() {
         { name: 'defaultValue', type: 'string', defaultValue: '—', description: 'Uncontrolled initial value' },
         { name: 'onChange', type: 'React.ChangeEventHandler<HTMLSelectElement>', defaultValue: '-', description: 'Native change event; compatible with react-hook-form register()' },
         { name: 'onValueChange', type: '(value: string | string[]) => void', defaultValue: '-', description: 'Value-based callback for controlled usage' },
+        { name: 'groups', type: 'SelectOptionGroup[]', description: '{ label, options }[] optgroups; takes precedence over options and children' },
+        { name: 'placeholder', type: 'string', description: 'Renders a disabled empty option — the native "choose one" affordance' },
+        { name: 'multiple', type: 'boolean', defaultValue: 'false', description: 'Native multi-select; value/onChange switch to string[]' },
+        { name: 'size', type: 'number', description: 'Native size attribute — visible row count for multi-select' },
+        { name: 'children', type: 'ReactNode', description: 'Plain <option>/<optgroup> for dynamic lists; lowest precedence after options/groups' },
       ]}
       accessibility={[
         'Built on the native select: full keyboard, screen-reader and mobile support',
@@ -116,6 +121,7 @@ export default function SelectPage() {
   defaultValue?: string | string[];
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
   onValueChange?: (value: string | string[]) => void;
+  children?: React.ReactNode;
 };`}
       />
     </ComponentPage>

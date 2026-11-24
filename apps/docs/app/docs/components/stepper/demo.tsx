@@ -35,6 +35,7 @@ const PROPS_ROWS = [
   { name: 'labelPlacement', type: "'inline' | 'below'", defaultValue: "'inline'", description: 'Horizontal only: label beside or beneath the marker.' },
   { name: 'alignTitles', type: "'start' | 'center'", defaultValue: "'center'", description: 'Center a title against its marker when the step has no description.' },
   { name: 'onStepClick', type: '(index: number) => void', description: 'Makes steps clickable (revisit flows).' },
+  { name: 'labels', type: '{ completed?: string; current?: string; upcoming?: string }', description: 'Screen-reader state suffixes per step; override the English defaults for localization.' },
 ];
 
 export default function StepperPage() {
@@ -96,6 +97,7 @@ export default function StepperPage() {
   labelPlacement?: 'inline' | 'below';
   alignTitles?: 'start' | 'center';
   onStepClick?: (index: number) => void;
+  labels?: { completed?: string; current?: string; upcoming?: string };
 };`}
         />
 
