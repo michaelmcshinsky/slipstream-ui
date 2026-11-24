@@ -71,8 +71,13 @@ export function writeConsent(value: ConsentValue): void {
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
 }
 
-export const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || 'G-QDQXNJV9MD';
+/**
+ * GA4 measurement ID for the dashboard. Deliberately has NO fallback: the
+ * docs site owns the shared property, and dashboard traffic (login, verify,
+ * reset, authenticated pages) must not contaminate its funnel metrics.
+ * Set NEXT_PUBLIC_GA_MEASUREMENT_ID to a dedicated app property to enable.
+ */
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ?? '';
 
 /**
  * GA4 collects `page_location` with the full query string. Auth and

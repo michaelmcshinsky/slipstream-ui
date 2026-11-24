@@ -70,9 +70,10 @@ describe('sanitizeAnalyticsLocation', () => {
 });
 
 describe('GA4 configuration', () => {
-  it('defaults to the shared Slipstream measurement ID', () => {
-    expect(GA_MEASUREMENT_ID).toBe('G-QDQXNJV9MD');
-    expect(GA_SCRIPT_SRC).toBe('https://www.googletagmanager.com/gtag/js?id=G-QDQXNJV9MD');
+  it('has no fallback property - the docs site owns the shared GA4 ID', () => {
+    // Dashboard traffic must not land in the docs funnel; the app only
+    // reports when NEXT_PUBLIC_GA_MEASUREMENT_ID is set explicitly.
+    expect(GA_MEASUREMENT_ID).toBe('');
   });
 });
 

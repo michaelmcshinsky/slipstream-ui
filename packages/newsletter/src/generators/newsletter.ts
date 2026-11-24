@@ -14,6 +14,7 @@ import type {
 import { ContentSourceRegistry, createDefaultRegistry } from '../lib/content-sources';
 import { generateHtmlEmail, generateTextEmail, generateSubject, generatePreheader } from '../templates/email';
 import { newsletterUnsubscribeUrl } from '../lib/unsubscribe-token';
+import { parseContentTypes } from '../lib/preferences';
 
 /**
  * Default content types for each frequency
@@ -68,6 +69,7 @@ export class NewsletterGenerator {
       frequency,
       userId: user.id,
       contentTypes,
+      timezone: prefs.timezone,
     });
   }
 
@@ -109,7 +111,11 @@ export class NewsletterGenerator {
       for (const user of group.users) {
         results.push({
           user,
-          newsletter: this.renderNewsletter(items, { frequency, userId: user.id }),
+          newsletter: this.renderNewsletter(items, {
+            frequency,
+            userId: user.id,
+            timezone: user.preferences?.timezone,
+          }),
         });
       }
     }
@@ -146,7 +152,17 @@ export class NewsletterGenerator {
   ): GeneratedNewsletter {
     const { frequency } = options;
     const date = new Date();
+    let timeZone = 'UTC';
+    if (options.timezone) {
+      try {
+        new Intl.DateTimeFormat('en-US', { timeZone: options.timezone });
+        timeZone = options.timezone;
+      } catch {
+        // Invalid stored timezone falls back to UTC.
+      }
+    }
     const dateStr = date.toLocaleDateString('en-US', {
+      timeZone,
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -208,7 +224,7 @@ export class NewsletterGenerator {
           ? {
               dailyEnabled: sub.user.newsletterPreferences.dailyEnabled,
               weeklyEnabled: sub.user.newsletterPreferences.weeklyEnabled,
-              contentTypes: JSON.parse(sub.user.newsletterPreferences.contentTypes) as NewsletterContentType[],
+              contentTypes: parseContentTypes(sub.user.newsletterPreferences.contentTypes),
               frequency: sub.user.newsletterPreferences.frequency as 'daily' | 'weekly' | 'both',
               timezone: sub.user.newsletterPreferences.timezone,
             }
@@ -311,6 +327,8 @@ export async function processQueuedDeliveries(
     html?: string;
     headers?: Record<string, string>;
   }) => Promise<unknown>,
+  /** App origin for List-Unsubscribe URLs; defaults to APP_URL. */
+  siteUrl?: string,
 ): Promise<{ sent: number; failed: number; skipped: number }> {
   // Claim QUEUED rows (and SENDING rows abandoned by a crashed worker) so two
   // concurrent runs cannot send the same delivery twice. A SENDING row is
@@ -357,7 +375,7 @@ export async function processQueuedDeliveries(
         skipped++;
         continue;
       }
-      const appUrl = (process.env.APP_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
+      const appUrl = (siteUrl ?? process.env.APP_URL ?? 'https://slipstreamui.com').replace(/\/+$/, '');
       const unsubscribeUrl = newsletterUnsubscribeUrl(appUrl, delivery.userId, delivery.type as 'daily' | 'weekly');
 
       await send({

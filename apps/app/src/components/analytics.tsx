@@ -19,6 +19,10 @@ import {
  */
 export function Analytics() {
   useEffect(() => {
+    // No dedicated app property configured: analytics stays fully disabled
+    // rather than reporting into the docs site's GA4 property.
+    if (!GA_MEASUREMENT_ID) return;
+
     const load = (consent: ConsentValue | null) => {
       if (consent !== 'granted') {
         // Withdrawal must take effect without a reload: remove the tag and set

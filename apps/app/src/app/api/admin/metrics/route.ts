@@ -4,6 +4,7 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { handle } from '@/lib/api/handle';
 import { getPlan } from '@/lib/plans';
+import { auditFailureCount } from '@/lib/audit';
 
 /** Business metrics for the super-admin overview. */
 export async function GET(request: Request) {
@@ -47,6 +48,7 @@ export async function GET(request: Request) {
         revenue30dCents: payments._sum.amountCents ?? 0,
         payments30d: payments._count,
       },
+      audit: { writeFailures: auditFailureCount() },
     };
   });
 }

@@ -42,7 +42,7 @@ async function runNewsletter(frequency: 'daily' | 'weekly') {
   }
   const generator = createNewsletterGenerator(siteUrl);
   const { queued, failed: queueFailed } = await queueNewsletterDeliveries(generator, frequency);
-  const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail);
+  const { sent, failed: sendFailed } = await processQueuedDeliveries(100, deliverEmail, siteUrl);
   return {
     success: true,
     frequency,

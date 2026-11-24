@@ -12,6 +12,13 @@ type AuditInput = {
 
 const IMPERSONATOR_COOKIE = 'slipstream_impersonator';
 
+// Security-relevant stream: write failures must be observable, not silent.
+// Incremented on every dropped audit write; surfaced via admin metrics.
+let auditWriteFailures = 0;
+export function auditFailureCount(): number {
+  return auditWriteFailures;
+}
+
 /**
  * When an admin is impersonating, the session cookie resolves to the target
  * user, so audit rows would otherwise record the victim as the actor. Resolve
@@ -56,6 +63,7 @@ export async function audit(input: AuditInput, transaction?: Prisma.TransactionC
   try {
     await write();
   } catch (error) {
+    auditWriteFailures += 1;
     console.error('[audit] failed to record', input.action, error);
   }
 }
