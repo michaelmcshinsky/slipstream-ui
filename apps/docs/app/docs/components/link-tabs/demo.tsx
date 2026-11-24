@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ComponentProps } from 'react';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { LinkTabs } from '@slipstream-ui/core';
@@ -13,6 +13,25 @@ const items = [
 
 export default function LinkTabsPage() {
   const [path, setPath] = useState('/docs/components/link-tabs');
+
+  // Demo-only link: keeps the tabs interactive without navigating readers to
+  // routes that only exist inside the example.
+  function DemoLink({ href, children, onClick, ...props }: ComponentProps<'a'>) {
+    const target = typeof href === 'string' ? href : '#';
+    return (
+      <a
+        href={target}
+        onClick={(event) => {
+          event.preventDefault();
+          setPath(target);
+          onClick?.(event);
+        }}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
     <ComponentPage
@@ -38,7 +57,7 @@ export default function LinkTabsPage() {
         title="Settings navigation"
         preview={
           <div className="flex w-full max-w-2xl flex-col gap-3">
-            <LinkTabs items={items} activeHref={path} />
+            <LinkTabs items={items} activeHref={path} linkComponent={DemoLink} />
             <div className="flex flex-wrap gap-2 text-xs">
               {items.map((item) => (
                 <button
@@ -70,7 +89,7 @@ export default function LinkTabsPage() {
         title="Underline strip"
         preview={
           <div className="w-full max-w-2xl">
-            <LinkTabs items={items} activeHref={path} variant="underline" />
+            <LinkTabs items={items} activeHref={path} variant="underline" linkComponent={DemoLink} />
           </div>
         }
         code={`<LinkTabs items={items} activeHref={pathname} variant="underline" />`}

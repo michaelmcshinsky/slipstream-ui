@@ -39,6 +39,7 @@ export default function ReasoningPage() {
         preview={
           <div className="w-full space-y-4">
             <Reasoning
+              key={String(isExpanded)}
               steps={steps}
               collapsible={collapsible}
               defaultExpanded={isExpanded}
