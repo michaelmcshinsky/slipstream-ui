@@ -80,6 +80,8 @@ export interface NewsletterGenerationOptions {
   contentTypes?: NewsletterContentType[];
   since?: Date; // For daily: last 24h, for weekly: last 7 days
   until?: Date;
+  /** IANA timezone used to render the digest date; invalid values fall back to UTC. */
+  timezone?: string;
 }
 
 export interface ContentSource {

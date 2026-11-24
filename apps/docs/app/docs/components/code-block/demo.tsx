@@ -1,13 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 export default function CodeBlockPage() {
-  const [copiedAt, setCopiedAt] = useState<string | null>(null);
-
   return (
     <ComponentPage
       id="code-block"
@@ -26,7 +23,7 @@ export default function CodeBlockPage() {
       <DemoCard
         title="Copy feedback"
         preview={
-          <div className="w-full space-y-3">
+          <div className="w-full">
             <CodeBlock
               language="ts"
               code={`import { Conversation } from '@slipstream-ui/ai';
@@ -35,16 +32,6 @@ export function Chat() {
   return <Conversation messages={messages} />;
 }`}
             />
-            <div className="text-xs text-muted-foreground">
-              Last copied at: {copiedAt ?? '—'}{' '}
-              <button
-                type="button"
-                onClick={() => setCopiedAt(new Date().toLocaleTimeString())}
-                className="underline"
-              >
-                (copy above to update)
-              </button>
-            </div>
           </div>
         }
         code={`import { CodeBlock } from '@slipstream-ui/ai';
@@ -53,6 +40,8 @@ export function Chat() {
   language="ts"
   code={\`export const answer = 42;\`}
 />`}
+        usage={`// The copy button owns its own feedback: the aria-label flips to
+// "Copied" briefly after a successful write. There is no copied callback.`}
       />
     </ComponentPage>
   );

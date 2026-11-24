@@ -117,7 +117,7 @@ prop-level differences; always check the linked docs page for the full prop tabl
 | `Sheet` | `Drawer` | `side: left|right|top|bottom`, `size` presets. Same controlled-open pattern as `Dialog`. |
 | `Popover` | `Popover`, `PopoverTrigger`, `PopoverAnchor`, `PopoverContent` | Compound but controlled via `open`/`onOpenChange` on `Popover`. |
 | `Tooltip` | `Tooltip` | Single component — check docs for the trigger/content composition. |
-| `DropdownMenu` | `Menu`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuSeparator`, `MenuLabel` | Compound with `open`/`onOpenChange` on `Menu`. Keyboard nav + typeahead built in. |
+| `DropdownMenu` | `Menu`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuSeparator`, `MenuLabel` | Compound with `open`/`onOpenChange` on `Menu`. Keyboard nav built in. |
 | `Sonner` / `Toaster` | `Toaster` + `toast` + `ToastProvider`/`useToast` | Mount `<Toaster />` once; call `toast.success(...)` etc. `position` and `richColors` props. |
 | `Alert` | `Alert`, `AlertTitle`, `AlertDescription` (+ `alertVariants`) | Drop-in. Variants include semantic status tones. |
 | `Progress` | `Progress` | Drop-in. |

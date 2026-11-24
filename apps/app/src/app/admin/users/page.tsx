@@ -47,7 +47,11 @@ export default function AdminUsersPage() {
   }
 
   async function impersonate(id: string) {
-    await fetch(`/api/admin/users/${id}/impersonate`, { method: 'POST' });
+    const response = await fetch(`/api/admin/users/${id}/impersonate`, { method: 'POST' });
+    if (!response.ok) {
+      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not start impersonation.'));
+      return;
+    }
     window.location.href = '/dashboard';
   }
 

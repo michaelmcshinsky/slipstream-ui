@@ -18,18 +18,23 @@ function VerifyEmailInner() {
   async function confirm() {
     setStatus('pending');
     setMessage(null);
-    const response = await fetch('/api/auth/verify-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
-    });
-    const body = await response.json().catch(() => null);
-    if (!response.ok) {
+    try {
+      const response = await fetch('/api/auth/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setStatus('error');
+        setMessage(extractErrorMessage(body, 'This verification link is invalid or has expired.'));
+        return;
+      }
+      setStatus('done');
+    } catch {
       setStatus('error');
-      setMessage(extractErrorMessage(body, 'This verification link is invalid or has expired.'));
-      return;
+      setMessage('Could not reach the server. Check your connection and try again.');
     }
-    setStatus('done');
   }
 
   return (

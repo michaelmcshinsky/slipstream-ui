@@ -87,4 +87,4 @@ Publishing that gap is more useful than claiming a perfect score.
 The agent still writes the UI. The contract makes sure it writes *your* UI.
 
 Repository: https://github.com/michaelmcshinsky/slipstream-ui
-Benchmark: [`docs/benchmarks.md`](../benchmarks.md)
+Benchmark: [`docs/benchmarks.md`](https://github.com/michaelmcshinsky/slipstream-ui/blob/main/docs/benchmarks.md)

@@ -37,6 +37,25 @@ describe('FilterPanel', () => {
     expect(onApply).toHaveBeenCalled();
   });
 
+  it('toggles same-titled sections independently', () => {
+    render(
+      <FilterPanel
+        sections={[
+          { title: 'Tags', content: <p>First tags</p> },
+          { title: 'Tags', content: <p>Second tags</p> },
+        ]}
+      />
+    );
+    const buttons = screen.getAllByRole('button', { name: /Tags/ });
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveAttribute('aria-controls', 'filter-section-0');
+    expect(buttons[1]).toHaveAttribute('aria-controls', 'filter-section-1');
+
+    fireEvent.click(buttons[0]);
+    expect(screen.getByText('First tags')).toBeInTheDocument();
+    expect(screen.queryByText('Second tags')).not.toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(
       <FilterPanel sections={[{ title: 'Industry', content: <label><input type="checkbox" /> Technology</label> }]} />

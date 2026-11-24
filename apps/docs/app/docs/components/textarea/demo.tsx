@@ -11,8 +11,10 @@ export default function TextareaPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'value', type: 'string', description: 'Controlled value; omit for uncontrolled usage.' },
+        { name: 'defaultValue', type: 'string', description: 'Initial value for uncontrolled usage.' },
         { name: 'placeholder', type: 'string', description: 'Placeholder text shown when empty.' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the textarea.' },
+        { name: 'onChange', type: 'React.ChangeEventHandler<HTMLTextAreaElement>', description: 'Native change handler for controlled or uncontrolled updates.' },
       ]}
       accessibility={[
         'Native textarea semantics: multiline text entry and form validation work natively.',
@@ -28,7 +30,7 @@ export default function TextareaPage() {
         }
         code={"import { Textarea } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Textarea placeholder=\"Tell us about your project\" className=\"max-w-md\" />\n    </>\n  );\n}"}
         usage={"import { Textarea } from '@slipstream-ui/core';\n\n// Basic usage\n<Textarea />"}
-        types={"type TextareaProps = {\n  value: string;\n  placeholder: string;\n  disabled: boolean;\n};"}
+        types={"type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;}"}
       />
     </ComponentPage>
   );

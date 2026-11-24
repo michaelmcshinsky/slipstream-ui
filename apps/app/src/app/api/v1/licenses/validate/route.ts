@@ -15,5 +15,5 @@ export async function POST(request: Request) {
   return handle(request, async () => {
     const body = await parseBody(request, bodySchema);
     return validateLicense(body.key, body.machineId);
-  }, { routeName: 'v1.licenses.validate', public: true, rateLimit: { limit: 30, windowMs: 60_000 } });
+  }, { routeName: 'v1.licenses.validate', rateLimit: { limit: 30, windowMs: 60_000 } });
 }

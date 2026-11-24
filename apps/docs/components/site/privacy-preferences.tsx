@@ -31,9 +31,11 @@ export function PrivacyPreferences() {
   }
 
   function reset() {
+    // track() gates on stored consent, so emit BEFORE clearing or the reset
+    // is silently dropped.
+    track('consent', { choice: 'reset', location: 'privacy_preferences' });
     clearConsent();
     setConsent(null);
-    track('consent', { choice: 'reset', location: 'privacy_preferences' });
   }
 
   const status = !ready

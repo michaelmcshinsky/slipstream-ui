@@ -15,11 +15,9 @@ export async function POST(request: Request) {
     const user = requireUser(await getSessionUser());
     const record = await prisma.user.findUnique({ where: { id: user.id }, select: { emailVerifiedAt: true } });
     if (!record?.emailVerifiedAt) {
-      try {
-        await sendVerificationEmail({ id: user.id, email: user.email });
-      } catch (error) {
-        console.error('[auth] verification resend failed', user.id, error instanceof Error ? error.message : error);
-      }
+      // The user explicitly asked for a new link: surface delivery failures
+      // (500 via handle) instead of claiming one is on its way.
+      await sendVerificationEmail({ id: user.id, email: user.email });
     }
     return { ok: true };
   });

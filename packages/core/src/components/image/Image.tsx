@@ -46,6 +46,13 @@ export function Image({
   style,
 }: ImageProps) {
   const [stage, setStage] = React.useState<0 | 1 | 2>(0);
+  // Restart the src -> fallbackSrc -> fallback chain whenever the URLs
+  // change, so a reused component never sticks on a stale fallback.
+  const [prevUrls, setPrevUrls] = React.useState({ src, fallbackSrc });
+  if (prevUrls.src !== src || prevUrls.fallbackSrc !== fallbackSrc) {
+    setPrevUrls({ src, fallbackSrc });
+    setStage(0);
+  }
 
   const onError = () => setStage((current) => (current === 0 && fallbackSrc ? 1 : 2));
   const current = stage === 0 ? src : stage === 1 ? fallbackSrc : null;

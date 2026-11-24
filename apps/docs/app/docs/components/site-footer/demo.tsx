@@ -17,6 +17,9 @@ export default function SiteFooterPage() {
         { name: 'columns', type: 'SiteFooterColumn[]', defaultValue: 'required', description: 'Link columns: { title, links: { label, href, external? }[] }.' },
         { name: 'legal', type: 'ReactNode', description: 'Bottom bar (copyright, legal links).' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Router link element.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent.' },
+        { name: 'activeHref', type: 'string', description: 'Current route; marks the matching link aria-current="page".' },
+        { name: 'match', type: "'prefix' | 'exact'", defaultValue: "'prefix'", description: 'Prefix matching highlights /docs when on /docs/installation.' },
       ]}
       accessibility={['Renders a <footer> landmark with headed link groups.', 'External links get target=_blank + rel=noopener.']}
     >
@@ -59,6 +62,9 @@ export default function SiteFooterPage() {
   columns: { title: string; links: { label: string; href: string; external?: boolean }[] }[];
   legal?: React.ReactNode;
   linkComponent?: React.ElementType;
+  linkHrefProp?: 'href' | 'to';
+  activeHref?: string;
+  match?: 'prefix' | 'exact';
 };`}
       />
     </ComponentPage>

@@ -5,6 +5,7 @@ import { generateToken } from './tokens';
 import { requireMembership } from './teams';
 import { revokeSubscriptionLicenses } from './licenses';
 import { errors } from './api/core';
+import { appUrl } from './app-url';
 
 export type CheckoutResult = {
   url: string;
@@ -65,8 +66,8 @@ export const stripeProvider: BillingProvider = {
       client_reference_id: teamId,
       metadata: { teamId, plan },
       subscription_data: { metadata: { teamId, plan } },
-      success_url: `${process.env.APP_URL}/dashboard/billing?checkout=success`,
-      cancel_url: `${process.env.APP_URL}/dashboard/billing?checkout=cancelled`,
+      success_url: `${appUrl()}/dashboard/billing?checkout=success`,
+      cancel_url: `${appUrl()}/dashboard/billing?checkout=cancelled`,
     });
     return { url: session.url ?? '', provider: 'stripe' };
   },
@@ -76,7 +77,7 @@ export const stripeProvider: BillingProvider = {
     if (!subscription?.customerId) throw new Error('No Stripe customer for this team.');
     const session = await stripe.billingPortal.sessions.create({
       customer: subscription.customerId,
-      return_url: `${process.env.APP_URL}/dashboard/billing`,
+      return_url: `${appUrl()}/dashboard/billing`,
     });
     return session.url;
   },
@@ -156,8 +157,8 @@ export async function downgradeToFree(teamId: string, db: Prisma.TransactionClie
 /**
  * Cancel a team's paid subscription. Mock mode cancels immediately; Stripe
  * mode schedules cancellation at period end via the Stripe API and only then
- * records it locally — success is reported only after the provider confirms
- *. Local-only "success" without a provider call is never allowed in
+ * records it locally — success is reported only after the provider confirms.
+ * Local-only "success" without a provider call is never allowed in
  * stripe mode.
  */
 export async function cancelSubscription(teamId: string, actorId: string): Promise<void> {

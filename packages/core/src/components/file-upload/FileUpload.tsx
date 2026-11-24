@@ -19,7 +19,10 @@ export type FileUploadProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 
   removeLabel?: (file: File) => string;
   /** Accessible label for a file's upload progress. Default `Uploading <name>`. */
   uploadingLabel?: (file: File) => string;
-  /** Per-file progress (0-100) keyed by file name, rendered as a bar. */
+  /**
+   * Per-file progress (0-100) keyed by file name, rendered as a bar.
+   * Same-named files share one progress entry.
+   */
   progress?: Record<string, number>;
 };
 
@@ -60,6 +63,18 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
   const current = files ?? internal;
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
+  // Stable per-File identity: same-named files are distinct objects, so a
+  // WeakMap gives each entry a unique key without changing the File API.
+  const fileIds = React.useRef(new WeakMap<File, string>());
+  const nextFileId = React.useRef(0);
+  const idFor = (file: File) => {
+    let fileId = fileIds.current.get(file);
+    if (!fileId) {
+      fileId = `file-${nextFileId.current++}`;
+      fileIds.current.set(file, fileId);
+    }
+    return fileId;
+  };
 
   const commit = (next: File[]) => {
     if (files === undefined) setInternal(next);
@@ -118,7 +133,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
       {current.length > 0 && (
         <ul aria-label={selectedFilesLabel} className="space-y-2">
           {current.map((file) => (
-            <li key={file.name} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2">
+            <li key={idFor(file)} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2">
               <div className="min-w-0">
                 <p className="truncate text-sm">{file.name}</p>
                 <p className="text-xs text-muted-foreground">{formatSize(file.size)}</p>
@@ -137,7 +152,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(fu
               </div>
               <button
                 type="button"
-                onClick={() => commit(current.filter((entry) => entry.name !== file.name))}
+                onClick={() => commit(current.filter((entry) => entry !== file))}
                 aria-label={removeLabel(file)}
                 className="rounded p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >

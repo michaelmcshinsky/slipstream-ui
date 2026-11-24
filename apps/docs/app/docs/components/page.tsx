@@ -66,9 +66,9 @@ export default async function ComponentsOverviewPage() {
       />
       <h1 className="text-4xl font-bold mb-3">Components</h1>
       <p className="text-lg text-muted-foreground mb-2">
-        All {COMPONENT_COUNT} components, grouped the same way as the sidebar. Every page carries a
-        live playground, props table, anti-patterns pulled from the manifest, accessibility notes,
-        and a browser-support table.
+        All {COMPONENT_COUNT} components, grouped the same way as the sidebar. Pages pair a live
+        playground with props tables, anti-patterns pulled from the manifest, accessibility notes
+        and browser-support guidance where the manifest defines them.
       </p>
       <p className="mb-8 text-sm text-muted-foreground">
         Wiring a form? The{' '}
