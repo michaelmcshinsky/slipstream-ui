@@ -13,9 +13,12 @@ export async function POST(request: Request) {
   return handle(request, async () => {
     const body = await parseBody(
       request,
-      z.object({ key: z.string().optional(), machineId: z.string().optional() }),
+      z.object({
+        key: z.string().min(8),
+        machineId: z.string().min(3).max(128),
+      }),
     );
     if (!body.key || !body.machineId) badRequest('key and machineId are required.');
     return validateLicense(body.key, body.machineId);
-  });
+  }, { public: true, rateLimit: { limit: 30, windowMs: 60_000 } });
 }

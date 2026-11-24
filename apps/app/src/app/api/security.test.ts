@@ -16,6 +16,7 @@ import { POST as resendVerifyRoute } from './auth/verify-email/resend/route';
 import { POST as createInviteRoute } from './teams/[teamId]/invites/route';
 import { DELETE as deactivateRoute } from './licenses/[licenseId]/activations/[machineId]/route';
 import { POST as impersonateRoute } from './admin/users/[userId]/impersonate/route';
+import { audit } from '@/lib/audit';
 
 /**
  * Security regression suite: locks in the P1/P2 fixes for license
@@ -360,6 +361,29 @@ describe('impersonation start guards', () => {
     );
     expect(nestedResponse.status).toBe(400);
     expect(cookieStore.get('slipstream_impersonator')?.value).toBe('parked'); // token preserved
+  });
+
+  it('tags audit rows with the impersonating admin', async () => {
+    const admin = await makeUser(`imp-audit-admin-${suffix}@test.dev`, 'ADMIN');
+    const target = await makeUser(`imp-audit-target-${suffix}@test.dev`);
+    await createSession(admin.id);
+
+    const response = await impersonateRoute(
+      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, { method: 'POST' }),
+      { params: Promise.resolve({ userId: target.id }) },
+    );
+    expect(response.status).toBe(200);
+
+    // While impersonating, the session user is the target; audit() must still
+    // record which admin drove the action.
+    await audit({ actorId: target.id, action: 'test.impersonated.action' });
+    const row = await prisma.auditLog.findFirst({
+      where: { action: 'test.impersonated.action', actorId: target.id },
+      orderBy: { createdAt: 'desc' },
+    });
+    expect(row?.actorId).toBe(target.id);
+    expect(row?.metadata).toContain(admin.id);
+    expect(row?.metadata).toContain('impersonatedBy');
   });
 });
 

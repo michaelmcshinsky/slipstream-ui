@@ -15,20 +15,25 @@ export type HandleOptions = {
 };
 
 /**
- * Explicit trusted-proxy configuration:
- * - `TRUST_PROXY=false` — ignore X-Forwarded-For entirely (direct peer only).
- * - default / `TRUST_PROXY=true` — trust the FIRST hop of X-Forwarded-For.
- *   Deploy behind exactly one trusted proxy that overwrites the header.
+ * Explicit trusted-proxy configuration (opt-in):
+ * - unset / `TRUST_PROXY=false` — ignore X-Forwarded-For entirely; every
+ *   request shares the 'local' bucket. Fail closed: without a trusted
+ *   proxy there is no client IP to key on, and a shared bucket is safer
+ *   than a spoofable one.
+ * - `TRUST_PROXY=true` — trust the LAST hop of X-Forwarded-For: the entry
+ *   appended by your nearest trusted proxy, which clients cannot forge.
+ *   Deploy behind a proxy that appends (or overwrites) the header.
  */
 function trustProxy(): boolean {
-  return process.env.TRUST_PROXY !== 'false';
+  return process.env.TRUST_PROXY === 'true';
 }
 
 function identityFrom(request: Request): string {
   if (trustProxy()) {
     const forwarded = request.headers.get('x-forwarded-for');
-    const first = forwarded?.split(',')[0]?.trim();
-    if (first) return first;
+    const hops = forwarded?.split(',').map((hop) => hop.trim()).filter(Boolean);
+    const last = hops?.[hops.length - 1];
+    if (last) return last;
   }
   return 'local';
 }
