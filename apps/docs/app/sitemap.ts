@@ -35,7 +35,9 @@ function priorityFor(href: string): number {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const seen = new Set<string>();
+  // Seed with static paths so routes that appear in both STATIC_ROUTES and
+  // FLAT_NAV (e.g. /playground) are only emitted once.
+  const seen = new Set<string>(STATIC_ROUTES.map(({ path }) => path));
 
   const staticRoutes = STATIC_ROUTES.map(({ path, priority, changeFrequency }) => ({
     url: `${BASE_URL}${path}`,
