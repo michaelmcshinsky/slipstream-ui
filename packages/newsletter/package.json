@@ -19,7 +19,7 @@
     "@slipstream-ui/typescript-config": "workspace:*",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react-dom": "^19.3.0",
     "typescript": "^5.3.3",
     "vitest": "^5.0.5"
   }
