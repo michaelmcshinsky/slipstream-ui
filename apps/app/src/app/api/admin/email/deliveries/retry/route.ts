@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       request,
       z.object({
         toEmail: z.string().email().optional(),
-        kind: z.enum(['password_reset', 'invite', 'email_verify']).optional(),
+        kind: z.enum(['password_reset', 'invite', 'email_verify', 'newsletter']).optional(),
       }),
     );
     const resent = await retryFailedDeliveries(body);
