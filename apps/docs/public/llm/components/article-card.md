@@ -6,7 +6,7 @@ Linked article or resource card with media, eyebrow, title, summary and metadata
 > Import: `import { ArticleCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/article-card
 > Registry: https://slipstreamui.com/registry/article-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

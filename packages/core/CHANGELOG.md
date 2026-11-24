@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.10.1
+
+### Patch Changes
+
+- [`a51dbc4`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a51dbc4b72a870bdea9c8ae59c2a604deffcf424) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Use `text-primary-ink` for text and icon roles on light surfaces and `bg-primary/10` tints so links, eyebrows, active states, and chips clear WCAG AA contrast; the Tailwind v3 preset now maps `primary.ink` so the utility generates for v3 consumers.
+
 ## 0.10.0
 
 ### Minor Changes
