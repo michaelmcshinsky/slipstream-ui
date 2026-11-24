@@ -1,4 +1,4 @@
-import { InlineCitation, Message } from '@slipstream-ui/ai';
+import { InlineCitation } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
@@ -28,23 +28,23 @@ export default function InlineCitationPage() {
       <DemoCard
         title="Hover or focus the chip"
         preview={
-          <div className="w-full max-w-xl">
-            <Message showAvatar={false} message={{
-              id: 'demo',
-              role: 'assistant',
-              content: 'Placeholder: content rendered below.',
-            }} />
-            <div className="pl-12 text-sm">
+          <div className="w-full max-w-xl rounded-lg border border-border bg-card p-4 text-sm">
+            <p>
               Most enterprises now run LLM features in production{' '}
               <InlineCitation source={source}>according to industry surveys</InlineCitation>.
-            </div>
+            </p>
           </div>
         }
         code={`import { InlineCitation } from '@slipstream-ui/ai';
 
-<InlineCitation source={source}>
-  according to industry surveys
-</InlineCitation>`}
+<p>
+  Most enterprises now run LLM features in production{' '}
+  <InlineCitation source={source}>
+    according to industry surveys
+  </InlineCitation>.
+</p>`}
+        usage={`// Drop the chip inside the sentence it supports — it renders as a
+// superscript button, so it composes with plain text and markdown output.`}
       />
     </ComponentPage>
   );

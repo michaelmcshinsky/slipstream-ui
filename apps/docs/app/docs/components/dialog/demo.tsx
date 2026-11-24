@@ -57,7 +57,7 @@ export default function DialogPage() {
         }
         code={`const [open, setOpen] = useState(false);
 
-<Button onClick={() => setOpen(true)}>Delete project.</Button>
+<Button onClick={() => setOpen(true)}>Delete project…</Button>
 
 <Dialog
   open={open}

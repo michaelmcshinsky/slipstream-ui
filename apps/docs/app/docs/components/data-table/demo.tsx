@@ -94,7 +94,7 @@ export default function DataTablePage() {
             <p className="text-xs text-muted-foreground">
               Clicked row:{' '}
               <code className="rounded bg-muted px-1 py-0.5 font-mono">{clicked ?? 'none yet'}</code>{' '}
-             : click headers to sort, or Tab to a row and press Enter.
+              — click headers to sort, or Tab to a row and press Enter.
             </p>
           </div>
         }

@@ -177,10 +177,20 @@ export default function DrawerPage() {
         types={`type DrawerProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onClose?: () => void; // close-request alias for onOpenChange(false)
   title: string;
   description?: string;
+  children?: React.ReactNode;
   side?: 'left' | 'right' | 'top' | 'bottom';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  width?: number | string;   // left/right extent; overrides size ("70vw")
+  height?: number | string;  // top/bottom extent; overrides size ("60vh")
+  resizable?: boolean;       // drag the inner edge (left/right drawers)
+  minWidth?: number;         // default 240
+  maxWidth?: number;         // default 960
+  defaultWidth?: number;     // initial width; defaults to the size preset
+  onWidthChange?: (width: number) => void;
+  resizeLabel?: string;      // default 'Resize drawer'
   closeOnBackdrop?: boolean;
   showClose?: boolean;
 };`}

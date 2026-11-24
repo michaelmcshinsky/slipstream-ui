@@ -38,7 +38,7 @@ export default function FeatureGridPage() {
                   title: 'Team workspaces',
                   description: 'Invite the right people to every project.',
                   icon: <span aria-hidden="true">◎</span>,
-                  href: '/features/teams',
+                  href: '/about',
                   actionLabel: 'Learn more',
                 },
                 {
@@ -54,7 +54,7 @@ export default function FeatureGridPage() {
   <FeatureGrid
     features={[
       { title: 'Shared components', description: 'Curated for your product.', icon: <Shield /> },
-      { title: 'Team workspaces', description: 'Invite the right people.', href: '/features/teams', actionLabel: 'Learn more' },
+      { title: 'Team workspaces', description: 'Invite the right people.', href: '/about', actionLabel: 'Learn more' },
       { title: 'Secure documents', description: 'Streamlined contracts and files.', icon: <Lock /> },
     ]}
   />

@@ -40,7 +40,6 @@ export default function CheckboxGroupPage() {
               legend="Languages"
               value={langs}
               onValueChange={setLangs}
-              defaultValue={['ts']}
             >
               <CheckboxGroupItem value="ts" label="TypeScript" />
               <CheckboxGroupItem value="go" label="Go" />
