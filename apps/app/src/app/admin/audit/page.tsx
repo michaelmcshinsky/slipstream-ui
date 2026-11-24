@@ -16,20 +16,29 @@ type AuditRow = {
 export default function AdminAuditPage() {
   const [logs, setLogs] = useState<AuditRow[]>([]);
   const [action, setAction] = useState('');
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function load(filter = '') {
+  async function load(filter = '', cursor?: string) {
     setError(null);
+    if (cursor) setLoadingMore(true);
     try {
-      const response = await fetch(`/api/admin/audit?action=${encodeURIComponent(filter)}`);
+      const params = new URLSearchParams({ action: filter });
+      if (cursor) params.set('cursor', cursor);
+      const response = await fetch(`/api/admin/audit?${params.toString()}`);
       const data: unknown = await response.json().catch(() => null);
       if (!response.ok) {
         setError(extractErrorMessage(data, 'Admin access required.'));
         return;
       }
-      setLogs(extractData<{ logs?: AuditRow[] }>(data)?.logs ?? []);
+      const page = extractData<{ logs?: AuditRow[]; nextCursor?: string }>(data);
+      setLogs((prev) => (cursor ? [...prev, ...(page?.logs ?? [])] : (page?.logs ?? [])));
+      setNextCursor(page?.nextCursor ?? null);
     } catch {
       setError('Something went wrong. Please try again.');
+    } finally {
+      setLoadingMore(false);
     }
   }
 
@@ -81,6 +90,18 @@ export default function AdminAuditPage() {
           </tbody>
         </table>
         </div>
+        {nextCursor && (
+          <div className="border-t border-border p-3 text-center">
+            <button
+              type="button"
+              disabled={loadingMore}
+              onClick={() => load(action, nextCursor)}
+              className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted disabled:opacity-50"
+            >
+              {loadingMore ? 'Loading…' : 'Load more'}
+            </button>
+          </div>
+        )}
       </Card>
     </div>
   );

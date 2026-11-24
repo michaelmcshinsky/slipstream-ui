@@ -109,7 +109,7 @@ describe('Content Sources', () => {
       expect(prisma.auditLog.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: expect.objectContaining({
-            action: { in: expect.arrayContaining(['user.login', 'team.invite.accept', 'team.created']) },
+            action: { in: expect.arrayContaining(['user.login', 'team.invite.accepted', 'team.created']) },
           }),
         })
       );

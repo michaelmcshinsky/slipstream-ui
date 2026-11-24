@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireAdmin } from '@/lib/session';
 import { handle } from '@/lib/api/handle';
+import { getPlan } from '@/lib/plans';
 
 /** Business metrics for the super-admin overview. */
 export async function GET(request: Request) {
@@ -10,11 +11,16 @@ export async function GET(request: Request) {
     requireAdmin(await getSessionUser());
 
     const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    const [totalUsers, newUsers30d, suspendedUsers, paidSubscriptions, payments] = await Promise.all([
+    const [totalUsers, newUsers30d, suspendedUsers, renewingSubscriptions, pastDueSubscriptions, payments] = await Promise.all([
       prisma.user.count(),
       prisma.user.count({ where: { createdAt: { gte: since30d } } }),
       prisma.user.count({ where: { suspendedAt: { not: null } } }),
-      prisma.subscription.findMany({ where: { status: 'ACTIVE', plan: { not: 'FREE' } } }),
+      // MRR counts subscriptions that will actually renew: active, paid plan,
+      // and not already scheduled to cancel at period end.
+      prisma.subscription.findMany({
+        where: { status: 'ACTIVE', plan: { not: 'FREE' }, cancelAtPeriodEnd: false },
+      }),
+      prisma.subscription.count({ where: { status: 'PAST_DUE', plan: { not: 'FREE' } } }),
       prisma.payment.aggregate({
         where: { status: 'PAID', createdAt: { gte: since30d } },
         _sum: { amountCents: true },
@@ -22,11 +28,10 @@ export async function GET(request: Request) {
       }),
     ]);
 
-    // MRR from active plan prices.
-    const planPrices: Record<string, number> = { PRO: 2900, TEAM: 9900, ENTERPRISE: 49900 };
-    const mrr = paidSubscriptions.reduce((sum, sub) => sum + (planPrices[sub.plan] ?? 0), 0);
+    // MRR from plan catalog prices (single source of truth in lib/plans).
+    const mrr = renewingSubscriptions.reduce((sum, sub) => sum + (getPlan(sub.plan)?.priceCents ?? 0), 0);
 
-    const byPlan = paidSubscriptions.reduce<Record<string, number>>((acc, sub) => {
+    const byPlan = renewingSubscriptions.reduce<Record<string, number>>((acc, sub) => {
       acc[sub.plan] = (acc[sub.plan] ?? 0) + 1;
       return acc;
     }, {});
@@ -36,7 +41,8 @@ export async function GET(request: Request) {
       billing: {
         mrr,
         arr: mrr * 12,
-        activePaidSubscriptions: paidSubscriptions.length,
+        activePaidSubscriptions: renewingSubscriptions.length,
+        pastDueSubscriptions,
         byPlan,
         revenue30dCents: payments._sum.amountCents ?? 0,
         payments30d: payments._count,

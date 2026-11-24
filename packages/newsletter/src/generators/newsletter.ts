@@ -72,19 +72,47 @@ export class NewsletterGenerator {
   }
 
   /**
-   * Generate newsletter for all users (batch generation)
+   * Generate newsletter for all users (batch generation).
+   *
+   * Content fetches are the expensive part (DB queries, GitHub API calls)
+   * and are identical for every user on the same content-type selection, so
+   * users are grouped by their effective content types and each group shares
+   * a single fetchAllContent call; only the per-user render (unsubscribe
+   * URL, preferences) differs.
    */
   async generateForAllUsers(frequency: 'daily' | 'weekly'): Promise<Array<{ user: UserWithPreferences; newsletter: GeneratedNewsletter }>> {
     const users = await this.getUsersWithActiveSubscription(frequency);
-    const results: Array<{ user: UserWithPreferences; newsletter: GeneratedNewsletter }> = [];
+    const groups = new Map<string, { contentTypes: NewsletterContentType[]; users: UserWithPreferences[] }>();
 
     for (const user of users) {
-      const newsletter = await this.generateForUser(user, frequency);
-      if (newsletter && newsletter.itemCount > 0) {
-        results.push({ user, newsletter });
-      }
+      const prefs = user.preferences;
+      if (!prefs) continue;
+      if (frequency === 'daily' && !prefs.dailyEnabled) continue;
+      if (frequency === 'weekly' && !prefs.weeklyEnabled) continue;
+      if (!user.subscriptions.some((s) => s.type === frequency && s.status === 'active')) continue;
+
+      const contentTypes = prefs.contentTypes.length > 0
+        ? prefs.contentTypes
+        : frequency === 'daily'
+          ? DEFAULT_DAILY_TYPES
+          : DEFAULT_WEEKLY_TYPES;
+      const key = [...contentTypes].sort().join(',');
+      const group = groups.get(key) ?? { contentTypes, users: [] };
+      group.users.push(user);
+      groups.set(key, group);
     }
 
+    const results: Array<{ user: UserWithPreferences; newsletter: GeneratedNewsletter }> = [];
+    for (const group of groups.values()) {
+      const items = await this.registry.fetchAllContent({ frequency, contentTypes: group.contentTypes });
+      if (items.length === 0) continue;
+      for (const user of group.users) {
+        results.push({
+          user,
+          newsletter: this.renderNewsletter(items, { frequency, userId: user.id }),
+        });
+      }
+    }
     return results;
   }
 
@@ -105,7 +133,18 @@ export class NewsletterGenerator {
       return null;
     }
 
-    // Generate email content
+    return this.renderNewsletter(items, options);
+  }
+
+  /**
+   * Render a newsletter from already-fetched content items. Split from
+   * generate() so batch generation can share one content fetch across users.
+   */
+  private renderNewsletter(
+    items: Awaited<ReturnType<ContentSourceRegistry['fetchAllContent']>>,
+    options: NewsletterGenerationOptions
+  ): GeneratedNewsletter {
+    const { frequency } = options;
     const date = new Date();
     const dateStr = date.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -230,7 +269,7 @@ export async function queueNewsletterDeliveries(
           userId: user.id,
           type: frequency,
           subscriptionId: subscription.id,
-          status: { in: ['QUEUED', 'SENT'] },
+          status: { in: ['QUEUED', 'SENDING', 'SENT'] },
           createdAt: { gte: periodStart },
         },
         select: { id: true },
@@ -273,8 +312,17 @@ export async function processQueuedDeliveries(
     headers?: Record<string, string>;
   }) => Promise<unknown>,
 ): Promise<{ sent: number; failed: number; skipped: number }> {
+  // Claim QUEUED rows (and SENDING rows abandoned by a crashed worker) so two
+  // concurrent runs cannot send the same delivery twice. A SENDING row is
+  // considered stale after 15 minutes.
+  const staleBefore = new Date(Date.now() - 15 * 60 * 1000);
   const queued = await prisma.newsletterDelivery.findMany({
-    where: { status: 'QUEUED' },
+    where: {
+      OR: [
+        { status: 'QUEUED' },
+        { status: 'SENDING', createdAt: { lt: staleBefore } },
+      ],
+    },
     take: batchSize,
     orderBy: { createdAt: 'asc' },
     include: { user: true, subscription: true },
@@ -288,6 +336,16 @@ export async function processQueuedDeliveries(
     try {
       if (!send) {
         throw new Error('processQueuedDeliveries requires a send function (e.g. deliverEmail)');
+      }
+      // Atomically claim the row; a concurrent worker that already claimed
+      // it sees count 0 and moves on.
+      const claim = await prisma.newsletterDelivery.updateMany({
+        where: { id: delivery.id, status: { in: ['QUEUED', 'SENDING'] } },
+        data: { status: 'SENDING' },
+      });
+      if (claim.count === 0) {
+        skipped++;
+        continue;
       }
       // Consent can change after queueing: never send to a subscription that
       // is no longer active for this delivery type.
