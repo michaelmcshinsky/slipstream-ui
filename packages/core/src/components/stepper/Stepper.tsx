@@ -117,7 +117,7 @@ export const Stepper = React.forwardRef<HTMLOListElement, StepperProps>(function
                     'rounded-full border font-medium',
                     markerSizeClass,
                     state === 'complete' && 'border-primary bg-primary text-primary-foreground',
-                    state === 'current' && 'border-primary text-primary',
+                    state === 'current' && 'border-primary text-primary-ink',
                     state === 'upcoming' && 'border-border text-muted-foreground'
                   )
             )}

@@ -102,7 +102,7 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(function Hero(
             'mb-5 inline-flex rounded-full border px-3 py-1 text-xs font-medium',
             overlay
               ? 'border-background/30 bg-background/10 text-background'
-              : 'border-primary/30 bg-primary/10 text-primary',
+              : 'border-primary/30 bg-primary/10 text-primary-ink',
             badgeClassName
           )}
         >
@@ -113,7 +113,7 @@ export const Hero = React.forwardRef<HTMLElement, HeroProps>(function Hero(
         <p
           className={cn(
             'mb-3 text-xs font-semibold uppercase tracking-widest',
-            overlay ? 'text-background/90' : 'text-primary',
+            overlay ? 'text-background/90' : 'text-primary-ink',
             eyebrowClassName
           )}
         >

@@ -352,7 +352,7 @@ export const SelectMenu = React.forwardRef<HTMLButtonElement, SelectMenuProps>(f
                           )}
                         </span>
                         {multiple && selectedValues.includes(row.item!.value) && (
-                          <span aria-hidden="true" className="ml-auto text-primary">
+                          <span aria-hidden="true" className="ml-auto text-primary-ink">
                             ✓
                           </span>
                         )}
