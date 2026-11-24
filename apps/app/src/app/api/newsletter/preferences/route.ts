@@ -9,6 +9,7 @@ import { parseBody } from '@/lib/api/core';
 import { getSessionUser, requireUser } from '@/lib/session';
 import {
   getNewsletterPreferences,
+  getNewsletterSubscriptions,
   updateNewsletterPreferences,
   getAvailableContentTypes,
   getAvailableFrequencies,
@@ -25,12 +26,13 @@ const updateSchema = z.object({
 export async function GET(request: Request) {
   return handle(request, async () => {
     const user = requireUser(await getSessionUser());
-    const [preferences, contentTypes, frequencies] = await Promise.all([
+    const [preferences, subscriptions, contentTypes, frequencies] = await Promise.all([
       getNewsletterPreferences(user.id),
+      getNewsletterSubscriptions(user.id),
       Promise.resolve(getAvailableContentTypes()),
       Promise.resolve(getAvailableFrequencies()),
     ]);
-    return { preferences, contentTypes, frequencies };
+    return { preferences, subscriptions, contentTypes, frequencies };
   }, { routeName: 'newsletter.preferences.get' });
 }
 
