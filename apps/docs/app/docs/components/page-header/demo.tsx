@@ -23,6 +23,12 @@ export default function PageHeaderPage() {
         { name: 'breadcrumbs', type: 'ReactNode', description: 'Trail rendered above the title.' },
         { name: 'actions', type: 'ReactNode', description: 'Right-aligned actions (buttons, menus).' },
         { name: 'children', type: 'ReactNode', description: 'Sub-row under the title (tabs, filters).' },
+        { name: 'eyebrow', type: 'ReactNode', description: 'Kicker/overline above the title.' },
+        { name: 'size', type: "'sm' | 'md' | 'lg' | 'hero'", defaultValue: "'md'", description: 'Heading scale; hero is for marketing landings.' },
+        { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Text and action alignment.' },
+        { name: 'titleClassName', type: 'string', description: 'Extra classes for the h1.' },
+        { name: 'descriptionClassName', type: 'string', description: 'Extra classes for the description.' },
+        { name: 'eyebrowClassName', type: 'string', description: 'Extra classes for the eyebrow.' },
       ]}
       accessibility={['Renders exactly one h1 per page.', 'Use Heading level={2} for section headings below the header.']}
     >
@@ -60,9 +66,16 @@ export default function PageHeaderPage() {
         types={`type PageHeaderProps = {
   title: string;
   description?: string;
+  subtitle?: string;
   breadcrumbs?: React.ReactNode;
   actions?: React.ReactNode;
   children?: React.ReactNode;
+  eyebrow?: React.ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'hero';
+  align?: 'left' | 'center';
+  titleClassName?: string;
+  descriptionClassName?: string;
+  eyebrowClassName?: string;
 };`}
       />
 
