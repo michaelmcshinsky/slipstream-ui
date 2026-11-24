@@ -1,26 +1,43 @@
 'use client';
 
+import { useState } from 'react';
 import { Suggestions } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 export default function SuggestionsPage() {
+  const [selected, setSelected] = useState<string | null>(null);
+
   return (
     <ComponentPage
       id="suggestions"
       title="Suggestions"
       description="Offer useful next prompts after an AI response."
+      npmPackages="@slipstream-ui/ai"
+      propsRows={[
+        { name: 'suggestions', type: 'Suggestion[]', description: 'Required list of { id, text, type? }; type is action | query | follow-up.' },
+        { name: 'onSelect', type: '(suggestion: Suggestion) => void', description: 'Called with the chosen suggestion.' },
+        { name: 'maxDisplay', type: 'number', defaultValue: '4', description: 'Maximum suggestions rendered; 0 or undefined shows all.' },
+        { name: 'className', type: 'string', description: 'Additional classes for the suggestions container.' },
+      ]}
+      accessibility={[
+        'Suggestions render as buttons in source order.',
+        'Keep suggestion text short and action-oriented for screen-reader users.',
+      ]}
     >
       <DemoCard
         title="Follow-up prompts"
         preview={
-          <Suggestions
-            suggestions={[
-              { id: '1', text: 'Summarize this in three bullets', type: 'follow-up' },
-              { id: '2', text: 'Show me an example', type: 'action' },
-            ]}
-            onSelect={(suggestion) => console.log(suggestion.text)}
-          />
+          <div className="w-full space-y-3">
+            <Suggestions
+              suggestions={[
+                { id: '1', text: 'Summarize this in three bullets', type: 'follow-up' },
+                { id: '2', text: 'Show me an example', type: 'action' },
+              ]}
+              onSelect={(suggestion) => setSelected(suggestion.text)}
+            />
+            <p className="text-xs text-muted-foreground">Selected: {selected ?? 'none'}</p>
+          </div>
         }
         code={`<Suggestions
   suggestions={[{ id: '1', text: 'Show me an example' }]}
