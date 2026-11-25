@@ -100,6 +100,26 @@ const reasoningSteps = [
 <Reasoning steps={steps} defaultExpanded={true} />
 <Reasoning steps={steps} collapsible={false} />`}
       />
+
+      <DemoCard
+        title="Streaming with duration and labels"
+        preview={
+          <Reasoning
+            steps={steps}
+            isStreaming
+            duration="4.2s"
+            labels={{ title: 'Chain of thought', count: (n) => `${n} thoughts`, thinking: 'still thinking…' }}
+          />
+        }
+        code={`<Reasoning
+  steps={steps}
+  isStreaming
+  duration="4.2s"
+  labels={{ title: 'Chain of thought', thinking: 'still thinking…' }}
+/>`}
+        usage={`// isStreaming swaps the header to a live "thinking…" state;
+// duration renders elapsed time; labels localize the chrome.`}
+      />
     </ComponentPage>
   );
 }

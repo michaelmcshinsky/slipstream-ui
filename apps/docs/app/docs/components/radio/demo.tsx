@@ -153,7 +153,34 @@ type RadioGroupItemProps = {
   description?: string;
   rounded?: boolean; // outer border radius, default true
   disabled?: boolean;
+  children?: React.ReactNode; // rich card body below title/description
 };`}
+      />
+
+      <DemoCard
+        title="Square corners and rich card body"
+        preview={
+          <div className="w-full max-w-2xl">
+            <RadioGroup name="demo-card-tier" legend="Choose a tier" defaultValue="pro" orientation="horizontal">
+              <RadioCard value="free" title="Free" description="1 project" rounded={false} className="min-w-40 flex-1" />
+              <RadioCard value="pro" title="Pro" description="For teams" rounded={false} className="min-w-56 flex-1">
+                <ul className="mt-2 list-inside list-disc text-xs text-muted-foreground">
+                  <li>Unlimited projects</li>
+                  <li>Priority support</li>
+                </ul>
+              </RadioCard>
+            </RadioGroup>
+          </div>
+        }
+        code={`<RadioGroup name="tier" legend="Choose a tier" defaultValue="pro" orientation="horizontal">
+  <RadioCard value="free" title="Free" rounded={false} />
+  <RadioCard value="pro" title="Pro" rounded={false}>
+    <ul className="mt-2 list-disc text-xs">
+      <li>Unlimited projects</li>
+      <li>Priority support</li>
+    </ul>
+  </RadioCard>
+</RadioGroup>`}
       />
     </ComponentPage>
   );

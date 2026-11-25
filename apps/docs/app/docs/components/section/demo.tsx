@@ -60,6 +60,29 @@ export default function SectionPage() {
   as?: 'section' | 'div' | 'article' | 'header' | 'footer' | 'main' | 'aside';
 };`}
       />
+
+      <DemoCard
+        title="Layout variants"
+        preview={
+          <div className="w-full space-y-3 overflow-hidden rounded-lg border border-border">
+            <Section padding="lg" width="sm" container={false} className="bg-muted/50">
+              <p className="px-5 text-sm">padding=&quot;lg&quot; width=&quot;sm&quot; container=&#123;false&#125; — narrow flush band</p>
+            </Section>
+            <Section as="article" padding="md" width="full" tone="subtle">
+              <p className="text-sm">as=&quot;article&quot; width=&quot;full&quot; — edge-to-edge article band</p>
+            </Section>
+          </div>
+        }
+        code={`<Section padding="lg" width="sm" container={false}>
+  {/* narrow flush band, no centered container */}
+</Section>
+
+<Section as="article" width="full" tone="subtle">
+  {/* semantic article element, edge-to-edge width */}
+</Section>`}
+        usage={`// container={false} hands width control to you (pair with width or your own wrapper).
+// as swaps the landmark element; width="full" skips the max-width container.`}
+      />
     </ComponentPage>
   );
 }
