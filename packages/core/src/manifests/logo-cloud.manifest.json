@@ -64,6 +64,13 @@
       "type": "React.ElementType",
       "required": false,
       "description": "Custom link element for routers."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "'href'",
+      "description": "Prop used to pass the destination to linkComponent ('to' for react-router style routers)."
     }
   ],
   "examples": [

@@ -16,6 +16,7 @@ export default function ProcessStepsPage() {
         { name: 'columns', type: '2 | 3 | 4', defaultValue: '3', description: 'Desktop column count.' },
         { name: 'numbered', type: 'boolean', defaultValue: 'true', description: 'Show step numbers when no icon is provided.' },
         { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Content alignment.' },
+        { name: 'headingLevel', type: '2 | 3 | 4', defaultValue: '3', description: 'Heading level for step titles; choose the level that continues the page outline without skipping a rank.' },
       ]}
       accessibility={[
         'Renders an ordered list, so the sequence is structural.',

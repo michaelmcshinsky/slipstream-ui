@@ -25,6 +25,8 @@ export type LogoCloudProps = React.HTMLAttributes<HTMLDivElement> & {
   align?: 'left' | 'center';
   /** Custom link element for routers. */
   linkComponent?: React.ElementType;
+  /** Prop used to pass the destination to linkComponent ('to' for react-router). */
+  linkHrefProp?: 'href' | 'to';
 };
 
 const columnClasses: Record<NonNullable<LogoCloudProps['columns']>, string> = {
@@ -54,6 +56,7 @@ export const LogoCloud = React.forwardRef<HTMLDivElement, LogoCloudProps>(functi
     size = 'md',
     align = 'center',
     linkComponent,
+    linkHrefProp = 'href',
     className,
     ...props
   },
@@ -93,7 +96,7 @@ export const LogoCloud = React.forwardRef<HTMLDivElement, LogoCloudProps>(functi
             <li key={item.name} className={cn('min-w-0', align === 'center' ? 'justify-self-center' : 'justify-self-start')}>
               {item.href ? (
                 <Link
-                  href={item.href}
+                  {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
                   className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   {content}

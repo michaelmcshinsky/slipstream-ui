@@ -40,6 +40,13 @@
         "center"
       ],
       "description": "Content alignment."
+    },
+    {
+      "name": "headingLevel",
+      "type": "2 | 3 | 4",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Heading level for step titles (h2-h4); pick the level that continues the page outline without skipping a rank."
     }
   ],
   "examples": [
