@@ -53,6 +53,7 @@ const spec = {
     '/api/v1/teams': {
       get: {
         summary: 'List your teams (cursor paginated)',
+        security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
         parameters: [
           { name: 'limit', in: 'query', schema: { type: 'integer', default: 20, maximum: 100 } },
           { name: 'cursor', in: 'query', schema: { type: 'string' } },
@@ -61,6 +62,7 @@ const spec = {
       },
       post: {
         summary: 'Create a team',
+        security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
         requestBody: {
           required: true,
           content: { 'application/json': { schema: { type: 'object', required: ['name'], properties: { name: { type: 'string', maxLength: 60 } } } } },
@@ -115,6 +117,7 @@ const spec = {
     '/api/v1/payments': {
       get: {
         summary: 'Payments across your teams (cursor paginated)',
+        security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
         parameters: [
           { name: 'teamId', in: 'query', schema: { type: 'string' } },
           { name: 'limit', in: 'query', schema: { type: 'integer' } },
@@ -126,6 +129,7 @@ const spec = {
     '/api/v1/subscription': {
       get: {
         summary: 'Current subscription for a team',
+        security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
         parameters: [{ name: 'teamId', in: 'query', required: true, schema: { type: 'string' } }],
         responses: { '200': { description: 'OK' }, '404': { description: 'Team not found' } },
       },
