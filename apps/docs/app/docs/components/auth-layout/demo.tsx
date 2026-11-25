@@ -29,7 +29,7 @@ export default function AuthLayoutPage() {
         title="Sign in"
         preview={
           <div className="w-full overflow-hidden rounded-xl border border-border">
-            <div className="scale-100 [&>div]:min-h-[24rem]">
+            <div className="[&>div]:min-h-[24rem]">
               <AuthLayout
                 title="Sign in"
                 description="Welcome back to Example App."
@@ -53,11 +53,11 @@ export default function AuthLayoutPage() {
   description="Welcome back to Example App."
   footer={<a href="/signup">Create an account</a>}
 >
-  <Form onSubmit={signIn}>
+  <form onSubmit={signIn}>
     <FormField id="email" label="Email"><Input type="email" /></FormField>
     <FormField id="password" label="Password"><PasswordInput /></FormField>
     <Button type="submit">Sign in</Button>
-  </Form>
+  </form>
 </AuthLayout>`}
         usage={`// Use the same layout for sign-in, sign-up, reset and verify so the
 // auth flow never changes shape between steps.`}

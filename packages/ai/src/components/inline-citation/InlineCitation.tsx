@@ -16,6 +16,8 @@ export type InlineCitationProps = {
  */
 const InlineCitation = React.forwardRef<HTMLSpanElement, InlineCitationProps>(
   ({ source, children, className, ...props }, ref) => {
+    // useId keeps aria-describedby unique when the same source is cited twice.
+    const cardId = React.useId();
     return (
       <span
         ref={ref}
@@ -24,7 +26,7 @@ const InlineCitation = React.forwardRef<HTMLSpanElement, InlineCitationProps>(
       >
         <button
           type="button"
-          aria-describedby={`citation-${source.id}-card`}
+          aria-describedby={cardId}
           className="inline-flex items-baseline rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {children ?? <span>{source.title}</span>}
@@ -36,7 +38,7 @@ const InlineCitation = React.forwardRef<HTMLSpanElement, InlineCitationProps>(
           </span>
         </button>
         <span
-          id={`citation-${source.id}-card`}
+          id={cardId}
           role="tooltip"
           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 w-64 rounded-md border border-border bg-popover p-2.5 text-xs text-popover-foreground shadow-md opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity"
         >

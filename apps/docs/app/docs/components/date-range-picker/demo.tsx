@@ -20,7 +20,7 @@ export default function DateRangePickerPage() {
         { name: 'onValueChange', type: '(range: DateRange) => void', description: 'Fires with the next ISO range.' },
         { name: 'startLabel', type: 'string', defaultValue: "'From'", description: 'Accessible label for the start field.' },
         { name: 'endLabel', type: 'string', defaultValue: "'To'", description: 'Accessible label for the end field.' },
-        { name: 'presets', type: 'DateRangePreset[]', description: 'Preset buttons. Defaults to 7/30/90 days and YTD.' },
+        { name: 'presets', type: 'DateRangePreset[]', description: 'Preset buttons. Defaults to 7/30/90 days and YTD. Windows compute against the browser-local today.' },
         { name: 'showPresets', type: 'boolean', defaultValue: 'true', description: 'Show the preset row.' },
         { name: 'disabled', type: 'boolean', description: 'Disable presets and both fields.' },
       ]}
