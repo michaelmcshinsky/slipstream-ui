@@ -15,10 +15,10 @@ export default function AvatarPage() {
       description="A user profile image component with fallback support and accessible image loading. Compose Avatar + AvatarImage + AvatarFallback."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'Avatar', type: 'Root props', description: 'Circular container (h-10 w-10 by default); override the size with className.' },
-        { name: 'AvatarImage', type: 'Image props', description: 'Requires src + alt; renders only after the image loads.' },
-        { name: 'AvatarFallback', type: 'Fallback props', description: 'Shown while the image loads and after it fails; put initials or an icon as children.' },
-        { name: 'className', type: 'string', description: 'Escape hatch on each part (size, colors, shape).' },
+        { name: 'Avatar.className', type: 'string', description: 'Circular container (h-10 w-10, rounded-full); scale with h-*/w-* classes.' },
+        { name: 'AvatarImage.src / alt', type: 'string', defaultValue: 'required', description: 'Image source and required alt text; renders only after load.' },
+        { name: 'AvatarFallback.children / className', type: 'ReactNode / string', description: 'Initials or icon shown while loading and after failure.' },
+        { name: 'AvatarFallback.delayMs', type: 'number', description: 'Delay before the fallback appears (avoids flash on fast loads).' },
       ]}
       accessibility={[
         'AvatarImage requires alt text for accessibility',

@@ -58,6 +58,34 @@ export default function AnnouncementBarPage() {
   linkComponent?: React.ElementType;
 };`}
       />
+      <DemoCard
+        title="Sticky and persistent variants"
+        preview={
+          <div className="w-full space-y-4">
+            <AnnouncementBar
+              message="Sticky launch banner"
+              href="/changelog"
+              actionLabel="See what is new"
+              tone="inverse"
+              sticky={false}
+            />
+            <AnnouncementBar
+              message="Maintenance Sunday 02:00 UTC"
+              tone="muted"
+              dismissible={false}
+            />
+          </div>
+        }
+        code={`{/* sticky pins the bar to the viewport top while scrolling */}
+<AnnouncementBar message="…" sticky tone="brand" />
+
+{/* dismissible={false} renders no close control — use for critical notices;
+    persistence is caller-owned either way (see onDismiss). */}
+<AnnouncementBar message="Maintenance Sunday 02:00 UTC" dismissible={false} />`}
+        usage={`// sticky uses position: sticky inside the normal flow — mount it
+// above your header. dismissible={false} is for notices users must not
+// miss; pair with onDismiss-free rendering.`}
+      />
     </ComponentPage>
   );
 }

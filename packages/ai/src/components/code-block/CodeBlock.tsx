@@ -11,6 +11,8 @@ export type CodeBlockProps = {
   language?: string;
   /** Show a copy-to-clipboard button (default true). */
   showCopyButton?: boolean;
+  /** Called with the code after a successful clipboard write. */
+  onCopied?: (code: string) => void;
   className?: string;
 };
 
@@ -93,7 +95,7 @@ const DARK_CODE_THEME: PrismTheme = {
 };
 
 const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
-  ({ code, language = 'tsx', showCopyButton = true, className, ...props }, ref) => {
+  ({ code, language = 'tsx', showCopyButton = true, onCopied, className, ...props }, ref) => {
     const [copied, setCopied] = React.useState(false);
     const isDark = useIsDark();
     const trimmedCode = code.replace(/\n$/, '');
@@ -121,9 +123,10 @@ const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
     const handleCopy = async () => {
       try {
         await navigator.clipboard.writeText(trimmedCode);
+        onCopied?.(trimmedCode);
       } catch {
-        // Clipboard unavailable (insecure context); still show feedback so
-        // consumers can hook onCopy-style behavior via DOM if needed.
+        // Clipboard unavailable (insecure context); the button still shows
+        // brief feedback so the interaction never looks dead.
       }
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
