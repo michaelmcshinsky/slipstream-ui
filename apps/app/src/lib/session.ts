@@ -3,7 +3,11 @@ import { prisma, type Prisma, type User } from '@slipstream-ui/db';
 import { generateToken, hashToken } from './tokens';
 
 export const SESSION_COOKIE = 'slipstream_session';
-const SESSION_TTL_DAYS = 30;
+// Absolute lifetime cap; idle sessions expire sooner via lastSeenAt.
+const SESSION_TTL_DAYS = 14;
+const SESSION_IDLE_DAYS = 7;
+// Only write lastSeenAt when it is this stale, so reads stay cheap.
+const SESSION_TOUCH_MINUTES = 15;
 
 export type SafeUser = {
   id: string;
@@ -43,6 +47,17 @@ export async function getSessionUser(db: Prisma.TransactionClient = prisma): Pro
   });
   if (!session || session.expiresAt < new Date()) return null;
   if (session.user.suspendedAt) return null;
+
+  const now = Date.now();
+  const idleCutoff = now - SESSION_IDLE_DAYS * 24 * 60 * 60 * 1000;
+  if (session.lastSeenAt.getTime() < idleCutoff) {
+    await db.session.delete({ where: { id: session.id } });
+    return null;
+  }
+  const touchCutoff = now - SESSION_TOUCH_MINUTES * 60 * 1000;
+  if (session.lastSeenAt.getTime() < touchCutoff) {
+    await db.session.update({ where: { id: session.id }, data: { lastSeenAt: new Date(now) } });
+  }
 
   return toSafeUser(session.user);
 }

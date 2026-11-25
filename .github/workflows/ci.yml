@@ -5,8 +5,43 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    # Weekly dependency audit (Mondays 06:00 UTC).
+    - cron: '0 6 * * 1'
 
 jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.30.1 detect --source=/repo --redact -v
+
+  dependency-audit:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 8.15.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Audit production dependencies
+        run: pnpm audit --prod --audit-level=high
+
   build:
     runs-on: ubuntu-latest
 
@@ -25,6 +60,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Verify sensitive-file deny rules
+        run: |
+          for f in .env .env.local .env.production.pem certs/server.pem apps/app/.env apps/app/keys/service.pem; do
+            git check-ignore -q "$f" || { echo "not gitignored: $f"; exit 1; }
+          done
 
       - name: Lint
         run: pnpm lint
