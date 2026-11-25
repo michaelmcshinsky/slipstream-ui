@@ -43,6 +43,7 @@ export default function LicensesPage() {
   const [teamId, setTeamId] = useState('');
   const [plan, setPlan] = useState<LicensePlan>('PRO');
   const [newKey, setNewKey] = useState<string | null>(null);
+  const [revealedKeys, setRevealedKeys] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -179,7 +180,28 @@ export default function LicensesPage() {
           {licenses.map((license) => (
             <div key={license.id} className="rounded-lg border border-border p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <code className="rounded bg-muted px-2 py-1 font-mono text-xs">{license.key}</code>
+                <code className="rounded bg-muted px-2 py-1 font-mono text-xs">
+                  {revealedKeys[license.id] ?? license.key}
+                </code>
+                <button
+                  type="button"
+                  className="text-xs text-muted-foreground hover:underline"
+                  onClick={async () => {
+                    if (revealedKeys[license.id]) {
+                      setRevealedKeys((prev) => {
+                        const next = { ...prev };
+                        delete next[license.id];
+                        return next;
+                      });
+                      return;
+                    }
+                    const response = await fetch(`/api/licenses/${license.id}`).then((r) => r.json().catch(() => null));
+                    const key = extractData<{ key?: string }>(response)?.key;
+                    if (key) setRevealedKeys((prev) => ({ ...prev, [license.id]: key }));
+                  }}
+                >
+                  {revealedKeys[license.id] ? 'Hide' : 'Reveal'}
+                </button>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">{license.plan}</span>
                   {license.status === 'ACTIVE' ? (

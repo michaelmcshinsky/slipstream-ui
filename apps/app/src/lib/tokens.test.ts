@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { generateToken, hashToken, generateLicenseKey } from './tokens';
+import { generateToken, hashToken, generateLicenseKey, maskLicenseKey } from './tokens';
 
 describe('tokens', () => {
   it('generates url-safe tokens with matching hashes', () => {
@@ -30,6 +30,18 @@ describe('tokens', () => {
     expect(publicBody).toMatch(/^[A-Za-z0-9_-]{16}$/);
     expect(Buffer.from(publicBody, 'base64url')).toEqual(Buffer.from(body, 'base64url').subarray(0, 12));
     expect(prefix).not.toBe(key);
+  });
+
+  it('masks license keys to plan label plus last four characters', () => {
+    const { key } = generateLicenseKey('PRO');
+    const masked = maskLicenseKey(key);
+    expect(masked).toBe(`slip_pro_…${key.slice(-4)}`);
+    expect(masked).not.toContain(key.slice(-8, -4));
+    // Bodies may contain '_' (base64url): the mask must not leak past the
+    // plan-code boundary even when the secret itself has underscores.
+    expect(maskLicenseKey('slip_pro_ab_cd_ef_gh_ijklmnop')).toBe('slip_pro_…mnop');
+    expect(maskLicenseKey('not-a-key')).toBe('••••');
+    expect(maskLicenseKey('slip_x_ab')).toBe('••••');
   });
 
   it('preserves SHA-256 hashes of existing tokens', () => {
