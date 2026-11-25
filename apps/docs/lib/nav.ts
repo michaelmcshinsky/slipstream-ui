@@ -287,11 +287,16 @@ export const NAV_SECTIONS: NavSection[] = [
   },
 ];
 
-/** Flat ordered list used for prev/next pagination across all docs pages. */
+/**
+ * Flat ordered list used for prev/next pagination across all docs pages.
+ * `/playground` stays in the sidebar but is excluded here: it is a marketing
+ * surface, not a docs page, so it should not appear in docs pagination,
+ * prev/next links, or docs breadcrumbs.
+ */
 export const FLAT_NAV: NavItem[] = NAV_SECTIONS.flatMap((section) => [
   ...(section.items ?? []),
   ...(section.groups ?? []).flatMap((group) => group.items),
-]);
+]).filter((item) => item.href !== '/playground');
 
 export function getNeighbors(href: string): { previous?: NavItem; next?: NavItem } {
   const index = FLAT_NAV.findIndex((item) => item.href === href);

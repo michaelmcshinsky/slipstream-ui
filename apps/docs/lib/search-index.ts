@@ -1,3 +1,6 @@
+import articleMetadata from '../content/articles.json';
+import type { ArticleMeta } from './articles';
+
 export type SearchEntry = {
   title: string;
   href: string;
@@ -14,9 +17,6 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Quickstart', href: '/docs/getting-started', content: 'quickstart getting started first screen install theme compose verify agent validate_usage', group: 'Getting Started', aliases: ['how to install', 'first component', 'five minute setup'] },
   { title: 'Installation', href: '/docs/installation', content: 'install setup npx init pnpm add core ai quick start shadcn registry', group: 'Getting Started', aliases: ['add to my project', 'npm install', 'cli install'] },
   { title: 'Playground', href: '/playground', content: 'playground live preview props controls copy jsx copy for ai viewport theme reset', group: 'Getting Started', aliases: ['try components', 'component sandbox', 'edit props'] },
-  { title: '100-case validation benchmark', href: '/articles/validation-benchmark-100-cases', content: 'benchmark validation recall precision false positives 100 cases mock provider manifest validator methodology', group: 'Articles', aliases: ['validator benchmark', 'does validate_usage work', 'hallucination benchmark'] },
-  { title: 'Give Claude Code a component contract', href: '/articles/component-contract-not-gallery', content: 'claude code cursor component contract manifest agent gallery workflow claude.md rules', group: 'Articles', aliases: ['component contract', 'agent component knowledge', 'claude code ui'] },
-  { title: 'Seven ways AI-generated UI breaks', href: '/articles/seven-ways-ai-generated-ui-breaks', content: 'before after cases hallucinated prop missing required invalid enum compound root placeholder label streaming state benchmark defects', group: 'Articles', aliases: ['ai generated ui bugs', 'agent jsx mistakes', 'validate_usage examples'] },
   { title: 'Tailwind v4', href: '/docs/tailwind-v4', content: 'tailwind v4 css theme @source @theme createTheme migration setup', group: 'Getting Started' },
   { title: 'Compatibility', href: '/docs/compatibility', content: 'react 18 19 next 16 vite tailwind 3.4 4 rsc radix supported tested expected', group: 'Getting Started' },
   { title: 'Theming', href: '/docs/theming', content: 'css variables createTheme presets dark mode violet zinc colors radius switcher', group: 'Getting Started' },
@@ -157,4 +157,18 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'IDE setup guide', href: '/docs/guides/ide-setup', content: 'guide claude code cursor windsurf mcp json config AGENTS rules setup troubleshooting', group: 'Guides' },
   { title: 'Testing guide', href: '/docs/guides/testing', content: 'guide testing jest-axe interaction streaming error CI drift validate_usage diff', group: 'Guides' },
   { title: 'React Hook Form guide', href: '/docs/guides/react-hook-form', content: 'guide react hook form rhf register controller formfield select checkbox datepicker timepicker errors aria-invalid', group: 'Guides' },
+  { title: 'Changelog', href: '/changelog', content: 'changelog release notes versions updates new components fixes', group: 'Site' },
+  { title: 'About', href: '/about', content: 'about slipstream ui company mission team', group: 'Site' },
+  { title: 'Contact', href: '/contact', content: 'contact support email github issues feedback', group: 'Site' },
+  { title: 'Privacy policy', href: '/privacy', content: 'privacy policy data analytics cookies consent gdpr ccpa', group: 'Site' },
+  { title: 'Terms of service', href: '/terms', content: 'terms of service license agreement acceptable use', group: 'Site' },
+  { title: 'Accessibility', href: '/accessibility', content: 'accessibility wcag compliance statement keyboard screen reader', group: 'Site' },
+  // Article entries are generated from content/articles.json so new articles
+  // appear in ⌘K search without a hand-maintained index entry.
+  ...(articleMetadata as ArticleMeta[]).map((article) => ({
+    title: article.title,
+    href: `/articles/${article.slug}`,
+    content: `${article.description} ${article.tags.join(' ')}`,
+    group: 'Articles',
+  })),
 ];

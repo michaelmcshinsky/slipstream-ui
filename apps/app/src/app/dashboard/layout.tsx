@@ -20,7 +20,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (dbUser?.suspendedAt) {
     return (
-      <main className="flex min-h-screen items-center justify-center px-4">
+      <main id="main" className="flex min-h-screen items-center justify-center px-4">
         <div className="max-w-sm rounded-xl border border-destructive/40 bg-card p-6 text-center">
           <h1 className="text-lg font-semibold">{translate(messages, 'shell.accountSuspended')}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -44,7 +44,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </div>
       </header>
       <DashboardNav isAdmin={user.role === 'ADMIN'} />
-      <main className="container mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <main id="main" className="container mx-auto max-w-5xl px-4 py-8">{children}</main>
     </div>
   );
 }

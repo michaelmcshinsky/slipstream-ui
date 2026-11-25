@@ -129,7 +129,7 @@ export function MultiThreadDemo() {
               }`}
             >
               {thread.title}
-              {thread.streamingId && <span className="ml-1 animate-pulse">●</span>}
+              {thread.streamingId && <span className="ml-1 motion-safe:animate-pulse">●</span>}
             </button>
           ))}
         </div>

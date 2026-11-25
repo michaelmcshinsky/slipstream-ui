@@ -241,6 +241,7 @@ export const ja = {
       regionLabel: "Cookie の同意",
       message: "プライバシーに配慮した分析のみを同意のうえで使用します。広告やクロスサイト追跡はありません。",
       privacyLink: "プライバシーポリシーを読む",
+      manageLink: "設定を管理",
       decline: "拒否",
       accept: "すべて許可",
     },

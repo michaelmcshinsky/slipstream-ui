@@ -174,7 +174,7 @@ export default function NewsletterSettingsPage() {
         <h1 className="text-2xl font-bold tracking-tight">Newsletter Settings</h1>
         <div className="space-y-4" aria-busy="true">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={i} className="motion-safe:animate-pulse">
               <div className="h-4 bg-muted rounded w-3/4" />
               <div className="mt-4 h-4 bg-muted rounded w-1/2" />
             </Card>

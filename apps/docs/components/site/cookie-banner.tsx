@@ -52,6 +52,10 @@ export function CookieBanner() {
           <Link href="/privacy" className="text-primary underline underline-offset-2 hover:text-primary/80">
             {t('site.cookie.privacyLink')}
           </Link>
+          {' · '}
+          <Link href="/privacy#preferences" className="text-primary underline underline-offset-2 hover:text-primary/80">
+            {t('site.cookie.manageLink')}
+          </Link>
           .
         </p>
         <div className="flex shrink-0 gap-2">
