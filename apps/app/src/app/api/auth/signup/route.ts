@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { prisma, Prisma } from '@slipstream-ui/db';
-import { hashPassword, assertStrongPassword } from '@/lib/passwords';
+import { hashPassword, assertPasswordPolicy } from '@/lib/passwords';
 import { createSession } from '@/lib/session';
 import { createTeamForUser } from '@/lib/teams';
 import { sendVerificationEmail } from '@/lib/verify';
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const email = body.email?.trim().toLowerCase();
     if (!email || !email.includes('@')) badRequest('A valid email is required.');
     if (!body.password) badRequest('Password is required.');
-    assertStrongPassword(body.password);
+    await assertPasswordPolicy(body.password);
 
     // Never reveal whether an account already exists for this email.
     const existing = await prisma.user.findUnique({ where: { email } });

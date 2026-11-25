@@ -34,6 +34,9 @@ export default defineConfig({
       // under full-machine load.
       DATABASE_URL: `file:${path.join(os.tmpdir(), `slipstream-test-${randomUUID()}.db`).replaceAll('\\', '/')}?connection_limit=1`,
       SESSION_SECRET: 'test-secret-at-least-32-characters!!',
+      // Tests use fixture passwords that exist in breach corpora; the HIBP
+      // check has its own unit tests with an injected fetch.
+      PASSWORD_BREACH_CHECK: 'off',
     },
     globalSetup: [path.resolve(rootDir, 'src/test/global-setup.ts')],
   },

@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { cookies } from 'next/headers';
 import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, requireUser, SESSION_COOKIE } from '@/lib/session';
-import { hashPassword, verifyPassword, assertStrongPassword } from '@/lib/passwords';
+import { hashPassword, verifyPassword, assertPasswordPolicy } from '@/lib/passwords';
 import { hashToken } from '@/lib/tokens';
 import { audit } from '@/lib/audit';
 import { handle, badRequest, z } from '@/lib/api/handle';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       }),
     );
     if (!body.currentPassword || !body.newPassword) badRequest('Both passwords are required.');
-    assertStrongPassword(body.newPassword);
+    await assertPasswordPolicy(body.newPassword);
 
     const user = await prisma.user.findUnique({ where: { id: sessionUser.id } });
     if (!user?.passwordHash || !verifyPassword(body.currentPassword, user.passwordHash)) {
