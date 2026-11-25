@@ -24,12 +24,12 @@ export function StickyCta() {
 
   if (!visible) return null;
 
-  const command = 'npm i @slipstream-ui/core';
+  const command = 'npx @slipstream-ui/cli@latest init';
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(command);
-      track('install_copy', { command: 'core', location: 'sticky_cta' });
+      track('install_copy', { command: 'init', location: 'sticky_cta' });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {

@@ -46,7 +46,9 @@ export default function AdminUsersPage() {
     await load();
   }
 
-  async function impersonate(id: string) {
+  async function impersonate(id: string, email: string) {
+    // Impersonation mints a real session as the target user — confirm first.
+    if (!window.confirm(`Impersonate ${email}? You will act as this user until you stop.`)) return;
     const response = await fetch(`/api/admin/users/${id}/impersonate`, { method: 'POST' });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json().catch(() => null), 'Could not start impersonation.'));
@@ -110,7 +112,7 @@ export default function AdminUsersPage() {
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      onClick={() => impersonate(user.id)}
+                      onClick={() => impersonate(user.id, user.email)}
                       className="text-xs text-primary hover:underline"
                     >
                       Impersonate

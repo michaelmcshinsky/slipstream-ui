@@ -499,7 +499,7 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         blocks: [
           {
             type: 'p',
-            text: 'Cuando usas el formulario de contacto recibimos el nombre, el correo y el mensaje que envías. Nuestro proveedor de alojamiento (Netlify Forms) procesa los envíos y solo se usan para responderte. Los conservamos hasta 24 meses.',
+            text: 'No tenemos formulario de contacto. Nos contactas a través de los canales de GitHub indicados en la página de contacto: issues para errores, Discussions para preguntas y el canal privado de SECURITY.md para vulnerabilidades. GitHub procesa los datos de perfil y el contenido que envías según su propia política de privacidad. Solo los usamos para responderte y los conservamos hasta 24 meses.',
           },
         ],
       },

@@ -494,7 +494,7 @@ export const zh: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: '当你使用联系表单时，我们会收到你提交的姓名、电子邮件地址和消息。表单提交由我们的托管服务商（Netlify Forms）处理，仅用于回复你。我们最多保留 24 个月。',
+            text: '本站没有联系表单。请通过联系页面列出的 GitHub 渠道与我们联系：错误报告使用 Issues，问题使用 Discussions，安全漏洞请按 SECURITY.md 中的私密渠道报告。GitHub 依据其自身隐私政策处理你提交的个人资料和内容。我们仅将其用于回复，并最多保留 24 个月。',
           },
         ],
       },

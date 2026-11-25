@@ -31,8 +31,10 @@ export default function AdminPaymentsPage() {
     load();
   }, []);
 
-  async function refund(id: string) {
-    const response = await fetch(`/api/admin/payments/${id}/refund`, { method: 'POST' });
+  async function refund(payment: Payment) {
+    const amount = `$${(payment.amountCents / 100).toFixed(2)}`;
+    if (!window.confirm(`Refund ${amount} for "${payment.description}"? This cannot be undone.`)) return;
+    const response = await fetch(`/api/admin/payments/${payment.id}/refund`, { method: 'POST' });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json()));
       return;
@@ -72,7 +74,7 @@ export default function AdminPaymentsPage() {
                   {payment.status === 'PAID' ? (
                     <button
                       type="button"
-                      onClick={() => refund(payment.id)}
+                      onClick={() => refund(payment)}
                       className="text-xs text-destructive hover:underline"
                     >
                       Refund

@@ -74,8 +74,16 @@ export default function MCPPage() {
 
         <h3 className="text-xl font-semibold mt-6 mb-3">Windsurf</h3>
         <p className="text-muted-foreground mb-4">
-          Configure in your Windsurf settings file.
+          Add to <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">~/.codeium/windsurf/mcp_config.json</code>:
         </p>
+        <CodeBlock language="json" code={`{
+  "mcpServers": {
+    "slipstream-ui": {
+      "command": "npx",
+      "args": ["-y", "@slipstream-ui/mcp-server"]
+    }
+  }
+}`} />
 
         <h3 className="text-xl font-semibold mt-6 mb-3">OpenCode and other stdio clients</h3>
         <p className="text-muted-foreground mb-4">

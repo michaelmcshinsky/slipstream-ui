@@ -78,18 +78,26 @@ export default function TeamPage() {
 
   async function removeMember(memberId: string) {
     if (!activeTeamId) return;
-    await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
+    const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
+    if (!response.ok) {
+      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not remove member.'));
+      return;
+    }
     const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
     setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
   async function changeRole(memberId: string, role: string) {
     if (!activeTeamId) return;
-    await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
+    const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ role }),
     });
+    if (!response.ok) {
+      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not update role.'));
+      return;
+    }
     const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
     setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }

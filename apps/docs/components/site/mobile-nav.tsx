@@ -3,7 +3,20 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n } from '@slipstream-ui/i18n/react';
-import { NAV_SECTIONS, navSectionLabel, sectionFirstHref } from '@/lib/nav';
+import { NAV_SECTIONS, navSectionLabel, sectionFirstHref, type NavSection } from '@/lib/nav';
+
+function sectionHrefs(section: NavSection): string[] {
+  return [
+    ...(section.items ?? []).map((item) => item.href),
+    ...(section.groups ?? []).flatMap((group) => group.items.map((item) => item.href)),
+  ];
+}
+
+function hrefMatches(pathname: string, href: string): boolean {
+  // Segment-boundary match: '/docs/components/button' must not claim
+  // '/docs/components/button-group', and bare '/docs' only matches itself.
+  return pathname === href || (href !== '/docs' && pathname.startsWith(`${href}/`));
+}
 
 /** Horizontal scrollable section pills shown below lg, where the sidebar hides. */
 export function MobileNav() {
@@ -14,6 +27,7 @@ export function MobileNav() {
   // overflowed narrow viewports and truncated labels ("COMPON…").
   const sections = NAV_SECTIONS.map((section) => ({
     href: sectionFirstHref(section),
+    hrefs: sectionHrefs(section),
     label: navSectionLabel(section, t),
   }));
 
@@ -24,8 +38,7 @@ export function MobileNav() {
     >
       <div className="flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {sections.map((item) => {
-          const isActive =
-            pathname === item.href || (item.href !== '/docs' && pathname.startsWith(item.href));
+          const isActive = item.hrefs.some((href) => hrefMatches(pathname, href));
           return (
             <Link
               key={item.href}

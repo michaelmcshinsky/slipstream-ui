@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import { AI_COMPONENT_COUNT, COMPONENT_COUNT, CORE_COMPONENT_COUNT } from '@/lib/component-count';
+import { MCP_TOOL_COUNT } from '@/lib/site';
 import { withSeo } from '@/lib/seo';
 
 export const metadata: Metadata = withSeo('/docs/ai-first', {
@@ -19,7 +20,7 @@ const LAYERS = [
   },
   {
     title: 'MCP server',
-    body: 'Five tools let an agent search, read, and validate against the manifests at authoring time. No source scraping, no guessed props.',
+    body: `${MCP_TOOL_COUNT} tools let an agent search, read, and validate against the manifests at authoring time. No source scraping, no guessed props.`,
     href: '/docs/mcp',
     cta: 'MCP reference',
   },

@@ -79,7 +79,7 @@ Publishing that gap is more useful than claiming a perfect score.
 ## The practical setup
 
 - 80 components, each with a manifest.
-- Five MCP tools.
+- Six MCP tools.
 - A validator that runs before code ships.
 - 3.4 tested; Tailwind v4 theme compiles against the component sources.
 - Stateless components: bring Vercel AI SDK, LangGraph, or a raw stream.
