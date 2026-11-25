@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { ThemeToggle } from '@slipstream-ui/core';
@@ -54,6 +55,15 @@ export default function ThemeTogglePage() {
   labels={{ toDark: 'Dark mode', toLight: 'Light mode' }}
 />`}
       />
+
+      <p className="text-sm text-muted-foreground">
+        ThemeToggle is presentational only — it does not persist the choice or switch the
+        class/attribute itself. See{' '}
+        <Link href="/docs/theming" className="text-primary underline underline-offset-2 hover:text-primary/80">
+          Theming
+        </Link>{' '}
+        for the persistence and attribute-switch half.
+      </p>
     </ComponentPage>
   );
 }

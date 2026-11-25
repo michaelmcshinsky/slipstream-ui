@@ -40,7 +40,7 @@
       "name": "loadingLabel",
       "type": "string",
       "required": false,
-      "defaultValue": "Loading...",
+      "defaultValue": "Loading…",
       "description": "Loading label."
     },
     {
