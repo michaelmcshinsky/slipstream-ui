@@ -22,3 +22,24 @@ export function extractErrorMessage(body: unknown, fallback = 'Something went wr
   }
   return fallback;
 }
+
+/**
+ * Shared client-side fetch for dashboard pages: unwraps the `{ data }`
+ * envelope, throws `Error(message)` on non-2xx, and surfaces network
+ * failures as thrown errors so callers only handle one path.
+ */
+export async function apiFetch<T>(input: string, init?: RequestInit): Promise<T> {
+  let response: Response;
+  try {
+    response = await fetch(input, init);
+  } catch {
+    throw new Error('Network error — check your connection and try again.');
+  }
+  const body: unknown = await response.json().catch(() => undefined);
+  if (!response.ok) {
+    throw new Error(extractErrorMessage(body, `Request failed (${response.status}).`));
+  }
+  const data = extractData<T>(body);
+  if (data === undefined) throw new Error('Malformed API response.');
+  return data;
+}

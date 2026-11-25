@@ -9,9 +9,11 @@ import { parseBody } from '@/lib/api/core';
 export async function GET(request: Request) {
   return handle(request, async () => {
     requireAdmin(await getSessionUser());
+    const take = Math.min(Number(new URL(request.url).searchParams.get('take') ?? 100), 200);
     const licenses = await prisma.licenseKey.findMany({
       include: { owner: { select: { email: true } }, activations: true },
       orderBy: { createdAt: 'desc' },
+      take,
     });
     return { licenses };
   });

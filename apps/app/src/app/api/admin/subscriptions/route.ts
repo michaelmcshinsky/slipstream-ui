@@ -10,6 +10,7 @@ export async function GET(request: Request) {
     const subscriptions = await prisma.subscription.findMany({
       include: { team: { select: { name: true, slug: true } } },
       orderBy: { createdAt: 'desc' },
+      take: Math.min(Number(new URL(request.url).searchParams.get('take') ?? 200), 500),
     });
     return { subscriptions };
   });

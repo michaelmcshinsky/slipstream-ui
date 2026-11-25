@@ -1,24 +1,5 @@
 export const dynamic = 'force-dynamic';
 
-import { validateLicense } from '@/lib/licenses';
-import { handle, badRequest, z } from '@/lib/api/handle';
-import { parseBody } from '@/lib/api/core';
-
-/**
- * Public license validation endpoint used by the CLI and MCP server:
- *   POST { key, machineId }
- * Rate limiting happens at the edge in production.
- */
-export async function POST(request: Request) {
-  return handle(request, async () => {
-    const body = await parseBody(
-      request,
-      z.object({
-        key: z.string().min(8),
-        machineId: z.string().min(3).max(128),
-      }),
-    );
-    if (!body.key || !body.machineId) badRequest('key and machineId are required.');
-    return validateLicense(body.key, body.machineId);
-  }, { rateLimit: { limit: 30, windowMs: 60_000 } });
-}
+// Legacy path kept for existing CLI/MCP integrations; delegates to the v1
+// handler so schema, rate limit, and envelope stay single-sourced.
+export { POST } from '../../v1/licenses/validate/route';

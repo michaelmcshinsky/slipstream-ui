@@ -12,7 +12,7 @@ import {
   Separator,
   Badge,
 } from '@/components/ui';
-import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+import { apiFetch } from '@/lib/api/envelope';
 
 type PreferencesState = {
   dailyEnabled: boolean;
@@ -62,10 +62,7 @@ export default function NewsletterSettingsPage() {
 
   async function loadPreferences() {
     try {
-      const response = await fetch('/api/newsletter/preferences');
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to load preferences'));
-      const payload = extractData<PreferencesPayload>(data);
+      const payload = await apiFetch<PreferencesPayload>('/api/newsletter/preferences');
       setPreferences(payload?.preferences ?? DEFAULT_PREFERENCES);
       setSubscriptions(payload?.subscriptions ?? []);
       setContentTypes(payload?.contentTypes ?? []);
@@ -78,13 +75,11 @@ export default function NewsletterSettingsPage() {
   }
 
   async function callSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
-    const response = await fetch(`/api/newsletter/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+    await apiFetch(`/api/newsletter/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type }),
     });
-    const data: unknown = await response.json().catch(() => null);
-    if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to update subscription.'));
   }
 
   async function updateSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
@@ -107,13 +102,11 @@ export default function NewsletterSettingsPage() {
     setError(null);
     setMessage(null);
     try {
-      const response = await fetch('/api/newsletter/preferences', {
+      await apiFetch('/api/newsletter/preferences', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(preferences),
       });
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to save preferences'));
 
       // Preferences alone do not create NewsletterSubscription rows, which is
       // what the cron actually sends to. Reconcile subscriptions with the
