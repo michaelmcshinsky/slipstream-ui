@@ -10,6 +10,7 @@ import type {
   NewsletterGenerationOptions,
   ContentSource,
 } from '../types';
+import { logError, logWarn } from './log';
 
 /**
  * Audit Log content source - fetches recent audit log entries
@@ -156,7 +157,7 @@ export class GitHubContentSource implements ContentSource {
     const until = options.until ?? new Date();
 
     if (!this.token) {
-      console.warn('GitHub token not configured, skipping GitHub content');
+      logWarn('newsletter.github.token_missing');
       return [];
     }
 
@@ -171,7 +172,7 @@ export class GitHubContentSource implements ContentSource {
         (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime()
       );
     } catch (error) {
-      console.error('Failed to fetch GitHub content:', error);
+      logError('newsletter.github.fetch_failed', { error: error instanceof Error ? error.message : String(error) });
       return [];
     }
   }

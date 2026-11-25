@@ -15,6 +15,7 @@ import { ContentSourceRegistry, createDefaultRegistry } from '../lib/content-sou
 import { generateHtmlEmail, generateTextEmail, generateSubject, generatePreheader } from '../templates/email';
 import { newsletterUnsubscribeUrl } from '../lib/unsubscribe-token';
 import { parseContentTypes } from '../lib/preferences';
+import { logError } from '../lib/log';
 
 /**
  * Default content types for each frequency
@@ -306,7 +307,7 @@ export async function queueNewsletterDeliveries(
       });
       queued++;
     } catch (error) {
-      console.error(`Failed to queue newsletter for user ${user.id}:`, error);
+      logError('newsletter.queue_failed', { userId: user.id, error: error instanceof Error ? error.message : String(error) });
       failed++;
     }
   }

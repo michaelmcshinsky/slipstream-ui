@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ApiError, errors, errorJson, getRequestId, rateLimit } from './core';
 import type { TeamError } from '../teams';
+import { logError } from '../log';
 
 export type HandleOptions = {
   /** Per-identity request budget. Defaults: 120 req / 60s. */
@@ -87,7 +88,7 @@ export async function handle(
       const teamError = error as TeamError;
       apiError = new ApiError(teamError.status, mapLegacyStatus(teamError.status), teamError.message);
     } else {
-      console.error('[api] unhandled', requestId, routeName, error);
+      logError('api.unhandled', { requestId, route: routeName, error: error instanceof Error ? error.message : String(error) });
       apiError = new ApiError(500, 'internal_error', 'Internal server error.');
     }
     return errorJson(apiError, request);

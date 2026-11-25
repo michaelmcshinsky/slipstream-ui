@@ -8,6 +8,7 @@ import { sendVerificationEmail } from '@/lib/verify';
 import { audit } from '@/lib/audit';
 import { handle, badRequest, z } from '@/lib/api/handle';
 import { parseBody } from '@/lib/api/core';
+import { logError } from '@/lib/log';
 
 export async function POST(request: Request) {
   return handle(request, async () => {
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
       const { token } = await sendVerificationEmail(user);
       if (process.env.NODE_ENV !== 'production') devVerifyToken = token;
     } catch (error) {
-      console.error('[auth] verification email failed', user.id, error instanceof Error ? error.message : error);
+      logError('auth.verification_email_failed', { userId: user.id, error: error instanceof Error ? error.message : String(error) });
     }
     await audit({ actorId: user.id, action: 'user.signup', targetType: 'user', targetId: user.id });
     return { user: { id: user.id, email: user.email }, teamId: team.id, verifyToken: devVerifyToken };
