@@ -93,20 +93,6 @@ export function sanitizeAnalyticsLocation(href: string): string {
   }
 }
 
-/**
- * GA4 collects `page_location` with the full query string. Auth and
- * newsletter pages put single-use secrets in the URL (`token`, `code`,
- * `state`), so the app reports origin + pathname only.
- */
-export function sanitizeAnalyticsLocation(href: string): string {
-  try {
-    const url = new URL(href);
-    return `${url.origin}${url.pathname}`;
-  } catch {
-    return href.split(/[?#]/)[0] ?? href;
-  }
-}
-
 /** gtag.js loader URL for {@link GA_MEASUREMENT_ID}. */
 export const GA_SCRIPT_SRC = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
 
