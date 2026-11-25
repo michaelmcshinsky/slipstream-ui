@@ -24,6 +24,7 @@ export default function TeamPage() {
   const [invites, setInvites] = useState<Invite[]>([]);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/teams')
@@ -32,7 +33,8 @@ export default function TeamPage() {
         const list = extractData<{ teams?: { id: string; name: string; role: string }[] }>(data)?.teams ?? [];
         setTeams(list);
         if (list[0]) setActiveTeamId(list[0].id);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -102,6 +104,18 @@ export default function TeamPage() {
     setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
+  async function revokeInvite(inviteId: string) {
+    if (!activeTeamId) return;
+    const response = await fetch(`/api/teams/${activeTeamId}/invites/${inviteId}`, { method: 'DELETE' });
+    if (!response.ok) {
+      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not revoke invite.'));
+      return;
+    }
+    const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
+    const payload = extractData<{ team?: { invites?: Invite[] } }>(data);
+    setInvites(payload?.team?.invites ?? []);
+  }
+
   async function createTeam(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const name = new FormData(event.currentTarget).get('name') as string;
@@ -137,6 +151,7 @@ export default function TeamPage() {
       </div>
 
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
 
       <Card>
         <CardTitle>Members</CardTitle>
@@ -194,8 +209,17 @@ export default function TeamPage() {
             <h3 className="mb-2 mt-6 text-sm font-semibold">Pending invites</h3>
             <ul className="space-y-1 text-sm text-muted-foreground">
               {invites.map((invite) => (
-                <li key={invite.id}>
-                  {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
+                <li key={invite.id} className="flex items-center justify-between gap-2">
+                  <span>
+                    {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => revokeInvite(invite.id)}
+                    className="text-xs text-destructive hover:underline"
+                  >
+                    Revoke
+                  </button>
                 </li>
               ))}
             </ul>

@@ -18,6 +18,7 @@ export default function AdminAuditPage() {
   const [action, setAction] = useState('');
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   async function load(filter = '', cursor?: string) {
@@ -39,12 +40,17 @@ export default function AdminAuditPage() {
       setError('Something went wrong. Please try again.');
     } finally {
       setLoadingMore(false);
+      setLoading(false);
     }
   }
 
+  // Debounce the action filter: one request per pause, not per keystroke.
   useEffect(() => {
-    load();
-  }, []);
+    const timer = setTimeout(() => {
+      void load(action);
+    }, action ? 300 : 0);
+    return () => clearTimeout(timer);
+  }, [action]);
 
   return (
     <div className="space-y-6">
@@ -52,16 +58,14 @@ export default function AdminAuditPage() {
         <h1 className="text-2xl font-bold tracking-tight">Audit log</h1>
         <input
           value={action}
-          onChange={(event) => {
-            setAction(event.target.value);
-            load(event.target.value);
-          }}
+          onChange={(event) => setAction(event.target.value)}
           placeholder="Filter by action…"
           className={`${inputClass} max-w-56`}
           aria-label="Filter by action"
         />
       </div>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
       <Card>
         <div className="overflow-x-auto">
         <table className="w-full text-sm">

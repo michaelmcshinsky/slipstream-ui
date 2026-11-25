@@ -19,6 +19,7 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [query, setQuery] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load(q = '') {
     const response = await fetch(`/api/admin/users?q=${encodeURIComponent(q)}`);
@@ -29,9 +30,13 @@ export default function AdminUsersPage() {
     setUsers(extractData<{ users: AdminUser[] }>(await response.json())?.users ?? []);
   }
 
+  // Debounce search: one request per pause in typing, not per keystroke.
   useEffect(() => {
-    load();
-  }, []);
+    const timer = setTimeout(() => {
+      void load(query).finally(() => setLoading(false));
+    }, query ? 300 : 0);
+    return () => clearTimeout(timer);
+  }, [query]);
 
   async function patchUser(id: string, data: Record<string, unknown>) {
     const response = await fetch(`/api/admin/users/${id}`, {
@@ -63,10 +68,7 @@ export default function AdminUsersPage() {
         <h1 className="text-2xl font-bold tracking-tight">Users</h1>
         <input
           value={query}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            load(event.target.value);
-          }}
+          onChange={(event) => setQuery(event.target.value)}
           placeholder="Search email or name…"
           className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm sm:w-64"
           aria-label="Search users"
@@ -74,6 +76,7 @@ export default function AdminUsersPage() {
       </div>
 
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
 
       <Card>
         <div className="overflow-x-auto">

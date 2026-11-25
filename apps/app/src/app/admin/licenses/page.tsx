@@ -18,8 +18,10 @@ export default function AdminLicensesPage() {
   const [licenses, setLicenses] = useState<LicenseRow[]>([]);
   const [issuedKey, setIssuedKey] = useState<string | null>(null);
   const [userId, setUserId] = useState('');
+  const [users, setUsers] = useState<{ id: string; email: string }[]>([]);
   const [plan, setPlan] = useState('PRO');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     const response = await fetch('/api/admin/licenses');
@@ -31,7 +33,14 @@ export default function AdminLicensesPage() {
   }
 
   useEffect(() => {
-    load();
+    void load().finally(() => setLoading(false));
+    // Populate the owner picker so admins never paste raw user ids.
+    fetch('/api/admin/users')
+      .then((r) => r.json())
+      .then((data: unknown) => {
+        setUsers(extractData<{ users?: { id: string; email: string }[] }>(data)?.users ?? []);
+      })
+      .catch(() => {});
   }, []);
 
   async function issue(event: React.FormEvent<HTMLFormElement>) {
@@ -69,20 +78,29 @@ export default function AdminLicensesPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold tracking-tight">License keys</h1>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
 
       <Card>
         <CardTitle>Issue comp license</CardTitle>
         {issuedKey && (
-          <p role="status" className="mb-3 break-all rounded-lg bg-primary/10 p-3 font-mono text-xs">{issuedKey}</p>
+          <div className="mb-3">
+            <p className="mb-1 text-xs font-medium text-warning-ink">This key is shown once — copy it now.</p>
+            <p role="status" className="break-all rounded-lg bg-primary/10 p-3 font-mono text-xs">{issuedKey}</p>
+          </div>
         )}
         <form onSubmit={issue} className="flex flex-wrap items-end gap-2">
-          <input
+          <select
             value={userId}
             onChange={(event) => setUserId(event.target.value)}
             required
-            placeholder="Owner user id (from Users page)"
+            aria-label="License owner"
             className={`${inputClass} max-w-xs`}
-          />
+          >
+            <option value="">Select a user…</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>{user.email}</option>
+            ))}
+          </select>
           <select value={plan} onChange={(event) => setPlan(event.target.value)} aria-label="Plan" className={inputClass + ' max-w-36'}>
             {['PRO', 'TEAM', 'ENTERPRISE'].map((option) => (
               <option key={option}>{option}</option>

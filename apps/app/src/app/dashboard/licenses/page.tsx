@@ -44,6 +44,7 @@ export default function LicensesPage() {
   const [plan, setPlan] = useState<LicensePlan>('PRO');
   const [newKey, setNewKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     const [licenseResponse, keyResponse, teamResponse] = await Promise.all([
@@ -59,7 +60,7 @@ export default function LicensesPage() {
   }
 
   useEffect(() => {
-    load();
+    void load().finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -173,6 +174,7 @@ export default function LicensesPage() {
           </div>
         </div>
         {error && <p role="alert" className="mb-3 text-sm text-destructive">{error}</p>}
+        {loading && <p className="mb-3 text-sm text-muted-foreground">Loading…</p>}
         <div className="space-y-4">
           {licenses.map((license) => (
             <div key={license.id} className="rounded-lg border border-border p-4">

@@ -17,6 +17,7 @@ type Payment = {
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     const response = await fetch('/api/admin/payments');
@@ -28,7 +29,7 @@ export default function AdminPaymentsPage() {
   }
 
   useEffect(() => {
-    load();
+    void load().finally(() => setLoading(false));
   }, []);
 
   async function refund(payment: Payment) {
@@ -46,6 +47,7 @@ export default function AdminPaymentsPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold tracking-tight">Payments</h1>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
       <Card>
         <CardTitle>All payments</CardTitle>
         <div className="overflow-x-auto">

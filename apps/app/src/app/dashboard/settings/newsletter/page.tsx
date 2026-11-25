@@ -149,16 +149,26 @@ export default function NewsletterSettingsPage() {
     }));
   }
 
+  // Frequency is derived from the two digest toggles so the radio and the
+  // switches can never disagree about what is enabled.
+  function deriveFrequency(dailyEnabled: boolean, weeklyEnabled: boolean): PreferencesState['frequency'] {
+    if (dailyEnabled && weeklyEnabled) return 'both';
+    return dailyEnabled ? 'daily' : 'weekly';
+  }
+
+  function applyDigestToggles(dailyEnabled: boolean, weeklyEnabled: boolean) {
+    setPreferences((prev) => ({
+      ...prev,
+      dailyEnabled,
+      weeklyEnabled,
+      frequency: deriveFrequency(dailyEnabled, weeklyEnabled),
+    }));
+  }
+
   function toggleFrequency(freq: 'daily' | 'weekly' | 'both') {
-    setPreferences((prev) => ({ ...prev, frequency: freq }));
-    // Also update the individual toggles
-    if (freq === 'daily') {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: true, weeklyEnabled: false }));
-    } else if (freq === 'weekly') {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: false, weeklyEnabled: true }));
-    } else {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: true, weeklyEnabled: true }));
-    }
+    if (freq === 'daily') applyDigestToggles(true, false);
+    else if (freq === 'weekly') applyDigestToggles(false, true);
+    else applyDigestToggles(true, true);
   }
 
   function isSubscribed(type: 'daily' | 'weekly') {
@@ -239,7 +249,7 @@ export default function NewsletterSettingsPage() {
             </div>
             <Toggle
               checked={preferences.dailyEnabled}
-              onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, dailyEnabled: checked }))}
+              onCheckedChange={(checked) => applyDigestToggles(checked, preferences.weeklyEnabled)}
               disabled={preferences.frequency === 'weekly'}
             />
           </div>
@@ -251,7 +261,7 @@ export default function NewsletterSettingsPage() {
             </div>
             <Toggle
               checked={preferences.weeklyEnabled}
-              onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, weeklyEnabled: checked }))}
+              onCheckedChange={(checked) => applyDigestToggles(preferences.dailyEnabled, checked)}
               disabled={preferences.frequency === 'daily'}
             />
           </div>
