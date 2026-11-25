@@ -86,6 +86,11 @@ overrides:
   glob@>=9.0.0 <14.0.2: '>=14.0.3'
   '@types/node': ^22.0.0
 
+patchedDependencies:
+  '@opennextjs/aws@4.1.15':
+    hash: 6l3pjhaqnlhm4ltwnlcdhibeim
+    path: patches/@opennextjs__aws@4.1.15.patch
+
 importers:
 
   .:
@@ -2952,7 +2957,7 @@ packages:
     engines: {node: '>=12.4.0'}
     dev: true
 
-  /@opennextjs/aws@4.1.15(next@16.4.6):
+  /@opennextjs/aws@4.1.15(patch_hash=6l3pjhaqnlhm4ltwnlcdhibeim)(next@16.4.6):
     resolution: {integrity: sha512-ulv7rFEAeieD0d/zDMnw4IFPU+zY/atVUhn7ezgFqIurLB5oBYeHCUGlcGk3Pg7uMPeI03SNRjHW1+xL9EwMPw==}
     hasBin: true
     peerDependencies:
@@ -2983,6 +2988,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+    patched: true
 
   /@opennextjs/cloudflare@1.20.16(next@16.4.6)(wrangler@4.166.0):
     resolution: {integrity: sha512-3c1Cwex5e2jXy4o4RZAusy8o9Uz4eowuPCjdVLYEZ/MnkAzN2jh9dOgsRjgu3wjigXuNe8rmPECmOTo+xKQHsw==}
@@ -2997,7 +3003,7 @@ packages:
     dependencies:
       '@ast-grep/napi': 0.45.3
       '@dotenvx/dotenvx': 2.38.2
-      '@opennextjs/aws': 4.1.15(next@16.4.6)
+      '@opennextjs/aws': 4.1.15(patch_hash=6l3pjhaqnlhm4ltwnlcdhibeim)(next@16.4.6)
       ci-info: 4.4.0
       cloudflare: 4.5.0
       comment-json: 4.6.2

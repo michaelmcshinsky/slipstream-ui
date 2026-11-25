@@ -1,0 +1,21 @@
+diff --git a/dist/overrides/converters/edge.js b/dist/overrides/converters/edge.js
+index a5a9641d1651b45d4c73004dc57b72882d3c14c8..b7f622c41bde315a0d7b4608212bc0ab7c2480c5 100644
+--- a/dist/overrides/converters/edge.js
++++ b/dist/overrides/converters/edge.js
+@@ -1,5 +1,5 @@
+ import { Buffer } from "node:buffer";
+-import cookieParser from "cookie";
++import * as cookieParser from "cookie";
+ import { parseSetCookieHeader } from "../../http/util.js";
+ import { getQueryFromSearchParams } from "./utils.js";
+ // https://fetch.spec.whatwg.org/#statuses
+diff --git a/dist/overrides/converters/node.js b/dist/overrides/converters/node.js
+index e4b40b735fd8a26f372ad9076d3e2b8f35c61127..2abbea7d4d85c50cfffbcdd71b4e5c03994363c3 100644
+--- a/dist/overrides/converters/node.js
++++ b/dist/overrides/converters/node.js
+@@ -1,4 +1,4 @@
+-import cookieParser from "cookie";
++import * as cookieParser from "cookie";
+ import { extractHostFromHeaders, getQueryFromSearchParams } from "./utils.js";
+ const converter = {
+     convertFrom: async (req) => {
