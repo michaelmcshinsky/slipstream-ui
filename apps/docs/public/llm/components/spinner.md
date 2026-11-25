@@ -6,7 +6,7 @@ Indeterminate loading indicator with accessible status semantics.
 > Import: `import { Spinner } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/spinner
 > Registry: https://slipstreamui.com/registry/spinner.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

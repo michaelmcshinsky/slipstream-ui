@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-> Version: 0.10.1 (2026-11-20) · manifest schema v1 · manifest v1
+> Version: 0.10.2 (2026-11-20) · manifest schema v1 · manifest v1
 > 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
@@ -165,7 +165,7 @@ Collapsible content sections with ARIA accordion semantics and keyboard navigati
 > Import: `import { Accordion } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/accordion
 > Registry: https://slipstreamui.com/registry/accordion.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -235,7 +235,7 @@ Inline alert for status messages with semantic variants (destructive, success, w
 > Import: `import { Alert } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/alert
 > Registry: https://slipstreamui.com/registry/alert.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -303,7 +303,7 @@ Dismissible announcement bar with optional action, tone and sticky positioning.
 > Import: `import { AnnouncementBar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/announcement-bar
 > Registry: https://slipstreamui.com/registry/announcement-bar.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -366,7 +366,7 @@ Application frame with a sectioned sidebar, sticky header and scrolling main; th
 > Import: `import { AppShell } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/app-shell
 > Registry: https://slipstreamui.com/registry/app-shell.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -468,7 +468,7 @@ Applied-filter summary with a live count, removable chips and an edit action.
 > Import: `import { AppliedFilters } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/applied-filters
 > Registry: https://slipstreamui.com/registry/applied-filters.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -530,7 +530,7 @@ Linked article or resource card with media, eyebrow, title, summary and metadata
 > Import: `import { ArticleCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/article-card
 > Registry: https://slipstreamui.com/registry/article-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -595,7 +595,7 @@ File chips for prompts and messages. `Attachment` renders one file; `AttachmentL
 > Import: `import { Attachment } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/attachment
 > Registry: https://slipstreamui.com/registry/attachment.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -644,7 +644,7 @@ Authentication surface with a centered card or a split form/aside layout, plus b
 > Import: `import { AuthLayout } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/auth-layout
 > Registry: https://slipstreamui.com/registry/auth-layout.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -710,7 +710,7 @@ Free-text type-ahead input with a portalled listbox: static or async options, gr
 > Import: `import { Autocomplete } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/autocomplete
 > Registry: https://slipstreamui.com/registry/autocomplete.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -826,7 +826,7 @@ A user profile image component with fallback support and accessible image loadin
 > Import: `import { Avatar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/avatar
 > Registry: https://slipstreamui.com/registry/avatar.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -922,7 +922,7 @@ A small status indicator component for displaying tags, counts, or status inform
 > Import: `import { Badge } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/badge
 > Registry: https://slipstreamui.com/registry/badge.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1035,7 +1035,7 @@ Semantic container (div by default, swappable element) — the structural counte
 > Import: `import { Block } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/block
 > Registry: https://slipstreamui.com/registry/block.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1098,7 +1098,7 @@ Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an 
 > Import: `import { BottomNav } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/bottom-nav
 > Registry: https://slipstreamui.com/registry/bottom-nav.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1167,7 +1167,7 @@ Variant navigation for branched messages: previous/next arrows with an N/M posit
 > Import: `import { Branch } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/branch
 > Registry: https://slipstreamui.com/registry/branch.json
-> Tier: atom · Package: @slipstream-ui/ai@0.10.1
+> Tier: atom · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1211,7 +1211,7 @@ Navigation breadcrumb trail with links and current-page indicator
 > Import: `import { Breadcrumb } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/breadcrumb
 > Registry: https://slipstreamui.com/registry/breadcrumb.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1285,7 +1285,7 @@ A clickable button component with variants for different visual styles and sizes
 > Import: `import { Button } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/button
 > Registry: https://slipstreamui.com/registry/button.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1392,7 +1392,7 @@ Joins buttons into one segmented control: adjacent borders collapse, middle corn
 > Import: `import { ButtonGroup } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/button-group
 > Registry: https://slipstreamui.com/registry/button-group.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1476,7 +1476,7 @@ Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 > Import: `import { Calendar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/calendar
 > Registry: https://slipstreamui.com/registry/calendar.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1555,7 +1555,7 @@ A content container with header, body, and footer sections for grouping related 
 > Import: `import { Card } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/card
 > Registry: https://slipstreamui.com/registry/card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1640,7 +1640,7 @@ Displays ordered reasoning steps with status indicators.
 > Import: `import { ChainThought } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/chain-thought
 > Registry: https://slipstreamui.com/registry/chain-thought.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1677,7 +1677,7 @@ A native checkbox input styled to match the design system, plus CheckboxGroup fo
 > Import: `import { Checkbox } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/checkbox
 > Registry: https://slipstreamui.com/registry/checkbox.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1781,7 +1781,7 @@ Syntax-highlighted code block with language label and copy-to-clipboard button.
 > Import: `import { CodeBlock } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/code-block
 > Registry: https://slipstreamui.com/registry/code-block.json
-> Tier: atom · Package: @slipstream-ui/ai@0.10.1
+> Tier: atom · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1822,7 +1822,7 @@ Cmd+K style command palette with lexical search, sectioned results and full keyb
 > Import: `import { CommandPalette } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/command-palette
 > Registry: https://slipstreamui.com/registry/command-palette.json
-> Tier: organism · Package: @slipstream-ui/ai@0.10.1
+> Tier: organism · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1899,7 +1899,7 @@ Marketing comparison table with check/dash boolean cells, a highlighted column a
 > Import: `import { ComparisonTable } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/comparison-table
 > Registry: https://slipstreamui.com/registry/comparison-table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -1964,7 +1964,7 @@ Accessible confirmation dialog with async pending state, destructive variant and
 > Import: `import { ConfirmDialog } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/confirm-dialog
 > Registry: https://slipstreamui.com/registry/confirm-dialog.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2032,7 +2032,7 @@ Human-in-the-loop approval gate for agent actions. Pauses execution until the us
 > Import: `import { Confirmation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/confirmation
 > Registry: https://slipstreamui.com/registry/confirmation.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2082,7 +2082,7 @@ Compact labelled contact rows with optional icons and links.
 > Import: `import { ContactStrip } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/contact-strip
 > Registry: https://slipstreamui.com/registry/contact-strip.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2141,7 +2141,7 @@ Centered, width-constrained page container with shared gutters and four width pr
 > Import: `import { Container } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/container
 > Registry: https://slipstreamui.com/registry/container.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2195,7 +2195,7 @@ A container for displaying a list of chat messages with auto-scroll and loading 
 > Import: `import { Conversation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/conversation
 > Registry: https://slipstreamui.com/registry/conversation.json
-> Tier: organism · Package: @slipstream-ui/ai@0.10.1
+> Tier: organism · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2321,7 +2321,7 @@ Full-width conversion band with eyebrow, headline, supporting copy and actions.
 > Import: `import { CTASection } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/cta-section
 > Registry: https://slipstreamui.com/registry/cta-section.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2397,7 +2397,7 @@ Config-driven table: one component plus a columns config that owns shape, sortin
 > Import: `import { DataTable } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/data-table
 > Registry: https://slipstreamui.com/registry/data-table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2512,7 +2512,7 @@ Native date field with an ISO-string contract, min/max passthrough and an option
 > Import: `import { DatePicker } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/date-picker
 > Registry: https://slipstreamui.com/registry/date-picker.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2571,7 +2571,7 @@ Date field with a Calendar panel, ISO strings, min/max and keyboard selection.
 > Import: `import { DatePickerPopover } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/date-picker-popover
 > Registry: https://slipstreamui.com/registry/date-picker-popover.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2659,7 +2659,7 @@ Start/end date range with ISO strings and quick presets.
 > Import: `import { DateRangePicker } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/date-range-picker
 > Registry: https://slipstreamui.com/registry/date-range-picker.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2724,7 +2724,7 @@ Deal opportunity card with sector, status, metrics, NDA/CIM badges and access ac
 > Import: `import { DealCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/deal-card
 > Registry: https://slipstreamui.com/registry/deal-card.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2806,7 +2806,7 @@ Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, 
 > Import: `import { Dialog } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/dialog
 > Registry: https://slipstreamui.com/registry/dialog.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2881,7 +2881,7 @@ Document row with file metadata, access status and an optional download action.
 > Import: `import { DocumentCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/document-card
 > Registry: https://slipstreamui.com/registry/document-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -2945,7 +2945,7 @@ Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-gra
 > Import: `import { Drawer } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/drawer
 > Registry: https://slipstreamui.com/registry/drawer.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3047,7 +3047,7 @@ Placeholder for empty collections, zero-result searches and unconfigured feature
 > Import: `import { EmptyState } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/empty-state
 > Registry: https://slipstreamui.com/registry/empty-state.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3108,7 +3108,7 @@ Firm or member profile card with logo, type, location, stats, tags and actions.
 > Import: `import { EntityCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/entity-card
 > Registry: https://slipstreamui.com/registry/entity-card.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3178,7 +3178,7 @@ Grid of feature or benefit cards with an icon, title, copy and optional link.
 > Import: `import { FeatureGrid } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/feature-grid
 > Registry: https://slipstreamui.com/registry/feature-grid.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3238,7 +3238,7 @@ Alternating media and copy row for mid-page feature sections.
 > Import: `import { FeatureRow } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/feature-row
 > Registry: https://slipstreamui.com/registry/feature-row.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3302,7 +3302,7 @@ Groups related form controls in a native fieldset with a legend, optional descri
 > Import: `import { Fieldset } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/fieldset
 > Registry: https://slipstreamui.com/registry/fieldset.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3371,7 +3371,7 @@ Drag-and-drop file picker with a removable file list and per-file progress bars.
 > Import: `import { FileUpload } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/file-upload
 > Registry: https://slipstreamui.com/registry/file-upload.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3435,7 +3435,7 @@ List-page filter strip: search field, filter controls, reset affordance and trai
 > Import: `import { FilterBar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/filter-bar
 > Registry: https://slipstreamui.com/registry/filter-bar.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3504,7 +3504,7 @@ Active-filter summary with removable chips and a clear-all action.
 > Import: `import { FilterChips } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/filter-chips
 > Registry: https://slipstreamui.com/registry/filter-chips.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3570,7 +3570,7 @@ Structured filter panel with collapsible sections and reset/apply actions.
 > Import: `import { FilterPanel } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/filter-panel
 > Registry: https://slipstreamui.com/registry/filter-panel.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3639,7 +3639,7 @@ Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per
 > Import: `import { Flex } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/flex
 > Registry: https://slipstreamui.com/registry/flex.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3717,7 +3717,7 @@ Semantic form element with even-spacing layouts: stacked (default), bordered car
 > Import: `import { Form } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form
 > Registry: https://slipstreamui.com/registry/form.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3793,7 +3793,7 @@ Label + control + hint/error in one unit with htmlFor, aria-describedby, and ari
 > Import: `import { FormField } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form-field
 > Registry: https://slipstreamui.com/registry/form-field.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3877,7 +3877,7 @@ Groups form fields with even, tokenized spacing: vertical stack, horizontal row,
 > Import: `import { FormLayout } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form-layout
 > Registry: https://slipstreamui.com/registry/form-layout.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -3949,7 +3949,7 @@ Typed CSS grid with column counts per breakpoint (literal utilities that survive
 > Import: `import { Grid } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/grid
 > Registry: https://slipstreamui.com/registry/grid.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4024,7 +4024,7 @@ Semantic heading (h1-h6) with a safe default scale and an optional visual-size o
 > Import: `import { Heading } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/heading
 > Registry: https://slipstreamui.com/registry/heading.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4081,7 +4081,7 @@ Responsive marketing hero with badge, eyebrow, headline, copy, actions and an op
 > Import: `import { Hero } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/hero
 > Registry: https://slipstreamui.com/registry/hero.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4220,7 +4220,7 @@ A resilient image with a two-step fallback chain, intrinsic dimensions, and an L
 > Import: `import { Image } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/image
 > Registry: https://slipstreamui.com/registry/image.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4312,7 +4312,7 @@ Perplexity-style inline citation chip that reveals the source title and snippet 
 > Import: `import { InlineCitation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/inline-citation
 > Registry: https://slipstreamui.com/registry/inline-citation.json
-> Tier: atom · Package: @slipstream-ui/ai@0.10.1
+> Tier: atom · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4353,7 +4353,7 @@ A text input field with support for various input types and standard HTML input 
 > Import: `import { Input } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/input
 > Registry: https://slipstreamui.com/registry/input.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4465,7 +4465,7 @@ Composite input shell with flush left/right addons (icons, units, buttons) behin
 > Import: `import { InputGroup } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/input-group
 > Registry: https://slipstreamui.com/registry/input-group.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4558,7 +4558,7 @@ An accessible form label that associates with its control
 > Import: `import { Label } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/label
 > Registry: https://slipstreamui.com/registry/label.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4620,7 +4620,7 @@ Inline link primitive with default/muted/underline/arrow/external variants, asCh
 > Import: `import { Link } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/link
 > Registry: https://slipstreamui.com/registry/link.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4683,7 +4683,7 @@ Route-driven navigation tabs that render real links and mark the current path wi
 > Import: `import { LinkTabs } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/link-tabs
 > Registry: https://slipstreamui.com/registry/link-tabs.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4753,7 +4753,7 @@ Semantic list (ul/li) for rows of related items: settings, results, nav — with
 > Import: `import { List } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/list
 > Registry: https://slipstreamui.com/registry/list.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4831,7 +4831,7 @@ Load-more control with pending and end-of-list states.
 > Import: `import { LoadMore } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/load-more
 > Registry: https://slipstreamui.com/registry/load-more.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4886,7 +4886,7 @@ Trust strip for member, customer or partner logos with captions, columns and opt
 > Import: `import { LogoCloud } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/logo-cloud
 > Registry: https://slipstreamui.com/registry/logo-cloud.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -4949,7 +4949,7 @@ Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 > Import: `import { Menu } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/menu
 > Registry: https://slipstreamui.com/registry/menu.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5031,7 +5031,7 @@ A chat message component that displays messages from users, assistants, or syste
 > Import: `import { Message } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message
 > Registry: https://slipstreamui.com/registry/message.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5161,7 +5161,7 @@ Feedback toolbar for an AI response: copy to clipboard, thumbs up/down rating, a
 > Import: `import { MessageActions } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message-actions
 > Registry: https://slipstreamui.com/registry/message-actions.json
-> Tier: atom · Package: @slipstream-ui/ai@0.10.1
+> Tier: atom · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5213,7 +5213,7 @@ KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 > Import: `import { MetricCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/metric-card
 > Registry: https://slipstreamui.com/registry/metric-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5275,7 +5275,7 @@ Searchable multi-select filter with visible removable chips and a checkbox panel
 > Import: `import { MultiSelect } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/multi-select
 > Registry: https://slipstreamui.com/registry/multi-select.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5349,7 +5349,7 @@ Email capture block with inline or stacked layout, pending state, success and fa
 > Import: `import { Newsletter } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/newsletter
 > Registry: https://slipstreamui.com/registry/newsletter.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5415,7 +5415,7 @@ Standard page heading: optional breadcrumbs, level-1 title, description, right-a
 > Import: `import { PageHeader } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/page-header
 > Registry: https://slipstreamui.com/registry/page-header.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5486,7 +5486,7 @@ Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or 
 > Import: `import { Pagination } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/pagination
 > Registry: https://slipstreamui.com/registry/pagination.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5586,7 +5586,7 @@ Password field with an accessible show/hide toggle (aria-pressed), built on Inpu
 > Import: `import { PasswordInput } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/password-input
 > Registry: https://slipstreamui.com/registry/password-input.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5637,7 +5637,7 @@ Floating panel anchored to a trigger or a PopoverAnchor, with placement, flip an
 > Import: `import { Popover } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/popover
 > Registry: https://slipstreamui.com/registry/popover.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5750,7 +5750,7 @@ Ordered process cards with derived step numbers or custom icons.
 > Import: `import { ProcessSteps } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/process-steps
 > Registry: https://slipstreamui.com/registry/process-steps.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5810,7 +5810,7 @@ A determinate progress bar with role=progressbar and exact value semantics
 > Import: `import { Progress } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/progress
 > Registry: https://slipstreamui.com/registry/progress.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -5875,7 +5875,7 @@ A textarea input for entering chat prompts with auto-resize, keyboard shortcuts,
 > Import: `import { PromptInput } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/prompt-input
 > Registry: https://slipstreamui.com/registry/prompt-input.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6022,7 +6022,7 @@ Self-contained long-form typography for rendered markdown/MDX: headings, links, 
 > Import: `import { Prose } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/prose
 > Registry: https://slipstreamui.com/registry/prose.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6074,7 +6074,7 @@ Native radio buttons grouped for mutually exclusive choices, with an accessible 
 > Import: `import { Radio } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/radio
 > Registry: https://slipstreamui.com/registry/radio.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6158,7 +6158,7 @@ Dual-thumb numeric range slider with labeled native inputs and formatted values.
 > Import: `import { RangeSlider } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/range-slider
 > Registry: https://slipstreamui.com/registry/range-slider.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6228,7 +6228,7 @@ A collapsible component for displaying AI reasoning steps and chain-of-thought p
 > Import: `import { Reasoning } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/reasoning
 > Registry: https://slipstreamui.com/registry/reasoning.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6336,7 +6336,7 @@ Streaming-optimized markdown renderer for AI responses with GFM support, streami
 > Import: `import { Response } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/response
 > Registry: https://slipstreamui.com/registry/response.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6383,7 +6383,7 @@ Select-with-search: type to filter a full-width dropdown of options, or arrow th
 > Import: `import { Search } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/search
 > Registry: https://slipstreamui.com/registry/search.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6463,7 +6463,7 @@ Full-width page section with a surface tone, vertical rhythm and an optional cen
 > Import: `import { Section } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/section
 > Registry: https://slipstreamui.com/registry/section.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6537,7 +6537,7 @@ Section heading block: eyebrow, title (level 2-4), description and actions, with
 > Import: `import { SectionHeading } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/section-heading
 > Registry: https://slipstreamui.com/registry/section-heading.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6601,7 +6601,7 @@ Single- or multi-select segmented control for view and filter switches.
 > Import: `import { SegmentedControl } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/segmented-control
 > Registry: https://slipstreamui.com/registry/segmented-control.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6690,7 +6690,7 @@ Accessible select built on the native <select> with flat options, optgroups, a p
 > Import: `import { Select } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/select
 > Registry: https://slipstreamui.com/registry/select.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6799,7 +6799,7 @@ Custom listbox select for rich options: descriptions, icons, groups, multi-selec
 > Import: `import { SelectMenu } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/select-menu
 > Registry: https://slipstreamui.com/registry/select-menu.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6888,7 +6888,7 @@ A visual divider between content blocks, decorative or semantic
 > Import: `import { Separator } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/separator
 > Registry: https://slipstreamui.com/registry/separator.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -6955,7 +6955,7 @@ Marketing footer: brand + tagline column, link columns and a legal bar; router-a
 > Import: `import { SiteFooter } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/site-footer
 > Registry: https://slipstreamui.com/registry/site-footer.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7017,7 +7017,7 @@ Marketing/site header: sticky bar with brand, horizontal navigation with prefix-
 > Import: `import { SiteHeader } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/site-header
 > Registry: https://slipstreamui.com/registry/site-header.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.1
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7121,7 +7121,7 @@ A loading placeholder that mirrors the shape of upcoming content
 > Import: `import { Skeleton } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/skeleton
 > Registry: https://slipstreamui.com/registry/skeleton.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7197,7 +7197,7 @@ Displays citations and references for an AI response. `Source` renders a single 
 > Import: `import { Source } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/sources
 > Registry: https://slipstreamui.com/registry/source.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7247,7 +7247,7 @@ Indeterminate loading indicator with accessible status semantics.
 > Import: `import { Spinner } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/spinner
 > Registry: https://slipstreamui.com/registry/spinner.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7300,7 +7300,7 @@ Semantic description list of headline stats with labels, optional hints and colu
 > Import: `import { StatBand } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/stat-band
 > Registry: https://slipstreamui.com/registry/stat-band.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7369,7 +7369,7 @@ Multi-step flow indicator: ordered list, aria-current step, text state for compl
 > Import: `import { Stepper } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/stepper
 > Registry: https://slipstreamui.com/registry/stepper.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7472,7 +7472,7 @@ Shows that an AI response is currently streaming.
 > Import: `import { StreamingIndicator } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/streaming-indicator
 > Registry: https://slipstreamui.com/registry/streaming-indicator.json
-> Tier: atom · Package: @slipstream-ui/ai@0.10.1
+> Tier: atom · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7513,7 +7513,7 @@ Displays clickable follow-up prompts for AI interactions.
 > Import: `import { Suggestions } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/suggestions
 > Registry: https://slipstreamui.com/registry/suggestions.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7551,7 +7551,7 @@ A toggle switch for binary settings, with role=switch and aria-checked
 > Import: `import { Switch } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/switch
 > Registry: https://slipstreamui.com/registry/switch.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7618,7 +7618,7 @@ Semantic data table with headers, body, footer, and accessible caption
 > Import: `import { Table } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table
 > Registry: https://slipstreamui.com/registry/table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7685,7 +7685,7 @@ Table shell with title/description, header actions, optional toolbar, edge-to-ed
 > Import: `import { TableCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table-card
 > Registry: https://slipstreamui.com/registry/table-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7760,7 +7760,7 @@ Sticky 'On this page' navigation with real anchor links, nested levels and aria-
 > Import: `import { TableOfContents } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table-of-contents
 > Registry: https://slipstreamui.com/registry/table-of-contents.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7836,7 +7836,7 @@ Tabbed content container with ARIA tablist semantics and keyboard navigation
 > Import: `import { Tabs } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tabs
 > Registry: https://slipstreamui.com/registry/tabs.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7916,7 +7916,7 @@ Semantic written testimonial with quote, person, role, company, avatar and logo 
 > Import: `import { Testimonial } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/testimonial
 > Registry: https://slipstreamui.com/registry/testimonial.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -7980,7 +7980,7 @@ Semantic paragraph text with a controlled type scale; renders a real p (or span 
 > Import: `import { Text } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/text
 > Registry: https://slipstreamui.com/registry/text.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8038,7 +8038,7 @@ A multi-line text input styled to match Input, wrapping the native textarea
 > Import: `import { Textarea } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/textarea
 > Registry: https://slipstreamui.com/registry/textarea.json
-> Tier: atom · Package: @slipstream-ui/core@0.10.1
+> Tier: atom · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8106,7 +8106,7 @@ Presentational light/dark toggle with accessible labels and sun/moon state.
 > Import: `import { ThemeToggle } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/theme-toggle
 > Registry: https://slipstreamui.com/registry/theme-toggle.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8173,7 +8173,7 @@ Native time field with an HH:MM contract and an optional clear button.
 > Import: `import { TimePicker } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/time-picker
 > Registry: https://slipstreamui.com/registry/time-picker.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8227,7 +8227,7 @@ Vertical chronology for experience, activity and audit trails, built on an order
 > Import: `import { Timeline } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/timeline
 > Registry: https://slipstreamui.com/registry/timeline.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8282,7 +8282,7 @@ Accessible notifications: tree-scoped provider/hook plus an imperative toast() A
 > Import: `import { ToastProvider } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/toast
 > Registry: https://slipstreamui.com/registry/toast.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8366,7 +8366,7 @@ Placeholder card for archived, closed or unavailable marketplace items.
 > Import: `import { TombstoneCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tombstone-card
 > Registry: https://slipstreamui.com/registry/tombstone-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8427,7 +8427,7 @@ A component for displaying AI tool/function calls with status, arguments, and re
 > Import: `import { ToolCall } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/tool-call
 > Registry: https://slipstreamui.com/registry/tool-call.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.1
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -8539,7 +8539,7 @@ Hover/focus tooltip with aria-describedby association, delay, and Escape dismiss
 > Import: `import { Tooltip } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tooltip
 > Registry: https://slipstreamui.com/registry/tooltip.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

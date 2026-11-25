@@ -4,7 +4,7 @@
 > Per-component markdown: https://slipstreamui.com/llm/components/<id>.md
 
 <!-- generated:release:start -->
-> Version: 0.10.1 (2026-11-20) · manifest schema v1 · manifest v1
+> Version: 0.10.2 (2026-11-20) · manifest schema v1 · manifest v1
 > 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json

@@ -6,7 +6,7 @@ Accessible modal dialog with focus trap/restore, backdrop and Escape dismissal, 
 > Import: `import { Dialog } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/dialog
 > Registry: https://slipstreamui.com/registry/dialog.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
