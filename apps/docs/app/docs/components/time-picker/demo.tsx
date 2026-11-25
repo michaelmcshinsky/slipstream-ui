@@ -33,7 +33,10 @@ export default function TimePickerPage() {
   <TimePicker value={start} onValueChange={setStart} clearable />
 </FormField>`}
         usage={`// State stays "HH:MM"; format for display with Intl.DateTimeFormat.
-// Pair with DatePicker for scheduling UIs.`}
+// Pair with DatePicker for scheduling UIs.
+// Rendering is native input[type=time]: the browser/OS controls the picker
+// UI and 12h vs 24h display follows the user's locale — don't parse the
+// visible text, only the emitted "HH:MM" value.`}
         types={`type TimePickerProps = Omit<InputProps, 'type' | 'value' | 'defaultValue'> & {
   value?: string;
   defaultValue?: string;

@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { Textarea } from '@slipstream-ui/core';
+import { FormField, Textarea } from '@slipstream-ui/core';
 
 export default function TextareaPage() {
   return (
@@ -24,11 +24,27 @@ export default function TextareaPage() {
       <DemoCard
         title="Usage"
         preview={
-          <div className="space-y-4">
-            <Textarea placeholder="Tell us about your project" className="max-w-md" />
+          <div className="w-full max-w-md space-y-5">
+            <FormField id="ta-about" label="About the project" hint="A few sentences is plenty.">
+              <Textarea placeholder="Tell us about your project" rows={5} />
+            </FormField>
+            <FormField id="ta-feedback" label="Feedback" error="Please describe the issue in at least 10 characters.">
+              <Textarea defaultValue="It broke." rows={3} aria-invalid="true" />
+            </FormField>
+            <FormField id="ta-disabled" label="Archived notes">
+              <Textarea disabled defaultValue="Read-only history" rows={2} />
+            </FormField>
           </div>
         }
-        code={"import { Textarea } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Textarea placeholder=\"Tell us about your project\" className=\"max-w-md\" />\n    </>\n  );\n}"}
+        code={`import { FormField, Textarea } from '@slipstream-ui/core';
+
+<FormField id="about" label="About the project" hint="A few sentences is plenty.">
+  <Textarea placeholder="Tell us about your project" rows={5} />
+</FormField>
+
+<FormField id="feedback" label="Feedback" error="Describe the issue.">
+  <Textarea aria-invalid />
+</FormField>`}
         usage={"import { Textarea } from '@slipstream-ui/core';\n\n// Basic usage\n<Textarea />"}
         types={"type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;}"}
       />

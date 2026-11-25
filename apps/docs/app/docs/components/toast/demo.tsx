@@ -53,6 +53,12 @@ function ImperativeToasts() {
       <Button variant="ghost" onClick={() => toast({ title: 'Sticky', description: 'Dismiss me manually', duration: 0 })}>
         sticky
       </Button>
+      <Button variant="outline" onClick={() => toast.dismiss()}>
+        dismiss()
+      </Button>
+      <Button variant="outline" onClick={() => toast.clear()}>
+        clear()
+      </Button>
       <Toaster position="bottom-right" richColors />
     </div>
   );

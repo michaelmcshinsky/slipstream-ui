@@ -61,7 +61,8 @@ export default function ArticleCardPage() {
   />
 </Grid>`}
         usage={`// The whole card is a link. Keep actions outside the card.
-// media is a slot; use next/image, a plain img or an illustration.`}
+// media is a slot; use next/image, a plain img or an illustration.
+// variant="compact" drops the media block for dense lists and sidebars.`}
         types={`type ArticleCardProps = {
   title: string;
   description?: string;
@@ -72,6 +73,36 @@ export default function ArticleCardPage() {
   linkComponent?: React.ElementType;
   variant?: 'default' | 'compact';
 };`}
+      />
+      <DemoCard
+        title="Compact variant"
+        preview={
+          <div className="w-full max-w-md space-y-2">
+            <ArticleCard
+              variant="compact"
+              href="/articles/validation-benchmark-100-cases"
+              eyebrow="Guides"
+              title="How to plan a migration"
+              meta="8 min read"
+            />
+            <ArticleCard
+              variant="compact"
+              href="/articles/component-contract-not-gallery"
+              eyebrow="Comparison"
+              title="What teams look for"
+              meta="6 min read"
+            />
+          </div>
+        }
+        code={`<ArticleCard
+  variant="compact"
+  href="/articles/validation-benchmark-100-cases"
+  eyebrow="Guides"
+  title="How to plan a migration"
+  meta="8 min read"
+/>`}
+        usage={`// Compact cards omit the media block — use them in sidebars,
+// related-article rails and dense index lists.`}
       />
     </ComponentPage>
   );

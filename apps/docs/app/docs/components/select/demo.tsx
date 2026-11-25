@@ -105,7 +105,15 @@ export default function SelectPage() {
   value={channels}
   onValueChange={setChannels}
   options={[{ value: 'email', label: 'Email' }]}
-/>`}
+/>
+
+{/* Or compose <option>/<optgroup> children for dynamic lists */}
+<Select label="Timezone">
+  <optgroup label="Americas">
+    <option value="ny">New York</option>
+    <option value="sf">San Francisco</option>
+  </optgroup>
+</Select>`}
         usage={`// multiple switches the contract to string[]; size controls how many
 // native rows show. Every platform affordance (mobile picker, keyboard)
 // still comes from <select>.`}

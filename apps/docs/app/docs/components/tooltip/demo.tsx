@@ -17,6 +17,7 @@ export default function TooltipPage() {
         { name: 'delay', type: 'number', defaultValue: '300', description: 'Delay before showing on hover, in ms. Use 0 for instant hints.' },
         { name: 'variant', type: "'default' | 'inverse'", defaultValue: "'default'", description: 'Bubble palette; inverse is dark in light mode and light in dark mode.' },
         { name: 'children', type: 'ReactElement', description: 'Exactly one trigger element (button, input, icon…).' },
+        { name: 'className', type: 'string', description: 'Extra classes for the tooltip bubble.' },
       ]}
       accessibility={[
         'aria-describedby is injected into the trigger so the hint is announced with focus.',
@@ -133,6 +134,29 @@ export default function TooltipPage() {
 </Tooltip>`}
         usage={`// variant="inverse" uses the inverse surface tokens, so one option covers
 // both modes: navy bubble in light mode, white bubble in dark mode.`}
+      />
+      <DemoCard
+        title="Inside a clipped container"
+        preview={
+          <div className="w-full">
+            <div className="max-h-28 overflow-hidden rounded-lg border border-border p-4">
+              <p className="mb-3 text-sm text-muted-foreground">
+                This box clips overflow — the tooltip still escapes it because it portals to the body.
+              </p>
+              <Tooltip content="Portalled bubble: never clipped by scroll containers" side="top">
+                <Button variant="outline" size="sm">Near the clip edge</Button>
+              </Tooltip>
+            </div>
+          </div>
+        }
+        code={`<div className="overflow-hidden rounded-lg border p-4">
+  <Tooltip content="Portalled: escapes the clip" side="top">
+    <Button variant="outline" size="sm">Near the edge</Button>
+  </Tooltip>
+</div>`}
+        usage={`// The bubble is portalled to document.body with fixed positioning, so
+// overflow:hidden/auto ancestors never clip it and scroll containers never
+// trap it. side is a preference: the bubble flips when space runs out.`}
       />
     </ComponentPage>
   );

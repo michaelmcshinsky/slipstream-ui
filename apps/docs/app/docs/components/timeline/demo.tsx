@@ -12,7 +12,11 @@ export default function TimelinePage() {
       description="Vertical chronology for experience, activity and audit trails, built on an ordered list."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'items', type: '{ title: string; period?: string; description?: string; icon?: ReactNode; muted?: boolean }[]', defaultValue: 'required', description: 'Ordered timeline entries.' },
+        { name: 'items[].title', type: 'string', defaultValue: 'required', description: 'Entry heading.' },
+        { name: 'items[].period', type: 'string', description: 'Date range or timestamp shown beside the title.' },
+        { name: 'items[].description', type: 'string', description: 'Supporting detail under the title.' },
+        { name: 'items[].icon', type: 'ReactNode', description: 'Optional marker glyph rendered before the title.' },
+        { name: 'items[].muted', type: 'boolean', defaultValue: 'false', description: 'Dims the entry for ended/inactive periods.' },
       ]}
       accessibility={['Ordered-list semantics keep the sequence structural.', 'Muted entries dim visually; text content stays unchanged.']}
     >
@@ -22,7 +26,7 @@ export default function TimelinePage() {
           <div className="w-full max-w-md">
             <Timeline
               items={[
-                { title: 'Senior Engineer', period: '2023 — Present', description: 'Platform team; design system owner.' },
+                { title: 'Senior Engineer', period: '2023 — Present', description: 'Platform team; design system owner.', icon: <span aria-hidden className="text-xs">&#10003;</span> },
                 { title: 'Engineer', period: '2020 — 2023', description: 'Built the scheduling pipeline.' },
                 { title: 'Junior Engineer', period: '2018 — 2020', muted: true },
               ]}

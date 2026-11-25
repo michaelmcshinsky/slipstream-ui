@@ -72,6 +72,41 @@ export default function TestimonialPage() {
   size?: 'sm' | 'md' | 'lg';
 };`}
       />
+      <DemoCard
+        title="Logo, plain variant and sizes"
+        preview={
+          <div className="w-full max-w-md space-y-6">
+            <Testimonial
+              variant="plain"
+              size="lg"
+              quote="Plain quotes scale up for hero sections."
+              name="Sam Rivera"
+              role="Founder"
+              company="Northwind"
+              logo={<span className="text-sm font-bold tracking-wide">NORTHWIND</span>}
+            />
+            <Testimonial
+              size="sm"
+              quote="Compact cards fit dense pages."
+              name="Lee Chen"
+              company="Acme"
+            />
+          </div>
+        }
+        code={`<Testimonial
+  variant="plain"
+  size="lg"
+  quote="Plain quotes scale up for hero sections."
+  name="Sam Rivera"
+  role="Founder"
+  company="Northwind"
+  logo={<BrandMark />}
+/>
+
+<Testimonial size="sm" quote="…" name="Lee Chen" company="Acme" />`}
+        usage={`// logo renders above the quote; avatar sits in the figcaption.
+// variant="plain" drops the card surface for hero and band layouts.`}
+      />
     </ComponentPage>
   );
 }

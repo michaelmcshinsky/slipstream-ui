@@ -35,6 +35,7 @@ export default function SiteFooterPage() {
                 { title: 'Resources', links: [{ label: 'Changelog', href: '/changelog' }, { label: 'GitHub', href: 'https://example.com', external: true }] },
                 { title: 'Legal', links: [{ label: 'Privacy', href: '/privacy' }, { label: 'Terms', href: '/terms' }, { label: 'Contact', href: '/contact' }] },
               ]}
+              activeHref="/docs/components"
               legal={
                 <span className="flex flex-wrap items-center gap-3">
                   <span>© 2026 Example</span>

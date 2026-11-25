@@ -118,6 +118,24 @@ export default function SkeletonPage() {
   </div>
 </div>`}
       />
+      <DemoCard
+        title="Built-in loading announcement"
+        preview={
+          <div className="w-full max-w-md space-y-3">
+            <Skeleton height="h-4" width="w-40" label="Loading profile" />
+            <Skeleton height="h-4" width="w-64" />
+            <Skeleton height="h-4" width="w-52" />
+          </div>
+        }
+        code={`{/* One labeled block announces "Loading…" for the whole region;
+    sibling blocks stay aria-hidden so it is not read twice. */}
+<Skeleton height="h-4" width="w-40" label="Loading profile" />
+<Skeleton height="h-4" width="w-64" />
+<Skeleton height="h-4" width="w-52" />`}
+        usage={`// Pass label on exactly one representative block: it renders
+// role="status" with an sr-only label. For composite layouts you can
+// also wrap the group in role="status" yourself (see Realistic layouts).`}
+      />
     </ComponentPage>
   );
 }

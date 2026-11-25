@@ -92,6 +92,51 @@ type SearchProps = {
   disabled?: boolean;
 };`}
       />
+      <DemoCard
+        title="Controlled value"
+        preview={
+          <div className="w-full max-w-sm space-y-3">
+            <Search
+              aria-label="Owner"
+              options={PEOPLE}
+              value={assignee || null}
+              onValueChange={setAssignee}
+              placeholder="Search people…"
+            />
+            <div className="flex gap-3">
+              <button
+                type="button"
+                className="text-xs text-primary underline-offset-4 hover:underline"
+                onClick={() => setAssignee('user')}
+              >
+                Set Jane
+              </button>
+              <button
+                type="button"
+                className="text-xs text-primary underline-offset-4 hover:underline"
+                onClick={() => setAssignee('')}
+              >
+                Clear
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Controlled value:{' '}
+              <code className="rounded bg-muted px-1 py-0.5 font-mono">{assignee || 'null'}</code>
+            </p>
+          </div>
+        }
+        code={`const [owner, setOwner] = useState<string | null>(null);
+
+<Search
+  aria-label="Owner"
+  options={people}
+  value={owner}               // null clears the selection
+  onValueChange={setOwner}
+/>`}
+        usage={`// value + onValueChange make Search fully controlled: the parent owns
+// the selection, so external controls (a Clear button, a filter reset) can
+// drive it. Pass null to show the placeholder.`}
+      />
     </ComponentPage>
   );
 }
