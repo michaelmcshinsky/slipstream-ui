@@ -41,11 +41,15 @@ export default function MetricCardPage() {
 </div>`}
         usage={`// Pair with Grid for even rows. Always pass trend when you pass delta.`}
         types={`type MetricCardProps = {
-  label: string;
+  label?: string;            // alias: title
+  title?: string;            // alias for label
   value: string | number;
   delta?: string;
   trend?: 'up' | 'down' | 'flat';
-  hint?: string;
+  hint?: string;             // alias: description
+  description?: string;      // alias for hint
+  tone?: 'default' | 'success' | 'warning' | 'destructive';
+  loading?: boolean;
   icon?: React.ReactNode;
 };`}
       />

@@ -126,7 +126,7 @@ export default function InputGroupPage() {
             <FormField id="ig-amount" label="Amount">
               <InputGroup>
                 <Input
-                  aria-label="Amount"
+                  aria-label="Amount in PLN"
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}

@@ -20,6 +20,8 @@ export default function CalendarPage() {
         { name: 'onValueChange', type: '(value: string) => void', description: 'Fired with the ISO key.' },
         { name: 'min / max', type: 'string', description: 'Selectable bounds, inclusive.' },
         { name: 'weekStartsOn', type: '0 | 1', defaultValue: '0', description: 'Sunday or Monday first.' },
+        { name: 'locale', type: 'string', defaultValue: "'en-US'", description: 'BCP-47 locale for month and weekday labels.' },
+        { name: 'showOutsideDays', type: 'boolean', defaultValue: 'true', description: 'Render trailing/leading days from adjacent months.' },
         { name: 'isDateDisabled', type: '(value: string) => boolean', description: 'Block individual days.' },
         { name: 'autoFocus', type: 'boolean', defaultValue: 'false', description: 'Focus the active day on mount.' },
         { name: 'disabled', type: 'boolean', description: 'Disables the grid and month controls.' },
