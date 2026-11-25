@@ -8,7 +8,7 @@ import { InstallBox } from './install-box';
 import { PropsTable } from './props-table';
 import { CopyForAi } from './copy-for-ai';
 import { JsonLd } from './site/json-ld';
-import { breadcrumbSchema, techArticleSchema } from '@/lib/structured-data';
+import { techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
 
 export type ComponentPageProps = {
@@ -135,13 +135,8 @@ export function ComponentPage({
           section: 'Components',
         })}
       />
-      <JsonLd
-        data={breadcrumbSchema([
-          { name: 'Docs', path: '/docs' },
-          { name: 'Components', path: '/docs/components' },
-          { name: title, path: `/docs/components/${id}` },
-        ])}
-      />
+      {/* BreadcrumbList JSON-LD comes from DocsBreadcrumbs in the docs
+          layout; emitting it here too produced a duplicate on every page. */}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{title}</h1>
         {/* Two agent hand-offs: the canonical markdown page, and a compact

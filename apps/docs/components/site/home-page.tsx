@@ -307,7 +307,7 @@ const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex'];
 
 export default function LandingPage({ copy }: { copy: HomeCopy }) {
   return (
-    <main id="main" className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <Navbar />
       {/* Docs links live in the navbar only from md up; below that the pills
           row keeps marketing pages navigable on phones. The px-4 wrapper
@@ -316,6 +316,8 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <MobileNav />
       </div>
 
+      {/* Chrome landmarks (header/nav/footer) must not nest inside <main>. */}
+      <main id="main">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div
@@ -527,13 +529,14 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">{copy.comparisonIntro}</p>
         <div className="mx-auto max-w-5xl overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
+            <caption className="sr-only">{copy.comparisonHeading}</caption>
             <thead className="bg-muted">
               <tr>
-                <th className="p-3 text-left font-medium">{copy.comparisonCapability}</th>
-                <th className="p-3 text-center font-medium">Slipstream</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">MUI</th>
+                <th scope="col" className="p-3 text-left font-medium">{copy.comparisonCapability}</th>
+                <th scope="col" className="p-3 text-center font-medium">Slipstream</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">MUI</th>
               </tr>
             </thead>
             <tbody>
@@ -641,8 +644,9 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </div>
       </section>
 
+      </main>
       <Footer />
       <StickyCta />
-    </main>
+    </div>
   );
 }

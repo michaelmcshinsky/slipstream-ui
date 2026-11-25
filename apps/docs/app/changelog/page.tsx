@@ -37,7 +37,7 @@ export default async function ChangelogPage() {
       <div className="px-4">
         <MobileNav />
       </div>
-      <div className="container mx-auto px-4 py-12">
+      <main id="main" className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-2">{ui.title}</h1>
         <p className="text-lg text-muted-foreground mb-10">
           {ui.intro}
@@ -80,7 +80,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 # Or install source copies via the shadcn-compatible registry
 npx shadcn@latest add https://slipstreamui.com/registry/message.json`}
         />
-      </div>
+      </main>
       <Footer />
     </div>
   );

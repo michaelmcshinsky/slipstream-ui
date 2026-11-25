@@ -51,17 +51,40 @@ export function DemoCard({
 
   // Keep the active tab valid if content changes.
   const activeTab = tabs.some((t) => t.value === tab) ? tab : 'preview';
+  const tabId = (value: DemoTab) => `demo-tab-${value}`;
+  const panelId = (value: DemoTab) => `demo-panel-${value}`;
+
+  function onTabKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    const index = tabs.findIndex((t) => t.value === activeTab);
+    let next = -1;
+    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+    else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    if (next < 0) return;
+    event.preventDefault();
+    setTab(tabs[next]!.value);
+    document.getElementById(tabId(tabs[next]!.value))?.focus();
+  }
 
   return (
     <div className={cn('overflow-hidden rounded-lg border border-border', className)}>
       <div className="flex items-center justify-between border-b border-border bg-muted/40 px-3 py-1.5">
-        <div role="tablist" aria-label={t('site.demo.view', { title: title ?? t('site.demo.defaultTitle') })} className="flex gap-1">
+        <div
+          role="tablist"
+          aria-label={t('site.demo.view', { title: title ?? t('site.demo.defaultTitle') })}
+          className="flex gap-1"
+          onKeyDown={onTabKeyDown}
+        >
           {tabs.map(({ value, label }) => (
             <button
               key={value}
               type="button"
               role="tab"
+              id={tabId(value)}
               aria-selected={activeTab === value}
+              aria-controls={panelId(value)}
+              tabIndex={activeTab === value ? 0 : -1}
               onClick={() => setTab(value)}
               className={`rounded px-2.5 py-1 text-xs font-medium transition-colors ${
                 activeTab === value
@@ -78,22 +101,24 @@ export function DemoCard({
             a dead tab next to the real Usage tab. */}
         {title && <span className="shrink-0 text-xs text-muted-foreground">{title}</span>}
       </div>
-      {activeTab === 'preview' ? (
-        // Block layout (not flex): children with w-full must resolve against
-        // the full preview width. The old flex+w-max shrink-wrapped wrappers
-        // so Progress collapsed to 0px and Accordions sized to closed content.
-        <div className="overflow-x-auto bg-background p-6">
-          <div className="min-h-24 w-full">{preview}</div>
-        </div>
-      ) : (
-        <CodeBlock
-          code={
-            activeTab === 'code' ? code : activeTab === 'usage' ? usage! : types!
-          }
-          language={activeTab === 'types' ? 'typescript' : language}
-          className="rounded-none border-0"
-        />
-      )}
+      <div role="tabpanel" id={panelId(activeTab)} aria-labelledby={tabId(activeTab)}>
+        {activeTab === 'preview' ? (
+          // Block layout (not flex): children with w-full must resolve against
+          // the full preview width. The old flex+w-max shrink-wrapped wrappers
+          // so Progress collapsed to 0px and Accordions sized to closed content.
+          <div className="overflow-x-auto bg-background p-6">
+            <div className="min-h-24 w-full">{preview}</div>
+          </div>
+        ) : (
+          <CodeBlock
+            code={
+              activeTab === 'code' ? code : activeTab === 'usage' ? usage! : types!
+            }
+            language={activeTab === 'types' ? 'typescript' : language}
+            className="rounded-none border-0"
+          />
+        )}
+      </div>
     </div>
   );
 }

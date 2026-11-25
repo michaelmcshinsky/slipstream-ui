@@ -75,7 +75,7 @@ export function Navbar() {
       {paletteOpen && <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />}
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {/* Full-bleed header: no container cap so navigation spans the viewport. */}
-        <nav className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
+        <nav aria-label="Primary" className="flex h-14 w-full items-center justify-between gap-4 px-4 sm:px-6">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center" aria-label="Slipstream UI home">
               {/* eslint-disable-next-line @next/next/no-img-element -- local brand lockup, unoptimized by design */}

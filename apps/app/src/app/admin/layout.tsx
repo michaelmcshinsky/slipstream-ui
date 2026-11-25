@@ -16,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="font-bold tracking-tight">Slipstream Admin</span>
-            <nav className="flex gap-1">
+            <nav aria-label="Admin" className="flex gap-1">
               {[
                 ['Overview', '/admin'],
                 ['Users', '/admin/users'],

@@ -54,9 +54,10 @@ export default function AccessibilityScorecardPage() {
 
           <dl className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {stats.map((stat) => (
-              <div key={stat.label} className="rounded-xl border border-border bg-card p-4">
-                <dd className="text-2xl font-bold text-primary">{stat.value}</dd>
-                <dt className="mt-1 text-xs text-muted-foreground">{stat.label}</dt>
+              <div key={stat.label} className="flex flex-col rounded-xl border border-border bg-card p-4">
+                {/* dt must precede dd in DOM order; order-* keeps value on top. */}
+                <dt className="order-2 mt-1 text-xs text-muted-foreground">{stat.label}</dt>
+                <dd className="order-1 text-2xl font-bold text-primary">{stat.value}</dd>
               </div>
             ))}
           </dl>

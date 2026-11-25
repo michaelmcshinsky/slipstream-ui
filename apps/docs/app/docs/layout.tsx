@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/site/navbar';
+import { Footer } from '@/components/site/footer';
 import { Sidebar } from '@/components/site/sidebar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { PageFeedback } from '@/components/site/page-feedback';
@@ -34,6 +35,7 @@ export default function DocsLayout({
           <TableOfContents />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
