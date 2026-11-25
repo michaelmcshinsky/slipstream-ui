@@ -6,7 +6,7 @@ Accessible confirmation dialog with async pending state, destructive variant and
 > Import: `import { ConfirmDialog } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/confirm-dialog
 > Registry: https://slipstreamui.com/registry/confirm-dialog.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.1
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
