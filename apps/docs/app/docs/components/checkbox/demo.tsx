@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { Checkbox, Label } from '@slipstream-ui/core';
+import { Checkbox, CheckboxGroup, CheckboxGroupItem, Label } from '@slipstream-ui/core';
 
 export default function CheckboxPage() {
   return (
@@ -51,7 +51,7 @@ export default function CheckboxPage() {
             </div>
           </div>
         }
-        code={`import { Checkbox, Label } from '@slipstream-ui/core';
+        code={`import { Checkbox, CheckboxGroup, CheckboxGroupItem, Label } from '@slipstream-ui/core';
 
 <Checkbox id="c1" />
 <Checkbox id="c2" defaultChecked />
@@ -61,7 +61,7 @@ export default function CheckboxPage() {
 
 {/* Always associate a label (or aria-label) */}
 <Label htmlFor="c1">Unchecked</Label>`}
-        usage={`import { Checkbox, Label } from '@slipstream-ui/core';
+        usage={`import { Checkbox, CheckboxGroup, CheckboxGroupItem, Label } from '@slipstream-ui/core';
 
 // Uncontrolled
 <Checkbox id="terms" defaultChecked onCheckedChange={(v) => console.log(v)} />
@@ -100,7 +100,7 @@ export default function CheckboxPage() {
             </div>
           </fieldset>
         }
-        code={`import { Checkbox, Label } from '@slipstream-ui/core';
+        code={`import { Checkbox, CheckboxGroup, CheckboxGroupItem, Label } from '@slipstream-ui/core';
 
 {/* name + value make the group part of a native form submission */}
 <fieldset>
@@ -114,6 +114,35 @@ export default function CheckboxPage() {
     <Label htmlFor="security">Security alerts (recommended)</Label>
   </div>
 </fieldset>`}
+      />
+      <DemoCard
+        title="CheckboxGroup"
+        preview={
+          <CheckboxGroup
+            name="channels-demo"
+            legend="Delivery channels"
+            orientation="horizontal"
+            defaultValue={['email']}
+          >
+            <CheckboxGroupItem value="email" label="Email" />
+            <CheckboxGroupItem value="sms" label="SMS" />
+            <CheckboxGroupItem value="push" label="Push" disabled />
+          </CheckboxGroup>
+        }
+        code={`<CheckboxGroup
+  name="channels"
+  legend="Delivery channels"
+  orientation="horizontal"
+  value={channels}
+  onValueChange={setChannels}
+>
+  <CheckboxGroupItem value="email" label="Email" />
+  <CheckboxGroupItem value="sms" label="SMS" />
+  <CheckboxGroupItem value="push" label="Push" disabled />
+</CheckboxGroup>`}
+        usage={`// CheckboxGroup owns the fieldset/legend and the string[] value;
+// CheckboxGroupItem takes value + label. Use plain Checkbox + Label pairs
+// when layout needs full control.`}
       />
     </ComponentPage>
   );

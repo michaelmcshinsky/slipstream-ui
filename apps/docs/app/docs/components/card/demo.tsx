@@ -186,6 +186,32 @@ export default function CardPage() {
   </CardFooter>
 </Card>`}
       />
+      <DemoCard
+        title="asChild composition"
+        preview={
+          <div className="w-full max-w-sm">
+            <Card asChild>
+              <a href="#card-link-demo" className="block">
+                <CardHeader>
+                  <CardTitle>Linked card</CardTitle>
+                  <CardDescription>The whole card is one anchor via asChild.</CardDescription>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">
+                  Slot merges card styling onto the child element.
+                </CardContent>
+              </a>
+            </Card>
+          </div>
+        }
+        code={`<Card asChild>
+  <a href="/articles/launch">
+    <CardHeader><CardTitle>Launch notes</CardTitle></CardHeader>
+    <CardContent>…</CardContent>
+  </a>
+</Card>`}
+        usage={`// asChild merges card styling onto a single child (link, router Link)
+// so the whole surface is clickable without nested interactive elements.`}
+      />
     </ComponentPage>
   );
 }

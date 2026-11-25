@@ -58,6 +58,29 @@ type ContactStripProps = {
   linkComponent?: React.ElementType;
 };`}
       />
+      <DemoCard
+        title="Three columns, centered"
+        preview={
+          <Section tone="muted" padding="lg" className="rounded-lg">
+            <ContactStrip
+              columns={3}
+              align="center"
+              items={[
+                { label: 'Call', value: '+1 555 0100', href: 'tel:+15550100' },
+                { label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com' },
+                { label: 'Visit', value: '100 Example Street, Springfield' },
+              ]}
+            />
+          </Section>
+        }
+        code={`<ContactStrip
+  columns={3}
+  align="center"
+  items={[...]}
+/>`}
+        usage={`// columns={3} + align="center" suits footer contact bands;
+// keep 2 columns for inline detail rows.`}
+      />
     </ComponentPage>
   );
 }

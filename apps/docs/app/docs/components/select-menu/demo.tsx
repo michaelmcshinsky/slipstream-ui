@@ -119,6 +119,51 @@ type SelectMenuProps = {
         usage={`// name renders one hidden input per selected value, so the selection
 // submits with a plain form and works with server actions.`}
       />
+      <DemoCard
+        title="Custom rows, value and empty state"
+        preview={
+          <div className="w-full max-w-sm space-y-4">
+            <SelectMenu
+              aria-label="Deployment target"
+              items={PLANS.filter((item) => item.value !== 'enterprise')}
+              value={plan}
+              onValueChange={(next) => setPlan(next as string)}
+              renderValue={(selected) => (
+                <span className="font-medium">{selected[0]?.label ?? 'Pick a plan'}</span>
+              )}
+              renderItem={(item, state) => (
+                <span className={state.active ? 'underline' : undefined}>
+                  {item.label}
+                  {state.selected ? ' ✓' : ''}
+                </span>
+              )}
+            />
+            <SelectMenu
+              aria-label="Empty list"
+              items={[]}
+              placeholder="Nothing available"
+              emptyText="No plans match your filters"
+            />
+          </div>
+        }
+        code={`<SelectMenu
+  aria-label="Deployment target"
+  items={plans}
+  value={plan}
+  onValueChange={setPlan}
+  renderValue={(selected) => <strong>{selected[0]?.label}</strong>}
+  renderItem={(item, { selected, active }) => (
+    <span className={active ? 'underline' : ''}>
+      {item.label}{selected ? ' ✓' : ''}
+    </span>
+  )}
+/>
+
+<SelectMenu items={[]} emptyText="No plans match your filters" />`}
+        usage={`// renderValue customizes the trigger content; renderItem customizes
+// each option row (receives { selected, active }). Group headings come from
+// item.group; first-letter typeahead jumps to matching options.`}
+      />
     </ComponentPage>
   );
 }

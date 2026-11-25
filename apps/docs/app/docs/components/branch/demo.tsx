@@ -19,6 +19,7 @@ export default function BranchPage() {
       id="branch"
       title="Branch"
       description="Variant navigation for branched messages: ‹ N / M › controls that let users compare alternative AI responses. Purely presentational: you swap the content."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
         { name: 'count', type: 'number', description: 'Total variants; renders nothing below 2.' },
         { name: 'selected', type: 'number', description: 'Controlled zero-based index.' },

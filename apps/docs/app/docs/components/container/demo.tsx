@@ -42,6 +42,25 @@ export default function ContainerPage() {
   as?: 'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav';
 };`}
       />
+      <DemoCard
+        title="Width scale"
+        preview={
+          <div className="w-full space-y-2">
+            {(['sm', 'md', 'lg', 'xl', 'full'] as const).map((w) => (
+              <Container key={w} width={w} className="rounded border border-dashed border-border px-3 py-1.5 text-xs text-muted-foreground">
+                width=&quot;{w}&quot;
+              </Container>
+            ))}
+          </div>
+        }
+        code={`<Container width="sm">…</Container>   {/* max-w-3xl */}
+<Container width="md">…</Container>   {/* max-w-5xl, default */}
+<Container width="lg">…</Container>   {/* max-w-7xl */}
+<Container width="xl">…</Container>   {/* max-w-[1400px] */}
+<Container width="full">…</Container> {/* edge to edge */}`}
+        usage={`// sm→xl step the max-width up; full removes the cap entirely.
+// padding is independent: none | sm | md | lg.`}
+      />
     </ComponentPage>
   );
 }
