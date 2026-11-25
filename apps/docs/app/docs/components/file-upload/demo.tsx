@@ -22,6 +22,9 @@ export default function FileUploadPage() {
         { name: 'hint', type: 'string', description: 'Helper line under the drop zone.' },
         { name: 'progress', type: 'Record<string, number>', description: 'Per-file progress 0–100 keyed by file name.' },
         { name: 'accept / multiple', type: 'string | boolean', description: 'Native input constraints pass through.' },
+        { name: 'selectedFilesLabel', type: 'string', defaultValue: "'Selected files'", description: 'aria-label for the selected-files list.' },
+        { name: 'removeLabel', type: '(file: File) => string', defaultValue: 'Remove <name>', description: 'Per-file remove button label.' },
+        { name: 'uploadingLabel', type: '(file: File) => string', defaultValue: 'Uploading <name>', description: 'Progress indicator label while a file uploads.' },
       ]}
       accessibility={['The visible label targets a real (sr-only) file input, so keyboard and mobile file dialogs work.', 'Uploading files expose role=progressbar with a name.']}
     >

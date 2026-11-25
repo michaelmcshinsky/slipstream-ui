@@ -92,6 +92,7 @@ export default function GridPage() {
   <GridItem as="li">…</GridItem>
 </Grid>`}
         types={`type GridProps = {
+  as?: 'div' | 'span' | 'section' | 'ul';
   cols?: number;
   smCols?: number;
   mdCols?: number;
@@ -101,6 +102,7 @@ export default function GridPage() {
 };
 
 type GridItemProps = {
+  as?: 'div' | 'span' | 'li';
   span?: number;
   smSpan?: number;
   mdSpan?: number;

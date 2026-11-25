@@ -87,6 +87,7 @@ export default function FlexPage() {
 
 <Flex direction="column" gap="md" justify="between" className="h-full">…</Flex>`}
         types={`type FlexProps = {
+  as?: 'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer';
   direction?: 'row' | 'column';
   align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
   justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
@@ -95,6 +96,7 @@ export default function FlexPage() {
 };
 
 type FlexItemProps = {
+  as?: 'div' | 'span' | 'li' | 'figure';
   grow?: boolean | string;
   shrink?: boolean | string;
   basis?: string;

@@ -17,6 +17,8 @@ export default function EmptyStatePage() {
         { name: 'icon', type: 'ReactNode', description: 'Decorative icon above the title.' },
         { name: 'action', type: 'ReactNode | EmptyStateAction', description: 'Primary action as a rendered node, or { label, onClick?, href?, variant? } to have the button/link rendered for you.' },
         { name: 'secondaryAction', type: 'ReactNode', description: 'Secondary action beside the primary one.' },
+        { name: 'actions', type: 'ReactNode', description: 'Alias for action.' },
+        { name: 'titleAs', type: "'p' | 'h2' | 'h3' | 'h4'", description: 'Heading level for the title; defaults to a paragraph.' },
         { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Compact padding for panels and table bodies.' },
       ]}
       accessibility={['Actions are real controls, so they stay focusable and announced.', 'Use Alert for failures: empty is a normal state, not an error.']}
@@ -40,12 +42,21 @@ export default function EmptyStatePage() {
   secondaryAction={<Button variant="ghost">Import CSV</Button>}
 />`}
         usage={`// Compact: size="sm" fits inside panels and DataTable empty slots.`}
-        types={`type EmptyStateProps = {
+        types={`type EmptyStateAction = {
+  label: React.ReactNode;
+  onClick?: () => void;
+  href?: string;              // renders an anchor styled as a button
+  variant?: ButtonProps['variant'];
+};
+
+type EmptyStateProps = {
   title: string;
   description?: string;
   icon?: React.ReactNode;
-  action?: React.ReactNode;
+  action?: React.ReactNode | EmptyStateAction;
+  actions?: React.ReactNode;   // alias for action
   secondaryAction?: React.ReactNode;
+  titleAs?: 'p' | 'h2' | 'h3' | 'h4';
   size?: 'sm' | 'md';
 };`}
       />

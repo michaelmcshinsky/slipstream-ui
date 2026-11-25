@@ -22,6 +22,10 @@ export default function DatePickerPopoverPage() {
         { name: 'placeholder', type: 'string', defaultValue: 'Pick a date', description: 'Trigger text before a date is chosen.' },
         { name: 'name / required', type: 'string / boolean', description: 'Hidden input for native forms.' },
         { name: 'disabled', type: 'boolean', description: 'Disables the trigger.' },
+        { name: 'today', type: 'string', description: 'Override "today" (YYYY-MM-DD) for deterministic rendering/tests.' },
+        { name: 'locale', type: 'string', defaultValue: "'en-US'", description: 'Locale for month/weekday names.' },
+        { name: 'weekStartsOn', type: '0 | 1', defaultValue: '0', description: 'First weekday column: 0 = Sunday, 1 = Monday.' },
+        { name: 'id / aria-label', type: 'string', description: 'Trigger id and accessible name; pair with FormField label.' },
       ]}
       accessibility={[
         'The trigger is a button with aria-haspopup="dialog" and aria-expanded.',

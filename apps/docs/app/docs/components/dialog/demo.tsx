@@ -29,6 +29,9 @@ export default function DialogPage() {
         { name: 'showClose', type: 'boolean', defaultValue: 'true', description: 'Hide the ✕ button in the header (Escape and backdrop still close)' },
         { name: 'initialFocusRef', type: 'RefObject<HTMLElement>', defaultValue: 'first focusable', description: 'Element focused on open' },
         { name: 'animate', type: 'boolean', defaultValue: 'false', description: 'Fade the backdrop and panel in/out (needs tailwindcss-animate)' },
+        { name: 'bodyClassName', type: 'string', description: 'Extra classes for the scrollable body region.' },
+        { name: 'closeLabel', type: 'string', defaultValue: "'Close dialog'", description: 'Accessible label for the header close button.' },
+        { name: 'ariaLabel', type: 'string', description: 'Accessible name when title is omitted; otherwise the title labels the dialog.' },
       ]}
       accessibility={[
         'role=dialog with aria-modal, labelled by title and described by description',
