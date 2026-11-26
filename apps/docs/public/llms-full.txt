@@ -5429,8 +5429,8 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | title | `string` | — | yes | Page heading rendered as h1. |
-| description | `string` | — | no | Supporting summary under the title. |
-| subtitle | `string` | — | no | Alias for description (migration-friendly). |
+| description | `ReactNode` | — | no | Supporting summary under the title; accepts links and inline markup. |
+| subtitle | `ReactNode` | — | no | Alias for description (migration-friendly); accepts links and inline markup. |
 | breadcrumbs | `ReactNode` | — | no | Trail rendered above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions (buttons, menus). |
 | children | `ReactNode` | — | no | Sub-row under the title (tabs, filters). |
@@ -6552,7 +6552,7 @@ Marketing and content pages repeat the same eyebrow/title/description/actions cl
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | title | `string` | — | yes | Section title. |
-| description | `string` | — | no | Supporting copy. |
+| description | `ReactNode` | — | no | Supporting copy; accepts links and inline markup. |
 | eyebrow | `ReactNode` | — | no | Kicker above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions. |
 | level | `2 | 3 | 4` | `2` | no | Heading level rendered for the title. |

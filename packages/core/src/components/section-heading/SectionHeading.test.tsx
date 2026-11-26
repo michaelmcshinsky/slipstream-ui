@@ -29,4 +29,20 @@ describe('SectionHeading', () => {
     const { container } = render(<SectionHeading title="Section" description="Copy" />);
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it('renders ReactNode descriptions with links', () => {
+    render(
+      <SectionHeading
+        title="Deadlines"
+        description={
+          <>
+            See the <a href="/deadlines">full list</a> or{' '}
+            <a href="/submit">submit an event</a>.
+          </>
+        }
+      />
+    );
+    expect(screen.getByRole('link', { name: 'full list' })).toHaveAttribute('href', '/deadlines');
+    expect(screen.getByRole('link', { name: 'submit an event' })).toHaveAttribute('href', '/submit');
+  });
 });

@@ -3,9 +3,10 @@ import { cn } from '../../utils/cn';
 
 export type PageHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   title: string;
-  description?: string;
+  /** Supporting summary under the title; accepts links and inline markup. */
+  description?: React.ReactNode;
   /** Alias for `description` (migration-friendly). */
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   /** Breadcrumbs/eyebrow above the title. */
   breadcrumbs?: React.ReactNode;
   /** Right-aligned actions (buttons, menus). */
