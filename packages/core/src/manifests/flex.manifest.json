@@ -183,7 +183,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "sourceDir": "flex",
   "exportName": "Flex"
 }
