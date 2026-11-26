@@ -51,6 +51,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - [We tested 100 AI-generated component usages. Here is what the validator caught.](https://slipstreamui.com/articles/validation-benchmark-100-cases) — A reproducible 100-case benchmark: 30 valid usages and 70 defects across seven classes, with 65.7% structural recall, 100% precision, and zero false positives on valid cases.
 - [Give Claude Code a component contract, not a component gallery](https://slipstreamui.com/articles/component-contract-not-gallery) — Why machine-readable manifests matter more than another set of React components, and what a coding agent actually needs before it can generate correct UI.
 - [Seven ways AI-generated UI breaks, with real before/after cases](https://slipstreamui.com/articles/seven-ways-ai-generated-ui-breaks) — Walkthrough of seven real defect classes from the 100-case benchmark: hallucinated props, missing required props, invalid enums, orphaned compound parts, and the accessibility and state classes the validator still misses.
+- [We built a production app on Slipstream UI. Here is what broke.](https://slipstreamui.com/articles/dancepath-production-case-study) — A real case study from dancepath.net: seven concrete gaps a dense interactive app surfaced in the library, what worked (tokens, subpath exports, axe-clean components), and which fixes are upstreamable.
 <!-- generated:articles:end -->
 
 <!-- generated:core:start -->
