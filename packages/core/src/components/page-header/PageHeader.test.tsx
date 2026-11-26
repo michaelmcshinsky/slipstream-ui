@@ -58,4 +58,20 @@ describe('PageHeader migration aliases', () => {
     expect(screen.getByText('Canonical')).toBeInTheDocument();
     expect(screen.queryByText('Alias')).not.toBeInTheDocument();
   });
+
+  it('renders ReactNode descriptions with links', () => {
+    render(
+      <PageHeader
+        title="Events"
+        description={
+          <>
+            Browse the <a href="/events">competitions page</a> or{' '}
+            <a href="/subscribe">subscribe to the ICS feed</a>.
+          </>
+        }
+      />
+    );
+    expect(screen.getByRole('link', { name: 'competitions page' })).toHaveAttribute('href', '/events');
+    expect(screen.getByRole('link', { name: 'subscribe to the ICS feed' })).toHaveAttribute('href', '/subscribe');
+  });
 });

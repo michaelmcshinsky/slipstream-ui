@@ -13,15 +13,15 @@
     },
     {
       "name": "description",
-      "type": "string",
+      "type": "ReactNode",
       "required": false,
-      "description": "Supporting summary under the title."
+      "description": "Supporting summary under the title; accepts links and inline markup."
     },
     {
       "name": "subtitle",
-      "type": "string",
+      "type": "ReactNode",
       "required": false,
-      "description": "Alias for description (migration-friendly)."
+      "description": "Alias for description (migration-friendly); accepts links and inline markup."
     },
     {
       "name": "breadcrumbs",

@@ -18,9 +18,9 @@
     },
     {
       "name": "description",
-      "type": "string",
+      "type": "ReactNode",
       "required": false,
-      "description": "Supporting copy."
+      "description": "Supporting copy; accepts links and inline markup."
     },
     {
       "name": "eyebrow",

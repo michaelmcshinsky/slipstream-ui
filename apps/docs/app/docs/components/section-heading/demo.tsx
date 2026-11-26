@@ -13,7 +13,7 @@ export default function SectionHeadingPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Section title.' },
-        { name: 'description', type: 'string', description: 'Supporting copy.' },
+        { name: 'description', type: 'ReactNode', description: 'Supporting copy; accepts links and inline markup.' },
         { name: 'eyebrow', type: 'ReactNode', description: 'Kicker above the title.' },
         { name: 'actions', type: 'ReactNode', description: 'Right-aligned actions.' },
         { name: 'level', type: '2 | 3 | 4', defaultValue: '2', description: 'Heading level rendered for the title.' },
@@ -55,7 +55,7 @@ export default function SectionHeadingPage() {
 // size sm|md|lg controls the title scale; level 2|3|4 controls semantics.`}
         types={`type SectionHeadingProps = {
   title: string;
-  description?: string;
+  description?: React.ReactNode;
   eyebrow?: React.ReactNode;
   actions?: React.ReactNode;
   level?: 2 | 3 | 4;

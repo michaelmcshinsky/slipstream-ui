@@ -3,7 +3,8 @@ import { cn } from '../../utils/cn';
 
 export type SectionHeadingProps = React.HTMLAttributes<HTMLDivElement> & {
   title: string;
-  description?: string;
+  /** Supporting copy under the title; accepts links and inline markup. */
+  description?: React.ReactNode;
   /** Kicker above the title (category, step, overline). */
   eyebrow?: React.ReactNode;
   /** Right-aligned actions (link to all, buttons). */

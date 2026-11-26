@@ -18,8 +18,8 @@ export default function PageHeaderPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'title', type: 'string', defaultValue: 'required', description: 'Page heading rendered as h1.' },
-        { name: 'description', type: 'string', description: 'Supporting summary under the title.' },
-        { name: 'subtitle', type: 'string', description: 'Alias for description (migration-friendly).' },
+        { name: 'description', type: 'ReactNode', description: 'Supporting summary under the title; accepts links and inline markup.' },
+        { name: 'subtitle', type: 'ReactNode', description: 'Alias for description (migration-friendly).' },
         { name: 'breadcrumbs', type: 'ReactNode', description: 'Trail rendered above the title.' },
         { name: 'actions', type: 'ReactNode', description: 'Right-aligned actions (buttons, menus).' },
         { name: 'children', type: 'ReactNode', description: 'Sub-row under the title (tabs, filters).' },
@@ -79,8 +79,8 @@ export default function PageHeaderPage() {
         usage={`// One PageHeader per page: it owns the h1. Sections below use Heading level={2}.`}
         types={`type PageHeaderProps = {
   title: string;
-  description?: string;
-  subtitle?: string;
+  description?: React.ReactNode;
+  subtitle?: React.ReactNode;
   breadcrumbs?: React.ReactNode;
   actions?: React.ReactNode;
   children?: React.ReactNode;
