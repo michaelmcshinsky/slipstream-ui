@@ -6,7 +6,7 @@ Full-width page section with a surface tone, vertical rhythm and an optional cen
 > Import: `import { Section } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/section
 > Registry: https://slipstreamui.com/registry/section.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.2
+> Tier: organism · Package: @slipstream-ui/core@0.11.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

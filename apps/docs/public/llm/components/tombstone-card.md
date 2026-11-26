@@ -6,7 +6,7 @@ Placeholder card for archived, closed or unavailable marketplace items.
 > Import: `import { TombstoneCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tombstone-card
 > Registry: https://slipstreamui.com/registry/tombstone-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.2
+> Tier: molecule · Package: @slipstream-ui/core@0.11.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

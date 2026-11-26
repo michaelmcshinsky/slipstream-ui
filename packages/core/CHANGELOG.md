@@ -1,5 +1,17 @@
 # @slipstream-ui/core
 
+## 0.11.0
+
+### Minor Changes
+
+- [#175](https://github.com/michaelmcshinsky/slipstream-ui/pull/175) [`b5d06c4`](https://github.com/michaelmcshinsky/slipstream-ui/commit/b5d06c45b304776cc1fbf99fb41a8cc7744903f4) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - - Menu: implement first-letter typeahead (focus next item matching the typed character, cycling).
+  - ProcessSteps: new `headingLevel` prop (h2-h4, default h3) so step titles continue the page outline without skipping ranks.
+  - LogoCloud: new `linkHrefProp` ('href' | 'to') for react-router style link components, matching LinkTabs/SiteFooter/Pagination.
+
+### Patch Changes
+
+- [#175](https://github.com/michaelmcshinsky/slipstream-ui/pull/175) [`8a40cf6`](https://github.com/michaelmcshinsky/slipstream-ui/commit/8a40cf67a8aa2ffc6d66cf7d3688bfd1fd76e9f7) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - LoadMore: use a typographic ellipsis in the default `loadingLabel` ("Loading…") for consistency with the rest of the library.
+
 ## 0.10.2
 
 ### Patch Changes

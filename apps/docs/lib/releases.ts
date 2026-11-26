@@ -9,9 +9,23 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.11.0',
+    date: 'November 26, 2026',
+    tag: 'current',
+    highlights: [
+      'Menu gains first-letter typeahead: typing cycles focus through items matching the pressed character',
+      'ProcessSteps adds headingLevel (h2-h4, default h3) so step titles continue the page outline without skipping ranks',
+      'LogoCloud adds linkHrefProp (\'href\' | \'to\') for react-router style link components, matching LinkTabs/SiteFooter/Pagination',
+      'CodeBlock adds onCopied(code) so consumers can show real copy feedback or analytics after a successful clipboard write',
+      'InlineCitation derives its tooltip id from useId(), so citing the same source twice no longer produces duplicate DOM ids',
+      'LoadMore uses a typographic ellipsis in the default loadingLabel ("Loading…") for consistency with the rest of the library',
+      'Versioned packages: core/ai 0.11.0; themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
     version: '0.10.2',
     date: 'November 25, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'WCAG AA contrast: text and icon roles on light surfaces use text-primary-ink with bg-primary/10 tints so links, eyebrows, active states and chips clear 4.5:1; the Tailwind v3 preset maps primary.ink',
       'FormField wiring reaches assistive tech: DatePickerPopover forwards aria-describedby and aria-invalid to its trigger',

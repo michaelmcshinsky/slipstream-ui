@@ -1,5 +1,15 @@
 # @slipstream-ui/ai
 
+## 0.11.0
+
+### Patch Changes
+
+- [#175](https://github.com/michaelmcshinsky/slipstream-ui/pull/175) [`4eb5e75`](https://github.com/michaelmcshinsky/slipstream-ui/commit/4eb5e75c277d07bd69a98371a77cb4d53f4d0f5d) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `onCopied(code)` callback to `CodeBlock`, fired after a successful clipboard write so consumers can show real copy feedback or analytics.
+
+- [#175](https://github.com/michaelmcshinsky/slipstream-ui/pull/175) [`5aacf8f`](https://github.com/michaelmcshinsky/slipstream-ui/commit/5aacf8f4bf17a363d4c6d76c29764b030828dc5a) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - InlineCitation: derive the tooltip id from `useId()` instead of `source.id` so citing the same source twice no longer produces duplicate DOM ids.
+- Updated dependencies [[`8a40cf6`](https://github.com/michaelmcshinsky/slipstream-ui/commit/8a40cf67a8aa2ffc6d66cf7d3688bfd1fd76e9f7), [`b5d06c4`](https://github.com/michaelmcshinsky/slipstream-ui/commit/b5d06c45b304776cc1fbf99fb41a8cc7744903f4)]:
+  - @slipstream-ui/core@0.11.0
+
 ## 0.10.2
 
 ### Patch Changes

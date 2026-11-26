@@ -6,7 +6,7 @@ Month grid with ISO date keys, min/max bounds and full keyboard navigation.
 > Import: `import { Calendar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/calendar
 > Registry: https://slipstreamui.com/registry/calendar.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.2
+> Tier: organism · Package: @slipstream-ui/core@0.11.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
