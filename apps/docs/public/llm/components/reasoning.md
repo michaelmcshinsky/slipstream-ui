@@ -6,7 +6,7 @@ A collapsible component for displaying AI reasoning steps and chain-of-thought p
 > Import: `import { Reasoning } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/reasoning
 > Registry: https://slipstreamui.com/registry/reasoning.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.10.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -145,6 +145,7 @@ export type HomeCopy = {
   promptPlaceholder: string;
   send: string;
   agentStripLabel: string;
+  aiAssistantsNote: string;
   stats: string[];
   featuresHeading: string;
   featuresIntro: string;
@@ -193,6 +194,13 @@ export type MarketingCopy = {
   accessibility: AccessibilityCopy;
   privacy: PrivacyCopy;
   terms: TermsCopy;
+  /**
+   * Optional while translations land: locales without an entry fall back to
+   * English via `getShowcaseCopy`.
+   */
+  showcase?: ShowcaseCopy;
 };
+
+export type ShowcaseCopy = LegalPageCopy;
 
 export type MarketingCopyByLocale = Record<Locale, MarketingCopy>;

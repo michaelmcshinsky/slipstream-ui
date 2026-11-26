@@ -6,7 +6,7 @@ Sticky 'On this page' navigation with real anchor links, nested levels and aria-
 > Import: `import { TableOfContents } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table-of-contents
 > Registry: https://slipstreamui.com/registry/table-of-contents.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -36,6 +36,7 @@ const EXTRA_ROUTES = [
   '/articles',
   '/articles/validation-benchmark-100-cases',
   '/articles/component-contract-not-gallery',
+  '/showcase',
   '/accessibility',
   '/accessibility/scorecard',
   '/changelog',

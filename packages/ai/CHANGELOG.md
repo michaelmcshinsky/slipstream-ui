@@ -1,5 +1,22 @@
 # @slipstream-ui/ai
 
+## 0.10.2
+
+### Patch Changes
+
+- [#151](https://github.com/michaelmcshinsky/slipstream-ui/pull/151) [`1f949b1`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1f949b1bc530e2d2baf74b782c3893c05cb126a7) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix `List size="compact"` actually reducing row density, replace the `Reasoning` collapse toggle's literal `?` glyph with a chevron, and make disabled `RadioGroupItem` labels dim via `peer-disabled`.
+
+- [#151](https://github.com/michaelmcshinsky/slipstream-ui/pull/151) [`01eea21`](https://github.com/michaelmcshinsky/slipstream-ui/commit/01eea210379b5a57e8a3c2fe20f93c20d8eaecf2) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Remove the undocumented `onSelect` prop from the Source/Sources manifest; neither component implements it, so registry, LLM docs, and MCP responses no longer advertise a phantom callback.
+- Updated dependencies [[`77dab16`](https://github.com/michaelmcshinsky/slipstream-ui/commit/77dab16cd861b2afcbf4b8f3d7f729eb7f63668f), [`1f949b1`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1f949b1bc530e2d2baf74b782c3893c05cb126a7), [`55600a3`](https://github.com/michaelmcshinsky/slipstream-ui/commit/55600a3146bf2f151848be4e78e792f559945ba3)]:
+  - @slipstream-ui/core@0.10.2
+
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`a51dbc4`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a51dbc4b72a870bdea9c8ae59c2a604deffcf424)]:
+  - @slipstream-ui/core@0.10.1
+
 ## 0.10.0
 
 ### Minor Changes

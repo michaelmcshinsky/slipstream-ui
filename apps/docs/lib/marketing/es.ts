@@ -19,6 +19,7 @@ export const es: MarketingCopy = {
     promptPlaceholder: 'Pruébame…',
     send: 'Enviar',
     agentStripLabel: 'Habla con fluidez con',
+    aiAssistantsNote: 'Para asistentes de IA',
     stats: ['componentes', 'especificaciones legibles por máquina', 'herramientas MCP para agentes', 'falsos positivos en uso válido'],
     featuresHeading: 'Creado para cómo se escribe el software hoy',
     featuresIntro:

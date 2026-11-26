@@ -19,6 +19,7 @@ export const ar: MarketingCopy = {
     promptPlaceholder: 'جرّبني…',
     send: 'إرسال',
     agentStripLabel: 'يتحدث بطلاقة مع',
+    aiAssistantsNote: 'لمساعدي الذكاء الاصطناعي',
     stats: ['مكونًا', 'مواصفة مقروءة آليًا', 'أدوات MCP للوكلاء', 'إيجابيات كاذبة في الاستخدام الصحيح'],
     featuresHeading: 'مبني لطريقة كتابة البرمجيات اليوم',
     featuresIntro:

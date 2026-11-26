@@ -6,7 +6,7 @@ Applied-filter summary with a live count, removable chips and an edit action.
 > Import: `import { AppliedFilters } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/applied-filters
 > Registry: https://slipstreamui.com/registry/applied-filters.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

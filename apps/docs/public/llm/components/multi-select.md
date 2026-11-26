@@ -6,7 +6,7 @@ Searchable multi-select filter with visible removable chips and a checkbox panel
 > Import: `import { MultiSelect } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/multi-select
 > Registry: https://slipstreamui.com/registry/multi-select.json
-> Tier: organism · Package: @slipstream-ui/core@0.10.0
+> Tier: organism · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s · Slipstream UI',
   },
   description:
-    'Your AI already knows your design system. Every component ships a machine-readable manifest so Claude, Cursor, and Copilot generate correct UI the first time.',
+    'Your AI already knows your design system. Every component ships a machine-readable manifest and a validator that catches hallucinated props in agent-generated JSX.',
   authors: [{ name: 'Slipstream UI', url: 'https://slipstreamui.com/about' }],
   creator: 'Slipstream UI',
   publisher: 'Slipstream UI',

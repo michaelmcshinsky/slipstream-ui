@@ -6,7 +6,7 @@ Vertical chronology for experience, activity and audit trails, built on an order
 > Import: `import { Timeline } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/timeline
 > Registry: https://slipstreamui.com/registry/timeline.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.0
+> Tier: molecule · Package: @slipstream-ui/core@0.10.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

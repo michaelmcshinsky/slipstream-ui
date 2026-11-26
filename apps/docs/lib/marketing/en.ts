@@ -5,10 +5,10 @@ export const en: MarketingCopy = {
     whatsNew: "what's new →",
     aiFirstBadge: 'AI-first · MIT',
     reactBadge: 'React 18+',
-    heroTitleLead: 'Your AI already knows',
-    heroTitleHighlight: 'your design system',
+    heroTitleLead: 'Catches hallucinated props',
+    heroTitleHighlight: 'before they ship',
     heroDescription:
-      'Slipstream UI is the AI-first component system built for AI-assisted development. Every component ships a machine-readable spec, an MCP server that serves it, and a validator that keeps agents honest.',
+      'Slipstream UI gives every component a machine-readable manifest, an MCP server, and a validator that checks agent-generated JSX against the spec: 65.7% recall with 0 false positives across 100 reviewed benchmark cases.',
     getStarted: 'Get Started',
     starOnGithub: 'Star on GitHub',
     copy: 'copy',
@@ -19,6 +19,7 @@ export const en: MarketingCopy = {
     promptPlaceholder: 'Try me…',
     send: 'Send',
     agentStripLabel: 'Speaks fluently to',
+    aiAssistantsNote: 'For AI assistants',
     stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'false positives on valid usage'],
     featuresHeading: 'Built for the way software is written now',
     featuresIntro:
@@ -82,7 +83,7 @@ export const en: MarketingCopy = {
     ],
     themesHeading: 'Themes that ship with the library',
     themesIntro:
-      'Default, Violet, and Zinc presets included. Switch below. This is live theming, not a screenshot.',
+      'Default, Dark, Violet, and Zinc presets included. Switch below. This is live theming, not a screenshot.',
     comparisonHeading: 'How it compares',
     comparisonIntro: 'Other libraries document for humans. Slipstream documents for both of you.',
     comparisonCapability: 'Capability',
@@ -357,6 +358,63 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
               '[Review the accessibility statement](/accessibility) and the automated audit scope.',
               '[Security policy]({repo}/blob/main/SECURITY.md) and [security.txt](/.well-known/security.txt).',
             ],
+          },
+        ],
+      },
+    ],
+  },
+  showcase: {
+    title: 'Built with Slipstream',
+    description:
+      'Production sites and apps already running on @slipstream-ui components, themes, and the MCP server.',
+    updated: 'November 2026',
+    sections: [
+      {
+        heading: 'DancePath — dancepath.net',
+        blocks: [
+          {
+            type: 'p',
+            text: 'An interactive map of competitive ballroom dance: governing bodies, modes, age categories, levels, styles, figure restrictions and dance-up paths, all from static data with no backend. Built with React 19, Vite, TypeScript and Tailwind; buttons, inputs, the mode switch, dialogs, accordions, badges and empty states come from `@slipstream-ui/core`.',
+          },
+          {
+            type: 'p',
+            text: 'The project keeps public engineering notes on where the library made the bespoke map markup harder and what it would take to close the gap.',
+          },
+        ],
+      },
+      {
+        heading: 'Utah Dance — utahdance.net',
+        blocks: [
+          {
+            type: 'p',
+            text: "Utah's verified hub for dance: competitions, deadlines, studios, clubs and socials. Next.js App Router with Postgres; the public site and staff admin use Slipstream components, and the [MCP server](/docs/mcp) is wired into the agent toolchain so generated UI is checked against manifests before it ships.",
+          },
+        ],
+      },
+      {
+        heading: 'Utah Dance Marketplace — utahdancemarketplace.com',
+        blocks: [
+          {
+            type: 'p',
+            text: 'A classifieds and rentals marketplace for dance gear and services. A shared `@udm/ui` brand layer sits on `@slipstream-ui/core` and feeds both the member app and the prerendered marketing site; a component-usage test fails the build on raw inputs or non-Slipstream controls, and agents query the MCP server instead of guessing props.',
+          },
+        ],
+      },
+      {
+        heading: 'mcshinsky.net',
+        blocks: [
+          {
+            type: 'p',
+            text: "Personal site of a senior full-stack engineer. Next.js App Router; `@slipstream-ui/core` for the component surface and `@slipstream-ui/mcp-server` in the local agent configuration, so the same manifests that power this documentation keep generated pages on-contract.",
+          },
+        ],
+      },
+      {
+        heading: 'Running Slipstream in production?',
+        blocks: [
+          {
+            type: 'p',
+            text: 'The listings above are the current public adopters. If your project belongs here, [open an issue]({repo}/issues) or [start a discussion]({repo}/discussions) — case studies with metrics are welcome.',
           },
         ],
       },

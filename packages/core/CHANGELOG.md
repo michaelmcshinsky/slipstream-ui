@@ -1,5 +1,21 @@
 # @slipstream-ui/core
 
+## 0.10.2
+
+### Patch Changes
+
+- [#151](https://github.com/michaelmcshinsky/slipstream-ui/pull/151) [`77dab16`](https://github.com/michaelmcshinsky/slipstream-ui/commit/77dab16cd861b2afcbf4b8f3d7f729eb7f63668f) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix four component defects: `DatePickerPopover` now forwards `aria-describedby`/`aria-invalid` to its trigger so `FormField` hint/error wiring reaches assistive tech; `Image` restarts its `src -> fallbackSrc -> fallback` chain when the URLs change instead of sticking on a stale fallback; `FileUpload` keys and removes entries by File identity so same-named files stay distinct; `FilterPanel` identifies sections by index so duplicate titles no longer collide on open state or DOM ids.
+
+- [#151](https://github.com/michaelmcshinsky/slipstream-ui/pull/151) [`1f949b1`](https://github.com/michaelmcshinsky/slipstream-ui/commit/1f949b1bc530e2d2baf74b782c3893c05cb126a7) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Fix `List size="compact"` actually reducing row density, replace the `Reasoning` collapse toggle's literal `?` glyph with a chevron, and make disabled `RadioGroupItem` labels dim via `peer-disabled`.
+
+- [#151](https://github.com/michaelmcshinsky/slipstream-ui/pull/151) [`55600a3`](https://github.com/michaelmcshinsky/slipstream-ui/commit/55600a3146bf2f151848be4e78e792f559945ba3) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Correct the `Menu` JSDoc: it advertised typeahead, but `MenuContent` only implements arrow/Home/End/Escape navigation.
+
+## 0.10.1
+
+### Patch Changes
+
+- [`a51dbc4`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a51dbc4b72a870bdea9c8ae59c2a604deffcf424) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Use `text-primary-ink` for text and icon roles on light surfaces and `bg-primary/10` tints so links, eyebrows, active states, and chips clear WCAG AA contrast; the Tailwind v3 preset now maps `primary.ink` so the utility generates for v3 consumers.
+
 ## 0.10.0
 
 ### Minor Changes

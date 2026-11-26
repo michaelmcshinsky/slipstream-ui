@@ -5,6 +5,7 @@ import { InviteAcceptForm } from './invite-accept-form';
 export const metadata: Metadata = {
   title: 'Accept invitation',
   description: 'Review and accept your Slipstream UI team invitation.',
+  robots: { index: false, follow: false },
 };
 
 export default function InviteAcceptPage() {

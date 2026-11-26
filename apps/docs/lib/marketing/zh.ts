@@ -19,6 +19,7 @@ export const zh: MarketingCopy = {
     promptPlaceholder: '试一试…',
     send: '发送',
     agentStripLabel: '流畅对话',
+    aiAssistantsNote: '面向 AI 助手',
     stats: ['个组件', '份机器可读规范', '个面向智能体的 MCP 工具', '有效用法误报'],
     featuresHeading: '为当下编写软件的方式而构建',
     featuresIntro:

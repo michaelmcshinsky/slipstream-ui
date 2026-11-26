@@ -133,7 +133,10 @@ export function Navbar() {
               className="flex h-11 w-11 items-center justify-center rounded-md border border-border text-sm hover:bg-muted sm:h-9 sm:w-9"
               aria-label={dark ? t('shell.switchLight') : t('shell.switchDark')}
             >
-              <span aria-hidden="true">{dark ? '☀' : '☾'}</span>
+              {/* Both glyphs render server-side; CSS picks the visible one so
+                  the icon never flashes the wrong scheme before hydration. */}
+              <span aria-hidden="true" className="dark:hidden">☾</span>
+              <span aria-hidden="true" className="hidden dark:inline">☀</span>
             </button>
             <a
               href={REPO_URL}

@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Card, CardTitle, inputClass } from '@/components/ui';
+import { Card, CardTitle, Field, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+
+type TeamRef = { id: string; name: string; role: string };
 
 type Member = {
   id: string;
@@ -18,9 +20,16 @@ type Invite = {
   expiresAt: string;
 };
 
+type TeamDetail = {
+  memberships?: Member[];
+  invites?: Invite[];
+};
+
+const NOTHING_WENT_WRONG = 'Something went wrong. Please try again.';
+
 export default function TeamPage() {
   const searchParams = useSearchParams();
-  const [teams, setTeams] = useState<{ id: string; name: string; role: string }[]>([]);
+  const [teams, setTeams] = useState<TeamRef[]>([]);
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
@@ -32,16 +41,20 @@ export default function TeamPage() {
   const myRole = teams.find((team) => team.id === activeTeamId)?.role ?? 'MEMBER';
   const canManage = myRole === 'OWNER' || myRole === 'ADMIN';
 
+  const activeRole = teams.find((team) => team.id === activeTeamId)?.role;
+  const canAdmin = activeRole === 'OWNER' || activeRole === 'ADMIN';
+
   useEffect(() => {
     fetch('/api/teams')
       .then((r) => r.json())
       .then((data) => {
-        const list = extractData<{ teams?: { id: string; name: string; role: string }[] }>(data)?.teams ?? [];
+        const list = extractData<{ teams?: TeamRef[] }>(data)?.teams ?? [];
         setTeams(list);
         const requested = searchParams.get('team');
         const initial = list.find((team) => team.id === requested) ?? list[0];
         if (initial) setActiveTeamId(initial.id);
       })
+      .catch(() => setError(NOTHING_WENT_WRONG))
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,51 +65,71 @@ export default function TeamPage() {
     fetch(`/api/teams/${activeTeamId}`)
       .then((r) => r.json())
       .then((data) => {
-        const payload = extractData<{
-          team?: { memberships?: Member[]; invites?: Invite[] };
-          error?: string;
-        }>(data);
+        const payload = extractData<{ team?: TeamDetail; error?: string }>(data);
         if (payload?.error || !payload?.team) {
           setError(payload?.error ?? extractErrorMessage(data, 'Could not load team.'));
           return;
         }
         setMembers(payload.team.memberships ?? []);
         setInvites(payload.team.invites ?? []);
-      });
+      })
+      .catch(() => setError(NOTHING_WENT_WRONG));
   }, [activeTeamId]);
+
+  async function refreshTeam(teamId: string) {
+    try {
+      const response = await fetch(`/api/teams/${teamId}`);
+      const data: unknown = await response.json().catch(() => null);
+      const payload = extractData<{ team?: TeamDetail }>(data);
+      setMembers(payload?.team?.memberships ?? []);
+      setInvites(payload?.team?.invites ?? []);
+    } catch {
+      /* refresh is best-effort; the mutation already succeeded */
+    }
+  }
 
   async function invite(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!activeTeamId) return;
     setError(null);
+    setInviteUrl(null);
     const form = new FormData(event.currentTarget);
-    const response = await fetch(`/api/teams/${activeTeamId}/invites`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: form.get('email'), role: form.get('role') }),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      setError(extractErrorMessage(data));
-      return;
+    try {
+      const response = await fetch(`/api/teams/${activeTeamId}/invites`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: form.get('email'), role: form.get('role') }),
+      });
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data));
+        return;
+      }
+      const invitePath = extractData<{ inviteUrl?: string }>(data)?.inviteUrl;
+      // Dev convenience: the accept link is returned directly (would be emailed).
+      setInviteUrl(`${window.location.origin}${invitePath}`);
+      event.currentTarget.reset();
+      await refreshTeam(activeTeamId);
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
-    const invitePath = extractData<{ inviteUrl?: string }>(data)?.inviteUrl;
-    // Dev convenience: the accept link is returned directly (would be emailed).
-    const origin = window.location.origin;
-    setInviteUrl(`${origin}${invitePath}`);
-    event.currentTarget.reset();
   }
 
   async function removeMember(memberId: string, email: string) {
     if (!activeTeamId) return;
     if (!window.confirm(`Remove ${email} from this team?`)) return;
-    const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
-    if (!response.ok) {
-      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not remove member.'));
-      return;
+    setError(null);
+    try {
+      const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data, 'Could not remove member.'));
+        return;
+      }
+      await refreshTeam(activeTeamId);
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
-    const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
-    setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
   async function changeRole(memberId: string, role: string, email: string, currentRole: string) {
@@ -104,45 +137,59 @@ export default function TeamPage() {
     if ((role === 'OWNER' || currentRole === 'OWNER') && !window.confirm(`Change ${email}'s role to ${role}? Owner changes affect billing and team ownership.`)) {
       return;
     }
-    const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ role }),
-    });
-    if (!response.ok) {
-      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not update role.'));
-      return;
+    setError(null);
+    try {
+      const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role }),
+      });
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data, 'Could not update role.'));
+        return;
+      }
+      await refreshTeam(activeTeamId);
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
-    const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
-    setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
   async function revokeInvite(inviteId: string, email: string) {
     if (!activeTeamId) return;
     if (!window.confirm(`Revoke the pending invite for ${email}?`)) return;
-    const response = await fetch(`/api/teams/${activeTeamId}/invites/${inviteId}`, { method: 'DELETE' });
-    if (!response.ok) {
-      setError(extractErrorMessage(await response.json().catch(() => null), 'Could not revoke invite.'));
-      return;
+    setError(null);
+    try {
+      const response = await fetch(`/api/teams/${activeTeamId}/invites/${inviteId}`, { method: 'DELETE' });
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data, 'Could not revoke invite.'));
+        return;
+      }
+      await refreshTeam(activeTeamId);
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
-    const data = await fetch(`/api/teams/${activeTeamId}`).then((r) => r.json());
-    const payload = extractData<{ team?: { invites?: Invite[] } }>(data);
-    setInvites(payload?.team?.invites ?? []);
   }
 
   async function createTeam(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError(null);
     const name = new FormData(event.currentTarget).get('name') as string;
-    const response = await fetch('/api/teams', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    });
-    const data = await response.json();
-    if (extractData<{ team?: { id: string } }>(data)?.team) {
-      window.location.reload();
-    } else {
-      setError(extractErrorMessage(data, 'Could not create team.'));
+    try {
+      const response = await fetch('/api/teams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name }),
+      });
+      const data: unknown = await response.json().catch(() => null);
+      if (extractData<{ team?: { id: string } }>(data)?.team) {
+        window.location.reload();
+      } else {
+        setError(extractErrorMessage(data, 'Could not create team.'));
+      }
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
   }
 
@@ -207,67 +254,72 @@ export default function TeamPage() {
         </ul>
       </Card>
 
-      {canManage && (
-      <Card>
-        <CardTitle>Invite a teammate</CardTitle>
-        <form onSubmit={invite} className="flex flex-wrap items-end gap-2">
-          <input name="email" type="email" required placeholder="teammate@company.com" className={`${inputClass} max-w-xs`} />
-          <select name="role" defaultValue="MEMBER" aria-label="Invite role" className={inputClass + ' max-w-32'}>
-            <option value="MEMBER">MEMBER</option>
-            <option value="ADMIN">ADMIN</option>
-          </select>
-          <button type="submit" className="whitespace-nowrap rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-            Send invite
-          </button>
-        </form>
-        {inviteUrl && (
-          <p role="status" className="mt-3 break-all rounded-lg bg-primary/10 p-3 text-xs">
-            Invite created — share this acceptance link: {inviteUrl}{' '}
-            <button
-              type="button"
-              className="font-medium text-primary hover:underline"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(inviteUrl);
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
-                } catch {
-                  /* clipboard unavailable */
-                }
-              }}
-            >
-              {copied ? 'Copied' : 'Copy link'}
+      {canAdmin && (
+        <Card>
+          <CardTitle>Invite a teammate</CardTitle>
+          <form onSubmit={invite} className="flex flex-wrap items-end gap-2">
+            <Field label="Email" name="email" type="email" required placeholder="teammate@company.com" className="max-w-xs" />
+            <Field
+              label="Role"
+              name="role"
+              options={[
+                { value: 'MEMBER', label: 'MEMBER' },
+                { value: 'ADMIN', label: 'ADMIN' },
+              ]}
+              className="max-w-32"
+            />
+            <button type="submit" className="whitespace-nowrap rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+              Send invite
             </button>
-          </p>
-        )}
-        {invites.length > 0 && (
-          <>
-            <h3 className="mb-2 mt-6 text-sm font-semibold">Pending invites</h3>
-            <ul className="space-y-1 text-sm text-muted-foreground">
-              {invites.map((invite) => (
-                <li key={invite.id} className="flex items-center justify-between gap-2">
-                  <span>
-                    {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => revokeInvite(invite.id, invite.email)}
-                    className="text-xs text-destructive hover:underline"
-                  >
-                    Revoke
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </Card>
+          </form>
+          {inviteUrl && (
+            <p role="status" className="mt-3 break-all rounded-lg bg-primary/10 p-3 text-xs">
+              Invite created — share this acceptance link: {inviteUrl}{' '}
+              <button
+                type="button"
+                className="font-medium text-primary hover:underline"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(inviteUrl);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  } catch {
+                    /* clipboard unavailable */
+                  }
+                }}
+              >
+                {copied ? 'Copied' : 'Copy link'}
+              </button>
+            </p>
+          )}
+          {invites.length > 0 && (
+            <>
+              <h3 className="mb-2 mt-6 text-sm font-semibold">Pending invites</h3>
+              <ul className="space-y-1 text-sm text-muted-foreground">
+                {invites.map((invite) => (
+                  <li key={invite.id} className="flex items-center justify-between gap-2">
+                    <span>
+                      {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => revokeInvite(invite.id, invite.email)}
+                      className="text-xs text-destructive hover:underline"
+                    >
+                      Revoke
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </Card>
       )}
 
       <Card>
         <CardTitle>Create another team</CardTitle>
         <form onSubmit={createTeam} className="flex gap-2">
-          <input name="name" required placeholder="Team name" className={`${inputClass} max-w-xs`} />
+          <Field label="Team name" name="name" required placeholder="Team name" className="max-w-xs" />
           <button type="submit" className="whitespace-nowrap rounded-md border border-border px-3 py-2 text-sm font-medium hover:bg-muted">
             Create team
           </button>
