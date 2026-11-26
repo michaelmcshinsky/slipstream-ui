@@ -113,6 +113,10 @@ export default function SettingsPage() {
           <a href="/privacy" className="text-primary underline underline-offset-2 hover:text-primary/80">
             Privacy overview
           </a>
+          {' · '}
+          <a href="/terms" className="text-primary underline underline-offset-2 hover:text-primary/80">
+            Terms of Service
+          </a>
         </p>
       </Card>
 
