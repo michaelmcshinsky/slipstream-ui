@@ -9,9 +9,21 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.10.2',
+    date: 'November 25, 2026',
+    tag: 'current',
+    highlights: [
+      'WCAG AA contrast: text and icon roles on light surfaces use text-primary-ink with bg-primary/10 tints so links, eyebrows, active states and chips clear 4.5:1; the Tailwind v3 preset maps primary.ink',
+      'FormField wiring reaches assistive tech: DatePickerPopover forwards aria-describedby and aria-invalid to its trigger',
+      'Component fixes: Image restarts its src -> fallbackSrc -> fallback chain when URLs change, FileUpload distinguishes same-named files by File identity, FilterPanel section state no longer collides on duplicate titles, List size="compact" actually reduces density, the Reasoning toggle shows a chevron, and disabled RadioGroupItem labels dim via peer-disabled',
+      'Docs accuracy: the Menu JSDoc no longer advertises unimplemented typeahead, and the Source/Sources manifest drops the phantom onSelect prop so registry, LLM docs and MCP responses stop advertising it',
+      'Versioned packages: core/ai 0.10.2 (0.10.1 was versioned but never published); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
     version: '0.10.0',
     date: 'November 20, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'Form-control contrast and overlay polish: createTheme() emits color-scheme so native chrome follows the theme, Checkbox/Radio use the brand accent, RangeSlider gets a visible thumb, and Tooltip gains an inverse variant',
       'New props: Select labelHidden, FilterChips size, density and surface options across Message, Conversation and PromptInput, and StreamingIndicator size/tone/dotCount/showLabel',
