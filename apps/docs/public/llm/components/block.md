@@ -6,7 +6,7 @@ Semantic container (div by default, swappable element) — the structural counte
 > Import: `import { Block } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/block
 > Registry: https://slipstreamui.com/registry/block.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.3
+> Tier: atom · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

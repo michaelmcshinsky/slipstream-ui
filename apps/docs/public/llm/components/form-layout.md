@@ -6,7 +6,7 @@ Groups form fields with even, tokenized spacing: vertical stack, horizontal row,
 > Import: `import { FormLayout } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form-layout
 > Registry: https://slipstreamui.com/registry/form-layout.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.3
+> Tier: molecule · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
@@ -18,10 +18,12 @@ Field rhythm is the difference between a form that scans and one that doesn't. F
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | layout | `'stack' | 'row' | 'grid'` | `stack` | no | Grouping layout: even vertical stack, horizontal row, or column grid. |
-| columns | `1 | 2 | 3 | 4` | `2` | no | Grid column count (literal classes survive CSS purging). |
+| columns | `1 | 2 | 3 | 4 | { base?: 1|2|3|4; sm?: 1|2|3|4; md?: 1|2|3|4; lg?: 1|2|3|4; xl?: 1|2|3|4 }` | `2` | no | Grid column count (literal classes survive CSS purging), or per-breakpoint counts like { base: 1, md: 2 }. |
 | gap | `'none' | 'sm' | 'md' | 'lg' | 'xl' | number` | — | no | Even spacing between children — token or exact pixels (16). |
 | legend | `string` | — | no | Group label rendered as a semantic <legend> (fieldset mode). |
+| legendClassName | `string` | — | no | Extra classes for the legend (fieldset mode). |
 | description | `string` | — | no | Supporting line under the legend (fieldset mode). |
+| descriptionClassName | `string` | — | no | Extra classes for the description line (fieldset mode). |
 | as | `'div' | 'fieldset'` | `div` | no | Render as a semantic fieldset when the layout names a group of controls. |
 
 ## Examples

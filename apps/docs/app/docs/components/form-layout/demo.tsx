@@ -43,10 +43,12 @@ export default function Demo() {
 <FormLayout layout="grid" columns={4} gap="md">…</FormLayout>`}
         types={`type FormLayoutProps = {
   layout?: 'stack' | 'row' | 'grid';
-  columns?: 1 | 2 | 3 | 4;
+  columns?: 1 | 2 | 3 | 4 | { base?: 1|2|3|4; sm?: 1|2|3|4; md?: 1|2|3|4; lg?: 1|2|3|4; xl?: 1|2|3|4 };
   gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | number;
   legend?: string;
+  legendClassName?: string;
   description?: string;
+  descriptionClassName?: string;
   as?: 'div' | 'fieldset';
 };`}
       />

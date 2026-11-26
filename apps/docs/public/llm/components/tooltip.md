@@ -6,7 +6,7 @@ Hover/focus tooltip with aria-describedby association, delay, and Escape dismiss
 > Import: `import { Tooltip } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tooltip
 > Registry: https://slipstreamui.com/registry/tooltip.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.3
+> Tier: molecule · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

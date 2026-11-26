@@ -6,7 +6,7 @@ Displays citations and references for an AI response. `Source` renders a single 
 > Import: `import { Source } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/sources
 > Registry: https://slipstreamui.com/registry/source.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.11.3
+> Tier: molecule · Package: @slipstream-ui/ai@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

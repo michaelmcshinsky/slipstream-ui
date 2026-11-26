@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.4
+
+### Patch Changes
+
+- [#187](https://github.com/michaelmcshinsky/slipstream-ui/pull/187) [`319ef36`](https://github.com/michaelmcshinsky/slipstream-ui/commit/319ef36bc630d1bfff15fbd70f7ca8407d3a0dee) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `FormLayout` gains responsive grids and fieldset styling hooks: `columns` now accepts per-breakpoint counts (`{ base: 1, md: 2 }`) so consumers stop undoing `grid-cols-2` via className, and `legendClassName`/`descriptionClassName` expose the legend and description styling. Implements consumer feedback from utah-dance.
+
 ## 0.11.3
 
 ### Patch Changes
