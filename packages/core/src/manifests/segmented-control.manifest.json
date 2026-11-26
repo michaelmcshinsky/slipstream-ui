@@ -14,7 +14,7 @@
       "name": "options",
       "type": "SegmentedOption[]",
       "required": true,
-      "description": "Segments to render: value, label, optional icon and disabled."
+      "description": "Segments to render: value, label, optional icon, disabled, and href. An option with href renders as a link (view-switch navigation that survives refresh and works without JavaScript); the active segment becomes a non-link aria-current=\"page\" marker."
     },
     {
       "name": "value",
@@ -59,6 +59,23 @@
       "required": false,
       "defaultValue": "false",
       "description": "Stretch segments to fill the container width."
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers (Next Link, react-router Link). Used by options that set href."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "enum": [
+        "href",
+        "to"
+      ],
+      "description": "Prop used to pass the destination to linkComponent."
     }
   ],
   "examples": [
@@ -71,6 +88,11 @@
       "title": "Multi-select filter",
       "code": "<SegmentedControl\n  aria-label=\"Deal type\"\n  multiple\n  defaultValue={['m&a']}\n  options={[\n    { value: 'm&a', label: 'M&A' },\n    { value: 'debt', label: 'Debt' },\n  ]}\n/>",
       "description": "Pressed buttons for independent filters."
+    },
+    {
+      "title": "URL-backed view switch",
+      "code": "<SegmentedControl\n  aria-label=\"View\"\n  value={view}\n  options={[\n    { value: 'list', label: 'List', href: '/items?view=list' },\n    { value: 'grid', label: 'Grid', href: '/items?view=grid' },\n  ]}\n/>",
+      "description": "Options with href render as links; the active segment is an aria-current marker. Use for server-rendered view switches."
     }
   ],
   "antiPatterns": [
@@ -95,6 +117,11 @@
       "feature": "Keyboard",
       "implementation": "Arrow keys move selection; Home and End jump to the first and last enabled segment",
       "userRequirements": "Keep labels short enough to scan"
+    },
+    {
+      "feature": "Link mode",
+      "implementation": "Options with href render anchors (or linkComponent); the active segment is a non-link aria-current=\"page\" marker and the container uses role=group since links cannot be radios",
+      "userRequirements": "Use link mode for single-select view switches backed by real URLs; keep button mode for in-page filters"
     },
     {
       "feature": "Multi-select semantics",

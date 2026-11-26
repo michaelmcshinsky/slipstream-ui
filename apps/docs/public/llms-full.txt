@@ -6619,13 +6619,15 @@ Filters such as All / Investors / Advisors are often built with Tabs, which wron
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| options | `SegmentedOption[]` | — | yes | Segments to render: value, label, optional icon and disabled. |
+| options | `SegmentedOption[]` | — | yes | Segments to render: value, label, optional icon, disabled, and href. An option with href renders as a link (view-switch navigation that survives refresh and works without JavaScript); the active segment becomes a non-link aria-current="page" marker. |
 | value | `string | string[]` | — | no | Controlled selection. Use string[] when multiple. |
 | defaultValue | `string | string[]` | — | no | Initial selection when uncontrolled. |
 | onValueChange | `(value: string | string[]) => void` | — | no | Fires with the next selection. |
 | multiple | `boolean` | `false` | no | Allow more than one segment to be active. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
 | fullWidth | `boolean` | `false` | no | Stretch segments to fill the container width. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for routers (Next Link, react-router Link). Used by options that set href. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 
 ## Examples
 
@@ -6662,6 +6664,21 @@ Pressed buttons for independent filters.
 />
 ```
 
+### URL-backed view switch
+
+Options with href render as links; the active segment is an aria-current marker. Use for server-rendered view switches.
+
+```tsx
+<SegmentedControl
+  aria-label="View"
+  value={view}
+  options={[
+    { value: 'list', label: 'List', href: '/items?view=list' },
+    { value: 'grid', label: 'Grid', href: '/items?view=grid' },
+  ]}
+/>
+```
+
 ## Anti-patterns
 
 - **Don't use it for tab panels** — If each segment reveals its own panel, use Tabs so aria-controls and tabpanel semantics are correct.
@@ -6671,6 +6688,7 @@ Pressed buttons for independent filters.
 
 - **Single-select semantics**: Uses role=radiogroup and role=radio with aria-checked and roving tabindex
 - **Keyboard**: Arrow keys move selection; Home and End jump to the first and last enabled segment
+- **Link mode**: Options with href render anchors (or linkComponent); the active segment is a non-link aria-current="page" marker and the container uses role=group since links cannot be radios
 - **Multi-select semantics**: Uses role=group with aria-pressed on each segment
 
 ## Composition

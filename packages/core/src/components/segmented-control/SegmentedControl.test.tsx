@@ -59,4 +59,68 @@ describe('SegmentedControl', () => {
     const { container } = render(<ControlledExample />);
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it('renders options with href as links and marks the active segment', () => {
+    render(
+      <SegmentedControl
+        aria-label="View"
+        value="grid"
+        options={[
+          { value: 'list', label: 'List', href: '/items?view=list' },
+          { value: 'grid', label: 'Grid', href: '/items?view=grid' },
+        ]}
+      />
+    );
+    expect(screen.getByRole('link', { name: 'List' })).toHaveAttribute('href', '/items?view=list');
+    expect(screen.queryByRole('link', { name: 'Grid' })).not.toBeInTheDocument();
+    expect(screen.getByText('Grid').closest('[aria-current]')).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('honors linkComponent and linkHrefProp', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-to={to} {...rest}>{children}</a>
+    );
+    render(
+      <SegmentedControl
+        aria-label="View"
+        value="list"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+        options={[
+          { value: 'list', label: 'List', href: '/items?view=list' },
+          { value: 'grid', label: 'Grid', href: '/items?view=grid' },
+        ]}
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Grid' })).toHaveAttribute('data-to', '/items?view=grid');
+  });
+
+  it('renders a disabled link option as a non-interactive marker', () => {
+    render(
+      <SegmentedControl
+        aria-label="View"
+        value="list"
+        options={[
+          { value: 'list', label: 'List', href: '/items?view=list' },
+          { value: 'grid', label: 'Grid', href: '/items?view=grid', disabled: true },
+        ]}
+      />
+    );
+    expect(screen.queryByRole('link', { name: 'Grid' })).not.toBeInTheDocument();
+    expect(screen.getByText('Grid').closest('[aria-disabled]')).toHaveAttribute('aria-disabled', 'true');
+  });
+
+  it('has no accessibility violations in link mode', async () => {
+    const { container } = render(
+      <SegmentedControl
+        aria-label="View"
+        value="grid"
+        options={[
+          { value: 'list', label: 'List', href: '/items?view=list' },
+          { value: 'grid', label: 'Grid', href: '/items?view=grid' },
+        ]}
+      />
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
 });

@@ -71,6 +71,7 @@ export default function Demo() {
   label: React.ReactNode;
   icon?: React.ReactNode;
   disabled?: boolean;
+  href?: string;
 };
 
 type SegmentedControlProps = {
@@ -81,6 +82,8 @@ type SegmentedControlProps = {
   multiple?: boolean;
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  linkComponent?: React.ElementType;
+  linkHrefProp?: 'href' | 'to';
 };`}
       />
       <DemoCard
@@ -133,7 +136,33 @@ type SegmentedControlProps = {
   ]}
 />`}
         usage={`// size="sm" for toolbars; fullWidth stretches segments edge to edge.
-// icon accepts any ReactNode and pairs with a text label.`}
+// icon accepts any ReactNode and pairs with a text label.
+// Give an option href to render it as a link for URL-backed view switches.`}
+      />
+      <DemoCard
+        title="URL-backed view switch"
+        preview={
+          <SegmentedControl
+            aria-label="Listing view"
+            value="grid"
+            options={[
+              { value: 'list', label: 'List', href: '?view=list' },
+              { value: 'grid', label: 'Grid', href: '?view=grid' },
+            ]}
+          />
+        }
+        code={`<SegmentedControl
+  aria-label="Listing view"
+  value={view}
+  options={[
+    { value: 'list', label: 'List', href: '?view=list' },
+    { value: 'grid', label: 'Grid', href: '?view=grid' },
+  ]}
+/>`}
+        usage={`// Options with href render real links: the view survives refresh,
+// works without JavaScript, and stays cacheable. The active segment
+// becomes an aria-current="page" marker. Use linkComponent/linkHrefProp
+// for client-side routers. Intended for single-select.`}
       />
     </>
   );
