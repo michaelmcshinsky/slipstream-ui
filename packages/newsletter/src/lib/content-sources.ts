@@ -13,6 +13,24 @@ import type {
 import { logError, logWarn } from './log';
 
 /**
+ * Audit actions surfaced in the platform-activity digest. Names must match
+ * the action strings emitted by apps/app audit() calls; 'team.created' is
+ * intentionally absent because team creation is not audited today.
+ */
+export const NEWSLETTER_AUDIT_ACTIONS = [
+  'user.login',
+  'user.signup',
+  'user.email.verified',
+  'team.invite.accepted',
+  'admin.user.suspend',
+  'license.issued',
+  'license.revoked',
+  'apikey.created',
+  'apikey.revoked',
+  'billing.canceled',
+] as const;
+
+/**
  * Audit Log content source - fetches recent audit log entries
  */
 export class AuditLogContentSource implements ContentSource {
@@ -31,19 +49,7 @@ export class AuditLogContentSource implements ContentSource {
           lte: until,
         },
         // Only include actions that are interesting for newsletters.
-        // Names must match the action strings emitted by apps/app audit() calls.
-        action: {
-          in: [
-            'user.login',
-            'user.signup',
-            'team.created',
-            'team.invite.accepted',
-            'admin.user.suspend',
-            'license.issued',
-            'apikey.created',
-            'billing.canceled',
-          ],
-        },
+        action: { in: [...NEWSLETTER_AUDIT_ACTIONS] },
       },
       orderBy: { createdAt: 'desc' },
       take: 50,
@@ -71,11 +77,13 @@ export class AuditLogContentSource implements ContentSource {
     const actionMap: Record<string, string> = {
       'user.login': 'User Login',
       'user.signup': 'New User Signup',
+      'user.email.verified': 'Email Verified',
       'team.invite.accepted': 'Team Invitation Accepted',
       'admin.user.suspend': 'User Suspended',
-      'team.created': 'Team Created',
       'license.issued': 'License Issued',
+      'license.revoked': 'License Revoked',
       'apikey.created': 'API Key Created',
+      'apikey.revoked': 'API Key Revoked',
       'billing.canceled': 'Subscription Canceled',
     };
     return actionMap[action] || action.replace(/\./g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
@@ -306,7 +314,10 @@ export class ContentSourceRegistry {
   }
 
   async fetchAllContent(options: NewsletterGenerationOptions): Promise<NewsletterContentItem[]> {
-    const enabledTypes = options.contentTypes ?? ['audit_log', 'release', 'github', 'custom'];
+    // Defaults cover only sources with real data today: audit activity plus
+    // GitHub (when configured). 'release'/'custom' remain valid opt-in types
+    // for consumers that register their own sources.
+    const enabledTypes = options.contentTypes ?? ['audit_log', 'github'];
     const results = await Promise.all(
       enabledTypes
         .map((type) => this.sources.get(type))

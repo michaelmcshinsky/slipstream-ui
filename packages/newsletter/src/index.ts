@@ -14,6 +14,7 @@ export {
   ReleaseContentSource,
   GitHubContentSource,
   CustomContentSource,
+  NEWSLETTER_AUDIT_ACTIONS,
 } from './lib/content-sources';
 
 // Preferences
