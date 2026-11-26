@@ -21,6 +21,7 @@ Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordere
 | columns | `2 | 3 | 4` | `3` | no | Desktop column count. |
 | numbered | `boolean` | `true` | no | Show step numbers when no icon is provided. |
 | align | `'left' | 'center'` | `left` | no | Content alignment. |
+| headingLevel | `2 | 3 | 4` | `3` | no | Heading level for step titles (h2-h4); pick the level that continues the page outline without skipping a rank. |
 
 ## Examples
 

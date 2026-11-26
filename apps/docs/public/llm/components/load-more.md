@@ -21,7 +21,7 @@ Paginated lists without page numbers need one consistent load-more control that 
 | onLoadMore | `() => void` | — | yes | Request the next page. |
 | loading | `boolean` | `false` | no | Loading state. |
 | loadLabel | `string` | `Load more` | no | Button label. |
-| loadingLabel | `string` | `Loading...` | no | Loading label. |
+| loadingLabel | `string` | `Loading…` | no | Loading label. |
 | endLabel | `string` | `You're all caught up.` | no | End-of-list message. |
 
 ## Examples
