@@ -104,14 +104,24 @@ export default function BillingPage() {
             Plan: <span className="font-semibold">{subscription.plan}</span> · Status:{' '}
             <span className="font-semibold">{subscription.status}</span> · Seats: {subscription.seats}
           </p>
+          {subscription.currentPeriodEnd && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              {subscription.cancelAtPeriodEnd || subscription.status === 'CANCELED' ? 'Access until' : 'Renews'}{' '}
+              {new Date(subscription.currentPeriodEnd).toLocaleDateString()}.
+            </p>
+          )}
           {subscription.plan !== 'FREE' && (
             <button
               type="button"
-              onClick={() => void cancel()}
+              onClick={() => {
+                if (window.confirm('Cancel at the end of the current billing period? You keep access until then.')) {
+                  void cancel();
+                }
+              }}
               disabled={!canCancel}
               className="mt-3 text-sm text-destructive hover:underline disabled:opacity-50"
             >
-              {canceling ? 'Canceling…' : 'Cancel subscription'}
+              {canceling ? 'Canceling…' : subscription.cancelAtPeriodEnd ? 'Cancels at period end' : 'Cancel subscription'}
             </button>
           )}
         </Card>

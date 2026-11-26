@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
@@ -42,6 +43,7 @@ export default function LicensesPage() {
   const [teams, setTeams] = useState<TeamRef[]>([]);
   const [teamId, setTeamId] = useState('');
   const [plan, setPlan] = useState<LicensePlan>('PRO');
+  const [note, setNote] = useState('');
   const [newKey, setNewKey] = useState<string | null>(null);
   const [revealedKeys, setRevealedKeys] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -87,7 +89,7 @@ export default function LicensesPage() {
     const response = await fetch('/api/licenses', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ teamId, plan, note: 'Issued from dashboard' }),
+      body: JSON.stringify({ teamId, plan, note: note.trim() || 'Issued from dashboard' }),
     });
     const data = await response.json();
     if (!response.ok) {
@@ -98,7 +100,14 @@ export default function LicensesPage() {
   }
 
   async function revoke(id: string) {
+    if (!window.confirm('Revoke this license? Activated machines will lose access immediately.')) return;
     await fetch(`/api/licenses/${id}`, { method: 'DELETE' });
+    await load();
+  }
+
+  async function deactivateMachine(licenseId: string, machineId: string) {
+    if (!window.confirm(`Remove machine ${machineId.slice(0, 8)}… from this license?`)) return;
+    await fetch(`/api/licenses/${licenseId}/activations/${encodeURIComponent(machineId)}`, { method: 'DELETE' });
     await load();
   }
 
@@ -164,6 +173,14 @@ export default function LicensesPage() {
                 <option key={value} value={value}>{value}</option>
               ))}
             </select>
+            <input
+              type="text"
+              value={note}
+              onChange={(event) => setNote(event.target.value)}
+              placeholder="Note (optional)"
+              aria-label="License note"
+              className={`${inputClass} w-40`}
+            />
             <button
               type="button"
               onClick={createLicense}
@@ -219,14 +236,36 @@ export default function LicensesPage() {
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 Activations: {license.activations.length} / {license.maxActivations}
-                {license.activations.length > 0 && (
-                  <> — machines: {license.activations.map((a) => a.machineId.slice(0, 8)).join(', ')}</>
-                )}
               </p>
+              {license.activations.length > 0 && (
+                <ul className="mt-1 space-y-1">
+                  {license.activations.map((activation) => (
+                    <li key={activation.id} className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                      <span className="font-mono">{activation.machineId}</span>
+                      <span className="flex items-center gap-2">
+                        <span>seen {new Date(activation.lastSeenAt).toLocaleDateString()}</span>
+                        <button
+                          type="button"
+                          onClick={() => deactivateMachine(license.id, activation.machineId)}
+                          className="text-destructive hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
           {licenses.length === 0 && (
-            <p className="text-sm text-muted-foreground">No licenses yet — upgrade to Pro to get one.</p>
+            <p className="text-sm text-muted-foreground">
+              No licenses yet —{' '}
+              <Link href="/dashboard/billing" className="font-medium text-primary hover:underline">
+                upgrade to a paid plan
+              </Link>{' '}
+              to get one.
+            </p>
           )}
         </div>
       </Card>
@@ -251,6 +290,7 @@ export default function LicensesPage() {
               <button
                 type="button"
                 onClick={async () => {
+                  if (!window.confirm(`Revoke API key "${key.name}"?`)) return;
                   await fetch(`/api/api-keys/${key.id}`, { method: 'DELETE' });
                   await load();
                 }}

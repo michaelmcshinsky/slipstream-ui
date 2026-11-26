@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
@@ -18,13 +19,18 @@ type Invite = {
 };
 
 export default function TeamPage() {
+  const searchParams = useSearchParams();
   const [teams, setTeams] = useState<{ id: string; name: string; role: string }[]>([]);
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const myRole = teams.find((team) => team.id === activeTeamId)?.role ?? 'MEMBER';
+  const canManage = myRole === 'OWNER' || myRole === 'ADMIN';
 
   useEffect(() => {
     fetch('/api/teams')
@@ -32,9 +38,12 @@ export default function TeamPage() {
       .then((data) => {
         const list = extractData<{ teams?: { id: string; name: string; role: string }[] }>(data)?.teams ?? [];
         setTeams(list);
-        if (list[0]) setActiveTeamId(list[0].id);
+        const requested = searchParams.get('team');
+        const initial = list.find((team) => team.id === requested) ?? list[0];
+        if (initial) setActiveTeamId(initial.id);
       })
       .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -78,8 +87,9 @@ export default function TeamPage() {
     event.currentTarget.reset();
   }
 
-  async function removeMember(memberId: string) {
+  async function removeMember(memberId: string, email: string) {
     if (!activeTeamId) return;
+    if (!window.confirm(`Remove ${email} from this team?`)) return;
     const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json().catch(() => null), 'Could not remove member.'));
@@ -89,8 +99,11 @@ export default function TeamPage() {
     setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
-  async function changeRole(memberId: string, role: string) {
+  async function changeRole(memberId: string, role: string, email: string, currentRole: string) {
     if (!activeTeamId) return;
+    if ((role === 'OWNER' || currentRole === 'OWNER') && !window.confirm(`Change ${email}'s role to ${role}? Owner changes affect billing and team ownership.`)) {
+      return;
+    }
     const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -104,8 +117,9 @@ export default function TeamPage() {
     setMembers(extractData<{ team?: { memberships?: Member[] } }>(data)?.team?.memberships ?? []);
   }
 
-  async function revokeInvite(inviteId: string) {
+  async function revokeInvite(inviteId: string, email: string) {
     if (!activeTeamId) return;
+    if (!window.confirm(`Revoke the pending invite for ${email}?`)) return;
     const response = await fetch(`/api/teams/${activeTeamId}/invites/${inviteId}`, { method: 'DELETE' });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json().catch(() => null), 'Could not revoke invite.'));
@@ -163,23 +177,29 @@ export default function TeamPage() {
                 <span className="ml-2 text-xs text-muted-foreground">{member.user.email}</span>
               </div>
               <div className="flex items-center gap-2">
-                <select
-                  value={member.role}
-                  onChange={(event) => changeRole(member.id, event.target.value)}
-                  aria-label={`Role for ${member.user.email}`}
-                  className="rounded-md border border-border bg-background px-2 py-1 text-xs"
-                >
-                  {['OWNER', 'ADMIN', 'MEMBER'].map((role) => (
-                    <option key={role}>{role}</option>
-                  ))}
-                </select>
-                <button
-                  type="button"
-                  onClick={() => removeMember(member.id)}
-                  className="text-xs text-destructive hover:underline"
-                >
-                  Remove
-                </button>
+                {canManage ? (
+                  <select
+                    value={member.role}
+                    onChange={(event) => changeRole(member.id, event.target.value, member.user.email, member.role)}
+                    aria-label={`Role for ${member.user.email}`}
+                    className="rounded-md border border-border bg-background px-2 py-1 text-xs"
+                  >
+                    {['OWNER', 'ADMIN', 'MEMBER'].map((role) => (
+                      <option key={role}>{role}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className="text-xs text-muted-foreground">{member.role}</span>
+                )}
+                {canManage && (
+                  <button
+                    type="button"
+                    onClick={() => removeMember(member.id, member.user.email)}
+                    className="text-xs text-destructive hover:underline"
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
             </li>
           ))}
@@ -187,6 +207,7 @@ export default function TeamPage() {
         </ul>
       </Card>
 
+      {canManage && (
       <Card>
         <CardTitle>Invite a teammate</CardTitle>
         <form onSubmit={invite} className="flex flex-wrap items-end gap-2">
@@ -201,7 +222,22 @@ export default function TeamPage() {
         </form>
         {inviteUrl && (
           <p role="status" className="mt-3 break-all rounded-lg bg-primary/10 p-3 text-xs">
-            Invite created — share this acceptance link: {inviteUrl}
+            Invite created — share this acceptance link: {inviteUrl}{' '}
+            <button
+              type="button"
+              className="font-medium text-primary hover:underline"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(inviteUrl);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                } catch {
+                  /* clipboard unavailable */
+                }
+              }}
+            >
+              {copied ? 'Copied' : 'Copy link'}
+            </button>
           </p>
         )}
         {invites.length > 0 && (
@@ -215,7 +251,7 @@ export default function TeamPage() {
                   </span>
                   <button
                     type="button"
-                    onClick={() => revokeInvite(invite.id)}
+                    onClick={() => revokeInvite(invite.id, invite.email)}
                     className="text-xs text-destructive hover:underline"
                   >
                     Revoke
@@ -226,6 +262,7 @@ export default function TeamPage() {
           </>
         )}
       </Card>
+      )}
 
       <Card>
         <CardTitle>Create another team</CardTitle>

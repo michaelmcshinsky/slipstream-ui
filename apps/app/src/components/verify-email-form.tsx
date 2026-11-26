@@ -80,6 +80,15 @@ function VerifyEmailInner() {
           <p className="text-sm text-muted-foreground">
             Confirm your email address to accept team invitations.
           </p>
+          {!token && (
+            <p role="alert" className="text-sm text-destructive">
+              This verification link is incomplete — it is missing its token.{' '}
+              <a href="/login" className="font-medium text-primary hover:underline">
+                Sign in
+              </a>{' '}
+              and request a new link below.
+            </p>
+          )}
           {message && (
             <p role="alert" className="text-sm text-destructive">
               {message}

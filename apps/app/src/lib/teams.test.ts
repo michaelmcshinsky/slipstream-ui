@@ -5,7 +5,7 @@ import { POST as acceptInviteRoute } from '../app/api/invites/accept/route';
 import { POST as createInviteRoute } from '../app/api/teams/[teamId]/invites/route';
 import { prisma } from '@slipstream-ui/db';
 import { generateToken, hashToken } from './tokens';
-import { createTeamForUser, inviteMember, acceptInvite, requireMembership, TeamError } from './teams';
+import { createTeamForUser, inviteMember, acceptInvite, previewInvite, requireMembership, TeamError } from './teams';
 import { activateSubscription } from './billing';
 
 vi.mock('next/headers', () => ({
@@ -493,6 +493,30 @@ describe('teams', () => {
       await expect(requireMembership(admin.id, team.id, 'ADMIN')).resolves.toMatchObject({ role: 'ADMIN' });
       await expect(requireMembership(outsider.id, team.id)).rejects.toMatchObject({ status: 404 });
       await expect(requireMembership(owner.id, team.id, 'OWNER')).resolves.toMatchObject({ role: 'OWNER' });
+    });
+  });
+
+  describe('previewInvite', () => {
+    it('returns team, role and status for a pending invite and null for unknown tokens', async () => {
+      const fixture = await inviteFixture('ADMIN');
+      const preview = await previewInvite(fixture.token);
+      expect(preview).toMatchObject({
+        teamName: fixture.team.name,
+        role: 'ADMIN',
+        email: fixture.recipient.email,
+        status: 'pending',
+      });
+      expect(await previewInvite('not-a-real-token')).toBeNull();
+    });
+
+    it('reports accepted and expired invites instead of hiding them', async () => {
+      const accepted = await inviteFixture();
+      await acceptInvite(accepted.token, accepted.recipient.id);
+      expect(await previewInvite(accepted.token)).toMatchObject({ status: 'accepted' });
+
+      const expired = await inviteFixture();
+      await prisma.teamInvite.update({ where: { id: expired.inviteId }, data: { expiresAt: new Date(0) } });
+      expect(await previewInvite(expired.token)).toMatchObject({ status: 'expired' });
     });
   });
 });
