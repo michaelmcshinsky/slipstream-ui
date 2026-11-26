@@ -192,7 +192,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) (guidelines fo
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE). The license covers source code and
+content only; it does not grant rights to the Slipstream UI name, logo
+or other brand identifiers, and modified distributions must not imply
+endorsement (see [NOTICE](NOTICE)).
 
 ---
 
