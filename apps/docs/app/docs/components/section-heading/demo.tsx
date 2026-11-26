@@ -1,12 +1,13 @@
 'use client';
 
 import { Link, SectionHeading } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SectionHeadingPage() {
+export default function SectionHeadingPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="section-heading"
       title="SectionHeading"
       description="Section heading block: eyebrow, title (level 2–4), description and actions, with left/center alignment and three sizes."

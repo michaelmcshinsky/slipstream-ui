@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Checkbox, Fieldset, Label } from '@slipstream-ui/core';
 
-export default function FieldsetPage() {
+export default function FieldsetPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="fieldset"
       title="Fieldset"
       description="Groups related form controls in a native fieldset with a legend, optional description, and an error slot."

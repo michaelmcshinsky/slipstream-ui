@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { MultiSelect } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function MultiSelectPage() {
+export default function MultiSelectPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [industries, setIndustries] = useState<string[]>(['technology']);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="multi-select"
       title="MultiSelect"
       description="Searchable multi-select filter with visible removable chips and a checkbox panel."

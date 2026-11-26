@@ -1,10 +1,10 @@
 'use client';
 
 import { Breadcrumb, Button, PageHeader, documentHead } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function PageHeaderPage() {
+export default function PageHeaderPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const head = documentHead({
     title: 'Classes',
     description: 'Manage your weekly schedule and enrollment.',
@@ -12,6 +12,7 @@ export default function PageHeaderPage() {
   });
   return (
     <ComponentPage
+        manifest={manifest}
       id="page-header"
       title="PageHeader"
       description="Standard page heading with breadcrumbs, h1, description and actions, plus a router-agnostic documentHead helper for title, description, canonical and robots."

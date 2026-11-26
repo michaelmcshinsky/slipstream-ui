@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { CheckboxGroup, CheckboxGroupItem } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function CheckboxGroupPage() {
+export default function CheckboxGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [langs, setLangs] = useState<string[]>(['ts']);
   const [alerts, setAlerts] = useState<string[]>([]);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="checkbox-group"
       manifestId="checkbox"
       title="CheckboxGroup"

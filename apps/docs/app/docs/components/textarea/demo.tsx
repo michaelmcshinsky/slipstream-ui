@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { FormField, Textarea } from '@slipstream-ui/core';
 
-export default function TextareaPage() {
+export default function TextareaPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="textarea"
       title="Textarea"
       description="Multi-line text input styled to match Input."

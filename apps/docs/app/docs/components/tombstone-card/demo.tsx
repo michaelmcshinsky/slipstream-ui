@@ -1,12 +1,13 @@
 'use client';
 
 import { Grid, TombstoneCard } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function TombstoneCardPage() {
+export default function TombstoneCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="tombstone-card"
       title="TombstoneCard"
       description="Placeholder card for archived, closed or unavailable marketplace items."

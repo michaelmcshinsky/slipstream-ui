@@ -1,12 +1,13 @@
 'use client';
 
 import { DatePicker, FormField } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DatePickerPage() {
+export default function DatePickerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="date-picker"
       title="DatePicker"
       description="Native date field with an ISO-string contract, min/max passthrough and an optional clear button."

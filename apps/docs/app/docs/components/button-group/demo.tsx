@@ -2,17 +2,18 @@
 
 import { useState } from 'react';
 import { Button, ButtonGroup } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 type View = 'list' | 'board' | 'calendar';
 
-export default function ButtonGroupPage() {
+export default function ButtonGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [view, setView] = useState<View>('list');
   const [step, setStep] = useState(2);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="button-group"
       title="ButtonGroup"
       description="Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded: a single outline around the group."

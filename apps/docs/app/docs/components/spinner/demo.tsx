@@ -1,10 +1,11 @@
 import { Spinner } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SpinnerPage() {
+export default function SpinnerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="spinner"
       title="Spinner"
       description="Indeterminate loading indicator with accessible status semantics."

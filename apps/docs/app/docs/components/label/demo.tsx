@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Label, Input } from '@slipstream-ui/core';
 
-export default function LabelPage() {
+export default function LabelPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="label"
       title="Label"
       description="Accessible form label that associates with its control."

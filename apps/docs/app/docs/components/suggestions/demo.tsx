@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { Suggestions } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SuggestionsPage() {
+export default function SuggestionsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="suggestions"
       title="Suggestions"
       description="Offer useful next prompts after an AI response."

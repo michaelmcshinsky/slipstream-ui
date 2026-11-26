@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { Reasoning } from '@slipstream-ui/ai';
 import type { ReasoningStep } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ReasoningPage() {
+export default function ReasoningPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [collapsible, setCollapsible] = useState(true);
 
@@ -19,6 +19,7 @@ export default function ReasoningPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="reasoning"
       title="Reasoning"
       description="A collapsible component for displaying AI reasoning steps and chain-of-thought processes."

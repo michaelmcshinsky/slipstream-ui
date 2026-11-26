@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { Checkbox } from '@slipstream-ui/core';
 import { Conversation } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ConversationPage() {
+export default function ConversationPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showAvatars, setShowAvatars] = useState(true);
 
@@ -27,6 +27,7 @@ export default function ConversationPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="conversation"
       title="Conversation"
       description="A container for displaying a list of chat messages with auto-scroll, streaming cursors, welcome state and history pagination."

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCard } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const ROWS = [
@@ -10,9 +10,10 @@ const ROWS = [
   { name: 'Pointe Technique', instructor: 'Martha', seats: 6 },
 ];
 
-export default function TableCardPage() {
+export default function TableCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="table-card"
       title="TableCard"
       description="Table shell with title/description, actions, optional toolbar, edge-to-edge body and a footer row."

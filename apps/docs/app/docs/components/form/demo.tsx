@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Button, Form, FormField, Input } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FormPage() {
+export default function FormPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
@@ -23,6 +23,7 @@ export default function FormPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="form"
       title="Form"
       description="Semantic form element with even-spacing layouts: stacked (default), bordered card, or inline row: native submit and validation untouched."

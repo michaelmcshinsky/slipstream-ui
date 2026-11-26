@@ -1,12 +1,13 @@
 'use client';
 
 import { AuthLayout, Button, FormField, Input, PasswordInput } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function AuthLayoutPage() {
+export default function AuthLayoutPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="auth-layout"
       title="AuthLayout"
       description="Authentication surface with a centered card or a split form/aside layout, plus brand, title, footer and size presets."

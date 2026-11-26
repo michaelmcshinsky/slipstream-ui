@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, DataTable, Switch, type DataTableColumn } from '@slipstream-ui/core';
 
@@ -38,13 +38,14 @@ const COLUMNS: DataTableColumn<Conversation>[] = [
   { key: 'updatedAt', header: 'Updated', sortable: true, align: 'right' },
 ];
 
-export default function DataTablePage() {
+export default function DataTablePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [clicked, setClicked] = useState<string | null>(null);
   const [cellClick, setCellClick] = useState<string | null>(null);
   const [loadingDemo, setLoadingDemo] = useState(false);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="data-table"
       title="DataTable"
       description="Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction."

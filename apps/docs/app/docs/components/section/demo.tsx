@@ -1,12 +1,13 @@
 'use client';
 
 import { Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SectionPage() {
+export default function SectionPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="section"
       title="Section"
       description="Full-width page section with a surface tone, vertical rhythm and an optional centered container."

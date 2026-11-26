@@ -1,12 +1,13 @@
 'use client';
 
 import { Container } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ContainerPage() {
+export default function ContainerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="container"
       title="Container"
       description="Centered, width-constrained page container with shared gutters and four width presets."

@@ -133,10 +133,10 @@ jobs:
         run: pnpm generate:llm-docs
 
       - name: Generate article + a11y-scorecard snapshots
-        run: pnpm generate:article-content && pnpm generate:a11y-scorecard
+        run: pnpm generate:article-content && pnpm generate:a11y-scorecard && pnpm generate:registry-manifests
 
       - name: Check generated files are committed
-        run: git diff --exit-code -- README.md llms.txt release.json apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llms-full.txt apps/docs/public/llm apps/docs/public/registry apps/docs/lib/article-content.generated.ts apps/docs/lib/a11y-scorecard.generated.ts
+        run: git diff --exit-code -- README.md llms.txt release.json apps/docs/lib/component-count.ts apps/docs/public/llms.txt apps/docs/public/llms-full.txt apps/docs/public/llm apps/docs/public/registry apps/docs/lib/article-content.generated.ts apps/docs/lib/a11y-scorecard.generated.ts apps/docs/lib/registry-manifests.generated.ts
 
       - name: Check LLM documentation surfaces
         run: pnpm check:llm

@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { FilterPanel, MultiSelect, RangeSlider } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FilterPanelPage() {
+export default function FilterPanelPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [industries, setIndustries] = useState<string[]>(['technology']);
   const [revenue, setRevenue] = useState<[number, number]>([5, 100]);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="filter-panel"
       title="FilterPanel"
       description="Structured filter panel with collapsible sections and reset/apply actions."

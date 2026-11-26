@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, FormField, Input, Textarea } from '@slipstream-ui/core';
 
-export default function FormFieldPage() {
+export default function FormFieldPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="form-field"
       title="FormField"
       description="Label + control + hint/error in one unit with htmlFor, aria-describedby, and aria-invalid wiring applied automatically."

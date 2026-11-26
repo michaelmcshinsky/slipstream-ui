@@ -1,12 +1,13 @@
 'use client';
 
 import { MetricCard } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function MetricCardPage() {
+export default function MetricCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="metric-card"
       title="MetricCard"
       description="KPI tile: label, value, directional delta (arrow + color) and a supporting hint."

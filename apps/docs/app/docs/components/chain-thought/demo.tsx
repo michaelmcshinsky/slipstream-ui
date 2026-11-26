@@ -1,10 +1,11 @@
 import { ChainThought } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ChainThoughtPage() {
+export default function ChainThoughtPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="chain-thought"
       title="ChainThought"
       description="Show ordered agent work with explicit progress status."

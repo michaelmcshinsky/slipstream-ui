@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { RangeSlider } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function RangeSliderPage() {
+export default function RangeSliderPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [revenue, setRevenue] = useState<[number, number]>([5, 100]);
   const [budget, setBudget] = useState<[number, number]>([30, 70]);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="range-slider"
       title="RangeSlider"
       description="Dual-thumb numeric range slider with labeled native inputs and formatted values."

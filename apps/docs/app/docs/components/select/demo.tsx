@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Select } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const sizes = [
@@ -12,10 +12,11 @@ const sizes = [
   { value: 'icon', label: 'Icon', disabled: true },
 ];
 
-export default function SelectPage() {
+export default function SelectPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [size, setSize] = useState('default');
   return (
     <ComponentPage
+        manifest={manifest}
       id="select"
       title="Select"
       description="Accessible select primitive built on the native select element with controlled and uncontrolled modes."

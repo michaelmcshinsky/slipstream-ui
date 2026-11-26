@@ -1,4 +1,4 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import {
   Badge,
@@ -11,9 +11,10 @@ import {
   CardTitle,
 } from '@slipstream-ui/core';
 
-export default function CardPage() {
+export default function CardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="card"
       title="Card"
       description="Content container with header, body, and footer sections: bordered, borderless, or compact via className."

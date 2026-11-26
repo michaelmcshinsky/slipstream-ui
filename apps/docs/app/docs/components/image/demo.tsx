@@ -1,7 +1,7 @@
 'use client';
 
 import { Image } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 /**
@@ -13,9 +13,10 @@ const PLACEHOLDER =
 
 const BROKEN = '/images/does-not-exist.jpg';
 
-export default function ImagePage() {
+export default function ImagePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="image"
       title="Image"
       description="Resilient image with a two-step fallback chain, intrinsic dimensions and an LCP priority flag."

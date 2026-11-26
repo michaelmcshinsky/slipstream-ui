@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { ThemeToggle } from '@slipstream-ui/core';
 
-export default function ThemeTogglePage() {
+export default function ThemeTogglePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="theme-toggle"
       title="ThemeToggle"
       description="The button and its accessible label. The consumer owns persistence and the actual class/attribute switch."

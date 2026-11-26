@@ -9,9 +9,9 @@ import {
   PromptInputActionAddAttachments,
   PromptInputSubmit,
 } from "@slipstream-ui/ai";
-import { ComponentPage } from "@/components/component-page";
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from "@/components/demo-card";
-export default function PromptInputPage() {
+export default function PromptInputPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [submitted, setSubmitted] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState(false);
@@ -28,6 +28,7 @@ export default function PromptInputPage() {
   };
   return (
     <ComponentPage
+        manifest={manifest}
       id="prompt-input"
       title="PromptInput"
       description="Auto-resizing chat input with Enter-to-send, Shift+Enter for newlines, and a stop-generation button while a response is in flight. Also composes as a compound primitive set for custom layouts."

@@ -2,14 +2,15 @@
 
 import { DatePickerPopover, FormField } from '@slipstream-ui/core';
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DatePickerPopoverPage() {
+export default function DatePickerPopoverPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [date, setDate] = useState('2026-11-13');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="date-picker-popover"
       title="DatePickerPopover"
       description="Date field with a Calendar panel, ISO strings, min/max and keyboard selection."

@@ -1,5 +1,5 @@
 import { InlineCitation } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const source = {
@@ -9,9 +9,10 @@ const source = {
   snippet: '78% of enterprises shipped at least one LLM-powered feature in production.',
 };
 
-export default function InlineCitationPage() {
+export default function InlineCitationPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="inline-citation"
       title="InlineCitation"
       description="Perplexity-style inline citation: a superscript chip that reveals the source title and snippet on hover or keyboard focus. Use it to attribute individual claims inside a response; use Sources for the footer list."

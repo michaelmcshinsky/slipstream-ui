@@ -1,12 +1,13 @@
 'use client';
 
 import { FeatureGrid, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FeatureGridPage() {
+export default function FeatureGridPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="feature-grid"
       title="FeatureGrid"
       description="Grid of feature or benefit cards with an icon, title, copy and optional link."

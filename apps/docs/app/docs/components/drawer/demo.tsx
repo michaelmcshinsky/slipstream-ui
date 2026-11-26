@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Button, Checkbox, Drawer, Form, FormField, Input, Label } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DrawerPage() {
+export default function DrawerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [open, setOpen] = useState(false);
   const [side, setSide] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
   const [size, setSize] = useState<'sm' | 'md' | 'lg' | 'xl' | '2xl'>('md');
@@ -15,6 +15,7 @@ export default function DrawerPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="drawer"
       title="Drawer"
       description="Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-grade modal semantics (portal, focus trap, Escape, focus restoration)."

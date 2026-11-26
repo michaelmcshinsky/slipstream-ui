@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@slipstream-ui/core';
 
-export default function TabsPage() {
+export default function TabsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="tabs"
       title="Tabs"
       description="Tabbed content container with ARIA tablist semantics, size variants, and underline/default strip designs."

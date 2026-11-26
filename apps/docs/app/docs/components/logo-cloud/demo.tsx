@@ -1,12 +1,13 @@
 'use client';
 
 import { LogoCloud, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function LogoCloudPage() {
+export default function LogoCloudPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="logo-cloud"
       title="LogoCloud"
       description="Trust strip for member, customer or partner logos with captions, columns and optional links."

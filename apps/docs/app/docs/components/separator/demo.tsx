@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Separator } from '@slipstream-ui/core';
 
-export default function SeparatorPage() {
+export default function SeparatorPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="separator"
       title="Separator"
       description="Visual divider between content blocks, decorative or semantic."

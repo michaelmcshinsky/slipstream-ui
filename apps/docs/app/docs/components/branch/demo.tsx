@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Branch, Message } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const VARIANTS = [
@@ -11,11 +11,12 @@ const VARIANTS = [
   'Paris is the capital and largest city of France.',
 ];
 
-export default function BranchPage() {
+export default function BranchPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [selected, setSelected] = useState(0);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="branch"
       title="Branch"
       description="Variant navigation for branched messages: ‹ N / M › controls that let users compare alternative AI responses. Purely presentational: you swap the content."

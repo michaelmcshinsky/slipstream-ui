@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Label, Switch } from '@slipstream-ui/core';
 
-export default function SwitchPage() {
+export default function SwitchPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="switch"
       title="Switch"
       description="Toggle switch for binary settings, with role=switch and aria-checked."

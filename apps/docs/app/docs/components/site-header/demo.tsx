@@ -1,12 +1,13 @@
 'use client';
 
 import { SiteHeader } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SiteHeaderPage() {
+export default function SiteHeaderPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="site-header"
       title="SiteHeader"
       description="Sticky marketing/site header: brand, horizontal navigation with prefix-aware active states, optional mega-menu panels, right-aligned actions and a mobile drawer."

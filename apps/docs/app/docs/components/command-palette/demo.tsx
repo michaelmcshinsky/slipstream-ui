@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { CommandPalette, type Command } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const commands: Command[] = [
@@ -34,7 +34,7 @@ const commands: Command[] = [
   },
 ];
 
-export default function CommandPalettePage() {
+export default function CommandPalettePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [open, setOpen] = useState(false);
   const [last, setLast] = useState<string | null>(null);
 
@@ -51,6 +51,7 @@ export default function CommandPalettePage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="command-palette"
       title="CommandPalette"
       description="Cmd+K style command palette with lexical search, sectioned results and full keyboard navigation. Supports a static command list or an async loadCommands source."

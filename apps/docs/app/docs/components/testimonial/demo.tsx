@@ -1,12 +1,13 @@
 'use client';
 
 import { Avatar, AvatarFallback, Grid, Section, Testimonial } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function TestimonialPage() {
+export default function TestimonialPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="testimonial"
       title="Testimonial"
       description="Semantic written testimonial with quote, person, role, company, avatar and logo slots."

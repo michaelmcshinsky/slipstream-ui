@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { Message, MessageActions } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function MessageActionsPage() {
+export default function MessageActionsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [rating, setRating] = useState<'up' | 'down' | undefined>();
   const [regenerations, setRegenerations] = useState(0);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="message-actions"
       title="MessageActions"
       description="Feedback toolbar for AI responses: copy, thumbs up/down rating, and regenerate. Every action is a callback: the component holds no conversation state."

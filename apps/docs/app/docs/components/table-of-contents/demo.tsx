@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { TableOfContents, useScrollSpy, type TocHeading } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const HEADINGS: TocHeading[] = [
@@ -41,12 +41,13 @@ const SECTIONS = [
   },
 ];
 
-export default function TableOfContentsPage() {
+export default function TableOfContentsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [lastNavigated, setLastNavigated] = useState<string>();
   const activeId = useScrollSpy(HEADINGS.map((heading) => heading.id));
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="table-of-contents"
       title="TableOfContents"
       description="Sticky 'On this page' navigation with real anchor links, nested levels, aria-current, and a useScrollSpy hook for the active heading."

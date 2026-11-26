@@ -1,5 +1,5 @@
 import { Response } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const SAMPLE = `# Quarterly summary
@@ -19,9 +19,10 @@ export const answer = 42;
 
 const PARTIAL = 'Rendering partial tokens with an unclosed **bold marker and `inline cod';
 
-export default function ResponsePage() {
+export default function ResponsePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="response"
       title="Response"
       description="Streaming-optimized markdown renderer for AI responses: GitHub-flavored markdown, automatic repair of incomplete syntax while tokens arrive, and code blocks routed through CodeBlock."

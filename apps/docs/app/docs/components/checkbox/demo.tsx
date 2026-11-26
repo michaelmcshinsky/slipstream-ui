@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Checkbox, CheckboxGroup, CheckboxGroupItem, Label } from '@slipstream-ui/core';
 
-export default function CheckboxPage() {
+export default function CheckboxPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="checkbox"
       title="Checkbox"
       description="Native checkbox input styled to match the design system, with controlled and uncontrolled support."

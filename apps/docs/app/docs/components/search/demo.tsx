@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { FormField, Search, type SearchOption } from '@slipstream-ui/core';
 
@@ -13,11 +13,12 @@ const PEOPLE: SearchOption[] = [
   { value: 'margaret', label: 'Margaret Hamilton', description: 'Reliability', keywords: 'margaret flight software' },
 ];
 
-export default function SearchPage() {
+export default function SearchPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [assignee, setAssignee] = useState<string>('');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="search"
       title="Search"
       description="Select-with-search: type to filter a full-width dropdown of options, or arrow through the full set from an empty query."

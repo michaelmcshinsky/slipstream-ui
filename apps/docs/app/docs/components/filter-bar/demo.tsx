@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { FilterBar, Select } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FilterBarPage() {
+export default function FilterBarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('all');
   const active = (query ? 1 : 0) + (status !== 'all' ? 1 : 0);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="filter-bar"
       title="FilterBar"
       description="List-page filter strip: search field, filter controls, reset affordance and trailing actions."

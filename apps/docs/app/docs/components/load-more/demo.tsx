@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { LoadMore } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function LoadMorePage() {
+export default function LoadMorePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -19,6 +19,7 @@ export default function LoadMorePage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="load-more"
       title="LoadMore"
       description="Load-more control with pending and end-of-list states."

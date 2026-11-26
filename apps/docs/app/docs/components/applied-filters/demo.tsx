@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { AppliedFilters, type FilterChip } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const INITIAL: FilterChip[] = [
@@ -11,7 +11,7 @@ const INITIAL: FilterChip[] = [
   { key: 'revenue', label: 'Revenue', value: '$10M to $50M' },
 ];
 
-export default function AppliedFiltersPage() {
+export default function AppliedFiltersPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [filters, setFilters] = useState(INITIAL);
   const [editHint, setEditHint] = useState(false);
 
@@ -19,6 +19,7 @@ export default function AppliedFiltersPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="applied-filters"
       title="AppliedFilters"
       description="Applied-filter summary with a live count, removable chips and an edit action."

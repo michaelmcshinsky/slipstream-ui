@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Text } from '@slipstream-ui/core';
 
-export default function TextPage() {
+export default function TextPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="text"
       title="Text"
       description="Semantic paragraph text with a controlled type scale; renders a real p (or span with inline)."

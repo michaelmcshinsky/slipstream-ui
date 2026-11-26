@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { AttachmentList } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function AttachmentPage() {
+export default function AttachmentPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [attachments, setAttachments] = useState([
     { id: '1', name: 'product-spec.pdf', size: '2.4 MB', type: 'PDF', status: 'done' as const },
     { id: '2', name: 'screenshot.png', size: '480 KB', status: 'done' as const },
@@ -14,6 +14,7 @@ export default function AttachmentPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="attachment"
       title="Attachment"
       description="File chips for prompts and messages. Display-only: upload logic stays in your app. Attachment renders one file; AttachmentList renders a wrapping row."

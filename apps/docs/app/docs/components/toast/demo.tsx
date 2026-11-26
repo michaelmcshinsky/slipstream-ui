@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Toaster, ToastProvider, toast, useToast } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 function ToastPlayground() {
@@ -64,9 +64,10 @@ function ImperativeToasts() {
   );
 }
 
-export default function ToastPage() {
+export default function ToastPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="toast"
       title="Toast"
       description="Accessible app-level notifications announced through a polite live region, with auto-dismiss, stacking and optional actions."

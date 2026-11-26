@@ -1,12 +1,13 @@
 'use client';
 
 import { Button, EmptyState } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function EmptyStatePage() {
+export default function EmptyStatePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="empty-state"
       title="EmptyState"
       description="Placeholder for empty collections, zero-result searches and unconfigured features: title, description and action slots."
