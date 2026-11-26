@@ -19,6 +19,7 @@ export const ja: MarketingCopy = {
     promptPlaceholder: '試してみる…',
     send: '送信',
     agentStripLabel: 'スムーズに連携',
+    aiAssistantsNote: 'AI アシスタント向け',
     stats: ['コンポーネント', '機械可読な仕様', 'エージェント向け MCP ツール', '正しい使用での誤検知'],
     featuresHeading: 'いまのソフトウェア開発の進め方に合わせて',
     featuresIntro:

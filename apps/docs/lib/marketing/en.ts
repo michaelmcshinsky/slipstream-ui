@@ -19,6 +19,7 @@ export const en: MarketingCopy = {
     promptPlaceholder: 'Try me…',
     send: 'Send',
     agentStripLabel: 'Speaks fluently to',
+    aiAssistantsNote: 'For AI assistants',
     stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'false positives on valid usage'],
     featuresHeading: 'Built for the way software is written now',
     featuresIntro:

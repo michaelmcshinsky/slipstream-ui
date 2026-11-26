@@ -145,6 +145,7 @@ export type HomeCopy = {
   promptPlaceholder: string;
   send: string;
   agentStripLabel: string;
+  aiAssistantsNote: string;
   stats: string[];
   featuresHeading: string;
   featuresIntro: string;

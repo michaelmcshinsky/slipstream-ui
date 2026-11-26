@@ -19,6 +19,7 @@ export const ko: MarketingCopy = {
     promptPlaceholder: '직접 사용해 보세요…',
     send: '보내기',
     agentStripLabel: '원활하게 연동',
+    aiAssistantsNote: 'AI 어시스턴트용',
     stats: ['컴포넌트', '기계 판독 명세', '에이전트용 MCP 도구', '유효한 사용의 오탐'],
     featuresHeading: '지금의 소프트웨어 개발 방식에 맞춰',
     featuresIntro:
