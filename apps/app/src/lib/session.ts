@@ -21,9 +21,10 @@ function toSafeUser(user: User): SafeUser {
 }
 
 /** Create a DB-backed session and set the httpOnly cookie. */
-export async function createSession(userId: string): Promise<void> {
+export async function createSession(userId: string, options?: { maxAgeMs?: number }): Promise<void> {
   const token = generateToken();
-  const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000);
+  const ttlMs = options?.maxAgeMs ?? SESSION_TTL_DAYS * 24 * 60 * 60 * 1000;
+  const expiresAt = new Date(Date.now() + ttlMs);
   await prisma.session.create({ data: { tokenHash: hashToken(token), userId, expiresAt } });
   const store = await cookies();
   store.set(SESSION_COOKIE, token, {

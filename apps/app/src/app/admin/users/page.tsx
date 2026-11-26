@@ -52,9 +52,21 @@ export default function AdminUsersPage() {
   }
 
   async function impersonate(id: string, email: string) {
-    // Impersonation mints a real session as the target user — confirm first.
-    if (!window.confirm(`Impersonate ${email}? You will act as this user until you stop.`)) return;
-    const response = await fetch(`/api/admin/users/${id}/impersonate`, { method: 'POST' });
+    // Impersonation mints a real session as the target user — require a
+    // stated reason (ticket, user request) recorded in the audit log.
+    const reason = window.prompt(
+      `Impersonate ${email}? You will act as this user for up to one hour.\n\nReason (required, e.g. ticket or user request):`,
+    );
+    if (reason === null) return;
+    if (reason.trim().length < 3) {
+      setError('A reason of at least 3 characters is required to impersonate.');
+      return;
+    }
+    const response = await fetch(`/api/admin/users/${id}/impersonate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reason: reason.trim() }),
+    });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json().catch(() => null), 'Could not start impersonation.'));
       return;
