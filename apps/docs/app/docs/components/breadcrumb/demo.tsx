@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Breadcrumb } from '@slipstream-ui/core';
 
-export default function BreadcrumbPage() {
+export default function BreadcrumbPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [lastClick, setLastClick] = useState<string | null>(null);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="breadcrumb"
       title="Breadcrumb"
       description="Navigation breadcrumb trail with links, current-page indicator, and an optional click callback for custom routing."

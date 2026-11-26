@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Button, FormField, FormLayout, Input } from '@slipstream-ui/core';
 
-export default function FormLayoutPage() {
+export default function FormLayoutPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="form-layout"
       title="FormLayout"
       description="Groups form fields with even, tokenized spacing: vertical stack, horizontal row, or 1-4 column grid, optionally as a semantic fieldset."

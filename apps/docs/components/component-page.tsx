@@ -10,6 +10,7 @@ import { CopyForAi } from './copy-for-ai';
 import { JsonLd } from './site/json-ld';
 import { techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
+import type { RegistryManifestSlice } from '@/lib/registry-manifests.generated';
 
 export type ComponentPageProps = {
   /** Route/nav id, e.g. "sources": drives pagination and the URL. */
@@ -29,30 +30,18 @@ export type ComponentPageProps = {
   accessibility?: string[];
   /** Component-specific browser/progressive-enhancement notes. */
   browserNotes?: string[];
+  /**
+   * Server-provided manifest slice (see lib/registry-manifests.generated).
+   * Pages pass it so anti-patterns/composition/dependencies render in the
+   * SSR HTML; when omitted the client falls back to fetching /registry/*.json.
+   */
+  manifest?: RegistryManifestSlice | null;
 };
 
 /**
  * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json: only the
  * fields the human docs surface beyond the hand-written props table.
  */
-type ManifestAntiPattern = { title?: string; explanation?: string; example?: string };
-type ManifestCompositionRule = { component?: string; relationship?: string; example?: string };
-type ManifestContentGuideline = {
-  contentType?: string;
-  guidelines?: string[];
-  goodExamples?: string[];
-  badExamples?: string[];
-};
-type RegistryManifest = {
-  antiPatterns?: ManifestAntiPattern[];
-  compositionRules?: ManifestCompositionRule[];
-  relatedComponents?: string[];
-  dependencies?: string[];
-  registryDependencies?: string[];
-  designIntent?: string;
-  contentGuidelines?: ManifestContentGuideline[];
-};
-
 /** "MessageActions" / "InlineCitation" → route id used by /docs/components/<id>. */
 function toComponentId(name: string): string {
   return name
@@ -71,14 +60,15 @@ const COMPONENT_HREFS = new Set(
  * Returns null while loading or when the file is absent: sections derived
  * from it simply do not render (graceful degradation).
  */
-function useRegistryManifest(manifestId: string): RegistryManifest | null {
-  const [manifest, setManifest] = useState<RegistryManifest | null>(null);
+function useRegistryManifest(manifestId: string, enabled: boolean): RegistryManifestSlice | null {
+  const [manifest, setManifest] = useState<RegistryManifestSlice | null>(null);
 
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false;
     fetch(`/registry/${manifestId}.json`)
       .then((res) => (res.ok ? res.json() : null))
-      .then((data: RegistryManifest | null) => {
+      .then((data: RegistryManifestSlice | null) => {
         if (!cancelled && data) setManifest(data);
       })
       .catch(() => {
@@ -87,7 +77,7 @@ function useRegistryManifest(manifestId: string): RegistryManifest | null {
     return () => {
       cancelled = true;
     };
-  }, [manifestId]);
+  }, [manifestId, enabled]);
 
   return manifest;
 }
@@ -97,10 +87,11 @@ function useRegistryManifest(manifestId: string): RegistryManifest | null {
  * title → lede → installer box → demos (children: DemoCards) →
  * props table → anti-patterns → accessibility → composition → prev/next.
  *
- * Anti-patterns and composition are fetched from the component's manifest at
- * /registry/<id>.json so the human docs always show the exact same rules the
- * MCP `validate_usage` tool enforces. Sections render only when the manifest
- * carries them; a missing registry file degrades silently to the older layout.
+ * Anti-patterns and composition come from the component's manifest — inlined
+ * at build time (lib/registry-manifests.generated) and passed in as `manifest`
+ * so they render in the server HTML, with a /registry/<id>.json fetch as the
+ * fallback for callers that do not pass it. Sections render only when the
+ * manifest carries them.
  */
 export function ComponentPage({
   id,
@@ -112,10 +103,12 @@ export function ComponentPage({
   propsRows,
   accessibility,
   browserNotes,
+  manifest: manifestProp,
 }: ComponentPageProps) {
   const { t } = useI18n();
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
-  const manifest = useRegistryManifest(manifestId ?? id);
+  const fetched = useRegistryManifest(manifestId ?? id, manifestProp === undefined);
+  const manifest = manifestProp ?? fetched;
 
   const antiPatterns = manifest?.antiPatterns ?? [];
   const compositionRules = manifest?.compositionRules ?? [];

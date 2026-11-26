@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type ComponentProps } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { LinkTabs } from '@slipstream-ui/core';
 
@@ -11,7 +11,7 @@ const items = [
   { label: 'Billing', href: '/docs/components/link-tabs/billing' },
 ];
 
-export default function LinkTabsPage() {
+export default function LinkTabsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [path, setPath] = useState('/docs/components/link-tabs');
 
   // Demo-only link: keeps the tabs interactive without navigating readers to
@@ -35,6 +35,7 @@ export default function LinkTabsPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="link-tabs"
       title="LinkTabs"
       description="URL-driven navigation tabs for settings, account, and app sub-navigation. Real links, aria-current, and prefix/exact matching."

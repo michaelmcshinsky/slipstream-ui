@@ -1,12 +1,13 @@
 'use client';
 
 import { CodeBlock } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function CodeBlockPage() {
+export default function CodeBlockPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="code-block"
       title="CodeBlock"
       description="Syntax-highlighted code with a language label and one-click copy: the single shared code surface: every code example on this site renders through it (also used internally by Response)."

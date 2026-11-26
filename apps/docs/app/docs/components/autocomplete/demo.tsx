@@ -1,19 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Autocomplete, FormField } from '@slipstream-ui/core';
 
 const FRAMEWORKS = ['react', 'remix', 'next', 'vite', 'astro', 'sveltekit'];
 const TAGS = ['design-systems', 'streaming', 'accessibility', 'mcp', 'rag'];
 
-export default function AutocompletePage() {
+export default function AutocompletePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [framework, setFramework] = useState('');
   const [tag, setTag] = useState('streaming');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="autocomplete"
       title="Autocomplete"
       description="Type-ahead input following the HTML autocomplete model: any value is allowed while matching suggestions appear in a keyboard-navigable listbox."

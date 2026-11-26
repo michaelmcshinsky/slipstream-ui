@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger, Button, Input } from '@slipstream-ui/core';
 
-export default function PopoverPage() {
+export default function PopoverPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="popover"
       title="Popover"
       description="Floating panel anchored to a trigger with interactive content."

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { SelectMenu } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const PLANS = [
@@ -18,12 +18,13 @@ const CHANNELS = [
   { value: 'pager', label: 'PagerDuty' },
 ];
 
-export default function SelectMenuPage() {
+export default function SelectMenuPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [plan, setPlan] = useState('pro');
   const [channels, setChannels] = useState<string[]>(['email']);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="select-menu"
       title="SelectMenu"
       description="Custom listbox select for rich options: descriptions, icons, groups, multi-select, custom rows and hidden inputs for forms."

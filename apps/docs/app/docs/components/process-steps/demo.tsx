@@ -1,12 +1,13 @@
 'use client';
 
 import { ProcessSteps, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ProcessStepsPage() {
+export default function ProcessStepsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="process-steps"
       title="ProcessSteps"
       description="Ordered process cards with derived step numbers or custom icons."

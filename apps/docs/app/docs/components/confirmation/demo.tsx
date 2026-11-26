@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { Confirmation } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { VERSION } from '@/lib/version';
 
-export default function ConfirmationPage() {
+export default function ConfirmationPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [decisions, setDecisions] = useState<string[]>([]);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="confirmation"
       title="Confirmation"
       description="Human-in-the-loop approval gate for agent actions. Pauses tool execution until the user approves or rejects: the standard pattern for destructive operations."

@@ -1,12 +1,13 @@
 'use client';
 
 import { Button, EntityCard, Grid } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function EntityCardPage() {
+export default function EntityCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="entity-card"
       title="EntityCard"
       description="Profile card with logo, type, location, stats, tags and actions."

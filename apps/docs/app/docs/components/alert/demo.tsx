@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Alert, AlertDescription, AlertTitle } from '@slipstream-ui/core';
 
-export default function AlertPage() {
+export default function AlertPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="alert"
       title="Alert"
       description="Inline alert for status messages with semantic variants."

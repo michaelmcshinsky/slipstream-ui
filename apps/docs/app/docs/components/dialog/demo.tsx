@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { Button, Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DialogPage() {
+export default function DialogPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [open, setOpen] = useState(false);
   const [openNoClose, setOpenNoClose] = useState(false);
   const [openWide, setOpenWide] = useState(false);
   const [openComposed, setOpenComposed] = useState(false);
   return (
     <ComponentPage
+        manifest={manifest}
       id="dialog"
       title="Dialog"
       description="Accessible modal dialog with focus trapping, escape-to-close and focus restoration."

@@ -1,12 +1,13 @@
 'use client';
 
 import { AnnouncementBar } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function AnnouncementBarPage() {
+export default function AnnouncementBarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="announcement-bar"
       title="AnnouncementBar"
       description="Dismissible announcement bar with optional action, tone and sticky positioning."

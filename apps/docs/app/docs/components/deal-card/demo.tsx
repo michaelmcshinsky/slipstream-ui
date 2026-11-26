@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { DealCard, Grid } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DealCardPage() {
+export default function DealCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [savedTitles, setSavedTitles] = useState<ReadonlySet<string>>(new Set());
   const [accessRequests, setAccessRequests] = useState<ReadonlySet<string>>(new Set());
 
@@ -21,6 +21,7 @@ export default function DealCardPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="deal-card"
       title="DealCard"
       description="Marketplace listing card with sector, status, metrics, access badges and actions."

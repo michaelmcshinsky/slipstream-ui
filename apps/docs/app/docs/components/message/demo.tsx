@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { Message } from '@slipstream-ui/ai';
 import { Checkbox, Label, Select } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function MessagePage() {
+export default function MessagePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [role, setRole] = useState<'user' | 'assistant' | 'system'>('user');
   const [showAvatar, setShowAvatar] = useState(true);
 
@@ -18,6 +18,7 @@ export default function MessagePage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="message"
       title="Message"
       description="A chat message component that displays messages from users, assistants, or system prompts with optional avatars."

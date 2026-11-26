@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@slipstream-ui/core';
 
-export default function AccordionPage() {
+export default function AccordionPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="accordion"
       title="Accordion"
       description="Collapsible content sections with ARIA accordion semantics."

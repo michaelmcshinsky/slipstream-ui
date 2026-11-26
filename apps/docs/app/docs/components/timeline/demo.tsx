@@ -1,12 +1,13 @@
 'use client';
 
 import { Timeline } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function TimelinePage() {
+export default function TimelinePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="timeline"
       title="Timeline"
       description="Vertical chronology for experience, activity and audit trails, built on an ordered list."

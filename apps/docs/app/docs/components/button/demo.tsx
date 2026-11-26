@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, type ButtonProps } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 // Derived from the component so new variants/sizes appear here automatically.
@@ -37,12 +37,13 @@ const variantCode = VARIANTS.map(
     `<Button${v === 'default' ? '' : ` variant="${v}"`}>${v.charAt(0).toUpperCase() + v.slice(1).replace('-', ' ')}</Button>`
 ).join('\n');
 
-export default function ButtonPage() {
+export default function ButtonPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [variant, setVariant] = useState<ButtonVariant>('default');
   const [size, setSize] = useState<ButtonSize>('default');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="button"
       title="Button"
       description="A clickable button component with variants for different visual styles and sizes."

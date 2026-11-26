@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from '@slipstream-ui/core';
 
-export default function MenuPage() {
+export default function MenuPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="menu"
       title="Menu"
       description="Dropdown menu with keyboard navigation and ARIA menu semantics."

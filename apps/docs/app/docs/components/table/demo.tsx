@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Table, TableBody, TableCell, TableCaption, TableFooter, TableHead, TableHeader, TableRow } from '@slipstream-ui/core';
 
-export default function TablePage() {
+export default function TablePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="table"
       title="Table"
       description="Semantic data table with header, body and footer sections, row hover/selection states, and an accessible caption. Compose with the Table* subcomponents."

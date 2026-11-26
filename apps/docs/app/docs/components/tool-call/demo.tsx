@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { Checkbox, Select } from '@slipstream-ui/core';
 import { ToolCall, type ToolCallData } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 type ToolCallStatus = 'pending' | 'running' | 'completed' | 'failed';
 
-export default function ToolCallPage() {
+export default function ToolCallPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [status, setStatus] = useState<ToolCallStatus>('completed');
   const [showResult, setShowResult] = useState(true);
 
@@ -22,6 +22,7 @@ export default function ToolCallPage() {
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="tool-call"
       title="ToolCall"
       description="A component for displaying AI tool/function calls with status, arguments, and results."

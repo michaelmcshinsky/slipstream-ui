@@ -1,12 +1,13 @@
 'use client';
 
 import { Newsletter, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function NewsletterPage() {
+export default function NewsletterPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="newsletter"
       title="Newsletter"
       description="Email capture block with inline or stacked layout, pending state, success and failure feedback."

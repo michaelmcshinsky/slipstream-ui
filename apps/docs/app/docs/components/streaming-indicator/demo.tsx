@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { StreamingIndicator } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function StreamingIndicatorPage() {
+export default function StreamingIndicatorPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [streaming, setStreaming] = useState(true);
   return (
     <ComponentPage
+        manifest={manifest}
       id="streaming-indicator"
       title="StreamingIndicator"
       description="Give immediate feedback while an assistant response is arriving."

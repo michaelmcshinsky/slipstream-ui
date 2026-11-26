@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, FormField, Input, InputGroup, InputGroupAddon } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 function SearchIcon() {
@@ -24,12 +24,13 @@ function SearchIcon() {
   );
 }
 
-export default function InputGroupPage() {
+export default function InputGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [query, setQuery] = useState('');
   const [amount, setAmount] = useState('10');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="input-group"
       title="InputGroup"
       description="Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control."

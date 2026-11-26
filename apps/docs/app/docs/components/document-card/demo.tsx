@@ -1,12 +1,13 @@
 'use client';
 
 import { DocumentCard } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DocumentCardPage() {
+export default function DocumentCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="document-card"
       title="DocumentCard"
       description="Document row with file metadata, access status and an optional download action."

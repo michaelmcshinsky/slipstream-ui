@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { DateRangePicker, type DateRange } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DateRangePickerPage() {
+export default function DateRangePickerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [range, setRange] = useState<DateRange>({ start: '2026-01-01', end: '2026-03-31' });
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="date-range-picker"
       title="DateRangePicker"
       description="Start/end date range with ISO strings and quick presets."

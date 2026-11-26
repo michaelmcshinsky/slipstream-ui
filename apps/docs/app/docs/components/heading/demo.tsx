@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Heading } from '@slipstream-ui/core';
 
-export default function HeadingPage() {
+export default function HeadingPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="heading"
       title="Heading"
       description="Semantic heading (h1-h6) with a safe default scale and an optional visual-size override."

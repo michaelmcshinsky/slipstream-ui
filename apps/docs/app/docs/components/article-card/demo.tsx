@@ -1,12 +1,13 @@
 'use client';
 
 import { ArticleCard, Grid, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ArticleCardPage() {
+export default function ArticleCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="article-card"
       title="ArticleCard"
       description="Linked article or resource card with media, eyebrow, title, summary and metadata."

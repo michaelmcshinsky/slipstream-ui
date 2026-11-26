@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 // Inline SVG so the "with image" state works without a binary asset.
@@ -7,9 +7,10 @@ const avatarSrc = `data:image/svg+xml;utf8,${encodeURIComponent(
   "<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><rect width='96' height='96' rx='48' fill='%234f46e5'/><text x='48' y='64' font-size='44' text-anchor='middle' fill='white' font-family='system-ui, sans-serif'>JD</text></svg>"
 )}`;
 
-export default function AvatarPage() {
+export default function AvatarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="avatar"
       title="Avatar"
       description="A user profile image component with fallback support and accessible image loading. Compose Avatar + AvatarImage + AvatarFallback."

@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { BottomNav } from '@slipstream-ui/core';
 
@@ -18,9 +18,10 @@ const ITEMS = [
   { href: '#', label: 'Alerts', badge: 3, icon: <Icon path="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" /> },
 ];
 
-export default function BottomNavPage() {
+export default function BottomNavPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="bottom-nav"
       title="BottomNav"
       description="Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding."

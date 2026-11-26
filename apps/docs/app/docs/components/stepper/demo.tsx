@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Stepper } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const STEPS = [
@@ -38,13 +38,14 @@ const PROPS_ROWS = [
   { name: 'labels', type: '{ completed?: string; current?: string; upcoming?: string }', description: 'Screen-reader state suffixes per step; override the English defaults for localization.' },
 ];
 
-export default function StepperPage() {
+export default function StepperPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [step, setStep] = useState(1);
   const [belowStep, setBelowStep] = useState(2);
   const [verticalStep, setVerticalStep] = useState(1);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="stepper"
       title="Stepper"
       description="Multi-step flow indicator: ordered list, aria-current step, text state, horizontal or vertical, numbered or dots."

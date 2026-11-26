@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Input, Label } from '@slipstream-ui/core';
 
-export default function InputPage() {
+export default function InputPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="input"
       title="Input"
       description="A text input field with support for various input types and standard HTML input attributes."

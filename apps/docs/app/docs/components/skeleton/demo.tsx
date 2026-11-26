@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Skeleton } from '@slipstream-ui/core';
 
-export default function SkeletonPage() {
+export default function SkeletonPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="skeleton"
       title="Skeleton"
       description="Loading placeholder that mirrors the shape of upcoming content: sized via props, not ad-hoc classes."

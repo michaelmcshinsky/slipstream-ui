@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Pagination } from '@slipstream-ui/core';
 
@@ -9,11 +9,12 @@ const pageHrefsExample = Object.fromEntries(
   Array.from({ length: 6 }, (_, i) => [i + 1, `/docs?page=${i + 1}`])
 );
 
-export default function PaginationPage() {
+export default function PaginationPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [page, setPage] = useState(3);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="pagination"
       title="Pagination"
       description="Numeric pagination with prev/next, ellipsis, and aria-current on the active page."

@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Progress } from '@slipstream-ui/core';
 
-export default function ProgressPage() {
+export default function ProgressPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="progress"
       title="Progress"
       description="Determinate progress bar with role=progressbar and exact value semantics."

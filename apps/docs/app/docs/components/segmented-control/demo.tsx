@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { SegmentedControl } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SegmentedControlPage() {
+export default function SegmentedControlPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [audience, setAudience] = useState('teams');
   const [types, setTypes] = useState<string[]>(['integration']);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="segmented-control"
       title="SegmentedControl"
       description="Single- or multi-select segmented control for view and filter switches."

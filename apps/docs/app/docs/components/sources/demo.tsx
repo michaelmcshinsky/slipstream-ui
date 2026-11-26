@@ -1,10 +1,11 @@
 import { Source, Sources } from '@slipstream-ui/ai';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SourcesPage() {
+export default function SourcesPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="sources"
       manifestId="source"
       title="Sources"

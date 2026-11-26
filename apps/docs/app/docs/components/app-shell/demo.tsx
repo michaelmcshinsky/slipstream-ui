@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { AppShell, Badge, Button, Sidebar } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const NAV = [
@@ -23,11 +23,12 @@ const NAV = [
   },
 ];
 
-export default function AppShellPage() {
+export default function AppShellPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [activeHref, setActiveHref] = useState('#dashboard');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="app-shell"
       title="AppShell"
       description="Application frame: sectioned sidebar, sticky header and scrolling main; the sidebar becomes a mobile drawer with a built-in burger button."

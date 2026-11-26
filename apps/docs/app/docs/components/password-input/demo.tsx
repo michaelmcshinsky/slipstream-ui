@@ -1,12 +1,13 @@
 'use client';
 
 import { FormField, PasswordInput } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function PasswordInputPage() {
+export default function PasswordInputPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="password-input"
       title="PasswordInput"
       description="Password field with an accessible show/hide toggle (aria-pressed), built on Input."

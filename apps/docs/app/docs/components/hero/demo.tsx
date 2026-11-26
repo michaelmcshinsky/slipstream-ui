@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Hero, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 function ProductMockup() {
@@ -42,9 +42,10 @@ const PROPS_ROWS = [
   { name: 'mediaClassName', type: 'string', description: 'Extra classes for the media wrapper.' },
 ];
 
-export default function HeroPage() {
+export default function HeroPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="hero"
       title="Hero"
       description="Responsive marketing hero with four layouts, a badge/eyebrow, headline, copy, actions and an optional media slot."

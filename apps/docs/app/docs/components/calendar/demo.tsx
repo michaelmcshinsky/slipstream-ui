@@ -2,14 +2,15 @@
 
 import { Calendar } from '@slipstream-ui/core';
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function CalendarPage() {
+export default function CalendarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [date, setDate] = useState('2026-11-13');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="calendar"
       title="Calendar"
       description="Month grid with ISO date keys, min/max bounds and full keyboard navigation."

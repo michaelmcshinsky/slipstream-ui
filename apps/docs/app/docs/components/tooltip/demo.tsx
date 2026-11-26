@@ -1,12 +1,13 @@
 'use client';
 
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, Button, Input, Tooltip } from '@slipstream-ui/core';
 
-export default function TooltipPage() {
+export default function TooltipPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="tooltip"
       title="Tooltip"
       description="Hover/focus tooltip with aria-describedby association and Escape dismissal."

@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { FileUpload, FormField } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FileUploadPage() {
+export default function FileUploadPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [files, setFiles] = useState<File[]>([]);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="file-upload"
       title="FileUpload"
       description="Drag-and-drop file picker with a removable file list and per-file progress bars."

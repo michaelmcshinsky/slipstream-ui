@@ -1,12 +1,13 @@
 'use client';
 
 import { Button, FeatureRow, Section } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FeatureRowPage() {
+export default function FeatureRowPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="feature-row"
       title="FeatureRow"
       description="Alternating media and copy row for mid-page feature sections."

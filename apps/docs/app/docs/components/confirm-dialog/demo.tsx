@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { Button, ConfirmDialog } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ConfirmDialogPage() {
+export default function ConfirmDialogPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [publishOpen, setPublishOpen] = useState(false);
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="confirm-dialog"
       title="ConfirmDialog"
       description="Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog."

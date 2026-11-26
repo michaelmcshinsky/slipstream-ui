@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, List, ListItem } from '@slipstream-ui/core';
 
@@ -12,11 +12,12 @@ const THREADS = [
   { id: 't4', title: 'Archived: onboarding flow', meta: '2d' },
 ];
 
-export default function ListPage() {
+export default function ListPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   const [activeId, setActiveId] = useState('t1');
 
   return (
     <ComponentPage
+        manifest={manifest}
       id="list"
       title="List / ListItem"
       description="Semantic list (ul/li) for rows of related items: settings, results, nav: with leading/trailing slots, selection, and pressable rows."

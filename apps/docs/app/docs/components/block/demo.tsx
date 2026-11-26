@@ -1,10 +1,11 @@
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Block, Heading, Text } from '@slipstream-ui/core';
 
-export default function BlockPage() {
+export default function BlockPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="block"
       title="Block"
       description="Semantic container (div by default, swappable element): the structural counterpart to Text (p)."

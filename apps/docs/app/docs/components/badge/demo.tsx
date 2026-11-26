@@ -1,10 +1,11 @@
 import { Badge } from '@slipstream-ui/core';
-import { ComponentPage } from '@/components/component-page';
+import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function BadgePage() {
+export default function BadgePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
   return (
     <ComponentPage
+        manifest={manifest}
       id="badge"
       title="Badge"
       description="A small status indicator component for displaying tags, counts, or status information."
