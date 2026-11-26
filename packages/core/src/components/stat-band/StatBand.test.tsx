@@ -35,8 +35,34 @@ describe('StatBand', () => {
     expect(screen.getByText('One').parentElement).toHaveClass('items-start', 'text-left');
   });
 
+  it('renders a bordered panel variant with dense cells', () => {
+    const { container } = render(
+      <StatBand
+        variant="panel"
+        align="left"
+        valueClassName="font-mono"
+        items={[
+          { value: '3', label: 'Deadlines', hint: 'closing soon' },
+          { value: '12', label: 'Events' },
+        ]}
+      />
+    );
+    const dl = container.firstElementChild as HTMLElement;
+    expect(dl).toHaveClass('border', 'border-border', 'rounded-lg', 'divide-y', 'sm:divide-x');
+    expect(screen.getByText('3')).toHaveClass('font-mono', 'text-xl');
+    const label = screen.getByText('Deadlines');
+    expect(label).toHaveClass('uppercase');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<StatBand items={[{ value: '10+', label: 'Years' }]} />);
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('has no accessibility violations in panel variant', async () => {
+    const { container } = render(
+      <StatBand variant="panel" items={[{ value: '10+', label: 'Years', hint: 'and counting' }]} />
+    );
     expect(await axe(container)).toHaveNoViolations();
   });
 });
