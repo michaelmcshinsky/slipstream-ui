@@ -22,5 +22,13 @@
     "date": "2026-11-18",
     "file": "seven-ways-ai-generated-ui-breaks.md",
     "tags": ["Benchmark", "validate_usage", "Case study"]
+  },
+  {
+    "slug": "dancepath-production-case-study",
+    "title": "We built a production app on Slipstream UI. Here is what broke.",
+    "description": "A real case study from dancepath.net: seven concrete gaps a dense interactive app surfaced in the library, what worked (tokens, subpath exports, axe-clean components), and which fixes are upstreamable.",
+    "date": "2026-11-26",
+    "file": "dancepath-production-case-study.md",
+    "tags": ["Case study", "Adoption", "Components"]
   }
 ]
