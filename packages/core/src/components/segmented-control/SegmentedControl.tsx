@@ -9,6 +9,13 @@ export type SegmentedOption = {
   /** Optional leading icon. */
   icon?: React.ReactNode;
   disabled?: boolean;
+  /**
+   * Destination URL. When set the segment renders as a link instead of a
+   * button - use this for view switches that must survive refresh and work
+   * without JavaScript. The active segment renders as a non-link
+   * `aria-current="page"` marker.
+   */
+  href?: string;
 };
 
 export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
@@ -26,6 +33,10 @@ export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, '
   size?: 'sm' | 'md' | 'lg';
   /** Stretch segments to fill the container width. */
   fullWidth?: boolean;
+  /** Custom link element for routers (Next Link, react-router Link). */
+  linkComponent?: React.ElementType;
+  /** Prop used to pass the destination to `linkComponent`. */
+  linkHrefProp?: 'href' | 'to';
 };
 
 const sizeClasses = {
@@ -39,6 +50,12 @@ const sizeClasses = {
  * semantics and arrow-key navigation; multiple-select uses pressed buttons.
  * Use it for filters such as All / Investors / Advisors, not for tab panels
  * (use Tabs when each segment owns a tabpanel).
+ *
+ * Give an option an `href` to render it as a real link - the pattern for
+ * view switches that must survive refresh, work without JavaScript, and stay
+ * cacheable. The active segment then renders as a non-link
+ * `aria-current="page"` marker and link segments use normal tab navigation
+ * instead of roving tabindex. Link mode is intended for single-select.
  */
 export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedControlProps>(
   function SegmentedControl(
@@ -50,6 +67,8 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
       multiple = false,
       size = 'md',
       fullWidth = false,
+      linkComponent,
+      linkHrefProp = 'href',
       className,
       'aria-label': ariaLabel = 'Segmented control',
       ...props
@@ -74,6 +93,10 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
       : typeof current === 'string'
         ? current
         : '';
+
+    const linkMode = options.some((option) => option.href !== undefined);
+    const LinkEl = linkComponent ?? 'a';
+    const destination = (href: string) => (linkHrefProp === 'to' ? { to: href } : { href });
 
     const refs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -137,7 +160,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
     return (
       <div
         ref={ref}
-        role={multiple ? 'group' : 'radiogroup'}
+        role={multiple || linkMode ? 'group' : 'radiogroup'}
         aria-label={ariaLabel}
         className={cn(
           'inline-flex items-center gap-1 rounded-lg border border-border bg-muted p-1',
@@ -152,6 +175,46 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
             : selected === option.value;
           const firstEnabled = options.findIndex((entry) => !entry.disabled);
           const focusable = multiple || active || (!selected && index === firstEnabled);
+          const segmentClass = cn(
+            'inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+            'disabled:pointer-events-none disabled:opacity-50',
+            sizeClasses[size],
+            fullWidth && 'flex-1',
+            active
+              ? 'bg-background text-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          );
+          const segmentContent = (
+            <>
+              {option.icon && <span className="shrink-0 [&_svg]:size-4">{option.icon}</span>}
+              <span className="truncate">{option.label}</span>
+            </>
+          );
+
+          if (option.href !== undefined) {
+            if (option.disabled || active) {
+              return (
+                <span
+                  key={option.value}
+                  aria-current={active ? 'page' : undefined}
+                  aria-disabled={option.disabled || undefined}
+                  className={cn(segmentClass, option.disabled && 'opacity-50')}
+                >
+                  {segmentContent}
+                </span>
+              );
+            }
+            return (
+              <LinkEl
+                key={option.value}
+                {...destination(option.href)}
+                className={segmentClass}
+              >
+                {segmentContent}
+              </LinkEl>
+            );
+          }
 
           return (
             <button
@@ -160,26 +223,17 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
                 refs.current[index] = node;
               }}
               type="button"
-              role={multiple ? undefined : 'radio'}
-              aria-checked={multiple ? undefined : active}
+              role={multiple || linkMode ? undefined : 'radio'}
+              aria-checked={multiple || linkMode ? undefined : active}
               aria-pressed={multiple ? active : undefined}
+              aria-current={linkMode && active ? 'page' : undefined}
               disabled={option.disabled}
               tabIndex={focusable ? 0 : -1}
               onClick={() => select(option)}
               onKeyDown={onKeyDown}
-              className={cn(
-                'inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-                'disabled:pointer-events-none disabled:opacity-50',
-                sizeClasses[size],
-                fullWidth && 'flex-1',
-                active
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
+              className={segmentClass}
             >
-              {option.icon && <span className="shrink-0 [&_svg]:size-4">{option.icon}</span>}
-              <span className="truncate">{option.label}</span>
+              {segmentContent}
             </button>
           );
         })}
