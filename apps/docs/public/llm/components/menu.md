@@ -6,7 +6,7 @@ Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 > Import: `import { Menu } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/menu
 > Registry: https://slipstreamui.com/registry/menu.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.2
+> Tier: molecule · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
