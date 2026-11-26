@@ -56,7 +56,6 @@ const SITE_ROUTES = [
   '/docs/guides/react-hook-form',
   '/changelog',
   '/about',
-  '/showcase',
   '/accessibility',
   '/contact',
   '/privacy',

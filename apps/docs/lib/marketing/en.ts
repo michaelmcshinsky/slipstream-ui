@@ -363,63 +363,6 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
       },
     ],
   },
-  showcase: {
-    title: 'Built with Slipstream',
-    description:
-      'Production sites and apps already running on @slipstream-ui components, themes, and the MCP server.',
-    updated: 'November 2026',
-    sections: [
-      {
-        heading: 'DancePath — dancepath.net',
-        blocks: [
-          {
-            type: 'p',
-            text: 'An interactive map of competitive ballroom dance: governing bodies, modes, age categories, levels, styles, figure restrictions and dance-up paths, all from static data with no backend. Built with React 19, Vite, TypeScript and Tailwind; buttons, inputs, the mode switch, dialogs, accordions, badges and empty states come from `@slipstream-ui/core`.',
-          },
-          {
-            type: 'p',
-            text: 'The project keeps public engineering notes on where the library made the bespoke map markup harder and what it would take to close the gap.',
-          },
-        ],
-      },
-      {
-        heading: 'Utah Dance — utahdance.net',
-        blocks: [
-          {
-            type: 'p',
-            text: "Utah's verified hub for dance: competitions, deadlines, studios, clubs and socials. Next.js App Router with Postgres; the public site and staff admin use Slipstream components, and the [MCP server](/docs/mcp) is wired into the agent toolchain so generated UI is checked against manifests before it ships.",
-          },
-        ],
-      },
-      {
-        heading: 'Utah Dance Marketplace — utahdancemarketplace.com',
-        blocks: [
-          {
-            type: 'p',
-            text: 'A classifieds and rentals marketplace for dance gear and services. A shared `@udm/ui` brand layer sits on `@slipstream-ui/core` and feeds both the member app and the prerendered marketing site; a component-usage test fails the build on raw inputs or non-Slipstream controls, and agents query the MCP server instead of guessing props.',
-          },
-        ],
-      },
-      {
-        heading: 'mcshinsky.net',
-        blocks: [
-          {
-            type: 'p',
-            text: "Personal site of a senior full-stack engineer. Next.js App Router; `@slipstream-ui/core` for the component surface and `@slipstream-ui/mcp-server` in the local agent configuration, so the same manifests that power this documentation keep generated pages on-contract.",
-          },
-        ],
-      },
-      {
-        heading: 'Running Slipstream in production?',
-        blocks: [
-          {
-            type: 'p',
-            text: 'The listings above are the current public adopters. If your project belongs here, [open an issue]({repo}/issues) or [start a discussion]({repo}/discussions) — case studies with metrics are welcome.',
-          },
-        ],
-      },
-    ],
-  },
   contact: {
     title: 'Contact',
     description: 'Reach the maintainers on GitHub: bug reports, questions, and security reports each have a dedicated channel.',

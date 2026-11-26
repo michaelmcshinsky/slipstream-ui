@@ -37,7 +37,6 @@ const EXTRA_ROUTES = [
   '/articles/validation-benchmark-100-cases',
   '/articles/component-contract-not-gallery',
   '/articles/dancepath-production-case-study',
-  '/showcase',
   '/accessibility',
   '/accessibility/scorecard',
   '/changelog',
