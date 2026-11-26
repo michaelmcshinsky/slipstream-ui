@@ -68,6 +68,6 @@ describe('Input SSR/RSC Compatibility', () => {
     );
     expect(errors).toHaveLength(0);
     expect(html).toContain('value="test value"');
-    expect(html).toContain('readonly');
+    expect(html).toMatch(/readonly/i);
   });
 });

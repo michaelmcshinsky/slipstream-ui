@@ -26,7 +26,7 @@ describe('Section', () => {
     const section = screen.getByRole('region', { name: 'Inverse section' });
     expect(section).toHaveClass('bg-inverse', 'text-inverse-foreground');
     expect(section).toHaveAttribute('data-tone', 'inverse');
-    expect(section).toHaveStyle({ '--background': 'var(--inverse)' });
+    expect(section.style.getPropertyValue('--background')).toBe('var(--inverse)');
   });
 
   it('can render without an inner container', () => {

@@ -11,7 +11,9 @@ describe('Grid / GridItem', () => {
 
   it('uses auto-fit template with minCol (overriding cols)', () => {
     const { container } = render(<Grid minCol="16rem" cols={3} />);
-    expect(container.firstChild).toHaveStyle({ gridTemplateColumns: 'repeat(auto-fit, minmax(16rem, 1fr))' });
+    expect((container.firstChild as HTMLElement).style.gridTemplateColumns).toBe(
+      'repeat(auto-fit, minmax(16rem, 1fr))'
+    );
     expect(container.firstChild).not.toHaveClass('grid-cols-3');
   });
 
