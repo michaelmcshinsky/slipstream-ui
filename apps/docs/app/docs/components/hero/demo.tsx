@@ -35,6 +35,11 @@ const PROPS_ROWS = [
   { name: 'level', type: '1 | 2', defaultValue: '1', description: 'Heading level.' },
   { name: 'variant', type: "'split' | 'centered' | 'stacked' | 'overlay'", description: 'Layout. Defaults to split with media, centered without.' },
   { name: 'as', type: "'div' | 'section' | 'header'", defaultValue: "'div'", description: 'Semantic element to render.' },
+  { name: 'titleClassName', type: 'string', description: 'Extra classes for the headline.' },
+  { name: 'descriptionClassName', type: 'string', description: 'Extra classes for the description.' },
+  { name: 'eyebrowClassName', type: 'string', description: 'Extra classes for the eyebrow.' },
+  { name: 'badgeClassName', type: 'string', description: 'Extra classes for the badge wrapper.' },
+  { name: 'mediaClassName', type: 'string', description: 'Extra classes for the media wrapper.' },
 ];
 
 export default function HeroPage() {

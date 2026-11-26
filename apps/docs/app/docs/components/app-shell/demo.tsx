@@ -38,6 +38,8 @@ export default function AppShellPage() {
         { name: 'hideMobileMenu', type: 'boolean', defaultValue: 'false', description: 'Hide the built-in burger when the header owns navigation (AppShell).' },
         { name: 'sidebarWidth', type: 'string', defaultValue: "'w-64'", description: 'Tailwind width class for the desktop rail (AppShell).' },
         { name: 'sections', type: '{ title?: string; items: SidebarItem[] }[]', defaultValue: 'required', description: 'Grouped navigation items (Sidebar).' },
+        { name: 'items[].children', type: 'SidebarItem[]', description: 'Nested items render indented under the parent; groups containing the active route open automatically.' },
+        { name: 'items[].active', type: 'boolean', description: 'Force the active state, overriding the activeHref comparison (SidebarItem).' },
         { name: 'activeHref', type: 'string', description: 'Current route: matching items get aria-current="page" (Sidebar).' },
         { name: 'linkComponent', type: 'React.ElementType', defaultValue: "'a'", description: 'Router link component (react-router Link, Next Link) (Sidebar).' },
         { name: 'heading / footer', type: 'ReactNode', description: 'Brand slot at the top and utility slot at the bottom (Sidebar).' },

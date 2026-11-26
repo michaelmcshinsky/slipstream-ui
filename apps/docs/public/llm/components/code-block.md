@@ -20,6 +20,7 @@ Display AI-generated or referenced code readably with one-click copy.
 | code | `string` | — | yes | Raw code to display. |
 | language | `string` | `tsx` | no | Prism language identifier. |
 | showCopyButton | `boolean` | `true` | no | Show/hide the copy control. |
+| onCopied | `(code: string) => void` | — | no | Called with the code after a successful clipboard write. |
 
 ## Examples
 

@@ -141,6 +141,35 @@ export async function inviteMember(params: {
   }
 }
 
+export type InvitePreview = {
+  teamName: string;
+  role: string;
+  email: string;
+  expiresAt: Date;
+  status: 'pending' | 'accepted' | 'expired';
+};
+
+/**
+ * Token-gated invite details for the accept page. Returns null for unknown
+ * tokens; consumed/expired invites still resolve so the page can explain
+ * why acceptance will fail instead of showing a bare error.
+ */
+export async function previewInvite(token: string): Promise<InvitePreview | null> {
+  const invite = await prisma.teamInvite.findUnique({
+    where: { tokenHash: hashToken(token) },
+    include: { team: { select: { name: true } } },
+  });
+  if (!invite) return null;
+  const status = invite.acceptedAt ? 'accepted' : invite.expiresAt < new Date() ? 'expired' : 'pending';
+  return {
+    teamName: invite.team.name,
+    role: invite.role,
+    email: invite.email,
+    expiresAt: invite.expiresAt,
+    status,
+  };
+}
+
 export async function acceptInvite(token: string, userId: string): Promise<{ teamId: string }> {
   try {
     return await prisma.$transaction(async (db) => {

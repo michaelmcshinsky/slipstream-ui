@@ -7,6 +7,13 @@ import { prisma } from '@slipstream-ui/db';
  * EmailDelivery row (token stored hashed only). Tokens are never written to
  * logs or records in raw form. Production forbids the log transport so
  * messages cannot silently die in stdout.
+ *
+ * Delivery-status scope: QUEUED/SENT/FAILED are written here. The `bounced`
+ * status is reserved for a future provider webhook — the HTTP transport gives
+ * no bounce signal today, so nothing writes it. Open/click tracking is
+ * deliberately not implemented: it would require per-recipient tracking
+ * pixels/links, which conflicts with the site's consent-gated analytics
+ * posture. Revisit only with an explicit privacy-policy update.
  */
 
 export type EmailKind = 'password_reset' | 'invite' | 'email_verify' | 'newsletter';

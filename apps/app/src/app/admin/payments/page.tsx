@@ -17,6 +17,7 @@ type Payment = {
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     const response = await fetch('/api/admin/payments');
@@ -28,11 +29,13 @@ export default function AdminPaymentsPage() {
   }
 
   useEffect(() => {
-    load();
+    void load().finally(() => setLoading(false));
   }, []);
 
-  async function refund(id: string) {
-    const response = await fetch(`/api/admin/payments/${id}/refund`, { method: 'POST' });
+  async function refund(payment: Payment) {
+    const amount = `$${(payment.amountCents / 100).toFixed(2)}`;
+    if (!window.confirm(`Refund ${amount} for "${payment.description}"? This cannot be undone.`)) return;
+    const response = await fetch(`/api/admin/payments/${payment.id}/refund`, { method: 'POST' });
     if (!response.ok) {
       setError(extractErrorMessage(await response.json()));
       return;
@@ -44,6 +47,7 @@ export default function AdminPaymentsPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold tracking-tight">Payments</h1>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
       <Card>
         <CardTitle>All payments</CardTitle>
         <div className="overflow-x-auto">
@@ -72,7 +76,7 @@ export default function AdminPaymentsPage() {
                   {payment.status === 'PAID' ? (
                     <button
                       type="button"
-                      onClick={() => refund(payment.id)}
+                      onClick={() => refund(payment)}
                       className="text-xs text-destructive hover:underline"
                     >
                       Refund

@@ -24,6 +24,12 @@
       "defaultValue": true,
       "required": false,
       "description": "Show/hide the copy control."
+    },
+    {
+      "name": "onCopied",
+      "type": "(code: string) => void",
+      "required": false,
+      "description": "Called with the code after a successful clipboard write."
     }
   ],
   "examples": [

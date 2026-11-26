@@ -16,6 +16,7 @@ export default function PasswordInputPage() {
         { name: 'hideLabel', type: 'string', defaultValue: "'Hide password'", description: 'Accessible label while visible.' },
         { name: '…InputProps', type: 'InputProps', description: 'All Input props pass through (value, onChange, autoComplete…).' },
       ]}
+      browserNotes={['className lands on the wrapper div (for layout/width), not the <input>; the inner input keeps its own classes.']}
       accessibility={['The toggle is a real button with aria-pressed and Show/Hide labels.', 'Revealing never moves focus away from the field.']}
     >
       <DemoCard

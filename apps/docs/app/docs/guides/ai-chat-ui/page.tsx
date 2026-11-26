@@ -33,14 +33,14 @@ export default function AiChatUiGuidePage() {
         </Link>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Install</h2>
+      <h2 id="1-install" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Install</h2>
       <div className="mt-4">
         <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai
 # or copy source files
 npx shadcn@latest add https://slipstreamui.com/registry/conversation.json`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="2-own-two-pieces-of-state" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         2. Own two pieces of state
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -57,7 +57,7 @@ const [streamingId, setStreamingId] = useState<string | null>(null);`}
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">3. Stream tokens as they arrive</h2>
+      <h2 id="3-stream-tokens-as-they-arrive" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">3. Stream tokens as they arrive</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Append the assistant message, set it as streaming, and update its content on every chunk.
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm"> Response</code> repairs half-finished markdown
@@ -105,7 +105,7 @@ async function send(text: string) {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">4. Compose the surface</h2>
+      <h2 id="4-compose-the-surface" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">4. Compose the surface</h2>
       <div className="mt-4">
         <CodeBlock
           language="tsx"
@@ -139,7 +139,7 @@ async function send(text: string) {
         </li>
       </ul>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">5. Accessibility is built in</h2>
+      <h2 id="5-accessibility-is-built-in" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">5. Accessibility is built in</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>Streaming sets <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-busy</code> and announces completion politely.</li>
         <li>Every component passes jest-axe suites; keyboard navigation works end-to-end.</li>
@@ -147,14 +147,14 @@ async function send(text: string) {
         <li>Empty transcripts render a configurable welcome state instead of a blank box.</li>
       </ul>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Next steps</h2>
+      <h2 id="next-steps" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Next steps</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/templates" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Streaming chat template</h3>
+          <h3 id="streaming-chat-template" className="font-semibold">Streaming chat template</h3>
           <p className="mt-1 text-sm text-muted-foreground">The full ~80-line pattern with a live demo.</p>
         </Link>
         <Link href="/docs/patterns" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">More recipes</h3>
+          <h3 id="more-recipes" className="font-semibold">More recipes</h3>
           <p className="mt-1 text-sm text-muted-foreground">Tool calls, RAG citations, approvals, branches.</p>
         </Link>
       </div>

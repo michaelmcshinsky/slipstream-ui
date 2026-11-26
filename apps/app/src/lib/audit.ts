@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { prisma, type Prisma } from '@slipstream-ui/db';
 import { hashToken } from './tokens';
+import { logError } from './log';
 
 type AuditInput = {
   actorId?: string | null;
@@ -64,6 +65,6 @@ export async function audit(input: AuditInput, transaction?: Prisma.TransactionC
     await write();
   } catch (error) {
     auditWriteFailures += 1;
-    console.error('[audit] failed to record', input.action, error);
+    logError('audit.write_failed', { action: input.action, targetType: input.targetType, targetId: input.targetId, error: error instanceof Error ? error.message : String(error) });
   }
 }

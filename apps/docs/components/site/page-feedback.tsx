@@ -49,7 +49,7 @@ export function PageFeedback() {
       <div className="mt-10 border-t border-border pt-6 text-sm" role="status">
         <p className="text-muted-foreground">
           {t('site.feedback.sorryLead')}{' '}
-          <a href={issueHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+          <a href={issueHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline"><span className="sr-only"> (opens in new tab)</span>
             {t('site.feedback.issueLink')}
           </a>{' '}
           {t('site.feedback.sorryTail')}
@@ -65,7 +65,7 @@ export function PageFeedback() {
               rel="noopener noreferrer"
               onClick={() => track('feedback_reason', { reason: reason.id, path: pathname })}
               className="rounded-md border border-border px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
+            ><span className="sr-only"> (opens in new tab)</span>
               {reason.label}
             </a>
           ))}

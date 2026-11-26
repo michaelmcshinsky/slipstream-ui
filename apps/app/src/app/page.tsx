@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   const user = await getSessionUser();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
+    <main id="main" className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
       <h1 className="text-4xl font-bold tracking-tight">Slipstream Dashboard</h1>
       <p className="max-w-md text-muted-foreground">
         Manage your license, team, and billing for Slipstream UI Pro.

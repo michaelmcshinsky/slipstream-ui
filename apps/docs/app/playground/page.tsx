@@ -8,7 +8,7 @@ import { webPageSchema } from '@/lib/structured-data';
 import { withSeo } from '@/lib/seo';
 
 const description =
-  'Try Slipstream UI components in the browser: change props, switch the preview width, copy the JSX, copy the install command, or copy a versioned instruction for your coding agent.';
+  'Try a curated set of Slipstream UI components in the browser: change props, switch the preview width, copy the JSX, copy the install command, or copy a versioned instruction for your coding agent.';
 
 export const metadata: Metadata = withSeo('/playground', {
   title: 'React component playground',

@@ -62,6 +62,39 @@ type StatBandProps = {
   divided?: boolean;
 };`}
       />
+      <DemoCard
+        title="Left-aligned, undivided, four columns"
+        preview={
+          <div className="w-full rounded-lg border border-border p-6">
+            <StatBand
+              columns={4}
+              align="left"
+              size="sm"
+              divided={false}
+              items={[
+                { value: '12', label: 'Open roles' },
+                { value: '48', label: 'Customers' },
+                { value: '9', label: 'Regions' },
+                { value: '24/7', label: 'Support' },
+              ]}
+            />
+          </div>
+        }
+        code={`<StatBand
+  columns={4}
+  align="left"
+  size="sm"
+  divided={false}
+  items={[
+    { value: '12', label: 'Open roles' },
+    { value: '48', label: 'Customers' },
+    { value: '9', label: 'Regions' },
+    { value: '24/7', label: 'Support' },
+  ]}
+/>`}
+        usage={`// align="left" + divided={false} suits dense spec sheets; keep
+// size="lg" for hero proof bands.`}
+      />
     </ComponentPage>
   );
 }

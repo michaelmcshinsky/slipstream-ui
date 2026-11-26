@@ -220,7 +220,7 @@ export default function PatternsPage() {
       </div>
 
       <div className="mt-14 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">Bring your own backend</h2>
+        <h2 id="bring-your-own-backend" className="font-semibold">Bring your own backend</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           None of these recipes import a model SDK. Swap the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">fetch</code>{' '}
           call for Vercel AI SDK's <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">useChat</code>, a LangGraph stream, or

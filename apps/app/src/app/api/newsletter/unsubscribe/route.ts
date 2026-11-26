@@ -14,6 +14,7 @@ import {
   verifyNewsletterUnsubscribeToken,
   type NewsletterUnsubscribeType,
 } from '@slipstream-ui/newsletter';
+import { logError } from '@/lib/log';
 
 const unsubscribeSchema = z.object({
   type: z.enum(['daily', 'weekly']),
@@ -65,7 +66,7 @@ export async function GET(request: NextRequest) {
         `<p>Stop receiving the ${type} newsletter?</p><form method="POST" action="${action}"><button type="submit" style="padding:10px 20px;font-size:15px;cursor:pointer">Unsubscribe</button></form>`,
       );
     } catch (error) {
-      console.error('Failed to render unsubscribe page:', error);
+      logError('newsletter.unsubscribe.render_failed', { error: error instanceof Error ? error.message : String(error) });
       return htmlPage('Error', '<p>An error occurred. Please try again or contact support.</p>', 500);
     }
   }, { routeName: 'newsletter.unsubscribe.get' });
@@ -95,7 +96,7 @@ async function handleTokenPost(request: NextRequest) {
       `<p>You have been unsubscribed from the ${type} newsletter.</p><p><a href="/dashboard/settings/newsletter">Manage other subscriptions</a></p>`,
     );
   } catch (error) {
-    console.error('Failed to unsubscribe via link:', error);
+    logError('newsletter.unsubscribe.failed', { error: error instanceof Error ? error.message : String(error) });
     return htmlPage('Error', '<p>An error occurred. Please try again or contact support.</p>', 500);
   }
 }

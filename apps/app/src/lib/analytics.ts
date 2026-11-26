@@ -129,3 +129,31 @@ export function installGtag(): void {
     allow_ad_personalization_signals: false,
   });
 }
+
+/**
+ * Funnel events for the dashboard. `license_activated` is declared for
+ * completeness but has no client-side moment today - license activation
+ * happens through the CLI/MCP API, so wiring it needs server-side
+ * Measurement Protocol (api_secret) rather than gtag.
+ */
+export type AppAnalyticsEvent =
+  | 'signup'
+  | 'email_verified'
+  | 'checkout_started'
+  | 'payment_succeeded'
+  | 'license_activated'
+  | 'newsletter_subscribed';
+
+export type AppAnalyticsProps = Record<string, string | number | boolean | undefined>;
+
+/**
+ * Emits a funnel event when analytics is enabled and consent was granted.
+ * Never throws; a missing gtag shim (consent not yet acted on) is a no-op.
+ */
+export function track(event: AppAnalyticsEvent, props: AppAnalyticsProps = {}): void {
+  if (typeof window === 'undefined' || !GA_MEASUREMENT_ID || readConsent() !== 'granted') return;
+  window.gtag?.('event', event, {
+    ...props,
+    page_location: sanitizeAnalyticsLocation(window.location.href),
+  });
+}

@@ -499,7 +499,7 @@ export const ko: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: '문의 양식을 사용하면 제출한 이름, 이메일 주소, 메시지를 받습니다. 제출물은 호스팅 제공업체(Netlify Forms)가 처리하며 답변에만 사용합니다. 최대 24개월 보관합니다.',
+            text: '문의 양식은 없습니다. 문의 페이지에 안내된 GitHub 채널(버그 신고는 Issues, 질문은 Discussions, 취약점은 SECURITY.md의 비공개 채널)로 연락해 주세요. GitHub는 자체 개인정보 처리방침에 따라 제출된 프로필 데이터와 내용을 처리합니다. 당사는 답변에만 사용하며 최대 24개월 보관합니다.',
           },
         ],
       },

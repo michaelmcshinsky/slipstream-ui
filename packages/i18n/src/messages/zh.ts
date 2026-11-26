@@ -241,6 +241,7 @@ export const zh = {
       regionLabel: "Cookie 同意",
       message: "仅在获得同意后启用隐私友好的分析。无广告，无跨站跟踪。请阅读",
       privacyLink: "隐私政策",
+      manageLink: "管理偏好设置",
       decline: "拒绝",
       accept: "全部接受",
     },

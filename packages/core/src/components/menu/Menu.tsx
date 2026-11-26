@@ -183,6 +183,25 @@ const MenuContent = React.forwardRef<HTMLDivElement, MenuContentProps>(
         event.preventDefault();
         setActiveIndex(items.length - 1);
         items[items.length - 1]?.focus();
+      } else if (
+        event.key.length === 1 &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.altKey
+      ) {
+        // Typeahead: focus the next item whose label starts with this
+        // character, cycling from the item after the active one.
+        const char = event.key.toLowerCase();
+        for (let i = 1; i <= items.length; i++) {
+          const next = (activeIndex + i + items.length) % items.length;
+          const label = items[next]?.textContent?.trim().toLowerCase() ?? '';
+          if (label.startsWith(char)) {
+            event.preventDefault();
+            setActiveIndex(next);
+            items[next]?.focus();
+            break;
+          }
+        }
       }
     };
 

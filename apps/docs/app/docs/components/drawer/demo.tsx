@@ -87,7 +87,7 @@ export default function DrawerPage() {
               </div>
               <div>
                 <label htmlFor="dr-width" className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  width (px)
+                  width (px){side === 'top' || side === 'bottom' ? ' — ignored for top/bottom' : ''}
                 </label>
                 <input
                   id="dr-width"
@@ -97,7 +97,8 @@ export default function DrawerPage() {
                   value={customWidth}
                   onChange={(e) => setCustomWidth(e.target.value)}
                   placeholder="auto"
-                  className="w-28 rounded-md border border-border bg-background px-3 py-2 text-sm"
+                  disabled={side === 'top' || side === 'bottom'}
+                  className="w-28 rounded-md border border-border bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
               <div className="flex items-center gap-2 pb-2">

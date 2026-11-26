@@ -199,6 +199,8 @@ export type ArticleInput = {
   path: string;
   /** ISO 8601 date of the latest release covered by the page. */
   dateModified: string;
+  /** ISO 8601 publication date; defaults to dateModified when omitted. */
+  datePublished?: string;
 };
 
 export function articleSchema({
@@ -206,6 +208,7 @@ export function articleSchema({
   description,
   path,
   dateModified,
+  datePublished,
 }: ArticleInput): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
@@ -214,9 +217,10 @@ export function articleSchema({
     description,
     url: absolute(path),
     mainEntityOfPage: { '@type': 'WebPage', '@id': absolute(path) },
+    datePublished: datePublished ?? dateModified,
     dateModified,
     isPartOf: { '@id': WEBSITE_ID },
-    author: { '@id': ORGANIZATION_ID },
+    author: { '@type': 'Organization', '@id': ORGANIZATION_ID, name: SITE.name },
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en',
     about: { '@type': 'SoftwareApplication', '@id': SOFTWARE_ID, name: SITE.name },

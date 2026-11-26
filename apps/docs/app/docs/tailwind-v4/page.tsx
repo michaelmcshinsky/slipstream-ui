@@ -22,7 +22,7 @@ export default function TailwindV4Page() {
         <strong className="text-foreground">Status:</strong> the theme contract compiles against the real component sources in CI (`pnpm verify:tailwind-v4`). A full Next/Vite app build on v4 is still not part of CI, so treat layout-level behaviour as expected rather than certified. See <Link className="text-primary underline underline-offset-2" href="/docs/compatibility">Compatibility</Link>.
       </div>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">1. Import the theme</h2>
+      <h2 id="1-import-the-theme" className="text-2xl font-semibold mt-8 mb-4">1. Import the theme</h2>
       <CodeBlock
         language="css"
         code={`@import "tailwindcss";
@@ -36,7 +36,7 @@ export default function TailwindV4Page() {
 @plugin "tailwindcss-animate";`}
       />
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">2. Apply your theme variables</h2>
+      <h2 id="2-apply-your-theme-variables" className="text-2xl font-semibold mt-8 mb-4">2. Apply your theme variables</h2>
       <p className="mb-3 leading-relaxed text-muted-foreground">
         Import the prebuilt defaults first, then override any token with{' '}
         <code className="text-foreground">createTheme()</code> when you need a brand palette:
@@ -58,7 +58,7 @@ const css = themeToCssVariables(createTheme({ brandColor: "224 89% 53%" }));
 document.documentElement.setAttribute("style", css);`}
       />
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">3. Keep dark mode working</h2>
+      <h2 id="3-keep-dark-mode-working" className="text-2xl font-semibold mt-8 mb-4">3. Keep dark mode working</h2>
       <p className="mb-3 leading-relaxed text-muted-foreground">
         The v4 entry declares <code className="text-foreground">@custom-variant dark</code> against
         both the <code className="text-foreground">.dark</code> class and the{' '}
@@ -68,7 +68,7 @@ document.documentElement.setAttribute("style", css);`}
         dark values.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">What changes from v3</h2>
+      <h2 id="what-changes-from-v3" className="text-2xl font-semibold mt-8 mb-4">What changes from v3</h2>
       <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
         <li>There is no JavaScript theme preset to import; the CSS file replaces it.</li>
         <li>Add <code className="text-foreground">@source</code> entries so v4 scans the published component output.</li>
@@ -76,7 +76,7 @@ document.documentElement.setAttribute("style", css);`}
         <li>Dynamic class names remain unsupported. Slipstream already uses literal class maps.</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Verification</h2>
+      <h2 id="verification" className="text-2xl font-semibold mt-8 mb-4">Verification</h2>
       <p className="leading-relaxed text-muted-foreground">
         <code className="text-foreground">packages/core/src/test/tailwind-v4.test.ts</code> scans every
         component for semantic colour classes and fails if the v4 file is missing a token. It also

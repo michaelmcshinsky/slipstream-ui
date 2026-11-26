@@ -1,6 +1,6 @@
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
-import { Checkbox, Fieldset, Label, RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
+import { Checkbox, Fieldset, Label } from '@slipstream-ui/core';
 
 export default function FieldsetPage() {
   return (
@@ -56,14 +56,19 @@ export default function FieldsetPage() {
     <Label htmlFor="security">Security alerts</Label>
   </div>
 </Fieldset>`}
-        usage={`import { Fieldset, RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
+        usage={`import { Checkbox, Fieldset, Label } from '@slipstream-ui/core';
 
-// A fieldset names a GROUP of controls
+// A fieldset names a GROUP of controls. RadioGroup brings its own
+// fieldset/legend, so use Fieldset for controls without one (Checkbox, Input…).
 <Fieldset legend="Visibility">
-  <RadioGroup name="visibility" defaultValue="team">
-    <RadioGroupItem value="private" label="Private" />
-    <RadioGroupItem value="team" label="Team" />
-  </RadioGroup>
+  <div className="flex items-center gap-2">
+    <Checkbox id="vis-private" aria-label="Private" />
+    <Label htmlFor="vis-private">Private</Label>
+  </div>
+  <div className="flex items-center gap-2">
+    <Checkbox id="vis-team" aria-label="Team" defaultChecked />
+    <Label htmlFor="vis-team">Team</Label>
+  </div>
 </Fieldset>`}
         types={`type FieldsetProps = {
   legend?: string;
@@ -82,27 +87,34 @@ export default function FieldsetPage() {
               description="Choose how often you are charged"
               error="Select an interval to continue"
             >
-              <RadioGroup name="fs-interval" defaultValue="">
-                <div className="flex flex-wrap gap-4">
-                  <RadioGroupItem id="fs-monthly" value="monthly" label="Monthly" />
-                  <RadioGroupItem id="fs-yearly" value="yearly" label="Yearly" />
-                </div>
-              </RadioGroup>
+              <div className="flex items-center gap-2 py-1">
+                <Checkbox id="fs-monthly" aria-label="Monthly billing" />
+                <Label htmlFor="fs-monthly">Monthly</Label>
+              </div>
+              <div className="flex items-center gap-2 py-1">
+                <Checkbox id="fs-yearly" aria-label="Yearly billing" />
+                <Label htmlFor="fs-yearly">Yearly</Label>
+              </div>
             </Fieldset>
           </div>
         }
-        code={`import { Fieldset, RadioGroup, RadioGroupItem } from '@slipstream-ui/core';
+        code={`import { Checkbox, Fieldset, Label } from '@slipstream-ui/core';
 
-{/* Errors that belong to the whole group live on the fieldset */}
+{/* Errors that belong to the whole group live on the fieldset.
+    RadioGroup renders its own fieldset, so it is not nested here. */}
 <Fieldset
   legend="Billing interval"
   description="Choose how often you are charged"
   error="Select an interval to continue"
 >
-  <RadioGroup name="interval" defaultValue="">
-    <RadioGroupItem value="monthly" label="Monthly" />
-    <RadioGroupItem value="yearly" label="Yearly" />
-  </RadioGroup>
+  <div className="flex items-center gap-2">
+    <Checkbox id="monthly" aria-label="Monthly billing" />
+    <Label htmlFor="monthly">Monthly</Label>
+  </div>
+  <div className="flex items-center gap-2">
+    <Checkbox id="yearly" aria-label="Yearly billing" />
+    <Label htmlFor="yearly">Yearly</Label>
+  </div>
 </Fieldset>`}
       />
     </ComponentPage>

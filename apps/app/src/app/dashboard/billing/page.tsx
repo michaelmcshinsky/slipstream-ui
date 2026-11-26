@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { useBilling } from './use-billing';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 
 type PaymentRow = {
   id: string;
@@ -24,6 +25,13 @@ export default function BillingPage() {
 
   const [payments, setPayments] = useState<PaymentRow[] | null>(null);
   const [paymentsError, setPaymentsError] = useState<string | null>(null);
+
+  // Stripe success_url and the mock-checkout redirect both land here with
+  // ?checkout=success; fire the funnel event once per page load.
+  const checkoutReturned = searchParams.get('checkout') === 'success';
+  useEffect(() => {
+    if (checkoutReturned) track('payment_succeeded');
+  }, [checkoutReturned]);
 
   useEffect(() => {
     if (!activeTeamId) {
@@ -96,14 +104,24 @@ export default function BillingPage() {
             Plan: <span className="font-semibold">{subscription.plan}</span> · Status:{' '}
             <span className="font-semibold">{subscription.status}</span> · Seats: {subscription.seats}
           </p>
+          {subscription.currentPeriodEnd && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              {subscription.cancelAtPeriodEnd || subscription.status === 'CANCELED' ? 'Access until' : 'Renews'}{' '}
+              {new Date(subscription.currentPeriodEnd).toLocaleDateString()}.
+            </p>
+          )}
           {subscription.plan !== 'FREE' && (
             <button
               type="button"
-              onClick={() => void cancel()}
+              onClick={() => {
+                if (window.confirm('Cancel at the end of the current billing period? You keep access until then.')) {
+                  void cancel();
+                }
+              }}
               disabled={!canCancel}
               className="mt-3 text-sm text-destructive hover:underline disabled:opacity-50"
             >
-              {canceling ? 'Canceling…' : 'Cancel subscription'}
+              {canceling ? 'Canceling…' : subscription.cancelAtPeriodEnd ? 'Cancels at period end' : 'Cancel subscription'}
             </button>
           )}
         </Card>
@@ -137,7 +155,10 @@ export default function BillingPage() {
                 ) : plan.id !== 'FREE' ? (
                   <button
                     type="button"
-                    onClick={() => void checkout(plan.id)}
+                    onClick={() => {
+                      track('checkout_started', { plan: plan.id });
+                      void checkout(plan.id);
+                    }}
                     disabled={!canCheckout}
                     className="mt-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                   >

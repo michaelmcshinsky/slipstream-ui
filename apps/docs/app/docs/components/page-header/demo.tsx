@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, PageHeader, documentHead } from '@slipstream-ui/core';
+import { Breadcrumb, Button, PageHeader, documentHead } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
@@ -39,7 +39,14 @@ export default function PageHeaderPage() {
             <PageHeader
               title="Classes"
               description="Manage your weekly schedule and enrollment."
-              breadcrumbs={<span>Studio / Classes</span>}
+              breadcrumbs={
+                <Breadcrumb
+                  items={[
+                    { label: 'Studio', href: '/studio' },
+                    { label: 'Classes' },
+                  ]}
+                />
+              }
               actions={
                 <>
                   <Button variant="outline">Export</Button>
@@ -57,7 +64,14 @@ export default function PageHeaderPage() {
         code={`<PageHeader
   title="Classes"
   description="Manage your weekly schedule and enrollment."
-  breadcrumbs={<span>Studio / Classes</span>}
+  breadcrumbs={
+    <Breadcrumb
+      items={[
+        { label: 'Studio', href: '/studio' },
+        { label: 'Classes' },
+      ]}
+    />
+  }
   actions={<><Button variant="outline">Export</Button><Button>New class</Button></>}
 >
   <Tabs … />
@@ -77,6 +91,32 @@ export default function PageHeaderPage() {
   descriptionClassName?: string;
   eyebrowClassName?: string;
 };`}
+      />
+
+      <DemoCard
+        title="Hero marketing header"
+        preview={
+          <div className="w-full rounded-xl border border-border p-6">
+            <PageHeader
+              eyebrow="Slipstream UI"
+              title="Ship polished interfaces faster"
+              description="Accessible React components with machine-readable manifests."
+              size="hero"
+              align="center"
+              actions={<Button>Get started</Button>}
+            />
+          </div>
+        }
+        code={`<PageHeader
+  eyebrow="Slipstream UI"
+  title="Ship polished interfaces faster"
+  description="Accessible React components with machine-readable manifests."
+  size="hero"
+  align="center"
+  actions={<Button>Get started</Button>}
+/>`}
+        usage={`// size="hero" + align="center" are for marketing landings; keep
+// product pages on the default md/left layout.`}
       />
 
       <DemoCard

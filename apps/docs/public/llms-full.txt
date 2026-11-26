@@ -1795,6 +1795,7 @@ Display AI-generated or referenced code readably with one-click copy.
 | code | `string` | — | yes | Raw code to display. |
 | language | `string` | `tsx` | no | Prism language identifier. |
 | showCopyButton | `boolean` | `true` | no | Show/hide the copy control. |
+| onCopied | `(code: string) => void` | — | no | Called with the code after a successful clipboard write. |
 
 ## Examples
 
@@ -4846,7 +4847,7 @@ Paginated lists without page numbers need one consistent load-more control that 
 | onLoadMore | `() => void` | — | yes | Request the next page. |
 | loading | `boolean` | `false` | no | Loading state. |
 | loadLabel | `string` | `Load more` | no | Button label. |
-| loadingLabel | `string` | `Loading...` | no | Loading label. |
+| loadingLabel | `string` | `Loading…` | no | Loading label. |
 | endLabel | `string` | `You're all caught up.` | no | End-of-list message. |
 
 ## Examples
@@ -4904,6 +4905,7 @@ Proof logos are repeated on every marketing page with inconsistent sizing, spaci
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Logo box height. |
 | align | `'left' | 'center'` | `center` | no | Caption and grid alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `'href'` | no | Prop used to pass the destination to linkComponent ('to' for react-router style routers). |
 
 ## Examples
 
@@ -5765,6 +5767,7 @@ Marketing pages explain a process as 01/02/03 cards. ProcessSteps uses an ordere
 | columns | `2 | 3 | 4` | `3` | no | Desktop column count. |
 | numbered | `boolean` | `true` | no | Show step numbers when no icon is provided. |
 | align | `'left' | 'center'` | `left` | no | Content alignment. |
+| headingLevel | `2 | 3 | 4` | `3` | no | Heading level for step titles (h2-h4); pick the level that continues the page outline without skipping a rank. |
 
 ## Examples
 

@@ -85,6 +85,23 @@ export default function BlockPage() {
   muted?: boolean;
 };`}
       />
+      <DemoCard
+        title="Muted emphasis"
+        preview={
+          <div className="w-full max-w-md space-y-3 rounded-lg border border-border p-4">
+            <Block>Default block text.</Block>
+            <Block muted>Muted block: de-emphasized context, still readable.</Block>
+            <Block inline muted className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              inline + muted token
+            </Block>
+          </div>
+        }
+        code={`<Block>Default block text.</Block>
+<Block muted>De-emphasized context.</Block>
+<Block inline muted className="font-mono text-xs">token</Block>`}
+        usage={`// muted dims the text for secondary content; combine with inline
+// for quiet code chips inside prose.`}
+      />
     </ComponentPage>
   );
 }

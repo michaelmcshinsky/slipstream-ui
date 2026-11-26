@@ -241,6 +241,7 @@ export const ko = {
       regionLabel: "쿠키 동의",
       message: "동의한 경우에만 개인정보 친화적 분석을 사용합니다. 광고나 교차 사이트 추적은 없습니다.",
       privacyLink: "개인정보 처리방침 보기",
+      manageLink: "환경설정 관리",
       decline: "거부",
       accept: "모두 허용",
     },

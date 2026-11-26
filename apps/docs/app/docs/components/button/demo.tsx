@@ -52,6 +52,8 @@ export default function ButtonPage() {
         { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
         { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Renders the child element (e.g. <a>, <Link>) with button styling instead of a <button>.' },
+        { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Disables the button and swaps the label for a spinner (used by ConfirmDialog internally).' },
+        { name: 'loadingLabel', type: 'string', defaultValue: "'Loading'", description: 'Accessible label announced while loading.' },
       ]}
       accessibility={[
         'Full keyboard navigation with Enter and Space keys',

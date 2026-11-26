@@ -63,6 +63,46 @@ export default function MessageActionsPage() {
   labels={{ copy: 'Copy', thumbUp: 'Good response' }}
 />`}
       />
+      <DemoCard
+        title="Autohide on hover"
+        preview={
+          <div className="w-full space-y-3">
+            <p className="text-xs text-muted-foreground">
+              Hover or focus the message group: the toolbar fades in. It stays visible while focus is inside.
+            </p>
+            <div className="group rounded-lg border border-border p-3">
+              <Message
+                message={{
+                  id: 'demo-2',
+                  role: 'assistant',
+                  content: 'Hover me — the actions appear on group hover.',
+                }}
+              />
+              <div className="mt-2 pl-12 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                <MessageActions
+                  autohide="on-hover"
+                  content="Hover me — the actions appear on group hover."
+                  onFeedback={setRating}
+                  labels={{ copy: 'Copy response', thumbUp: 'Helpful', thumbDown: 'Not helpful', regenerate: 'Try again' }}
+                />
+              </div>
+            </div>
+          </div>
+        }
+        code={`<div className="group">
+  <Message message={message} />
+  <MessageActions
+    autohide="on-hover"        // visible on parent hover/focus
+    content={message.content}
+    onFeedback={setRating}
+    labels={{ copy: 'Copy response', thumbUp: 'Helpful' }}
+  />
+</div>`}
+        usage={`// autohide="on-hover" expects a parent with the Tailwind "group"
+// class (or your own hover/focus wiring): the component only renders
+// the toolbar; visibility is yours to style. autohide="not-last" hides
+// the toolbar on every message except the latest.`}
+      />
     </ComponentPage>
   );
 }

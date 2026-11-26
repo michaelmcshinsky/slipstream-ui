@@ -72,6 +72,21 @@ describe('Menu', () => {
     expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
   });
 
+  it('jumps to items by first letter (typeahead)', async () => {
+    const user = userEvent.setup();
+    render(<BasicMenu />);
+    await user.click(screen.getByRole('button', { name: 'Options' }));
+    // Focus starts on "Profile"; typing 's' should land on "Settings".
+    await user.keyboard('s');
+    expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+    // 's' again cycles to "Sign out".
+    await user.keyboard('s');
+    expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+    // 'p' wraps back to "Profile".
+    await user.keyboard('p');
+    expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+  });
+
   it('calls onOpenChange', async () => {
     const user = userEvent.setup();
     const onOpenChange = vi.fn();

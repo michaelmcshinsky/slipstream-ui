@@ -5,6 +5,10 @@ import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Pagination } from '@slipstream-ui/core';
 
+const pageHrefsExample = Object.fromEntries(
+  Array.from({ length: 6 }, (_, i) => [i + 1, `/docs?page=${i + 1}`])
+);
+
 export default function PaginationPage() {
   const [page, setPage] = useState(3);
 
@@ -82,6 +86,32 @@ export default function PaginationPage() {
 />`}
         usage={`// total + pageSize derive the page count and add the item summary.
 // currentPage/totalPages are accepted as aliases for page/pageCount.`}
+      />
+
+      <DemoCard
+        title="Server-rendered links"
+        preview={
+          <Pagination
+            page={3}
+            pageCount={6}
+            pageHrefs={pageHrefsExample}
+            linkComponent={({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
+              <a href={href} {...rest}>{children}</a>
+            )}
+          />
+        }
+        code={`const pageHrefs = Object.fromEntries(
+  Array.from({ length: 6 }, (_, i) => [i + 1, \`/docs?page=\${i + 1}\`])
+);
+
+<Pagination
+  page={3}
+  pageCount={6}
+  pageHrefs={pageHrefs}
+  linkComponent={RouterLink}   // receives href by default; 'to' via linkHrefProp
+/>`}
+        usage={`// pageHrefs turns each page button into a real link for SSR/SEO.
+// Pair with linkComponent + linkHrefProp="to" for react-router.`}
       />
     </ComponentPage>
   );

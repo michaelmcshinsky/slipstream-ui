@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#1e293b"/>
+  <circle cx="400" cy="190" r="80" fill="none" stroke="#38bdf8" stroke-width="4"/>
+  <path d="M370 190l20 20 40-45" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="330" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" fill="#94a3b8">Event placeholder</text>
+</svg>

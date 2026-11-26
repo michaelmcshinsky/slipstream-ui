@@ -1,13 +1,14 @@
 export const dynamic = 'force-dynamic';
 
 import { prisma, Prisma } from '@slipstream-ui/db';
-import { hashPassword, assertStrongPassword } from '@/lib/passwords';
+import { hashPassword, assertPasswordPolicy } from '@/lib/passwords';
 import { createSession } from '@/lib/session';
 import { createTeamForUser } from '@/lib/teams';
 import { sendVerificationEmail } from '@/lib/verify';
 import { audit } from '@/lib/audit';
 import { handle, badRequest, z } from '@/lib/api/handle';
 import { parseBody } from '@/lib/api/core';
+import { logError } from '@/lib/log';
 
 export async function POST(request: Request) {
   return handle(request, async () => {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
     const email = body.email?.trim().toLowerCase();
     if (!email || !email.includes('@')) badRequest('A valid email is required.');
     if (!body.password) badRequest('Password is required.');
-    assertStrongPassword(body.password);
+    await assertPasswordPolicy(body.password);
 
     // Never reveal whether an account already exists for this email.
     const existing = await prisma.user.findUnique({ where: { email } });
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
       const { token } = await sendVerificationEmail(user);
       if (process.env.NODE_ENV !== 'production') devVerifyToken = token;
     } catch (error) {
-      console.error('[auth] verification email failed', user.id, error instanceof Error ? error.message : error);
+      logError('auth.verification_email_failed', { userId: user.id, error: error instanceof Error ? error.message : String(error) });
     }
     await audit({ actorId: user.id, action: 'user.signup', targetType: 'user', targetId: user.id });
     return { user: { id: user.id, email: user.email }, teamId: team.id, verifyToken: devVerifyToken };

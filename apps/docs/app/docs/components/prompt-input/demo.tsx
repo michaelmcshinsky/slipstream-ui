@@ -31,6 +31,7 @@ export default function PromptInputPage() {
       id="prompt-input"
       title="PromptInput"
       description="Auto-resizing chat input with Enter-to-send, Shift+Enter for newlines, and a stop-generation button while a response is in flight. Also composes as a compound primitive set for custom layouts."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
         {
           name: "onSubmit",
@@ -215,6 +216,21 @@ export default function PromptInputPage() {
   isLoading={isStreaming}
   onStop={() => controller.abort()}
 />`}
+        usage={`import { PromptInput } from '@slipstream-ui/ai';
+
+// Enter submits, Shift+Enter adds a newline; whitespace-only input is ignored.
+// hasError flags a failed submission on the send control; maxLength caps input;
+// disabled freezes the whole composer.`}
+        types={`type PromptInputProps = {
+  onSubmit: (value: string) => void;
+  onStop?: () => void;
+  isLoading?: boolean;
+  hasError?: boolean;
+  disabled?: boolean;
+  maxLength?: number;
+  placeholder?: string;
+  // …attachment queue, density/surface and compound children props
+};`}
       />
 
       <DemoCard
@@ -286,6 +302,33 @@ export default function PromptInputPage() {
 </PromptInput>`}
       />
 
+      <DemoCard
+        title="Error, limit and disabled states"
+        preview={
+          <div className="flex w-full flex-col gap-4">
+            <PromptInput
+              onSubmit={() => {}}
+              hasError
+              placeholder="Submission failed — try again"
+            />
+            <PromptInput
+              onSubmit={() => {}}
+              maxLength={40}
+              placeholder="Max 40 characters"
+            />
+            <PromptInput
+              onSubmit={() => {}}
+              disabled
+              placeholder="Composer disabled"
+            />
+          </div>
+        }
+        code={`<PromptInput onSubmit={send} hasError />        {/* failed submit state */}
+<PromptInput onSubmit={send} maxLength={40} />   {/* character cap */}
+<PromptInput onSubmit={send} disabled />        {/* frozen composer */}`}
+        usage={`// hasError marks the last submission as failed on the send control.
+// maxLength caps input length; disabled blocks editing and submission.`}
+      />
     </ComponentPage>
   );
 }

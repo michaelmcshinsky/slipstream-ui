@@ -11,6 +11,7 @@ export default function AccordionPage() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'value', type: 'string[]', description: 'Controlled open item ids.' },
+        { name: 'defaultValue', type: 'string[]', defaultValue: '[]', description: 'Uncontrolled initial open item ids.' },
         { name: 'collapsible', type: 'boolean', defaultValue: 'true', description: 'When true, opening an item closes the others.' },
         { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called when the open set changes.' },
         { name: 'variant', type: "'default' | 'borderless'", defaultValue: "'default'", description: 'Bordered card with dividers, or plain stacked sections.' },

@@ -241,6 +241,7 @@ export const es = {
       regionLabel: "Consentimiento de cookies",
       message: "Solo analítica respetuosa con la privacidad y con consentimiento. Sin anuncios ni seguimiento entre sitios. Lee la",
       privacyLink: "política de privacidad",
+      manageLink: "Gestionar preferencias",
       decline: "Rechazar",
       accept: "Aceptar todo",
     },

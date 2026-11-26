@@ -56,6 +56,7 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
+  lastSeenAt DateTime @default(now())
 
   @@index([userId])
 }
@@ -324,8 +325,12 @@ model NewsletterDelivery {
   status        String   @default("QUEUED") // QUEUED | SENT | FAILED
   sentAt        DateTime?
   error         String?
+  /// Deterministic dedup key for the send period, e.g. "daily:2026-11-22"
+  /// or "weekly:2026-W47". NULL on rows created before the column existed.
+  periodKey     String?
   createdAt     DateTime @default(now())
 
+  @@unique([subscriptionId, type, periodKey])
   @@index([userId, type, createdAt])
   @@index([status])
 }

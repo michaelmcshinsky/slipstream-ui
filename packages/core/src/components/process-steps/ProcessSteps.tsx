@@ -16,6 +16,9 @@ export type ProcessStepsProps = React.HTMLAttributes<HTMLOListElement> & {
   numbered?: boolean;
   /** Content alignment. Default 'left'. */
   align?: 'left' | 'center';
+  /** Heading level for step titles (h2-h4). Default 3 — pick the level that
+   *  continues your page's outline without skipping a rank. */
+  headingLevel?: 2 | 3 | 4;
 };
 
 const columnClasses: Record<NonNullable<ProcessStepsProps['columns']>, string> = {
@@ -30,9 +33,10 @@ const columnClasses: Record<NonNullable<ProcessStepsProps['columns']>, string> =
  * relying on decorative connectors.
  */
 export const ProcessSteps = React.forwardRef<HTMLOListElement, ProcessStepsProps>(function ProcessSteps(
-  { steps, columns = 3, numbered = true, align = 'left', className, ...props },
+  { steps, columns = 3, numbered = true, align = 'left', headingLevel = 3, className, ...props },
   ref
 ) {
+  const HeadingTag = { 2: 'h2', 3: 'h3', 4: 'h4' }[headingLevel] as 'h2' | 'h3' | 'h4';
   return (
     <ol ref={ref} className={cn('grid gap-8', columnClasses[columns], className)} {...props}>
       {steps.map((step, index) => (
@@ -44,7 +48,7 @@ export const ProcessSteps = React.forwardRef<HTMLOListElement, ProcessStepsProps
             {step.icon ?? (numbered ? String(index + 1).padStart(2, '0') : null)}
           </span>
           <div className="min-w-0">
-            <h3 className="text-base font-semibold tracking-tight">{step.title}</h3>
+            <HeadingTag className="text-base font-semibold tracking-tight">{step.title}</HeadingTag>
             {step.description && (
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
             )}

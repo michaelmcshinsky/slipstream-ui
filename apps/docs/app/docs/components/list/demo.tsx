@@ -133,7 +133,7 @@ type ListItemProps = {
   leading?: ReactNode;
   trailing?: ReactNode;
   selected?: boolean;
-  description?: string;
+  description?: React.ReactNode; // accepts rich meta (badges, dots)
   onClick?: () => void;
 };`}
       />

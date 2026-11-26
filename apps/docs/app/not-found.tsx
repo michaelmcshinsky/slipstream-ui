@@ -16,7 +16,7 @@ export default async function NotFound() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
-      <main className="container mx-auto flex flex-1 flex-col items-center justify-center px-4 py-24 text-center">
+      <main id="main" className="container mx-auto flex flex-1 flex-col items-center justify-center px-4 py-24 text-center">
         <p className="mb-3 font-mono text-sm text-primary">404</p>
         <h1 className="text-4xl font-bold tracking-tight">{t('site.notFound.title')}</h1>
         <p className="mt-4 max-w-md text-muted-foreground">{t('site.notFound.description')}</p>

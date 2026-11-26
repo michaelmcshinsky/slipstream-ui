@@ -16,6 +16,9 @@ import { RELEASE } from '@/lib/release';
 export const metadata: Metadata = withSeo('/changelog', {
   title: 'Changelog',
   description: `Release notes for Slipstream UI: new components, breaking changes, and migration notes for every version, following semver. Latest: ${LATEST_RELEASE.version}.`,
+  alternates: {
+    types: { 'application/rss+xml': '/changelog/rss.xml' },
+  },
 });
 
 export default async function ChangelogPage() {
@@ -37,7 +40,7 @@ export default async function ChangelogPage() {
       <div className="px-4">
         <MobileNav />
       </div>
-      <div className="container mx-auto px-4 py-12">
+      <main id="main" className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-2">{ui.title}</h1>
         <p className="text-lg text-muted-foreground mb-10">
           {ui.intro}
@@ -50,7 +53,11 @@ export default async function ChangelogPage() {
           return (
             <section key={release.version} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-2xl font-semibold">{release.version}</h2>
+                <h2 id={`release-${release.version}`} className="text-2xl font-semibold scroll-mt-24">
+                  <a href={`#release-${release.version}`} className="hover:text-primary">
+                    {release.version}
+                  </a>
+                </h2>
                 <span className="text-sm text-muted-foreground">{date}</span>
                 {isCurrent && (
                   <span className="text-xs px-2 py-0.5 rounded-full border border-primary/40 bg-primary/10 text-primary font-medium">
@@ -80,7 +87,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 # Or install source copies via the shadcn-compatible registry
 npx shadcn@latest add https://slipstreamui.com/registry/message.json`}
         />
-      </div>
+      </main>
       <Footer />
     </div>
   );

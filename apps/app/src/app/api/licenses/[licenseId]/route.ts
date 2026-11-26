@@ -7,6 +7,19 @@ import { handle } from '@/lib/api/handle';
 
 type Params = { params: Promise<{ licenseId: string }> };
 
+/** Owner retrieves the full bearer key for their own license. */
+export async function GET(request: Request, { params }: Params) {
+  return handle(request, async () => {
+    const user = requireUser(await getSessionUser());
+    const { licenseId } = await params;
+    const license = await prisma.licenseKey.findUnique({ where: { id: licenseId } });
+    if (!license || license.ownerId !== user.id) {
+      return Response.json({ error: 'License not found.' }, { status: 404 });
+    }
+    return { key: license.key };
+  });
+}
+
 /** Owner revokes their own key; admins use the admin API. */
 export async function DELETE(request: Request, { params }: Params) {
   return handle(request, async () => {

@@ -1,6 +1,7 @@
 import { prisma } from '@slipstream-ui/db';
 import { handle, parseQuery, paginationSchema, paginate, decodeCursor, json, withEtag } from '@/lib/api/core';
 import { getPrincipal, requirePrincipal } from '@/lib/api/auth';
+import { maskLicenseKey } from '@/lib/tokens';
 
 const querySchema = paginationSchema(20);
 
@@ -21,7 +22,9 @@ export async function GET(request: Request) {
 
     const mapped = rows.map((license) => ({
       id: license.id,
-      key: license.key,
+      // Bearer secrets are masked in list payloads; full retrieval is
+      // owner-scoped via the session API, not the v1 list.
+      key: maskLicenseKey(license.key),
       plan: license.plan,
       status: license.status,
       maxActivations: license.maxActivations,

@@ -15,7 +15,9 @@ describe('InlineCitation', () => {
   it('renders the citation chip with a tooltip target', () => {
     render(<InlineCitation source={source} />);
     const trigger = screen.getByRole('button');
-    expect(trigger).toHaveAttribute('aria-describedby', 'citation-src-1-card');
+    const describedBy = trigger.getAttribute('aria-describedby');
+    expect(describedBy).toBeTruthy();
+    expect(document.getElementById(describedBy!)).toBe(screen.getByRole('tooltip'));
     expect(screen.getByRole('tooltip')).toBeInTheDocument();
   });
 
@@ -26,6 +28,23 @@ describe('InlineCitation', () => {
       </InlineCitation>
     );
     expect(screen.getByRole('button')).toHaveTextContent('as stated in the docs');
+  });
+
+  it('gives each citation a unique tooltip id, even for the same source', () => {
+    render(
+      <div>
+        <InlineCitation source={source} />
+        <InlineCitation source={source} />
+      </div>
+    );
+    const ids = screen
+      .getAllByRole('tooltip')
+      .map((tip) => tip.id);
+    expect(new Set(ids).size).toBe(2);
+    for (const trigger of screen.getAllByRole('button')) {
+      const describedBy = trigger.getAttribute('aria-describedby');
+      expect(document.getElementById(describedBy!)).not.toBeNull();
+    }
   });
 
   it('is keyboard reachable', async () => {

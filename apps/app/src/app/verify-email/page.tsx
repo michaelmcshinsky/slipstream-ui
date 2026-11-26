@@ -5,7 +5,7 @@ export const metadata = { title: 'Verify your email' };
 
 export default function VerifyEmailPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center px-4">
+    <main id="main" className="flex min-h-screen items-center justify-center px-4">
       <Suspense>
         <VerifyEmailForm />
       </Suspense>

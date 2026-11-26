@@ -22,10 +22,10 @@ export function DocsPageMeta() {
 
   return (
     <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
-      <a href={editHref} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-foreground hover:underline">
+      <a href={editHref} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-foreground hover:underline"><span className="sr-only"> (opens in new tab)</span>
         Edit this page on GitHub
       </a>
-      <a href={a11yHref} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-foreground hover:underline">
+      <a href={a11yHref} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-foreground hover:underline"><span className="sr-only"> (opens in new tab)</span>
         Report an accessibility issue
       </a>
     </div>

@@ -193,6 +193,24 @@ export default function StepperPage() {
 // screen-reader state text. Use them in toolbars, drawers and narrow sidebars.`}
         />
       </div>
+        <DemoCard
+          title="Read-only (no onStepClick)"
+          preview={
+            <div className="w-full max-w-md">
+              <Stepper
+                current={2}
+                steps={STEPS}
+              />
+            </div>
+          }
+          code={`<Stepper
+  current={step}
+  steps={steps}
+  // no onStepClick: steps render as plain list items, not buttons
+/>`}
+          usage={`// Omitting onStepClick gives a read-only indicator for status pages,
+// order summaries and post-completion reviews — nothing is clickable.`}
+        />
     </ComponentPage>
   );
 }

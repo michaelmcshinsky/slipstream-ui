@@ -14,6 +14,7 @@ export default function ConfirmationPage() {
       id="confirmation"
       title="Confirmation"
       description="Human-in-the-loop approval gate for agent actions. Pauses tool execution until the user approves or rejects: the standard pattern for destructive operations."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
         { name: 'title', type: 'string', description: 'Summary of the action requiring approval.' },
         { name: 'description', type: 'string', description: 'Detail: affected resource or risk note.' },

@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { prisma } from '@slipstream-ui/db';
-import { hashPassword, assertStrongPassword } from '@/lib/passwords';
+import { hashPassword, assertPasswordPolicy } from '@/lib/passwords';
 
 import { createSession } from '@/lib/session';
 import { hashToken } from '@/lib/tokens';
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const { token, password } = body;
     if (!token) badRequest('Reset token is required.');
     if (!password) badRequest('New password is required.');
-    assertStrongPassword(password);
+    await assertPasswordPolicy(password);
 
     const tokenHash = hashToken(token);
     const userId = await prisma.$transaction(async (tx) => {

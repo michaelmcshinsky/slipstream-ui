@@ -23,7 +23,7 @@ export default function MCPPage() {
 
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-semibold mt-8 mb-4">What is MCP?</h2>
+        <h2 id="what-is-mcp" className="text-2xl font-semibold mt-8 mb-4">What is MCP?</h2>
         <p className="text-muted-foreground mb-4">
           MCP (Model Context Protocol) is a protocol that allows AI agents to query external tools and data sources. The Slipstream UI MCP server provides tools for AI agents to:
         </p>
@@ -36,15 +36,15 @@ export default function MCPPage() {
           <li>Validate generated JSX before it reaches your diff</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Installation</h2>
+        <h2 id="installation" className="text-2xl font-semibold mt-8 mb-4">Installation</h2>
         <p className="text-muted-foreground mb-4">
           Install the MCP server as a development dependency:
         </p>
         <CodeBlock language="bash" code={`pnpm add -D @slipstream-ui/mcp-server`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Configuration</h2>
+        <h2 id="configuration" className="text-2xl font-semibold mt-8 mb-4">Configuration</h2>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Claude Desktop</h3>
+        <h3 id="claude-desktop" className="text-xl font-semibold mt-6 mb-3">Claude Desktop</h3>
         <p className="text-muted-foreground mb-4">
           Add the MCP server to your Claude Desktop configuration:
         </p>
@@ -58,7 +58,7 @@ export default function MCPPage() {
   }
 }`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Cursor</h3>
+        <h3 id="cursor" className="text-xl font-semibold mt-6 mb-3">Cursor</h3>
         <p className="text-muted-foreground mb-4">
           Add to your Cursor settings:
         </p>
@@ -72,12 +72,20 @@ export default function MCPPage() {
   }
 }`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Windsurf</h3>
+        <h3 id="windsurf" className="text-xl font-semibold mt-6 mb-3">Windsurf</h3>
         <p className="text-muted-foreground mb-4">
-          Configure in your Windsurf settings file.
+          Add to <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">~/.codeium/windsurf/mcp_config.json</code>:
         </p>
+        <CodeBlock language="json" code={`{
+  "mcpServers": {
+    "slipstream-ui": {
+      "command": "npx",
+      "args": ["-y", "@slipstream-ui/mcp-server"]
+    }
+  }
+}`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">OpenCode and other stdio clients</h3>
+        <h3 id="opencode-and-other-stdio-clients" className="text-xl font-semibold mt-6 mb-3">OpenCode and other stdio clients</h3>
         <p className="text-muted-foreground mb-4">
           Any client that speaks MCP over stdio can launch the published binary with
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono"> npx -y @slipstream-ui/mcp-server</code>.
@@ -98,9 +106,9 @@ export default function MCPPage() {
           download: <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">node node_modules/@slipstream-ui/mcp-server/dist/index.js</code>.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Available Tools</h2>
+        <h2 id="available-tools" className="text-2xl font-semibold mt-8 mb-4">Available Tools</h2>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">list_components</h3>
+        <h3 id="listcomponents" className="text-xl font-semibold mt-6 mb-3">list_components</h3>
         <p className="text-muted-foreground mb-4">
           List all available Slipstream UI components with optional filters.
         </p>
@@ -116,7 +124,7 @@ list_components(tier="atom")
 // Combine filters
 list_components(package="@slipstream-ui/ai", tier="molecule")`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">search_components</h3>
+        <h3 id="searchcomponents" className="text-xl font-semibold mt-6 mb-3">search_components</h3>
         <p className="text-muted-foreground mb-4">
           Semantic-ish keyword search over components by capability: faster than browsing when the
           agent knows what the UI should <em>do</em>, not what it is called.
@@ -127,7 +135,7 @@ search_components(query="streaming chat")
 // Find citation components and cap the result count
 search_components(query="citations grounding", limit=5)`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">recommend_components</h3>
+        <h3 id="recommendcomponents" className="text-xl font-semibold mt-6 mb-3">recommend_components</h3>
         <p className="text-muted-foreground mb-4">
           Start from the goal, not a component name. Returns a coherent set with a reason and a docs
           URL for each component, plus a note to read the manifest before generating code.
@@ -137,7 +145,7 @@ search_components(query="citations grounding", limit=5)`} />
 // Limit and filter to the AI package
 recommend_components(goal="RAG answer with citations", limit=4, package="@slipstream-ui/ai")`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">get_component_manifest</h3>
+        <h3 id="getcomponentmanifest" className="text-xl font-semibold mt-6 mb-3">get_component_manifest</h3>
         <p className="text-muted-foreground mb-4">
           Get the complete COMPONENT_MANIFEST for a specific component.
         </p>
@@ -147,7 +155,7 @@ get_component_manifest(componentId="button")
 // Get message manifest
 get_component_manifest(componentId="message")`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">get_usage_examples</h3>
+        <h3 id="getusageexamples" className="text-xl font-semibold mt-6 mb-3">get_usage_examples</h3>
         <p className="text-muted-foreground mb-4">
           Fetch runnable examples (basic, composition, edge cases) plus composition rules and
           anti-patterns straight from the manifest, so the agent copies patterns that actually
@@ -156,7 +164,7 @@ get_component_manifest(componentId="message")`} />
         <CodeBlock language="text" code={`get_usage_examples(componentId="select-menu")
 get_usage_examples(componentId="dialog")`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">validate_usage</h3>
+        <h3 id="validateusage" className="text-xl font-semibold mt-6 mb-3">validate_usage</h3>
         <p className="text-muted-foreground mb-4">
           Validate generated JSX against the component manifest before it ships. The validator
           reports unknown (hallucinated) props, values outside a documented enum, missing
@@ -207,7 +215,7 @@ get_usage_examples(componentId="dialog")`} />
 //   ]
 // }`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
+        <h2 id="example-usage" className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
         <p className="text-muted-foreground mb-4">
           Here's how an AI agent might use the MCP server:
         </p>
@@ -231,7 +239,7 @@ get_usage_examples(componentId="dialog")`} />
    MCP: validate_usage(componentId="button", code="<Button>Click me</Button>")
    → { valid: true, issues: [] }`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Teach the agent to reach for the tools</h2>
+        <h2 id="teach-the-agent-to-reach-for-the-tools" className="text-2xl font-semibold mt-8 mb-4">Teach the agent to reach for the tools</h2>
         <p className="text-muted-foreground mb-4">
           Tool availability is not a habit. Add an explicit rule to{' '}
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">CLAUDE.md</code>,{' '}
@@ -245,7 +253,7 @@ This project uses Slipstream UI. Before writing any component JSX:
 3. Run validate_usage on the generated JSX before finishing.
 4. Respect anti-patterns and composition rules from the manifest.`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">No MCP client?</h2>
+        <h2 id="no-mcp-client" className="text-2xl font-semibold mt-8 mb-4">No MCP client?</h2>
         <p className="text-muted-foreground mb-4">
           Every manifest is also served as markdown and as registry JSON. An agent that can fetch a
           URL gets the same contract without a connection:
@@ -255,7 +263,7 @@ GET https://slipstreamui.com/llms-full.txt
 GET https://slipstreamui.com/llm/components/<id>.md
 GET https://slipstreamui.com/registry/<id>.json`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
+        <h2 id="benefits" className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li><strong>Exact specifications:</strong> agents read the prop schema, defaults, and anti-patterns instead of guessing</li>
           <li><strong>Real-time Updates:</strong> Always reflects the latest component API</li>
@@ -265,7 +273,7 @@ GET https://slipstreamui.com/registry/<id>.json`} />
           <li><strong>Filtered Queries:</strong> Get exactly what you need (package, tier, etc.)</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Development</h2>
+        <h2 id="development" className="text-2xl font-semibold mt-8 mb-4">Development</h2>
         <p className="text-muted-foreground mb-4">
           When developing the MCP server:
         </p>
@@ -278,9 +286,9 @@ node dist/index.js
 
 # The server runs on stdio and responds to MCP protocol messages`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Troubleshooting</h2>
+        <h2 id="troubleshooting" className="text-2xl font-semibold mt-8 mb-4">Troubleshooting</h2>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Server not found</h3>
+        <h3 id="server-not-found" className="text-xl font-semibold mt-6 mb-3">Server not found</h3>
         <p className="text-muted-foreground mb-4">
           Ensure the path to the MCP server executable is correct in your configuration. Use the full path to the built file:
         </p>
@@ -290,17 +298,17 @@ node dist/index.js
 // Use full path:
 "args": ["/absolute/path/to/node_modules/@slipstream-ui/mcp-server/dist/index.js"]`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Components not showing</h3>
+        <h3 id="components-not-showing" className="text-xl font-semibold mt-6 mb-3">Components not showing</h3>
         <p className="text-muted-foreground mb-4">
           The MCP server loads manifests directly from the installed packages at startup, so component IDs always match the source of truth. If a component is missing, verify it has a COMPONENT_MANIFEST in its package's src/manifests directory.
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Permission errors</h3>
+        <h3 id="permission-errors" className="text-xl font-semibold mt-6 mb-3">Permission errors</h3>
         <p className="text-muted-foreground mb-4">
           Ensure the MCP server has read permissions to access the manifest files in the packages directory.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
+        <h2 id="next-steps" className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
             <a href="/docs/ai-manifests" className="text-primary underline underline-offset-2">

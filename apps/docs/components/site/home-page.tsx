@@ -258,7 +258,7 @@ function InstallSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-primary hover:underline"
-              >
+              ><span className="sr-only"> (opens in new tab)</span>
                 MIT license
               </a>
             </div>
@@ -307,7 +307,7 @@ const AGENTS = ['Claude Code', 'Cursor', 'Copilot', 'Codex'];
 
 export default function LandingPage({ copy }: { copy: HomeCopy }) {
   return (
-    <main id="main" className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <Navbar />
       {/* Docs links live in the navbar only from md up; below that the pills
           row keeps marketing pages navigable on phones. The px-4 wrapper
@@ -316,6 +316,8 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <MobileNav />
       </div>
 
+      {/* Chrome landmarks (header/nav/footer) must not nest inside <main>. */}
+      <main id="main">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div
@@ -356,7 +358,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track('github_click', { location: 'hero' })}
-              >
+              ><span className="sr-only"> (opens in new tab)</span>
                 <Button size="lg" variant="outline">{copy.starOnGithub}</Button>
               </a>
             </div>
@@ -403,7 +405,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </dl>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
           {HOME_EXTRAS.benchmarkNote}{' '}
-          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline"><span className="sr-only"> (opens in new tab)</span>
             Benchmark methodology
           </a>
         </p>
@@ -507,7 +509,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </div>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
           {HOME_EXTRAS.benchmarkNote}{' '}
-          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline"><span className="sr-only"> (opens in new tab)</span>
             Read the methodology
           </a>
         </p>
@@ -530,13 +532,14 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         <p className="mx-auto mb-10 mt-3 max-w-2xl text-center text-muted-foreground">{copy.comparisonIntro}</p>
         <div className="mx-auto max-w-5xl overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
+            <caption className="sr-only">{copy.comparisonHeading}</caption>
             <thead className="bg-muted">
               <tr>
-                <th className="p-3 text-left font-medium">{copy.comparisonCapability}</th>
-                <th className="p-3 text-center font-medium">Slipstream</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
-                <th className="p-3 text-center font-medium text-muted-foreground">MUI</th>
+                <th scope="col" className="p-3 text-left font-medium">{copy.comparisonCapability}</th>
+                <th scope="col" className="p-3 text-center font-medium">Slipstream</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">shadcn/ui + AI Elements</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">assistant-ui</th>
+                <th scope="col" className="p-3 text-center font-medium text-muted-foreground">MUI</th>
               </tr>
             </thead>
             <tbody>
@@ -644,8 +647,9 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </div>
       </section>
 
+      </main>
       <Footer />
       <StickyCta />
-    </main>
+    </div>
   );
 }

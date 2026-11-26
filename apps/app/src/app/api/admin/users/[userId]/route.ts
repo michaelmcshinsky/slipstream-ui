@@ -43,6 +43,19 @@ export async function PATCH(request: Request, { params }: Params) {
       }),
     );
 
+    const target = await prisma.user.findUnique({ where: { id: userId }, select: { role: true } });
+    if (!target) badRequest('User not found.');
+
+    // Guard against removing the last active admin — demotion or suspension.
+    const removingAdminAccess =
+      target.role === 'ADMIN' && (body.role === 'USER' || body.suspended === true);
+    if (removingAdminAccess) {
+      const otherAdmins = await prisma.user.count({
+        where: { role: 'ADMIN', id: { not: userId }, suspendedAt: null },
+      });
+      if (otherAdmins === 0) badRequest('Cannot demote or suspend the last active admin.');
+    }
+
     const data: Record<string, unknown> = {};
     if (body.role) data.role = body.role;
     if (typeof body.suspended === 'boolean') data.suspendedAt = body.suspended ? new Date() : null;

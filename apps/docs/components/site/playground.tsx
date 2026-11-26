@@ -400,9 +400,10 @@ export function Playground() {
           <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Component playground</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight">Try the components before you install</h1>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            {COMPONENT_COUNT} components ({CORE_COMPONENT_COUNT} core + {AI_COMPONENT_COUNT} AI), v{VERSION}. Change a
-            prop, copy the JSX, or hand the manifest to your coding agent. The preview uses the same tokens as the docs,
-            so it follows the site theme.
+            A curated set of interactive examples for the most-used of the {COMPONENT_COUNT} components
+            ({CORE_COMPONENT_COUNT} core + {AI_COMPONENT_COUNT} AI), v{VERSION} — the full list lives in
+            the component docs. Change a prop, copy the JSX, or hand the manifest to your coding agent.
+            The preview uses the same tokens as the docs, so it follows the site theme.
           </p>
         </div>
       </div>

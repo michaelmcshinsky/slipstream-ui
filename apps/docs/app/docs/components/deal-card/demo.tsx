@@ -1,10 +1,24 @@
 'use client';
 
+import { useState } from 'react';
 import { DealCard, Grid } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 export default function DealCardPage() {
+  const [savedTitles, setSavedTitles] = useState<ReadonlySet<string>>(new Set());
+  const [accessRequests, setAccessRequests] = useState<ReadonlySet<string>>(new Set());
+
+  const toggleSave = (title: string) =>
+    setSavedTitles((current) => {
+      const next = new Set(current);
+      if (next.has(title)) next.delete(title); else next.add(title);
+      return next;
+    });
+
+  const requestAccess = (title: string) =>
+    setAccessRequests((current) => new Set(current).add(title));
+
   return (
     <ComponentPage
       id="deal-card"
@@ -36,6 +50,7 @@ export default function DealCardPage() {
       <DemoCard
         title="Deal grid"
         preview={
+          <>
           <Grid mdCols={2} gap="lg">
             <DealCard
               title="Multi-regional logistics platform"
@@ -49,8 +64,9 @@ export default function DealCardPage() {
               ]}
               ndaAvailable
               cimAvailable
-              onRequestAccess={() => {}}
-              onSave={() => {}}
+              saved={savedTitles.has('Multi-regional logistics platform')}
+              onSave={() => toggleSave('Multi-regional logistics platform')}
+              onRequestAccess={() => requestAccess('Multi-regional logistics platform')}
             />
             <DealCard
               title="Retail procurement platform"
@@ -63,10 +79,18 @@ export default function DealCardPage() {
               ]}
               status="under-nda"
               ndaAvailable
-              onRequestAccess={() => {}}
-              onSave={() => {}}
+              saved={savedTitles.has('Retail procurement platform')}
+              onSave={() => toggleSave('Retail procurement platform')}
+              onRequestAccess={() => requestAccess('Retail procurement platform')}
             />
           </Grid>
+          {(savedTitles.size > 0 || accessRequests.size > 0) && (
+            <p className="mt-3 text-xs text-muted-foreground" role="status">
+              {savedTitles.size > 0 && `Saved: ${[...savedTitles].join(', ')}. `}
+              {accessRequests.size > 0 && `Access requested: ${[...accessRequests].join(', ')}.`}
+            </p>
+          )}
+          </>
         }
         code={`<DealCard
   title="Logistics platform"

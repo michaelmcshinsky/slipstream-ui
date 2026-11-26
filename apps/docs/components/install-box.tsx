@@ -38,15 +38,34 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
     }
   }
 
+  const tabId = (id: string) => `install-tab-${id}`;
+  const panelId = (id: string) => `install-panel-${id}`;
+
+  function onTabKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    const index = tabs.findIndex((entry) => entry.id === tab);
+    let next = -1;
+    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+    else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    if (next < 0) return;
+    event.preventDefault();
+    setTab(tabs[next]!.id);
+    document.getElementById(tabId(tabs[next]!.id))?.focus();
+  }
+
   return (
     <div className={cn('flex items-stretch overflow-hidden rounded-lg border border-border bg-muted/40 font-mono text-xs', className)}>
-      <div role="tablist" aria-label={t('site.install.method')} className="flex border-r border-border">
+      <div role="tablist" aria-label={t('site.install.method')} className="flex border-r border-border" onKeyDown={onTabKeyDown}>
         {tabs.map((entry) => (
           <button
             key={entry.id}
             type="button"
             role="tab"
+            id={tabId(entry.id)}
             aria-selected={tab === entry.id}
+            aria-controls={panelId(entry.id)}
+            tabIndex={tab === entry.id ? 0 : -1}
             onClick={() => setTab(entry.id)}
             className={`inline-flex min-h-11 items-center px-3 py-2 transition-colors ${
               tab === entry.id ? 'bg-muted font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'
@@ -58,7 +77,9 @@ export function InstallBox({ componentId, npmPackages = '@slipstream-ui/core @sl
       </div>
       {/* min-w-0 lets the flex item shrink below its content so the
           nowrap command scrolls inside the row instead of overflowing it. */}
-      <code className="min-w-0 flex-1 self-center overflow-x-auto px-3 py-2 whitespace-nowrap">{active.command}</code>
+      <div role="tabpanel" id={panelId(tab)} aria-labelledby={tabId(tab)} className="min-w-0 flex-1 self-center overflow-x-auto px-3 py-2">
+        <code className="whitespace-nowrap">{active.command}</code>
+      </div>
       <button
         type="button"
         onClick={copy}

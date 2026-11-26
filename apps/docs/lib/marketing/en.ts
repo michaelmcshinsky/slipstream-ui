@@ -524,7 +524,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         blocks: [
           {
             type: 'p',
-            text: 'When you use the contact form we receive the name, email address and message you submit. Form submissions are processed by our hosting provider (Netlify Forms) and are used only to reply to you. We keep them for up to 24 months.',
+            text: 'We do not run a contact form. You reach us through the GitHub channels listed on the contact page: issues for bug reports, Discussions for questions, and the private channel in SECURITY.md for vulnerabilities. GitHub processes the profile data and content you submit there under its own privacy policy. We use it only to respond to you and keep correspondence for up to 24 months.',
           },
         ],
       },
@@ -537,7 +537,7 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
           },
           {
             type: 'p',
-            text: 'Processors and their purpose: Netlify (hosting, request logs and contact forms), Google (analytics, only with consent), GitHub (public repository data and the star count), and npm (package distribution and download counts).',
+            text: 'Processors and their purpose: our hosting provider (request logs), Google (analytics, only with consent), GitHub (public repository data, the star count, and support correspondence), and npm (package distribution and download counts).',
           },
         ],
       },

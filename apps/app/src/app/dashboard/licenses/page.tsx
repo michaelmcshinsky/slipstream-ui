@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
@@ -42,8 +43,11 @@ export default function LicensesPage() {
   const [teams, setTeams] = useState<TeamRef[]>([]);
   const [teamId, setTeamId] = useState('');
   const [plan, setPlan] = useState<LicensePlan>('PRO');
+  const [note, setNote] = useState('');
   const [newKey, setNewKey] = useState<string | null>(null);
+  const [revealedKeys, setRevealedKeys] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   async function load() {
     const [licenseResponse, keyResponse, teamResponse] = await Promise.all([
@@ -59,7 +63,7 @@ export default function LicensesPage() {
   }
 
   useEffect(() => {
-    load();
+    void load().finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -85,7 +89,7 @@ export default function LicensesPage() {
     const response = await fetch('/api/licenses', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ teamId, plan, note: 'Issued from dashboard' }),
+      body: JSON.stringify({ teamId, plan, note: note.trim() || 'Issued from dashboard' }),
     });
     const data = await response.json();
     if (!response.ok) {
@@ -96,7 +100,14 @@ export default function LicensesPage() {
   }
 
   async function revoke(id: string) {
+    if (!window.confirm('Revoke this license? Activated machines will lose access immediately.')) return;
     await fetch(`/api/licenses/${id}`, { method: 'DELETE' });
+    await load();
+  }
+
+  async function deactivateMachine(licenseId: string, machineId: string) {
+    if (!window.confirm(`Remove machine ${machineId.slice(0, 8)}… from this license?`)) return;
+    await fetch(`/api/licenses/${licenseId}/activations/${encodeURIComponent(machineId)}`, { method: 'DELETE' });
     await load();
   }
 
@@ -162,6 +173,14 @@ export default function LicensesPage() {
                 <option key={value} value={value}>{value}</option>
               ))}
             </select>
+            <input
+              type="text"
+              value={note}
+              onChange={(event) => setNote(event.target.value)}
+              placeholder="Note (optional)"
+              aria-label="License note"
+              className={`${inputClass} w-40`}
+            />
             <button
               type="button"
               onClick={createLicense}
@@ -173,11 +192,33 @@ export default function LicensesPage() {
           </div>
         </div>
         {error && <p role="alert" className="mb-3 text-sm text-destructive">{error}</p>}
+        {loading && <p className="mb-3 text-sm text-muted-foreground">Loading…</p>}
         <div className="space-y-4">
           {licenses.map((license) => (
             <div key={license.id} className="rounded-lg border border-border p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <code className="rounded bg-muted px-2 py-1 font-mono text-xs">{license.key}</code>
+                <code className="rounded bg-muted px-2 py-1 font-mono text-xs">
+                  {revealedKeys[license.id] ?? license.key}
+                </code>
+                <button
+                  type="button"
+                  className="text-xs text-muted-foreground hover:underline"
+                  onClick={async () => {
+                    if (revealedKeys[license.id]) {
+                      setRevealedKeys((prev) => {
+                        const next = { ...prev };
+                        delete next[license.id];
+                        return next;
+                      });
+                      return;
+                    }
+                    const response = await fetch(`/api/licenses/${license.id}`).then((r) => r.json().catch(() => null));
+                    const key = extractData<{ key?: string }>(response)?.key;
+                    if (key) setRevealedKeys((prev) => ({ ...prev, [license.id]: key }));
+                  }}
+                >
+                  {revealedKeys[license.id] ? 'Hide' : 'Reveal'}
+                </button>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">{license.plan}</span>
                   {license.status === 'ACTIVE' ? (
@@ -195,14 +236,36 @@ export default function LicensesPage() {
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 Activations: {license.activations.length} / {license.maxActivations}
-                {license.activations.length > 0 && (
-                  <> — machines: {license.activations.map((a) => a.machineId.slice(0, 8)).join(', ')}</>
-                )}
               </p>
+              {license.activations.length > 0 && (
+                <ul className="mt-1 space-y-1">
+                  {license.activations.map((activation) => (
+                    <li key={activation.id} className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                      <span className="font-mono">{activation.machineId}</span>
+                      <span className="flex items-center gap-2">
+                        <span>seen {new Date(activation.lastSeenAt).toLocaleDateString()}</span>
+                        <button
+                          type="button"
+                          onClick={() => deactivateMachine(license.id, activation.machineId)}
+                          className="text-destructive hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
           {licenses.length === 0 && (
-            <p className="text-sm text-muted-foreground">No licenses yet — upgrade to Pro to get one.</p>
+            <p className="text-sm text-muted-foreground">
+              No licenses yet —{' '}
+              <Link href="/dashboard/billing" className="font-medium text-primary hover:underline">
+                upgrade to a paid plan
+              </Link>{' '}
+              to get one.
+            </p>
           )}
         </div>
       </Card>
@@ -227,6 +290,7 @@ export default function LicensesPage() {
               <button
                 type="button"
                 onClick={async () => {
+                  if (!window.confirm(`Revoke API key "${key.name}"?`)) return;
                   await fetch(`/api/api-keys/${key.id}`, { method: 'DELETE' });
                   await load();
                 }}

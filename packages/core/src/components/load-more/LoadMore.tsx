@@ -13,7 +13,7 @@ export type LoadMoreProps = React.HTMLAttributes<HTMLDivElement> & {
   loading?: boolean;
   /** Button label. Default "Load more". */
   loadLabel?: string;
-  /** Loading label. Default "Loading...". */
+  /** Loading label. Default "Loading…". */
   loadingLabel?: string;
   /** End-of-list message. Default "You're all caught up." */
   endLabel?: string;
@@ -30,7 +30,7 @@ export const LoadMore = React.forwardRef<HTMLDivElement, LoadMoreProps>(function
     onLoadMore,
     loading = false,
     loadLabel = 'Load more',
-    loadingLabel = 'Loading...',
+    loadingLabel = 'Loading…',
     endLabel = "You're all caught up.",
     className,
     ...props

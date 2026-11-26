@@ -17,7 +17,7 @@ export default function AIManifestsPage() {
       </p>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-semibold mt-8 mb-4">What is COMPONENT_MANIFEST?</h2>
+        <h2 id="what-is-componentmanifest" className="text-2xl font-semibold mt-8 mb-4">What is COMPONENT_MANIFEST?</h2>
         <p className="text-muted-foreground mb-4">
           The COMPONENT_MANIFEST is a JSON file that accompanies every component. It contains structured information about the component that AI agents can read to understand:
         </p>
@@ -31,7 +31,7 @@ export default function AIManifestsPage() {
           <li>Composition rules with other components</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Why COMPONENT_MANIFEST?</h2>
+        <h2 id="why-componentmanifest" className="text-2xl font-semibold mt-8 mb-4">Why COMPONENT_MANIFEST?</h2>
         <p className="text-muted-foreground mb-4">
           Traditional component libraries rely on source code and documentation. AI agents reading source code often:
         </p>
@@ -47,7 +47,7 @@ export default function AIManifestsPage() {
           COMPONENT_MANIFEST solves this by providing a <strong>contract</strong> that explicitly states how the component should be used.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Manifest Structure</h2>
+        <h2 id="manifest-structure" className="text-2xl font-semibold mt-8 mb-4">Manifest Structure</h2>
         <p className="text-muted-foreground mb-4">
           Every manifest follows this schema. Here is the <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">button</code> manifest as a reference:
         </p>
@@ -144,7 +144,7 @@ export default function AIManifestsPage() {
           find the TypeScript declaration that this manifest must match.
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Required sections</h3>
+        <h3 id="required-sections" className="text-xl font-semibold mt-6 mb-3">Required sections</h3>
         <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">
@@ -176,9 +176,9 @@ export default function AIManifestsPage() {
           </table>
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Key Sections</h2>
+        <h2 id="key-sections" className="text-2xl font-semibold mt-8 mb-4">Key Sections</h2>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Props Schema</h3>
+        <h3 id="props-schema" className="text-xl font-semibold mt-6 mb-3">Props Schema</h3>
         <p className="text-muted-foreground mb-4">
           The props section provides complete type information for every prop, including:
         </p>
@@ -191,7 +191,7 @@ export default function AIManifestsPage() {
           <li>Example values</li>
         </ul>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Examples &amp; Anti-Patterns</h3>
+        <h3 id="examples-amp-anti-patterns" className="text-xl font-semibold mt-6 mb-3">Examples &amp; Anti-Patterns</h3>
         <p className="text-muted-foreground mb-4">
           Each manifest includes both good usage examples and anti-patterns to avoid. This helps AI agents:
         </p>
@@ -202,7 +202,7 @@ export default function AIManifestsPage() {
           <li>Learn from best practices</li>
         </ul>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Accessibility Requirements</h3>
+        <h3 id="accessibility-requirements" className="text-xl font-semibold mt-6 mb-3">Accessibility Requirements</h3>
         <p className="text-muted-foreground mb-4">
           Accessibility is built into every manifest with:
         </p>
@@ -214,7 +214,7 @@ export default function AIManifestsPage() {
           <li>Form validation accessibility</li>
         </ul>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Content Guidelines</h3>
+        <h3 id="content-guidelines" className="text-xl font-semibold mt-6 mb-3">Content Guidelines</h3>
         <p className="text-muted-foreground mb-4">
           For components that display text (buttons, inputs, messages), the manifest includes:
         </p>
@@ -225,7 +225,7 @@ export default function AIManifestsPage() {
           <li>Tone and style recommendations</li>
         </ul>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Composition Rules</h3>
+        <h3 id="composition-rules" className="text-xl font-semibold mt-6 mb-3">Composition Rules</h3>
         <p className="text-muted-foreground mb-4">
           Manifests specify how components work together:
         </p>
@@ -236,12 +236,12 @@ export default function AIManifestsPage() {
           <li>Patterns to follow</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">For AI Agents</h2>
+        <h2 id="for-ai-agents" className="text-2xl font-semibold mt-8 mb-4">For AI Agents</h2>
         <p className="text-muted-foreground mb-4">
           AI agents can access COMPONENT_MANIFEST files through:
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">MCP Server</h3>
+        <h3 id="mcp-server" className="text-xl font-semibold mt-6 mb-3">MCP Server</h3>
         <p className="text-muted-foreground mb-4">
           The Slipstream UI MCP server provides tools to query manifests:
         </p>
@@ -264,7 +264,7 @@ validate_usage(
 )
 # -> { valid: false, issues: [{ severity: "error", message: "Invalid value ..." }] }`} language="bash" />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Canonical markdown routes</h3>
+        <h3 id="canonical-markdown-routes" className="text-xl font-semibold mt-6 mb-3">Canonical markdown routes</h3>
         <p className="text-muted-foreground mb-4">
           Any client that can fetch a URL gets the same contract without an MCP connection:
         </p>
@@ -273,7 +273,7 @@ GET /llms-full.txt                 # every component in one file
 GET /llm/index.md                  # overview plus component index
 GET /llm/components/<id>.md        # full reference generated from the manifest`} language="text" />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Registry JSON</h3>
+        <h3 id="registry-json" className="text-xl font-semibold mt-6 mb-3">Registry JSON</h3>
         <p className="text-muted-foreground mb-4">
           Build tools and shadcn-compatible installers read the generated registry. It carries the
           manifest plus the component source payload:
@@ -283,7 +283,7 @@ GET /registry/<id>.json       # manifest + shadcn installer payload
 GET /registry/graph.json      # component relationship graph (nodes + edges)
 GET /registry/recommendations.json  # intent recipes behind recommend_components`} language="text" />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Relationship graph</h3>
+        <h3 id="relationship-graph" className="text-xl font-semibold mt-6 mb-3">Relationship graph</h3>
         <p className="mb-4 text-muted-foreground">
           <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">/registry/graph.json</code> turns the
           manifests&apos; <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">compositionRules</code> and{' '}
@@ -292,7 +292,7 @@ GET /registry/recommendations.json  # intent recipes behind recommend_components
           of one component at a time. Every edge resolves to a node; the count gate checks that.
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Direct file access</h3>
+        <h3 id="direct-file-access" className="text-xl font-semibold mt-6 mb-3">Direct file access</h3>
         <p className="text-muted-foreground mb-4">
           In a checkout, manifests are stored alongside component source code:
         </p>
@@ -301,7 +301,7 @@ packages/core/src/manifests/input.manifest.json
 packages/ai/src/manifests/message.manifest.json
 packages/ai/src/manifests/conversation.manifest.json`} language="text" />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">llms.txt</h3>
+        <h3 id="llmstxt" className="text-xl font-semibold mt-6 mb-3">llms.txt</h3>
         <p className="text-muted-foreground mb-4">
           The repository includes <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">llms.txt</code> at
           the root and serves the same file at{' '}
@@ -310,7 +310,7 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
           drift from the real manifest set.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Creating Manifests</h2>
+        <h2 id="creating-manifests" className="text-2xl font-semibold mt-8 mb-4">Creating Manifests</h2>
         <p className="text-muted-foreground mb-4">
           When adding new components to Slipstream UI:
         </p>
@@ -324,7 +324,7 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
           <li>Run <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">pnpm check:llm</code> so stale generated docs fail early</li>
         </ol>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Keeping the contract honest</h2>
+        <h2 id="keeping-the-contract-honest" className="text-2xl font-semibold mt-8 mb-4">Keeping the contract honest</h2>
         <p className="text-muted-foreground mb-4">
           Four checks run in CI, each covering a different kind of drift:
         </p>
@@ -357,7 +357,7 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
           and your test suite for everything else.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
+        <h2 id="benefits" className="text-2xl font-semibold mt-8 mb-4">Benefits</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li><strong>Validated usage:</strong> AI agents get exact prop specifications and a validator that checks generated JSX</li>
           <li><strong>Consistency:</strong> All AI-generated code follows the same patterns</li>
@@ -367,7 +367,7 @@ packages/ai/src/manifests/conversation.manifest.json`} language="text" />
           <li><strong>Future-Proof:</strong> Easy to update without changing source code</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
+        <h2 id="next-steps" className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
             <a href="/docs/mcp" className="text-primary underline underline-offset-2">

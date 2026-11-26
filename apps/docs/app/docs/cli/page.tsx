@@ -116,7 +116,7 @@ npx @slipstream-ui/cli@latest add message
 npx @slipstream-ui/cli@latest diff`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Commands</h2>
+      <h2 id="commands" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Commands</h2>
 
       <div className="mt-6 space-y-10">
         {COMMANDS.map((command) => (
@@ -157,7 +157,7 @@ npx @slipstream-ui/cli@latest diff`} />
         ))}
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Files written</h2>
+      <h2 id="files-written" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Files written</h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted">
@@ -179,7 +179,7 @@ npx @slipstream-ui/cli@latest diff`} />
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">CI: catch drift automatically</h2>
+      <h2 id="ci-catch-drift-automatically" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">CI: catch drift automatically</h2>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">diff</code> exits with a non-zero code
         when installed components differ from the registry, so a single step fails the build on drift without
@@ -191,7 +191,7 @@ npx @slipstream-ui/cli@latest diff`} />
   run: npx @slipstream-ui/cli@latest diff`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Troubleshooting</h2>
+      <h2 id="troubleshooting" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Troubleshooting</h2>
       <div className="mt-4 space-y-4">
         {TROUBLESHOOTING.map((entry) => (
           <div key={entry.symptom} className="rounded-xl border border-border bg-card p-4">

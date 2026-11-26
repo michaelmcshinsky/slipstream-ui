@@ -1,0 +1,10 @@
+title = "slipstream-ui"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known false positives"
+# apps/docs/lib/nav.ts contains `labelKey: 'nav.items.*'` i18n keys; the
+# generic-api-key rule matches the `labelKey` identifier. No secrets live here.
+paths = ['''apps/docs/lib/nav\.ts''']

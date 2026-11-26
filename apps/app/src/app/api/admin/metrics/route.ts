@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     requireAdmin(await getSessionUser());
 
     const since30d = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    const [totalUsers, newUsers30d, suspendedUsers, renewingSubscriptions, pastDueSubscriptions, payments] = await Promise.all([
+    const [totalUsers, newUsers30d, suspendedUsers, renewingSubscriptions, pastDueSubscriptions, payments, revenueByCurrency] = await Promise.all([
       prisma.user.count(),
       prisma.user.count({ where: { createdAt: { gte: since30d } } }),
       prisma.user.count({ where: { suspendedAt: { not: null } } }),
@@ -26,6 +26,13 @@ export async function GET(request: Request) {
         where: { status: 'PAID', createdAt: { gte: since30d } },
         _sum: { amountCents: true },
         _count: true,
+      }),
+      // Revenue is grouped by currency: summing cents across currencies
+      // would silently mix USD with any future currency.
+      prisma.payment.groupBy({
+        by: ['currency'],
+        where: { status: 'PAID', createdAt: { gte: since30d } },
+        _sum: { amountCents: true },
       }),
     ]);
 
@@ -46,6 +53,9 @@ export async function GET(request: Request) {
         pastDueSubscriptions,
         byPlan,
         revenue30dCents: payments._sum.amountCents ?? 0,
+        revenue30dByCurrency: Object.fromEntries(
+          revenueByCurrency.map((row) => [row.currency, row._sum.amountCents ?? 0]),
+        ),
         payments30d: payments._count,
       },
       audit: { writeFailures: auditFailureCount() },

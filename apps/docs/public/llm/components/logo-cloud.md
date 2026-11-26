@@ -24,6 +24,7 @@ Proof logos are repeated on every marketing page with inconsistent sizing, spaci
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Logo box height. |
 | align | `'left' | 'center'` | `center` | no | Caption and grid alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `'href'` | no | Prop used to pass the destination to linkComponent ('to' for react-router style routers). |
 
 ## Examples
 

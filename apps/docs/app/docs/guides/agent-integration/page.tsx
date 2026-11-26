@@ -31,7 +31,7 @@ export default function AgentIntegrationGuidePage() {
         want zero ceremony.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 1: MCP server (recommended)</h2>
+      <h2 id="path-1-mcp-server-recommended" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 1: MCP server (recommended)</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Install <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">@slipstream-ui/mcp-server</code> and point
         your client at its <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">slipstream-mcp</code> binary
@@ -55,7 +55,7 @@ export default function AgentIntegrationGuidePage() {
         />
       </div>
 
-      <h2 className="mt-10 scroll-m-20 text-2xl font-semibold tracking-tight">The six tools</h2>
+      <h2 id="the-six-tools" className="mt-10 scroll-m-20 text-2xl font-semibold tracking-tight">The six tools</h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted">
@@ -75,7 +75,7 @@ export default function AgentIntegrationGuidePage() {
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="the-validation-loop" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         The validation loop
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -106,7 +106,7 @@ export default function AgentIntegrationGuidePage() {
         re-check intent.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="path-2-canonical-markdown-routes" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Path 2: canonical markdown routes
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -127,7 +127,7 @@ GET /llm/components/<id>.md    -> props, anti-patterns, a11y, composition`}
         pages are generated from the manifests on every build, so they cannot drift.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 3: raw registry JSON</h2>
+      <h2 id="path-3-raw-registry-json" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Path 3: raw registry JSON</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         For build-time tooling, fetch the static registry directly:
       </p>
@@ -139,7 +139,7 @@ curl https://slipstreamui.com/registry/message.json     # full manifest + shadcn
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Tips</h2>
+      <h2 id="tips" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Tips</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>Give the agent the docs page link too: humans and agents read the same source of truth.</li>
         <li>Run <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code> in CI if your pipeline generates UI code.</li>
@@ -147,7 +147,7 @@ curl https://slipstreamui.com/registry/message.json     # full manifest + shadcn
       </ul>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">Related</h2>
+        <h2 id="related" className="font-semibold">Related</h2>
         <div className="mt-3 flex flex-wrap gap-2 text-sm">
           <Link href="/docs/mcp" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">MCP reference</Link>
           <Link href="/docs/ai-manifests" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">Manifest schema</Link>

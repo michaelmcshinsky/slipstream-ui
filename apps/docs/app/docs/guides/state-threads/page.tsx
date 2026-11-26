@@ -22,7 +22,7 @@ export default function StateThreadsGuidePage() {
         updates) is your store. This guide is the recommended shape for that store.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The message shape</h2>
+      <h2 id="the-message-shape" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The message shape</h2>
       <div className="mt-4">
         <CodeBlock
           language="typescript"
@@ -41,7 +41,7 @@ export default function StateThreadsGuidePage() {
         <li>Append optimistically for the user turn; replace-or-fill the assistant turn while streaming.</li>
       </ul>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Minimal store</h2>
+      <h2 id="minimal-store" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Minimal store</h2>
       <div className="mt-4">
         <CodeBlock
           language="tsx"
@@ -66,7 +66,7 @@ function useThread(initial: Thread) {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Persistence</h2>
+      <h2 id="persistence" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Persistence</h2>
       <div className="mt-4">
         <CodeBlock
           language="tsx"
@@ -84,7 +84,7 @@ function prependHistory(thread: Thread, older: Message[]): Thread {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Multi-thread structure</h2>
+      <h2 id="multi-thread-structure" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Multi-thread structure</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Slipstream has no Thread component baked in: a thread list is just data next to the active
         thread. The pattern used by the{' '}
@@ -107,7 +107,7 @@ const active = threads.find((t) => t.id === activeId);
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Branching</h2>
+      <h2 id="branching" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Branching</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Regeneration should <em>add</em> a variant, not overwrite. Store variants per message id and
         hand the active variant to the list.{' '}
@@ -117,7 +117,7 @@ const active = threads.find((t) => t.id === activeId);
       </p>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">Rules of thumb</h2>
+        <h2 id="rules-of-thumb" className="font-semibold">Rules of thumb</h2>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
           <li>Components never fetch: your store owns transport and persistence.</li>
           <li>Serialize your own state; nothing Slipstream renders is required to round-trip.</li>

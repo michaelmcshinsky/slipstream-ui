@@ -2,6 +2,7 @@ import { prisma } from '@slipstream-ui/db';
 import { getSessionUser, type SafeUser } from '../session';
 import { hashToken } from '../tokens';
 import { errors } from './core';
+import { logError } from '../log';
 
 export type Principal =
   | { kind: 'session'; user: SafeUser }
@@ -39,11 +40,10 @@ export async function getPrincipal(request: Request): Promise<Principal | null> 
     void prisma.apiKey
       .update({ where: { id: record.id }, data: { lastUsedAt: new Date() } })
       .catch((error: unknown) => {
-        console.error(
-          '[auth] failed to stamp apiKey last-used',
-          record.id,
-          error instanceof Error ? error.message : error,
-        );
+        logError('auth.api_key.last_used_failed', {
+          apiKeyId: record.id,
+          error: error instanceof Error ? error.message : String(error),
+        });
       });
     return {
       kind: 'apikey',

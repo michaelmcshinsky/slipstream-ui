@@ -12,7 +12,8 @@ import {
   Separator,
   Badge,
 } from '@/components/ui';
-import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+import { apiFetch } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 
 type PreferencesState = {
   dailyEnabled: boolean;
@@ -62,10 +63,7 @@ export default function NewsletterSettingsPage() {
 
   async function loadPreferences() {
     try {
-      const response = await fetch('/api/newsletter/preferences');
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to load preferences'));
-      const payload = extractData<PreferencesPayload>(data);
+      const payload = await apiFetch<PreferencesPayload>('/api/newsletter/preferences');
       setPreferences(payload?.preferences ?? DEFAULT_PREFERENCES);
       setSubscriptions(payload?.subscriptions ?? []);
       setContentTypes(payload?.contentTypes ?? []);
@@ -78,13 +76,11 @@ export default function NewsletterSettingsPage() {
   }
 
   async function callSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
-    const response = await fetch(`/api/newsletter/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
+    await apiFetch(`/api/newsletter/${subscribe ? 'subscribe' : 'unsubscribe'}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type }),
     });
-    const data: unknown = await response.json().catch(() => null);
-    if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to update subscription.'));
   }
 
   async function updateSubscription(type: 'daily' | 'weekly', subscribe: boolean) {
@@ -93,6 +89,7 @@ export default function NewsletterSettingsPage() {
     setMessage(null);
     try {
       await callSubscription(type, subscribe);
+      if (subscribe) track('newsletter_subscribed', { type });
       setMessage(subscribe ? 'Subscribed.' : 'Unsubscribed.');
       await loadPreferences();
     } catch (err) {
@@ -107,13 +104,11 @@ export default function NewsletterSettingsPage() {
     setError(null);
     setMessage(null);
     try {
-      const response = await fetch('/api/newsletter/preferences', {
+      await apiFetch('/api/newsletter/preferences', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(preferences),
       });
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) throw new Error(extractErrorMessage(data, 'Failed to save preferences'));
 
       // Preferences alone do not create NewsletterSubscription rows, which is
       // what the cron actually sends to. Reconcile subscriptions with the
@@ -149,16 +144,26 @@ export default function NewsletterSettingsPage() {
     }));
   }
 
+  // Frequency is derived from the two digest toggles so the radio and the
+  // switches can never disagree about what is enabled.
+  function deriveFrequency(dailyEnabled: boolean, weeklyEnabled: boolean): PreferencesState['frequency'] {
+    if (dailyEnabled && weeklyEnabled) return 'both';
+    return dailyEnabled ? 'daily' : 'weekly';
+  }
+
+  function applyDigestToggles(dailyEnabled: boolean, weeklyEnabled: boolean) {
+    setPreferences((prev) => ({
+      ...prev,
+      dailyEnabled,
+      weeklyEnabled,
+      frequency: deriveFrequency(dailyEnabled, weeklyEnabled),
+    }));
+  }
+
   function toggleFrequency(freq: 'daily' | 'weekly' | 'both') {
-    setPreferences((prev) => ({ ...prev, frequency: freq }));
-    // Also update the individual toggles
-    if (freq === 'daily') {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: true, weeklyEnabled: false }));
-    } else if (freq === 'weekly') {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: false, weeklyEnabled: true }));
-    } else {
-      setPreferences((prev) => ({ ...prev, dailyEnabled: true, weeklyEnabled: true }));
-    }
+    if (freq === 'daily') applyDigestToggles(true, false);
+    else if (freq === 'weekly') applyDigestToggles(false, true);
+    else applyDigestToggles(true, true);
   }
 
   function isSubscribed(type: 'daily' | 'weekly') {
@@ -171,7 +176,7 @@ export default function NewsletterSettingsPage() {
         <h1 className="text-2xl font-bold tracking-tight">Newsletter Settings</h1>
         <div className="space-y-4" aria-busy="true">
           {[1, 2, 3].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={i} className="motion-safe:animate-pulse">
               <div className="h-4 bg-muted rounded w-3/4" />
               <div className="mt-4 h-4 bg-muted rounded w-1/2" />
             </Card>
@@ -239,7 +244,7 @@ export default function NewsletterSettingsPage() {
             </div>
             <Toggle
               checked={preferences.dailyEnabled}
-              onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, dailyEnabled: checked }))}
+              onCheckedChange={(checked) => applyDigestToggles(checked, preferences.weeklyEnabled)}
               disabled={preferences.frequency === 'weekly'}
             />
           </div>
@@ -251,7 +256,7 @@ export default function NewsletterSettingsPage() {
             </div>
             <Toggle
               checked={preferences.weeklyEnabled}
-              onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, weeklyEnabled: checked }))}
+              onCheckedChange={(checked) => applyDigestToggles(preferences.dailyEnabled, checked)}
               disabled={preferences.frequency === 'daily'}
             />
           </div>

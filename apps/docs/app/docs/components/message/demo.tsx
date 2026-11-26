@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Message } from '@slipstream-ui/ai';
+import { Checkbox, Label, Select } from '@slipstream-ui/core';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
@@ -59,31 +60,30 @@ export default function MessagePage() {
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-medium mb-2 block">Role</label>
-                <select
+                <Select
                   aria-label="Message role"
                   value={role}
-                  onChange={(e) => setRole(e.target.value as 'user' | 'assistant' | 'system')}
-                  className="w-full p-2 border rounded bg-background"
-                >
-                  <option value="user">User</option>
-                  <option value="assistant">Assistant</option>
-                  <option value="system">System</option>
-                </select>
+                  onValueChange={(value) => setRole(value as 'user' | 'assistant' | 'system')}
+                  options={[
+                    { value: 'user', label: 'User' },
+                    { value: 'assistant', label: 'Assistant' },
+                    { value: 'system', label: 'System' },
+                  ]}
+                />
               </div>
               <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="showAvatar"
                   checked={showAvatar}
-                  onChange={(e) => setShowAvatar(e.target.checked)}
-                  className="rounded"
+                  onCheckedChange={setShowAvatar}
                 />
-                <label htmlFor="showAvatar" className="text-sm">Show Avatar</label>
+                <Label htmlFor="showAvatar" className="text-sm">Show Avatar</Label>
               </div>
             </div>
           </div>
         }
         code={`import { Message } from '@slipstream-ui/ai';
+import { Checkbox, Label, Select } from '@slipstream-ui/core';
 
 <Message
   message={{

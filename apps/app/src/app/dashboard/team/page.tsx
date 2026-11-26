@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle, Field, inputClass } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 
@@ -24,62 +25,68 @@ type TeamDetail = {
   invites?: Invite[];
 };
 
+const NOTHING_WENT_WRONG = 'Something went wrong. Please try again.';
+
 export default function TeamPage() {
+  const searchParams = useSearchParams();
   const [teams, setTeams] = useState<TeamRef[]>([]);
   const [activeTeamId, setActiveTeamId] = useState<string | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const myRole = teams.find((team) => team.id === activeTeamId)?.role ?? 'MEMBER';
+  const canManage = myRole === 'OWNER' || myRole === 'ADMIN';
 
   const activeRole = teams.find((team) => team.id === activeTeamId)?.role;
   const canAdmin = activeRole === 'OWNER' || activeRole === 'ADMIN';
 
-  async function loadTeams() {
-    setError(null);
-    try {
-      const response = await fetch('/api/teams');
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(extractErrorMessage(data));
-        return;
-      }
-      const payload = extractData<{ teams?: TeamRef[] }>(data);
-      const nextTeams = payload?.teams ?? [];
-      setTeams(nextTeams);
-      setActiveTeamId((current) => current ?? nextTeams[0]?.id ?? null);
-    } catch {
-      setError('Something went wrong. Please try again.');
-    }
-  }
-
-  async function loadTeam(teamId: string) {
-    setError(null);
-    try {
-      const response = await fetch(`/api/teams/${teamId}`);
-      const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(extractErrorMessage(data));
-        return;
-      }
-      const payload = extractData<{ team?: TeamDetail }>(data);
-      setMembers(payload?.team?.memberships ?? []);
-      setInvites(payload?.team?.invites ?? []);
-    } catch {
-      setError('Something went wrong. Please try again.');
-    }
-  }
-
   useEffect(() => {
-    void loadTeams();
+    fetch('/api/teams')
+      .then((r) => r.json())
+      .then((data) => {
+        const list = extractData<{ teams?: TeamRef[] }>(data)?.teams ?? [];
+        setTeams(list);
+        const requested = searchParams.get('team');
+        const initial = list.find((team) => team.id === requested) ?? list[0];
+        if (initial) setActiveTeamId(initial.id);
+      })
+      .catch(() => setError(NOTHING_WENT_WRONG))
+      .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!activeTeamId) return;
-    void loadTeam(activeTeamId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setError(null);
+    fetch(`/api/teams/${activeTeamId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const payload = extractData<{ team?: TeamDetail; error?: string }>(data);
+        if (payload?.error || !payload?.team) {
+          setError(payload?.error ?? extractErrorMessage(data, 'Could not load team.'));
+          return;
+        }
+        setMembers(payload.team.memberships ?? []);
+        setInvites(payload.team.invites ?? []);
+      })
+      .catch(() => setError(NOTHING_WENT_WRONG));
   }, [activeTeamId]);
+
+  async function refreshTeam(teamId: string) {
+    try {
+      const response = await fetch(`/api/teams/${teamId}`);
+      const data: unknown = await response.json().catch(() => null);
+      const payload = extractData<{ team?: TeamDetail }>(data);
+      setMembers(payload?.team?.memberships ?? []);
+      setInvites(payload?.team?.invites ?? []);
+    } catch {
+      /* refresh is best-effort; the mutation already succeeded */
+    }
+  }
 
   async function invite(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -98,35 +105,38 @@ export default function TeamPage() {
         setError(extractErrorMessage(data));
         return;
       }
-      const payload = extractData<{ inviteUrl?: string }>(data);
-      if (payload?.inviteUrl) {
-        setInviteUrl(`${window.location.origin}${payload.inviteUrl}`);
-      }
+      const invitePath = extractData<{ inviteUrl?: string }>(data)?.inviteUrl;
+      // Dev convenience: the accept link is returned directly (would be emailed).
+      setInviteUrl(`${window.location.origin}${invitePath}`);
       event.currentTarget.reset();
-      await loadTeam(activeTeamId);
+      await refreshTeam(activeTeamId);
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(NOTHING_WENT_WRONG);
     }
   }
 
-  async function removeMember(memberId: string) {
+  async function removeMember(memberId: string, email: string) {
     if (!activeTeamId) return;
+    if (!window.confirm(`Remove ${email} from this team?`)) return;
     setError(null);
     try {
       const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, { method: 'DELETE' });
       const data: unknown = await response.json().catch(() => null);
       if (!response.ok) {
-        setError(extractErrorMessage(data));
+        setError(extractErrorMessage(data, 'Could not remove member.'));
         return;
       }
-      await loadTeam(activeTeamId);
+      await refreshTeam(activeTeamId);
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(NOTHING_WENT_WRONG);
     }
   }
 
-  async function changeRole(memberId: string, role: string) {
+  async function changeRole(memberId: string, role: string, email: string, currentRole: string) {
     if (!activeTeamId) return;
+    if ((role === 'OWNER' || currentRole === 'OWNER') && !window.confirm(`Change ${email}'s role to ${role}? Owner changes affect billing and team ownership.`)) {
+      return;
+    }
     setError(null);
     try {
       const response = await fetch(`/api/teams/${activeTeamId}/members/${memberId}`, {
@@ -136,12 +146,29 @@ export default function TeamPage() {
       });
       const data: unknown = await response.json().catch(() => null);
       if (!response.ok) {
-        setError(extractErrorMessage(data));
+        setError(extractErrorMessage(data, 'Could not update role.'));
         return;
       }
-      await loadTeam(activeTeamId);
+      await refreshTeam(activeTeamId);
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(NOTHING_WENT_WRONG);
+    }
+  }
+
+  async function revokeInvite(inviteId: string, email: string) {
+    if (!activeTeamId) return;
+    if (!window.confirm(`Revoke the pending invite for ${email}?`)) return;
+    setError(null);
+    try {
+      const response = await fetch(`/api/teams/${activeTeamId}/invites/${inviteId}`, { method: 'DELETE' });
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(extractErrorMessage(data, 'Could not revoke invite.'));
+        return;
+      }
+      await refreshTeam(activeTeamId);
+    } catch {
+      setError(NOTHING_WENT_WRONG);
     }
   }
 
@@ -156,13 +183,13 @@ export default function TeamPage() {
         body: JSON.stringify({ name }),
       });
       const data: unknown = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(extractErrorMessage(data));
-        return;
+      if (extractData<{ team?: { id: string } }>(data)?.team) {
+        window.location.reload();
+      } else {
+        setError(extractErrorMessage(data, 'Could not create team.'));
       }
-      window.location.reload();
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(NOTHING_WENT_WRONG);
     }
   }
 
@@ -185,6 +212,7 @@ export default function TeamPage() {
       </div>
 
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
 
       <Card>
         <CardTitle>Members</CardTitle>
@@ -195,11 +223,11 @@ export default function TeamPage() {
                 <span className="text-sm font-medium">{member.user.name ?? member.user.email}</span>
                 <span className="ml-2 text-xs text-muted-foreground">{member.user.email}</span>
               </div>
-              {canAdmin && (
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                {canManage ? (
                   <select
                     value={member.role}
-                    onChange={(event) => changeRole(member.id, event.target.value)}
+                    onChange={(event) => changeRole(member.id, event.target.value, member.user.email, member.role)}
                     aria-label={`Role for ${member.user.email}`}
                     className="rounded-md border border-border bg-background px-2 py-1 text-xs"
                   >
@@ -207,15 +235,19 @@ export default function TeamPage() {
                       <option key={role}>{role}</option>
                     ))}
                   </select>
+                ) : (
+                  <span className="text-xs text-muted-foreground">{member.role}</span>
+                )}
+                {canManage && (
                   <button
                     type="button"
-                    onClick={() => removeMember(member.id)}
+                    onClick={() => removeMember(member.id, member.user.email)}
                     className="text-xs text-destructive hover:underline"
                   >
                     Remove
                   </button>
-                </div>
-              )}
+                )}
+              </div>
             </li>
           ))}
           {members.length === 0 && <li className="py-2 text-sm text-muted-foreground">No members.</li>}
@@ -242,7 +274,22 @@ export default function TeamPage() {
           </form>
           {inviteUrl && (
             <p role="status" className="mt-3 break-all rounded-lg bg-primary/10 p-3 text-xs">
-              Invite created — share this acceptance link: {inviteUrl}
+              Invite created — share this acceptance link: {inviteUrl}{' '}
+              <button
+                type="button"
+                className="font-medium text-primary hover:underline"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(inviteUrl);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  } catch {
+                    /* clipboard unavailable */
+                  }
+                }}
+              >
+                {copied ? 'Copied' : 'Copy link'}
+              </button>
             </p>
           )}
           {invites.length > 0 && (
@@ -250,8 +297,17 @@ export default function TeamPage() {
               <h3 className="mb-2 mt-6 text-sm font-semibold">Pending invites</h3>
               <ul className="space-y-1 text-sm text-muted-foreground">
                 {invites.map((invite) => (
-                  <li key={invite.id}>
-                    {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
+                  <li key={invite.id} className="flex items-center justify-between gap-2">
+                    <span>
+                      {invite.email} · {invite.role} · expires {new Date(invite.expiresAt).toLocaleDateString()}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => revokeInvite(invite.id, invite.email)}
+                      className="text-xs text-destructive hover:underline"
+                    >
+                      Revoke
+                    </button>
                   </li>
                 ))}
               </ul>

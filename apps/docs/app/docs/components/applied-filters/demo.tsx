@@ -13,6 +13,7 @@ const INITIAL: FilterChip[] = [
 
 export default function AppliedFiltersPage() {
   const [filters, setFilters] = useState(INITIAL);
+  const [editHint, setEditHint] = useState(false);
 
   const remove = (key: string) => setFilters((current) => current.filter((filter) => filter.key !== key));
 
@@ -42,9 +43,14 @@ export default function AppliedFiltersPage() {
             <AppliedFilters
               filters={filters.map((filter) => ({ ...filter, onRemove: () => remove(filter.key) }))}
               onClearAll={() => setFilters([])}
-              onEdit={() => {}}
+              onEdit={() => setEditHint(true)}
               emptyLabel="No filters applied"
             />
+            {editHint && (
+              <p className="mt-2 text-xs text-muted-foreground" role="status">
+                Edit filters clicked — in a real app this opens the filter panel (e.g. a Drawer on mobile).
+              </p>
+            )}
           </div>
         }
         code={`<AppliedFilters

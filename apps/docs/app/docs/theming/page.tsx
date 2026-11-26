@@ -18,7 +18,7 @@ export default function ThemingPage() {
       </p>
 
       <div className="mb-10 rounded-xl border border-border bg-card p-5">
-        <h2 className="text-xl font-semibold mb-1">Live switcher</h2>
+        <h2 id="live-switcher" className="text-xl font-semibold mb-1">Live switcher</h2>
         <p className="text-sm text-muted-foreground mb-4">
           Default, Violet, and Zinc presets below are applied through CSS variables in real time,
           with no rebuilds and no screenshots.
@@ -27,12 +27,12 @@ export default function ThemingPage() {
       </div>
 
       <div className="prose prose-gray dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Overview</h2>
+        <h2 id="overview" className="text-2xl font-semibold mt-8 mb-4">Overview</h2>
         <p className="text-muted-foreground mb-4">
           Slipstream UI uses CSS variables for theming, making it easy to customize colors, spacing, and other design tokens. The theming system is built on HSL color values for easy manipulation and consistent results.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Using createTheme()</h2>
+        <h2 id="using-createtheme" className="text-2xl font-semibold mt-8 mb-4">Using createTheme()</h2>
         <p className="text-muted-foreground mb-4">
           The <code className="bg-muted px-2 py-1 rounded">createTheme()</code> function lets you create custom themes from brand colors:
         </p>
@@ -44,24 +44,24 @@ const customTheme = createTheme({
   darkMode: false
 })`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Preset Themes</h2>
+        <h2 id="preset-themes" className="text-2xl font-semibold mt-8 mb-4">Preset Themes</h2>
         <p className="text-muted-foreground mb-4">
           Slipstream UI includes several preset themes:
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Default (Blue)</h3>
+        <h3 id="default-blue" className="text-xl font-semibold mt-6 mb-3">Default (Blue)</h3>
         <CodeBlock language="tsx" code={`import { defaultTheme } from '@slipstream-ui/themes'`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Dark</h3>
+        <h3 id="dark" className="text-xl font-semibold mt-6 mb-3">Dark</h3>
         <CodeBlock language="tsx" code={`import { darkTheme } from '@slipstream-ui/themes'`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Zinc (Neutral)</h3>
+        <h3 id="zinc-neutral" className="text-xl font-semibold mt-6 mb-3">Zinc (Neutral)</h3>
         <CodeBlock language="tsx" code={`import { zincTheme, zincDarkTheme } from '@slipstream-ui/themes'`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Violet (Purple)</h3>
+        <h3 id="violet-purple" className="text-xl font-semibold mt-6 mb-3">Violet (Purple)</h3>
         <CodeBlock language="tsx" code={`import { violetTheme, violetDarkTheme } from '@slipstream-ui/themes'`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">CSS Variables</h2>
+        <h2 id="css-variables" className="text-2xl font-semibold mt-8 mb-4">CSS Variables</h2>
         <p className="text-muted-foreground mb-4">
           The theme system uses CSS variables that you can override in your global CSS:
         </p>
@@ -95,7 +95,7 @@ const customTheme = createTheme({
   /* ... and so on */
 }`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Dark Mode</h2>
+        <h2 id="dark-mode" className="text-2xl font-semibold mt-8 mb-4">Dark Mode</h2>
         <p className="text-muted-foreground mb-4">
           To enable dark mode, update the <code className="bg-muted px-2 py-1 rounded">{'<meta name="color-scheme">'}</code> element in the document head. This controls the CSS <code className="bg-muted px-2 py-1 rounded">color-scheme</code> property, which affects <code className="bg-muted px-2 py-1 rounded">light-dark()</code>, system colors, and native UI. Map the meta tag to CSS using the <code className="bg-muted px-2 py-1 rounded">:has()</code> selector:
         </p>
@@ -124,7 +124,32 @@ const customTheme = createTheme({
 const meta = document.querySelector('meta[name="color-scheme"]');
 meta.content = 'dark'; // or 'light', or 'light dark' for system`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
+        <h3 id="the-dark-class-path" className="text-xl font-semibold mt-6 mb-3">The .dark class path</h3>
+        <p className="text-muted-foreground mb-4">
+          Most Tailwind setups (including this site) toggle dark mode by adding a <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">.dark</code> class
+          to <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">&lt;html&gt;</code> or a wrapper, with <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">darkMode: 'class'</code> in the Tailwind config.
+          The library ships a ready-made control — <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">ThemeToggle</code> — that owns the button, icon and
+          accessible label while your app owns storage and the class switch. Persist the choice under a stable key
+          (this site uses <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">slipstream-theme</code>) and apply it before first paint to avoid a theme flash:
+        </p>
+        <CodeBlock language="tsx" code={`import { ThemeToggle } from '@slipstream-ui/core'
+
+// Apply the stored preference before hydration (inline script in <head>)
+// document.documentElement.classList.toggle('dark', stored === 'dark')
+
+function ThemeButton() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  function change(next: 'light' | 'dark') {
+    setTheme(next)
+    document.documentElement.classList.toggle('dark', next === 'dark')
+    localStorage.setItem('slipstream-theme', next)
+  }
+
+  return <ThemeToggle theme={theme} onThemeChange={change} />
+}`} />
+
+        <h2 id="custom-brand-colors" className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
         <p className="text-muted-foreground mb-4">
           When creating a custom theme, provide your brand color in HSL format:
         </p>
@@ -135,7 +160,7 @@ const brandTheme = createTheme({
   borderRadius: '0.75rem'
 })`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Converting Colors to HSL</h2>
+        <h2 id="converting-colors-to-hsl" className="text-2xl font-semibold mt-8 mb-4">Converting Colors to HSL</h2>
         <p className="text-muted-foreground mb-4">
           You can use online tools or CSS to convert your brand colors to HSL:
         </p>
@@ -144,7 +169,7 @@ const brandTheme = createTheme({
   --brand: 217 91% 60%;  /* #3B82F6 */
 }`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Layering (z-index scale)</h2>
+        <h2 id="layering-z-index-scale" className="text-2xl font-semibold mt-8 mb-4">Layering (z-index scale)</h2>
         <p className="text-muted-foreground mb-4">
           Components use a small, documented ladder instead of ad-hoc numbers. Extend it rather than
           inventing new values: stacking bugs come from stray <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">z-[500]</code>s.
@@ -180,7 +205,7 @@ const brandTheme = createTheme({
           devtools), reserve a single documented value instead of escalating per component.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
+        <h2 id="next-steps" className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
             <a href="/docs/components" className="text-primary underline underline-offset-2">

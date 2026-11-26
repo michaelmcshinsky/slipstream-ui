@@ -33,7 +33,7 @@ export default function PopoverPage() {
         </Popover>
           </div>
         }
-        code={"import { Popover, PopoverContent, PopoverTrigger, Button } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Popover>\n          <PopoverTrigger>Details</PopoverTrigger>\n          <PopoverContent>\n            <p className=\"text-sm text-muted-foreground\">More information here.</p>\n            <Button size=\"sm\" className=\"mt-2\">Action</Button>\n          </PopoverContent>\n        </Popover>\n    </>\n  );\n}"}
+        code={"import { Popover, PopoverContent, PopoverTrigger, Button, Input } from '@slipstream-ui/core';\n\nexport default function Example() {\n  return (\n    <>\n      <Popover>\n          <PopoverTrigger>Details</PopoverTrigger>\n          <PopoverContent>\n            <p className=\"text-sm text-muted-foreground\">More information here.</p>\n            <Button size=\"sm\" className=\"mt-2\">Action</Button>\n          </PopoverContent>\n        </Popover>\n    </>\n  );\n}"}
         usage={"import { Popover, PopoverContent, PopoverTrigger } from '@slipstream-ui/core';\n\n// Popover is a compound component: trigger + content\n<Popover>\n  <PopoverTrigger>Details</PopoverTrigger>\n  <PopoverContent>More information here.</PopoverContent>\n</Popover>"}
         types={"type PopoverProps = {\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n  children: React.ReactNode;\n};"}
       />
@@ -46,8 +46,9 @@ export default function PopoverPage() {
               <PopoverTrigger>Invite people</PopoverTrigger>
               <PopoverContent className="w-80">
                 <p className="mb-2 text-sm font-medium">Invite to workspace</p>
-                <input
-                  className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                <Input
+                  className="mb-3"
+                  type="email"
                   placeholder="teammate@company.com"
                   aria-label="Email address"
                 />
@@ -79,13 +80,13 @@ export default function PopoverPage() {
             </Popover>
           </div>
         }
-        code={`import { Popover, PopoverContent, PopoverTrigger, Button } from '@slipstream-ui/core';
+        code={`import { Popover, PopoverContent, PopoverTrigger, Button, Input } from '@slipstream-ui/core';
 
 {/* Interactive form inside the panel */}
 <Popover>
   <PopoverTrigger>Invite people</PopoverTrigger>
   <PopoverContent className="w-80">
-    <input className="w-full rounded-md border border-input px-3 py-2 text-sm" placeholder="teammate@company.com" />
+    <Input className="mb-3" type="email" placeholder="teammate@company.com" aria-label="Email address" />
     <div className="mt-3 flex justify-end gap-2">
       <Button size="sm" variant="ghost">Cancel</Button>
       <Button size="sm">Send invite</Button>

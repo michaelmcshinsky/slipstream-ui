@@ -18,6 +18,7 @@ export default function InputPage() {
         { name: 'aria-invalid', type: 'boolean', defaultValue: 'false', description: 'Announces validation failure; pair with aria-describedby error text.' },
         { name: 'autoComplete', type: 'string', defaultValue: 'undefined', description: 'HTML autofill hint (e.g. "email", "new-password", "one-time-code").' },
       ]}
+      browserNotes={['Every native InputHTMLAttributes member (min, max, step, pattern, inputMode…) passes through to the underlying <input>.']}
       accessibility={[
         'Full keyboard navigation support',
         'Screen reader announces input type and placeholder',

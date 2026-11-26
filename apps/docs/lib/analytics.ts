@@ -12,6 +12,7 @@
 import { readConsent } from './site';
 
 export type AnalyticsEvent =
+  | 'article_scroll'
   | 'cta_click'
   | 'install_copy'
   | 'github_click'
@@ -24,6 +25,29 @@ export type AnalyticsEvent =
   | 'consent';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
+
+/**
+ * Allowed prop keys per event. `track` is generic over this catalog, so a
+ * misspelled or undocumented prop is a compile error rather than silent
+ * analytics drift. Keep entries alphabetical-ish and scalar-valued only.
+ */
+export const EVENT_PROPS: Record<AnalyticsEvent, readonly string[]> = {
+  article_scroll: ['depth', 'slug'],
+  cta_click: ['cta', 'location'],
+  install_copy: ['command', 'component', 'location', 'method'],
+  github_click: ['location'],
+  search_open: ['source'],
+  search_select: ['href', 'queryLength'],
+  feedback: ['helpful'],
+  feedback_reason: ['path', 'reason'],
+  copy_for_ai: ['component'],
+  copy_jsx: ['component'],
+  consent: ['choice', 'location'],
+};
+
+type EventProps<E extends AnalyticsEvent> = Partial<
+  Record<(typeof EVENT_PROPS)[E][number], string | number | boolean | undefined>
+>;
 
 type Plausible = (event: string, options?: { props?: AnalyticsProps }) => void;
 type Gtag = (
@@ -82,7 +106,7 @@ export function installGtag(): void {
  * Emits an event if the visitor has granted analytics consent.
  * Never throws and never blocks the interaction it is attached to.
  */
-export function track(event: AnalyticsEvent, props: AnalyticsProps = {}): void {
+export function track<E extends AnalyticsEvent>(event: E, props: EventProps<E> = {}): void {
   if (typeof window === 'undefined' || readConsent() !== 'granted') return;
 
   const payload: AnalyticsProps = { ...props, page: window.location.pathname };

@@ -3,7 +3,7 @@ import { z } from 'zod';
 const planIdSchema = z.enum(['FREE', 'PRO', 'TEAM', 'ENTERPRISE']);
 const teamSchema = z.object({ id: z.string().min(1), name: z.string(), slug: z.string(), role: z.enum(['OWNER', 'ADMIN', 'MEMBER']) });
 const planSchema = z.object({ id: planIdSchema, name: z.string().min(1), priceCents: z.number().int().nonnegative(), blurb: z.string(), features: z.array(z.string()) });
-const subscriptionSchema = z.object({ plan: planIdSchema, status: z.string().min(1), seats: z.number().int().positive(), currentPeriodEnd: z.string().datetime().nullable() });
+const subscriptionSchema = z.object({ plan: planIdSchema, status: z.string().min(1), seats: z.number().int().positive(), currentPeriodEnd: z.string().datetime().nullable(), cancelAtPeriodEnd: z.boolean().optional() });
 
 type BillingState = {
   teams: z.infer<typeof teamSchema>[];
@@ -66,7 +66,7 @@ export function createBillingController({ fetch, navigate, reload }: Dependencie
     const role = state.teams.find((team) => team.id === state.activeTeamId)?.role;
     const ready = !state.loading && !state.loadingSubscription && !!state.subscription && !submitting;
     state.canCheckout = ready && (role === 'OWNER' || role === 'ADMIN');
-    state.canCancel = ready && role === 'OWNER' && state.subscription?.plan !== 'FREE';
+    state.canCancel = ready && role === 'OWNER' && state.subscription?.plan !== 'FREE' && !state.subscription?.cancelAtPeriodEnd;
     listeners.forEach((listener) => listener());
   }
 

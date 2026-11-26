@@ -19,6 +19,7 @@ export default function LogoCloudPage() {
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Logo box height.' },
         { name: 'align', type: "'left' | 'center'", defaultValue: "'center'", description: 'Caption and grid alignment.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent (to for react-router style routers).' },
       ]}
       accessibility={[
         'Logos are decorative; the item name is announced once through sr-only text.',
@@ -65,6 +66,7 @@ type LogoCloudProps = {
   size?: 'sm' | 'md' | 'lg';
   align?: 'left' | 'center';
   linkComponent?: React.ElementType;
+  linkHrefProp?: 'href' | 'to';
 };`}
       />
     </ComponentPage>

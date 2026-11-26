@@ -241,6 +241,7 @@ export const en = {
       regionLabel: 'Cookie consent',
       message: 'Privacy-friendly analytics only with consent. No ads, no cross-site tracking. Read the',
       privacyLink: 'privacy policy',
+      manageLink: 'Manage preferences',
       decline: 'Decline',
       accept: 'Accept all',
     },

@@ -5,6 +5,7 @@ import { getSessionUser, requireUser } from '@/lib/session';
 import { issueLicense, remainingTeamActivationBudget, planActivationBudget } from '@/lib/licenses';
 import { requireMembership } from '@/lib/teams';
 import { getPlan } from '@/lib/plans';
+import { maskLicenseKey } from '@/lib/tokens';
 import { handle, badRequest, z } from '@/lib/api/handle';
 import { parseBody, errors } from '@/lib/api/core';
 
@@ -16,7 +17,11 @@ export async function GET(request: Request) {
       include: { activations: true },
       orderBy: { createdAt: 'desc' },
     });
-    return { licenses };
+    // Keys are bearer secrets: list responses carry the masked form only.
+    // Owners retrieve the full key on demand via GET /api/licenses/[id].
+    return {
+      licenses: licenses.map((license) => ({ ...license, key: maskLicenseKey(license.key) })),
+    };
   });
 }
 

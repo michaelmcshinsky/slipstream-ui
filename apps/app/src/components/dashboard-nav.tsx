@@ -27,7 +27,7 @@ export function DashboardNav({ isAdmin }: { isAdmin?: boolean }) {
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-card px-4 py-3">
-      <nav className="flex flex-wrap gap-1">
+      <nav aria-label="Dashboard" className="flex flex-wrap gap-1">
         {LINKS.map((link) => {
           const active = pathname === link.href;
           return (

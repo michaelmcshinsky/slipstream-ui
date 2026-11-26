@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Checkbox } from '@slipstream-ui/core';
 import { Conversation } from '@slipstream-ui/ai';
 import { ComponentPage } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
@@ -28,7 +29,8 @@ export default function ConversationPage() {
     <ComponentPage
       id="conversation"
       title="Conversation"
-      description="A container for displaying a list of chat messages with auto-scroll and loading states."
+      description="A container for displaying a list of chat messages with auto-scroll, streaming cursors, welcome state and history pagination."
+      npmPackages="@slipstream-ui/ai"
       propsRows={[
         { name: 'messages', type: 'Message[]', defaultValue: 'required', description: 'Array of message objects to display' },
         { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Whether assistant is generating a response' },
@@ -38,6 +40,17 @@ export default function ConversationPage() {
         { name: 'density', type: "'comfortable' | 'compact' | 'tight'", defaultValue: "'comfortable'", description: 'Transcript padding/gap, forwarded to every bubble' },
         { name: 'messageSurface', type: "'auto' | 'none' | 'card' | 'muted' | 'primary'", defaultValue: "'auto'", description: 'Bubble surface forwarded to every message; none gives a borderless transcript' },
         { name: 'streamingMessageId', type: 'string', defaultValue: 'undefined', description: 'ID of the message still generating; shows its cursor and auto-scrolls' },
+        { name: 'userAvatarSrc / userAvatarFallback', type: 'string', description: 'User avatar image and fallback initials.' },
+        { name: 'assistantAvatarSrc / assistantAvatarFallback', type: 'string', description: 'Assistant avatar image and fallback initials.' },
+        { name: 'showScrollButton', type: 'boolean', defaultValue: 'true', description: 'Floating "scroll to latest" pill when scrolled up.' },
+        { name: 'showDownload', type: 'boolean', defaultValue: 'false', description: 'Download button exporting the transcript as Markdown.' },
+        { name: 'messageErrors', type: 'Record<string, string>', description: 'Per-message generation failures; renders retry cards.' },
+        { name: 'onRetryMessage', type: '(message: Message) => void', description: 'Retry handler for messages in messageErrors.' },
+        { name: 'welcomeTitle / welcomeDescription', type: 'string', description: 'Empty-transcript heading and supporting copy.' },
+        { name: 'welcomeSuggestions / onWelcomeSelect', type: 'string[] / (prompt: string) => void', description: 'Starter prompts rendered as buttons under the welcome copy.' },
+        { name: 'userLabel / assistantLabel', type: 'string', description: 'Display names per role; override for localization.' },
+        { name: 'labels', type: '{ transcript?, responseComplete?, loadEarlier?, loadingEarlier?, latest?, download? }', description: 'Localized chrome copy: landmark, announcements and history controls.' },
+        { name: 'hasMoreHistory / isLoadingMore / onLoadMore', type: 'boolean / boolean / () => void', description: 'History pagination: renders a "load earlier" control at the top.' },
       ]}
       accessibility={[
         "Auto-scroll behavior is smooth and doesn't interrupt users",
@@ -60,22 +73,18 @@ export default function ConversationPage() {
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="showAvatars"
                   checked={showAvatars}
-                  onChange={(e) => setShowAvatars(e.target.checked)}
-                  className="rounded"
+                  onCheckedChange={setShowAvatars}
                 />
                 <label htmlFor="showAvatars" className="text-sm">Show Avatars</label>
               </div>
               <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="isLoading"
                   checked={isLoading}
-                  onChange={(e) => setIsLoading(e.target.checked)}
-                  className="rounded"
+                  onCheckedChange={setIsLoading}
                 />
                 <label htmlFor="isLoading" className="text-sm">Show Loading State</label>
               </div>
@@ -97,7 +106,7 @@ const [messages, setMessages] = useState([
 
 <Conversation
   messages={messages}
-  isLoading={isGenerating}
+  isLoading={isLoading}
   showAvatars={true}
   userAvatarFallback="You"
   assistantAvatarFallback="AI"
