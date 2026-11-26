@@ -948,7 +948,7 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "sourceDir": "segmented-control",
       "axe": true,
       "interaction": true,
-      "notes": 3,
+      "notes": 4,
       "docs": "/docs/components/segmented-control",
       "manifest": "/llm/components/segmented-control.md"
     },
@@ -1255,6 +1255,6 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     "withAxe": 113,
     "withInteraction": 43,
     "withNotes": 113,
-    "totalNotes": 244
+    "totalNotes": 245
   }
 };
