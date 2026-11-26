@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.1
+
+### Patch Changes
+
+- [#179](https://github.com/michaelmcshinsky/slipstream-ui/pull/179) [`525982e`](https://github.com/michaelmcshinsky/slipstream-ui/commit/525982e8067df1e3299ed2cd4f7892b6bb1a5f61) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `PageHeader` `description`/`subtitle` and `SectionHeading` `description` now accept `ReactNode` instead of only `string`, so ledes can contain links and inline markup without consumers re-implementing the heading block (consumer feedback: utah-dance).
+
 ## 0.11.0
 
 ### Minor Changes

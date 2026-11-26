@@ -6,7 +6,7 @@ Shows that an AI response is currently streaming.
 > Import: `import { StreamingIndicator } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/streaming-indicator
 > Registry: https://slipstreamui.com/registry/streaming-indicator.json
-> Tier: atom · Package: @slipstream-ui/ai@0.11.0
+> Tier: atom · Package: @slipstream-ui/ai@0.11.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

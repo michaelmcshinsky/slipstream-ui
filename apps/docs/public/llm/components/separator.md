@@ -6,7 +6,7 @@ A visual divider between content blocks, decorative or semantic
 > Import: `import { Separator } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/separator
 > Registry: https://slipstreamui.com/registry/separator.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.0
+> Tier: atom · Package: @slipstream-ui/core@0.11.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

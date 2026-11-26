@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "sourceDir": "tombstone-card",
   "exportName": "TombstoneCard",
   "description": "Placeholder card for archived, closed or unavailable marketplace items.",
