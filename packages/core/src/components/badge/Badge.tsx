@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/cn';
 
@@ -22,6 +22,13 @@ const badgeVariants = cva(
         secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
         destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
         outline: 'text-foreground',
+        // Quiet outline tones for status metadata (directory chips, filter
+        // tags): tinted border and ink text, subtle tint on hover. Follows the
+        // Alert/Button outline language.
+        'outline-success': 'border-success/50 bg-background text-success-ink hover:bg-success/10',
+        'outline-warning': 'border-warning/50 bg-background text-warning-ink hover:bg-warning/10',
+        'outline-info': 'border-info/50 bg-background text-info-ink hover:bg-info/10',
+        'outline-danger': 'border-destructive/50 bg-background text-destructive hover:bg-destructive/10',
       },
       size: {
         sm: 'px-2 py-0 text-[11px]',
@@ -40,12 +47,59 @@ export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof badgeVariants> & {
     /** Render the child element (e.g. a router Link) with badge styling. */
     asChild?: boolean;
+    /**
+     * Leading status dot, colored to match the variant. Decorative only —
+     * pair it with text that carries the meaning.
+     */
+    dot?: boolean;
   };
 
+/** Dot fill per variant: foreground ink on solid fills, tone color on outlines. */
+const dotVariants: Record<NonNullable<BadgeProps['variant']>, string> = {
+  default: 'bg-primary-foreground',
+  primary: 'bg-primary-foreground',
+  neutral: 'bg-muted-foreground',
+  accent: 'bg-accent-foreground',
+  danger: 'bg-destructive-foreground',
+  destructive: 'bg-destructive-foreground',
+  success: 'bg-success-foreground',
+  warning: 'bg-warning-foreground',
+  info: 'bg-info-foreground',
+  secondary: 'bg-secondary-foreground',
+  outline: 'bg-foreground',
+  'outline-success': 'bg-success',
+  'outline-warning': 'bg-warning',
+  'outline-info': 'bg-info',
+  'outline-danger': 'bg-destructive',
+};
+
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'span';
-    return <Comp ref={ref} className={cn(badgeVariants({ variant, size }), className)} {...props} />;
+  ({ className, variant, size, asChild = false, dot = false, children, ...props }, ref) => {
+    const classNames = cn(badgeVariants({ variant, size }), dot && 'gap-1.5', className);
+    const dotEl = dot ? (
+      <span
+        aria-hidden="true"
+        className={cn('h-1.5 w-1.5 shrink-0 rounded-full', dotVariants[variant ?? 'default'])}
+      />
+    ) : null;
+
+    if (asChild) {
+      // Slot accepts one slottable child; Slottable keeps the dot as a
+      // sibling rendered inside the slotted element.
+      return (
+        <Slot ref={ref} className={classNames} {...props}>
+          {dotEl}
+          <Slottable>{children}</Slottable>
+        </Slot>
+      );
+    }
+
+    return (
+      <span ref={ref} className={classNames} {...props}>
+        {dotEl}
+        {children}
+      </span>
+    );
   }
 );
 Badge.displayName = 'Badge';
