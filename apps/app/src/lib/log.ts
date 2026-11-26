@@ -7,6 +7,10 @@ export function logError(event: string, fields: Record<string, unknown> = {}): v
   console.error(JSON.stringify({ level: 'error', event, ...fields }));
 }
 
+export function logInfo(event: string, fields: Record<string, unknown> = {}): void {
+  console.info(JSON.stringify({ level: 'info', event, ...fields }));
+}
+
 export function logWarn(event: string, fields: Record<string, unknown> = {}): void {
   console.warn(JSON.stringify({ level: 'warn', event, ...fields }));
 }
