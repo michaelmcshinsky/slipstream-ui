@@ -97,7 +97,7 @@ export default function InstallationPage() {
                       rel="noopener noreferrer"
                       aria-label={`${pkg.name} on npm`}
                       className="text-primary underline underline-offset-2 hover:text-primary/80"
-                    >
+                    ><span className="sr-only"> (opens in new tab)</span>
                       npm ↗
                     </a>
                   </td>

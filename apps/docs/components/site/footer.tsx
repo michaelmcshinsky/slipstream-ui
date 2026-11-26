@@ -112,7 +112,7 @@ export function Footer() {
                 return (
                   <li key={link.href}>
                     {link.external ? (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.ariaLabel} className="text-muted-foreground transition-colors hover:text-foreground">
+                      <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.ariaLabel} className="text-muted-foreground transition-colors hover:text-foreground"><span className="sr-only"> (opens in new tab)</span>
                         {label}
                       </a>
                     ) : (

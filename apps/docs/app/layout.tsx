@@ -18,18 +18,6 @@ export const metadata: Metadata = {
   },
   description:
     'Your AI already knows your design system. Every component ships a machine-readable manifest so Claude, Cursor, and Copilot generate correct UI the first time.',
-  keywords: [
-    'AI components',
-    'React component library',
-    'AI-first React',
-    'component manifest',
-    'MCP',
-    'shadcn',
-    'chat UI',
-    'Tailwind',
-    'design system',
-    'AI coding agents',
-  ],
   authors: [{ name: 'Slipstream UI', url: 'https://slipstreamui.com/about' }],
   creator: 'Slipstream UI',
   publisher: 'Slipstream UI',

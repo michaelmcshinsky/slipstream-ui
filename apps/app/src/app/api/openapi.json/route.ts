@@ -40,6 +40,18 @@ const spec = {
         },
         required: ['valid'],
       },
+      Envelope: {
+        type: 'object',
+        description: 'handle() wraps every success body in this envelope.',
+        required: ['data', 'meta'],
+        properties: {
+          data: { description: 'Route payload; shape varies per endpoint.' },
+          meta: {
+            type: 'object',
+            properties: { requestId: { type: 'string' } },
+          },
+        },
+      },
     },
   },
   paths: {
@@ -47,7 +59,7 @@ const spec = {
       get: {
         summary: 'Authenticated principal and teams',
         security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
-        responses: { '200': { description: 'OK' }, '401': { description: 'Unauthenticated' } },
+        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } }, '401': { description: 'Unauthenticated' } },
       },
     },
     '/api/v1/teams': {
@@ -58,7 +70,7 @@ const spec = {
           { name: 'limit', in: 'query', schema: { type: 'integer', default: 20, maximum: 100 } },
           { name: 'cursor', in: 'query', schema: { type: 'string' } },
         ],
-        responses: { '200': { description: 'OK' } },
+        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } } },
       },
       post: {
         summary: 'Create a team',
@@ -67,14 +79,14 @@ const spec = {
           required: true,
           content: { 'application/json': { schema: { type: 'object', required: ['name'], properties: { name: { type: 'string', maxLength: 60 } } } } },
         },
-        responses: { '201': { description: 'Created' }, '400': { description: 'Validation failed' } },
+        responses: { '201': { description: 'Created', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } }, '400': { description: 'Validation failed' } },
       },
     },
     '/api/v1/licenses': {
       get: {
         summary: "List your license keys",
         security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
-        responses: { '200': { description: 'OK' } },
+        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } } },
       },
     },
     '/api/v1/licenses/validate': {
@@ -123,7 +135,7 @@ const spec = {
           { name: 'limit', in: 'query', schema: { type: 'integer' } },
           { name: 'cursor', in: 'query', schema: { type: 'string' } },
         ],
-        responses: { '200': { description: 'OK' } },
+        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } } },
       },
     },
     '/api/v1/subscription': {
@@ -131,7 +143,7 @@ const spec = {
         summary: 'Current subscription for a team',
         security: [{ ApiKeyAuth: [] }, { SessionCookie: [] }],
         parameters: [{ name: 'teamId', in: 'query', required: true, schema: { type: 'string' } }],
-        responses: { '200': { description: 'OK' }, '404': { description: 'Team not found' } },
+        responses: { '200': { description: 'OK', content: { 'application/json': { schema: { $ref: '#/components/schemas/Envelope' } } } }, '404': { description: 'Team not found' } },
       },
     },
   },

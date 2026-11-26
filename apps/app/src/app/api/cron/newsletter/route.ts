@@ -9,6 +9,7 @@ import { deliverEmail } from '@/lib/email';
 import { handle, z, badRequest } from '@/lib/api/handle';
 import { ApiError, parseBody } from '@/lib/api/core';
 import { requireCronSecret } from '@/lib/cron-auth';
+import { audit } from '@/lib/audit';
 
 const frequencySchema = z.enum(['daily', 'weekly']);
 const postSchema = z.object({ frequency: frequencySchema });
@@ -39,12 +40,28 @@ async function runNewsletter(frequency: 'daily' | 'weekly') {
       timestamp: new Date().toISOString(),
     };
     logCron('completed', { frequency, queued, sent, failed: result.failed, durationMs: Date.now() - startedAt });
+    // Persist the run so admins can see which cron invocation queued/sent
+    // what; failures are recorded too so silent cron breakage is visible.
+    await audit({
+      action: 'newsletter.cron.run',
+      targetType: 'newsletter',
+      metadata: { frequency, queued, sent, failed: result.failed, durationMs: Date.now() - startedAt },
+    });
     return result;
   } catch (error) {
     logCron('failed', {
       frequency,
       durationMs: Date.now() - startedAt,
       error: error instanceof Error ? error.message : String(error),
+    });
+    await audit({
+      action: 'newsletter.cron.failed',
+      targetType: 'newsletter',
+      metadata: {
+        frequency,
+        durationMs: Date.now() - startedAt,
+        error: error instanceof Error ? error.message : String(error),
+      },
     });
     throw error;
   }

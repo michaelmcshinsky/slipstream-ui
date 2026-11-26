@@ -149,7 +149,7 @@ export function ComponentPage({
             rel="noopener noreferrer"
             className="mt-1.5 inline-flex h-7 items-center gap-1.5 rounded-md border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             title={t('site.page.markdownTitle', { href: `/llm/components/${manifestId ?? id}.md` })}
-          >
+          ><span className="sr-only"> (opens in new tab)</span>
             <span aria-hidden="true">⧉</span> {t('site.page.markdownForAgents')}
           </a>
         </div>

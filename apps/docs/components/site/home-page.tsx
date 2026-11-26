@@ -258,7 +258,7 @@ function InstallSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-primary hover:underline"
-              >
+              ><span className="sr-only"> (opens in new tab)</span>
                 MIT license
               </a>
             </div>
@@ -358,7 +358,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track('github_click', { location: 'hero' })}
-              >
+              ><span className="sr-only"> (opens in new tab)</span>
                 <Button size="lg" variant="outline">{copy.starOnGithub}</Button>
               </a>
             </div>
@@ -402,7 +402,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </dl>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
           {HOME_EXTRAS.benchmarkNote}{' '}
-          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline"><span className="sr-only"> (opens in new tab)</span>
             Benchmark methodology
           </a>
         </p>
@@ -506,7 +506,7 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
         </div>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs text-muted-foreground">
           {HOME_EXTRAS.benchmarkNote}{' '}
-          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
+          <a href={HOME_EXTRAS.benchmarkHref} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline"><span className="sr-only"> (opens in new tab)</span>
             Read the methodology
           </a>
         </p>

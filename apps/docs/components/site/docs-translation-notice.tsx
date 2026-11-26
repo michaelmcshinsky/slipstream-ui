@@ -39,7 +39,7 @@ export function DocsTranslationNotice() {
         target="_blank"
         rel="noopener noreferrer"
         className="mt-2 inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
-      >
+      ><span className="sr-only"> (opens in new tab)</span>
         {t('site.translation.help')}
         <span aria-hidden="true">→</span>
       </a>

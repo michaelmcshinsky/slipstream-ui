@@ -49,7 +49,7 @@ export default async function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-                >
+                ><span className="sr-only"> (opens in new tab)</span>
                   {channel.ctaLabel}
                 </a>
               )}

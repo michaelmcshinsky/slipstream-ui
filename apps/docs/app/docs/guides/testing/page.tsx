@@ -157,7 +157,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-primary underline underline-offset-2"
-          >
+          ><span className="sr-only"> (opens in new tab)</span>
             ci.yml
           </a>
           .

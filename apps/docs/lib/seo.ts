@@ -39,21 +39,6 @@ export const AGENT_ALTERNATES: Record<string, string> = {
   'application/json': '/registry/all.json',
 };
 
-const BASE_KEYWORDS = [
-  'AI components',
-  'React component library',
-  'AI-first React',
-  'COMPONENT_MANIFEST',
-  'MCP server',
-  'shadcn registry',
-  'Tailwind CSS',
-  'design system',
-  'AI coding agents',
-  'Claude',
-  'Cursor',
-  'Copilot',
-];
-
 function canonicalPath(path: string): string {
   if (!path) return '/';
   const withLeading = path.startsWith('/') ? path : `/${path}`;
@@ -77,11 +62,6 @@ function socialTitle(title: Metadata['title'], path: string): string {
   return text.includes(BRAND) ? text : `${text} · ${BRAND}`;
 }
 
-function keywordList(keywords: Metadata['keywords']): string[] {
-  const extra = typeof keywords === 'string' ? [keywords] : (keywords ?? []);
-  return Array.from(new Set([...BASE_KEYWORDS, ...extra]));
-}
-
 export function withSeo(path: string, meta: Metadata = {}): Metadata {
   const route = canonicalPath(path);
   const description = typeof meta.description === 'string' ? meta.description : DEFAULT_DESCRIPTION;
@@ -94,7 +74,6 @@ export function withSeo(path: string, meta: Metadata = {}): Metadata {
 
   return {
     ...meta,
-    keywords: keywordList(meta.keywords),
     alternates: {
       ...existingAlternates,
       // Next resolves this against metadataBase, so the same value works in

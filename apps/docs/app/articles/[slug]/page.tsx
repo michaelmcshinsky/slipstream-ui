@@ -100,7 +100,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-primary hover:underline"
-                >
+                ><span className="sr-only"> (opens in new tab)</span>
                   benchmarks/
                 </a>{' '}
                 and the methodology is in{' '}
@@ -109,7 +109,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-primary hover:underline"
-                >
+                ><span className="sr-only"> (opens in new tab)</span>
                   docs/benchmarks.md
                 </a>
                 .
