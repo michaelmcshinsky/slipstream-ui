@@ -6,7 +6,7 @@ Semantic data table with headers, body, footer, and accessible caption
 > Import: `import { Table } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table
 > Registry: https://slipstreamui.com/registry/table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.2
+> Tier: molecule · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

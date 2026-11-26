@@ -6,7 +6,7 @@ Firm or member profile card with logo, type, location, stats, tags and actions.
 > Import: `import { EntityCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/entity-card
 > Registry: https://slipstreamui.com/registry/entity-card.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.2
+> Tier: organism · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -6,7 +6,7 @@ Application frame with a sectioned sidebar, sticky header and scrolling main; th
 > Import: `import { AppShell } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/app-shell
 > Registry: https://slipstreamui.com/registry/app-shell.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.2
+> Tier: organism · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

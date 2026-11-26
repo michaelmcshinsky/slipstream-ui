@@ -6,7 +6,7 @@ Full-width conversion band with eyebrow, headline, supporting copy and actions.
 > Import: `import { CTASection } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/cta-section
 > Registry: https://slipstreamui.com/registry/cta-section.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.2
+> Tier: organism · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
