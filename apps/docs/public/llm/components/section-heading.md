@@ -18,7 +18,7 @@ Marketing and content pages repeat the same eyebrow/title/description/actions cl
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | title | `string` | — | yes | Section title. |
-| description | `string` | — | no | Supporting copy. |
+| description | `ReactNode` | — | no | Supporting copy; accepts links and inline markup. |
 | eyebrow | `ReactNode` | — | no | Kicker above the title. |
 | actions | `ReactNode` | — | no | Right-aligned actions. |
 | level | `2 | 3 | 4` | `2` | no | Heading level rendered for the title. |
