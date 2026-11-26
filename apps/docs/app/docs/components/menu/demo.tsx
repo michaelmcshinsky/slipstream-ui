@@ -1,24 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Menu, MenuContent, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from '@slipstream-ui/core';
 
-export default function MenuPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="menu"
-      title="Menu"
-      description="Dropdown menu with keyboard navigation and ARIA menu semantics."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'open', type: 'boolean', description: 'Controlled open state.' },
-        { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the open state changes.' },
-      ]}
-      accessibility={[
-        'role=menu/menuitem with aria-haspopup/aria-expanded on the trigger.',
-        'Arrow keys, Home/End, and Escape navigate and close the menu.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Usage"
         preview={
@@ -106,6 +91,6 @@ export default function MenuPage({ manifest }: { manifest?: ComponentPageProps['
 // MenuContent: className for width, MenuLabel/MenuSeparator for grouping,
 // MenuItem: { destructive?: boolean } for risky actions.`}
       />
-    </ComponentPage>
+    </>
   );
 }

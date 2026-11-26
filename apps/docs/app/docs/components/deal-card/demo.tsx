@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { DealCard, Grid } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DealCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [savedTitles, setSavedTitles] = useState<ReadonlySet<string>>(new Set());
   const [accessRequests, setAccessRequests] = useState<ReadonlySet<string>>(new Set());
 
@@ -20,34 +19,7 @@ export default function DealCardPage({ manifest }: { manifest?: ComponentPagePro
     setAccessRequests((current) => new Set(current).add(title));
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="deal-card"
-      title="DealCard"
-      description="Marketplace listing card with sector, status, metrics, access badges and actions."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Listing headline.' },
-        { name: 'sector', type: 'string', defaultValue: 'required', description: 'Sector or industry label.' },
-        { name: 'location', type: 'string', description: 'Region or location.' },
-        { name: 'description', type: 'string', description: 'Optional short summary.' },
-        { name: 'metrics', type: 'DealMetric[]', defaultValue: 'required', description: 'Three headline metrics.' },
-        { name: 'status', type: "'available' | 'under-nda' | 'closed' | 'draft'", defaultValue: "'available'", description: 'Availability state.' },
-        { name: 'ndaAvailable', type: 'boolean', description: 'Show the NDA badge.' },
-        { name: 'cimAvailable', type: 'boolean', description: 'Show the CIM badge.' },
-        { name: 'href', type: 'string', description: 'Optional detail link.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-        { name: 'saved', type: 'boolean', defaultValue: 'false', description: 'Save toggle state.' },
-        { name: 'onSave', type: '() => void', description: 'Save toggle handler.' },
-        { name: 'saveLabel', type: 'string', defaultValue: "'Save'", description: 'Save button label.' },
-        { name: 'onRequestAccess', type: '() => void', description: 'Request access handler.' },
-        { name: 'requestLabel', type: 'string', defaultValue: "'Request access'", description: 'Request access label.' },
-      ]}
-      accessibility={[
-        'NDA and CIM access are text badges, never color or icons alone.',
-        'Request access and Save are real buttons; Save exposes aria-pressed.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Deal grid"
         preview={
@@ -130,6 +102,6 @@ type DealCardProps = {
   requestLabel?: string;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

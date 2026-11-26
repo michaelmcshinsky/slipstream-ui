@@ -2,32 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { ThemeToggle } from '@slipstream-ui/core';
 
-export default function ThemeTogglePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="theme-toggle"
-      title="ThemeToggle"
-      description="The button and its accessible label. The consumer owns persistence and the actual class/attribute switch."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'theme', type: "'light' | 'dark'", description: 'Current theme.' },
-        { name: 'onThemeChange', type: "(theme: 'light' | 'dark') => void", description: 'Fired with the next theme.' },
-        { name: 'labels', type: '{ toLight?: string; toDark?: string }', description: 'Accessible labels for the next action.' },
-        { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Control size.' },
-      ]}
-      accessibility={[
-        'aria-label and title describe the next action.',
-        'Native button with Enter/Space activation and a visible focus ring.',
-        'Icons are aria-hidden; the label carries the meaning.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Controlled toggle"
         preview={
@@ -65,6 +47,6 @@ export default function ThemeTogglePage({ manifest }: { manifest?: ComponentPage
         </Link>{' '}
         for the persistence and attribute-switch half.
       </p>
-    </ComponentPage>
+    </>
   );
 }

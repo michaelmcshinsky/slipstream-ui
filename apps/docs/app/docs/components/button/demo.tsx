@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, type ButtonProps } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 // Derived from the component so new variants/sizes appear here automatically.
@@ -37,32 +36,12 @@ const variantCode = VARIANTS.map(
     `<Button${v === 'default' ? '' : ` variant="${v}"`}>${v.charAt(0).toUpperCase() + v.slice(1).replace('-', ' ')}</Button>`
 ).join('\n');
 
-export default function ButtonPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [variant, setVariant] = useState<ButtonVariant>('default');
   const [size, setSize] = useState<ButtonSize>('default');
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="button"
-      title="Button"
-      description="A clickable button component with variants for different visual styles and sizes."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'variant', type: "'default' | 'primary' | 'destructive' | 'danger' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link' | 'contrast' | 'onDark'", defaultValue: "'default'", description: 'Visual style variant. primary/danger are aliases of default/destructive; contrast/onDark are fixed-ink fills for always-dark surfaces (hero sections) that do not follow the theme.' },
-        { name: 'size', type: "'default' | 'sm' | 'lg' | 'icon'", defaultValue: "'default'", description: 'Size variant' },
-        { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the button' },
-        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Renders the child element (e.g. <a>, <Link>) with button styling instead of a <button>.' },
-        { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Disables the button and swaps the label for a spinner (used by ConfirmDialog internally).' },
-        { name: 'loadingLabel', type: 'string', defaultValue: "'Loading'", description: 'Accessible label announced while loading.' },
-      ]}
-      accessibility={[
-        'Full keyboard navigation with Enter and Space keys',
-        'Screen reader support with proper ARIA attributes',
-        'Disabled state is properly announced',
-        'Visible focus indicator for keyboard users',
-      ]}
-    >
+    <>
       <DemoCard
         title="Playground"
         preview={
@@ -199,6 +178,6 @@ ${variantCode}
   <a href="/docs">Read the docs</a>
 </Button>`}
       />
-    </ComponentPage>
+    </>
   );
 }

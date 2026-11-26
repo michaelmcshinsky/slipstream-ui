@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, type ComponentProps } from 'react';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { LinkTabs } from '@slipstream-ui/core';
 
@@ -11,7 +10,7 @@ const items = [
   { label: 'Billing', href: '/docs/components/link-tabs/billing' },
 ];
 
-export default function LinkTabsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [path, setPath] = useState('/docs/components/link-tabs');
 
   // Demo-only link: keeps the tabs interactive without navigating readers to
@@ -34,27 +33,7 @@ export default function LinkTabsPage({ manifest }: { manifest?: ComponentPagePro
   }
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="link-tabs"
-      title="LinkTabs"
-      description="URL-driven navigation tabs for settings, account, and app sub-navigation. Real links, aria-current, and prefix/exact matching."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'items', type: 'LinkTabsItem[]', description: 'Tabs with label, href, exact, icon, disabled.' },
-        { name: 'activeHref', type: 'string', description: 'Current pathname used to mark the active tab.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Router link element; defaults to an anchor.' },
-        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent (to for react-router style routers).' },
-        { name: 'variant', type: "'default' | 'underline' | 'rounded'", defaultValue: "'default'", description: 'Strip design.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Control density.' },
-        { name: 'label', type: 'string', defaultValue: "'Section'", description: 'Accessible name for the navigation landmark.' },
-      ]}
-      accessibility={[
-        'Renders a nav landmark with an accessible label.',
-        'The active link receives aria-current="page".',
-        'Disabled items render as spans with aria-disabled and no link.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Settings navigation"
         preview={
@@ -96,6 +75,6 @@ export default function LinkTabsPage({ manifest }: { manifest?: ComponentPagePro
         }
         code={`<LinkTabs items={items} activeHref={pathname} variant="underline" />`}
       />
-    </ComponentPage>
+    </>
   );
 }

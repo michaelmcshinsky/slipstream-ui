@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, FormField, Input, InputGroup, InputGroupAddon } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 function SearchIcon() {
@@ -24,28 +23,12 @@ function SearchIcon() {
   );
 }
 
-export default function InputGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [query, setQuery] = useState('');
   const [amount, setAmount] = useState('10');
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="input-group"
-      title="InputGroup"
-      description="Composite input shell with flush left/right addons (icons, units, buttons) behind one outer outline; the nested field sheds its own border so the group reads as a single control."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'side', type: "'left' | 'right'", defaultValue: "'left'", description: 'Edge the addon hugs (flush against the group outline).' },
-        { name: 'variant', type: "'ghost' | 'muted'", defaultValue: "'ghost'", description: 'Addon surface: ghost keeps the group background, muted paints a light gray.' },
-        { name: 'children', type: 'ReactNode', description: 'Nested field (Input/Textarea/Select) plus any InputGroupAddon slots.' },
-      ]}
-      accessibility={[
-        'The group is focusable chrome only: the nested input keeps focus, its label association, and keyboard behavior.',
-        'Mark decorative addons aria-hidden; include meaningful units in the field’s accessible name (aria-label="Amount in PLN").',
-        'Disable addon buttons yourself when the field is disabled.',
-      ]}
-    >
+    <>
       <DemoCard
         title="URL field with muted affixes"
         preview={
@@ -151,6 +134,6 @@ export default function InputGroupPage({ manifest }: { manifest?: ComponentPageP
         usage={`// Units belong in the group, not as placeholder text: the value
 // stays parseable and the label stays clean.`}
       />
-    </ComponentPage>
+    </>
   );
 }

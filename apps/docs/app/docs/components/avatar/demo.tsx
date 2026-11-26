@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 // Inline SVG so the "with image" state works without a binary asset.
@@ -7,27 +6,9 @@ const avatarSrc = `data:image/svg+xml;utf8,${encodeURIComponent(
   "<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><rect width='96' height='96' rx='48' fill='%234f46e5'/><text x='48' y='64' font-size='44' text-anchor='middle' fill='white' font-family='system-ui, sans-serif'>JD</text></svg>"
 )}`;
 
-export default function AvatarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="avatar"
-      title="Avatar"
-      description="A user profile image component with fallback support and accessible image loading. Compose Avatar + AvatarImage + AvatarFallback."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'Avatar.className', type: 'string', description: 'Circular container (h-10 w-10, rounded-full); scale with h-*/w-* classes.' },
-        { name: 'AvatarImage.src / alt', type: 'string', defaultValue: 'required', description: 'Image source and required alt text; renders only after load.' },
-        { name: 'AvatarFallback.children / className', type: 'ReactNode / string', description: 'Initials or icon shown while loading and after failure.' },
-        { name: 'AvatarFallback.delayMs', type: 'number', description: 'Delay before the fallback appears (avoids flash on fast loads).' },
-      ]}
-      accessibility={[
-        'AvatarImage requires alt text for accessibility',
-        'AvatarFallback content is announced when image fails',
-        'Radix Avatar handles image loading errors automatically',
-        'Use meaningful alt text describing the person',
-      ]}
-    >
+    <>
       <DemoCard
         title="Variants"
         preview={
@@ -96,6 +77,6 @@ export default function AvatarPage({ manifest }: { manifest?: ComponentPageProps
 // Keep AvatarImage + AvatarFallback as siblings — the fallback shows
 // automatically while the image loads or if it fails.`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,29 +1,11 @@
 'use client';
 
 import { Link } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function LinkPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="link"
-      title="Link"
-      description="Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'href', type: 'string', description: 'Destination URL (or pass it on the asChild element).' },
-        { name: 'variant', type: "'default' | 'muted' | 'underline' | 'arrow' | 'external'", defaultValue: "'default'", description: 'Visual style.' },
-        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child (router Link) with link styling.' },
-        { name: 'external', type: 'boolean', description: 'Force external handling. Absolute http(s) URLs are auto-detected; mailto/tel never open a new tab.' },
-      ]}
-      accessibility={[
-        'Renders a real <a href>, so middle-click and modified clicks behave like the platform.',
-        'External links get rel="noopener noreferrer" and an sr-only “opens in a new tab” note.',
-        'Focus ring is visible on keyboard focus.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Variants"
         preview={
@@ -57,6 +39,6 @@ export default function LinkPage({ manifest }: { manifest?: ComponentPageProps['
   external?: boolean;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

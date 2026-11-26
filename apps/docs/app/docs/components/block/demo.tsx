@@ -1,26 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Block, Heading, Text } from '@slipstream-ui/core';
 
-export default function BlockPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="block"
-      title="Block"
-      description="Semantic container (div by default, swappable element): the structural counterpart to Text (p)."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'as', type: "'div' | 'span' | 'section' | 'article' | 'figure' | 'header' | 'footer' | 'nav' | 'main' | 'aside'", defaultValue: "'div'", description: 'Semantic element to render.' },
-        { name: 'inline', type: 'boolean', defaultValue: 'false', description: 'Shorthand for as="span": inline flow.' },
-        { name: 'muted', type: 'boolean', defaultValue: 'false', description: "Use the muted-foreground token for the block's text." },
-      ]}
-      accessibility={[
-        'Element choice is explicit: pick the element matching the content role (section/article/figure).',
-        'Block adds no interactive behavior; children keep their own keyboard/ARIA contracts.',
-        'Copy belongs in Text (p), not Block: document semantics stay queryable.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Semantic elements"
         preview={
@@ -103,6 +86,6 @@ export default function BlockPage({ manifest }: { manifest?: ComponentPageProps[
         usage={`// muted dims the text for secondary content; combine with inline
 // for quiet code chips inside prose.`}
       />
-    </ComponentPage>
+    </>
   );
 }

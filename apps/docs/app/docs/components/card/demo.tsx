@@ -1,4 +1,3 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import {
   Badge,
@@ -11,26 +10,9 @@ import {
   CardTitle,
 } from '@slipstream-ui/core';
 
-export default function CardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="card"
-      title="Card"
-      description="Content container with header, body, and footer sections: bordered, borderless, or compact via className."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'children', type: 'ReactNode', description: 'Card sub-components: CardHeader, CardTitle, CardDescription, CardContent, CardFooter.' },
-        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child element (router Link, <a>) with card styling instead of a div.' },
-        { name: 'className', type: 'string', description: 'Variants: borderless (border-0 shadow-sm), compact (p-4), raised (shadow-md), etc.' },
-        { name: 'CardHeader / CardContent / CardFooter className', type: 'string', description: 'Per-section spacing overrides for compact or custom layouts.' },
-      ]}
-      accessibility={[
-        'CardTitle renders as h3; maintain logical heading order in your page.',
-        'Cards are generic containers: give interactive content inside them real labels and roles.',
-        'Do not nest landmark roles (header/footer inside cards stay neutral divs).',
-      ]}
-    >
+    <>
       <DemoCard
         title="Full anatomy"
         preview={
@@ -213,6 +195,6 @@ export default function CardPage({ manifest }: { manifest?: ComponentPageProps['
         usage={`// asChild merges card styling onto a single child (link, router Link)
 // so the whole surface is clickable without nested interactive elements.`}
       />
-    </ComponentPage>
+    </>
   );
 }

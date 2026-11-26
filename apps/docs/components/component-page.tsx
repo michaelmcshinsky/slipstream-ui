@@ -1,15 +1,11 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { CodeBlock } from '@slipstream-ui/ai';
-import { useI18n } from '@slipstream-ui/i18n/react';
 import { InstallBox } from './install-box';
-import { PropsTable } from './props-table';
 import { CopyForAi } from './copy-for-ai';
 import { JsonLd } from './site/json-ld';
 import { techArticleSchema } from '@/lib/structured-data';
 import { getNeighbors, navItemLabel, FLAT_NAV } from '@/lib/nav';
+import { getServerI18n } from '@/lib/i18n-server';
 import type { RegistryManifestSlice } from '@/lib/registry-manifests.generated';
 
 export type ComponentPageProps = {
@@ -17,7 +13,7 @@ export type ComponentPageProps = {
   id: string;
   /**
    * COMPONENT_MANIFEST id when it differs from the route id: drives the
-   * registry fetch, install commands, and /llm markdown link
+   * install commands and /llm markdown link
    * (route "sources" -> manifest "source").
    */
   manifestId?: string;
@@ -33,15 +29,12 @@ export type ComponentPageProps = {
   /**
    * Server-provided manifest slice (see lib/registry-manifests.generated).
    * Pages pass it so anti-patterns/composition/dependencies render in the
-   * SSR HTML; when omitted the client falls back to fetching /registry/*.json.
+   * SSR HTML. This is a server component: interactive islands (install box,
+   * copy buttons, demo cards) hydrate independently.
    */
   manifest?: RegistryManifestSlice | null;
 };
 
-/**
- * A slice of the COMPONENT_MANIFEST served from /registry/<id>.json: only the
- * fields the human docs surface beyond the hand-written props table.
- */
 /** "MessageActions" / "InlineCitation" → route id used by /docs/components/<id>. */
 function toComponentId(name: string): string {
   return name
@@ -56,44 +49,17 @@ const COMPONENT_HREFS = new Set(
 );
 
 /**
- * Fetches a component's manifest slice from /registry/<manifestId>.json.
- * Returns null while loading or when the file is absent: sections derived
- * from it simply do not render (graceful degradation).
- */
-function useRegistryManifest(manifestId: string, enabled: boolean): RegistryManifestSlice | null {
-  const [manifest, setManifest] = useState<RegistryManifestSlice | null>(null);
-
-  useEffect(() => {
-    if (!enabled) return;
-    let cancelled = false;
-    fetch(`/registry/${manifestId}.json`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: RegistryManifestSlice | null) => {
-        if (!cancelled && data) setManifest(data);
-      })
-      .catch(() => {
-        // Registry file absent: render without the manifest-derived sections.
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [manifestId, enabled]);
-
-  return manifest;
-}
-
-/**
  * Standardized component docs scaffold (elements.ai.sdk.dev pattern):
  * title → lede → installer box → demos (children: DemoCards) →
  * props table → anti-patterns → accessibility → composition → prev/next.
  *
- * Anti-patterns and composition come from the component's manifest — inlined
- * at build time (lib/registry-manifests.generated) and passed in as `manifest`
- * so they render in the server HTML, with a /registry/<id>.json fetch as the
- * fallback for callers that do not pass it. Sections render only when the
- * manifest carries them.
+ * Server component: every section renders in the SSR HTML and only the
+ * interactive islands (InstallBox, CopyForAi, CodeBlock, demo children)
+ * ship client JavaScript. Anti-patterns and composition come from the
+ * manifest slice passed by the page — the same payload `validate_usage`
+ * enforces over MCP.
  */
-export function ComponentPage({
+export async function ComponentPage({
   id,
   manifestId,
   title,
@@ -103,12 +69,10 @@ export function ComponentPage({
   propsRows,
   accessibility,
   browserNotes,
-  manifest: manifestProp,
+  manifest,
 }: ComponentPageProps) {
-  const { t } = useI18n();
+  const { t } = await getServerI18n();
   const { previous, next } = getNeighbors(`/docs/components/${id}`);
-  const fetched = useRegistryManifest(manifestId ?? id, manifestProp === undefined);
-  const manifest = manifestProp ?? fetched;
 
   const antiPatterns = manifest?.antiPatterns ?? [];
   const compositionRules = manifest?.compositionRules ?? [];
@@ -165,7 +129,30 @@ export function ComponentPage({
       {propsRows && propsRows.length > 0 && (
         <section className="mt-10">
           <h2 id="props" className="mb-4 text-xl font-semibold">{t('site.props.title')}</h2>
-          <PropsTable rows={propsRows} />
+          {/* Scroll horizontally instead of clipping: four columns with long
+              type signatures are unreadable at phone width. */}
+          <div className="overflow-x-auto rounded-lg border border-border bg-card text-card-foreground">
+            <table className="w-full text-sm">
+              <thead className="bg-muted text-foreground">
+                <tr>
+                  <th className="p-3 text-left font-medium">{t('site.props.prop')}</th>
+                  <th className="p-3 text-left font-medium">{t('site.props.type')}</th>
+                  <th className="p-3 text-left font-medium">{t('site.props.default')}</th>
+                  <th className="p-3 text-left font-medium">{t('site.props.description')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {propsRows.map((row) => (
+                  <tr key={row.name} className="border-t border-border">
+                    <td className="p-3 font-mono text-xs">{row.name}</td>
+                    <td className="p-3 text-xs">{row.type}</td>
+                    <td className="p-3 font-mono text-xs">{row.defaultValue ?? '—'}</td>
+                    <td className="p-3 text-xs">{row.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       )}
 

@@ -1,29 +1,11 @@
 'use client';
 
 import { Link, SiteFooter } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SiteFooterPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="site-footer"
-      title="SiteFooter"
-      description="Marketing footer: brand + tagline column, link columns and a legal bar; router-agnostic via linkComponent."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'brand', type: 'ReactNode', description: 'Brand slot.' },
-        { name: 'tagline', type: 'string', description: 'Short line under the brand.' },
-        { name: 'columns', type: 'SiteFooterColumn[]', defaultValue: 'required', description: 'Link columns: { title, links: { label, href, external? }[] }.' },
-        { name: 'legal', type: 'ReactNode', description: 'Bottom bar (copyright, legal links).' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Router link element.' },
-        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent.' },
-        { name: 'activeHref', type: 'string', description: 'Current route; marks the matching link aria-current="page".' },
-        { name: 'match', type: "'prefix' | 'exact'", defaultValue: "'prefix'", description: 'Prefix matching highlights /docs when on /docs/installation.' },
-      ]}
-      accessibility={['Renders a <footer> landmark with headed link groups.', 'External links get target=_blank + rel=noopener.']}
-    >
+    <>
       <DemoCard
         title="Standard footer"
         preview={
@@ -69,6 +51,6 @@ export default function SiteFooterPage({ manifest }: { manifest?: ComponentPageP
   match?: 'prefix' | 'exact';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,27 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { FormField, Textarea } from '@slipstream-ui/core';
 
-export default function TextareaPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="textarea"
-      title="Textarea"
-      description="Multi-line text input styled to match Input."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'value', type: 'string', description: 'Controlled value; omit for uncontrolled usage.' },
-        { name: 'defaultValue', type: 'string', description: 'Initial value for uncontrolled usage.' },
-        { name: 'placeholder', type: 'string', description: 'Placeholder text shown when empty.' },
-        { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disables the textarea.' },
-        { name: 'onChange', type: 'React.ChangeEventHandler<HTMLTextAreaElement>', description: 'Native change handler for controlled or uncontrolled updates.' },
-      ]}
-      accessibility={[
-        'Native textarea semantics: multiline text entry and form validation work natively.',
-        'Provide an accessible name via Label or aria-label.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Usage"
         preview={
@@ -49,6 +31,6 @@ export default function TextareaPage({ manifest }: { manifest?: ComponentPagePro
         usage={"import { Textarea } from '@slipstream-ui/core';\n\n// Basic usage\n<Textarea />"}
         types={"type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;}"}
       />
-    </ComponentPage>
+    </>
   );
 }

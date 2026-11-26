@@ -2,35 +2,14 @@
 
 import { useState } from 'react';
 import { Message, MessageActions } from '@slipstream-ui/ai';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function MessageActionsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [rating, setRating] = useState<'up' | 'down' | undefined>();
   const [regenerations, setRegenerations] = useState(0);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="message-actions"
-      title="MessageActions"
-      description="Feedback toolbar for AI responses: copy, thumbs up/down rating, and regenerate. Every action is a callback: the component holds no conversation state."
-      npmPackages="@slipstream-ui/ai"
-      propsRows={[
-        { name: 'content', type: 'string', description: 'Text copied by the copy action; omit to hide copy.' },
-        { name: 'onCopy', type: '(content: string) => void', description: 'Called after the user copies the message.' },
-        { name: 'onFeedback', type: "(rating: FeedbackRating | undefined) => void", description: 'Rating callback; selecting the same rating clears it.' },
-        { name: 'onRegenerate', type: '() => void', description: 'Regenerate callback; omit to hide the action.' },
-        { name: 'autohide', type: "'always' | 'on-hover' | 'not-last'", defaultValue: "'always'", description: 'Visibility rule; hover modes reveal on parent hover/focus.' },
-        { name: 'labels', type: 'object', description: 'Localizable copy/copied/thumbUp/thumbDown/regenerate labels.' },
-        { name: 'className', type: 'string', description: 'Additional classes for the toolbar root.' },
-      ]}
-      accessibility={[
-        'Root has role=toolbar with an accessible name.',
-        'Rating buttons expose aria-pressed selection state.',
-        'All labels are localizable via the labels prop.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Feedback toolbar"
         preview={
@@ -104,6 +83,6 @@ export default function MessageActionsPage({ manifest }: { manifest?: ComponentP
 // the toolbar; visibility is yours to style. autohide="not-last" hides
 // the toolbar on every message except the latest.`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import { Checkbox, Select } from '@slipstream-ui/core';
 import { ToolCall, type ToolCallData } from '@slipstream-ui/ai';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 type ToolCallStatus = 'pending' | 'running' | 'completed' | 'failed';
 
-export default function ToolCallPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [status, setStatus] = useState<ToolCallStatus>('completed');
   const [showResult, setShowResult] = useState(true);
 
@@ -21,25 +20,7 @@ export default function ToolCallPage({ manifest }: { manifest?: ComponentPagePro
   };
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="tool-call"
-      title="ToolCall"
-      description="A component for displaying AI tool/function calls with status, arguments, and results."
-      npmPackages="@slipstream-ui/ai"
-      propsRows={[
-        { name: 'toolCall', type: 'ToolCallData', defaultValue: 'required', description: 'Tool call object with name, arguments, status' },
-        { name: 'showResult', type: 'boolean', defaultValue: 'true', description: 'Whether to display the result' },
-        { name: 'labels', type: '{ pending?, running?, completed?, failed?, arguments?, result?, error? }', description: 'Localized status and section labels.' },
-        { name: 'className', type: 'string', description: 'Extra classes for the root element.' },
-      ]}
-      accessibility={[
-        'Status shown with both color and text label',
-        'Arguments and results displayed in formatted code blocks',
-        'Tool information organized in clear sections',
-        'Status colors have sufficient contrast',
-      ]}
-    >
+    <>
       <DemoCard
         title="Playground"
         preview={
@@ -128,6 +109,6 @@ const toolCall = {
 <ToolCall toolCall={{ id: '2', name: 'calculate', arguments: { expression: '2 + 2' }, status: 'running' }} />
 <ToolCall toolCall={{ id: '3', name: 'api_request', arguments: { endpoint: '/users' }, status: 'failed' }} />`}
       />
-    </ComponentPage>
+    </>
   );
 }

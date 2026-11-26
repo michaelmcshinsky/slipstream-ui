@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { AttachmentList } from '@slipstream-ui/ai';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function AttachmentPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [attachments, setAttachments] = useState([
     { id: '1', name: 'product-spec.pdf', size: '2.4 MB', type: 'PDF', status: 'done' as const },
     { id: '2', name: 'screenshot.png', size: '480 KB', status: 'done' as const },
@@ -13,23 +12,7 @@ export default function AttachmentPage({ manifest }: { manifest?: ComponentPageP
   ]);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="attachment"
-      title="Attachment"
-      description="File chips for prompts and messages. Display-only: upload logic stays in your app. Attachment renders one file; AttachmentList renders a wrapping row."
-      npmPackages="@slipstream-ui/ai"
-      propsRows={[
-        { name: 'attachment', type: 'AttachmentItem', description: 'Single file chip (Attachment).' },
-        { name: 'attachments', type: 'AttachmentItem[]', description: 'File list rendered as a wrapping row (AttachmentList).' },
-        { name: 'onRemove', type: '(attachment: AttachmentItem) => void', description: 'Remove callback; omit to hide the remove control.' },
-      ]}
-      accessibility={[
-        'Remove controls include the file name in their accessible label.',
-        'The uploading state is announced via role=status.',
-        'Thumbnails are aria-hidden; file names carry the meaning.',
-      ]}
-    >
+    <>
       <DemoCard
         title="AttachmentList"
         preview={
@@ -52,6 +35,6 @@ export default function AttachmentPage({ manifest }: { manifest?: ComponentPageP
   onRemove={(attachment) => remove(attachment.id)}
 />`}
       />
-    </ComponentPage>
+    </>
   );
 }

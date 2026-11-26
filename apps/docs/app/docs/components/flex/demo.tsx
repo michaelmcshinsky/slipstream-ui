@@ -1,30 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Badge, Button, Flex, FlexItem, Text } from '@slipstream-ui/core';
 
-export default function FlexPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="flex"
-      title="Flex / FlexItem"
-      description="Typed flexbox container (direction/align/justify/wrap/gap) with FlexItem for per-child grow/shrink/basis controls."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'direction', type: "'row' | 'column'", defaultValue: "'row'", description: 'Main axis direction.' },
-        { name: 'align', type: "'start' | 'center' | 'end' | 'stretch' | 'baseline'", description: 'Cross-axis alignment (align-items; align-self on FlexItem).' },
-        { name: 'justify', type: "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'", description: 'Main-axis distribution (justify-content).' },
-        { name: 'wrap', type: 'boolean', defaultValue: 'false', description: 'Allow items to wrap onto multiple lines.' },
-        { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl'", defaultValue: "'md'", description: 'Token gap between children.' },
-        { name: 'as', type: "'div' | 'span' | 'section' | 'article' | 'nav' | 'header' | 'footer'", defaultValue: "'div'", description: 'Semantic element.' },
-        { name: 'grow / shrink / basis', type: 'boolean | string / string', description: 'Per-child flex values on FlexItem: emitted as inline style so nothing gets purged.' },
-      ]}
-      accessibility={[
-        'Layout-only semantics: flex-wrap reflows visually while DOM (reading) order never changes.',
-        'Interactive children keep their own keyboard/ARIA contracts.',
-        'Put items in logical reading order regardless of visual layout.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Toolbar (between)"
         preview={
@@ -104,6 +83,6 @@ type FlexItemProps = {
   align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

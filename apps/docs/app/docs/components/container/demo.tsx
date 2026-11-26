@@ -1,24 +1,11 @@
 'use client';
 
 import { Container } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ContainerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="container"
-      title="Container"
-      description="Centered, width-constrained page container with shared gutters and four width presets."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'width', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", defaultValue: "'lg'", description: 'Maximum content width.' },
-        { name: 'padding', type: "'none' | 'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Horizontal gutters.' },
-        { name: 'as', type: "'div' | 'section' | 'article' | 'header' | 'footer' | 'main' | 'nav'", defaultValue: "'div'", description: 'Semantic element to render.' },
-      ]}
-      accessibility={['Use the as prop for landmarks and add an accessible name when the container is a named region.']}
-    >
+    <>
       <DemoCard
         title="Shared page width"
         preview={
@@ -62,6 +49,6 @@ export default function ContainerPage({ manifest }: { manifest?: ComponentPagePr
         usage={`// sm→xl step the max-width up; full removes the cap entirely.
 // padding is independent: none | sm | md | lg.`}
       />
-    </ComponentPage>
+    </>
   );
 }

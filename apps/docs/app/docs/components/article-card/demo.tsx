@@ -1,32 +1,11 @@
 'use client';
 
 import { ArticleCard, Grid, Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ArticleCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="article-card"
-      title="ArticleCard"
-      description="Linked article or resource card with media, eyebrow, title, summary and metadata."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Article title.' },
-        { name: 'description', type: 'string', description: 'Summary copy.' },
-        { name: 'href', type: 'string', defaultValue: 'required', description: 'Destination URL.' },
-        { name: 'eyebrow', type: 'string', description: 'Category or content type.' },
-        { name: 'media', type: 'ReactNode', description: 'Image, illustration or video poster.' },
-        { name: 'meta', type: 'ReactNode', description: 'Date, read time, author or other metadata.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-        { name: 'variant', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Standard or compact card.' },
-      ]}
-      accessibility={[
-        'The whole card is one link; do not nest buttons or links inside it.',
-        'Use alt="" for decorative covers or a meaningful alt for informative images.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Resource grid"
         preview={
@@ -105,6 +84,6 @@ export default function ArticleCardPage({ manifest }: { manifest?: ComponentPage
         usage={`// Compact cards omit the media block — use them in sidebars,
 // related-article rails and dense index lists.`}
       />
-    </ComponentPage>
+    </>
   );
 }

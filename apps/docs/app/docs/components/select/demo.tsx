@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Select } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const sizes = [
@@ -12,34 +11,10 @@ const sizes = [
   { value: 'icon', label: 'Icon', disabled: true },
 ];
 
-export default function SelectPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [size, setSize] = useState('default');
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="select"
-      title="Select"
-      description="Accessible select primitive built on the native select element with controlled and uncontrolled modes."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'options', type: 'SelectOption[]', defaultValue: 'required', description: '{ value, label, disabled? } entries' },
-        { name: 'label', type: 'string', defaultValue: '-', description: 'Visible, associated label' },
-        { name: 'labelHidden', type: 'boolean', defaultValue: 'false', description: 'Keep the label for screen readers but hide it visually (filter bars, toolbars)' },
-        { name: 'value', type: 'string', defaultValue: '—', description: 'Controlled selected value' },
-        { name: 'defaultValue', type: 'string', defaultValue: '—', description: 'Uncontrolled initial value' },
-        { name: 'onChange', type: 'React.ChangeEventHandler<HTMLSelectElement>', defaultValue: '-', description: 'Native change event; compatible with react-hook-form register()' },
-        { name: 'onValueChange', type: '(value: string | string[]) => void', defaultValue: '-', description: 'Value-based callback for controlled usage' },
-        { name: 'groups', type: 'SelectOptionGroup[]', description: '{ label, options }[] optgroups; takes precedence over options and children' },
-        { name: 'placeholder', type: 'string', description: 'Renders a disabled empty option — the native "choose one" affordance' },
-        { name: 'multiple', type: 'boolean', defaultValue: 'false', description: 'Native multi-select; value/onChange switch to string[]' },
-        { name: 'size', type: 'number', description: 'Native size attribute — visible row count for multi-select' },
-        { name: 'children', type: 'ReactNode', description: 'Plain <option>/<optgroup> for dynamic lists; lowest precedence after options/groups' },
-      ]}
-      accessibility={[
-        'Built on the native select: full keyboard, screen-reader and mobile support',
-        'Visible labels are associated via htmlFor/id; aria-label is forwarded otherwise',
-      ]}
-    >
+    <>
       <DemoCard
         title="Playground"
         preview={
@@ -133,6 +108,6 @@ export default function SelectPage({ manifest }: { manifest?: ComponentPageProps
   children?: React.ReactNode;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

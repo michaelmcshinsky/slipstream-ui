@@ -1,29 +1,9 @@
 import { Badge } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function BadgePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="badge"
-      title="Badge"
-      description="A small status indicator component for displaying tags, counts, or status information."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child (e.g. a router Link) with badge styling.' },
-        { name: 'variant', type: "'default' | 'primary' | 'neutral' | 'accent' | 'danger' | 'success' | 'warning' | 'info' | 'secondary' | 'destructive' | 'outline' | 'outline-success' | 'outline-warning' | 'outline-info' | 'outline-danger'", defaultValue: "'default'", description: 'Visual style variant; primary/danger are aliases, outline-* are quiet status tones for metadata chips.' },
-        { name: 'dot', type: 'boolean', defaultValue: 'false', description: 'Leading status dot colored to match the variant.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Pill scale: sm for dense tables, lg for hero and metadata strips.' },
-        { name: 'children', type: 'ReactNode', defaultValue: 'required', description: 'Content to display' },
-      ]}
-      accessibility={[
-        'Badge content is announced by screen readers',
-        'All variants meet WCAG AA contrast requirements',
-        'Consider adding aria-label for status-only badges',
-        'Use semantic status terminology',
-      ]}
-    >
+    <>
       <DemoCard
         title="Variants"
         preview={
@@ -92,6 +72,6 @@ export default function BadgePage({ manifest }: { manifest?: ComponentPageProps[
   <Badge>3</Badge>
 </div>`}
       />
-    </ComponentPage>
+    </>
   );
 }

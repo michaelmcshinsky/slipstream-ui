@@ -1,24 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Label, Input } from '@slipstream-ui/core';
 
-export default function LabelPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="label"
-      title="Label"
-      description="Accessible form label that associates with its control."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'htmlFor', type: 'string', description: 'The id of the control this label describes.' },
-        { name: 'children', type: 'ReactNode', description: 'The label text.' },
-      ]}
-      accessibility={[
-        'htmlFor/id pairing links the label to its control.',
-        'Placeholders are not a replacement for labels.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Usage"
         preview={
@@ -37,6 +22,6 @@ export default function LabelPage({ manifest }: { manifest?: ComponentPageProps[
         usage={"import { Label, Input } from '@slipstream-ui/core';\n\n// Label sits directly above its control\n<Label htmlFor=\"email\">Email</Label>\n<Input id=\"email\" type=\"email\" />"}
         types={"type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;}"}
       />
-    </ComponentPage>
+    </>
   );
 }

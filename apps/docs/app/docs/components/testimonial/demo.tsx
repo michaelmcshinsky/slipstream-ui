@@ -1,32 +1,11 @@
 'use client';
 
 import { Avatar, AvatarFallback, Grid, Section, Testimonial } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function TestimonialPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="testimonial"
-      title="Testimonial"
-      description="Semantic written testimonial with quote, person, role, company, avatar and logo slots."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'quote', type: 'string', defaultValue: 'required', description: 'Testimonial copy without quotation marks.' },
-        { name: 'name', type: 'string', defaultValue: 'required', description: 'Person or company name.' },
-        { name: 'role', type: 'string', description: 'Role or title.' },
-        { name: 'company', type: 'string', description: 'Company name.' },
-        { name: 'avatar', type: 'ReactNode', description: 'Avatar slot.' },
-        { name: 'logo', type: 'ReactNode', description: 'Brand or logo slot.' },
-        { name: 'variant', type: "'card' | 'plain'", defaultValue: "'card'", description: 'Card surface or plain quote.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Quote scale.' },
-      ]}
-      accessibility={[
-        'Renders figure, blockquote and figcaption so the attribution is structural.',
-        'The quote prop should not include quotation marks; the component adds them.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Quote wall"
         preview={
@@ -108,6 +87,6 @@ export default function TestimonialPage({ manifest }: { manifest?: ComponentPage
         usage={`// logo renders above the quote; avatar sits in the figcaption.
 // variant="plain" drops the card surface for hero and band layouts.`}
       />
-    </ComponentPage>
+    </>
   );
 }

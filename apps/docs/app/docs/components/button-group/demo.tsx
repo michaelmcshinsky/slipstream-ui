@@ -2,32 +2,16 @@
 
 import { useState } from 'react';
 import { Button, ButtonGroup } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 type View = 'list' | 'board' | 'calendar';
 
-export default function ButtonGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [view, setView] = useState<View>('list');
   const [step, setStep] = useState(2);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="button-group"
-      title="ButtonGroup"
-      description="Joins buttons into one segmented control: adjacent borders collapse, middle corners square off, and only the outer corners stay rounded: a single outline around the group."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'orientation', type: "'horizontal' | 'vertical'", defaultValue: "'horizontal'", description: 'Stacked segments share vertical edges; default lays them side by side.' },
-        { name: 'children', type: 'ReactNode', description: 'Direct Button children: each keeps its own variant/size but must keep a border.' },
-      ]}
-      accessibility={[
-        'role=group: always pass aria-label (or aria-labelledby) so the group name precedes its buttons.',
-        'Focus rings lift above neighbours (relative + z-10) instead of clipping.',
-        'Native tab order; for exclusive views with panels prefer Tabs.',
-      ]}
-    >
+    <>
       <DemoCard
         title="View mode toggle (interactive)"
         preview={
@@ -101,6 +85,6 @@ export default function ButtonGroupPage({ manifest }: { manifest?: ComponentPage
         usage={`// orientation="vertical" collapses vertical borders and rounds only
 // the top/bottom outer corners.`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,29 +1,11 @@
 'use client';
 
 import { ComparisonTable } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ComparisonTablePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="comparison-table"
-      title="ComparisonTable"
-      description="Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'columns', type: 'ComparisonColumn[]', defaultValue: 'required', description: 'Comparison columns, excluding the feature column. Each column has a label and optional highlight.' },
-        { name: 'rows', type: 'ComparisonRow[]', defaultValue: 'required', description: 'Feature rows with one value per column. Booleans render check/dash; strings render as text.' },
-        { name: 'caption', type: 'string', defaultValue: "'Comparison'", description: 'Accessible table caption.' },
-        { name: 'featureLabel', type: 'string', defaultValue: "'Feature'", description: 'Heading for the feature column.' },
-        { name: 'valueLabels', type: '{ yes?: string; no?: string }', description: 'Screen-reader labels for boolean cells.' },
-      ]}
-      accessibility={[
-        'Renders a real table with caption, scope=col and scope=row.',
-        'Boolean cells pair the visual check/dash with screen-reader Included/Not included text.',
-      ]}
-    >
+    <>
       <DemoCard
         title="With an advisor vs. on your own"
         preview={
@@ -75,6 +57,6 @@ type ComparisonTableProps = {
   valueLabels?: { yes?: string; no?: string };
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }
