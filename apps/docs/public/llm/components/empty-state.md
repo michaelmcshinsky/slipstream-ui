@@ -25,6 +25,10 @@ Empty states are where users decide what to do next. A consistent icon/title/des
 | secondaryAction | `ReactNode` | — | no | Secondary action beside the primary one. |
 | titleAs | `'p' | 'h2' | 'h3' | 'h4'` | `p` | no | Heading level for the title. Defaults to a paragraph. |
 | size | `'sm' | 'md'` | `md` | no | Compact padding for panels/table bodies. |
+| align | `'center' | 'start'` | `center` | no | Horizontal alignment of content and actions. Use 'start' for content pages and filtered lists. |
+| tone | `'plain' | 'panel'` | `plain` | no | Surface treatment. 'panel' is a tinted, solid-bordered surface for content pages; 'plain' keeps the dashed outline. |
+| linkComponent | `React.ElementType` | — | no | Custom link element for action hrefs (Next Link, react-router Link). |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 
 ## Examples
 
@@ -37,6 +41,21 @@ Title, explanation and one primary action.
   title="No classes yet"
   description="Create your first class to get started."
   action={<Button>New class</Button>}
+/>
+```
+
+### Filtered-list panel
+
+Left-aligned tinted panel with multiple actions for content pages.
+
+```tsx
+<EmptyState
+  align="start"
+  tone="panel"
+  title="No matches"
+  description="Try widening the filters or clearing them."
+  action={{ label: 'Clear filters', onClick: reset }}
+  secondaryAction={<Link href="/items">Browse all</Link>}
 />
 ```
 

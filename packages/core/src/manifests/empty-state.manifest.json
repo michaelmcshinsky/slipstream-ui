@@ -61,6 +61,45 @@
         "sm",
         "md"
       ]
+    },
+    {
+      "name": "align",
+      "type": "'center' | 'start'",
+      "required": false,
+      "defaultValue": "center",
+      "description": "Horizontal alignment of content and actions. Use 'start' for content pages and filtered lists.",
+      "enum": [
+        "center",
+        "start"
+      ]
+    },
+    {
+      "name": "tone",
+      "type": "'plain' | 'panel'",
+      "required": false,
+      "defaultValue": "plain",
+      "description": "Surface treatment. 'panel' is a tinted, solid-bordered surface for content pages; 'plain' keeps the dashed outline.",
+      "enum": [
+        "plain",
+        "panel"
+      ]
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for action hrefs (Next Link, react-router Link)."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "enum": [
+        "href",
+        "to"
+      ],
+      "description": "Prop used to pass the destination to linkComponent."
     }
   ],
   "examples": [
@@ -68,6 +107,11 @@
       "title": "Empty collection",
       "code": "<EmptyState\n  title=\"No classes yet\"\n  description=\"Create your first class to get started.\"\n  action={<Button>New class</Button>}\n/>",
       "description": "Title, explanation and one primary action."
+    },
+    {
+      "title": "Filtered-list panel",
+      "code": "<EmptyState\n  align=\"start\"\n  tone=\"panel\"\n  title=\"No matches\"\n  description=\"Try widening the filters or clearing them.\"\n  action={{ label: 'Clear filters', onClick: reset }}\n  secondaryAction={<Link href=\"/items\">Browse all</Link>}\n/>",
+      "description": "Left-aligned tinted panel with multiple actions for content pages."
     }
   ],
   "antiPatterns": [
