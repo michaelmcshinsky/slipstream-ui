@@ -100,4 +100,9 @@ export interface EmailTemplateData {
   unsubscribeUrl: string;
   preferencesUrl: string;
   siteUrl: string;
+  /**
+   * CAN-SPAM/CASL require a valid physical postal address in commercial
+   * email. Sourced from NEWSLETTER_POSTAL_ADDRESS; rendered only when set.
+   */
+  postalAddress?: string;
 }

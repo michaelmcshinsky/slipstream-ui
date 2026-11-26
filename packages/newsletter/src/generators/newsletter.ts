@@ -186,6 +186,7 @@ export class NewsletterGenerator {
         : `${this.siteUrl}/newsletter/unsubscribe`,
       preferencesUrl: `${this.siteUrl}/dashboard/settings/newsletter`,
       siteUrl: this.siteUrl,
+      postalAddress: process.env.NEWSLETTER_POSTAL_ADDRESS?.trim() || undefined,
     };
 
     const htmlContent = generateHtmlEmail(templateData);
