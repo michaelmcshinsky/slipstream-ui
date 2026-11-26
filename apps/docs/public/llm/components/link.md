@@ -6,7 +6,7 @@ Inline link primitive with default/muted/underline/arrow/external variants, asCh
 > Import: `import { Link } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/link
 > Registry: https://slipstreamui.com/registry/link.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.3
+> Tier: atom · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

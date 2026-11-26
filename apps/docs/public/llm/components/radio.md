@@ -6,7 +6,7 @@ Native radio buttons grouped for mutually exclusive choices, with an accessible 
 > Import: `import { Radio } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/radio
 > Registry: https://slipstreamui.com/registry/radio.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.3
+> Tier: atom · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

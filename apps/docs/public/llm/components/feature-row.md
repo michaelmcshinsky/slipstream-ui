@@ -6,7 +6,7 @@ Alternating media and copy row for mid-page feature sections.
 > Import: `import { FeatureRow } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/feature-row
 > Registry: https://slipstreamui.com/registry/feature-row.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.3
+> Tier: organism · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
