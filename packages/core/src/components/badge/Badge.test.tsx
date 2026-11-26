@@ -107,3 +107,49 @@ describe('Badge semantic and alias variants', () => {
     expect(screen.getByText('large')).toHaveClass('text-sm', 'px-3');
   });
 });
+
+describe('Badge quiet outline tones and status dot', () => {
+  it('renders outline tone variants with ink text and tinted borders', () => {
+    render(
+      <>
+        <Badge variant="outline-success">live</Badge>
+        <Badge variant="outline-warning">degraded</Badge>
+        <Badge variant="outline-info">beta</Badge>
+        <Badge variant="outline-danger">down</Badge>
+      </>
+    );
+    expect(screen.getByText('live')).toHaveClass('border-success/50', 'text-success-ink');
+    expect(screen.getByText('degraded')).toHaveClass('border-warning/50', 'text-warning-ink');
+    expect(screen.getByText('beta')).toHaveClass('border-info/50', 'text-info-ink');
+    expect(screen.getByText('down')).toHaveClass('border-destructive/50', 'text-destructive');
+  });
+
+  it('renders a decorative dot colored to the variant', () => {
+    const { container } = render(
+      <>
+        <Badge variant="outline-success" dot>live</Badge>
+        <Badge variant="success" dot>ok</Badge>
+      </>
+    );
+    const dots = container.querySelectorAll('span[aria-hidden="true"]');
+    expect(dots).toHaveLength(2);
+    expect(dots[0]).toHaveClass('bg-success', 'rounded-full');
+    expect(dots[1]).toHaveClass('bg-success-foreground');
+  });
+
+  it('omits the dot by default', () => {
+    const { container } = render(<Badge>plain</Badge>);
+    expect(container.querySelector('span[aria-hidden="true"]')).not.toBeInTheDocument();
+  });
+
+  it('keeps asChild working with a dot', () => {
+    render(
+      <Badge asChild variant="outline-success" dot>
+        <a href="/status">live</a>
+      </Badge>
+    );
+    const link = screen.getByRole('link', { name: 'live' });
+    expect(link).toHaveClass('rounded-full');
+    expect(link.querySelector('span[aria-hidden="true"]')).toHaveClass('bg-success');
+  });
+});

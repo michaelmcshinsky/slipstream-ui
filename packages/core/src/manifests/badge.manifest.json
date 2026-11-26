@@ -7,10 +7,10 @@
   "props": [
     {
       "name": "variant",
-      "type": "'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'neutral' | 'accent' | 'success' | 'warning' | 'info'",
+      "type": "'default' | 'secondary' | 'destructive' | 'outline' | 'primary' | 'danger' | 'neutral' | 'accent' | 'success' | 'warning' | 'info' | 'outline-success' | 'outline-warning' | 'outline-info' | 'outline-danger'",
       "defaultValue": "default",
       "required": false,
-      "description": "Semantic surface; primary/danger are aliases for default/destructive, neutral is a muted metadata pill and accent is a tinted brand pill.",
+      "description": "Semantic surface; primary/danger are aliases for default/destructive, neutral is a muted metadata pill, accent is a tinted brand pill, and outline-* are quiet status tones for metadata chips.",
       "enum": [
         "default",
         "secondary",
@@ -22,12 +22,17 @@
         "accent",
         "success",
         "warning",
-        "info"
+        "info",
+        "outline-success",
+        "outline-warning",
+        "outline-info",
+        "outline-danger"
       ],
       "examples": [
         "default",
         "destructive",
-        "outline"
+        "outline",
+        "outline-success"
       ]
     },
     {
@@ -54,6 +59,13 @@
       "required": false,
       "defaultValue": "false",
       "description": "Render the child element with badge styling."
+    },
+    {
+      "name": "dot",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Leading status dot colored to match the variant. Decorative only; pair with text that carries the meaning."
     },
     {
       "name": "size",

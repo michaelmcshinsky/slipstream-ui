@@ -12,7 +12,8 @@ export default function BadgePage({ manifest }: { manifest?: ComponentPageProps[
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'asChild', type: 'boolean', defaultValue: 'false', description: 'Render the child (e.g. a router Link) with badge styling.' },
-        { name: 'variant', type: "'default' | 'primary' | 'neutral' | 'accent' | 'danger' | 'success' | 'warning' | 'info' | 'secondary' | 'destructive' | 'outline'", defaultValue: "'default'", description: 'Visual style variant; primary/danger are aliases of default/destructive kept for shadcn-style codebases.' },
+        { name: 'variant', type: "'default' | 'primary' | 'neutral' | 'accent' | 'danger' | 'success' | 'warning' | 'info' | 'secondary' | 'destructive' | 'outline' | 'outline-success' | 'outline-warning' | 'outline-info' | 'outline-danger'", defaultValue: "'default'", description: 'Visual style variant; primary/danger are aliases, outline-* are quiet status tones for metadata chips.' },
+        { name: 'dot', type: 'boolean', defaultValue: 'false', description: 'Leading status dot colored to match the variant.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Pill scale: sm for dense tables, lg for hero and metadata strips.' },
         { name: 'children', type: 'ReactNode', defaultValue: 'required', description: 'Content to display' },
       ]}
