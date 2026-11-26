@@ -1,29 +1,11 @@
 'use client';
 
 import { Button, EmptyState } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function EmptyStatePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="empty-state"
-      title="EmptyState"
-      description="Placeholder for empty collections, zero-result searches and unconfigured features: title, description and action slots."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Primary message.' },
-        { name: 'description', type: 'string', description: 'Supporting line explaining the next step.' },
-        { name: 'icon', type: 'ReactNode', description: 'Decorative icon above the title.' },
-        { name: 'action', type: 'ReactNode | EmptyStateAction', description: 'Primary action as a rendered node, or { label, onClick?, href?, variant? } to have the button/link rendered for you.' },
-        { name: 'secondaryAction', type: 'ReactNode', description: 'Secondary action beside the primary one.' },
-        { name: 'actions', type: 'ReactNode', description: 'Alias for action.' },
-        { name: 'titleAs', type: "'p' | 'h2' | 'h3' | 'h4'", description: 'Heading level for the title; defaults to a paragraph.' },
-        { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Compact padding for panels and table bodies.' },
-      ]}
-      accessibility={['Actions are real controls, so they stay focusable and announced.', 'Use Alert for failures: empty is a normal state, not an error.']}
-    >
+    <>
       <DemoCard
         title="Empty collection"
         preview={
@@ -61,6 +43,6 @@ type EmptyStateProps = {
   size?: 'sm' | 'md';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

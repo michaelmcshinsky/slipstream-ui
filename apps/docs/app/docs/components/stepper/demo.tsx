@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button, Stepper } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const STEPS = [
@@ -26,38 +25,13 @@ const TIMELINE_STEPS = [
   { label: 'Onboarding' },
 ];
 
-const PROPS_ROWS = [
-  { name: 'steps', type: '{ label: string; description?: string }[]', defaultValue: 'required', description: 'Ordered step definitions.' },
-  { name: 'current', type: 'number', defaultValue: 'required', description: 'Zero-based index of the active step.' },
-  { name: 'orientation', type: "'horizontal' | 'vertical'", defaultValue: "'horizontal'", description: 'Layout direction.' },
-  { name: 'variant', type: "'numbered' | 'dots'", defaultValue: "'numbered'", description: 'Numbered markers with a check when complete, or compact dots.' },
-  { name: 'size', type: "'sm' | 'md'", defaultValue: "'md'", description: 'Marker and label scale.' },
-  { name: 'labelPlacement', type: "'inline' | 'below'", defaultValue: "'inline'", description: 'Horizontal only: label beside or beneath the marker.' },
-  { name: 'alignTitles', type: "'start' | 'center'", defaultValue: "'center'", description: 'Center a title against its marker when the step has no description.' },
-  { name: 'onStepClick', type: '(index: number) => void', description: 'Makes steps clickable (revisit flows).' },
-  { name: 'labels', type: '{ completed?: string; current?: string; upcoming?: string }', description: 'Screen-reader state suffixes per step; override the English defaults for localization.' },
-];
-
-export default function StepperPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [step, setStep] = useState(1);
   const [belowStep, setBelowStep] = useState(2);
   const [verticalStep, setVerticalStep] = useState(1);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="stepper"
-      title="Stepper"
-      description="Multi-step flow indicator: ordered list, aria-current step, text state, horizontal or vertical, numbered or dots."
-      npmPackages="@slipstream-ui/core"
-      propsRows={PROPS_ROWS}
-      accessibility={[
-        'Ordered list semantics; the active step carries aria-current="step".',
-        'Complete/current/upcoming are stated in screen-reader text, not only color.',
-        'Titles without a description are centred against the marker; titles with one stay top aligned.',
-        'Clickable steps are real buttons with a visible focus ring.',
-      ]}
-    >
+    <>
       <div className="space-y-8">
         <DemoCard
           title="Onboarding wizard (interactive)"
@@ -212,6 +186,6 @@ export default function StepperPage({ manifest }: { manifest?: ComponentPageProp
           usage={`// Omitting onStepClick gives a read-only indicator for status pages,
 // order summaries and post-completion reviews — nothing is clickable.`}
         />
-    </ComponentPage>
+    </>
   );
 }

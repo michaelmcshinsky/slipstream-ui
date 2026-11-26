@@ -1,24 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Separator } from '@slipstream-ui/core';
 
-export default function SeparatorPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="separator"
-      title="Separator"
-      description="Visual divider between content blocks, decorative or semantic."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'orientation', type: "'horizontal' | 'vertical'", defaultValue: "'horizontal'", description: 'Direction of the divider line.' },
-        { name: 'label', type: 'string', description: 'Accessible name; when set, the separator becomes semantic.' },
-      ]}
-      accessibility={[
-        'Decorative by default (role=none) so screen readers skip it.',
-        'Pass a label to make it a semantic separator.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Both orientations"
         preview={
@@ -41,6 +26,6 @@ export default function SeparatorPage({ manifest }: { manifest?: ComponentPagePr
         usage={"import { Separator } from '@slipstream-ui/core';\n\n<Separator />\n<Separator orientation=\"vertical\" label=\"Toolbar sections\" />"}
         types={"type SeparatorProps = {\n  orientation?: 'horizontal' | 'vertical';\n  label?: string;\n};\n\n// Divider is a renamed export of the same component\nconst Divider: typeof Separator;"}
       />
-    </ComponentPage>
+    </>
   );
 }

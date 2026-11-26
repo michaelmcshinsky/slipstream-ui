@@ -1,32 +1,11 @@
 'use client';
 
 import { Button, FeatureRow, Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FeatureRowPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="feature-row"
-      title="FeatureRow"
-      description="Alternating media and copy row for mid-page feature sections."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'ReactNode', defaultValue: 'required', description: 'Row heading.' },
-        { name: 'description', type: 'ReactNode', description: 'Supporting copy.' },
-        { name: 'eyebrow', type: 'ReactNode', description: 'Small overline above the heading.' },
-        { name: 'actions', type: 'ReactNode', description: 'Calls to action.' },
-        { name: 'media', type: 'ReactNode', defaultValue: 'required', description: 'Image, mockup, video or form beside the copy.' },
-        { name: 'mediaPosition', type: "'left' | 'right'", defaultValue: "'right'", description: 'Media side at lg and up.' },
-        { name: 'level', type: '2 | 3', defaultValue: '2', description: 'Heading level.' },
-        { name: 'size', type: "'md' | 'lg'", defaultValue: "'md'", description: 'Heading scale.' },
-      ]}
-      accessibility={[
-        'Defaults to h2; use level={3} for a nested subsection.',
-        'Media is a slot so the consumer owns alt text.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Feature row"
         preview={
@@ -70,6 +49,6 @@ export default function FeatureRowPage({ manifest }: { manifest?: ComponentPageP
   size?: 'md' | 'lg';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

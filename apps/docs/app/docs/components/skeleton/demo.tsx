@@ -1,28 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Skeleton } from '@slipstream-ui/core';
 
-export default function SkeletonPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="skeleton"
-      title="Skeleton"
-      description="Loading placeholder that mirrors the shape of upcoming content: sized via props, not ad-hoc classes."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'height', type: 'string', description: "Tailwind height class (e.g. 'h-4') applied to the block." },
-        { name: 'width', type: 'string', defaultValue: "'w-full'", description: "Tailwind width class (e.g. 'w-48') applied to the block." },
-        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", defaultValue: "'md'", description: 'Corner preset: use full for avatars/dots, none for tables.' },
-        { name: 'label', type: 'string', description: 'Loading announcement: the block becomes role="status" with an sr-only label instead of aria-hidden decorative.' },
-        { name: 'className', type: 'string', description: 'Escape hatch for anything the props do not cover.' },
-      ]}
-      accessibility={[
-        'Unlabeled blocks are aria-hidden so screen readers skip placeholder shapes.',
-        'Pass label on one representative block (or wrap a composite layout in role="status") to announce "Loading…" once for the whole region.',
-        'Match skeleton geometry to the real content to avoid layout shift when data arrives.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Sized with props"
         preview={
@@ -137,6 +118,6 @@ export default function SkeletonPage({ manifest }: { manifest?: ComponentPagePro
 // role="status" with an sr-only label. For composite layouts you can
 // also wrap the group in role="status" yourself (see Realistic layouts).`}
       />
-    </ComponentPage>
+    </>
   );
 }

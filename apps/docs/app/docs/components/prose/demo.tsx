@@ -1,20 +1,11 @@
 'use client';
 
 import { Prose } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ProsePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="prose"
-      title="Prose"
-      description="Self-contained long-form typography for rendered markdown/MDX: headings, links, lists, code, tables, quotes and figures."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[{ name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Type scale for body and headings.' }]}
-      accessibility={['Heading anchors carry scroll-mt offsets for sticky headers.', 'Links keep the primary color and underline for recognition.']}
-    >
+    <>
       <DemoCard
         title="Article body"
         preview={
@@ -37,6 +28,6 @@ export default function ProsePage({ manifest }: { manifest?: ComponentPageProps[
   size?: 'sm' | 'md' | 'lg';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { LoadMore } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function LoadMorePage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -18,25 +17,7 @@ export default function LoadMorePage({ manifest }: { manifest?: ComponentPagePro
   };
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="load-more"
-      title="LoadMore"
-      description="Load-more control with pending and end-of-list states."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'hasMore', type: 'boolean', defaultValue: 'required', description: 'Whether another page is available.' },
-        { name: 'onLoadMore', type: '() => void', defaultValue: 'required', description: 'Request the next page.' },
-        { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Loading state.' },
-        { name: 'loadLabel', type: 'string', defaultValue: "'Load more'", description: 'Button label.' },
-        { name: 'loadingLabel', type: 'string', defaultValue: "'Loading...'", description: 'Loading label.' },
-        { name: 'endLabel', type: 'string', defaultValue: "'You're all caught up.'", description: 'End-of-list message.' },
-      ]}
-      accessibility={[
-        'The wrapper uses aria-live polite and loading sets aria-busy.',
-        'At the end, the button is replaced by a status message.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Paginated project grid"
         preview={
@@ -63,6 +44,6 @@ export default function LoadMorePage({ manifest }: { manifest?: ComponentPagePro
   endLabel?: string;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

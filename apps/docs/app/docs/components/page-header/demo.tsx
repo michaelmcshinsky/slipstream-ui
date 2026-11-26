@@ -1,38 +1,16 @@
 'use client';
 
 import { Breadcrumb, Button, PageHeader, documentHead } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function PageHeaderPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const head = documentHead({
     title: 'Classes',
     description: 'Manage your weekly schedule and enrollment.',
     canonical: 'https://example.com/classes',
   });
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="page-header"
-      title="PageHeader"
-      description="Standard page heading with breadcrumbs, h1, description and actions, plus a router-agnostic documentHead helper for title, description, canonical and robots."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'string', defaultValue: 'required', description: 'Page heading rendered as h1.' },
-        { name: 'description', type: 'ReactNode', description: 'Supporting summary under the title; accepts links and inline markup.' },
-        { name: 'subtitle', type: 'ReactNode', description: 'Alias for description (migration-friendly).' },
-        { name: 'breadcrumbs', type: 'ReactNode', description: 'Trail rendered above the title.' },
-        { name: 'actions', type: 'ReactNode', description: 'Right-aligned actions (buttons, menus).' },
-        { name: 'children', type: 'ReactNode', description: 'Sub-row under the title (tabs, filters).' },
-        { name: 'eyebrow', type: 'ReactNode', description: 'Kicker/overline above the title.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg' | 'hero'", defaultValue: "'md'", description: 'Heading scale; hero is for marketing landings.' },
-        { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Text and action alignment.' },
-        { name: 'titleClassName', type: 'string', description: 'Extra classes for the h1.' },
-        { name: 'descriptionClassName', type: 'string', description: 'Extra classes for the description.' },
-        { name: 'eyebrowClassName', type: 'string', description: 'Extra classes for the eyebrow.' },
-      ]}
-      accessibility={['Renders exactly one h1 per page.', 'Use Heading level={2} for section headings below the header.']}
-    >
+    <>
       <DemoCard
         title="List page header"
         preview={
@@ -176,6 +154,6 @@ export function generateMetadata() {
   robots: string;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

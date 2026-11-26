@@ -1,26 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger, Button, Input } from '@slipstream-ui/core';
 
-export default function PopoverPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="popover"
-      title="Popover"
-      description="Floating panel anchored to a trigger with interactive content."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'open', type: 'boolean', description: 'Controlled open state.' },
-        { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the open state changes.' },
-        { name: '.PopoverContent', type: 'PopoverContentProps', description: 'side, align, sideOffset, alignOffset, collisionPadding and matchTriggerWidth control placement, flipping and clamping.' },
-        { name: '.PopoverAnchor', type: 'PopoverAnchorProps', description: 'Anchors the panel to this element instead of the trigger wrapper.' },
-      ]}
-      accessibility={[
-        'role=dialog with aria-labelledby linking to the trigger.',
-        'Escape closes the popover; outside click dismisses it.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Usage"
         preview={
@@ -173,6 +156,6 @@ export default function PopoverPage({ manifest }: { manifest?: ComponentPageProp
   </PopoverContent>
 </Popover>`}
       />
-    </ComponentPage>
+    </>
   );
 }

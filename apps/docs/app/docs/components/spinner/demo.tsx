@@ -1,24 +1,9 @@
 import { Spinner } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SpinnerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="spinner"
-      title="Spinner"
-      description="Indeterminate loading indicator with accessible status semantics."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'Visual size of the spinner.' },
-        { name: 'label', type: 'string', defaultValue: "'Loading...'", description: 'Screen-reader label announced via role=status.' },
-      ]}
-      accessibility={[
-        'Renders role="status" with an sr-only label so loading is announced.',
-        'Set aria-hidden and an empty label when the spinner is purely decorative next to visible text.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Sizes & inline usage"
         preview={
@@ -44,6 +29,6 @@ export default function SpinnerPage({ manifest }: { manifest?: ComponentPageProp
   Generating response...
 </span>`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { BottomNav } from '@slipstream-ui/core';
 
@@ -18,29 +17,9 @@ const ITEMS = [
   { href: '#', label: 'Alerts', badge: 3, icon: <Icon path="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" /> },
 ];
 
-export default function BottomNavPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="bottom-nav"
-      title="BottomNav"
-      description="Mobile bottom tab bar for the 3-5 primary destinations of an app shell, with an active tab, count badges and safe-area padding."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'items', type: 'BottomNavItem[]', defaultValue: 'required', description: 'Tabs in order: href, label, optional icon, active, badge and disabled.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Router link component (Next Link, react-router Link).' },
-        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent.' },
-        { name: 'label', type: 'string', defaultValue: "'Primary'", description: 'Accessible label for the nav landmark.' },
-        { name: 'fixed', type: 'boolean', defaultValue: 'true', description: 'Pin the bar to the bottom edge with safe-area padding.' },
-        { name: 'mobileOnly', type: 'boolean', defaultValue: 'true', description: 'Hide the bar from the md breakpoint up.' },
-      ]}
-      accessibility={[
-        'Renders a nav landmark named by label (default "Primary").',
-        'Only the active tab carries aria-current="page".',
-        'Every tab is at least 56px tall with a 44px minimum target.',
-        'env(safe-area-inset-bottom) keeps the bar clear of the iOS home indicator.',
-      ]}
-    >
+    <>
       <DemoCard
         title="App shell tabs"
         preview={
@@ -83,6 +62,6 @@ export default function BottomNavPage({ manifest }: { manifest?: ComponentPagePr
   ]}
 />`}
       />
-    </ComponentPage>
+    </>
   );
 }

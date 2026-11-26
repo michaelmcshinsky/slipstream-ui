@@ -1,29 +1,11 @@
 'use client';
 
 import { ProcessSteps, Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ProcessStepsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="process-steps"
-      title="ProcessSteps"
-      description="Ordered process cards with derived step numbers or custom icons."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'steps', type: 'ProcessStep[]', defaultValue: 'required', description: 'Ordered steps: title, optional description and icon.' },
-        { name: 'columns', type: '2 | 3 | 4', defaultValue: '3', description: 'Desktop column count.' },
-        { name: 'numbered', type: 'boolean', defaultValue: 'true', description: 'Show step numbers when no icon is provided.' },
-        { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Content alignment.' },
-        { name: 'headingLevel', type: '2 | 3 | 4', defaultValue: '3', description: 'Heading level for step titles; choose the level that continues the page outline without skipping a rank.' },
-      ]}
-      accessibility={[
-        'Renders an ordered list, so the sequence is structural.',
-        'Step numbers are derived from list order; do not hardcode them in titles.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Onboarding process"
         preview={
@@ -61,6 +43,6 @@ type ProcessStepsProps = {
   align?: 'left' | 'center';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

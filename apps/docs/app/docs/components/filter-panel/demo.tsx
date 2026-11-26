@@ -2,38 +2,14 @@
 
 import { useState } from 'react';
 import { FilterPanel, MultiSelect, RangeSlider } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FilterPanelPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [industries, setIndustries] = useState<string[]>(['technology']);
   const [revenue, setRevenue] = useState<[number, number]>([5, 100]);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="filter-panel"
-      title="FilterPanel"
-      description="Structured filter panel with collapsible sections and reset/apply actions."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'sections', type: 'FilterSection[]', defaultValue: 'required', description: 'Filter groups: title, optional description, content and defaultOpen.' },
-        { name: 'title', type: 'string', defaultValue: "'Filters'", description: 'Panel heading.' },
-        { name: 'description', type: 'string', description: 'Supporting copy under the panel heading.' },
-        { name: 'onReset', type: '() => void', description: 'Reset action shown in the footer.' },
-        { name: 'onApply', type: '() => void', description: 'Apply action shown in the footer.' },
-        { name: 'resetLabel', type: 'string', defaultValue: "'Reset'", description: 'Reset button label.' },
-        { name: 'applyLabel', type: 'string', defaultValue: "'Apply'", description: 'Apply button label.' },
-        { name: 'collapsible', type: 'boolean', defaultValue: 'true', description: 'Allow sections to collapse.' },
-        { name: 'defaultOpen', type: 'string[]', description: 'Section titles open on first render.' },
-        { name: 'actions', type: 'ReactNode', description: 'Extra footer content.' },
-        { name: 'as', type: "'div' | 'aside' | 'section'", defaultValue: "'div'", description: 'Semantic element.' },
-      ]}
-      accessibility={[
-        'Each section header is a button with aria-expanded and aria-controls.',
-        'Panel title is h2 and section titles are h3.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Project filters"
         preview={
@@ -114,6 +90,6 @@ type FilterPanelProps = {
   as?: 'div' | 'aside' | 'section';
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

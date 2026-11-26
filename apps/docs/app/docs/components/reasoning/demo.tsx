@@ -3,10 +3,9 @@
 import { useState } from 'react';
 import { Reasoning } from '@slipstream-ui/ai';
 import type { ReasoningStep } from '@slipstream-ui/ai';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ReasoningPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [collapsible, setCollapsible] = useState(true);
 
@@ -18,28 +17,7 @@ export default function ReasoningPage({ manifest }: { manifest?: ComponentPagePr
   ];
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="reasoning"
-      title="Reasoning"
-      description="A collapsible component for displaying AI reasoning steps and chain-of-thought processes."
-      propsRows={[
-        { name: 'steps', type: 'ReasoningStep[]', defaultValue: 'required', description: 'Array of reasoning steps' },
-        { name: 'collapsible', type: 'boolean', defaultValue: 'true', description: 'Whether reasoning can be collapsed' },
-        { name: 'defaultExpanded', type: 'boolean', defaultValue: 'false', description: 'Whether expanded by default' },
-        { name: 'duration', type: 'number | string', description: 'Elapsed thinking time shown in the header.' },
-        { name: 'isStreaming', type: 'boolean', defaultValue: 'false', description: 'Marks reasoning as still arriving.' },
-        { name: 'formatTime', type: '(date: Date) => string', description: 'Custom step timestamp formatter.' },
-        { name: 'locale', type: 'string', description: 'BCP-47 locale for the default timestamp formatter.' },
-        { name: 'labels', type: '{ title?, count?, thinking?, step? }', description: 'Localized header, count and step labels.' },
-      ]}
-      accessibility={[
-        'Uses aria-expanded to communicate collapsible state',
-        'Collapsible button is keyboard accessible',
-        'Steps are numbered for easy reference',
-        'Visual hierarchy with clear step indicators',
-      ]}
-    >
+    <>
       <DemoCard
         title="Playground"
         preview={
@@ -121,6 +99,6 @@ const reasoningSteps = [
         usage={`// isStreaming swaps the header to a live "thinking…" state;
 // duration renders elapsed time; labels localize the chrome.`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,25 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Alert, AlertDescription, AlertTitle } from '@slipstream-ui/core';
 
-export default function AlertPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="alert"
-      title="Alert"
-      description="Inline alert for status messages with semantic variants."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'variant', type: "'default' | 'destructive' | 'danger' | 'success' | 'warning' | 'info'", defaultValue: "'default'", description: 'Semantic style variant; danger is an alias of destructive kept for Bootstrap/shadcn-style codebases.' },
-        { name: 'children', type: 'ReactNode', description: 'Alert content (AlertTitle and AlertDescription).' },
-      ]}
-      accessibility={[
-        'role=alert announces the content when it appears.',
-        'AlertTitle renders as h5; maintain logical heading order.',
-        'Every semantic variant meets WCAG AA text contrast in light and dark modes.',
-      ]}
-    >
+    <>
       <DemoCard
         title="All variants"
         preview={
@@ -89,6 +73,6 @@ export default function AlertPage({ manifest }: { manifest?: ComponentPageProps[
   children?: ReactNode;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

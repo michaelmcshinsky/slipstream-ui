@@ -1,30 +1,11 @@
 'use client';
 
 import { Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SectionPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="section"
-      title="Section"
-      description="Full-width page section with a surface tone, vertical rhythm and an optional centered container."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'tone', type: "'default' | 'muted' | 'subtle' | 'brand' | 'inverse'", defaultValue: "'default'", description: 'Surface treatment. inverse flips background, foreground, card, border and muted tokens for its subtree.' },
-        { name: 'padding', type: "'none' | 'sm' | 'md' | 'lg' | 'xl'", defaultValue: "'md'", description: 'Vertical rhythm.' },
-        { name: 'width', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", defaultValue: "'lg'", description: 'Inner Container width.' },
-        { name: 'container', type: 'boolean', defaultValue: 'true', description: 'Wrap children in a centered Container.' },
-        { name: 'containerClassName', type: 'string', description: 'Extra classes for the inner Container.' },
-        { name: 'as', type: "'section' | 'div' | 'article' | 'header' | 'footer' | 'main' | 'aside'", defaultValue: "'section'", description: 'Semantic element to render.' },
-      ]}
-      accessibility={[
-        'tone="inverse" scopes background, foreground, card, border and muted tokens so child components stay readable.',
-        'Add aria-label or aria-labelledby when the section is a named landmark.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Section tones"
         preview={
@@ -84,6 +65,6 @@ export default function SectionPage({ manifest }: { manifest?: ComponentPageProp
         usage={`// container={false} hands width control to you (pair with width or your own wrapper).
 // as swaps the landmark element; width="full" skips the max-width container.`}
       />
-    </ComponentPage>
+    </>
   );
 }

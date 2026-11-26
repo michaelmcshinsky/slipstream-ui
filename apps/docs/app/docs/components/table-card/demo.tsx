@@ -1,7 +1,6 @@
 'use client';
 
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableCard } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const ROWS = [
@@ -10,25 +9,9 @@ const ROWS = [
   { name: 'Pointe Technique', instructor: 'Martha', seats: 6 },
 ];
 
-export default function TableCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="table-card"
-      title="TableCard"
-      description="Table shell with title/description, actions, optional toolbar, edge-to-edge body and a footer row."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'title', type: 'string', description: 'Card heading (h2).' },
-        { name: 'description', type: 'string', description: 'Supporting line under the heading.' },
-        { name: 'actions', type: 'ReactNode', description: 'Right-aligned header actions.' },
-        { name: 'toolbar', type: 'ReactNode', description: 'Row between header and table (filters, bulk actions).' },
-        { name: 'children', type: 'ReactNode', defaultValue: 'required', description: 'Table or DataTable content.' },
-        { name: 'footer', type: 'ReactNode', description: 'Footer row (pagination, summary).' },
-        { name: 'flush', type: 'boolean', defaultValue: 'true', description: 'Remove inner padding so the table reaches the card edges.' },
-      ]}
-      accessibility={['Title renders an h2; the page h1 belongs to PageHeader.', 'The table keeps its own caption/aria-label.']}
-    >
+    <>
       <DemoCard
         title="List page table"
         preview={
@@ -82,6 +65,6 @@ export default function TableCardPage({ manifest }: { manifest?: ComponentPagePr
   flush?: boolean;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { AppliedFilters, type FilterChip } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const INITIAL: FilterChip[] = [
@@ -11,32 +10,14 @@ const INITIAL: FilterChip[] = [
   { key: 'revenue', label: 'Revenue', value: '$10M to $50M' },
 ];
 
-export default function AppliedFiltersPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [filters, setFilters] = useState(INITIAL);
   const [editHint, setEditHint] = useState(false);
 
   const remove = (key: string) => setFilters((current) => current.filter((filter) => filter.key !== key));
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="applied-filters"
-      title="AppliedFilters"
-      description="Applied-filter summary with a live count, removable chips and an edit action."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'filters', type: 'FilterChip[]', defaultValue: 'required', description: 'Active filters to display.' },
-        { name: 'onClearAll', type: '() => void', description: 'Clear-all action.' },
-        { name: 'onEdit', type: '() => void', description: 'Opens the filter panel for editing.' },
-        { name: 'label', type: 'string', description: 'Optional summary text; defaults to N active.' },
-        { name: 'emptyLabel', type: 'string', description: 'Shown when there are no filters.' },
-        { name: 'editLabel', type: 'string', defaultValue: "'Edit filters'", description: 'Edit action label.' },
-      ]}
-      accessibility={[
-        'The wrapper uses aria-live=polite so count changes are announced.',
-        'Remove and clear actions come from FilterChips with named controls.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Applied filters"
         preview={
@@ -73,6 +54,6 @@ export default function AppliedFiltersPage({ manifest }: { manifest?: ComponentP
   editLabel?: string;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { FilterChips, type FilterChip } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
 const INITIAL: FilterChip[] = [
@@ -11,31 +10,13 @@ const INITIAL: FilterChip[] = [
   { key: 'revenue', label: 'Revenue', value: '$10M to $50M' },
 ];
 
-export default function FilterChipsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [filters, setFilters] = useState(INITIAL);
 
   const remove = (key: string) => setFilters((current) => current.filter((filter) => filter.key !== key));
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="filter-chips"
-      title="FilterChips"
-      description="Active-filter summary with removable chips and a clear-all action."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'filters', type: 'FilterChip[]', defaultValue: 'required', description: 'Active filters: key, label, optional value and onRemove.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Chip scale: padding, text size and remove-button icon size.' },
-        { name: 'onClearAll', type: '() => void', description: 'Shows a clear-all action when provided.' },
-        { name: 'clearLabel', type: 'string', defaultValue: "'Clear all'", description: 'Label for the clear-all action.' },
-        { name: 'emptyLabel', type: 'string', description: 'Shown when there are no active filters. Nothing renders when omitted.' },
-        { name: "'aria-label'", type: 'string', defaultValue: "'Active filters'", description: 'Accessible name for the filter group.' },
-      ]}
-      accessibility={[
-        'Renders a named group (Active filters by default) so the summary has a landmark-like label.',
-        'Each remove control is named Remove <filter>: <value>.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Applied filters"
         preview={
@@ -95,6 +76,6 @@ type FilterChipsProps = {
         usage={`// Pick the scale that matches the density of the surrounding toolbar.
 // Chips, their remove icons and the clear-all action scale together.`}
       />
-    </ComponentPage>
+    </>
   );
 }

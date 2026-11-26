@@ -1,35 +1,11 @@
 'use client';
 
 import { Button, EntityCard, Grid } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function EntityCardPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="entity-card"
-      title="EntityCard"
-      description="Profile card with logo, type, location, stats, tags and actions."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'name', type: 'string', defaultValue: 'required', description: 'Firm or member name.' },
-        { name: 'entityType', type: 'string', defaultValue: 'required', description: 'Firm type, role or member category.' },
-        { name: 'location', type: 'string', description: 'Region or office location.' },
-        { name: 'description', type: 'string', description: 'Short firm description.' },
-        { name: 'logo', type: 'ReactNode', description: 'Logo slot; initials are used when omitted.' },
-        { name: 'stats', type: 'EntityStat[]', description: 'Small stats such as projects delivered.' },
-        { name: 'tags', type: 'string[]', description: 'Sector or service tags.' },
-        { name: 'href', type: 'string', description: 'Profile destination.' },
-        { name: 'cardHref', type: 'string', description: 'Whole-card stretched link; suppresses the footer link.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-        { name: 'actions', type: 'ReactNode', description: 'Extra footer actions.' },
-      ]}
-      accessibility={[
-        'The title and footer link are the destinations; cardHref makes the whole card one stretched link with actions layered above.',
-        'The avatar fallback derives initials from the name.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Directory cards"
         preview={
@@ -90,6 +66,6 @@ type EntityCardProps = {
   actions?: React.ReactNode;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Demo from './demo';
+import { ComponentPage } from '@/components/component-page';
 import { getRegistryManifest } from '@/lib/registry-manifests.generated';
 import { withSeo } from '@/lib/seo';
 
@@ -9,5 +10,29 @@ export const metadata: Metadata = withSeo('/docs/components/segmented-control', 
 });
 
 export default function Page() {
-  return <Demo manifest={getRegistryManifest('segmented-control')} />;
+  return (
+    <ComponentPage
+      manifest={getRegistryManifest('segmented-control')}
+      id="segmented-control"
+      title="SegmentedControl"
+      description="Single- or multi-select segmented control for view and filter switches."
+      npmPackages="@slipstream-ui/core"
+      propsRows={[
+        { name: 'options', type: 'SegmentedOption[]', defaultValue: 'required', description: 'Segments to render: value, label, optional icon and disabled.' },
+        { name: 'value', type: 'string | string[]', description: 'Controlled selection. Use string[] when multiple.' },
+        { name: 'defaultValue', type: 'string | string[]', description: 'Initial selection when uncontrolled.' },
+        { name: 'onValueChange', type: '(value: string | string[]) => void', description: 'Fires with the next selection.' },
+        { name: 'multiple', type: 'boolean', defaultValue: 'false', description: 'Allow more than one segment to be active.' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Control density.' },
+        { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Stretch segments to fill the container width.' },
+      ]}
+      accessibility={[
+        'Single-select uses role=radiogroup/radio with aria-checked and arrow-key navigation.',
+        'Multiple uses role=group with aria-pressed on each segment.',
+        'Pass aria-label or aria-labelledby; the default name is generic.',
+      ]}
+    >
+      <Demo />
+    </ComponentPage>
+  );
 }

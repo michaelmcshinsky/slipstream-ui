@@ -1,29 +1,11 @@
 'use client';
 
 import { Section, StatBand } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function StatBandPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="stat-band"
-      title="StatBand"
-      description="Semantic description list of headline stats with labels, optional hints and column presets."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'items', type: 'StatItem[]', defaultValue: 'required', description: 'Stats to display: value, label and optional hint.' },
-        { name: 'columns', type: '2 | 3 | 4', defaultValue: '3', description: 'Desktop column count.' },
-        { name: 'align', type: "'left' | 'center'", defaultValue: "'center'", description: 'Copy alignment.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Value scale.' },
-        { name: 'divided', type: 'boolean', defaultValue: 'true', description: 'Draw dividers between stats at sm and up.' },
-      ]}
-      accessibility={[
-        'Renders dl/dt/dd so each number is structurally paired with its label.',
-        'Labels are read before values even though the value appears first visually.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Proof band on an inverse surface"
         preview={
@@ -96,6 +78,6 @@ type StatBandProps = {
         usage={`// align="left" + divided={false} suits dense spec sheets; keep
 // size="lg" for hero proof bands.`}
       />
-    </ComponentPage>
+    </>
   );
 }

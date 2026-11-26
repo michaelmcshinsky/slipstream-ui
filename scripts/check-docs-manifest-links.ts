@@ -6,9 +6,11 @@
  * sections (and Copy for AI fails), which is exactly the kind of docs drift a
  * reader notices before a test does.
  *
- * This gate walks every `apps/docs/app/docs/components/*\/demo.tsx`, reads the
- * `id` / `manifestId` passed to `ComponentPage`, and verifies the generated
- * registry payload exists and carries that id.
+ * This gate walks every `apps/docs/app/docs/components/*\/page.tsx` (the
+ * server scaffold that renders `ComponentPage`), reads the `id` /
+ * `manifestId` passed to it, and verifies the generated registry payload
+ * exists and carries that id. `demo.tsx` files are client islands and no
+ * longer carry the page props.
  *
  * Run: pnpm check:docs-links (also part of validate:manifests / CI).
  */
@@ -21,12 +23,12 @@ const REGISTRY_DIR = path.join(ROOT, 'apps', 'docs', 'public', 'registry');
 
 type Failure = { page: string; detail: string };
 
-function demoFiles(dir: string): string[] {
+function pageFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) return demoFiles(full);
-    return entry.name === 'demo.tsx' ? [full] : [];
+    if (entry.isDirectory()) return pageFiles(full);
+    return entry.name === 'page.tsx' || entry.name === 'demo.tsx' ? [full] : [];
   });
 }
 
@@ -36,9 +38,14 @@ function attribute(source: string, name: string): string | undefined {
 }
 
 const failures: Failure[] = [];
-for (const file of demoFiles(COMPONENTS_DIR)) {
-  const page = path.relative(COMPONENTS_DIR, path.dirname(file)).split(path.sep).join('/');
+const checked = new Set<string>();
+for (const file of pageFiles(COMPONENTS_DIR)) {
+  const dir = path.relative(COMPONENTS_DIR, path.dirname(file)).split(path.sep).join('/');
+  if (checked.has(dir)) continue;
   const source = fs.readFileSync(file, 'utf8');
+  if (!source.includes('<ComponentPage')) continue;
+  checked.add(dir);
+  const page = dir;
   const id = attribute(source, 'id');
   if (!id) {
     failures.push({ page, detail: 'ComponentPage has no id' });
@@ -75,4 +82,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Docs links: every component page resolves to a registry payload (${demoFiles(COMPONENTS_DIR).length} pages).`);
+console.log(`Docs links: every component page resolves to a registry payload (${checked.size} pages).`);

@@ -1,27 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Text } from '@slipstream-ui/core';
 
-export default function TextPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="text"
-      title="Text"
-      description="Semantic paragraph text with a controlled type scale; renders a real p (or span with inline)."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'inline', type: 'boolean', defaultValue: 'false', description: 'Render as an inline span instead of a block p.' },
-        { name: 'size', type: "'xs' | 'sm' | 'base' | 'lg' | 'xl'", defaultValue: "'base'", description: 'Type scale step.' },
-        { name: 'weight', type: "'normal' | 'medium' | 'semibold' | 'bold'", description: 'Font weight.' },
-        { name: 'muted', type: 'boolean', defaultValue: 'false', description: 'Use the muted-foreground token.' },
-      ]}
-      accessibility={[
-        'Renders real <p>/<span>: document semantics stay intact for reader modes and assistive tech.',
-        'Muted tone uses --muted-foreground (AA in both themes).',
-        'Never use Text where a Heading belongs: outline navigation depends on headings.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Sizes and weights"
         preview={
@@ -80,6 +62,6 @@ export default function TextPage({ manifest }: { manifest?: ComponentPageProps['
   muted?: boolean;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

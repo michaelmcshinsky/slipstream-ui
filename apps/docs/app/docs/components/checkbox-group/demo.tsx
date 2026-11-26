@@ -2,36 +2,14 @@
 
 import { useState } from 'react';
 import { CheckboxGroup, CheckboxGroupItem } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function CheckboxGroupPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [langs, setLangs] = useState<string[]>(['ts']);
   const [alerts, setAlerts] = useState<string[]>([]);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="checkbox-group"
-      manifestId="checkbox"
-      title="CheckboxGroup"
-      description="Multi-select counterpart of RadioGroup: shared name, fieldset/legend context, the selection as string[], and vertical or horizontal layout."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'name', type: 'string', defaultValue: 'required', description: 'Shared name applied to every checkbox in the group.' },
-        { name: 'legend', type: 'string', description: 'Accessible group label rendered as <legend>.' },
-        { name: 'value', type: 'string[]', description: 'Currently selected values (controlled).' },
-        { name: 'defaultValue', type: 'string[]', description: 'Initial selection (uncontrolled).' },
-        { name: 'onValueChange', type: '(value: string[]) => void', description: 'Called with the full selection after a toggle.' },
-        { name: 'orientation', type: "'vertical' | 'horizontal'", defaultValue: "'vertical'", description: 'Stack options or lay them out in a wrapping row.' },
-        { name: 'error', type: 'string', description: 'Group-level validation message; announced via role=alert.' },
-      ]}
-      accessibility={[
-        'Renders a native fieldset/legend so the group name is announced before each option.',
-        'Selection lives in a string[]: perfect for form state, URLs, and API payloads.',
-        'Keyboard behavior is the platform’s: Tab reaches the group, Space toggles the focused box.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Vertical group (interactive)"
         preview={
@@ -137,6 +115,6 @@ export default function CheckboxGroupPage({ manifest }: { manifest?: ComponentPa
 // error slot: it renders role=alert next to the legend, one fieldset
 // total. For layout grouping of unrelated controls, use Fieldset.`}
       />
-    </ComponentPage>
+    </>
   );
 }

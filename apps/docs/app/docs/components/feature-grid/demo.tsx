@@ -1,29 +1,11 @@
 'use client';
 
 import { FeatureGrid, Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function FeatureGridPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="feature-grid"
-      title="FeatureGrid"
-      description="Grid of feature or benefit cards with an icon, title, copy and optional link."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'features', type: 'FeatureItem[]', defaultValue: 'required', description: 'Features: title, optional description, icon, href and actionLabel.' },
-        { name: 'columns', type: '2 | 3 | 4', defaultValue: '3', description: 'Desktop column count.' },
-        { name: 'variant', type: "'card' | 'plain'", defaultValue: "'card'", description: 'Card surface or a plain stack.' },
-        { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Content alignment.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-      ]}
-      accessibility={[
-        'Renders ul/li so the group and item count are announced.',
-        'A linked feature is one link; do not nest buttons inside it.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Three benefits"
         preview={
@@ -78,6 +60,6 @@ type FeatureGridProps = {
   linkComponent?: React.ElementType;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

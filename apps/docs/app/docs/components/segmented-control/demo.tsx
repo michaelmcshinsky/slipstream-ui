@@ -2,35 +2,14 @@
 
 import { useState } from 'react';
 import { SegmentedControl } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SegmentedControlPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [audience, setAudience] = useState('teams');
   const [types, setTypes] = useState<string[]>(['integration']);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="segmented-control"
-      title="SegmentedControl"
-      description="Single- or multi-select segmented control for view and filter switches."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'options', type: 'SegmentedOption[]', defaultValue: 'required', description: 'Segments to render: value, label, optional icon and disabled.' },
-        { name: 'value', type: 'string | string[]', description: 'Controlled selection. Use string[] when multiple.' },
-        { name: 'defaultValue', type: 'string | string[]', description: 'Initial selection when uncontrolled.' },
-        { name: 'onValueChange', type: '(value: string | string[]) => void', description: 'Fires with the next selection.' },
-        { name: 'multiple', type: 'boolean', defaultValue: 'false', description: 'Allow more than one segment to be active.' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Control density.' },
-        { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Stretch segments to fill the container width.' },
-      ]}
-      accessibility={[
-        'Single-select uses role=radiogroup/radio with aria-checked and arrow-key navigation.',
-        'Multiple uses role=group with aria-pressed on each segment.',
-        'Pass aria-label or aria-labelledby; the default name is generic.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Audience filter"
         preview={
@@ -156,6 +135,6 @@ type SegmentedControlProps = {
         usage={`// size="sm" for toolbars; fullWidth stretches segments edge to edge.
 // icon accepts any ReactNode and pairs with a text label.`}
       />
-    </ComponentPage>
+    </>
   );
 }

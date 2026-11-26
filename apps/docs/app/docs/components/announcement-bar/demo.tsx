@@ -1,32 +1,11 @@
 'use client';
 
 import { AnnouncementBar } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function AnnouncementBarPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="announcement-bar"
-      title="AnnouncementBar"
-      description="Dismissible announcement bar with optional action, tone and sticky positioning."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'message', type: 'ReactNode', defaultValue: 'required', description: 'Message shown in the bar.' },
-        { name: 'href', type: 'string', description: 'Optional destination for the action.' },
-        { name: 'actionLabel', type: 'string', description: 'Action text, shown when href is provided.' },
-        { name: 'dismissible', type: 'boolean', defaultValue: 'true', description: 'Show a close control.' },
-        { name: 'onDismiss', type: '() => void', description: 'Called after dismissal.' },
-        { name: 'tone', type: "'muted' | 'brand' | 'inverse'", defaultValue: "'muted'", description: 'Surface treatment.' },
-        { name: 'sticky', type: 'boolean', defaultValue: 'false', description: 'Pin the bar to the top.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-      ]}
-      accessibility={[
-        'Renders a named region (Announcement) with a keyboard-operable dismiss button.',
-        'The caller owns persistence and dismissal policy.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Announcement bar"
         preview={
@@ -87,6 +66,6 @@ export default function AnnouncementBarPage({ manifest }: { manifest?: Component
 // above your header. dismissible={false} is for notices users must not
 // miss; pair with onDismiss-free rendering.`}
       />
-    </ComponentPage>
+    </>
   );
 }

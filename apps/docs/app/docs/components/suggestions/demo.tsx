@@ -2,30 +2,13 @@
 
 import { useState } from 'react';
 import { Suggestions } from '@slipstream-ui/ai';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function SuggestionsPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="suggestions"
-      title="Suggestions"
-      description="Offer useful next prompts after an AI response."
-      npmPackages="@slipstream-ui/ai"
-      propsRows={[
-        { name: 'suggestions', type: 'Suggestion[]', description: 'Required list of { id, text, type? }; type is action | query | follow-up.' },
-        { name: 'onSelect', type: '(suggestion: Suggestion) => void', description: 'Called with the chosen suggestion.' },
-        { name: 'maxDisplay', type: 'number', defaultValue: '4', description: 'Maximum suggestions rendered; 0 or undefined shows all.' },
-        { name: 'className', type: 'string', description: 'Additional classes for the suggestions container.' },
-      ]}
-      accessibility={[
-        'Suggestions render as buttons in source order.',
-        'Keep suggestion text short and action-oriented for screen-reader users.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Follow-up prompts"
         preview={
@@ -70,6 +53,6 @@ export default function SuggestionsPage({ manifest }: { manifest?: ComponentPage
         usage={`// maxDisplay caps the visible chips and shows a "+N more" indicator;
 // 0 or undefined renders every suggestion.`}
       />
-    </ComponentPage>
+    </>
   );
 }

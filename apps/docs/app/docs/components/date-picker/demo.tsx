@@ -1,27 +1,11 @@
 'use client';
 
 import { DatePicker, FormField } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function DatePickerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="date-picker"
-      title="DatePicker"
-      description="Native date field with an ISO-string contract, min/max passthrough and an optional clear button."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'value', type: 'string', description: 'ISO date (YYYY-MM-DD), controlled.' },
-        { name: 'defaultValue', type: 'string', description: 'ISO date, initial value.' },
-        { name: 'onValueChange', type: '(value: string) => void', description: "Fired with the ISO string; '' when cleared." },
-        { name: 'clearable', type: 'boolean', defaultValue: 'false', description: 'Shows a clear button once a value exists.' },
-        { name: 'clearLabel', type: 'string', defaultValue: "'Clear date'", description: 'Accessible label for the clear button.' },
-        { name: '…InputProps', type: 'InputProps', description: 'min, max, name, required, disabled, onChange all pass through.' },
-      ]}
-      accessibility={['Renders input[type=date] so OS pickers, keyboard editing and locale formatting apply.', 'Always label the field (FormField or aria-label).']}
-    >
+    <>
       <DemoCard
         title="ISO date field"
         preview={
@@ -46,6 +30,6 @@ export default function DatePickerPage({ manifest }: { manifest?: ComponentPageP
   // underlying <input type="date">.
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

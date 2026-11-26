@@ -1,26 +1,9 @@
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 import { Heading } from '@slipstream-ui/core';
 
-export default function HeadingPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="heading"
-      title="Heading"
-      description="Semantic heading (h1-h6) with a safe default scale and an optional visual-size override."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'level', type: '1 | 2 | 3 | 4 | 5 | 6', defaultValue: 'required', description: 'Semantic level: renders the matching h1..h6 element.' },
-        { name: "size", type: "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'", description: 'Visual size override, independent of the semantic level.' },
-        { name: 'muted', type: 'boolean', defaultValue: 'false', description: 'Use the muted-foreground token instead of the primary text color.' },
-      ]}
-      accessibility={[
-        'Renders real h1..h6 elements: indexable by find-in-page and outline panes.',
-        'One h1 per page; never skip levels (use size for visual weight instead).',
-        'Muted tone uses --muted-foreground (AA in both themes).',
-      ]}
-    >
+    <>
       <DemoCard
         title="Levels"
         preview={
@@ -63,6 +46,6 @@ export default function HeadingPage({ manifest }: { manifest?: ComponentPageProp
   muted?: boolean;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,28 +1,11 @@
 'use client';
 
 import { ContactStrip, Section } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function ContactStripPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="contact-strip"
-      title="ContactStrip"
-      description="Compact labelled contact rows with optional icons and links."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'items', type: 'ContactItem[]', defaultValue: 'required', description: 'Contact rows: label, value, optional href and icon.' },
-        { name: 'columns', type: '2 | 3', defaultValue: '2', description: 'Desktop column count.' },
-        { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Row alignment.' },
-        { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
-      ]}
-      accessibility={[
-        'Renders a list with one label and value per contact row.',
-        'Phone and email links use tel: and mailto: destinations.',
-      ]}
-    >
+    <>
       <DemoCard
         title="Contact details"
         preview={
@@ -82,6 +65,6 @@ type ContactStripProps = {
         usage={`// columns={3} + align="center" suits footer contact bands;
 // keep 2 columns for inline detail rows.`}
       />
-    </ComponentPage>
+    </>
   );
 }

@@ -1,26 +1,11 @@
 'use client';
 
 import { FormField, TimePicker } from '@slipstream-ui/core';
-import { ComponentPage, type ComponentPageProps } from '@/components/component-page';
 import { DemoCard } from '@/components/demo-card';
 
-export default function TimePickerPage({ manifest }: { manifest?: ComponentPageProps['manifest'] }) {
+export default function Demo() {
   return (
-    <ComponentPage
-        manifest={manifest}
-      id="time-picker"
-      title="TimePicker"
-      description="Native time field with an HH:MM contract and an optional clear button."
-      npmPackages="@slipstream-ui/core"
-      propsRows={[
-        { name: 'value', type: 'string', description: '"HH:MM" (24h), controlled.' },
-        { name: 'defaultValue', type: 'string', description: '"HH:MM", initial value.' },
-        { name: 'onValueChange', type: '(value: string) => void', description: "Fired with the time string; '' when cleared." },
-        { name: 'clearable', type: 'boolean', defaultValue: 'false', description: 'Shows a clear button once a value exists.' },
-        { name: 'clearLabel', type: 'string', defaultValue: "'Clear time'", description: 'Accessible label for the clear button.' },
-      ]}
-      accessibility={['Renders input[type=time]; the OS picker and keyboard editing apply.', 'Label the moment, not the control type.']}
-    >
+    <>
       <DemoCard
         title="Class time"
         preview={
@@ -46,6 +31,6 @@ export default function TimePickerPage({ manifest }: { manifest?: ComponentPageP
   clearLabel?: string;
 };`}
       />
-    </ComponentPage>
+    </>
   );
 }
