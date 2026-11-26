@@ -6,7 +6,7 @@ Free-text type-ahead input with a portalled listbox: static or async options, gr
 > Import: `import { Autocomplete } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/autocomplete
 > Registry: https://slipstreamui.com/registry/autocomplete.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.2
+> Tier: molecule · Package: @slipstream-ui/core@0.11.3
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

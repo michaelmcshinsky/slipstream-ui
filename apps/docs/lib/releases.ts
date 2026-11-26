@@ -9,9 +9,18 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.2',
+    version: '0.11.3',
     date: 'November 26, 2026',
     tag: 'current',
+    highlights: [
+      'Badge gains quiet status surfaces and a status dot for metadata chips: new outline-success/outline-warning/outline-info/outline-danger variants (tinted border + ink text) and a dot prop that renders a leading dot colored to the variant; works with asChild via Radix Slottable',
+      'Versioned packages: core/ai 0.11.3 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.2',
+    date: 'November 26, 2026',
+    tag: 'previous',
     highlights: [
       'EntityCard gains cardHref: opt-in stretched-link mode where the name link overlays the whole card — one target, one hover state, one focus ring — with footer actions staying clickable above the overlay',
       'Versioned packages: core 0.11.2 (patch); ai 0.11.0, themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
