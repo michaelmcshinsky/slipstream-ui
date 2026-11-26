@@ -199,6 +199,28 @@ describe('production configuration validation', () => {
     vi.unstubAllEnvs();
   });
 
+  it('http transport forwards RFC 5322 headers (List-Unsubscribe) to the webhook', async () => {
+    const ok = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 200 }));
+    await httpTransport('https://hooks.test/x').send({
+      to: 'a@b.dev',
+      kind: 'newsletter',
+      subject: 's',
+      text: 't',
+      headers: {
+        'List-Unsubscribe': '<https://app.test/api/newsletter/unsubscribe?token=x>',
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
+    });
+    const body = JSON.parse(ok.mock.calls.at(-1)![1]!.body as string) as Record<string, unknown>;
+    // CAN-SPAM one-click unsubscribe depends on the gateway passing these
+    // through as real MIME headers — the payload must carry them verbatim.
+    expect(body.headers).toEqual({
+      'List-Unsubscribe': '<https://app.test/api/newsletter/unsubscribe?token=x>',
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+    });
+    ok.mockRestore();
+  });
+
   it('http transport includes `from` from EMAIL_FROM and omits it when unset or empty', async () => {
     const ok = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 200 }));
     const transport = httpTransport('https://hooks.test/x');
