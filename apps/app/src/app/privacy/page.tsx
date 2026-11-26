@@ -143,8 +143,12 @@ export default function PrivacyPage() {
         <p className="text-sm text-muted-foreground">
           You can update your profile, change your password, manage newsletter
           subscriptions and cookie preferences above, and leave teams from the
-          dashboard. To delete your account or export your data, contact us
-          via the details in the{' '}
+          dashboard. You can also export a copy of your data or permanently
+          delete your account from{' '}
+          <a href="/dashboard/settings" className="text-primary underline underline-offset-2 hover:text-primary/80">
+            Settings → Your data
+          </a>
+          . For anything the self-service options do not cover, see the{' '}
           <a
             href="https://slipstreamui.com/privacy"
             className="text-primary underline underline-offset-2 hover:text-primary/80"
