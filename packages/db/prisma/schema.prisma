@@ -311,6 +311,17 @@ model NewsletterSubscription {
   deliveries NewsletterDelivery[]
 }
 
+/// Nightly business-metric snapshots so admin numbers are reproducible
+/// and diffable over time. `day` is the UTC date (YYYY-MM-DD); one row per
+/// day, upserted by the metrics cron — reruns overwrite, never duplicate.
+model MetricSnapshot {
+  id        String   @id @default(cuid())
+  day       String   @unique
+  metrics   String   // JSON-encoded BusinessMetrics payload
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 /// Newsletter delivery records
 model NewsletterDelivery {
   id            String   @id @default(cuid())
