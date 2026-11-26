@@ -106,6 +106,16 @@ export default function SettingsPage() {
         </form>
       </Card>
 
+      <Card>
+        <CardTitle>Privacy</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          See what this dashboard stores and how it is used.{' '}
+          <a href="/privacy" className="text-primary underline underline-offset-2 hover:text-primary/80">
+            Privacy overview
+          </a>
+        </p>
+      </Card>
+
       {message && <p role="status" className="text-sm text-primary">{message}</p>}
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
     </div>

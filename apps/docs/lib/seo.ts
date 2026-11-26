@@ -79,6 +79,10 @@ export function withSeo(path: string, meta: Metadata = {}): Metadata {
       // Next resolves this against metadataBase, so the same value works in
       // every environment.
       canonical: existingAlternates.canonical ?? route,
+      // No `languages` (hreflang) alternates: the 7 UI locales share one URL
+      // via a cookie rather than locale-prefixed routes, so there is nothing
+      // for crawlers to alternate between. Revisit if locale-specific URLs
+      // are ever introduced (IMP-WEB-005).
       types: {
         ...AGENT_ALTERNATES,
         ...(existingAlternates.types ?? {}),
