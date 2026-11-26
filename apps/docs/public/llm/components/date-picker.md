@@ -6,7 +6,7 @@ Native date field with an ISO-string contract, min/max passthrough and an option
 > Import: `import { DatePicker } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/date-picker
 > Registry: https://slipstreamui.com/registry/date-picker.json
-> Tier: molecule · Package: @slipstream-ui/core@0.10.2
+> Tier: molecule · Package: @slipstream-ui/core@0.11.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
