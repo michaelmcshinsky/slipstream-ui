@@ -21,11 +21,12 @@ export default function EntityCardPage({ manifest }: { manifest?: ComponentPageP
         { name: 'stats', type: 'EntityStat[]', description: 'Small stats such as projects delivered.' },
         { name: 'tags', type: 'string[]', description: 'Sector or service tags.' },
         { name: 'href', type: 'string', description: 'Profile destination.' },
+        { name: 'cardHref', type: 'string', description: 'Whole-card stretched link; suppresses the footer link.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
         { name: 'actions', type: 'ReactNode', description: 'Extra footer actions.' },
       ]}
       accessibility={[
-        'The title and footer link are the destinations; actions stay separate.',
+        'The title and footer link are the destinations; cardHref makes the whole card one stretched link with actions layered above.',
         'The avatar fallback derives initials from the name.',
       ]}
     >
@@ -84,6 +85,7 @@ type EntityCardProps = {
   stats?: EntityStat[];
   tags?: string[];
   href?: string;
+  cardHref?: string;
   linkComponent?: React.ElementType;
   actions?: React.ReactNode;
 };`}

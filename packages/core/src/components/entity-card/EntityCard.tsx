@@ -26,6 +26,13 @@ export type EntityCardProps = React.HTMLAttributes<HTMLElement> & {
   tags?: string[];
   /** Profile destination. */
   href?: string;
+  /**
+   * Makes the whole card a single link (stretched-link pattern): the name
+   * becomes the link and its overlay covers the card, so one target gets one
+   * hover state and one focus ring. Interactive `actions` stay clickable above
+   * the overlay; the redundant footer "View profile" link is suppressed.
+   */
+  cardHref?: string;
   /** Custom link element for routers. */
   linkComponent?: React.ElementType;
   /** Extra footer actions. */
@@ -56,6 +63,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
     stats,
     tags,
     href,
+    cardHref,
     linkComponent,
     actions,
     className,
@@ -64,9 +72,11 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
   ref
 ) {
   const Link = linkComponent ?? 'a';
+  const stretched = Boolean(cardHref);
+  const nameHref = cardHref ?? href;
 
   return (
-    <Card ref={ref as never} className={cn('flex h-full flex-col', className)} {...props}>
+    <Card ref={ref as never} className={cn('flex h-full flex-col', stretched && 'relative isolate', className)} {...props}>
       <CardHeader className="flex-row items-start gap-3 p-5 pb-3">
         <div className="shrink-0">
           {logo ?? (
@@ -77,8 +87,14 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
         </div>
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-base font-semibold tracking-tight">
-            {href ? (
-              <Link href={href} className="rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            {nameHref ? (
+              <Link
+                href={nameHref}
+                className={cn(
+                  'rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  stretched && 'after:absolute after:inset-0 after:content-[""]'
+                )}
+              >
                 {name}
               </Link>
             ) : (
@@ -111,9 +127,9 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
           </dl>
         )}
       </CardContent>
-      {(href || actions) && (
-        <CardFooter className="flex flex-wrap items-center gap-2 border-t border-border px-5 py-3">
-          {href && (
+      {((href && !stretched) || actions) && (
+        <CardFooter className={cn('flex flex-wrap items-center gap-2 border-t border-border px-5 py-3', stretched && 'relative z-10')}>
+          {href && !stretched && (
             <Link
               href={href}
               className="text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

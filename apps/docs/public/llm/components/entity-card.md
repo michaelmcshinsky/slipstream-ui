@@ -25,6 +25,7 @@ Directory and profile lists repeat the same firm card. EntityCard keeps the iden
 | stats | `EntityStat[]` | — | no | Small stats such as closed deals or active mandates. |
 | tags | `string[]` | — | no | Sector or service tags. |
 | href | `string` | — | no | Profile destination. |
+| cardHref | `string` | — | no | Makes the whole card a single link (stretched-link pattern): the name link's overlay covers the card for one target, one hover state and one focus ring. Suppresses the footer 'View profile' link; actions stay clickable above the overlay. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
 | actions | `ReactNode` | — | no | Extra footer actions. |
 
@@ -50,7 +51,7 @@ A firm card with stats, tags and a profile link.
 
 ## Anti-patterns
 
-- **Don't make the whole card a link with nested actions** — The title and footer link are the destinations; actions stay separate so controls never nest.
+- **Don't make the whole card a link with nested actions** — By default the title and footer link are the destinations so controls never nest. When the whole card should be the target, use cardHref (stretched-link): it keeps actions as siblings layered above the overlay instead of nesting them inside the link.
 
 ## Accessibility
 

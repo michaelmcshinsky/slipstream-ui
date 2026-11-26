@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
@@ -24,6 +25,32 @@ describe('EntityCard', () => {
     expect(screen.getByText('60')).toBeInTheDocument();
     expect(screen.getByText('Industrials')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Peakstone Group' })).toHaveAttribute('href', '/members/peakstone');
+  });
+
+  it('cardHref makes the card one stretched link and keeps actions usable', () => {
+    render(
+      <EntityCard
+        name="Peakstone Group"
+        entityType="Investment bank"
+        cardHref="/members/peakstone"
+        href="/members/peakstone"
+        actions={<button type="button">Save</button>}
+      />
+    );
+    const link = screen.getByRole('link', { name: 'Peakstone Group' });
+    expect(link).toHaveAttribute('href', '/members/peakstone');
+    expect(link.className).toContain('after:inset-0');
+    // One target: the redundant footer link is suppressed, actions remain.
+    expect(screen.queryByRole('link', { name: 'View profile' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
+
+  it('cardHref respects linkComponent for routers', () => {
+    const RouterLink = ({ href, children, ...rest }: { href: string; children: ReactNode }) => (
+      <a data-router-link="" href={href} {...rest}>{children}</a>
+    );
+    render(<EntityCard name="North Park" entityType="Private equity" cardHref="/members/north-park" linkComponent={RouterLink} />);
+    expect(screen.getByRole('link', { name: 'North Park' })).toHaveAttribute('data-router-link');
   });
 
   it('falls back to initials and exposes the ProfileCard alias', () => {
