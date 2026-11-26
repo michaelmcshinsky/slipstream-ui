@@ -374,6 +374,9 @@ export default function LandingPage({ copy }: { copy: HomeCopy }) {
             <span key={agent} className="font-medium">{agent}</span>
           ))}
           <span className="font-medium">{copy.demo.anyMcpClient}</span>
+          <a href="/llms.txt" className="font-medium text-primary hover:underline">
+            {copy.aiAssistantsNote} · llms.txt
+          </a>
         </div>
       </section>
 

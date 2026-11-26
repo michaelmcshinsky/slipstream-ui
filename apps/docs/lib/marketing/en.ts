@@ -5,10 +5,10 @@ export const en: MarketingCopy = {
     whatsNew: "what's new →",
     aiFirstBadge: 'AI-first · MIT',
     reactBadge: 'React 18+',
-    heroTitleLead: 'Your AI already knows',
-    heroTitleHighlight: 'your design system',
+    heroTitleLead: 'Catches hallucinated props',
+    heroTitleHighlight: 'before they ship',
     heroDescription:
-      'Slipstream UI is the AI-first component system built for AI-assisted development. Every component ships a machine-readable spec, an MCP server that serves it, and a validator that keeps agents honest.',
+      'Slipstream UI gives every component a machine-readable manifest, an MCP server, and a validator that checks agent-generated JSX against the spec: 65.7% recall with 0 false positives across 100 reviewed benchmark cases.',
     getStarted: 'Get Started',
     starOnGithub: 'Star on GitHub',
     copy: 'copy',
@@ -19,6 +19,7 @@ export const en: MarketingCopy = {
     promptPlaceholder: 'Try me…',
     send: 'Send',
     agentStripLabel: 'Speaks fluently to',
+    aiAssistantsNote: 'For AI assistants',
     stats: ['components', 'machine-readable specs', 'MCP tools for agents', 'false positives on valid usage'],
     featuresHeading: 'Built for the way software is written now',
     featuresIntro:
@@ -82,7 +83,7 @@ export const en: MarketingCopy = {
     ],
     themesHeading: 'Themes that ship with the library',
     themesIntro:
-      'Default, Violet, and Zinc presets included. Switch below. This is live theming, not a screenshot.',
+      'Default, Dark, Violet, and Zinc presets included. Switch below. This is live theming, not a screenshot.',
     comparisonHeading: 'How it compares',
     comparisonIntro: 'Other libraries document for humans. Slipstream documents for both of you.',
     comparisonCapability: 'Capability',

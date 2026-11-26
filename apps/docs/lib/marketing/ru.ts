@@ -19,6 +19,7 @@ export const ru: MarketingCopy = {
     promptPlaceholder: 'Попробуйте…',
     send: 'Отправить',
     agentStripLabel: 'Свободно говорит с',
+    aiAssistantsNote: 'Для AI-ассистентов',
     stats: ['компонентов', 'машиночитаемых спецификаций', 'инструментов MCP для агентов', 'ложных срабатываний на корректном использовании'],
     featuresHeading: 'Создано для того, как пишут ПО сегодня',
     featuresIntro:
