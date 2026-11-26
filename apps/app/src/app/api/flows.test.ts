@@ -20,6 +20,7 @@ import { PATCH as adminPatchUser } from './admin/users/[userId]/route';
 import { POST as stopImpersonating } from './admin/impersonate/stop/route';
 import { createSession, getSessionUser, SESSION_COOKIE } from '@/lib/session';
 import { hashToken } from '@/lib/tokens';
+import { LEGAL_VERSION } from '@/lib/legal';
 
 const json = (body: unknown) => ({
   method: 'POST',
@@ -58,6 +59,32 @@ describe('auth lifecycle through route handlers', () => {
     const meData = (await (await me(new Request('http://localhost/api/auth/me'))).json()).data;
     expect(meData.user.email).toBe(email);
     expect(meData.teams).toHaveLength(1);
+  });
+
+  it('records terms acceptance version and timestamp when the box is checked', async () => {
+    store.clear();
+    const email = `terms-${suffix}@test.dev`;
+    const response = await signup(
+      new Request('http://localhost/api/auth/signup', json({ email, password: 'password123', acceptTerms: true }))
+    );
+    expect(response.status).toBe(200);
+    const { user } = (await response.json()).data;
+    const record = await prisma.user.findUnique({ where: { id: user.id } });
+    expect(record?.termsVersion).toBe(LEGAL_VERSION);
+    expect(record?.termsAcceptedAt).toBeInstanceOf(Date);
+  });
+
+  it('leaves the consent record empty when the box is unchecked', async () => {
+    store.clear();
+    const email = `noterms-${suffix}@test.dev`;
+    const response = await signup(
+      new Request('http://localhost/api/auth/signup', json({ email, password: 'password123' }))
+    );
+    expect(response.status).toBe(200);
+    const { user } = (await response.json()).data;
+    const record = await prisma.user.findUnique({ where: { id: user.id } });
+    expect(record?.termsAcceptedAt).toBeNull();
+    expect(record?.termsVersion).toBeNull();
   });
 
   it('rejects duplicate signups and bad credentials uniformly', async () => {

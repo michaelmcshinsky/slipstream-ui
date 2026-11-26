@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Card, CardTitle, Field } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
 import { track } from '@/lib/analytics';
+import { LEGAL_URLS } from '@/lib/legal';
 import Link from 'next/link';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset';
@@ -56,7 +57,12 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
       body = { email: form.get('email'), password: form.get('password') };
     } else if (mode === 'signup') {
       endpoint = '/api/auth/signup';
-      body = { email: form.get('email'), name: form.get('name'), password: form.get('password') };
+      body = {
+        email: form.get('email'),
+        name: form.get('name'),
+        password: form.get('password'),
+        acceptTerms: form.get('acceptTerms') === 'on',
+      };
     } else if (mode === 'forgot') {
       endpoint = '/api/auth/forgot-password';
       body = { email: form.get('email') };
@@ -147,6 +153,28 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
                 {confirmError}
               </p>
             )}
+          </div>
+        )}
+
+        {mode === 'signup' && (
+          <div className="space-y-2">
+            <label className="flex items-start gap-2 text-sm text-muted-foreground">
+              <input type="checkbox" name="acceptTerms" className="mt-0.5" />
+              <span>
+                I agree to the{' '}
+                <a href={LEGAL_URLS.terms} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                  Terms of Service
+                </a>{' '}
+                and{' '}
+                <a href={LEGAL_URLS.privacy} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                  Privacy Policy
+                </a>
+                .
+              </span>
+            </label>
+            <p className="text-xs text-muted-foreground">
+              Optional — your acceptance is recorded with the current document version.
+            </p>
           </div>
         )}
 
