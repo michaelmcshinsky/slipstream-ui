@@ -124,6 +124,31 @@ const customTheme = createTheme({
 const meta = document.querySelector('meta[name="color-scheme"]');
 meta.content = 'dark'; // or 'light', or 'light dark' for system`} />
 
+        <h3 className="text-xl font-semibold mt-6 mb-3">The .dark class path</h3>
+        <p className="text-muted-foreground mb-4">
+          Most Tailwind setups (including this site) toggle dark mode by adding a <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">.dark</code> class
+          to <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">&lt;html&gt;</code> or a wrapper, with <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">darkMode: 'class'</code> in the Tailwind config.
+          The library ships a ready-made control — <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">ThemeToggle</code> — that owns the button, icon and
+          accessible label while your app owns storage and the class switch. Persist the choice under a stable key
+          (this site uses <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">slipstream-theme</code>) and apply it before first paint to avoid a theme flash:
+        </p>
+        <CodeBlock language="tsx" code={`import { ThemeToggle } from '@slipstream-ui/core'
+
+// Apply the stored preference before hydration (inline script in <head>)
+// document.documentElement.classList.toggle('dark', stored === 'dark')
+
+function ThemeButton() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  function change(next: 'light' | 'dark') {
+    setTheme(next)
+    document.documentElement.classList.toggle('dark', next === 'dark')
+    localStorage.setItem('slipstream-theme', next)
+  }
+
+  return <ThemeToggle theme={theme} onThemeChange={change} />
+}`} />
+
         <h2 className="text-2xl font-semibold mt-8 mb-4">Custom Brand Colors</h2>
         <p className="text-muted-foreground mb-4">
           When creating a custom theme, provide your brand color in HSL format:

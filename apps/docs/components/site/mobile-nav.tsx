@@ -31,6 +31,21 @@ export function MobileNav() {
     label: navSectionLabel(section, t),
   }));
 
+  // The pills duplicate the docs sidebar, so they only make sense on
+  // docs-scoped routes. On marketing pages they were noise — show a single
+  // current-section label instead.
+  const docsScoped = pathname.startsWith('/docs') || pathname === '/playground';
+  const activeSection = sections.find((item) => item.hrefs.some((href) => hrefMatches(pathname, href)));
+
+  if (!docsScoped) {
+    if (!activeSection) return null;
+    return (
+      <div className="sticky top-14 z-30 -mx-4 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
+        <p className="text-xs font-medium text-muted-foreground">{activeSection.label}</p>
+      </div>
+    );
+  }
+
   return (
     <nav
       aria-label={t('site.mobileNavAria')}
