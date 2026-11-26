@@ -3,19 +3,29 @@
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 /**
- * Content Security Policy.
+ * Content Security Policy - enforced, matching the docs site.
  *
- * Shipped as `Content-Security-Policy-Report-Only` first: Next injects inline
- * bootstrap scripts, so an enforced policy would need nonces threaded through
- * the App Router before it can be turned on without breaking hydration.
+ * `script-src` allows `'unsafe-inline'`, which covers Next's inline bootstrap
+ * and the theme-init script in the root layout, so enforcement needs no
+ * nonce threading. Dropping `'unsafe-inline'` for per-request nonces remains
+ * a possible hardening follow-up (IMP-SEC-001/IMP-ENG-011/IMP-WEB-017).
+ *
+ * The Google origins cover the consent-gated GA4 tag used when
+ * NEXT_PUBLIC_GA_MEASUREMENT_ID is configured for the app property.
  */
+const googleAnalyticsOrigins = [
+  'https://www.googletagmanager.com',
+  'https://*.google-analytics.com',
+  'https://*.analytics.google.com',
+].join(' ');
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDevelopment ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com`,
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self' ${googleAnalyticsOrigins}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -23,7 +33,7 @@ const contentSecurityPolicy = [
 ].join('; ');
 
 const securityHeaders = [
-  { key: 'Content-Security-Policy-Report-Only', value: contentSecurityPolicy },
+  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
