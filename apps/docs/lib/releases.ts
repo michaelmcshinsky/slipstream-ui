@@ -9,9 +9,18 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.3',
+    version: '0.11.4',
     date: 'November 26, 2026',
     tag: 'current',
+    highlights: [
+      'FormLayout columns accepts per-breakpoint counts ({ base: 1, md: 2 }) so consumers no longer undo the default grid with className overrides; new legendClassName/descriptionClassName props for fieldset mode',
+      'Versioned packages: core/ai 0.11.4 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.3',
+    date: 'November 26, 2026',
+    tag: 'previous',
     highlights: [
       'Badge gains quiet status surfaces and a status dot for metadata chips: new outline-success/outline-warning/outline-info/outline-danger variants (tinted border + ink text) and a dot prop that renders a leading dot colored to the variant; works with asChild via Radix Slottable',
       'Versioned packages: core/ai 0.11.3 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
