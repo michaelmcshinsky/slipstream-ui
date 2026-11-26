@@ -13,7 +13,7 @@ export type NewsletterContentType =
 
 export type NewsletterStatus = 'active' | 'unsubscribed' | 'bounced';
 
-export type NewsletterDeliveryStatus = 'QUEUED' | 'SENT' | 'FAILED';
+export type NewsletterDeliveryStatus = 'QUEUED' | 'SENDING' | 'SENT' | 'FAILED' | 'CANCELLED';
 
 export interface NewsletterContentItem {
   id: string;
@@ -55,6 +55,8 @@ export interface NewsletterDelivery {
   status: NewsletterDeliveryStatus;
   sentAt?: Date;
   error?: string;
+  attempts?: number;
+  claimedAt?: Date | null;
   createdAt: Date;
 }
 

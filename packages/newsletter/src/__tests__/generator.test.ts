@@ -313,8 +313,14 @@ describe('NewsletterGenerator', () => {
       const result = await processQueuedDeliveries(10, send as never);
       expect(send).toHaveBeenCalledTimes(1);
       expect(prisma.newsletterDelivery.updateMany).toHaveBeenCalledWith({
-        where: { id: 'delivery-1', status: { in: ['QUEUED', 'SENDING'] } },
-        data: { status: 'SENDING' },
+        where: {
+          id: 'delivery-1',
+          OR: [
+            { status: 'QUEUED' },
+            { status: 'SENDING', OR: [{ claimedAt: null }, { claimedAt: { lt: expect.any(Date) } }] },
+          ],
+        },
+        data: { status: 'SENDING', claimedAt: expect.any(Date), attempts: { increment: 1 } },
       });
       expect(result).toEqual({ sent: 1, failed: 0, skipped: 0 });
       expect(prisma.newsletterDelivery.update).toHaveBeenCalledWith({
@@ -343,6 +349,34 @@ describe('NewsletterGenerator', () => {
       expect(prisma.newsletterDelivery.update).toHaveBeenCalledWith({
         where: { id: 'delivery-1' },
         data: { status: 'CANCELLED', error: 'recipient unsubscribed before send' },
+      });
+    });
+
+    it('requeues a failed send while under the attempt cap', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.update)
+        .mockResolvedValueOnce({ attempts: 1 } as never)
+        .mockResolvedValue({} as never);
+      const send = vi.fn().mockRejectedValue(new Error('smtp down'));
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(result).toEqual({ sent: 0, failed: 1, skipped: 0 });
+      expect(prisma.newsletterDelivery.update).toHaveBeenLastCalledWith({
+        where: { id: 'delivery-1' },
+        data: { status: 'QUEUED', claimedAt: null },
+      });
+    });
+
+    it('dead-letters as FAILED once the attempt cap is reached', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.update)
+        .mockResolvedValueOnce({ attempts: 3 } as never)
+        .mockResolvedValue({} as never);
+      const send = vi.fn().mockRejectedValue(new Error('smtp down'));
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(result).toEqual({ sent: 0, failed: 1, skipped: 0 });
+      expect(prisma.newsletterDelivery.update).toHaveBeenLastCalledWith({
+        where: { id: 'delivery-1' },
+        data: { status: 'FAILED', claimedAt: null },
       });
     });
   });

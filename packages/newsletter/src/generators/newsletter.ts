@@ -22,6 +22,8 @@ import { logError } from '../lib/log';
  */
 const DEFAULT_DAILY_TYPES: NewsletterContentType[] = ['audit_log', 'github'];
 const DEFAULT_WEEKLY_TYPES: NewsletterContentType[] = ['audit_log', 'release', 'github', 'custom'];
+/** Send attempts before a delivery dead-letters as FAILED. */
+const MAX_SEND_ATTEMPTS = 3;
 
 /**
  * Newsletter generator class
@@ -390,16 +392,24 @@ export async function processQueuedDeliveries(
   siteUrl?: string,
 ): Promise<{ sent: number; failed: number; skipped: number }> {
   // Claim QUEUED rows (and SENDING rows abandoned by a crashed worker) so two
-  // concurrent runs cannot send the same delivery twice. A SENDING row is
-  // considered stale after 15 minutes.
+  // concurrent runs cannot send the same delivery twice. Staleness is measured
+  // from claimedAt, not createdAt: a delivery can legitimately sit QUEUED for
+  // hours waiting for the recipient's send window, and keying off createdAt
+  // would make every in-flight send instantly reclaimable (double-send).
+  // SENDING rows with a null claimedAt predate the column and are treated as
+  // stale once older than the window.
   const staleBefore = new Date(Date.now() - 15 * 60 * 1000);
+  const claimable = {
+    OR: [
+      { status: 'QUEUED' },
+      {
+        status: 'SENDING',
+        OR: [{ claimedAt: null }, { claimedAt: { lt: staleBefore } }],
+      },
+    ],
+  };
   const queued = await prisma.newsletterDelivery.findMany({
-    where: {
-      OR: [
-        { status: 'QUEUED' },
-        { status: 'SENDING', createdAt: { lt: staleBefore } },
-      ],
-    },
+    where: claimable,
     take: batchSize,
     orderBy: { createdAt: 'asc' },
     include: { user: true, subscription: true },
@@ -415,10 +425,11 @@ export async function processQueuedDeliveries(
         throw new Error('processQueuedDeliveries requires a send function (e.g. deliverEmail)');
       }
       // Atomically claim the row; a concurrent worker that already claimed
-      // it sees count 0 and moves on.
+      // it sees count 0 and moves on. claimedAt doubles as the lease
+      // timestamp for stale-SENDING reclaim.
       const claim = await prisma.newsletterDelivery.updateMany({
-        where: { id: delivery.id, status: { in: ['QUEUED', 'SENDING'] } },
-        data: { status: 'SENDING' },
+        where: { id: delivery.id, ...claimable },
+        data: { status: 'SENDING', claimedAt: new Date(), attempts: { increment: 1 } },
       });
       if (claim.count === 0) {
         skipped++;
@@ -455,11 +466,20 @@ export async function processQueuedDeliveries(
       });
       sent++;
     } catch (error) {
+      // attempts was already incremented by the claim; requeue while under
+      // the cap so the next cron run retries, then FAILED is the dead-letter
+      // state (visible via status='FAILED' and the error column).
+      const message = error instanceof Error ? error.message : String(error);
+      const current = await prisma.newsletterDelivery.update({
+        where: { id: delivery.id },
+        data: { error: message },
+        select: { attempts: true },
+      });
       await prisma.newsletterDelivery.update({
         where: { id: delivery.id },
         data: {
-          status: 'FAILED',
-          error: error instanceof Error ? error.message : String(error),
+          status: current.attempts < MAX_SEND_ATTEMPTS ? 'QUEUED' : 'FAILED',
+          claimedAt: null,
         },
       });
       failed++;
