@@ -6,7 +6,7 @@ Cmd+K style command palette with lexical search, sectioned results and full keyb
 > Import: `import { CommandPalette } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/command-palette
 > Registry: https://slipstreamui.com/registry/command-palette.json
-> Tier: organism · Package: @slipstream-ui/ai@0.11.1
+> Tier: organism · Package: @slipstream-ui/ai@0.11.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

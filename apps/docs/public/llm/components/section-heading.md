@@ -6,7 +6,7 @@ Section heading block: eyebrow, title (level 2-4), description and actions, with
 > Import: `import { SectionHeading } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/section-heading
 > Registry: https://slipstreamui.com/registry/section-heading.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.1
+> Tier: molecule · Package: @slipstream-ui/core@0.11.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -6,7 +6,7 @@ Trust strip for member, customer or partner logos with captions, columns and opt
 > Import: `import { LogoCloud } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/logo-cloud
 > Registry: https://slipstreamui.com/registry/logo-cloud.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.1
+> Tier: molecule · Package: @slipstream-ui/core@0.11.2
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.2
+
+### Patch Changes
+
+- [#183](https://github.com/michaelmcshinsky/slipstream-ui/pull/183) [`e6539d3`](https://github.com/michaelmcshinsky/slipstream-ui/commit/e6539d377fae830583c60696f035589b2f64aa1c) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `cardHref` to `EntityCard`: opt-in stretched-link mode that makes the whole card a single link target (one hover state, one focus ring), suppresses the redundant footer "View profile" link, and keeps `actions` clickable above the overlay. Implements consumer feedback from utah-dance.
+
 ## 0.11.1
 
 ### Patch Changes
