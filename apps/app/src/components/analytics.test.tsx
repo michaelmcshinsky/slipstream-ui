@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { I18nProvider } from '@slipstream-ui/i18n/react';
 import type { Locale } from '@slipstream-ui/i18n';
-import { writeConsent } from '@/lib/analytics';
+import { consentForAll, writeConsent } from '@/lib/analytics';
 import { Analytics } from './analytics';
 import { CookieBanner } from './cookie-banner';
 
@@ -41,7 +41,7 @@ describe('Analytics loader', () => {
 
   it('stays disabled when no app GA4 property is configured', () => {
     // DAT-021: the dashboard must not report into the docs site's property.
-    writeConsent('granted');
+    writeConsent(consentForAll(true));
     renderWithI18n(<Analytics />);
     expect(analyticsScript()).toBeNull();
     expect(window.dataLayer).toBeUndefined();
@@ -78,7 +78,7 @@ describe('Analytics loader with a configured GA4 property', () => {
 
   it('injects gtag.js and queues the config once consent is granted', async () => {
     const { Configured, write } = await renderConfigured();
-    write('granted');
+    write(consentForAll(true));
     renderWithI18n(<Configured />);
 
     const script = analyticsScript();
@@ -93,7 +93,7 @@ describe('Analytics loader with a configured GA4 property', () => {
 
   it('does not inject a second tag on re-render', async () => {
     const { Configured, write } = await renderConfigured();
-    write('granted');
+    write(consentForAll(true));
     const { rerender } = renderWithI18n(<Configured />);
     rerender(<I18nProvider locale="en"><Configured /></I18nProvider>);
     expect(document.querySelectorAll('script[data-slipstream-analytics="true"]')).toHaveLength(1);
@@ -101,11 +101,11 @@ describe('Analytics loader with a configured GA4 property', () => {
 
   it('removes the tag and sets the opt-out flag when consent is withdrawn', async () => {
     const { Configured, write } = await renderConfigured();
-    write('granted');
+    write(consentForAll(true));
     renderWithI18n(<Configured />);
     expect(analyticsScript()).not.toBeNull();
 
-    write('denied');
+    write(consentForAll(false));
 
     expect(analyticsScript()).toBeNull();
     expect(
@@ -137,7 +137,7 @@ describe('CookieBanner', () => {
   });
 
   it('does not render for a visitor who already decided', async () => {
-    writeConsent('denied');
+    writeConsent(consentForAll(false));
     const { container } = renderWithI18n(<CookieBanner />);
     // Consent resolves in an effect after the first paint.
     await waitFor(() =>

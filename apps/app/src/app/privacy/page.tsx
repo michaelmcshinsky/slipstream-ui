@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { PrivacyPreferences } from '@/components/privacy-preferences';
 
 export const metadata: Metadata = {
   title: 'Privacy',
@@ -74,6 +75,8 @@ export default function PrivacyPage() {
           Delivery and snapshot records are purged on a retention schedule.
         </p>
       </section>
+
+      <PrivacyPreferences />
 
       <section className="space-y-2">
         <h2 className="text-lg font-semibold">Your controls</h2>

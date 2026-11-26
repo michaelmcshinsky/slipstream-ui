@@ -4,6 +4,7 @@ import {
   CONSENT_MAX_AGE_MS,
   CONSENT_STORAGE_KEY,
   clearConsent,
+  consentForAll,
   readConsent,
   writeConsent,
 } from './site';
@@ -22,20 +23,20 @@ describe('consent storage', () => {
     expect(readConsent()).toBeNull();
   });
 
-  it('persists and reads a granted choice', () => {
-    writeConsent('granted');
+  it('persists and reads per-purpose preferences', () => {
+    writeConsent(consentForAll(true));
     const stored = JSON.parse(window.localStorage.getItem(CONSENT_STORAGE_KEY) ?? '{}') as {
-      v?: string;
+      p?: unknown;
       at?: number;
     };
-    expect(stored.v).toBe('granted');
+    expect(stored.p).toEqual({ analytics: true });
     expect(typeof stored.at).toBe('number');
-    expect(readConsent()).toBe('granted');
+    expect(readConsent()).toEqual({ analytics: true });
   });
 
   it('persists and reads a denied choice', () => {
-    writeConsent('denied');
-    expect(readConsent()).toBe('denied');
+    writeConsent(consentForAll(false));
+    expect(readConsent()).toEqual({ analytics: false });
   });
 
   it('ignores unknown stored values', () => {
@@ -50,11 +51,25 @@ describe('consent storage', () => {
     expect(readConsent()).toBeNull();
   });
 
+  it('migrates the legacy { v } shape into per-purpose preferences', () => {
+    const now = Date.now();
+    window.localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify({ v: 'granted', at: now - 1000 }),
+    );
+    expect(readConsent()).toEqual({ analytics: true });
+    window.localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify({ v: 'denied', at: now - 1000 }),
+    );
+    expect(readConsent()).toEqual({ analytics: false });
+  });
+
   it('returns null once a stored choice is older than CONSENT_MAX_AGE_MS', () => {
     const now = Date.now();
     window.localStorage.setItem(
       CONSENT_STORAGE_KEY,
-      JSON.stringify({ v: 'granted', at: now - CONSENT_MAX_AGE_MS - 1 }),
+      JSON.stringify({ p: { analytics: true }, at: now - CONSENT_MAX_AGE_MS - 1 }),
     );
     expect(readConsent()).toBeNull();
   });
@@ -63,31 +78,43 @@ describe('consent storage', () => {
     const now = Date.now();
     window.localStorage.setItem(
       CONSENT_STORAGE_KEY,
-      JSON.stringify({ v: 'denied', at: now - CONSENT_MAX_AGE_MS + 1000 }),
+      JSON.stringify({ p: { analytics: false }, at: now - CONSENT_MAX_AGE_MS + 1000 }),
     );
-    expect(readConsent()).toBe('denied');
+    expect(readConsent()).toEqual({ analytics: false });
   });
 
   it('rejects malformed JSON and wrong-typed fields', () => {
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, '{"v":"granted"}');
+    const fresh = Date.now();
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, '{"p":{"analytics":true}}');
     expect(readConsent()).toBeNull();
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, '{"v":"maybe","at":1}');
+    window.localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify({ p: { analytics: 'yes' }, at: fresh }),
+    );
     expect(readConsent()).toBeNull();
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, '{"v":"granted","at":"soon"}');
+    window.localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify({ v: 'maybe', at: fresh }),
+    );
+    expect(readConsent()).toBeNull();
+    window.localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify({ p: { analytics: true }, at: 'soon' }),
+    );
     expect(readConsent()).toBeNull();
   });
 
   it('announces changes so the banner and analytics stay in sync', () => {
     const listener = vi.fn();
     window.addEventListener(CONSENT_EVENT, listener);
-    writeConsent('granted');
+    writeConsent(consentForAll(true));
     expect(listener).toHaveBeenCalledTimes(1);
-    expect((listener.mock.calls[0][0] as CustomEvent).detail).toBe('granted');
+    expect((listener.mock.calls[0][0] as CustomEvent).detail).toEqual({ analytics: true });
     window.removeEventListener(CONSENT_EVENT, listener);
   });
 
   it('clears the choice and announces a reset', () => {
-    writeConsent('granted');
+    writeConsent(consentForAll(true));
     const listener = vi.fn();
     window.addEventListener(CONSENT_EVENT, listener);
 

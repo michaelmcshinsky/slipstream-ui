@@ -1,33 +1,59 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CONSENT_EVENT, clearConsent, readConsent, writeConsent, type ConsentValue } from '@/lib/site';
+import {
+  CONSENT_EVENT,
+  CONSENT_PURPOSES,
+  clearConsent,
+  consentForAll,
+  readConsent,
+  writeConsent,
+  type ConsentPreferences,
+  type ConsentPurpose,
+} from '@/lib/site';
 import { track } from '@/lib/analytics';
 
+const PURPOSE_LABELS: Record<ConsentPurpose, string> = {
+  analytics: 'Analytics',
+};
+
+const PURPOSE_DESCRIPTIONS: Record<ConsentPurpose, string> = {
+  analytics: 'Usage measurements that help improve the docs (page views, clicks, scroll depth).',
+};
+
 /**
- * Persistent consent control. Withdrawing consent used to require clearing
- * site data; this makes the choice reversible from the privacy page and keeps
- * the analytics loader in sync through the shared consent event.
+ * Persistent consent control with per-purpose toggles (Consent Mode v2
+ * granularity). Each toggle writes immediately so the analytics loader stays
+ * in sync through the shared consent event; "Reset choice" clears everything
+ * and brings the banner back.
  */
 export function PrivacyPreferences() {
-  const [consent, setConsent] = useState<ConsentValue | null>(null);
+  const [preferences, setPreferences] = useState<ConsentPreferences | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setConsent(readConsent());
+    setPreferences(readConsent());
     setReady(true);
     const onChange = (event: Event) => {
-      const detail = (event as CustomEvent<ConsentValue | null>).detail;
-      setConsent(detail ?? readConsent());
+      const detail = (event as CustomEvent<ConsentPreferences | null>).detail;
+      setPreferences(detail ?? readConsent());
     };
     window.addEventListener(CONSENT_EVENT, onChange);
     return () => window.removeEventListener(CONSENT_EVENT, onChange);
   }, []);
 
-  function choose(value: ConsentValue) {
-    writeConsent(value);
-    setConsent(value);
-    track('consent', { choice: value, location: 'privacy_preferences' });
+  const current = preferences ?? consentForAll(false);
+
+  function toggle(purpose: ConsentPurpose) {
+    const next = { ...current, [purpose]: !current[purpose] };
+    writeConsent(next);
+    setPreferences(next);
+    const allOn = CONSENT_PURPOSES.every((p) => next[p]);
+    const allOff = CONSENT_PURPOSES.every((p) => !next[p]);
+    track('consent', {
+      choice: allOn ? 'granted' : allOff ? 'denied' : 'custom',
+      location: 'privacy_preferences',
+    });
   }
 
   function reset() {
@@ -35,16 +61,18 @@ export function PrivacyPreferences() {
     // is silently dropped.
     track('consent', { choice: 'reset', location: 'privacy_preferences' });
     clearConsent();
-    setConsent(null);
+    setPreferences(null);
   }
 
   const status = !ready
     ? 'Checking your current choice…'
-    : consent === 'granted'
-      ? 'Analytics is currently on.'
-      : consent === 'denied'
-        ? 'Analytics is currently off.'
-        : 'You have not chosen yet; analytics is off.';
+    : preferences === null
+      ? 'You have not chosen yet; all optional purposes are off.'
+      : CONSENT_PURPOSES.every((p) => preferences[p])
+        ? 'All optional purposes are on.'
+        : CONSENT_PURPOSES.every((p) => !preferences[p])
+          ? 'All optional purposes are off.'
+          : 'Some optional purposes are on.';
 
   return (
     <section
@@ -58,23 +86,30 @@ export function PrivacyPreferences() {
       <p className="mt-1 text-sm text-muted-foreground" role="status">
         {status}
       </p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => choose('granted')}
-          aria-pressed={consent === 'granted'}
-          className="inline-flex h-9 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          Accept analytics
-        </button>
-        <button
-          type="button"
-          onClick={() => choose('denied')}
-          aria-pressed={consent === 'denied'}
-          className="inline-flex h-9 items-center rounded-md border border-border px-3 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          Decline analytics
-        </button>
+      <ul className="mt-3 space-y-2">
+        {CONSENT_PURPOSES.map((purpose) => (
+          <li key={purpose} className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">{PURPOSE_LABELS[purpose]}</p>
+              <p className="text-xs text-muted-foreground">{PURPOSE_DESCRIPTIONS[purpose]}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => toggle(purpose)}
+              aria-pressed={current[purpose]}
+              aria-label={`${PURPOSE_LABELS[purpose]} ${current[purpose] ? 'on' : 'off'}`}
+              className={`inline-flex h-8 shrink-0 items-center rounded-md border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                current[purpose]
+                  ? 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
+                  : 'border-border hover:bg-muted'
+              }`}
+            >
+              {current[purpose] ? 'On' : 'Off'}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-3">
         <button
           type="button"
           onClick={reset}
@@ -84,7 +119,7 @@ export function PrivacyPreferences() {
         </button>
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
-        The theme preference and this choice are stored in your browser only. Resetting removes the analytics cookies
+        The theme preference and these choices are stored in your browser only. Resetting removes the analytics cookies
         Slipstream set; see the policy above for details.
       </p>
     </section>
