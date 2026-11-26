@@ -22,7 +22,8 @@ export type AnalyticsEvent =
   | 'feedback_reason'
   | 'copy_for_ai'
   | 'copy_jsx'
-  | 'consent';
+  | 'consent'
+  | 'experiment_exposure';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
@@ -43,6 +44,7 @@ export const EVENT_PROPS: Record<AnalyticsEvent, readonly string[]> = {
   copy_for_ai: ['component'],
   copy_jsx: ['component'],
   consent: ['choice', 'location'],
+  experiment_exposure: ['experiment', 'variant'],
 };
 
 type EventProps<E extends AnalyticsEvent> = Partial<

@@ -229,7 +229,8 @@ export type AppAnalyticsEvent =
   | 'checkout_started'
   | 'payment_succeeded'
   | 'license_activated'
-  | 'newsletter_subscribed';
+  | 'newsletter_subscribed'
+  | 'experiment_exposure';
 
 export type AppAnalyticsProps = Record<string, string | number | boolean | undefined>;
 
