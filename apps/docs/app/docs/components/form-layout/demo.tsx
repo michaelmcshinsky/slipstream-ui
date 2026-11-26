@@ -12,10 +12,12 @@ export default function FormLayoutPage({ manifest }: { manifest?: ComponentPageP
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'layout', type: "'stack' | 'row' | 'grid'", defaultValue: "'stack'", description: 'Even vertical stack, horizontal row, or column grid.' },
-        { name: 'columns', type: '1 | 2 | 3 | 4', defaultValue: '2', description: 'Grid column count (literal classes survive CSS purging). Only applies when layout="grid"; ignored for stack/row.' },
+        { name: 'columns', type: '1 | 2 | 3 | 4 | { base, sm, md, lg, xl }', defaultValue: '2', description: 'Grid column count, or per-breakpoint counts like { base: 1, md: 2 }. Literal classes survive CSS purging.' },
         { name: 'gap', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | number", description: 'Even spacing: token or exact pixels (16).' },
         { name: 'legend', type: 'string', description: 'Group label rendered as a semantic <legend> (fieldset mode).' },
+        { name: 'legendClassName', type: 'string', description: 'Extra classes for the legend (fieldset mode).' },
         { name: 'description', type: 'string', description: 'Supporting line under the legend (fieldset mode).' },
+        { name: 'descriptionClassName', type: 'string', description: 'Extra classes for the description (fieldset mode).' },
         { name: 'as', type: "'div' | 'fieldset'", defaultValue: "'div'", description: 'Render as a semantic fieldset when the layout wraps related controls.' },
       ]}
       accessibility={[
@@ -63,10 +65,12 @@ export default function FormLayoutPage({ manifest }: { manifest?: ComponentPageP
 <FormLayout layout="grid" columns={4} gap="md">…</FormLayout>`}
         types={`type FormLayoutProps = {
   layout?: 'stack' | 'row' | 'grid';
-  columns?: 1 | 2 | 3 | 4;
+  columns?: 1 | 2 | 3 | 4 | { base?: 1|2|3|4; sm?: 1|2|3|4; md?: 1|2|3|4; lg?: 1|2|3|4; xl?: 1|2|3|4 };
   gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | number;
   legend?: string;
+  legendClassName?: string;
   description?: string;
+  descriptionClassName?: string;
   as?: 'div' | 'fieldset';
 };`}
       />

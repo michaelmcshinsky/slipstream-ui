@@ -33,6 +33,32 @@ describe('FormLayout', () => {
     expect(container.firstChild).toHaveStyle({ gap: '12px' });
   });
 
+  it('grid layout accepts per-breakpoint column counts', () => {
+    const { container } = render(
+      <FormLayout layout="grid" columns={{ base: 1, md: 2, lg: 3 }}>
+        <span>a</span>
+      </FormLayout>
+    );
+    expect(container.firstChild).toHaveClass('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+    expect(container.firstChild).not.toHaveClass('grid-cols-2');
+  });
+
+  it('applies legendClassName and descriptionClassName in fieldset mode', () => {
+    render(
+      <FormLayout
+        as="fieldset"
+        legend="Billing"
+        legendClassName="text-lg"
+        description="Interval"
+        descriptionClassName="text-sm"
+      >
+        <span>fields</span>
+      </FormLayout>
+    );
+    expect(screen.getByText('Billing')).toHaveClass('text-lg');
+    expect(screen.getByText('Interval')).toHaveClass('text-sm');
+  });
+
   it('fieldset mode renders legend and description', () => {
     render(
       <FormLayout as="fieldset" legend="Billing" description="Interval and payment method">

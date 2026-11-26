@@ -23,13 +23,13 @@
     },
     {
       "name": "columns",
-      "type": "1 | 2 | 3 | 4",
+      "type": "1 | 2 | 3 | 4 | { base?: 1|2|3|4; sm?: 1|2|3|4; md?: 1|2|3|4; lg?: 1|2|3|4; xl?: 1|2|3|4 }",
       "defaultValue": "2",
       "required": false,
-      "description": "Grid column count (literal classes survive CSS purging).",
+      "description": "Grid column count (literal classes survive CSS purging), or per-breakpoint counts like { base: 1, md: 2 }.",
       "examples": [
         "2",
-        "4"
+        "{ base: 1, md: 2 }"
       ]
     },
     {
@@ -52,10 +52,22 @@
       ]
     },
     {
+      "name": "legendClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the legend (fieldset mode)."
+    },
+    {
       "name": "description",
       "type": "string",
       "required": false,
       "description": "Supporting line under the legend (fieldset mode)."
+    },
+    {
+      "name": "descriptionClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the description line (fieldset mode)."
     },
     {
       "name": "as",
