@@ -3,7 +3,7 @@
  * Creates daily and weekly newsletters from content sources
  */
 
-import { prisma } from '@slipstream-ui/db';
+import { prisma, Prisma } from '@slipstream-ui/db';
 import type {
   NewsletterGenerationOptions,
   GeneratedNewsletter,
@@ -262,6 +262,22 @@ function newsletterPeriodStart(frequency: 'daily' | 'weekly', now = new Date()):
 }
 
 /**
+ * Deterministic key for the send period, matching newsletterPeriodStart:
+ * daily buckets are UTC dates, weekly buckets are ISO weeks starting Monday.
+ * Stored on NewsletterDelivery.periodKey and covered by a unique constraint
+ * so a scheduler retry cannot double-queue even if the read-then-write
+ * dedup check races.
+ */
+export function newsletterPeriodKey(frequency: 'daily' | 'weekly', now = new Date()): string {
+  if (frequency === 'daily') return `daily:${now.toISOString().slice(0, 10)}`;
+  // ISO week of the period's Thursday (periods start Monday).
+  const thursday = new Date(newsletterPeriodStart('weekly', now).getTime() + 3 * 24 * 60 * 60 * 1000);
+  const yearStart = Date.UTC(thursday.getUTCFullYear(), 0, 1);
+  const week = Math.ceil(((thursday.getTime() - yearStart) / 86_400_000 + 1) / 7);
+  return `weekly:${thursday.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+
+/**
  * Generate and queue newsletter deliveries for all eligible users
  */
 export async function queueNewsletterDeliveries(
@@ -293,19 +309,29 @@ export async function queueNewsletterDeliveries(
       });
       if (existing) continue;
 
-      // Create delivery record
-      await prisma.newsletterDelivery.create({
-        data: {
-          userId: user.id,
-          subscriptionId: subscription.id,
-          type: frequency,
-          subject: newsletter.subject,
-          htmlContent: newsletter.htmlContent,
-          textContent: newsletter.textContent,
-          status: 'QUEUED',
-        },
-      });
-      queued++;
+      // Create delivery record. periodKey + the (subscriptionId, type,
+      // periodKey) unique constraint make a raced double-queue a no-op
+      // rather than a duplicate send.
+      try {
+        await prisma.newsletterDelivery.create({
+          data: {
+            userId: user.id,
+            subscriptionId: subscription.id,
+            type: frequency,
+            periodKey: newsletterPeriodKey(frequency),
+            subject: newsletter.subject,
+            htmlContent: newsletter.htmlContent,
+            textContent: newsletter.textContent,
+            status: 'QUEUED',
+          },
+        });
+        queued++;
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+          continue; // lost the race — the other run already queued this period
+        }
+        throw error;
+      }
     } catch (error) {
       logError('newsletter.queue_failed', { userId: user.id, error: error instanceof Error ? error.message : String(error) });
       failed++;

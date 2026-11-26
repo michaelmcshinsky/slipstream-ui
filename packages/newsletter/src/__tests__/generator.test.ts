@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries } from '../generators/newsletter';
+import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries, newsletterPeriodKey } from '../generators/newsletter';
 import { prisma } from '@slipstream-ui/db';
 import type { GeneratedNewsletter, UserWithPreferences, NewsletterContentItem } from '../types';
 
@@ -345,5 +345,18 @@ describe('NewsletterGenerator', () => {
         data: { status: 'CANCELLED', error: 'recipient unsubscribed before send' },
       });
     });
+  });
+});
+
+describe('newsletterPeriodKey', () => {
+  it('buckets daily sends by UTC date', () => {
+    expect(newsletterPeriodKey('daily', new Date('2026-11-22T15:04:05Z'))).toBe('daily:2026-11-22');
+  });
+
+  it('buckets weekly sends by ISO week starting Monday', () => {
+    // 2026-11-22 is a Sunday; its period started Monday 2026-11-16 (ISO week 47).
+    expect(newsletterPeriodKey('weekly', new Date('2026-11-22T15:04:05Z'))).toBe('weekly:2026-W47');
+    // Monday of the same week gives the same key.
+    expect(newsletterPeriodKey('weekly', new Date('2026-11-16T00:00:00Z'))).toBe('weekly:2026-W47');
   });
 });
