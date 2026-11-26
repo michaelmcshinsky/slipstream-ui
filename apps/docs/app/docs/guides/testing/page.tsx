@@ -21,7 +21,7 @@ export default function TestingGuidePage() {
         JSX). Slipstream ships tooling for all three.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Layer 1: jest-axe</h2>
+      <h2 id="layer-1-jest-axe" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Layer 1: jest-axe</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Every component in the library ships an axe suite; do the same for your compositions. The
         three states that matter for chat UIs: resting, streaming, and error.
@@ -56,7 +56,7 @@ describe('ChatSurface', () => {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="layer-2-interaction-tests" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Layer 2: interaction tests
       </h2>
       <div className="mt-4">
@@ -89,7 +89,7 @@ it('renders a retry card when the stream fails', async () => {
         <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">scrollTo = vi.fn()</code>).
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="layer-3-spec-drift-in-ci" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Layer 3: spec drift in CI
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -116,7 +116,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="bonus-validate-agent-written-jsx" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Bonus: validate agent-written JSX
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -139,7 +139,7 @@ pnpm validate:manifests                  # schema + TS↔manifest drift`}
       </div>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">CI recipe (full)</h2>
+        <h2 id="ci-recipe-full" className="font-semibold">CI recipe (full)</h2>
         <div className="mt-3">
           <CodeBlock
             language="yaml"

@@ -33,7 +33,7 @@ export default function TombstoneCardPage() {
               title="Archived listing"
               reason="This listing closed in 2025."
               status="archived"
-              href="/items/archived"
+              href="/docs"
             />
             <TombstoneCard
               title="Document no longer available"

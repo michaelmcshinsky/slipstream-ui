@@ -23,7 +23,7 @@ export default function ReactHookFormGuidePage() {
         hint, error and <code className="text-foreground">aria-invalid</code> wiring either way.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="which-pattern-to-use" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Which pattern to use
       </h2>
       <div className="mt-4 overflow-x-auto">
@@ -60,7 +60,7 @@ export default function ReactHookFormGuidePage() {
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="register-with-formfield" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         register() with FormField
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -88,7 +88,7 @@ export default function ReactHookFormGuidePage() {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="controller-for-value-based-controls" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Controller for value-based controls
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -160,7 +160,7 @@ export default function ReactHookFormGuidePage() {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="adapter-example" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Adapter example
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -209,7 +209,7 @@ export function SelectField<T extends FieldValues>({
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="notes" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Notes
       </h2>
       <ul className="mt-3 list-disc space-y-2 pl-6 text-muted-foreground">

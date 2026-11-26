@@ -30,12 +30,12 @@ export default function VercelAiSdkGuidePage() {
         <em>useCompletion</em>, LangGraph adapters, or your own store.
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Install</h2>
+      <h2 id="1-install" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Install</h2>
       <div className="mt-4">
         <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai ai`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="2-bridge-the-chat-state" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         2. Bridge the chat state
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -84,7 +84,7 @@ export function AiSdkChat() {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="3-what-the-hooks-return" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         3. What the hooks return
       </h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
@@ -116,7 +116,7 @@ export function AiSdkChat() {
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="4-tool-invocations-become-toolcalls" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         4. Tool invocations become ToolCalls
       </h2>
       <div className="mt-4">
@@ -134,11 +134,11 @@ import { toSlipstreamMessage, toSlipstreamToolCalls } from '@slipstream-ui/ai';`
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/guides/streaming" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Streaming fundamentals</h3>
+          <h3 id="streaming-fundamentals" className="font-semibold">Streaming fundamentals</h3>
           <p className="mt-1 text-sm text-muted-foreground">What the adapter abstracts: raw transports.</p>
         </Link>
         <Link href="/docs/guides/state-threads" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">State &amp; threads</h3>
+          <h3 id="state-amp-threads" className="font-semibold">State &amp; threads</h3>
           <p className="mt-1 text-sm text-muted-foreground">Where conversation state should live.</p>
         </Link>
       </div>
