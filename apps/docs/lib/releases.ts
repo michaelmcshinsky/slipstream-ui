@@ -9,9 +9,18 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.0',
+    version: '0.11.1',
     date: 'November 26, 2026',
     tag: 'current',
+    highlights: [
+      'PageHeader description/subtitle and SectionHeading description accept ReactNode instead of only string, so ledes can contain links and inline markup without consumers re-implementing the heading block',
+      'Versioned packages: core 0.11.1 (patch); ai 0.11.0, themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.0',
+    date: 'November 26, 2026',
+    tag: 'previous',
     highlights: [
       'Menu gains first-letter typeahead: typing cycles focus through items matching the pressed character',
       'ProcessSteps adds headingLevel (h2-h4, default h3) so step titles continue the page outline without skipping ranks',

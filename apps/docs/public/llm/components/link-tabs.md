@@ -6,7 +6,7 @@ Route-driven navigation tabs that render real links and mark the current path wi
 > Import: `import { LinkTabs } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/link-tabs
 > Registry: https://slipstreamui.com/registry/link-tabs.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.0
+> Tier: molecule · Package: @slipstream-ui/core@0.11.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
