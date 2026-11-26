@@ -64,4 +64,37 @@ describe('action object form', () => {
     render(<EmptyState title="No results" action={<button type="button">Custom</button>} />);
     expect(screen.getByRole('button', { name: 'Custom' })).toBeInTheDocument();
   });
+
+  it('routes action hrefs through linkComponent and linkHrefProp', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-to={to} {...rest}>{children}</a>
+    );
+    render(
+      <EmptyState
+        title="No results"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+        action={{ label: 'Create one', href: '/new' }}
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Create one' })).toHaveAttribute('data-to', '/new');
+  });
+});
+
+describe('align and tone', () => {
+  it('renders a left-aligned tinted panel', () => {
+    const { container } = render(
+      <EmptyState align="start" tone="panel" title="No matches" description="Try widening the filters." />
+    );
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveClass('items-start', 'text-left', 'bg-muted', 'border-border');
+    expect(root).not.toHaveClass('border-dashed');
+  });
+
+  it('keeps the centered dashed default', () => {
+    const { container } = render(<EmptyState title="Empty" />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveClass('items-center', 'text-center', 'border-dashed');
+    expect(root).not.toHaveClass('bg-muted');
+  });
 });

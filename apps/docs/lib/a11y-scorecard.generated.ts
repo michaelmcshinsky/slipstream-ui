@@ -430,7 +430,7 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "package": "@slipstream-ui/core",
       "sourceDir": "empty-state",
       "axe": true,
-      "interaction": false,
+      "interaction": true,
       "notes": 1,
       "docs": "/docs/components/empty-state",
       "manifest": "/llm/components/empty-state.md"
@@ -1253,7 +1253,7 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
   "summary": {
     "total": 113,
     "withAxe": 113,
-    "withInteraction": 43,
+    "withInteraction": 44,
     "withNotes": 113,
     "totalNotes": 245
   }

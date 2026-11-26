@@ -26,6 +26,18 @@ export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
   titleAs?: 'p' | 'h2' | 'h3' | 'h4';
   /** Compact padding for use inside panels and table bodies. */
   size?: 'sm' | 'md';
+  /** Horizontal alignment of content and actions. Default 'center'. */
+  align?: 'center' | 'start';
+  /**
+   * Surface treatment. 'panel' renders a tinted, solid-bordered surface for
+   * content pages (typically paired with align="start"); 'plain' keeps the
+   * default dashed outline. Default 'plain'.
+   */
+  tone?: 'plain' | 'panel';
+  /** Custom link element for action hrefs (Next Link, react-router Link). */
+  linkComponent?: React.ElementType;
+  /** Prop used to pass the destination to `linkComponent`. */
+  linkHrefProp?: 'href' | 'to';
 };
 
 function isActionObject(value: unknown): value is EmptyStateAction {
@@ -38,13 +50,19 @@ function isActionObject(value: unknown): value is EmptyStateAction {
 }
 
 /** Normalizes the node and object forms into a single element. */
-function renderAction(action: React.ReactNode | EmptyStateAction | undefined): React.ReactNode {
+function renderAction(
+  action: React.ReactNode | EmptyStateAction | undefined,
+  linkComponent?: React.ElementType,
+  linkHrefProp: 'href' | 'to' = 'href'
+): React.ReactNode {
   if (!isActionObject(action)) return action;
   const { label, onClick, href, variant } = action;
   if (href) {
+    const LinkEl = linkComponent ?? 'a';
+    const destination = linkHrefProp === 'to' ? { to: href } : { href };
     return (
       <Button variant={variant} asChild>
-        <a href={href}>{label}</a>
+        <LinkEl {...destination}>{label}</LinkEl>
       </Button>
     );
   }
@@ -70,18 +88,28 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(func
     secondaryAction,
     titleAs: Title = 'p',
     size = 'md',
+    align = 'center',
+    tone = 'plain',
+    linkComponent,
+    linkHrefProp = 'href',
     className,
     children,
     ...props
   },
   ref
 ) {
-  const primaryAction = renderAction(action) ?? actions;
+  const primaryAction = renderAction(action, linkComponent, linkHrefProp) ?? actions;
+  const start = align === 'start';
   return (
     <div
       ref={ref}
       className={cn(
-        'flex flex-col items-center justify-center rounded-lg border border-dashed border-border text-center',
+        'flex flex-col rounded-lg text-center',
+        start ? 'items-start text-left' : 'items-center text-center',
+        'justify-center',
+        tone === 'panel'
+          ? 'border border-border bg-muted'
+          : 'border border-dashed border-border',
         size === 'md' ? 'gap-3 px-6 py-12' : 'gap-2 px-4 py-6',
         className
       )}
@@ -89,10 +117,10 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(func
     >
       {icon && <div className="text-muted-foreground [&_svg]:size-8">{icon}</div>}
       <Title className={cn('font-semibold', size === 'md' ? 'text-base' : 'text-sm')}>{title}</Title>
-      {description && <p className="max-w-sm text-sm text-muted-foreground">{description}</p>}
+      {description && <p className={cn('max-w-sm text-sm text-muted-foreground', start && 'max-w-md')}>{description}</p>}
       {children}
       {(primaryAction || secondaryAction) && (
-        <div className="mt-1 flex flex-wrap items-center justify-center gap-2">
+        <div className={cn('mt-1 flex flex-wrap items-center gap-2', start ? 'justify-start' : 'justify-center')}>
           {primaryAction}
           {secondaryAction}
         </div>
