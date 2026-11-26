@@ -12,6 +12,7 @@
 import { readConsent } from './site';
 
 export type AnalyticsEvent =
+  | 'article_scroll'
   | 'cta_click'
   | 'install_copy'
   | 'github_click'
@@ -31,6 +32,7 @@ export type AnalyticsProps = Record<string, string | number | boolean | undefine
  * analytics drift. Keep entries alphabetical-ish and scalar-valued only.
  */
 export const EVENT_PROPS: Record<AnalyticsEvent, readonly string[]> = {
+  article_scroll: ['depth', 'slug'],
   cta_click: ['cta', 'location'],
   install_copy: ['command', 'component', 'location', 'method'],
   github_click: ['location'],

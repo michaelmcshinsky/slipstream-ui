@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Navbar } from '@/components/site/navbar';
 import { MobileNav } from '@/components/site/mobile-nav';
 import { Footer } from '@/components/site/footer';
+import { ArticleEngagement } from '@/components/site/article-engagement';
 import { JsonLd } from '@/components/site/json-ld';
 import { ARTICLES, articlePath, getArticle } from '@/lib/articles';
 import { MarkdownContent, parseMarkdown } from '@/lib/markdown';
@@ -68,6 +69,7 @@ export default async function ArticlePage({ params }: PageProps) {
         })}
       />
       <Navbar />
+      <ArticleEngagement slug={article.slug} />
       <div className="px-4">
         <MobileNav />
       </div>
