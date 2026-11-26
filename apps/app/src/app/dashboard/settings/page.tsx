@@ -144,6 +144,10 @@ export default function SettingsPage() {
           <a href="/terms" className="text-primary underline underline-offset-2 hover:text-primary/80">
             Terms of Service
           </a>
+          {' · '}
+          <a href="/accessibility" className="text-primary underline underline-offset-2 hover:text-primary/80">
+            Accessibility
+          </a>
         </p>
       </Card>
 
