@@ -6,7 +6,7 @@ Edge sheet for secondary flows: slides from any side (sm/md/lg), with Dialog-gra
 > Import: `import { Drawer } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/drawer
 > Registry: https://slipstreamui.com/registry/drawer.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.3
+> Tier: molecule · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

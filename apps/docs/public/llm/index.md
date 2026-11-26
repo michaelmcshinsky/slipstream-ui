@@ -1,6 +1,6 @@
 # Slipstream UI — LLM Documentation Index
 
-> Version: 0.11.3 (2026-11-26) · manifest schema v1 · manifest v1
+> Version: 0.11.4 (2026-11-26) · manifest schema v1 · manifest v1
 > 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json

@@ -6,7 +6,7 @@ Tabbed content container with ARIA tablist semantics and keyboard navigation
 > Import: `import { Tabs } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/tabs
 > Registry: https://slipstreamui.com/registry/tabs.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.3
+> Tier: molecule · Package: @slipstream-ui/core@0.11.4
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
