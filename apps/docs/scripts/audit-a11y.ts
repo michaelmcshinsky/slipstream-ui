@@ -44,6 +44,7 @@ const ROUTES = [
   '/changelog',
   '/docs/roadmap',
   '/about',
+  '/showcase',
   '/accessibility',
   '/accessibility/scorecard',
   '/contact',
