@@ -52,6 +52,23 @@
       "required": false,
       "defaultValue": "true",
       "description": "Draw dividers between stats at sm and up."
+    },
+    {
+      "name": "variant",
+      "type": "'plain' | 'panel'",
+      "required": false,
+      "defaultValue": "plain",
+      "enum": [
+        "plain",
+        "panel"
+      ],
+      "description": "Surface treatment. 'panel' is a bordered strip of hairline-separated cells with denser type for data pages; 'plain' is the marketing band."
+    },
+    {
+      "name": "valueClassName",
+      "type": "string",
+      "required": false,
+      "description": "Extra classes for the value element, e.g. font-mono for tabular numerals."
     }
   ],
   "examples": [
@@ -64,6 +81,11 @@
       "title": "Left-aligned four-up",
       "code": "<StatBand columns={4} align=\"left\" items={stats} />",
       "description": "Four stats aligned to the left."
+    },
+    {
+      "title": "Data-dense panel",
+      "code": "<StatBand\n  variant=\"panel\"\n  align=\"left\"\n  valueClassName=\"font-mono\"\n  items={[\n    { value: '3', label: 'Deadlines', hint: 'closing soon' },\n    { value: '12', label: 'Events' },\n  ]}\n/>",
+      "description": "Bordered strip of hairline-separated cells for data pages."
     }
   ],
   "antiPatterns": [

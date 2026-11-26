@@ -21,6 +21,14 @@ export type StatBandProps = React.HTMLAttributes<HTMLDListElement> & {
   size?: 'sm' | 'md' | 'lg';
   /** Draw dividers between stats at sm and up. Default true. */
   divided?: boolean;
+  /**
+   * Surface treatment. 'panel' renders a bordered strip of hairline-separated
+   * cells with denser type for data pages; 'plain' is the marketing band.
+   * Default 'plain'.
+   */
+  variant?: 'plain' | 'panel';
+  /** Extra classes for the value element (e.g. font-mono for tabular numerals). */
+  valueClassName?: string;
 };
 
 const columnClasses: Record<NonNullable<StatBandProps['columns']>, string> = {
@@ -35,22 +43,43 @@ const valueClasses: Record<NonNullable<StatBandProps['size']>, string> = {
   lg: 'text-4xl sm:text-5xl',
 };
 
+const panelValueClasses: Record<NonNullable<StatBandProps['size']>, string> = {
+  sm: 'text-lg',
+  md: 'text-xl sm:text-2xl',
+  lg: 'text-2xl sm:text-3xl',
+};
+
 /**
  * Marketing stat band: a semantic description list of headline numbers with
  * labels and optional hints. Use it inside a Section; the Section owns the
  * surface tone, so the same band works on white and inverse backgrounds.
  */
 export const StatBand = React.forwardRef<HTMLDListElement, StatBandProps>(function StatBand(
-  { items, columns = 3, align = 'center', size = 'md', divided = true, className, ...props },
+  {
+    items,
+    columns = 3,
+    align = 'center',
+    size = 'md',
+    divided = true,
+    variant = 'plain',
+    valueClassName,
+    className,
+    ...props
+  },
   ref
 ) {
+  const panel = variant === 'panel';
   return (
     <dl
       ref={ref}
       className={cn(
-        'grid w-full gap-8',
+        'grid w-full',
+        panel ? 'gap-0 rounded-lg border border-border bg-card' : 'gap-8',
         columnClasses[columns],
-        divided && 'sm:divide-x sm:divide-border',
+        divided &&
+          (panel
+            ? 'divide-y divide-border sm:divide-x sm:divide-y-0'
+            : 'sm:divide-x sm:divide-border'),
         className
       )}
       {...props}
@@ -59,15 +88,31 @@ export const StatBand = React.forwardRef<HTMLDListElement, StatBandProps>(functi
         <div
           key={item.label}
           className={cn(
-            'flex min-w-0 flex-col gap-1 sm:px-6 sm:first:pl-0 sm:last:pr-0',
+            'flex min-w-0 flex-col gap-1',
+            panel ? 'px-4 py-3 sm:px-5 sm:py-4' : 'sm:px-6 sm:first:pl-0 sm:last:pr-0',
             align === 'center' ? 'items-center text-center' : 'items-start text-left'
           )}
         >
-          <dt className="order-2 text-sm font-medium text-muted-foreground">
+          <dt
+            className={cn(
+              'order-2 text-muted-foreground',
+              panel ? 'text-xs font-medium uppercase tracking-wide' : 'text-sm font-medium'
+            )}
+          >
             {item.label}
-            {item.hint && <span className="mt-1 block text-xs font-normal">{item.hint}</span>}
+            {item.hint && (
+              <span className={cn('mt-1 block font-normal', panel ? 'text-xs normal-case tracking-normal' : 'text-xs')}>
+                {item.hint}
+              </span>
+            )}
           </dt>
-          <dd className={cn('order-1 m-0 font-semibold tracking-tight tabular-nums', valueClasses[size])}>
+          <dd
+            className={cn(
+              'order-1 m-0 font-semibold tracking-tight tabular-nums',
+              panel ? panelValueClasses[size] : valueClasses[size],
+              valueClassName
+            )}
+          >
             {item.value}
           </dd>
         </div>

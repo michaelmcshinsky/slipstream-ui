@@ -43,6 +43,8 @@ type StatBandProps = {
   align?: 'left' | 'center';
   size?: 'sm' | 'md' | 'lg';
   divided?: boolean;
+  variant?: 'plain' | 'panel';
+  valueClassName?: string;
 };`}
       />
       <DemoCard
@@ -77,6 +79,34 @@ type StatBandProps = {
 />`}
         usage={`// align="left" + divided={false} suits dense spec sheets; keep
 // size="lg" for hero proof bands.`}
+      />
+      <DemoCard
+        title="Data-dense panel"
+        preview={
+          <StatBand
+            variant="panel"
+            align="left"
+            valueClassName="font-mono"
+            items={[
+              { value: '3', label: 'Deadlines', hint: 'closing soon' },
+              { value: '12', label: 'Events this month' },
+              { value: '48', label: 'Studios listed' },
+            ]}
+          />
+        }
+        code={`<StatBand
+  variant="panel"
+  align="left"
+  valueClassName="font-mono"
+  items={[
+    { value: '3', label: 'Deadlines', hint: 'closing soon' },
+    { value: '12', label: 'Events this month' },
+    { value: '48', label: 'Studios listed' },
+  ]}
+/>`}
+        usage={`// variant="panel" is the data-page strip: bordered cells,
+// hairline separators, uppercase labels, denser values.
+// valueClassName adds font-mono/tabular numerals.`}
       />
     </>
   );

@@ -7360,6 +7360,8 @@ Proof sections repeat the same number/label cluster. StatBand standardizes the s
 | align | `'left' | 'center'` | `center` | no | Copy alignment. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Value scale. |
 | divided | `boolean` | `true` | no | Draw dividers between stats at sm and up. |
+| variant | `'plain' | 'panel'` | `plain` | no | Surface treatment. 'panel' is a bordered strip of hairline-separated cells with denser type for data pages; 'plain' is the marketing band. |
+| valueClassName | `string` | — | no | Extra classes for the value element, e.g. font-mono for tabular numerals. |
 
 ## Examples
 
@@ -7383,6 +7385,22 @@ Four stats aligned to the left.
 
 ```tsx
 <StatBand columns={4} align="left" items={stats} />
+```
+
+### Data-dense panel
+
+Bordered strip of hairline-separated cells for data pages.
+
+```tsx
+<StatBand
+  variant="panel"
+  align="left"
+  valueClassName="font-mono"
+  items={[
+    { value: '3', label: 'Deadlines', hint: 'closing soon' },
+    { value: '12', label: 'Events' },
+  ]}
+/>
 ```
 
 ## Anti-patterns

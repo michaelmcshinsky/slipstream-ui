@@ -23,6 +23,8 @@ export default function Page() {
         { name: 'align', type: "'left' | 'center'", defaultValue: "'center'", description: 'Copy alignment.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Value scale.' },
         { name: 'divided', type: 'boolean', defaultValue: 'true', description: 'Draw dividers between stats at sm and up.' },
+        { name: 'variant', type: "'plain' | 'panel'", defaultValue: "'plain'", description: "Surface treatment; 'panel' is a bordered strip of hairline-separated cells for data pages." },
+        { name: 'valueClassName', type: 'string', description: 'Extra classes for the value element, e.g. font-mono for tabular numerals.' },
       ]}
       accessibility={[
         'Renders dl/dt/dd so each number is structurally paired with its label.',
