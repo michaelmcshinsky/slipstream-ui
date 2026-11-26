@@ -59,6 +59,12 @@
       "description": "Profile destination."
     },
     {
+      "name": "cardHref",
+      "type": "string",
+      "required": false,
+      "description": "Makes the whole card a single link (stretched-link pattern): the name link's overlay covers the card for one target, one hover state and one focus ring. Suppresses the footer 'View profile' link; actions stay clickable above the overlay."
+    },
+    {
       "name": "linkComponent",
       "type": "React.ElementType",
       "required": false,
@@ -81,8 +87,8 @@
   "antiPatterns": [
     {
       "title": "Don't make the whole card a link with nested actions",
-      "explanation": "The title and footer link are the destinations; actions stay separate so controls never nest.",
-      "example": "// Use href for the title and footer link; put actions in the actions slot."
+      "explanation": "By default the title and footer link are the destinations so controls never nest. When the whole card should be the target, use cardHref (stretched-link): it keeps actions as siblings layered above the overlay instead of nesting them inside the link.",
+      "example": "// Whole-card link: cardHref=\"/members/acme\" + actions slot for extra controls.\n// Otherwise: href for title/footer link, actions in the actions slot."
     }
   ],
   "accessibility": [
