@@ -2,8 +2,8 @@
  * Newsletter generator tests
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries, newsletterPeriodKey } from '../generators/newsletter';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries, newsletterPeriodKey, sendWindowAllows } from '../generators/newsletter';
 import { prisma } from '@slipstream-ui/db';
 import type { GeneratedNewsletter, UserWithPreferences, NewsletterContentItem } from '../types';
 
@@ -360,3 +360,34 @@ describe('newsletterPeriodKey', () => {
     expect(newsletterPeriodKey('weekly', new Date('2026-11-16T00:00:00Z'))).toBe('weekly:2026-W47');
   });
 });
+
+describe('sendWindowAllows', () => {
+  afterEach(() => vi.unstubAllEnvs());
+  const at = (iso: string) => new Date(iso);
+
+  it('allows everything by default (0-23)', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '0-23');
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T03:00:00Z'))).toBe(true);
+  });
+
+  it('filters by the recipient-local hour', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    // 15:00 UTC = 08:00 in America/Denver (MST, UTC-7 in November).
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T15:00:00Z'))).toBe(true);
+    // 04:00 UTC = 21:00 previous day local — outside the window.
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T04:00:00Z'))).toBe(false);
+  });
+
+  it('honors the user timezone over UTC', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    // 02:00 UTC is 20:00 in Denver (inside) but 02:00 in UTC (outside).
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T02:00:00Z'))).toBe(true);
+    expect(sendWindowAllows('UTC', at('2026-11-22T02:00:00Z'))).toBe(false);
+  });
+
+  it('falls back to UTC for an invalid stored timezone', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    expect(sendWindowAllows('Not/AZone', at('2026-11-22T12:00:00Z'))).toBe(true);
+  });
+});
+

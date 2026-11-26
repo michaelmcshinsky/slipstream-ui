@@ -278,6 +278,34 @@ export function newsletterPeriodKey(frequency: 'daily' | 'weekly', now = new Dat
 }
 
 /**
+ * Per-user send window in the recipient's local timezone, configured via
+ * NEWSLETTER_SEND_WINDOW="start-end" (local hours, end exclusive). The
+ * default "0-23" disables filtering. To use it, run the cron at least
+ * hourly: periodKey dedup makes repeat runs safe, and each user is queued
+ * by the first run that lands inside their window.
+ */
+export function sendWindowAllows(timezone: string | undefined, now = new Date()): boolean {
+  const raw = process.env.NEWSLETTER_SEND_WINDOW ?? '0-23';
+  const [start, end] = raw.split('-').map((part) => Number.parseInt(part, 10));
+  if (!Number.isFinite(start) || !Number.isFinite(end) || (start === 0 && end >= 23)) return true;
+  let hour: number;
+  try {
+    hour = Number.parseInt(
+      new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone || 'UTC',
+        hour: 'numeric',
+        hourCycle: 'h23',
+      }).format(now),
+      10,
+    );
+  } catch {
+    // Invalid stored timezone: fall back to UTC rather than dropping mail.
+    hour = now.getUTCHours();
+  }
+  return hour >= start && hour < end;
+}
+
+/**
  * Generate and queue newsletter deliveries for all eligible users
  */
 export async function queueNewsletterDeliveries(
@@ -293,6 +321,10 @@ export async function queueNewsletterDeliveries(
       // Find the user's subscription for this frequency
       const subscription = user.subscriptions.find((s) => s.type === frequency && s.status === 'active');
       if (!subscription) continue;
+
+      // Honor the recipient's local send window when configured; the
+      // periodKey dedup means an hourly cron still queues each user once.
+      if (!sendWindowAllows(user.preferences?.timezone)) continue;
 
       // Idempotent per period: a scheduler retry or double-invocation must not
       // queue a second copy of the same digest for the same subscription.
