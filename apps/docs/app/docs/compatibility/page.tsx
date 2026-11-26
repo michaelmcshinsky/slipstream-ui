@@ -67,13 +67,13 @@ export default function CompatibilityPage() {
         </table>
       </div>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">Tailwind v4 setup</h2>
+      <h2 id="tailwind-v4-setup" className="text-2xl font-semibold mt-10 mb-4">Tailwind v4 setup</h2>
       <p className="mb-3 leading-relaxed text-muted-foreground">
         See the <Link className="text-primary underline underline-offset-2" href="/docs/tailwind-v4">Tailwind v4 guide</Link>{' '}
         for the theme import, content sources and known motion caveats.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">What is not claimed</h2>
+      <h2 id="what-is-not-claimed" className="text-2xl font-semibold mt-10 mb-4">What is not claimed</h2>
       <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
         <li>Browser support follows your application&apos;s browserslist; the library ships no polyfills.</li>
         <li>Accessibility is verified by automated axe and keyboard tests, not a formal VPAT or screen-reader certification.</li>

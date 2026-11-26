@@ -34,7 +34,7 @@ export default function InstallationPage() {
           </p>
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Choose an installation path</h2>
+        <h2 id="choose-an-installation-path" className="text-2xl font-semibold mt-8 mb-4">Choose an installation path</h2>
         <div className="mb-6 overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">
@@ -70,7 +70,7 @@ export default function InstallationPage() {
           compatibility matrix and the consumer smoke build record what is tested.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Published packages</h2>
+        <h2 id="published-packages" className="text-2xl font-semibold mt-8 mb-4">Published packages</h2>
         <p className="mb-4 text-muted-foreground">
           Every package is published to npm with matching types and a{' '}
           <code>COMPONENT_MANIFEST</code> where it ships components. Open the npm link
@@ -107,7 +107,7 @@ export default function InstallationPage() {
           </table>
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
+        <h2 id="prerequisites" className="text-2xl font-semibold mt-8 mb-4">Prerequisites</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>Node.js 20.9 or higher</li>
           <li>pnpm 8 or higher (recommended)</li>
@@ -116,7 +116,7 @@ export default function InstallationPage() {
           <li>TypeScript (recommended)</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Quick Start with CLI</h2>
+        <h2 id="quick-start-with-cli" className="text-2xl font-semibold mt-8 mb-4">Quick Start with CLI</h2>
         <p className="text-muted-foreground mb-4">
           The fastest way to get started is using the Slipstream UI CLI:
         </p>
@@ -131,15 +131,15 @@ export default function InstallationPage() {
           <li>Configure your theme</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Manual Installation</h2>
+        <h2 id="manual-installation" className="text-2xl font-semibold mt-8 mb-4">Manual Installation</h2>
         <p className="text-muted-foreground mb-4">
           If you prefer to install manually, follow these steps:
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">1. Install packages</h3>
+        <h3 id="1-install-packages" className="text-xl font-semibold mt-6 mb-3">1. Install packages</h3>
         <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai @slipstream-ui/themes`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">2. Configure Tailwind CSS</h3>
+        <h3 id="2-configure-tailwind-css" className="text-xl font-semibold mt-6 mb-3">2. Configure Tailwind CSS</h3>
         <p className="text-muted-foreground mb-4">
           Extend your Tailwind config with the Slipstream UI theme. Tailwind CSS 3
           users can use the published preset, which carries every token mapping and
@@ -229,7 +229,7 @@ module.exports = {
   plugins: [require('tailwindcss-animate')],
 }`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">3. Add CSS variables</h3>
+        <h3 id="3-add-css-variables" className="text-xl font-semibold mt-6 mb-3">3. Add CSS variables</h3>
         <p className="text-muted-foreground mb-4">
           Add the CSS variables to your global CSS file:
         </p>
@@ -301,7 +301,7 @@ module.exports = {
   }
 }`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">4. Import components</h3>
+        <h3 id="4-import-components" className="text-xl font-semibold mt-6 mb-3">4. Import components</h3>
         <p className="text-muted-foreground mb-4">
           Start using components in your app:
         </p>
@@ -317,21 +317,21 @@ function App() {
   )
 }`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Package Managers</h2>
+        <h2 id="package-managers" className="text-2xl font-semibold mt-8 mb-4">Package Managers</h2>
         <p className="text-muted-foreground mb-4">
           Slipstream UI works with all major package managers:
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">pnpm (recommended)</h3>
+        <h3 id="pnpm-recommended" className="text-xl font-semibold mt-6 mb-3">pnpm (recommended)</h3>
         <CodeBlock language="bash" code={`pnpm add @slipstream-ui/core @slipstream-ui/ai`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">npm</h3>
+        <h3 id="npm" className="text-xl font-semibold mt-6 mb-3">npm</h3>
         <CodeBlock language="bash" code={`npm install @slipstream-ui/core @slipstream-ui/ai`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">yarn</h3>
+        <h3 id="yarn" className="text-xl font-semibold mt-6 mb-3">yarn</h3>
         <CodeBlock language="bash" code={`yarn add @slipstream-ui/core @slipstream-ui/ai`} />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Local checkout</h2>
+        <h2 id="local-checkout" className="text-2xl font-semibold mt-8 mb-4">Local checkout</h2>
         <p className="mb-4 leading-relaxed text-muted-foreground">
           When the package is linked from a local checkout through a pnpm workspace
           or a <code>file:</code> dependency, Vite can resolve a second React copy
@@ -352,12 +352,12 @@ export default defineConfig({
           entry before reinstalling. Registry copies are unaffected.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Framework Setup</h2>
+        <h2 id="framework-setup" className="text-2xl font-semibold mt-8 mb-4">Framework Setup</h2>
         <p className="text-muted-foreground mb-4">
           Slipstream UI works with any React framework. Here are the specifics for the most common setups:
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Next.js (App Router)</h3>
+        <h3 id="nextjs-app-router" className="text-xl font-semibold mt-6 mb-3">Next.js (App Router)</h3>
         <p className="text-muted-foreground mb-4">
           Add the CSS variables to your global stylesheet, then import components in client components:
         </p>
@@ -416,7 +416,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           so they work as client components within server layouts. No additional configuration is needed.
         </p>
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Vite + React</h3>
+        <h3 id="vite-react" className="text-xl font-semibold mt-6 mb-3">Vite + React</h3>
         <p className="text-muted-foreground mb-4">
           Import the CSS variables in your entry file and add the Tailwind content paths:
         </p>
@@ -429,7 +429,7 @@ import App from './App';
 //   './src/**/*.{ts,tsx}',
 //   './node_modules/@slipstream-ui/**/*.{js,ts,tsx}'`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Remix</h3>
+        <h3 id="remix" className="text-xl font-semibold mt-6 mb-3">Remix</h3>
         <p className="text-muted-foreground mb-4">
           Add the CSS via your root route&apos;s <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">links</code> export:
         </p>
@@ -442,7 +442,7 @@ export const links = () => [
 
 // Same CSS variables + Tailwind content paths as above`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Astro</h3>
+        <h3 id="astro" className="text-xl font-semibold mt-6 mb-3">Astro</h3>
         <p className="text-muted-foreground mb-4">
           Use a React integration for interactive components. Static markup works without it:
         </p>
@@ -456,7 +456,7 @@ import { Button } from '@slipstream-ui/core';
 ---
 <Button client:load>Click me</Button>`} />
 
-        <h3 className="text-xl font-semibold mt-6 mb-3">Any other React setup</h3>
+        <h3 id="any-other-react-setup" className="text-xl font-semibold mt-6 mb-3">Any other React setup</h3>
         <p className="text-muted-foreground mb-4">
           As long as you have React 18 or 19 and either Tailwind CSS 3.4+/4.x or the
           prebuilt stylesheets (@slipstream-ui/core/styles.css plus
@@ -466,7 +466,7 @@ import { Button } from '@slipstream-ui/core';
           tailwindcss-animate, all installed automatically.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
+        <h2 id="next-steps" className="text-2xl font-semibold mt-8 mb-4">Next Steps</h2>
         <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
           <li>
             <a href="/docs/theming" className="text-primary underline underline-offset-2">

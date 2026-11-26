@@ -61,7 +61,7 @@ export default function AiFirstPage() {
         </Link>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The problem</h2>
+      <h2 id="the-problem" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The problem</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Agents trained on the open web guess at component APIs. The result is usually the same three
         failures: a prop that does not exist, an enum value that was never in the type, or a
@@ -69,7 +69,7 @@ export default function AiFirstPage() {
         because the model never sees it at the moment it writes the code.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The contract</h2>
+      <h2 id="the-contract" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The contract</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Each component directory ships a manifest beside its source. The manifest is small enough to
         load into a prompt and explicit enough to validate against:
@@ -103,7 +103,7 @@ export default function AiFirstPage() {
         every run, so the contract cannot silently fall behind the code.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The loop</h2>
+      <h2 id="the-loop" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The loop</h2>
       <div className="mt-4">
         <CodeBlock
           language="text"
@@ -131,7 +131,7 @@ export default function AiFirstPage() {
         not only syntax.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Four surfaces, one source</h2>
+      <h2 id="four-surfaces-one-source" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Four surfaces, one source</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {LAYERS.map((layer) => (
           <Link
@@ -146,7 +146,7 @@ export default function AiFirstPage() {
         ))}
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Pick your entry point</h2>
+      <h2 id="pick-your-entry-point" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Pick your entry point</h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted">
@@ -181,7 +181,7 @@ export default function AiFirstPage() {
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">What stays in sync</h2>
+      <h2 id="what-stays-in-sync" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">What stays in sync</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground">
         <li><strong className="text-foreground">TypeScript ↔ manifest:</strong> prop names, optionality, and enums are compared; drift fails CI.</li>
         <li><strong className="text-foreground">Manifest ↔ registry:</strong> the registry is generated from manifests, so a published component cannot omit its contract.</li>
@@ -195,7 +195,7 @@ pnpm generate:llm-docs    # /llm/*.md, llms.txt, llms-full.txt
 pnpm check:llm            # fail if generated docs are stale`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">What the validator does not do</h2>
+      <h2 id="what-the-validator-does-not-do" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">What the validator does not do</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">validate_usage</code> is a
         contract check, not a compiler or a design review. It does not type-check expressions, run
@@ -205,22 +205,22 @@ pnpm check:llm            # fail if generated docs are stale`} />
         because the generated code imports the real types only after it is emitted.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Next</h2>
+      <h2 id="next" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Next</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/guides/ide-setup" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Wire your IDE</h3>
+          <h3 id="wire-your-ide" className="font-semibold">Wire your IDE</h3>
           <p className="mt-1 text-sm text-muted-foreground">Concrete configs for Claude Code, Cursor, Windsurf, and OpenCode.</p>
         </Link>
         <Link href="/docs/guides/testing" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Gate it in CI</h3>
+          <h3 id="gate-it-in-ci" className="font-semibold">Gate it in CI</h3>
           <p className="mt-1 text-sm text-muted-foreground">Run validate_usage and manifest checks on every pull request.</p>
         </Link>
         <Link href="/docs/templates" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Start from a template</h3>
+          <h3 id="start-from-a-template" className="font-semibold">Start from a template</h3>
           <p className="mt-1 text-sm text-muted-foreground">Streaming chat, agent dashboard, RAG citations, and more.</p>
         </Link>
         <Link href="/llms.txt" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Read the agent index</h3>
+          <h3 id="read-the-agent-index" className="font-semibold">Read the agent index</h3>
           <p className="mt-1 text-sm text-muted-foreground">The same overview an agent fetches before writing code.</p>
         </Link>
       </div>

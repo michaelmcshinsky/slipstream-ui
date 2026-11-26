@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { CodeBlock } from '@slipstream-ui/ai';
 import type { ProseBlock, ProsePart } from '@/lib/docs-copy';
+import { slugifyHeading } from '@/lib/markdown';
 
 type Vars = Record<string, string | number>;
 
@@ -51,6 +52,17 @@ export function DocsProseInline({ parts, vars = {} }: { parts: ProsePart[]; vars
  * every locale shares one layout instead of forking the page component.
  */
 export function DocsProse({ blocks, vars = {} }: { blocks: ProseBlock[]; vars?: Vars }) {
+  // Heading ids are rendered server-side so anchors exist in the SSR HTML
+  // (and for the TOC) without client-side DOM mutation. Duplicated heading
+  // text gets a -1/-2 suffix, matching the markdown renderer's convention.
+  const usedSlugs = new Map<string, number>();
+  const headingId = (text: string) => {
+    const base = slugifyHeading(fill(text, vars)) || 'section';
+    const count = usedSlugs.get(base) ?? 0;
+    usedSlugs.set(base, count + 1);
+    return count === 0 ? base : `${base}-${count + 1}`;
+  };
+
   return (
     <>
       {blocks.map((block, index) => {
@@ -59,6 +71,7 @@ export function DocsProse({ blocks, vars = {} }: { blocks: ProseBlock[]; vars?: 
             return (
               <h2
                 key={index}
+                id={headingId(block.text)}
                 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight"
               >
                 {block.text}

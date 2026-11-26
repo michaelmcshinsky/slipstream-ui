@@ -22,7 +22,7 @@ export default function AccessibilityAiGuidePage() {
         app must still own.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="what-the-components-already-do" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         What the components already do
       </h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
@@ -51,11 +51,11 @@ export default function AccessibilityAiGuidePage() {
         </table>
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="what-your-app-still-owns" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         What your app still owns
       </h2>
 
-      <h3 className="mt-8 text-xl font-semibold">1. Announce user-visible status changes</h3>
+      <h3 id="1-announce-user-visible-status-changes" className="mt-8 text-xl font-semibold">1. Announce user-visible status changes</h3>
       <p className="mt-2 leading-relaxed text-muted-foreground">
         Connection loss, saved states, queued messages: anything that changes outside the
         transcript needs one polite live region. Never make the transcript itself a live region.
@@ -70,21 +70,21 @@ export default function AccessibilityAiGuidePage() {
         />
       </div>
 
-      <h3 className="mt-8 text-xl font-semibold">2. Keep the composer reachable</h3>
+      <h3 id="2-keep-the-composer-reachable" className="mt-8 text-xl font-semibold">2. Keep the composer reachable</h3>
       <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
         <li>PromptInput is a real textarea: Enter sends, Shift+Enter newlines: document it in placeholder or hint text.</li>
         <li>Don&apos;t trap focus in the transcript; Tab order should reach the composer from anywhere.</li>
         <li>Icon-only buttons (send, stop, thumbs) need aria-labels: the tooltip supplements, never replaces.</li>
       </ul>
 
-      <h3 className="mt-8 text-xl font-semibold">3. Don&apos;t announce every token</h3>
+      <h3 id="3-donapost-announce-every-token" className="mt-8 text-xl font-semibold">3. Don&apos;t announce every token</h3>
       <p className="mt-2 leading-relaxed text-muted-foreground">
         The instinct is to mirror streaming output into a live region: that makes screen readers
         unusable for minutes. Announce only phases: <em>generating…</em> (optional) and{' '}
         <em>response complete</em>. Conversation does this; don&apos;t duplicate it.
       </p>
 
-      <h3 className="mt-8 text-xl font-semibold">4. Color and contrast are your tokens</h3>
+      <h3 id="4-color-and-contrast-are-your-tokens" className="mt-8 text-xl font-semibold">4. Color and contrast are your tokens</h3>
       <p className="mt-2 leading-relaxed text-muted-foreground">
         Semantic status tokens (success/warning/info) ship as CSS variables with paired
         foregrounds: status pills pass AA in both themes by default. If you override tokens via{' '}
@@ -92,7 +92,7 @@ export default function AccessibilityAiGuidePage() {
         re-check contrast on destructive/success on your brand hues.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="testing-checklist" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Testing checklist
       </h2>
       <div className="mt-4">
@@ -120,11 +120,11 @@ it('chat surface has no accessibility violations', async () => {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         <Link href="/docs/components/conversation" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">Conversation</h3>
+          <h3 id="conversation" className="font-semibold">Conversation</h3>
           <p className="mt-1 text-sm text-muted-foreground">Scroll + streaming a11y details.</p>
         </Link>
         <Link href="/docs/components/form-field" className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40">
-          <h3 className="font-semibold">FormField</h3>
+          <h3 id="formfield" className="font-semibold">FormField</h3>
           <p className="mt-1 text-sm text-muted-foreground">Label/hint/error wiring done for you.</p>
         </Link>
       </div>

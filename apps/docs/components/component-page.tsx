@@ -158,7 +158,7 @@ export function ComponentPage({
 
       {designIntent && (
         <section className="mt-6">
-          <h2 className="text-lg font-semibold">{t('site.page.designIntent')}</h2>
+          <h2 id="design-intent" className="text-lg font-semibold">{t('site.page.designIntent')}</h2>
           <p className="mt-2 text-muted-foreground">{designIntent}</p>
         </section>
       )}
@@ -171,14 +171,14 @@ export function ComponentPage({
 
       {propsRows && propsRows.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">{t('site.props.title')}</h2>
+          <h2 id="props" className="mb-4 text-xl font-semibold">{t('site.props.title')}</h2>
           <PropsTable rows={propsRows} />
         </section>
       )}
 
       {antiPatterns.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-2 text-xl font-semibold">{t('site.page.antiPatterns')}</h2>
+          <h2 id="anti-patterns" className="mb-2 text-xl font-semibold">{t('site.page.antiPatterns')}</h2>
           <p className="mb-4 text-sm text-muted-foreground">
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">validate_usage</code>{' '}
             {t('site.page.antiPatternsDescription')}
@@ -203,7 +203,7 @@ export function ComponentPage({
 
       {accessibility && accessibility.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">{t('site.page.accessibility')}</h2>
+          <h2 id="accessibility" className="mb-4 text-xl font-semibold">{t('site.page.accessibility')}</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm">
             {accessibility.map((note) => (
               <li key={note}>{note}</li>
@@ -214,7 +214,7 @@ export function ComponentPage({
 
       {contentGuidelines.length > 0 && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">{t('site.page.contentGuidelines')}</h2>
+          <h2 id="content-guidelines" className="mb-4 text-xl font-semibold">{t('site.page.contentGuidelines')}</h2>
           <div className="space-y-4">
             {contentGuidelines.map((group, index) => {
               const good = group.goodExamples ?? [];
@@ -266,7 +266,7 @@ export function ComponentPage({
 
       {(compositionRules.length > 0 || related.length > 0) && (
         <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold">{t('site.page.composition')}</h2>
+          <h2 id="composition" className="mb-4 text-xl font-semibold">{t('site.page.composition')}</h2>
           <div className="space-y-4">
             {compositionRules.map((rule, i) => (
               <div key={`${rule.component}-${i}`} className="rounded-xl border border-border bg-card p-4">
@@ -307,13 +307,13 @@ export function ComponentPage({
 
       {((manifest?.dependencies ?? []).length > 0 || (manifest?.registryDependencies ?? []).length > 0) && (
         <section className="mt-10">
-          <h2 className="mb-2 text-xl font-semibold">Dependencies</h2>
+          <h2 id="dependencies" className="mb-2 text-xl font-semibold">Dependencies</h2>
           <p className="mb-3 text-sm text-muted-foreground">
             What the registry installs alongside this component. Package imports already include these.
           </p>
           {(manifest?.dependencies ?? []).length > 0 && (
             <div className="mb-3">
-              <h3 className="text-sm font-medium">npm packages</h3>
+              <h3 id="dependencies-npm" className="text-sm font-medium">npm packages</h3>
               <ul className="mt-1 flex flex-wrap gap-1.5">
                 {(manifest?.dependencies ?? []).map((dependency) => (
                   <li
@@ -328,7 +328,7 @@ export function ComponentPage({
           )}
           {(manifest?.registryDependencies ?? []).length > 0 && (
             <div>
-              <h3 className="text-sm font-medium">Registry items</h3>
+              <h3 id="dependencies-registry" className="text-sm font-medium">Registry items</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {(manifest?.registryDependencies ?? [])
                   .map((url) => url.slice(url.lastIndexOf('/') + 1).replace(/\.json$/, ''))
@@ -340,7 +340,7 @@ export function ComponentPage({
       )}
 
       <section className="mt-10">
-        <h2 className="mb-4 text-xl font-semibold">{t('site.page.browserSupport')}</h2>
+        <h2 id="browser-support" className="mb-4 text-xl font-semibold">{t('site.page.browserSupport')}</h2>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted">

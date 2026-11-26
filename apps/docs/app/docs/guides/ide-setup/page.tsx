@@ -20,7 +20,7 @@ export default function IdeSetupGuidePage() {
         server, add a rules file so it <em>knows</em> to call the tools, and verify with one prompt.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">0. Install</h2>
+      <h2 id="0-install" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">0. Install</h2>
       <div className="mt-4">
         <CodeBlock language="bash" code={`# In your project (dev dependency: agents run it locally)
 pnpm add -D @slipstream-ui/mcp-server
@@ -29,7 +29,7 @@ pnpm add -D @slipstream-ui/mcp-server
 npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP input`} />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Claude Code</h2>
+      <h2 id="1-claude-code" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">1. Claude Code</h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
         Project-scoped config lives in <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">.mcp.json</code>{' '}
         at the repo root (commit it: teammates and CI share it):
@@ -53,7 +53,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
         get_usage_examples, validate_usage).
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">2. Cursor</h2>
+      <h2 id="2-cursor" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">2. Cursor</h2>
       <div className="mt-4">
         <CodeBlock
           language="json"
@@ -72,7 +72,7 @@ npx -y @slipstream-ui/mcp-server </dev/null || true   # starts and waits for MCP
         Settings → MCP shows the server status. Green = the six tools are available to Cursor&apos;s agent.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">3. Windsurf</h2>
+      <h2 id="3-windsurf" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">3. Windsurf</h2>
       <div className="mt-4">
         <CodeBlock
           language="json"
@@ -109,7 +109,7 @@ This project uses Slipstream UI. Before writing any component JSX:
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">5. Verify with one prompt</h2>
+      <h2 id="5-verify-with-one-prompt" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">5. Verify with one prompt</h2>
       <div className="mt-4">
         <CodeBlock
           language="text"
@@ -126,7 +126,7 @@ the tools. Strengthen the rules file, then re-ask.`}
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Troubleshooting</h2>
+      <h2 id="troubleshooting" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Troubleshooting</h2>
       <div className="mt-4 space-y-4">
         {[
           ['Server shows "failed to start"', 'Use the full local path to node_modules/@slipstream-ui/mcp-server/dist/index.js instead of npx if your sandbox blocks npx downloads.'],
@@ -142,7 +142,7 @@ the tools. Strengthen the rules file, then re-ask.`}
       </div>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">Related</h2>
+        <h2 id="related" className="font-semibold">Related</h2>
         <div className="mt-3 flex flex-wrap gap-2 text-sm">
           <Link href="/docs/guides/agent-integration" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">Agent integration</Link>
           <Link href="/docs/mcp" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">MCP reference</Link>

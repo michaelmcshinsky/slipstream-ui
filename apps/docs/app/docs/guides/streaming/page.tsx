@@ -22,7 +22,7 @@ export default function StreamingGuidePage() {
         Whether the bytes come from SSE, WebSockets, or LangGraph, the UI side is identical.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The one contract</h2>
+      <h2 id="the-one-contract" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">The one contract</h2>
       <div className="mt-4">
         <CodeBlock
           language="tsx"
@@ -37,7 +37,7 @@ setStreamingId(null);      // cursor stops, completion is announced`}
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="reading-a-fetch-stream" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Reading a fetch stream
       </h2>
       <div className="mt-4">
@@ -68,7 +68,7 @@ setStreamingId(null);      // cursor stops, completion is announced`}
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="abort-and-stop-generation" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Abort and stop-generation
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -101,7 +101,7 @@ async function send(text: string) {
         />
       </div>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="partial-markdown-renders-cleanly" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Partial markdown renders cleanly
       </h2>
       <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -112,7 +112,7 @@ async function send(text: string) {
         on by default): never show raw asterisks while streaming.
       </p>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h2 id="scroll-anchoring-rules" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">
         Scroll anchoring rules
       </h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
@@ -125,7 +125,7 @@ async function send(text: string) {
         <li>History prepend (loading older messages) keeps your anchor position stable.</li>
       </ul>
 
-      <h2 className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Performance notes</h2>
+      <h2 id="performance-notes" className="mt-12 scroll-m-20 text-2xl font-semibold tracking-tight">Performance notes</h2>
       <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
         <li>
           Batch state updates (requestAnimationFrame or a 30–60ms timer) when your transport emits
@@ -142,7 +142,7 @@ async function send(text: string) {
       </ul>
 
       <div className="mt-10 rounded-xl border border-border bg-card p-6">
-        <h2 className="font-semibold">Next</h2>
+        <h2 id="next" className="font-semibold">Next</h2>
         <div className="mt-3 flex flex-wrap gap-2 text-sm">
           <Link href="/docs/guides/ai-chat-ui" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">Full chat walkthrough</Link>
           <Link href="/docs/guides/vercel-ai-sdk" className="rounded-lg border border-border px-3 py-1.5 transition-colors hover:bg-muted">AI SDK adapter</Link>
