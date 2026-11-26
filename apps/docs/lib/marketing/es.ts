@@ -509,7 +509,7 @@ Tu agente consulta los mismos manifiestos por MCP, lee el esquema de props y los
         blocks: [
           {
             type: 'p',
-            text: 'La página de inicio muestra un recuento real de estrellas de GitHub solicitando la API pública de GitHub desde tu navegador. Como cualquier solicitud a github.com, eso expone tu dirección IP y agente de usuario a GitHub según su política de privacidad. Esa solicitud no establece cookies. El único otro recurso de terceros es la etiqueta de Google Analytics descrita arriba, y solo se carga cuando aceptas la analítica.',
+            text: 'Además de la etiqueta de Google Analytics descrita arriba, que solo se carga cuando aceptas la analítica, el sitio no realiza solicitudes a terceros en tu nombre. Los enlaces a GitHub y npm (el botón "Dar estrella en GitHub", los nombres de paquete y los enlaces al repositorio) son hipervínculos normales: abren esos sitios en una pestaña nueva, y esos servicios reciben tu dirección IP y agente de usuario según sus propias políticas de privacidad, como cualquier sitio web que visitas.',
           },
         ],
       },
