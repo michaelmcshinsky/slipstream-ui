@@ -4,6 +4,7 @@ import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle } from '@/components/ui';
 import { extractErrorMessage } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 
 /**
  * Explicit POST confirmation for emailed verification links:
@@ -56,6 +57,7 @@ function VerifyEmailInner() {
         return;
       }
       setStatus('done');
+      track('email_verified');
     } catch {
       setStatus('error');
       setMessage('Could not reach the server. Check your connection and try again.');

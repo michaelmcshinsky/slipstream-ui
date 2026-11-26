@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Card, CardTitle, inputClass } from '@/components/ui';
 import { useBilling } from './use-billing';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 
 type PaymentRow = {
   id: string;
@@ -24,6 +25,13 @@ export default function BillingPage() {
 
   const [payments, setPayments] = useState<PaymentRow[] | null>(null);
   const [paymentsError, setPaymentsError] = useState<string | null>(null);
+
+  // Stripe success_url and the mock-checkout redirect both land here with
+  // ?checkout=success; fire the funnel event once per page load.
+  const checkoutReturned = searchParams.get('checkout') === 'success';
+  useEffect(() => {
+    if (checkoutReturned) track('payment_succeeded');
+  }, [checkoutReturned]);
 
   useEffect(() => {
     if (!activeTeamId) {
@@ -137,7 +145,10 @@ export default function BillingPage() {
                 ) : plan.id !== 'FREE' ? (
                   <button
                     type="button"
-                    onClick={() => void checkout(plan.id)}
+                    onClick={() => {
+                      track('checkout_started', { plan: plan.id });
+                      void checkout(plan.id);
+                    }}
                     disabled={!canCheckout}
                     className="mt-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                   >

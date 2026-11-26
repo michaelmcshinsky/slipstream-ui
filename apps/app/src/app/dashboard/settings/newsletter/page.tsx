@@ -13,6 +13,7 @@ import {
   Badge,
 } from '@/components/ui';
 import { apiFetch } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 
 type PreferencesState = {
   dailyEnabled: boolean;
@@ -88,6 +89,7 @@ export default function NewsletterSettingsPage() {
     setMessage(null);
     try {
       await callSubscription(type, subscribe);
+      if (subscribe) track('newsletter_subscribed', { type });
       setMessage(subscribe ? 'Subscribed.' : 'Unsubscribed.');
       await loadPreferences();
     } catch (err) {

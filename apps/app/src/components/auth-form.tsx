@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Card, CardTitle, Field } from '@/components/ui';
 import { extractData, extractErrorMessage } from '@/lib/api/envelope';
+import { track } from '@/lib/analytics';
 import Link from 'next/link';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset';
@@ -84,6 +85,7 @@ export function AuthForm({ mode, token: initialToken, next }: { mode: Mode; toke
         );
         return;
       }
+      if (mode === 'signup') track('signup');
       if (mode === 'reset') {
         setNotice('Password updated. Redirecting…');
       }
