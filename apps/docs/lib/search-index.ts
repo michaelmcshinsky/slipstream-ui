@@ -139,6 +139,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'PasswordInput', href: '/docs/components/password-input', content: 'password field show hide reveal toggle aria-pressed sign in auth', group: 'Components' },
   { title: 'AuthLayout', href: '/docs/components/auth-layout', content: 'auth layout sign in signup login reset centered card brand footer', group: 'Components' },
   { title: 'FilterBar', href: '/docs/components/filter-bar', content: 'filter bar search reset list page toolbar controls data table', group: 'Components', aliases: ['table filters', 'search and reset filters'] },
+  { title: 'ListToolbar', href: '/docs/components/list-toolbar', content: 'list toolbar result count page position sort note view switch grid list directory results', group: 'Components', aliases: ['result toolbar', 'sort and view controls'] },
   { title: 'AppShell', href: '/docs/components/app-shell', content: 'app shell layout sidebar navigation rail sticky header main drawer mobile admin dashboard router link active aria-current', group: 'Components', aliases: ['dashboard layout', 'sidebar layout', 'admin shell'] },
   { title: 'Drawer', href: '/docs/components/drawer', content: 'drawer side sheet edge panel filters mobile nav left right top bottom modal focus trap', group: 'Components' },
   { title: 'Input', href: '/docs/components/input', content: 'input text field single line form control type password number placeholder focus disabled', group: 'Components' },

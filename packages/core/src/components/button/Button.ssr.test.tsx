@@ -47,7 +47,7 @@ describe('Button SSR/RSC Compatibility', () => {
   });
 
   it('renders correctly with size variants', () => {
-    const sizes = ['sm', 'default', 'lg', 'icon'] as const;
+    const sizes = ['sm', 'xs', 'default', 'lg', 'icon'] as const;
     sizes.forEach(size => {
       const { html, errors } = renderToStringWithWarnings(<Button size={size}>Test</Button>);
       expect(errors).toHaveLength(0);

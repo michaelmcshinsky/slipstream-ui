@@ -700,6 +700,17 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "manifest": "/llm/components/list.md"
     },
     {
+      "id": "list-toolbar",
+      "name": "ListToolbar",
+      "package": "@slipstream-ui/core",
+      "sourceDir": "list-toolbar",
+      "axe": true,
+      "interaction": false,
+      "notes": 1,
+      "docs": "/docs/components/list-toolbar",
+      "manifest": "/llm/components/list-toolbar.md"
+    },
+    {
       "id": "load-more",
       "name": "LoadMore",
       "package": "@slipstream-ui/core",
@@ -1262,10 +1273,10 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     }
   ],
   "summary": {
-    "total": 114,
-    "withAxe": 114,
+    "total": 115,
+    "withAxe": 115,
     "withInteraction": 45,
-    "withNotes": 114,
-    "totalNotes": 248
+    "withNotes": 115,
+    "totalNotes": 249
   }
 };

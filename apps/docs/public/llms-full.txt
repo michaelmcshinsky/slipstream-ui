@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
 > Version: 0.11.8 (2026-11-27) · manifest schema v1 · manifest v1
-> 114 components: 97 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 115 components: 98 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
-The AI-first React component library. 114 components, each shipping a
+The AI-first React component library. 115 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -16,7 +16,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 - Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 97
+## Core components (@slipstream-ui/core) — 98
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -73,6 +73,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [ListToolbar](https://slipstreamui.com/llm/components/list-toolbar.md) — Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.
 - [LoadMore](https://slipstreamui.com/llm/components/load-more.md) — Load-more control with pending and end-of-list states.
 - [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
@@ -1299,7 +1300,7 @@ The Button component is a fundamental interactive element that triggers actions 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | variant | `'default' | 'primary' | 'destructive' | 'danger' | 'success' | 'warning' | 'info' | 'outline' | 'outline-destructive' | 'outline-success' | 'outline-warning' | 'outline-info' | 'secondary' | 'ghost' | 'link' | 'contrast' | 'onDark'` | `default` | no | Visual style variant of the button |
-| size | `'default' | 'sm' | 'lg' | 'icon'` | `default` | no | Size variant of the button |
+| size | `'default' | 'sm' | 'xs' | 'lg' | 'icon'` | `default` | no | Size variant of the button |
 | asChild | `boolean` | `false` | no | When true, renders as a child component using Radix Slot for composition |
 | disabled | `boolean` | `false` | no | Disables the button and prevents interaction |
 | children | `ReactNode` | — | no | Content to display inside the button |
@@ -4944,6 +4945,85 @@ onClick renders the row content inside a <button> — keyboard and screen-reader
 
 ---
 
+# ListToolbar
+
+Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.
+
+> Component ID: `list-toolbar`
+> Import: `import { ListToolbar } from '@slipstream-ui/core'`
+> Docs: https://slipstreamui.com/docs/components/list-toolbar
+> Registry: https://slipstreamui.com/registry/list-toolbar.json
+> Tier: atom · Package: @slipstream-ui/core@0.11.8
+> Manifest schema: v1 · manifest: v1
+
+## Design intent
+
+Every directory rebuilds the same row above its results: "42 events · Page 2 of 5" on the left, a grid/list SegmentedControl and a sort Select on the right. ListToolbar fixes that layout so the summary stays consistent and screen readers hear count changes.
+
+## Props
+
+| Prop | Type | Default | Required | Description |
+|---|---|---|---|---|
+| count | `number` | — | no | Number of matching results; renders "{count} {countLabel}". |
+| countLabel | `string` | `results` | no | Noun for the result count. |
+| position | `ReactNode` | — | no | Page or range position, e.g. "Page 2 of 5" or "Showing 21–40 of 137". |
+| note | `ReactNode` | — | no | Muted note after the position, e.g. "Sorted by date, soonest first". |
+| align | `'between' | 'start' | 'center' | 'end'` | `between` | no | Distribution of summary and controls. |
+| children | `ReactNode` | — | no | Controls rendered at the far end: SegmentedControl view switch, sort Select. |
+
+## Examples
+
+### Directory result bar
+
+Count and position on the left; view switch and sort on the right.
+
+```tsx
+<ListToolbar
+  count={events.length}
+  countLabel="events"
+  position={"Page " + page + " of " + pages}
+  note="Sorted by date, soonest first"
+>
+  <SegmentedControl
+    options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]}
+    value={view}
+    onValueChange={setView}
+  />
+  <Select label="Sort" options={sortOptions} value={sort} onValueChange={setSort} />
+</ListToolbar>
+```
+
+## Anti-patterns
+
+- **Don't put filter inputs in the bar** — ListToolbar summarizes results; search fields and filter selects belong in FilterBar above it. Children is for the view switch and sort control only.
+
+## Accessibility
+
+- **Live result count**: The summary line is aria-live=polite so filtering announces the new count
+
+## Composition
+
+- Compose with **SegmentedControl** — Link-mode SegmentedControl is the canonical grid/list view switch
+  
+  ```tsx
+  <ListToolbar …><SegmentedControl options={views} value={view} onValueChange={setView} /></ListToolbar>
+  ```
+- Compose with **Select** — Sort control renders in children
+  
+  ```tsx
+  <ListToolbar …><Select label="Sort" … /></ListToolbar>
+  ```
+- Compose with **FilterBar** — FilterBar owns the input row above; ListToolbar owns the result summary below it
+  
+  ```tsx
+  <FilterBar … />
+<ListToolbar … />
+{results}
+  ```
+- Related: FilterBar, SegmentedControl, Select, Pagination, EmptyState
+
+---
+
 # LoadMore
 
 Load-more control with pending and end-of-list states.
@@ -6742,7 +6822,7 @@ Filters such as All / Investors / Advisors are often built with Tabs, which wron
 | onValueChange | `(value: string | string[]) => void` | — | no | Fires with the next selection. |
 | multiple | `boolean` | `false` | no | Allow more than one segment to be active. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
-| fullWidth | `boolean` | `false` | no | Stretch segments to fill the container width. |
+| fullWidth | `boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `false` | no | Stretch segments to fill the container width. A breakpoint string fills only below that breakpoint and hugs content at and above it. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers (Next Link, react-router Link). Used by options that set href. |
 | linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 
