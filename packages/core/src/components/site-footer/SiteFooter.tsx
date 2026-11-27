@@ -17,6 +17,8 @@ export type SiteFooterProps = React.HTMLAttributes<HTMLElement> & {
   brand?: React.ReactNode;
   /** Short line under the brand. */
   tagline?: string;
+  /** Contact block under the tagline (address, email, phone). */
+  contact?: React.ReactNode;
   columns: SiteFooterColumn[];
   /** Bottom bar (copyright, legal links). */
   legal?: React.ReactNode;
@@ -49,6 +51,7 @@ function isActive(itemHref: string, activeHref: string | undefined, match: 'pref
 export function SiteFooter({
   brand,
   tagline,
+  contact,
   columns,
   legal,
   linkComponent,
@@ -68,6 +71,7 @@ export function SiteFooter({
         <div className="min-w-0">
           {brand}
           {tagline && <p className="mt-3 max-w-56 text-sm text-muted-foreground">{tagline}</p>}
+          {contact && <div className="mt-3 max-w-56 text-sm text-muted-foreground">{contact}</div>}
         </div>
         {columns.map((column) => (
           <div key={column.title}>

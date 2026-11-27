@@ -40,6 +40,18 @@ describe('SiteFooter', () => {
     expect(tools).toHaveAttribute('data-to', '/tools');
   });
 
+  it('renders the contact slot under the tagline', () => {
+    render(
+      <SiteFooter
+        brand={<span>Acme</span>}
+        tagline="Ship faster."
+        contact={<address>1 Main St<br />Salt Lake City, UT</address>}
+        columns={[{ title: 'Product', links: [{ label: 'Docs', href: '/docs' }] }]}
+      />
+    );
+    expect(screen.getByText(/1 Main St/)).toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<SiteFooter columns={[{ title: 'Docs', links: [{ label: 'Intro', href: '/docs' }] }]} />);
     expect(await axe(container)).toHaveNoViolations();

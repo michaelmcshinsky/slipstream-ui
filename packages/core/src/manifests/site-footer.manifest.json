@@ -23,6 +23,12 @@
       "description": "Short line under the brand."
     },
     {
+      "name": "contact",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Contact block under the tagline (address, email, phone, links)."
+    },
+    {
       "name": "columns",
       "type": "SiteFooterColumn[]",
       "required": true,

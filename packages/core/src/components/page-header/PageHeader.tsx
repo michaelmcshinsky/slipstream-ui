@@ -17,6 +17,8 @@ export type PageHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   eyebrow?: React.ReactNode;
   /** Heading scale - 'hero' is for marketing landing pages. */
   size?: 'sm' | 'md' | 'lg' | 'hero';
+  /** Heading element. Default 'h1' for pages; use 'h2' inside sections/modals. */
+  as?: 'h1' | 'h2';
   /** Text alignment; hero marketing pages often center. */
   align?: 'left' | 'center';
   /** Extra classes for the h1, for host display typography. */
@@ -40,7 +42,7 @@ const sizeClasses: Record<NonNullable<PageHeaderProps['size']>, string> = {
  * and heading hierarchy.
  */
 export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(function PageHeader(
-  { title, description, subtitle, breadcrumbs, actions, eyebrow, size = 'md', align = 'left', titleClassName, descriptionClassName, eyebrowClassName, className, children, ...props },
+  { title, description, subtitle, breadcrumbs, actions, eyebrow, size = 'md', as: Heading = 'h1', align = 'left', titleClassName, descriptionClassName, eyebrowClassName, className, children, ...props },
   ref
 ) {
   const supporting = description ?? subtitle;
@@ -52,7 +54,7 @@ export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(func
       )}
       <div className={cn('flex w-full flex-wrap items-start justify-between gap-3', align === 'center' && 'justify-center')}>
         <div className={cn('min-w-0', align === 'center' && 'flex flex-col items-center')}>
-          <h1 className={cn('font-semibold tracking-tight', sizeClasses[size], titleClassName)}>{title}</h1>
+          <Heading className={cn('font-semibold tracking-tight', sizeClasses[size], titleClassName)}>{title}</Heading>
           {supporting && <p className={cn('mt-2 max-w-2xl text-base text-muted-foreground', descriptionClassName)}>{supporting}</p>}
         </div>
         {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
