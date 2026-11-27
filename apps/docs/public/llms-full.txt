@@ -7464,6 +7464,7 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
 | brand | `ReactNode` | — | yes | Brand slot (logo/lockup), wrapped in a link to /. |
+| topBar | `ReactNode` | — | no | Slim utility strip rendered above the brand row (locale switch, feed link, submit link). Content sits in a container matching the nav metrics; lay out multiple items with justify-between or a flex row. |
 | items | `SiteNavItem[]` | — | yes | Primary nav. A plain item is { href, label, external? }; an item with `columns` renders as a mega-panel disclosure (desktop) and a <details> group (mobile). |
 | activeHref | `string` | — | no | Current route for active styling (aria-current=page). |
 | match | `'prefix' | 'exact'` | `prefix` | no | Prefix highlights parents of the current route; exact only identical hrefs. |

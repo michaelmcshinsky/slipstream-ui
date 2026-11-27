@@ -22,6 +22,32 @@ describe('SiteHeader', () => {
     expect(external).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
+  it('renders the topBar utility strip above the nav', () => {
+    render(
+      <SiteHeader
+        brand={<span>Acme</span>}
+        items={items}
+        topBar={
+          <>
+            <span>English</span>
+            <a href="/submit">Submit an event</a>
+          </>
+        }
+      />
+    );
+    const strip = screen.getByText('English').parentElement?.parentElement;
+    expect(strip).toHaveClass('border-b');
+    expect(strip?.querySelector('a')).toHaveAttribute('href', '/submit');
+    // The strip sits before the nav landmark in DOM order.
+    const nav = screen.getByRole('navigation', { name: 'Main' });
+    expect(strip!.compareDocumentPosition(nav) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('omits the topBar strip when the prop is absent', () => {
+    const { container } = render(<SiteHeader brand={<span>Acme</span>} items={items} />);
+    expect(container.querySelector('header > div')).toBeNull();
+  });
+
   it('respects exact matching', () => {
     render(<SiteHeader brand={<span>Acme</span>} items={items} activeHref="/docs/components" match="exact" />);
     expect(screen.getByRole('link', { name: 'Docs' })).not.toHaveAttribute('aria-current');

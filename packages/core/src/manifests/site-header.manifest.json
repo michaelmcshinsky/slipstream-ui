@@ -17,6 +17,12 @@
       "description": "Brand slot (logo/lockup), wrapped in a link to /."
     },
     {
+      "name": "topBar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Slim utility strip rendered above the brand row (locale switch, feed link, submit link). Content sits in a container matching the nav metrics; lay out multiple items with justify-between or a flex row."
+    },
+    {
       "name": "items",
       "type": "SiteNavItem[]",
       "required": true,

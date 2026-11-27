@@ -38,6 +38,12 @@ export type SiteNavItem =
 export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Brand slot - logo/lockup or wordmark. Wrapped in a link to "/". */
   brand: React.ReactNode;
+  /**
+   * Slim utility strip rendered above the brand row (locale switch, feed
+   * link, submit link). Content is placed in a container matching the nav
+   * metrics; lay out multiple items with justify-between or a flex row.
+   */
+  topBar?: React.ReactNode;
   /** Primary navigation items. */
   items: SiteNavItem[];
   /** Current route for active styling (aria-current="page"). */
@@ -115,6 +121,7 @@ function Caret() {
  */
 export function SiteHeader({
   brand,
+  topBar,
   items,
   activeHref,
   match = 'prefix',
@@ -221,6 +228,13 @@ export function SiteHeader({
         )}
         {...props}
       >
+        {topBar && (
+          <div className="border-b border-border/60 text-muted-foreground">
+            <div className="mx-auto flex h-9 w-full max-w-7xl items-center justify-between gap-4 px-4 text-xs sm:px-6">
+              {topBar}
+            </div>
+          </div>
+        )}
         <nav
           aria-label={navLabel}
           className={cn(

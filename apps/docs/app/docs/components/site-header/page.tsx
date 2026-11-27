@@ -19,6 +19,7 @@ export default function Page() {
       npmPackages="@slipstream-ui/core"
       propsRows={[
         { name: 'brand', type: 'ReactNode', defaultValue: 'required', description: 'Brand slot, wrapped in a link to /.' },
+        { name: 'topBar', type: 'ReactNode', description: 'Slim utility strip above the brand row (locale switch, feed link, submit link), in a container matching the nav metrics.' },
         { name: 'items', type: 'SiteNavItem[]', defaultValue: 'required', description: 'Primary nav. Flat links are { href, label, external?, description? }; adding columns: SiteNavColumn[] turns the item into a disclosure trigger with a desktop mega panel and a mobile <details> group.' },
         { name: 'activeHref', type: 'string', description: 'Current route for active styling (aria-current="page").' },
         { name: 'match', type: "'prefix' | 'exact'", defaultValue: "'prefix'", description: 'Prefix highlights parents (/docs on /docs/x); exact only identical hrefs.' },
