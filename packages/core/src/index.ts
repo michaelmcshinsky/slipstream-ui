@@ -48,6 +48,7 @@ export * from './components/data-table';
 export * from './components/list';
 export * from './components/link';
 export * from './components/image';
+export * from './components/cover-image';
 export * from './components/text';
 export * from './components/heading';
 export * from './components/empty-state';

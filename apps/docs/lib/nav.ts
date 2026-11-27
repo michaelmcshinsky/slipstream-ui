@@ -144,6 +144,7 @@ export const NAV_SECTIONS: NavSection[] = [
         titleKey: 'nav.groups.content',
         items: [
           { href: '/docs/components/image', label: 'Image' },
+          { href: '/docs/components/cover-image', label: 'CoverImage' },
           { href: '/docs/components/article-card', label: 'ArticleCard' },
           { href: '/docs/components/newsletter', label: 'Newsletter' },
           { href: '/docs/components/contact-strip', label: 'ContactStrip' },

@@ -4,8 +4,8 @@
   "releaseDate": "2026-11-26",
   "schemaVersion": 1,
   "manifestVersion": 1,
-  "nodeCount": 113,
-  "edgeCount": 413,
+  "nodeCount": 114,
+  "edgeCount": 418,
   "docs": "https://slipstreamui.com/docs/ai-manifests",
   "nodes": [
     {
@@ -210,6 +210,13 @@
       "package": "@slipstream-ui/ai",
       "tier": "organism",
       "docs": "https://slipstreamui.com/docs/components/conversation"
+    },
+    {
+      "id": "cover-image",
+      "name": "CoverImage",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/cover-image"
     },
     {
       "id": "cta-section",
@@ -1239,6 +1246,31 @@
     {
       "from": "conversation",
       "to": "prompt-input",
+      "type": "related"
+    },
+    {
+      "from": "cover-image",
+      "to": "avatar",
+      "type": "related"
+    },
+    {
+      "from": "cover-image",
+      "to": "card",
+      "type": "composition"
+    },
+    {
+      "from": "cover-image",
+      "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "cover-image",
+      "to": "image",
+      "type": "composition"
+    },
+    {
+      "from": "cover-image",
+      "to": "image",
       "type": "related"
     },
     {

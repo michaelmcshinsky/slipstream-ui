@@ -26,6 +26,7 @@ Organizer images are hotlinked and periodically 403, move, or die. Image keeps c
 | height | `number` | `630` | no | Intrinsic height used to reserve layout space (CLS) |
 | className | `string` | — | no | Classes applied to the image element |
 | imgClassName | `string` | — | no | Additional image classes, merged with className |
+| sizes | `string` | — | no | Responsive sizes hint for the browser's source selection |
 | style | `React.CSSProperties` | — | no | Inline styles for the image element |
 
 ## Examples
