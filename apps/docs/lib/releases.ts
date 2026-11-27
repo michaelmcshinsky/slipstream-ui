@@ -9,9 +9,19 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.9',
+    version: '0.11.10',
     date: 'November 27, 2026',
     tag: 'current',
+    highlights: [
+      'MediaCard: generic media/listing card — CoverImage cover, meta line, status chips, footer slot, optional row layout, and a whole-card href with linkComponent/linkHrefProp for routers',
+      'MonthSchedule<T>: month grid that shows dated events inside day cells — generic accessors (getDate/getLabel/getType/getHref), typed legend-driven Badge tones, maxPerDay overflow, mobile agenda below a breakpoint, and controlled or uncontrolled month paging',
+      'Versioned packages: core/ai 0.11.10 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.9',
+    date: 'November 27, 2026',
+    tag: 'previous',
     highlights: [
       'Button gains an `xs` size (h-8 px-2.5 text-xs) for dense toolbars, table rows and compact headers where `sm` is still too tall',
       'DataTable gains `cardLayout`: rows render as definition-list cards below a breakpoint (true = md, or \'sm\'–\'2xl\'), swapping via CSS only so sorting, selection, pagination and row callbacks behave identically',
