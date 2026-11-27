@@ -29,9 +29,9 @@ export type MonthScheduleProps<T> = {
   /** Short label shown on the day chip and in the agenda. */
   getLabel: (event: T) => string;
   /** Optional type key used for chip color and the legend. */
-  getType?: (event: T) => string;
+  getType?: (event: T) => string | undefined;
   /** Optional destination per event. */
-  getHref?: (event: T) => string;
+  getHref?: (event: T) => string | undefined;
   /** Controlled month as YYYY-MM. Falls back to defaultMonth, then today. */
   month?: string;
   /** Uncontrolled initial month (YYYY-MM). */
