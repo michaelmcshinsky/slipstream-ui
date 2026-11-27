@@ -6726,7 +6726,7 @@ Filters such as All / Investors / Advisors are often built with Tabs, which wron
 | onValueChange | `(value: string | string[]) => void` | — | no | Fires with the next selection. |
 | multiple | `boolean` | `false` | no | Allow more than one segment to be active. |
 | size | `'sm' | 'md' | 'lg'` | `md` | no | Control density. |
-| fullWidth | `boolean` | `false` | no | Stretch segments to fill the container width. |
+| fullWidth | `boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `false` | no | Stretch segments to fill the container width. A breakpoint string fills only below that breakpoint and hugs content at and above it. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers (Next Link, react-router Link). Used by options that set href. |
 | linkHrefProp | `'href' | 'to'` | `href` | no | Prop used to pass the destination to linkComponent. |
 
