@@ -161,6 +161,7 @@ export const SEARCH_INDEX: SearchEntry[] = [
   { title: 'IDE setup guide', href: '/docs/guides/ide-setup', content: 'guide claude code cursor windsurf mcp json config AGENTS rules setup troubleshooting', group: 'Guides' },
   { title: 'Testing guide', href: '/docs/guides/testing', content: 'guide testing jest-axe interaction streaming error CI drift validate_usage diff', group: 'Guides' },
   { title: 'React Hook Form guide', href: '/docs/guides/react-hook-form', content: 'guide react hook form rhf register controller formfield select checkbox datepicker timepicker errors aria-invalid', group: 'Guides' },
+  { title: 'Recipes', href: '/docs/recipes', content: 'recipes patterns view switch urls list toolbar empty state media card cover month schedule agenda formlayout filter panel plain form consumer examples', group: 'Guides', aliases: ['consumer recipes', 'common patterns', 'how do i build'] },
   { title: 'Changelog', href: '/changelog', content: 'changelog release notes versions updates new components fixes', group: 'Site' },
   { title: 'About', href: '/about', content: 'about slipstream ui company mission team', group: 'Site' },
   { title: 'Contact', href: '/contact', content: 'contact support email github issues feedback', group: 'Site' },
