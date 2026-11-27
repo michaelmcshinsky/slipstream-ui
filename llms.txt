@@ -5,7 +5,7 @@
 
 <!-- generated:release:start -->
 > Version: 0.11.10 (2026-11-27) · manifest schema v1 · manifest v1
-> 117 components: 100 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 118 components: 101 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
@@ -55,7 +55,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 <!-- generated:articles:end -->
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 100
+## Core components (@slipstream-ui/core) — 101
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -77,6 +77,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - Checkbox — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - ComparisonTable — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 - ConfirmDialog — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
+- ConsentBanner — Styled cookie/consent banner: fixed bottom bar with accept, decline and an optional manage-preferences action. Pair it with the headless useConsent hook so the decision persists per-purpose in localStorage.
 - ContactStrip — Compact labelled contact rows with optional icons and links.
 - Container — Centered, width-constrained page container with shared gutters and four width presets.
 - CoverImage — Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.
