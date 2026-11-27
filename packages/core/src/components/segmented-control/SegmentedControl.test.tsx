@@ -29,6 +29,40 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'Investors' })).toHaveAttribute('aria-checked', 'false');
   });
 
+  it('applies full width at every viewport when fullWidth is true', () => {
+    render(
+      <SegmentedControl
+        aria-label="Layout"
+        fullWidth
+        options={[
+          { value: 'grid', label: 'Grid' },
+          { value: 'list', label: 'List' },
+        ]}
+      />
+    );
+    const group = screen.getByRole('radiogroup');
+    expect(group).toHaveClass('flex', 'w-full');
+    expect(screen.getByRole('radio', { name: 'Grid' })).toHaveClass('flex-1');
+  });
+
+  it('scopes full width below the breakpoint when fullWidth is a breakpoint', () => {
+    render(
+      <SegmentedControl
+        aria-label="Layout"
+        fullWidth="md"
+        options={[
+          { value: 'grid', label: 'Grid' },
+          { value: 'list', label: 'List' },
+        ]}
+      />
+    );
+    const group = screen.getByRole('radiogroup');
+    expect(group).toHaveClass('max-md:flex', 'max-md:w-full');
+    expect(group).not.toHaveClass('w-full');
+    expect(screen.getByRole('radio', { name: 'Grid' })).toHaveClass('max-md:flex-1');
+    expect(screen.getByRole('radio', { name: 'Grid' })).not.toHaveClass('flex-1');
+  });
+
   it('moves selection with arrow keys', () => {
     render(<ControlledExample />);
     const investors = screen.getByRole('radio', { name: 'Investors' });

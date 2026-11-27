@@ -55,10 +55,10 @@
     },
     {
       "name": "fullWidth",
-      "type": "boolean",
+      "type": "boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'",
       "required": false,
       "defaultValue": "false",
-      "description": "Stretch segments to fill the container width."
+      "description": "Stretch segments to fill the container width. A breakpoint string fills only below that breakpoint and hugs content at and above it."
     },
     {
       "name": "linkComponent",
