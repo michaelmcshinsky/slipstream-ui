@@ -4,8 +4,8 @@
   "releaseDate": "2026-11-27",
   "schemaVersion": 1,
   "manifestVersion": 1,
-  "nodeCount": 115,
-  "edgeCount": 426,
+  "nodeCount": 116,
+  "edgeCount": 434,
   "docs": "https://slipstreamui.com/docs/ai-manifests",
   "nodes": [
     {
@@ -469,6 +469,13 @@
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "docs": "https://slipstreamui.com/docs/components/logo-cloud"
+    },
+    {
+      "id": "media-card",
+      "name": "MediaCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/media-card"
     },
     {
       "id": "menu",
@@ -2128,6 +2135,46 @@
     {
       "from": "logo-cloud",
       "to": "testimonial",
+      "type": "related"
+    },
+    {
+      "from": "media-card",
+      "to": "article-card",
+      "type": "related"
+    },
+    {
+      "from": "media-card",
+      "to": "badge",
+      "type": "composition"
+    },
+    {
+      "from": "media-card",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "media-card",
+      "to": "cover-image",
+      "type": "composition"
+    },
+    {
+      "from": "media-card",
+      "to": "cover-image",
+      "type": "related"
+    },
+    {
+      "from": "media-card",
+      "to": "entity-card",
+      "type": "related"
+    },
+    {
+      "from": "media-card",
+      "to": "list-toolbar",
+      "type": "composition"
+    },
+    {
+      "from": "media-card",
+      "to": "list-toolbar",
       "type": "related"
     },
     {

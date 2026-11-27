@@ -4,9 +4,9 @@
   "manifestVersion": 1,
   "version": "0.11.9",
   "releaseDate": "2026-11-27",
-  "count": 115,
+  "count": 116,
   "counts": {
-    "core": 98,
+    "core": 99,
     "ai": 17
   },
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
@@ -606,6 +606,15 @@
       "description": "Trust strip for member, customer or partner logos with captions, columns and optional links.",
       "docs": "https://slipstreamui.com/docs/components/logo-cloud",
       "registry": "/registry/logo-cloud.json"
+    },
+    {
+      "id": "media-card",
+      "name": "MediaCard",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.",
+      "docs": "https://slipstreamui.com/docs/components/media-card",
+      "registry": "/registry/media-card.json"
     },
     {
       "id": "menu",

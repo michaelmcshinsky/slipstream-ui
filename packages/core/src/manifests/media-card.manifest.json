@@ -1,0 +1,162 @@
+{
+  "id": "media-card",
+  "name": "MediaCard",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.11.9",
+  "sourceDir": "media-card",
+  "exportName": "MediaCard",
+  "description": "Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.",
+  "designIntent": "Every media surface rebuilds the same card: cover art, a title, a date or location line, status chips and a details affordance. MediaCard composes CoverImage, Badge and the ArticleCard stretched-link pattern so imageless entities still look intentional and the card is one target, one hover state, one focus ring.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Card title."
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Supporting copy under the title."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Destination URL; the whole card becomes a single link when set."
+    },
+    {
+      "name": "cover",
+      "type": "CoverImageProps",
+      "required": false,
+      "description": "Cover art rendered through CoverImage; seeded gradient fallback included. Pass src, alt, aspect, seed, mark, priority and sizes."
+    },
+    {
+      "name": "meta",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Metadata line under the description, e.g. date, location or registration deadline."
+    },
+    {
+      "name": "chips",
+      "type": "MediaCardChip[]",
+      "required": false,
+      "description": "Status or category chips rendered as Badges; each chip takes label, variant and dot."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Bottom slot for a details affordance or secondary text. Keep it non-interactive when the card is a link."
+    },
+    {
+      "name": "layout",
+      "type": "'vertical' | 'row'",
+      "required": false,
+      "defaultValue": "vertical",
+      "description": "'vertical' stacks the cover over the content; 'row' puts a fixed-width cover beside it for list rows.",
+      "enum": [
+        "vertical",
+        "row"
+      ]
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for routers such as Next Link or react-router Link."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop name used to pass the destination to linkComponent.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "title": "Event card in a grid",
+      "code": "<MediaCard\n  href={event.href}\n  title={event.title}\n  description={event.summary}\n  cover={{ src: event.imageUrl, alt: event.title, seed: event.slug, sizes: '(min-width: 1024px) 33vw, 100vw' }}\n  meta={event.date + ' · ' + event.venue}\n  chips={[{ label: 'Registration open', variant: 'outline-success', dot: true }]}\n  footer='Details →'\n/>",
+      "description": "Whole-card link with a seeded cover fallback, a deadline meta line and a status chip."
+    },
+    {
+      "title": "List row",
+      "code": "<MediaCard\n  layout=\"row\"\n  href={article.href}\n  title={article.title}\n  cover={{ alt: article.title, seed: article.slug, aspect: 'square' }}\n  meta={article.date}\n/>",
+      "description": "Fixed-width cover beside the content for compact result rows."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't nest links or buttons in the footer",
+      "explanation": "With href set the whole card is one link, so nested interactive elements are invalid HTML. Keep footer to text, or drop href and compose your own actions.",
+      "example": "// Avoid\n<MediaCard href=\"/events/1\" footer={<Button>Register</Button>} />\n\n// Prefer\n<MediaCard href=\"/events/1\" footer='Details →' />"
+    },
+    {
+      "title": "Don't use it for directory profiles",
+      "explanation": "Entity profiles with avatars, stats and tags belong in EntityCard; MediaCard is for media-first surfaces (events, articles, listings).",
+      "example": "// Avoid\n<MediaCard cover={{ alt: firm.name }} title={firm.name} />\n\n// Prefer\n<EntityCard name={firm.name} entityType={firm.type} logo={firm.logo} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Single link target",
+      "implementation": "With href the entire card is one anchor with a visible focus ring; without href it is a static article",
+      "userRequirements": "Do not nest interactive elements inside when href is set"
+    },
+    {
+      "feature": "Cover semantics",
+      "implementation": "CoverImage renders a real img with alt when src is present; the gradient fallback is aria-hidden",
+      "userRequirements": "Pass a descriptive alt through cover.alt"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Title and meta",
+      "guidelines": [
+        "Title is the card's heading; keep meta to one short line (date, venue, deadline)",
+        "Footer is a details affordance such as 'Details →', not a second CTA"
+      ],
+      "goodExamples": [
+        "Mar 14 · Salt Lake City Convention Center",
+        "Registration closes Feb 26"
+      ],
+      "badExamples": [
+        "Click here to view more information about this event",
+        "Best event ever!!"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "CoverImage",
+      "relationship": "The cover prop is forwarded to CoverImage, inheriting its seeded gradient fallback and aspect box",
+      "example": "<MediaCard cover={{ src, alt, seed: slug, aspect: 'video' }} title={title} />"
+    },
+    {
+      "component": "Badge",
+      "relationship": "chips render as sm Badges; quiet outline tones (outline-success, outline-warning) fit status metadata",
+      "example": "chips={[{ label: 'Open', variant: 'outline-success', dot: true }]}"
+    },
+    {
+      "component": "ListToolbar",
+      "relationship": "Pair with ListToolbar above the grid and Pagination below it for a complete filtered-list surface",
+      "example": "<ListToolbar count={items.length} />\n<div className=\"grid gap-4\"><MediaCard … /></div>"
+    }
+  ],
+  "relatedComponents": [
+    "CoverImage",
+    "Badge",
+    "ArticleCard",
+    "EntityCard",
+    "ListToolbar"
+  ],
+  "version": "0.11.9"
+}
