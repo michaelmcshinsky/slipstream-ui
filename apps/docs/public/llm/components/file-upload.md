@@ -6,7 +6,7 @@ Drag-and-drop file picker with a removable file list and per-file progress bars.
 > Import: `import { FileUpload } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/file-upload
 > Registry: https://slipstreamui.com/registry/file-upload.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.9
+> Tier: organism · Package: @slipstream-ui/core@0.11.10
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

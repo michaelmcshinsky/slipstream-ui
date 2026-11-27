@@ -160,7 +160,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "sourceDir": "checkbox",
   "exportName": "Checkbox"
 }

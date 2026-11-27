@@ -6,7 +6,7 @@ Media card for event, article and listing grids: CoverImage cover, title, descri
 > Import: `import { MediaCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/media-card
 > Registry: https://slipstreamui.com/registry/media-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.9
+> Tier: molecule · Package: @slipstream-ui/core@0.11.10
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

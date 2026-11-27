@@ -6,7 +6,7 @@ Config-driven table: one component plus a columns config that owns shape, sortin
 > Import: `import { DataTable } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/data-table
 > Registry: https://slipstreamui.com/registry/data-table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.9
+> Tier: molecule · Package: @slipstream-ui/core@0.11.10
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

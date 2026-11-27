@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "sourceDir": "comparison-table",
   "exportName": "ComparisonTable",
   "description": "Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.",
