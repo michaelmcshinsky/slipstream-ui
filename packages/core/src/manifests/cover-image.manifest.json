@@ -1,0 +1,151 @@
+{
+  "id": "cover-image",
+  "name": "CoverImage",
+  "tier": "molecule",
+  "description": "Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.",
+  "designIntent": "Media cards need a cover that never looks broken: imageless entities still get an intentional, per-entity placeholder instead of a reused generic social card. CoverImage wraps Image's src->fallback chain inside an aspect-ratio box so grids stay aligned and never shift layout.",
+  "props": [
+    {
+      "name": "src",
+      "type": "string | null",
+      "required": false,
+      "description": "Cover URL. When absent or broken, the seeded fallback renders instead.",
+      "examples": [
+        "https://cdn.example.com/events/fall-classic.jpg"
+      ]
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "required": true,
+      "description": "Accessible description of the image."
+    },
+    {
+      "name": "aspect",
+      "type": "'video' | 'square' | 'wide' | string",
+      "required": false,
+      "defaultValue": "video",
+      "enum": [
+        "video",
+        "square",
+        "wide"
+      ],
+      "description": "Aspect ratio: presets map to 16:9, 1:1 and 2:1; any CSS aspect-ratio value like '16/10' also works.",
+      "examples": [
+        "square",
+        "16/10"
+      ]
+    },
+    {
+      "name": "seed",
+      "type": "string",
+      "required": false,
+      "description": "Stable key selecting the fallback gradient (e.g. entity slug), so the same entity always gets the same placeholder."
+    },
+    {
+      "name": "priority",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": "false",
+      "description": "Load eagerly and fetch at high priority for the LCP image."
+    },
+    {
+      "name": "sizes",
+      "type": "string",
+      "required": false,
+      "description": "Responsive sizes hint forwarded to the image element."
+    },
+    {
+      "name": "fallback",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Custom fallback content; defaults to the seed-derived token gradient."
+    },
+    {
+      "name": "mark",
+      "type": "React.ReactNode",
+      "required": false,
+      "description": "Optional mark (icon, monogram) centered on the default gradient."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Classes merged onto the aspect-ratio container."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Entity cover with seeded placeholder",
+      "code": "<CoverImage\n  src={event.imageUrl}\n  alt={event.title}\n  seed={event.slug}\n  aspect=\"video\"\n  sizes=\"(min-width: 1024px) 33vw, 100vw\"\n/>",
+      "description": "16:9 cover; imageless events get a stable per-slug gradient."
+    },
+    {
+      "title": "Square avatar-style cover",
+      "code": "<CoverImage alt={studio.name} seed={studio.slug} aspect=\"square\" mark={<StudioIcon />} />",
+      "description": "Square cover with a mark on the gradient fallback."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it for photos of people",
+      "explanation": "Use Avatar for people and firms; CoverImage is for media covers (events, articles, listings).",
+      "example": "// Avoid\n<CoverImage src={person.photo} alt={person.name} />\n\n// Prefer\n<Avatar src={person.photo} name={person.name} />"
+    },
+    {
+      "title": "Don't skip the seed",
+      "explanation": "Without a stable seed the fallback falls back to alt text, so two entities can share a gradient by accident. Pass the entity slug.",
+      "example": "<CoverImage src={e.image} alt={e.title} seed={e.slug} />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Image semantics",
+      "implementation": "Renders a real img with alt when src is present; the gradient fallback is aria-hidden decoration",
+      "userRequirements": "Always pass a descriptive alt; the placeholder is not content"
+    },
+    {
+      "feature": "Layout stability",
+      "implementation": "The aspect-ratio box reserves space before the image loads, so grids never shift",
+      "userRequirements": "Pick the aspect that matches the card design"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Alt text",
+      "guidelines": [
+        "Describe the image, not the component",
+        "For decorative covers paired with a title, keep alt concise"
+      ],
+      "goodExamples": [
+        "Fall Classic competition floor"
+      ],
+      "badExamples": [
+        "Cover image",
+        "Photo"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Card",
+      "relationship": "CoverImage is the media slot at the top of a Card or listing tile",
+      "example": "<Card><CoverImage src={item.image} alt={item.title} seed={item.slug} /><CardContent>…</CardContent></Card>"
+    },
+    {
+      "component": "Image",
+      "relationship": "CoverImage wraps Image, inheriting its src->fallbackSrc->fallback resilience chain",
+      "example": "<CoverImage src={url} alt={alt} />"
+    }
+  ],
+  "relatedComponents": [
+    "Image",
+    "Avatar",
+    "Card"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.11.4",
+  "sourceDir": "cover-image",
+  "exportName": "CoverImage"
+}

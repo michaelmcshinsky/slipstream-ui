@@ -22,6 +22,8 @@ export type ImageProps = {
   className?: string;
   /** Classes for the image when a consumer wants to keep them separate. */
   imgClassName?: string;
+  /** Responsive `sizes` hint for the browser's source selection. */
+  sizes?: string;
   style?: React.CSSProperties;
 };
 
@@ -43,6 +45,7 @@ export function Image({
   height = 630,
   className,
   imgClassName,
+  sizes,
   style,
 }: ImageProps) {
   const [stage, setStage] = React.useState<0 | 1 | 2>(0);
@@ -68,6 +71,7 @@ export function Image({
       loading={priority ? 'eager' : 'lazy'}
       fetchPriority={priority ? 'high' : 'auto'}
       decoding="async"
+      sizes={sizes}
       className={cn(className, imgClassName)}
       style={style}
       onError={onError}

@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
 > Version: 0.11.4 (2026-11-26) · manifest schema v1 · manifest v1
-> 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 114 components: 97 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
-The AI-first React component library. 113 components, each shipping a
+The AI-first React component library. 114 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -16,7 +16,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 - Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 96
+## Core components (@slipstream-ui/core) — 97
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -40,6 +40,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
 - [ContactStrip](https://slipstreamui.com/llm/components/contact-strip.md) — Compact labelled contact rows with optional icons and links.
 - [Container](https://slipstreamui.com/llm/components/container.md) — Centered, width-constrained page container with shared gutters and four width presets.
+- [CoverImage](https://slipstreamui.com/llm/components/cover-image.md) — Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.
 - [CTASection](https://slipstreamui.com/llm/components/cta-section.md) — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - [DataTable](https://slipstreamui.com/llm/components/data-table.md) — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - [DatePicker](https://slipstreamui.com/llm/components/date-picker.md) — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.

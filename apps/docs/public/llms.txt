@@ -5,7 +5,7 @@
 
 <!-- generated:release:start -->
 > Version: 0.11.4 (2026-11-26) · manifest schema v1 · manifest v1
-> 113 components: 96 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 114 components: 97 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
@@ -55,7 +55,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 <!-- generated:articles:end -->
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 96
+## Core components (@slipstream-ui/core) — 97
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -79,6 +79,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - ConfirmDialog — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
 - ContactStrip — Compact labelled contact rows with optional icons and links.
 - Container — Centered, width-constrained page container with shared gutters and four width presets.
+- CoverImage — Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.
 - CTASection — Full-width conversion band with eyebrow, headline, supporting copy and actions.
 - DataTable — Config-driven table: one component plus a columns config that owns shape, sorting, pagination, and row interaction.
 - DatePicker — Native date field with an ISO-string contract, min/max passthrough and an optional clear button.

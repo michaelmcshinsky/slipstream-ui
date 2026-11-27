@@ -4,9 +4,9 @@
   "manifestVersion": 1,
   "version": "0.11.4",
   "releaseDate": "2026-11-26",
-  "count": 113,
+  "count": 114,
   "counts": {
-    "core": 96,
+    "core": 97,
     "ai": 17
   },
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
@@ -273,6 +273,15 @@
       "description": "A container for displaying a list of chat messages with auto-scroll and loading states",
       "docs": "https://slipstreamui.com/docs/components/conversation",
       "registry": "/registry/conversation.json"
+    },
+    {
+      "id": "cover-image",
+      "name": "CoverImage",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.",
+      "docs": "https://slipstreamui.com/docs/components/cover-image",
+      "registry": "/registry/cover-image.json"
     },
     {
       "id": "cta-section",

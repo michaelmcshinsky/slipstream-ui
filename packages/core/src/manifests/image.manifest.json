@@ -71,6 +71,12 @@
       "description": "Additional image classes, merged with className"
     },
     {
+      "name": "sizes",
+      "type": "string",
+      "required": false,
+      "description": "Responsive sizes hint for the browser's source selection"
+    },
+    {
       "name": "style",
       "type": "React.CSSProperties",
       "required": false,

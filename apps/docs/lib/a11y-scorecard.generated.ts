@@ -326,6 +326,17 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "manifest": "/llm/components/conversation.md"
     },
     {
+      "id": "cover-image",
+      "name": "CoverImage",
+      "package": "@slipstream-ui/core",
+      "sourceDir": "cover-image",
+      "axe": true,
+      "interaction": true,
+      "notes": 2,
+      "docs": "/docs/components/cover-image",
+      "manifest": "/llm/components/cover-image.md"
+    },
+    {
       "id": "cta-section",
       "name": "CTASection",
       "package": "@slipstream-ui/core",
@@ -1251,10 +1262,10 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     }
   ],
   "summary": {
-    "total": 113,
-    "withAxe": 113,
-    "withInteraction": 44,
-    "withNotes": 113,
-    "totalNotes": 245
+    "total": 114,
+    "withAxe": 114,
+    "withInteraction": 45,
+    "withNotes": 114,
+    "totalNotes": 247
   }
 };
