@@ -19,6 +19,7 @@ Footers are copied between projects with inconsistent link handling. SiteFooter 
 |---|---|---|---|---|
 | brand | `ReactNode` | — | no | Brand slot. |
 | tagline | `string` | — | no | Short line under the brand. |
+| contact | `ReactNode` | — | no | Contact block under the tagline (address, email, phone, links). |
 | columns | `SiteFooterColumn[]` | — | yes | Link columns: { title, links: { label, href, external? }[] }. |
 | legal | `ReactNode` | — | no | Bottom bar (copyright, legal links). |
 | linkComponent | `React.ElementType` | — | no | Router link element. |

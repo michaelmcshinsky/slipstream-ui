@@ -61,6 +61,17 @@
       ]
     },
     {
+      "name": "as",
+      "type": "'h1' | 'h2'",
+      "required": false,
+      "defaultValue": "h1",
+      "description": "Heading element. Use 'h2' when PageHeader heads a section or appears inside a modal.",
+      "enum": [
+        "h1",
+        "h2"
+      ]
+    },
+    {
       "name": "align",
       "type": "'left' | 'center'",
       "required": false,
@@ -75,7 +86,7 @@
       "name": "titleClassName",
       "type": "string",
       "required": false,
-      "description": "Extra classes merged onto the h1 for host display typography."
+      "description": "Extra classes merged onto the heading for host display typography (e.g. a clamp() display scale the size prop does not cover)."
     },
     {
       "name": "descriptionClassName",

@@ -47,6 +47,19 @@ describe('PageHeader hero options', () => {
   });
 });
 
+describe('PageHeader heading level', () => {
+  it('renders an h2 when as="h2"', () => {
+    render(<PageHeader as="h2" title="Section header" />);
+    expect(screen.getByRole('heading', { level: 2, name: 'Section header' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
+  });
+
+  it('defaults to h1', () => {
+    render(<PageHeader title="Page title" />);
+    expect(screen.getByRole('heading', { level: 1, name: 'Page title' })).toBeInTheDocument();
+  });
+});
+
 describe('PageHeader migration aliases', () => {
   it('renders subtitle when description is absent', () => {
     render(<PageHeader title="Billing" subtitle="Manage invoices." />);

@@ -20,6 +20,7 @@ export default function Page() {
       propsRows={[
         { name: 'brand', type: 'ReactNode', description: 'Brand slot.' },
         { name: 'tagline', type: 'string', description: 'Short line under the brand.' },
+        { name: 'contact', type: 'ReactNode', description: 'Contact block under the tagline (address, email, phone).' },
         { name: 'columns', type: 'SiteFooterColumn[]', defaultValue: 'required', description: 'Link columns: { title, links: { label, href, external? }[] }.' },
         { name: 'legal', type: 'ReactNode', description: 'Bottom bar (copyright, legal links).' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Router link element.' },

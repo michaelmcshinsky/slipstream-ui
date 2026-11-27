@@ -25,8 +25,9 @@ Every list/detail page repeats breadcrumb + title + description + actions with d
 | children | `ReactNode` | — | no | Sub-row under the title (tabs, filters). |
 | eyebrow | `ReactNode` | — | no | Kicker above the title. |
 | size | `'sm' | 'md' | 'lg' | 'hero'` | `md` | no | Heading scale; hero is for marketing pages. |
+| as | `'h1' | 'h2'` | `h1` | no | Heading element. Use 'h2' when PageHeader heads a section or appears inside a modal. |
 | align | `'left' | 'center'` | `left` | no | Text alignment. |
-| titleClassName | `string` | — | no | Extra classes merged onto the h1 for host display typography. |
+| titleClassName | `string` | — | no | Extra classes merged onto the heading for host display typography (e.g. a clamp() display scale the size prop does not cover). |
 | descriptionClassName | `string` | — | no | Extra classes merged onto the description paragraph. |
 | eyebrowClassName | `string` | — | no | Extra classes merged onto the eyebrow/kicker. |
 
