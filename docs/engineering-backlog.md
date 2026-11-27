@@ -37,6 +37,13 @@ The strategic plan this backlog implements contains stale and unverified claims.
 | Paid infrastructure | `apps/app` has Stripe + mock billing, plans, licence keys, teams |
 | Docs | Next.js docs site with one `/docs/templates` page — no complete starter product yet |
 
+> **Update (2026-11-27).** The version numbers above are the 2026-11-05 baseline. Current
+> published versions: `@slipstream-ui/core` 0.11.9, `@slipstream-ui/ai` 0.11.9,
+> `@slipstream-ui/themes` 0.10.0, `@slipstream-ui/cli` 0.3.1,
+> `@slipstream-ui/registry` 0.2.2, `@slipstream-ui/mcp-server` 0.5.0. The component/manifest
+> count and the MCP tool list (`recommend_components`, `search_components` added since) have
+> also grown; treat the dated figures as historical, not current.
+
 ---
 
 ## 1. Goals, non-goals, and success criteria

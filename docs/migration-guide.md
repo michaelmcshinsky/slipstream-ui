@@ -82,7 +82,7 @@ import { Button } from '@/components/ui/button';  # path stays yours
 
 ## Component map
 
-Verified against `@slipstream-ui/core` 0.10.0 exports. "API notes" flag the non-obvious
+Verified against `@slipstream-ui/core` 0.11.9 exports (re-checked 2026-11-27). "API notes" flag the non-obvious
 prop-level differences; always check the linked docs page for the full prop table.
 
 ### Buttons & badges

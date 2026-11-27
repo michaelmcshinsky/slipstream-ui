@@ -19,6 +19,10 @@ include **Nexera UI** and **Matrix UI**, both of which market MCP-based usage va
 "Validation is unique" is therefore **not** a safe claim; "validation is proven and
 measurably better" is the claim to earn.
 
+**Update (2026-11-27).** Package versions cited below are the 2026-11-05 snapshot; current
+published versions are `core`/`ai` 0.11.9, `themes` 0.10.0, `cli` 0.3.1, `registry` 0.2.2,
+`mcp-server` 0.5.0.
+
 **Status update (same day).** Several recommendations below have since shipped:
 the Tailwind v4 theme contract and a compile fixture (`pnpm verify:tailwind-v4`),
 the 100-case benchmark (65.7% structural recall, 0% false positives — see

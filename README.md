@@ -87,7 +87,7 @@ A hand-written inventory used to live here; it drifted. The generated files are 
 - [`/registry/all.json`](https://slipstreamui.com/registry/all.json) — every manifest plus installer payload
 - [`/registry/graph.json`](https://slipstreamui.com/registry/graph.json) — composition/related edges for choosing a coherent set of components
 - [`/registry/recommendations.json`](https://slipstreamui.com/registry/recommendations.json) — the intent recipes behind `recommend_components`
-- **MCP server** - `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp))
+- **MCP server** - `recommend_components`, `list_components`, `search_components`, `get_component_manifest`, `get_usage_examples`, `validate_usage` ([setup](https://slipstreamui.com/docs/mcp), [trust model](https://github.com/michaelmcshinsky/slipstream-ui/blob/main/docs/MCP-TRUST.md))
 
 ```tsx
 import { Button } from '@slipstream-ui/core';
