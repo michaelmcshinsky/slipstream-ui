@@ -1,5 +1,17 @@
 # @slipstream-ui/core
 
+## 0.11.5
+
+### Patch Changes
+
+- [#204](https://github.com/michaelmcshinsky/slipstream-ui/pull/204) [`e375919`](https://github.com/michaelmcshinsky/slipstream-ui/commit/e375919e056ad8ba5516b7254a08c7abdd23ba0e) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - New `CoverImage` component: fixed-aspect media cover that renders the image when present and a deterministic seed-derived token gradient (with optional mark) when the entity has no art — imageless grids stay intentional. `Image` gains a `sizes` prop.
+
+- [#193](https://github.com/michaelmcshinsky/slipstream-ui/pull/193) [`3a6b77e`](https://github.com/michaelmcshinsky/slipstream-ui/commit/3a6b77e509bf0b7085a1116f7ed1650f82a6a2c0) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - EmptyState gains `align="start"` and `tone="panel"` for left-aligned tinted empty panels on content pages, plus `linkComponent`/`linkHrefProp` so action hrefs keep client-side routing. Defaults are unchanged.
+
+- [#191](https://github.com/michaelmcshinsky/slipstream-ui/pull/191) [`a9ab041`](https://github.com/michaelmcshinsky/slipstream-ui/commit/a9ab0413e529b472a3c1925d8d76c1957d044502) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - SegmentedControl link mode: options accept `href` to render real links for URL-backed view switches (refresh-safe, no-JS, cacheable). Active segment becomes a non-link `aria-current="page"` marker; `linkComponent`/`linkHrefProp` support client-side routers. Button mode is unchanged.
+
+- [#201](https://github.com/michaelmcshinsky/slipstream-ui/pull/201) [`f602dd7`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f602dd7c535659733eb4662747a1ea432f139ff0) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - StatBand gains `variant="panel"` — a bordered strip of hairline-separated cells with denser type, uppercase labels and mobile row separators for data pages — plus `valueClassName` for mono/tabular numerals. `plain` remains the default marketing band.
+
 ## 0.11.4
 
 ### Patch Changes

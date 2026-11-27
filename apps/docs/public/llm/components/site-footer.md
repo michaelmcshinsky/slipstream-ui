@@ -6,7 +6,7 @@ Marketing footer: brand + tagline column, link columns and a legal bar; router-a
 > Import: `import { SiteFooter } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/site-footer
 > Registry: https://slipstreamui.com/registry/site-footer.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.4
+> Tier: organism · Package: @slipstream-ui/core@0.11.5
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

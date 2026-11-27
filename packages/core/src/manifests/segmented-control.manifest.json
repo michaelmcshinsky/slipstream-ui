@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "sourceDir": "segmented-control",
   "exportName": "SegmentedControl",
   "description": "Single- or multi-select segmented control for view and filter switches.",

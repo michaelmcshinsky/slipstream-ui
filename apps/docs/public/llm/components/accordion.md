@@ -6,7 +6,7 @@ Collapsible content sections with ARIA accordion semantics and keyboard navigati
 > Import: `import { Accordion } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/accordion
 > Registry: https://slipstreamui.com/registry/accordion.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.4
+> Tier: molecule · Package: @slipstream-ui/core@0.11.5
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
