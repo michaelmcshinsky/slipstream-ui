@@ -9,9 +9,18 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.7',
+    version: '0.11.8',
     date: 'November 27, 2026',
     tag: 'current',
+    highlights: [
+      'PageHeader gains an `as` prop (\'h1\' | \'h2\', default \'h1\') for section-level and embedded headers; SiteFooter gains a `contact` ReactNode slot under the tagline for address/email/phone blocks',
+      'Versioned packages: core/ai 0.11.8 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.7',
+    date: 'November 27, 2026',
+    tag: 'previous',
     highlights: [
       'SiteHeader gains mobileMenuOpenLabel, mobileMenuCloseLabel and mobileDrawerCloseLabel props so the mobile trigger and drawer close button can be localized; defaults unchanged',
       'Versioned packages: core/ai 0.11.7 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
