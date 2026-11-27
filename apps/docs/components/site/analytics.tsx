@@ -43,7 +43,22 @@ export function Analytics() {
       // Sync Consent Mode even when the tag is already loaded - a purpose
       // toggle must reach gtag without a reload.
       updateConsentMode(consent);
-      if (document.querySelector('script[data-slipstream-analytics="true"]')) return;
+
+      // Cloudflare Web Analytics beacon (cookieless RUM/Core Web Vitals). It
+      // loads in addition to the primary vendor when
+      // NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN is set, and shares the analytics
+      // consent gate and removal path.
+      const cfToken = process.env.NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN;
+      if (cfToken && !document.querySelector('script[data-cf-beacon]')) {
+        const beacon = document.createElement('script');
+        beacon.defer = true;
+        beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beacon.dataset.slipstreamAnalytics = 'true';
+        beacon.dataset.cfBeacon = JSON.stringify({ token: cfToken });
+        document.head.appendChild(beacon);
+      }
+
+      if (document.querySelector('script[data-slipstream-analytics="true"]:not([data-cf-beacon])')) return;
 
       if (plausibleSrc && plausibleDomain) {
         const script = document.createElement('script');

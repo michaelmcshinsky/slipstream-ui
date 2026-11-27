@@ -24,13 +24,18 @@ const googleAnalyticsOrigins = [
   'https://*.analytics.google.com',
 ].join(' ');
 
+// Cloudflare Web Analytics beacon (optional, consent-gated via
+// NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN): static script plus the RUM ingest
+// endpoint it posts Core Web Vitals to.
+const cloudflareAnalyticsOrigins = 'https://static.cloudflareinsights.com https://cloudflareinsights.com';
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDevelopment ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com ${cloudflareAnalyticsOrigins}${isDevelopment ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com",
   "font-src 'self' data:",
-  `connect-src 'self' ${googleAnalyticsOrigins}`,
+  `connect-src 'self' ${googleAnalyticsOrigins} ${cloudflareAnalyticsOrigins}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
