@@ -2507,6 +2507,7 @@ Most tables are 90% configuration — columns, sortability, page size, row click
 | stickyHeader | `boolean` | `false` | no | Pin the header while the body scrolls (add a max-height via className). |
 | density | `'default' | 'compact'` | `default` | no | Row density — compact shrinks text and cell padding. |
 | zebra | `boolean` | `false` | no | Zebra-striped rows for long tables. |
+| cardLayout | `boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `false` | no | Responsive card fallback: below the given breakpoint each row renders as a definition-list card (column headers become field labels) instead of a table row. true enables it below md (768px). Both layouts render and swap via CSS only, so sorting, selection, pagination, and row callbacks behave identically in each. |
 | loading | `boolean` | `false` | no | Render skeleton placeholder rows (tbody is aria-busy while loading). |
 | loadingRows | `number` | — | no | Skeleton row count while loading (defaults to page size, else 5) — match it to visible data so rows do not jump. |
 | emptyMessage | `string` | `'No results.'` | no | Shown when data is empty. |
@@ -2557,6 +2558,20 @@ Pass sort props + onSortChange to let the backend own ordering; DataTable render
 />
 ```
 
+### Card layout on narrow viewports
+
+Below md (or the breakpoint you pass) each row becomes a card listing every column as label/value — no horizontal scroll on phones.
+
+```tsx
+<DataTable
+  columns={columns}
+  data={rows}
+  rowId={(row) => row.id}
+  cardLayout
+  caption="Orders"
+/>
+```
+
 ## Anti-patterns
 
 - **Don't sort server-owned data locally** — Local sorting runs on the rows you pass in. When data is paged by the API, wire onSortChange to a server query — sorting one page locally lies about global order.
@@ -2568,6 +2583,7 @@ Pass sort props + onSortChange to let the backend own ordering; DataTable render
 - **Sortable headers**: Sortable th elements carry aria-sort (ascending/descending/none) and use a real button for the toggle
 - **Caption**: Renders a native <caption> naming the table's purpose
 - **Row interaction**: With onRowClick rows are tabIndex=0 and activate on Enter/Space with a visible ring
+- **Card layout**: Each row renders as a list item containing a definition list (dt labels from column headers, dd values); the table is display:none below the breakpoint so assistive tech sees only one layout at a time
 - **Pagination feedback**: The result count line is aria-live=polite and pagination reuses the Pagination nav (aria-current=page)
 
 ## Composition

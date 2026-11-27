@@ -231,6 +231,105 @@ describe('DataTable selection', () => {
   });
 });
 
+describe('DataTable cardLayout', () => {
+  const cardColumns: DataTableColumn<Row>[] = [
+    { key: 'name', header: 'Name' },
+    { key: 'messages', header: 'Messages', align: 'right' },
+  ];
+  const cardRows: Row[] = [
+    { id: '1', name: 'Alpha', messages: 3 },
+    { id: '2', name: 'Beta', messages: 12 },
+  ];
+
+  it('renders each row as a definition-list card using column headers as labels', () => {
+    render(
+      <DataTable columns={cardColumns} data={cardRows} rowId={(row) => row.id} cardLayout caption="People" />
+    );
+    const list = screen.getByRole('list', { name: 'People' });
+    expect(within(list).getAllByRole('listitem')).toHaveLength(2);
+    const first = within(list).getAllByRole('listitem')[0];
+    // Column header becomes the field label; cell value renders beside it.
+    expect(within(first).getByText('Name')).toBeInTheDocument();
+    expect(within(first).getByText('Alpha')).toBeInTheDocument();
+    expect(within(first).getByText('Messages')).toBeInTheDocument();
+    expect(within(first).getByText('3')).toBeInTheDocument();
+  });
+
+  it('swaps layouts with CSS breakpoint classes (true defaults to md)', () => {
+    const { container } = render(
+      <DataTable columns={cardColumns} data={cardRows} rowId={(row) => row.id} cardLayout />
+    );
+    const tableWrapper = container.querySelector('.overflow-x-auto')!;
+    const cards = screen.getByRole('list');
+    expect(tableWrapper.className).toContain('max-md:hidden');
+    expect(cards.className).toContain('md:hidden');
+  });
+
+  it('honours an explicit breakpoint string', () => {
+    const { container } = render(
+      <DataTable columns={cardColumns} data={cardRows} rowId={(row) => row.id} cardLayout="lg" />
+    );
+    expect(container.querySelector('.overflow-x-auto')!.className).toContain('max-lg:hidden');
+    expect(screen.getByRole('list').className).toContain('lg:hidden');
+  });
+
+  it('does not render cards when cardLayout is unset', () => {
+    render(<DataTable columns={cardColumns} data={cardRows} rowId={(row) => row.id} />);
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+  });
+
+  it('keeps row interaction and selection working in card layout', async () => {
+    const user = userEvent.setup();
+    const onRowClick = vi.fn();
+    const onSelectedRowIdsChange = vi.fn();
+    render(
+      <DataTable
+        columns={cardColumns}
+        data={cardRows}
+        rowId={(row) => row.id}
+        cardLayout
+        onRowClick={onRowClick}
+        selectedRowIds={[]}
+        onSelectedRowIdsChange={onSelectedRowIdsChange}
+      />
+    );
+    const list = screen.getByRole('list');
+    const firstCard = within(list).getAllByRole('listitem')[0];
+    const cardBody = within(firstCard).getByText('Alpha').closest('[tabindex="0"]')!;
+    expect(cardBody).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(cardBody, { key: 'Enter' });
+    expect(onRowClick).toHaveBeenCalledWith(cardRows[0]);
+
+    // Card checkbox toggles selection without triggering the row click.
+    await user.click(within(firstCard).getByRole('checkbox', { name: 'Select row 1' }));
+    expect(onSelectedRowIdsChange).toHaveBeenCalledWith(['1']);
+    expect(onRowClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows the empty message in card layout', () => {
+    render(
+      <DataTable columns={cardColumns} data={[]} rowId={(row) => row.id} cardLayout emptyMessage="Nothing here" />
+    );
+    expect(within(screen.getByRole('list')).getByText('Nothing here')).toBeInTheDocument();
+  });
+
+  it('has no accessibility violations in card layout', async () => {
+    const { container } = render(
+      <DataTable
+        columns={cardColumns}
+        data={cardRows}
+        rowId={(row) => row.id}
+        cardLayout
+        caption="People"
+        selectedRowIds={[]}
+        onSelectedRowIdsChange={() => undefined}
+        pageSize={2}
+      />
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
 describe('DataTable manual pagination', () => {
   const rows: Row[] = [
     { id: '1', name: 'Alpha', messages: 1 },

@@ -136,6 +136,17 @@
       ]
     },
     {
+      "name": "cardLayout",
+      "type": "boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+      "required": false,
+      "description": "Responsive card fallback: below the given breakpoint each row renders as a definition-list card (column headers become field labels) instead of a table row. true enables it below md (768px). Both layouts render and swap via CSS only, so sorting, selection, pagination, and row callbacks behave identically in each.",
+      "defaultValue": "false",
+      "examples": [
+        "true",
+        "'lg'"
+      ]
+    },
+    {
       "name": "loading",
       "type": "boolean",
       "required": false,
@@ -239,6 +250,11 @@
       "title": "Controlled sort (server-side)",
       "code": "<DataTable\n  columns={columns}\n  data={rows}\n  rowId={(row) => row.id}\n  sortKey={sort.key}\n  sortDir={sort.dir}\n  onSortChange={(key, dir) => fetchSorted(key, dir)}\n/>",
       "description": "Pass sort props + onSortChange to let the backend own ordering; DataTable renders aria-sort either way."
+    },
+    {
+      "title": "Card layout on narrow viewports",
+      "code": "<DataTable\n  columns={columns}\n  data={rows}\n  rowId={(row) => row.id}\n  cardLayout\n  caption=\"Orders\"\n/>",
+      "description": "Below md (or the breakpoint you pass) each row becomes a card listing every column as label/value — no horizontal scroll on phones."
     }
   ],
   "antiPatterns": [
@@ -273,6 +289,11 @@
       "feature": "Row interaction",
       "implementation": "With onRowClick rows are tabIndex=0 and activate on Enter/Space with a visible ring",
       "userRequirements": "Keep an in-cell link/button as the primary action path too"
+    },
+    {
+      "feature": "Card layout",
+      "implementation": "Each row renders as a list item containing a definition list (dt labels from column headers, dd values); the table is display:none below the breakpoint so assistive tech sees only one layout at a time",
+      "userRequirements": "Prefer cardLayout on data-heavy tables viewed on phones; sorting stays table-only, so keep a sortable column's primary affordance in a cell if order matters"
     },
     {
       "feature": "Pagination feedback",
