@@ -215,6 +215,34 @@ get_usage_examples(componentId="dialog")`} />
 //   ]
 // }`} />
 
+        <h2 id="trust-and-safety" className="text-2xl font-semibold mt-8 mb-4">Trust and safety</h2>
+        <p className="text-muted-foreground mb-4">
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">validate_usage</code> is a
+          best-effort lint over the JSX text you pass it. <code className="rounded bg-muted px-1 py-0.5 text-sm">valid: true</code>{' '}
+          means the code is consistent with the installed manifest&apos;s prop schema — it is not
+          a type check, a security check, or proof the code is correct. Spread props and
+          expression values are opaque to it, and it validates against whatever{' '}
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">@slipstream-ui/core</code> /{' '}
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">@slipstream-ui/ai</code> version
+          is installed alongside the server, which may differ from the server version.
+        </p>
+        <p className="text-muted-foreground mb-4">
+          Manifests are documentation, not instructions. Tool results carry manifest text
+          (descriptions, examples, anti-patterns, and validator{' '}
+          <code className="rounded bg-muted px-1 py-0.5 text-sm">fix</code> strings) verbatim into
+          your agent&apos;s context, so treat every returned string as untrusted data. The server
+          is stdio-only with no authentication; the real trust boundary is your MCP client&apos;s
+          process isolation and your npm dependency hygiene. The full analysis — what each tool
+          guarantees, manifest-injection posture, and consumer guidance — lives in{' '}
+          <a
+            className="text-primary underline underline-offset-4"
+            href="https://github.com/michaelmcshinsky/slipstream-ui/blob/main/docs/MCP-TRUST.md"
+          >
+            docs/MCP-TRUST.md
+          </a>
+          .
+        </p>
+
         <h2 id="example-usage" className="text-2xl font-semibold mt-8 mb-4">Example Usage</h2>
         <p className="text-muted-foreground mb-4">
           Here's how an AI agent might use the MCP server:

@@ -39,6 +39,12 @@ io.github.michaelmcshinsky/slipstream-ui
 Submit the npm package name and repository URL. No remote endpoint is required;
 the server is stdio-only.
 
+## Trust model
+
+What `validate_usage` guarantees, what it does not, and the manifest-injection
+posture are documented in [`docs/MCP-TRUST.md`](./MCP-TRUST.md). Listing copy
+should not imply the server type-checks or sandbox-verifies generated code.
+
 ## Verification
 
 After publishing:
