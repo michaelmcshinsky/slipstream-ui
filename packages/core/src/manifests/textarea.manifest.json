@@ -102,7 +102,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "sourceDir": "textarea",
   "exportName": "Textarea"
 }

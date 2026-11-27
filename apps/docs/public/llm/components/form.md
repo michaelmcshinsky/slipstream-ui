@@ -6,7 +6,7 @@ Semantic form element with even-spacing layouts: stacked (default), bordered car
 > Import: `import { Form } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form
 > Registry: https://slipstreamui.com/registry/form.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.5
+> Tier: molecule · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

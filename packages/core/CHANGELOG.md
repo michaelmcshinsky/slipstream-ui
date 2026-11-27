@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.6
+
+### Patch Changes
+
+- [#203](https://github.com/michaelmcshinsky/slipstream-ui/pull/203) [`20e4720`](https://github.com/michaelmcshinsky/slipstream-ui/commit/20e47204022ab056d65c9c13a8a8e8fd23fbfd55) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Reset the WebKit search cancel button on `input[type="search"]` in the prebuilt `styles.css` so search inputs match other fields on iOS/Safari.
+
 ## 0.11.5
 
 ### Patch Changes
