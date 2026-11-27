@@ -6,7 +6,7 @@ A resilient image with a two-step fallback chain, intrinsic dimensions, and an L
 > Import: `import { Image } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/image
 > Registry: https://slipstreamui.com/registry/image.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.5
+> Tier: atom · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

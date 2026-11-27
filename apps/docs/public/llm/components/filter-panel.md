@@ -6,7 +6,7 @@ Structured filter panel with collapsible sections and reset/apply actions.
 > Import: `import { FilterPanel } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/filter-panel
 > Registry: https://slipstreamui.com/registry/filter-panel.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.5
+> Tier: organism · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

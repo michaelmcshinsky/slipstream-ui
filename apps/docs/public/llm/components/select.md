@@ -6,7 +6,7 @@ Accessible select built on the native <select> with flat options, optgroups, a p
 > Import: `import { Select } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/select
 > Registry: https://slipstreamui.com/registry/select.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.5
+> Tier: atom · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -6,7 +6,7 @@ A text input field with support for various input types and standard HTML input 
 > Import: `import { Input } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/input
 > Registry: https://slipstreamui.com/registry/input.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.5
+> Tier: atom · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

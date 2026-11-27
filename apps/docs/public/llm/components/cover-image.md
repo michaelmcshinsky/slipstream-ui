@@ -6,7 +6,7 @@ Fixed-aspect media cover that shows the image when present and a deterministic s
 > Import: `import { CoverImage } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/cover-image
 > Registry: https://slipstreamui.com/registry/cover-image.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.5
+> Tier: molecule · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

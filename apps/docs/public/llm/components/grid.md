@@ -6,7 +6,7 @@ Typed CSS grid with column counts per breakpoint (literal utilities that survive
 > Import: `import { Grid } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/grid
 > Registry: https://slipstreamui.com/registry/grid.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.5
+> Tier: molecule · Package: @slipstream-ui/core@0.11.6
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
