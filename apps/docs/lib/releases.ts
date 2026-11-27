@@ -9,9 +9,30 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.11.6',
+    date: 'November 27, 2026',
+    tag: 'current',
+    highlights: [
+      'input[type="search"] resets the WebKit search cancel button in the prebuilt styles.css, so search inputs match other fields on iOS/Safari',
+      'Versioned packages: core/ai 0.11.6 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.5',
+    date: 'November 27, 2026',
+    tag: 'previous',
+    highlights: [
+      'CoverImage: fixed-aspect media cover that renders the image when present and a deterministic seed-derived token gradient (with optional mark) when the entity has no art; Image gains a sizes prop',
+      'EmptyState gains align="start" and tone="panel" for left-aligned tinted empty panels, plus linkComponent/linkHrefProp for client-side routing',
+      'SegmentedControl link mode: options accept href to render real links for URL-backed view switches — refresh-safe, no-JS, cacheable; active segment becomes an aria-current="page" marker',
+      'StatBand gains variant="panel" — bordered strip of hairline-separated cells for data pages — plus valueClassName for mono/tabular numerals',
+      'Versioned packages: core/ai 0.11.5 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
     version: '0.11.4',
     date: 'November 26, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'FormLayout columns accepts per-breakpoint counts ({ base: 1, md: 2 }) so consumers no longer undo the default grid with className overrides; new legendClassName/descriptionClassName props for fieldset mode',
       'Versioned packages: core/ai 0.11.4 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
