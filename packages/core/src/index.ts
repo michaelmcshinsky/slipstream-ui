@@ -80,6 +80,7 @@ export * from './components/feature-row';
 export * from './components/testimonial';
 export * from './components/process-steps';
 export * from './components/article-card';
+export * from './components/media-card';
 export * from './components/newsletter';
 export * from './components/contact-strip';
 export * from './components/announcement-bar';

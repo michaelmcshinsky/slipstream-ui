@@ -733,6 +733,17 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "manifest": "/llm/components/logo-cloud.md"
     },
     {
+      "id": "media-card",
+      "name": "MediaCard",
+      "package": "@slipstream-ui/core",
+      "sourceDir": "media-card",
+      "axe": true,
+      "interaction": false,
+      "notes": 2,
+      "docs": "/docs/components/media-card",
+      "manifest": "/llm/components/media-card.md"
+    },
+    {
       "id": "menu",
       "name": "Menu",
       "package": "@slipstream-ui/core",
@@ -1273,10 +1284,10 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     }
   ],
   "summary": {
-    "total": 115,
-    "withAxe": 115,
+    "total": 116,
+    "withAxe": 116,
     "withInteraction": 45,
-    "withNotes": 115,
-    "totalNotes": 249
+    "withNotes": 116,
+    "totalNotes": 251
   }
 };

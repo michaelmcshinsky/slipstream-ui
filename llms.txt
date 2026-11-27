@@ -5,7 +5,7 @@
 
 <!-- generated:release:start -->
 > Version: 0.11.9 (2026-11-27) · manifest schema v1 · manifest v1
-> 115 components: 98 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 116 components: 99 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
@@ -55,7 +55,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 <!-- generated:articles:end -->
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 98
+## Core components (@slipstream-ui/core) — 99
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -115,6 +115,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - ListToolbar — Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.
 - LoadMore — Load-more control with pending and end-of-list states.
 - LogoCloud — Trust strip for member, customer or partner logos with captions, columns and optional links.
+- MediaCard — Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
 - MultiSelect — Searchable multi-select filter with visible removable chips and a checkbox panel.

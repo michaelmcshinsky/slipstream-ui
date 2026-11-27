@@ -146,6 +146,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/image', label: 'Image' },
           { href: '/docs/components/cover-image', label: 'CoverImage' },
           { href: '/docs/components/article-card', label: 'ArticleCard' },
+          { href: '/docs/components/media-card', label: 'MediaCard' },
           { href: '/docs/components/newsletter', label: 'Newsletter' },
           { href: '/docs/components/contact-strip', label: 'ContactStrip' },
           { href: '/docs/components/announcement-bar', label: 'AnnouncementBar' },
