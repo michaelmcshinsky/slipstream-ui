@@ -1,5 +1,6 @@
 {
   "name": "@slipstream-ui/registry",
+  "license": "MIT",
   "version": "0.2.2",
   "repository": {
     "type": "git",

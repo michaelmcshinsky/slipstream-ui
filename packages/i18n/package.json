@@ -1,5 +1,6 @@
 {
   "name": "@slipstream-ui/i18n",
+  "license": "MIT",
   "version": "0.5.0",
   "repository": {
     "type": "git",

@@ -66,27 +66,51 @@ export const CONSENT_STORAGE_KEY = 'slipstream-consent';export const CONSENT_EVE
  */
 export const CONSENT_MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 
+/**
+ * Consent purposes (Consent Mode v2 granularity). Today the only toggleable
+ * purpose is analytics; advertising signals are always denied and never
+ * offered. Adding a purpose means extending this tuple, the stored shape,
+ * and the PrivacyPreferences toggles.
+ */
+export const CONSENT_PURPOSES = ['analytics'] as const;
+export type ConsentPurpose = (typeof CONSENT_PURPOSES)[number];
+export type ConsentPreferences = Record<ConsentPurpose, boolean>;
+
+/** Banner-level shorthand: accept/decline applies to every purpose. */
 export type ConsentValue = 'granted' | 'denied';
 
-type StoredConsent = { v: ConsentValue; at: number };
+type StoredConsent = { p?: unknown; v?: unknown; at: number };
 
-function isConsentValue(value: unknown): value is ConsentValue {
-  return value === 'granted' || value === 'denied';
+function isPurposeMap(value: unknown): value is ConsentPreferences {
+  if (typeof value !== 'object' || value === null) return false;
+  const record = value as Record<string, unknown>;
+  return CONSENT_PURPOSES.every((purpose) => typeof record[purpose] === 'boolean');
 }
 
-function parseStoredConsent(raw: string | null): ConsentValue | null {
+/** Normalize a stored `p`/`v` payload to preferences, or null if invalid. */
+function toPreferences(p: unknown, v: unknown): ConsentPreferences | null {
+  if (isPurposeMap(p)) return p;
+  // Legacy shape: { v: 'granted' | 'denied' } predates per-purpose storage.
+  // Migrate it so returning visitors keep their choice.
+  if (v === 'granted' || v === 'denied') {
+    return { analytics: v === 'granted' };
+  }
+  return null;
+}
+
+function parseStoredConsent(raw: string | null): ConsentPreferences | null {
   if (!raw) return null;
   try {
     const parsed: unknown = JSON.parse(raw);
     if (typeof parsed === 'object' && parsed !== null) {
-      const { v, at } = parsed as Partial<StoredConsent>;
+      const { p, v, at } = parsed as Partial<StoredConsent>;
       if (
-        isConsentValue(v) &&
         typeof at === 'number' &&
         Number.isFinite(at) &&
         Date.now() - at < CONSENT_MAX_AGE_MS
       ) {
-        return v;
+        const preferences = toPreferences(p, v);
+        if (preferences) return preferences;
       }
     }
   } catch {
@@ -97,7 +121,8 @@ function parseStoredConsent(raw: string | null): ConsentValue | null {
   return null;
 }
 
-export function readConsent(): ConsentValue | null {
+/** Current per-purpose consent, or null when the visitor has not decided. */
+export function readConsent(): ConsentPreferences | null {
   if (typeof window === 'undefined') return null;
   try {
     return parseStoredConsent(window.localStorage.getItem(CONSENT_STORAGE_KEY));
@@ -106,15 +131,20 @@ export function readConsent(): ConsentValue | null {
   }
 }
 
-export function writeConsent(value: ConsentValue): void {
+/** All purposes set to the same value — the banner's accept/decline action. */
+export function consentForAll(allowed: boolean): ConsentPreferences {
+  return { analytics: allowed };
+}
+
+export function writeConsent(preferences: ConsentPreferences): void {
   if (typeof window === 'undefined') return;
-  const stored: StoredConsent = { v: value, at: Date.now() };
+  const stored: StoredConsent = { p: preferences, at: Date.now() };
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(stored));
   } catch {
     /* storage blocked — consent simply isn't persisted */
   }
-  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: preferences }));
 }
 
 /** Remove the stored choice so the banner returns and analytics stops loading. */

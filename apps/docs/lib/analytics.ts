@@ -9,7 +9,7 @@
  * It is vendor-neutral: it forwards to whichever of Plausible, GA4, or a plain
  * GTM `dataLayer` is present, and is a no-op when none is configured.
  */
-import { readConsent } from './site';
+import { readConsent, type ConsentPreferences } from './site';
 
 export type AnalyticsEvent =
   | 'article_scroll'
@@ -22,7 +22,8 @@ export type AnalyticsEvent =
   | 'feedback_reason'
   | 'copy_for_ai'
   | 'copy_jsx'
-  | 'consent';
+  | 'consent'
+  | 'experiment_exposure';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
@@ -43,6 +44,7 @@ export const EVENT_PROPS: Record<AnalyticsEvent, readonly string[]> = {
   copy_for_ai: ['component'],
   copy_jsx: ['component'],
   consent: ['choice', 'location'],
+  experiment_exposure: ['experiment', 'variant'],
 };
 
 type EventProps<E extends AnalyticsEvent> = Partial<
@@ -51,7 +53,7 @@ type EventProps<E extends AnalyticsEvent> = Partial<
 
 type Plausible = (event: string, options?: { props?: AnalyticsProps }) => void;
 type Gtag = (
-  command: 'js' | 'config' | 'set' | 'event',
+  command: 'js' | 'config' | 'set' | 'event' | 'consent',
   target: string | Date,
   props?: AnalyticsProps,
 ) => void;
@@ -86,7 +88,43 @@ export const GA_SCRIPT_SRC = `https://www.googletagmanager.com/gtag/js?id=${GA_M
  * `dataLayer` on load, so the config command has to be queued before a visitor
  * can generate an event.
  */
-export function installGtag(): void {
+/**
+ * Google Consent Mode v2 defaults. Everything starts denied except the
+ * strictly-necessary storage signals; the loader then sends an `update`
+ * reflecting the visitor's stored preferences before `config`, so gtag.js
+ * sees a complete consent state on first execution. Advertising signals
+ * stay denied permanently - the site runs no ads.
+ */
+const CONSENT_MODE_DEFAULTS = {
+  analytics_storage: 'denied',
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  functionality_storage: 'granted',
+  personalization_storage: 'denied',
+  security_storage: 'granted',
+} as const;
+
+function consentModeUpdate(preferences: ConsentPreferences | null): Record<string, string> {
+  return {
+    analytics_storage: preferences?.analytics ? 'granted' : 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  };
+}
+
+/**
+ * Push a Consent Mode v2 state change. Safe to call whether or not the gtag
+ * shim exists yet - the shim queues onto dataLayer, and a missing shim means
+ * analytics was never loaded so there is nothing to update.
+ */
+export function updateConsentMode(preferences: ConsentPreferences | null): void {
+  if (typeof window === 'undefined') return;
+  window.gtag?.('consent', 'update', consentModeUpdate(preferences));
+}
+
+export function installGtag(preferences: ConsentPreferences | null = null): void {
   if (typeof window === 'undefined') return;
 
   const dataLayer = (window.dataLayer ??= []);
@@ -94,6 +132,10 @@ export function installGtag(): void {
     dataLayer.push(args);
   };
 
+  // Deny-by-default first, then the visitor's actual choices - both queued
+  // before js/config so the state is settled before gtag.js drains the queue.
+  window.gtag('consent', 'default', CONSENT_MODE_DEFAULTS);
+  window.gtag('consent', 'update', consentModeUpdate(preferences));
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID, {
     // Aggregate reporting only: no ads signals, no cross-site audiences.
@@ -107,7 +149,7 @@ export function installGtag(): void {
  * Never throws and never blocks the interaction it is attached to.
  */
 export function track<E extends AnalyticsEvent>(event: E, props: EventProps<E> = {}): void {
-  if (typeof window === 'undefined' || readConsent() !== 'granted') return;
+  if (typeof window === 'undefined' || readConsent()?.analytics !== true) return;
 
   const payload: AnalyticsProps = { ...props, page: window.location.pathname };
 

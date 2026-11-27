@@ -128,10 +128,14 @@ test.describe('privacy preferences', () => {
     await expect(prefs.getByRole('status')).toContainText('You have not chosen yet');
     await expect(page.locator('[data-cookie-banner]')).toHaveCount(1);
 
-    await prefs.getByRole('button', { name: 'Decline analytics' }).click();
-    await expect(prefs.getByRole('status')).toContainText('Analytics is currently off.');
-    await expect(prefs.getByRole('button', { name: 'Decline analytics' })).toHaveAttribute('aria-pressed', 'true');
+    await prefs.getByRole('button', { name: 'Analytics off' }).click();
+    await expect(prefs.getByRole('status')).toContainText('All optional purposes are on.');
+    await expect(prefs.getByRole('button', { name: 'Analytics on' })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('[data-cookie-banner]')).toHaveCount(0);
+
+    await prefs.getByRole('button', { name: 'Analytics on' }).click();
+    await expect(prefs.getByRole('status')).toContainText('All optional purposes are off.');
+    await expect(prefs.getByRole('button', { name: 'Analytics off' })).toHaveAttribute('aria-pressed', 'false');
 
     await prefs.getByRole('button', { name: 'Reset choice' }).click();
     await expect(prefs.getByRole('status')).toContainText('You have not chosen yet');

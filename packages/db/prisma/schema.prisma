@@ -18,6 +18,11 @@ model User {
   role            String    @default("USER") // USER | ADMIN
   suspendedAt     DateTime?
   emailVerifiedAt DateTime?
+  /// Legal consent record: set when the signup form's optional terms
+  /// checkbox was checked. termsVersion identifies which published
+  /// Terms/Privacy revision was accepted.
+  termsAcceptedAt DateTime?
+  termsVersion    String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -333,9 +338,15 @@ model NewsletterDelivery {
   subject       String
   htmlContent   String
   textContent   String
-  status        String   @default("QUEUED") // QUEUED | SENT | FAILED
+  status        String   @default("QUEUED") // QUEUED | SENDING | SENT | FAILED | CANCELLED
   sentAt        DateTime?
   error         String?
+  /// Send attempts so far; incremented on each claim. FAILED is terminal
+  /// once attempts reach the retry cap.
+  attempts      Int      @default(0)
+  /// When the row was claimed for sending; drives stale-SENDING reclaim.
+  /// Null on QUEUED rows and on SENDING rows written before this column.
+  claimedAt     DateTime?
   /// Deterministic dedup key for the send period, e.g. "daily:2026-11-22"
   /// or "weekly:2026-W47". NULL on rows created before the column existed.
   periodKey     String?

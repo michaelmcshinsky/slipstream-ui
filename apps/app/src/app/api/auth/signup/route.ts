@@ -9,12 +9,18 @@ import { audit } from '@/lib/audit';
 import { handle, badRequest, z } from '@/lib/api/handle';
 import { parseBody } from '@/lib/api/core';
 import { logError } from '@/lib/log';
+import { LEGAL_VERSION } from '@/lib/legal';
 
 export async function POST(request: Request) {
   return handle(request, async () => {
     const body = await parseBody(
       request,
-      z.object({ email: z.string().optional(), name: z.string().max(100).optional(), password: z.string().optional() }),
+      z.object({
+        email: z.string().optional(),
+        name: z.string().max(100).optional(),
+        password: z.string().optional(),
+        acceptTerms: z.boolean().optional(),
+      }),
     );
     const email = body.email?.trim().toLowerCase();
     if (!email || !email.includes('@')) badRequest('A valid email is required.');
@@ -34,6 +40,11 @@ export async function POST(request: Request) {
           email,
           name: body.name?.trim() || null,
           passwordHash,
+          // Consent record: only stamped when the optional terms checkbox
+          // was checked; the version identifies the accepted revision.
+          ...(body.acceptTerms
+            ? { termsAcceptedAt: new Date(), termsVersion: LEGAL_VERSION }
+            : {}),
         },
       });
       // Every buyer gets a personal team so billing/licenses have an owner scope.

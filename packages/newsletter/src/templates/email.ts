@@ -9,7 +9,7 @@ import type { EmailTemplateData, NewsletterContentItem } from '../types';
  * Generate HTML email content
  */
 export function generateHtmlEmail(data: EmailTemplateData): string {
-  const { preheader, title, items, frequency, date, unsubscribeUrl, preferencesUrl, siteUrl } = data;
+  const { preheader, title, items, frequency, date, unsubscribeUrl, preferencesUrl, siteUrl, postalAddress } = data;
 
   const itemsHtml = items.length > 0
     ? items.map((item) => generateItemHtml(item)).join('\n')
@@ -74,6 +74,7 @@ export function generateHtmlEmail(data: EmailTemplateData): string {
               <p style="margin: 16px 0 0; color: #8a94a6; font-size: 12px;">
                 © ${new Date().getFullYear()} Slipstream UI. All rights reserved.<br>
                 <a href="${escapeHtml(siteUrl)}" style="color: #8a94a6;">${escapeHtml(siteUrl)}</a>
+                ${postalAddress ? `<br>${escapeHtml(postalAddress)}` : ''}
               </p>
             </td>
           </tr>
@@ -90,7 +91,7 @@ export function generateHtmlEmail(data: EmailTemplateData): string {
  * Generate plain text email content
  */
 export function generateTextEmail(data: EmailTemplateData): string {
-  const { preheader, title, items, frequency, date, unsubscribeUrl, preferencesUrl, siteUrl } = data;
+  const { preheader, title, items, frequency, date, unsubscribeUrl, preferencesUrl, siteUrl, postalAddress } = data;
 
   const itemsText = items.length > 0
     ? items.map((item, index) => generateItemText(item, index + 1)).join('\n\n')
@@ -111,6 +112,7 @@ Unsubscribe: ${unsubscribeUrl}
 
 © ${new Date().getFullYear()} Slipstream UI. All rights reserved.
 ${siteUrl}
+${postalAddress ? `\n${postalAddress}` : ''}
 `;
 }
 

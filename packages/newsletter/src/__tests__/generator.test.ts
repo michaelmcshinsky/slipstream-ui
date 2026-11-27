@@ -2,8 +2,8 @@
  * Newsletter generator tests
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries, newsletterPeriodKey } from '../generators/newsletter';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { NewsletterGenerator, createNewsletterGenerator, queueNewsletterDeliveries, processQueuedDeliveries, newsletterPeriodKey, sendWindowAllows } from '../generators/newsletter';
 import { prisma } from '@slipstream-ui/db';
 import type { GeneratedNewsletter, UserWithPreferences, NewsletterContentItem } from '../types';
 
@@ -313,8 +313,14 @@ describe('NewsletterGenerator', () => {
       const result = await processQueuedDeliveries(10, send as never);
       expect(send).toHaveBeenCalledTimes(1);
       expect(prisma.newsletterDelivery.updateMany).toHaveBeenCalledWith({
-        where: { id: 'delivery-1', status: { in: ['QUEUED', 'SENDING'] } },
-        data: { status: 'SENDING' },
+        where: {
+          id: 'delivery-1',
+          OR: [
+            { status: 'QUEUED' },
+            { status: 'SENDING', OR: [{ claimedAt: null }, { claimedAt: { lt: expect.any(Date) } }] },
+          ],
+        },
+        data: { status: 'SENDING', claimedAt: expect.any(Date), attempts: { increment: 1 } },
       });
       expect(result).toEqual({ sent: 1, failed: 0, skipped: 0 });
       expect(prisma.newsletterDelivery.update).toHaveBeenCalledWith({
@@ -345,6 +351,34 @@ describe('NewsletterGenerator', () => {
         data: { status: 'CANCELLED', error: 'recipient unsubscribed before send' },
       });
     });
+
+    it('requeues a failed send while under the attempt cap', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.update)
+        .mockResolvedValueOnce({ attempts: 1 } as never)
+        .mockResolvedValue({} as never);
+      const send = vi.fn().mockRejectedValue(new Error('smtp down'));
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(result).toEqual({ sent: 0, failed: 1, skipped: 0 });
+      expect(prisma.newsletterDelivery.update).toHaveBeenLastCalledWith({
+        where: { id: 'delivery-1' },
+        data: { status: 'QUEUED', claimedAt: null },
+      });
+    });
+
+    it('dead-letters as FAILED once the attempt cap is reached', async () => {
+      vi.mocked(prisma.newsletterDelivery.findMany).mockResolvedValue([queuedDelivery] as never);
+      vi.mocked(prisma.newsletterDelivery.update)
+        .mockResolvedValueOnce({ attempts: 3 } as never)
+        .mockResolvedValue({} as never);
+      const send = vi.fn().mockRejectedValue(new Error('smtp down'));
+      const result = await processQueuedDeliveries(10, send as never);
+      expect(result).toEqual({ sent: 0, failed: 1, skipped: 0 });
+      expect(prisma.newsletterDelivery.update).toHaveBeenLastCalledWith({
+        where: { id: 'delivery-1' },
+        data: { status: 'FAILED', claimedAt: null },
+      });
+    });
   });
 });
 
@@ -360,3 +394,34 @@ describe('newsletterPeriodKey', () => {
     expect(newsletterPeriodKey('weekly', new Date('2026-11-16T00:00:00Z'))).toBe('weekly:2026-W47');
   });
 });
+
+describe('sendWindowAllows', () => {
+  afterEach(() => vi.unstubAllEnvs());
+  const at = (iso: string) => new Date(iso);
+
+  it('allows everything by default (0-23)', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '0-23');
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T03:00:00Z'))).toBe(true);
+  });
+
+  it('filters by the recipient-local hour', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    // 15:00 UTC = 08:00 in America/Denver (MST, UTC-7 in November).
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T15:00:00Z'))).toBe(true);
+    // 04:00 UTC = 21:00 previous day local — outside the window.
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T04:00:00Z'))).toBe(false);
+  });
+
+  it('honors the user timezone over UTC', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    // 02:00 UTC is 20:00 in Denver (inside) but 02:00 in UTC (outside).
+    expect(sendWindowAllows('America/Denver', at('2026-11-22T02:00:00Z'))).toBe(true);
+    expect(sendWindowAllows('UTC', at('2026-11-22T02:00:00Z'))).toBe(false);
+  });
+
+  it('falls back to UTC for an invalid stored timezone', () => {
+    vi.stubEnv('NEWSLETTER_SEND_WINDOW', '8-21');
+    expect(sendWindowAllows('Not/AZone', at('2026-11-22T12:00:00Z'))).toBe(true);
+  });
+});
+

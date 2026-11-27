@@ -1,0 +1,16 @@
+Slipstream UI
+Copyright (c) 2021 Michael McShinsky
+
+This product includes software developed by Michael McShinsky.
+
+The source code, component manifests, documentation content and design
+assets in this repository are licensed under the MIT License — see
+LICENSE. The license covers code and content only. It does not grant
+rights to the "Slipstream UI" name, logo, or other brand identifiers;
+forked or modified distributions must not imply endorsement by the
+project (see the "Trademarks and brand" section of the terms at
+https://slipstreamui.com/terms).
+
+Third-party dependencies are governed by their own licenses, declared
+in each package's package.json and resolved in pnpm-lock.yaml. No
+third-party code is vendored into this repository.

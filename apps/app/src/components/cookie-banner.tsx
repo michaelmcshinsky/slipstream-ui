@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CONSENT_EVENT, readConsent, writeConsent, type ConsentValue } from '@/lib/analytics';
+import { CONSENT_EVENT, consentForAll, readConsent, writeConsent, type ConsentPreferences, type ConsentValue } from '@/lib/analytics';
 import { useI18n } from '@slipstream-ui/i18n/react';
 
 /**
@@ -13,22 +13,22 @@ import { useI18n } from '@slipstream-ui/i18n/react';
  */
 export function CookieBanner() {
   const { t } = useI18n();
-  const [consent, setConsent] = useState<ConsentValue | null>(null);
+  const [decided, setDecided] = useState(false);
 
   useEffect(() => {
-    setConsent(readConsent());
+    setDecided(readConsent() !== null);
     const onChange = (event: Event) => {
-      setConsent((event as CustomEvent<ConsentValue>).detail);
+      setDecided((event as CustomEvent<ConsentPreferences | null>).detail !== null);
     };
     window.addEventListener(CONSENT_EVENT, onChange);
     return () => window.removeEventListener(CONSENT_EVENT, onChange);
   }, []);
 
-  if (consent !== null) return null;
+  if (decided) return null;
 
   const choose = (value: ConsentValue) => {
-    writeConsent(value);
-    setConsent(value);
+    writeConsent(consentForAll(value === 'granted'));
+    setDecided(true);
   };
 
   return (

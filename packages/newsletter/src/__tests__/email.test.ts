@@ -133,6 +133,31 @@ describe('Email Templates', () => {
     });
   });
 
+  describe('postal address (CAN-SPAM/CASL)', () => {
+    const address = 'Slipstream UI, 123 Main St, Denver, CO 80202';
+
+    it('renders the postal address in the HTML footer when provided', () => {
+      const html = generateHtmlEmail({ ...mockData, postalAddress: address });
+      expect(html).toContain(address);
+    });
+
+    it('omits the postal address line when not provided', () => {
+      const html = generateHtmlEmail(mockData);
+      expect(html).not.toContain('Main St');
+    });
+
+    it('renders the postal address in the text footer when provided', () => {
+      const text = generateTextEmail({ ...mockData, postalAddress: address });
+      expect(text).toContain(address);
+    });
+
+    it('escapes HTML in the postal address', () => {
+      const html = generateHtmlEmail({ ...mockData, postalAddress: 'A&B <Inc>' });
+      expect(html).toContain('A&amp;B &lt;Inc&gt;');
+      expect(html).not.toContain('A&B <Inc>');
+    });
+  });
+
   describe('generateSubject', () => {
     it('generates correct subject for daily', () => {
       const subject = generateSubject('daily', new Date('2024-01-15T12:00:00Z'), 2);

@@ -533,11 +533,11 @@ Your agent queries the same manifests over MCP, reads the prop schema and anti-p
         blocks: [
           {
             type: 'p',
-            text: 'The homepage shows a live GitHub star count by requesting the public GitHub API from your browser. Like any request to github.com, that exposes your IP address and user agent to GitHub under their privacy policy. No cookies are set by that request. The only other third-party resource is the Google Analytics tag described above, and it loads only after you accept analytics.',
+            text: 'Apart from the Google Analytics tag described above, which loads only after you accept analytics, the site makes no third-party requests on your behalf. Links to GitHub and npm (the "Star on GitHub" button, package names, repository links) are ordinary hyperlinks: they open those sites in a new tab, and those services receive your IP address and user agent under their own privacy policies, like any website you visit.',
           },
           {
             type: 'p',
-            text: 'Processors and their purpose: our hosting provider (request logs), Google (analytics, only with consent), GitHub (public repository data, the star count, and support correspondence), and npm (package distribution and download counts).',
+            text: 'Processors and their purpose: our hosting provider (request logs) and Google (analytics, only with consent). GitHub and npm are not processors — they only see your visit if you choose to follow a link to them.',
           },
         ],
       },

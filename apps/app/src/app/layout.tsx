@@ -35,10 +35,13 @@ try {
   if (consentRaw) {
     try {
       var consent = JSON.parse(consentRaw);
+      // Decided = fresh timestamp plus either the current per-purpose shape
+      // ({ p: { analytics: bool } }) or the legacy binary shape ({ v: ... }).
       consentDecided =
-        (consent.v === 'granted' || consent.v === 'denied') &&
         typeof consent.at === 'number' &&
-        (Date.now() - consent.at) < 15552000000;
+        (Date.now() - consent.at) < 15552000000 &&
+        ((consent.v === 'granted' || consent.v === 'denied') ||
+          (consent.p !== null && typeof consent.p === 'object'));
     } catch (e) { consentDecided = false; }
   }
   if (consentDecided) {

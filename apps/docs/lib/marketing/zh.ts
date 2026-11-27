@@ -504,7 +504,7 @@ export const zh: MarketingCopy = {
         blocks: [
           {
             type: 'p',
-            text: '首页会从你的浏览器请求公开的 GitHub API 以显示实时星标数。与任何对 github.com 的请求一样，这会依据其隐私政策向 GitHub 暴露你的 IP 地址和用户代理。该请求不设置 cookie。唯一的其他第三方资源是上文所述的 Google Analytics 标签，且仅在你接受分析后才会加载。',
+            text: '除了上文所述、仅在你接受分析后才会加载的 Google Analytics 标签外，本网站不会代表你向第三方发起请求。指向 GitHub 和 npm 的链接（“在 GitHub 上加星”按钮、包名、仓库链接）是普通超链接：它们在新标签页中打开这些网站，你的 IP 地址和用户代理会依据这些网站自身的隐私政策被接收，与访问任何网站一样。',
           },
         ],
       },

@@ -356,7 +356,11 @@ describe('impersonation start guards', () => {
     // Nested impersonation is rejected while a parked admin token exists.
     cookieStore.set('slipstream_impersonator', { name: 'slipstream_impersonator', value: 'parked' });
     const nestedResponse = await impersonateRoute(
-      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, { method: 'POST' }),
+      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: 'support ticket 123' }),
+      }),
       { params: Promise.resolve({ userId: target.id }) },
     );
     expect(nestedResponse.status).toBe(400);
@@ -369,7 +373,11 @@ describe('impersonation start guards', () => {
     await createSession(admin.id);
 
     const response = await impersonateRoute(
-      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, { method: 'POST' }),
+      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: 'support ticket 123' }),
+      }),
       { params: Promise.resolve({ userId: target.id }) },
     );
     expect(response.status).toBe(200);
@@ -384,6 +392,39 @@ describe('impersonation start guards', () => {
     expect(row?.actorId).toBe(target.id);
     expect(row?.metadata).toContain(admin.id);
     expect(row?.metadata).toContain('impersonatedBy');
+  });
+
+  it('requires a reason and records it on the start audit row', async () => {
+    const admin = await makeUser(`imp-reason-admin-${suffix}@test.dev`, 'ADMIN');
+    const target = await makeUser(`imp-reason-target-${suffix}@test.dev`);
+    await createSession(admin.id);
+
+    const missing = await impersonateRoute(
+      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      }),
+      { params: Promise.resolve({ userId: target.id }) },
+    );
+    expect(missing.status).toBe(400);
+
+    const response = await impersonateRoute(
+      new Request(`http://localhost/api/admin/users/${target.id}/impersonate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: 'ticket #4821 — login loop report' }),
+      }),
+      { params: Promise.resolve({ userId: target.id }) },
+    );
+    expect(response.status).toBe(200);
+
+    const row = await prisma.auditLog.findFirst({
+      where: { action: 'admin.impersonate.start', targetId: target.id },
+      orderBy: { createdAt: 'desc' },
+    });
+    expect(row?.actorId).toBe(admin.id);
+    expect(row?.metadata).toContain('ticket #4821');
   });
 });
 
