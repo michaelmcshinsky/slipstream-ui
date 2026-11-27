@@ -6,7 +6,7 @@ Centered, width-constrained page container with shared gutters and four width pr
 > Import: `import { Container } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/container
 > Registry: https://slipstreamui.com/registry/container.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.9
+> Tier: atom · Package: @slipstream-ui/core@0.11.10
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

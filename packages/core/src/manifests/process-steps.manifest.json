@@ -4,7 +4,7 @@
   "tier": "organism",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "sourceDir": "process-steps",
   "exportName": "ProcessSteps",
   "description": "Ordered process cards with derived step numbers or custom icons.",
