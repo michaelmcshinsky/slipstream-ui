@@ -354,7 +354,7 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "sourceDir": "data-table",
       "axe": true,
       "interaction": true,
-      "notes": 4,
+      "notes": 5,
       "docs": "/docs/components/data-table",
       "manifest": "/llm/components/data-table.md"
     },
@@ -1266,6 +1266,6 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     "withAxe": 114,
     "withInteraction": 45,
     "withNotes": 114,
-    "totalNotes": 247
+    "totalNotes": 248
   }
 };

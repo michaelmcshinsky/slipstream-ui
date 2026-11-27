@@ -39,6 +39,7 @@ export default function Page() {
         { name: 'selectAllLabel / selectedLabel', type: 'string', defaultValue: "'Select all rows'", description: 'Localized select-all and selection-count copy.' },
         { name: 'pageCount / total / manualPagination', type: 'number / number / boolean', description: 'Server-side pagination: pageCount or total drives the pager when manualPagination is set.' },
         { name: 'zebra', type: 'boolean', defaultValue: 'false', description: 'Zebra-striped rows for long tables.' },
+        { name: 'cardLayout', type: 'boolean | "sm" | "md" | "lg" | "xl" | "2xl"', description: 'Responsive fallback: below the breakpoint (true = md) each row renders as a definition-list card. Both layouts swap via CSS only.' },
         { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Render skeleton rows; tbody is aria-busy while loading.' },
         { name: 'loadingRows', type: 'number', defaultValue: 'page size (else 5)', description: 'Skeleton row count: match it to visible data so replacing placeholders does not shift the table. Row heights follow density.' },
         { name: 'columns[].onClick', type: '(row: T) => void', description: 'Column-level callback: the cell content renders as a keyboard-operable button.' },
@@ -48,6 +49,7 @@ export default function Page() {
         'Native <caption> names the table; headers are th[scope=col].',
         'With onRowClick rows are tabIndex=0 and activate on Enter/Space: still provide an in-cell link as the primary path.',
         'The result count is aria-live=polite; pagination reuses Pagination (aria-current=page).',
+        'With cardLayout, rows become a list of definition lists below the breakpoint; the hidden layout is display:none so assistive tech sees one layout at a time. Sorting remains a table-header affordance.',
       ]}
       browserNotes={[
         'Table markup and sorting are baseline; no newer CSS is required.',

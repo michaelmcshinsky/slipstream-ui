@@ -54,12 +54,15 @@ export default function Demo() {
               data={CONVERSATIONS}
               rowId={(row) => row.id}
               pageSize={4}
+              cardLayout
               onRowClick={(row) => setClicked(row.title)}
             />
             <p className="text-xs text-muted-foreground">
               Clicked row:{' '}
               <code className="rounded bg-muted px-1 py-0.5 font-mono">{clicked ?? 'none yet'}</code>{' '}
-              — click headers to sort, or Tab to a row and press Enter.
+              — click headers to sort, or Tab to a row and press Enter.{' '}
+              <code className="rounded bg-muted px-1 py-0.5 font-mono">cardLayout</code> is on:
+              resize below 768px and rows become cards.
             </p>
           </div>
         }
@@ -82,6 +85,7 @@ const columns: DataTableColumn<Conversation>[] = [
   data={conversations}
   rowId={(row) => row.id}
   pageSize={10}
+  cardLayout                     // definition-list cards below md
   onRowClick={(row) => router.push(\`/c/\${row.id}\`)}
 />`}
         usage={`// One config prop describes the whole table: shape, sorting, paging, rows.
@@ -124,6 +128,7 @@ type DataTableProps<<T>> = {
   onPageChange?: (page: number) => void;
   onRowClick?: (row: T) => void;
   emptyMessage?: string;
+  cardLayout?: boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   className?: string;
 };`}
       />
@@ -187,6 +192,7 @@ type DataTableProps<<T>> = {
               rowId={(row) => row.id}
               zebra
               density="compact"
+              cardLayout
               loading={loadingDemo}
               loadingRows={CONVERSATIONS.length}
               renderSortIcon={(state) => (state === 'none' ? '⇅' : state === 'asc' ? '↑' : '↓')}
@@ -210,6 +216,7 @@ type DataTableProps<<T>> = {
   rowId={(row) => row.id}
   zebra
   density="compact"
+  cardLayout              // rows become definition-list cards below md
   loading={isLoading}
   loadingRows={rows.length}          // skeleton matches data: no jump
   renderSortIcon={(s) => (s === 'none' ? '⇅' : s === 'asc' ? '↑' : '↓')}

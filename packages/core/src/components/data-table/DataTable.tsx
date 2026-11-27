@@ -27,6 +27,9 @@ export type DataTableColumn<T> = {
 
 export type SortIconState = 'none' | 'asc' | 'desc';
 
+/** Viewport breakpoint below which card layout takes over. */
+export type DataTableCardBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+
 export type DataTableProps<T> = {
   /** Column configuration — everything about the table's shape. */
   columns: DataTableColumn<T>[];
@@ -82,6 +85,15 @@ export type DataTableProps<T> = {
   density?: 'default' | 'compact';
   /** Zebra-striped rows. */
   zebra?: boolean;
+  /**
+   * Responsive card fallback: below the given breakpoint each row renders as
+   * a definition-list card (column headers become field labels) instead of a
+   * table row — the fix for unreadable horizontal scroll on narrow viewports.
+   * `true` enables it below `md` (768px); a string picks the breakpoint.
+   * Both layouts are rendered and swapped with CSS only, so sorting,
+   * selection, pagination, and row callbacks behave identically in each.
+   */
+  cardLayout?: boolean | DataTableCardBreakpoint;
   /** Render skeleton placeholder rows (announced via aria-busy). */
   loading?: boolean;
   /**
@@ -94,6 +106,14 @@ export type DataTableProps<T> = {
 };
 
 type SortState = { key: string; dir: 'asc' | 'desc' } | null;
+
+const cardBreakpointClasses: Record<DataTableCardBreakpoint, { table: string; cards: string }> = {
+  sm: { table: 'max-sm:hidden', cards: 'sm:hidden' },
+  md: { table: 'max-md:hidden', cards: 'md:hidden' },
+  lg: { table: 'max-lg:hidden', cards: 'lg:hidden' },
+  xl: { table: 'max-xl:hidden', cards: 'xl:hidden' },
+  '2xl': { table: 'max-2xl:hidden', cards: '2xl:hidden' },
+};
 
 function compareValues(a: unknown, b: unknown): number {
   if (typeof a === 'number' && typeof b === 'number') return a - b;
@@ -136,6 +156,7 @@ export function DataTable<T>({
   stickyHeader,
   density = 'default',
   zebra,
+  cardLayout,
   loading,
   loadingRows,
   className,
@@ -226,8 +247,29 @@ export function DataTable<T>({
     return String(raw);
   };
 
+  const cardBreakpoint = typeof cardLayout === 'string' ? cardLayout : cardLayout ? 'md' : null;
+  const cardClasses = cardBreakpoint ? cardBreakpointClasses[cardBreakpoint] : null;
+
   const alignClass = (align?: DataTableColumn<T>['align']) =>
     align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left';
+
+  // Card cells reuse the table's cellValue/cell-button logic; the only
+  // difference is presentation (dt/dd definition list instead of td).
+  const cardCell = (row: T, column: DataTableColumn<T>, index: number): React.ReactNode => {
+    const value = cellValue(row, column, index);
+    if (column.onClick) {
+      return (
+        <button
+          type="button"
+          onClick={() => column.onClick!(row)}
+          className="block w-full rounded px-1.5 py-0.5 text-left transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {value}
+        </button>
+      );
+    }
+    return value;
+  };
 
   return (
     <div className={cn('w-full space-y-3', className)}>
@@ -237,7 +279,9 @@ export function DataTable<T>({
           <div className="flex flex-wrap items-center gap-2">{bulkActions}</div>
         </div>
       )}
-      <div className="w-full overflow-x-auto rounded-lg border border-border">
+      <div
+        className={cn('w-full overflow-x-auto rounded-lg border border-border', cardClasses?.table)}
+      >
         <table
           className={cn('w-full caption-bottom', density === 'compact' ? 'text-xs' : 'text-sm')}
         >
@@ -396,6 +440,76 @@ export function DataTable<T>({
           </tbody>
         </table>
       </div>
+      {cardClasses && (
+        <ul aria-label={caption} aria-busy={loading || undefined} className={cn('space-y-3', cardClasses.cards)}>
+          {loading ? (
+            Array.from(
+              { length: (loadingRows ?? pageSize ?? Math.min(visible.length, 5)) || 5 },
+              (_, skeletonRow) => (
+                <li key={`skeleton-${skeletonRow}`} className="rounded-lg border border-border p-3">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-1/3" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-2/3" />
+                  </div>
+                </li>
+              )
+            )
+          ) : visible.length === 0 ? (
+            <li className="rounded-lg border border-border px-3 py-8 text-center text-sm text-muted-foreground">
+              {emptyMessage}
+            </li>
+          ) : (
+            visible.map((row, index) => (
+              <li key={rowId(row)}>
+                <div
+                  tabIndex={onRowClick ? 0 : undefined}
+                  onClick={onRowClick ? () => onRowClick(row) : undefined}
+                  onKeyDown={
+                    onRowClick
+                      ? (event) => {
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            onRowClick(row);
+                          }
+                        }
+                      : undefined
+                  }
+                  className={cn(
+                    'rounded-lg border border-border',
+                    onRowClick &&
+                      'cursor-pointer transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+                  )}
+                >
+                  {selectionEnabled && (
+                    <div
+                      className="flex items-center justify-end px-3 pt-2"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <Checkbox
+                        aria-label={`Select row ${rowId(row)}`}
+                        checked={selectedSet.has(rowId(row))}
+                        disabled={isRowSelectable ? !isRowSelectable(row) : undefined}
+                        onCheckedChange={() => toggleRow(rowId(row))}
+                      />
+                    </div>
+                  )}
+                  <dl className="divide-y divide-border">
+                    {columns.map((column) => (
+                      <div key={column.key} className="px-3 py-2">
+                        <dt className="text-xs font-medium text-muted-foreground">{column.header}</dt>
+                        <dd className={cn('mt-0.5 text-sm', alignClass(column.align))}>
+                          {cardCell(row, column, index)}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
       {pageSize && pageCount > 1 && (
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <p
