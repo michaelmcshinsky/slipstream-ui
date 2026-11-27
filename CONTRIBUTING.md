@@ -58,7 +58,7 @@ pnpm changeset
 - **minor** - new components, new props, new tokens
 - **patch** - fixes, docs, internal changes
 
-Release gates and packaging steps live in [docs/release-checklist.md](docs/release-checklist.md).
+Release gates and packaging steps live in [docs/release-checklist.md](docs/release-checklist.md). Privacy/access requests (export, deletion, correction) are handled per [docs/privacy-requests.md](docs/privacy-requests.md).
 
 ## Commits
 
