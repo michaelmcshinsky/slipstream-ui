@@ -72,6 +72,9 @@ type SiteHeaderProps = {
   mobileNavLabel?: string;
   sticky?: boolean;
   mobileLabel?: string;
+  mobileMenuOpenLabel?: string;
+  mobileMenuCloseLabel?: string;
+  mobileDrawerCloseLabel?: string;
   showMobileTrigger?: boolean;
   desktopBreakpoint?: 'md' | 'lg';
   navClassName?: string;

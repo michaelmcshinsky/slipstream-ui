@@ -79,6 +79,24 @@ describe('SiteHeader', () => {
     expect(screen.getByRole('dialog', { name: 'Menu' })).toBeInTheDocument();
   });
 
+  it('localizes the mobile trigger and drawer close labels', async () => {
+    const user = userEvent.setup();
+    render(
+      <SiteHeader
+        brand={<span>Acme</span>}
+        items={items}
+        mobileMenuOpenLabel="Abrir menú"
+        mobileMenuCloseLabel="Cerrar menú"
+        mobileDrawerCloseLabel="Cerrar panel"
+      />
+    );
+    const trigger = screen.getByRole('button', { name: 'Abrir menú' });
+    await user.click(trigger);
+    expect(screen.getByRole('button', { name: 'Cerrar menú' })).toBeInTheDocument();
+    const drawer = screen.getByRole('dialog', { name: 'Menu' });
+    expect(within(drawer).getByRole('button', { name: 'Cerrar panel' })).toBeInTheDocument();
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<SiteHeader brand={<span>Acme</span>} items={items} activeHref="/docs" />);
     expect(await axe(container)).toHaveNoViolations();

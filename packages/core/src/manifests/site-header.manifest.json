@@ -104,6 +104,27 @@
       "description": "Title of the mobile navigation drawer."
     },
     {
+      "name": "mobileMenuOpenLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Open menu",
+      "description": "Accessible name for the mobile menu trigger when closed."
+    },
+    {
+      "name": "mobileMenuCloseLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Close menu",
+      "description": "Accessible name for the mobile menu trigger when open."
+    },
+    {
+      "name": "mobileDrawerCloseLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "Close drawer",
+      "description": "Accessible name for the mobile drawer close button."
+    },
+    {
       "name": "showMobileTrigger",
       "type": "boolean",
       "required": false,

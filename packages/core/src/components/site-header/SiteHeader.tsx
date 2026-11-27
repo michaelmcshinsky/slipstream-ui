@@ -68,6 +68,12 @@ export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & {
   sticky?: boolean;
   /** Title of the mobile navigation drawer. Default 'Menu'. */
   mobileLabel?: string;
+  /** Accessible name for the mobile menu trigger when closed (default "Open menu"). */
+  mobileMenuOpenLabel?: string;
+  /** Accessible name for the mobile menu trigger when open (default "Close menu"). */
+  mobileMenuCloseLabel?: string;
+  /** Accessible name for the mobile drawer close button (default "Close drawer"). */
+  mobileDrawerCloseLabel?: string;
   /** Render the built-in mobile trigger and drawer (default true). Set false when the host owns mobile navigation. */
   showMobileTrigger?: boolean;
   /** Breakpoint where the horizontal navigation appears (default 'md'). */
@@ -128,6 +134,9 @@ export function SiteHeader({
   mobileNavLabel = 'Mobile',
   sticky = true,
   mobileLabel = 'Menu',
+  mobileMenuOpenLabel = 'Open menu',
+  mobileMenuCloseLabel = 'Close menu',
+  mobileDrawerCloseLabel = 'Close drawer',
   showMobileTrigger = true,
   desktopBreakpoint = 'md',
   navClassName,
@@ -324,7 +333,7 @@ export function SiteHeader({
               <button
                 type="button"
                 onClick={() => setMobileOpen((open) => !open)}
-                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                aria-label={mobileOpen ? mobileMenuCloseLabel : mobileMenuOpenLabel}
                 aria-expanded={mobileOpen}
                 aria-controls={menuId}
                 aria-haspopup="dialog"
@@ -358,6 +367,7 @@ export function SiteHeader({
           open={mobileOpen}
           onOpenChange={setMobileOpen}
           title={mobileLabel}
+          closeLabel={mobileDrawerCloseLabel}
           side="right"
           size="sm"
           animate
