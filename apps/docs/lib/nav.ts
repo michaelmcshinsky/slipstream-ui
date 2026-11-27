@@ -207,6 +207,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/progress', label: 'Progress' },
           { href: '/docs/components/skeleton', label: 'Skeleton' },
           { href: '/docs/components/tooltip', label: 'Tooltip' },
+          { href: '/docs/components/consent-banner', label: 'ConsentBanner' },
         ],
       },
       {

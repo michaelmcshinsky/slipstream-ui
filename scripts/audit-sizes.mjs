@@ -25,7 +25,7 @@ const entry = path.join(root, '.size-audit-entry.mjs');
 const outfile = path.join(root, '.size-audit-out.mjs');
 
 const budgets = {
-  'packages/core/dist/index.mjs': { rawKb: 332, gzipKb: 68 },
+  'packages/core/dist/index.mjs': { rawKb: 340, gzipKb: 70 },
   'packages/core/dist/styles.css': { rawKb: 55, gzipKb: 12 },
   'packages/core/dist/styles-full.css': { rawKb: 60, gzipKb: 14 },
   'packages/themes/dist/styles.css': { rawKb: 6, gzipKb: 2 },

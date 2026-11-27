@@ -4,9 +4,9 @@
   "manifestVersion": 1,
   "version": "0.11.10",
   "releaseDate": "2026-11-27",
-  "count": 117,
+  "count": 118,
   "counts": {
-    "core": 100,
+    "core": 101,
     "ai": 17
   },
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
@@ -246,6 +246,15 @@
       "description": "Human-in-the-loop approval gate for agent actions. Pauses execution until the user approves or rejects.",
       "docs": "https://slipstreamui.com/docs/components/confirmation",
       "registry": "/registry/confirmation.json"
+    },
+    {
+      "id": "consent-banner",
+      "name": "ConsentBanner",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "description": "Styled cookie/consent banner: fixed bottom bar with accept, decline and an optional manage-preferences action. Pair it with the headless useConsent hook so the decision persists per-purpose in localStorage.",
+      "docs": "https://slipstreamui.com/docs/components/consent-banner",
+      "registry": "/registry/consent-banner.json"
     },
     {
       "id": "contact-strip",

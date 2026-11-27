@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
 > Version: 0.11.10 (2026-11-27) · manifest schema v1 · manifest v1
-> 117 components: 100 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 118 components: 101 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
-The AI-first React component library. 117 components, each shipping a
+The AI-first React component library. 118 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -16,7 +16,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 - Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 100
+## Core components (@slipstream-ui/core) — 101
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -38,6 +38,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Checkbox](https://slipstreamui.com/llm/components/checkbox.md) — A native checkbox input styled to match the design system, plus CheckboxGroup for grouping related options under an accessible legend
 - [ComparisonTable](https://slipstreamui.com/llm/components/comparison-table.md) — Marketing comparison table with check/dash boolean cells, a highlighted column and responsive overflow.
 - [ConfirmDialog](https://slipstreamui.com/llm/components/confirm-dialog.md) — Accessible confirmation dialog with async pending state, destructive variant and cancellable actions, built on Dialog.
+- [ConsentBanner](https://slipstreamui.com/llm/components/consent-banner.md) — Styled cookie/consent banner: fixed bottom bar with accept, decline and an optional manage-preferences action. Pair it with the headless useConsent hook so the decision persists per-purpose in localStorage.
 - [ContactStrip](https://slipstreamui.com/llm/components/contact-strip.md) — Compact labelled contact rows with optional icons and links.
 - [Container](https://slipstreamui.com/llm/components/container.md) — Centered, width-constrained page container with shared gutters and four width presets.
 - [CoverImage](https://slipstreamui.com/llm/components/cover-image.md) — Fixed-aspect media cover that shows the image when present and a deterministic seed-derived token gradient when the entity has no art.
