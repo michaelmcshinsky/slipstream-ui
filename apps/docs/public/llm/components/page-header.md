@@ -6,7 +6,7 @@ Standard page heading: optional breadcrumbs, level-1 title, description, right-a
 > Import: `import { PageHeader } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/page-header
 > Registry: https://slipstreamui.com/registry/page-header.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.6
+> Tier: molecule · Package: @slipstream-ui/core@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

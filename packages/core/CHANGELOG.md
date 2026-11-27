@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.7
+
+### Patch Changes
+
+- [#207](https://github.com/michaelmcshinsky/slipstream-ui/pull/207) [`31ee8fb`](https://github.com/michaelmcshinsky/slipstream-ui/commit/31ee8fb13e59f188fa6f05dedba6aad0b50c69d2) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `mobileMenuOpenLabel`, `mobileMenuCloseLabel`, and `mobileDrawerCloseLabel` props to `SiteHeader` so the mobile trigger and drawer close button can be localized; defaults unchanged.
+
 ## 0.11.6
 
 ### Patch Changes
