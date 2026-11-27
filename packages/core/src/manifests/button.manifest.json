@@ -40,19 +40,21 @@
     },
     {
       "name": "size",
-      "type": "'default' | 'sm' | 'lg' | 'icon'",
+      "type": "'default' | 'sm' | 'xs' | 'lg' | 'icon'",
       "defaultValue": "default",
       "required": false,
       "description": "Size variant of the button",
       "enum": [
         "default",
         "sm",
+        "xs",
         "lg",
         "icon"
       ],
       "examples": [
         "default",
         "sm",
+        "xs",
         "lg"
       ]
     },

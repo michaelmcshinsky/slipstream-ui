@@ -25,6 +25,12 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveClass('h-11');
   });
 
+  it('applies xs size classes for dense toolbars', () => {
+    render(<Button size="xs">Extra small</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('h-8', 'px-2.5', 'text-xs');
+  });
+
   it('handles click events', async () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();
