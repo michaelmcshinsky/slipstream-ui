@@ -9,9 +9,21 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.11.8',
+    version: '0.11.9',
     date: 'November 27, 2026',
     tag: 'current',
+    highlights: [
+      'Button gains an `xs` size (h-8 px-2.5 text-xs) for dense toolbars, table rows and compact headers where `sm` is still too tall',
+      'DataTable gains `cardLayout`: rows render as definition-list cards below a breakpoint (true = md, or \'sm\'–\'2xl\'), swapping via CSS only so sorting, selection, pagination and row callbacks behave identically',
+      'ListToolbar: slim result bar for filtered lists — aria-live result count, page position and "sorted by" note, with slots for a view switch and sort control',
+      'SegmentedControl `fullWidth` accepts a breakpoint (\'sm\'–\'2xl\') so the control fills below it and hugs content above; SegmentedOption gains an optional `hint` shown as a muted marker and exposed via aria-description',
+      'Versioned packages: core/ai 0.11.9 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.11.8',
+    date: 'November 27, 2026',
+    tag: 'previous',
     highlights: [
       'PageHeader gains an `as` prop (\'h1\' | \'h2\', default \'h1\') for section-level and embedded headers; SiteFooter gains a `contact` ReactNode slot under the tagline for address/email/phone blocks',
       'Versioned packages: core/ai 0.11.8 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
