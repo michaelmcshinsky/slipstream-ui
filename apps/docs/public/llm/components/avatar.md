@@ -6,7 +6,7 @@ A user profile image component with fallback support and accessible image loadin
 > Import: `import { Avatar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/avatar
 > Registry: https://slipstreamui.com/registry/avatar.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.8
+> Tier: atom · Package: @slipstream-ui/core@0.11.9
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

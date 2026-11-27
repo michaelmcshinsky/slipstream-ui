@@ -6,7 +6,7 @@ A small status indicator component for displaying tags, counts, or status inform
 > Import: `import { Badge } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/badge
 > Registry: https://slipstreamui.com/registry/badge.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.8
+> Tier: atom · Package: @slipstream-ui/core@0.11.9
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

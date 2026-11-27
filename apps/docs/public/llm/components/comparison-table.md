@@ -6,7 +6,7 @@ Marketing comparison table with check/dash boolean cells, a highlighted column a
 > Import: `import { ComparisonTable } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/comparison-table
 > Registry: https://slipstreamui.com/registry/comparison-table.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.8
+> Tier: molecule · Package: @slipstream-ui/core@0.11.9
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
