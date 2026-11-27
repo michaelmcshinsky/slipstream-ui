@@ -26,6 +26,22 @@ describe('FeatureGrid', () => {
     expect(screen.getByRole('heading', { name: 'One' }).parentElement).toHaveClass('items-center', 'text-center');
   });
 
+  it('passes destinations via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(
+      <FeatureGrid
+        features={[{ title: 'Feature', href: '/features/1', actionLabel: 'Learn more' }]}
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    expect(screen.getByRole('link', { name: /Learn more/ })).toHaveAttribute('data-router-to', '/features/1');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<FeatureGrid features={[{ title: 'Feature', description: 'Copy' }]} />);
     expect(await axe(container)).toHaveNoViolations();

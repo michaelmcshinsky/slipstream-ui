@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type FeatureItem = {
   title: string;
@@ -10,7 +11,7 @@ export type FeatureItem = {
   actionLabel?: string;
 };
 
-export type FeatureGridProps = React.HTMLAttributes<HTMLUListElement> & {
+export type FeatureGridProps = React.HTMLAttributes<HTMLUListElement> & LinkLikeProps & {
   /** Features to display. */
   features: FeatureItem[];
   /** Desktop column count (2-4). Default 3. */
@@ -19,8 +20,6 @@ export type FeatureGridProps = React.HTMLAttributes<HTMLUListElement> & {
   variant?: 'card' | 'plain';
   /** Content alignment. Default 'left'. */
   align?: 'left' | 'center';
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
 };
 
 const columnClasses: Record<NonNullable<FeatureGridProps['columns']>, string> = {
@@ -35,7 +34,7 @@ const columnClasses: Record<NonNullable<FeatureGridProps['columns']>, string> = 
  * marketing pages. Each card is a list item, so the group is announced as a list.
  */
 export const FeatureGrid = React.forwardRef<HTMLUListElement, FeatureGridProps>(function FeatureGrid(
-  { features, columns = 3, variant = 'card', align = 'left', linkComponent, className, ...props },
+  { features, columns = 3, variant = 'card', align = 'left', linkComponent, linkHrefProp = 'href', className, ...props },
   ref
 ) {
   const Link = linkComponent ?? 'a';
@@ -67,7 +66,7 @@ export const FeatureGrid = React.forwardRef<HTMLUListElement, FeatureGridProps>(
       {features.map((feature) => (
         <li key={feature.title} className="min-w-0">
           {feature.href ? (
-            <Link href={feature.href} className={cn(cardClass, 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background')}>
+            <Link {...linkDestination(feature.href, linkHrefProp)} className={cn(cardClass, 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background')}>
               {content(feature)}
             </Link>
           ) : (

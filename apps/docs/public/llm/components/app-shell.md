@@ -26,6 +26,7 @@ Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mob
 | footer | `ReactNode` | — | no | Bottom area of the rail (Sidebar). |
 | activeHref | `string` | — | no | Current route; matching items get aria-current=page (Sidebar). |
 | linkComponent | `React.ElementType` | `a` | no | Router link component (react-router Link, Next Link) (Sidebar). |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | label | `string` | `Primary` | no | Accessible name of the nav landmark (Sidebar). |
 | children | `SidebarItem[]` | — | no | Nested items — renders a collapsible group with aria-expanded (SidebarItem). |
 | collapsible | `boolean` | `false` | no | Shows the collapse/expand control (Sidebar). |

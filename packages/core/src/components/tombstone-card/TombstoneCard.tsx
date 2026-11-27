@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 import { Badge } from '../badge/Badge';
 import { Card, CardContent } from '../card/Card';
 
 export type TombstoneStatus = 'archived' | 'unavailable' | 'closed';
 
-export type TombstoneCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
+export type TombstoneCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & LinkLikeProps & {
   /** Listing, deal or document name. */
   title: string;
   /** Why the item is unavailable. */
@@ -18,8 +19,6 @@ export type TombstoneCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'
   href?: string;
   /** Link label. Default "View details". */
   actionLabel?: string;
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
 };
 
 const statusConfig: Record<TombstoneStatus, { label: string; variant: 'secondary' | 'warning' | 'outline' }> = {
@@ -42,6 +41,7 @@ export const TombstoneCard = React.forwardRef<HTMLElement, TombstoneCardProps>(f
     href,
     actionLabel = 'View details',
     linkComponent,
+    linkHrefProp = 'href',
     className,
     ...props
   },
@@ -65,7 +65,7 @@ export const TombstoneCard = React.forwardRef<HTMLElement, TombstoneCardProps>(f
         {reason && <p className="text-sm leading-relaxed text-muted-foreground">{reason}</p>}
         {href && (
           <Link
-            href={href}
+            {...linkDestination(href, linkHrefProp)}
             className="mt-auto text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {actionLabel}

@@ -22,6 +22,7 @@ Marketing pages repeat three- and six-card feature groups. FeatureGrid standardi
 | variant | `'card' | 'plain'` | `card` | no | Card surface or a plain stack. |
 | align | `'left' | 'center'` | `left` | no | Content alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 

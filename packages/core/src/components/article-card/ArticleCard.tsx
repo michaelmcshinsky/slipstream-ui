@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
-export type ArticleCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
+export type ArticleCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & LinkLikeProps & {
   /** Article title. */
   title: string;
   /** Summary copy. */
@@ -14,8 +15,6 @@ export type ArticleCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> 
   media?: React.ReactNode;
   /** Date, read time, author or other metadata. */
   meta?: React.ReactNode;
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
   /** Standard card or a denser compact card. */
   variant?: 'default' | 'compact';
 };
@@ -34,6 +33,7 @@ export const ArticleCard = React.forwardRef<HTMLElement, ArticleCardProps>(funct
     media,
     meta,
     linkComponent,
+    linkHrefProp = 'href',
     variant = 'default',
     className,
     ...props
@@ -46,7 +46,7 @@ export const ArticleCard = React.forwardRef<HTMLElement, ArticleCardProps>(funct
   return (
     <article ref={ref as never} className={cn('h-full', className)} {...props}>
       <Link
-        href={href}
+        {...linkDestination(href, linkHrefProp)}
         className={cn(
           'group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-colors hover:border-primary/40',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background'

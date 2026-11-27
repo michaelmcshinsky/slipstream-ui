@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Badge, type BadgeProps } from '../badge/Badge';
 import { CoverImage, type CoverImageProps } from '../cover-image/CoverImage';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type MediaCardChip = {
   label: string;
@@ -11,7 +12,7 @@ export type MediaCardChip = {
   dot?: boolean;
 };
 
-export type MediaCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
+export type MediaCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & LinkLikeProps & {
   /** Card title. */
   title: string;
   /** Supporting copy under the title. */
@@ -28,10 +29,6 @@ export type MediaCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & 
   footer?: React.ReactNode;
   /** 'vertical' stacks cover over content; 'row' puts a fixed-width cover beside it. */
   layout?: 'vertical' | 'row';
-  /** Custom link element for routers (Next Link, react-router). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to linkComponent ('href' or 'to'). */
-  linkHrefProp?: 'href' | 'to';
 };
 
 /**
@@ -59,7 +56,7 @@ export const MediaCard = React.forwardRef<HTMLElement, MediaCardProps>(function 
   ref
 ) {
   const Link = linkComponent ?? 'a';
-  const destination = href ? (linkHrefProp === 'to' ? { to: href } : { href }) : undefined;
+  const destination = href ? linkDestination(href, linkHrefProp) : undefined;
   const row = layout === 'row';
 
   const body = (

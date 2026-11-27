@@ -25,6 +25,7 @@ Launches, content hubs and network notices need a thin bar above the header. Ann
 | tone | `'muted' | 'brand' | 'inverse'` | `muted` | no | Surface treatment. |
 | sticky | `boolean` | `false` | no | Pin the bar to the top of the viewport. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 

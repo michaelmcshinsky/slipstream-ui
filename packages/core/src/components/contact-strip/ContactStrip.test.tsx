@@ -18,6 +18,22 @@ describe('ContactStrip', () => {
     expect(screen.getByRole('link', { name: 'info@axial.net' })).toHaveAttribute('href', 'mailto:info@axial.net');
   });
 
+  it('passes destinations via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(
+      <ContactStrip
+        items={[{ label: 'Site', value: 'Example', href: '/about' }]}
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Example' })).toHaveAttribute('data-router-to', '/about');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<ContactStrip items={[{ label: 'Address', value: 'New York, NY' }]} />);
     expect(await axe(container)).toHaveNoViolations();

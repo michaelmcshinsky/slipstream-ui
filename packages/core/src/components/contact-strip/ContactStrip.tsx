@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type ContactItem = {
   label: string;
@@ -8,15 +9,13 @@ export type ContactItem = {
   icon?: React.ReactNode;
 };
 
-export type ContactStripProps = React.HTMLAttributes<HTMLUListElement> & {
+export type ContactStripProps = React.HTMLAttributes<HTMLUListElement> & LinkLikeProps & {
   /** Contact rows to display. */
   items: ContactItem[];
   /** Desktop column count (2-3). Default 2. */
   columns?: 2 | 3;
   /** Content alignment. Default 'left'. */
   align?: 'left' | 'center';
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
 };
 
 const columnClasses: Record<NonNullable<ContactStripProps['columns']>, string> = {
@@ -29,7 +28,7 @@ const columnClasses: Record<NonNullable<ContactStripProps['columns']>, string> =
  * pairs a short label with a phone, email, address or link.
  */
 export const ContactStrip = React.forwardRef<HTMLUListElement, ContactStripProps>(function ContactStrip(
-  { items, columns = 2, align = 'left', linkComponent, className, ...props },
+  { items, columns = 2, align = 'left', linkComponent, linkHrefProp = 'href', className, ...props },
   ref
 ) {
   const Link = linkComponent ?? 'a';
@@ -46,7 +45,7 @@ export const ContactStrip = React.forwardRef<HTMLUListElement, ContactStripProps
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{item.label}</p>
             {item.href ? (
-              <Link href={item.href} className="mt-0.5 block break-words text-sm font-medium text-primary-ink underline-offset-4 hover:underline">
+              <Link {...linkDestination(item.href, linkHrefProp)} className="mt-0.5 block break-words text-sm font-medium text-primary-ink underline-offset-4 hover:underline">
                 {item.value}
               </Link>
             ) : (

@@ -24,6 +24,7 @@ Removing unavailable items silently breaks saved links and user expectations. To
 | href | `string` | — | no | Optional detail destination. |
 | actionLabel | `string` | `View details` | no | Link label. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type SiteFooterLink = {
   label: string;
@@ -12,7 +13,7 @@ export type SiteFooterColumn = {
   links: SiteFooterLink[];
 };
 
-export type SiteFooterProps = React.HTMLAttributes<HTMLElement> & {
+export type SiteFooterProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Brand slot (logo/lockup). */
   brand?: React.ReactNode;
   /** Short line under the brand. */
@@ -22,14 +23,6 @@ export type SiteFooterProps = React.HTMLAttributes<HTMLElement> & {
   columns: SiteFooterColumn[];
   /** Bottom bar (copyright, legal links). */
   legal?: React.ReactNode;
-  /** Router link element. */
-  linkComponent?: React.ElementType;
-  /**
-   * Prop used to pass the destination to `linkComponent`.
-   * `href` (default) covers anchors and Next.js Link; `to` covers
-   * react-router and other routers that use a `to` prop.
-   */
-  linkHrefProp?: 'href' | 'to';
   /** Current route, used to mark the matching link with aria-current="page". */
   activeHref?: string;
   /** Prefix matching highlights /docs when on /docs/installation (default). */
@@ -62,8 +55,7 @@ export function SiteFooter({
   ...props
 }: SiteFooterProps) {
   const Link = linkComponent ?? 'a';
-  const destination = (href: string) =>
-    linkHrefProp === 'to' ? { to: href } : { href };
+  const destination = (href: string) => linkDestination(href, linkHrefProp);
 
   return (
     <footer className={cn('border-t border-border bg-muted/30', className)} {...props}>

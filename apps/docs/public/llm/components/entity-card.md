@@ -27,6 +27,7 @@ Directory and profile lists repeat the same firm card. EntityCard keeps the iden
 | href | `string` | — | no | Profile destination. |
 | cardHref | `string` | — | no | Makes the whole card a single link (stretched-link pattern): the name link's overlay covers the card for one target, one hover state and one focus ring. Suppresses the footer 'View profile' link; actions stay clickable above the overlay. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | actions | `ReactNode` | — | no | Extra footer actions. |
 
 ## Examples

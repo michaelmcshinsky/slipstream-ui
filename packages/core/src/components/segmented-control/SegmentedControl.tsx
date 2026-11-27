@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type SegmentedOption = {
   value: string;
@@ -24,7 +25,7 @@ export type SegmentedOption = {
   href?: string;
 };
 
-export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & LinkLikeProps & {
   /** Options rendered as segments. */
   options: SegmentedOption[];
   /** Controlled selected value. Use string[] when multiple. */
@@ -44,10 +45,6 @@ export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, '
    * responsive pattern for "full-width on mobile, compact on desktop".
    */
   fullWidth?: boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  /** Custom link element for routers (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to `linkComponent`. */
-  linkHrefProp?: 'href' | 'to';
 };
 
 const sizeClasses = {
@@ -118,7 +115,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
 
     const linkMode = options.some((option) => option.href !== undefined);
     const LinkEl = linkComponent ?? 'a';
-    const destination = (href: string) => (linkHrefProp === 'to' ? { to: href } : { href });
+    const destination = (href: string) => linkDestination(href, linkHrefProp);
 
     const refs = React.useRef<Array<HTMLButtonElement | null>>([]);
 

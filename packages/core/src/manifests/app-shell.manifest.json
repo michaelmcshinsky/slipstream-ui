@@ -63,6 +63,17 @@
       "description": "Router link component (react-router Link, Next Link) (Sidebar)."
     },
     {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router).",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
       "name": "label",
       "type": "string",
       "required": false,

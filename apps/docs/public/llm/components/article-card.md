@@ -24,6 +24,7 @@ Content hubs repeat the same article tile. ArticleCard owns the image aspect, ti
 | media | `ReactNode` | — | no | Image, illustration or video poster. |
 | meta | `ReactNode` | — | no | Date, read time, author or other metadata. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | variant | `'default' | 'compact'` | `default` | no | Standard card or a denser compact card. |
 
 ## Examples

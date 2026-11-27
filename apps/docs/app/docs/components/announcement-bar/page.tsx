@@ -26,6 +26,7 @@ export default function Page() {
         { name: 'tone', type: "'muted' | 'brand' | 'inverse'", defaultValue: "'muted'", description: 'Surface treatment.' },
         { name: 'sticky', type: 'boolean', defaultValue: 'false', description: 'Pin the bar to the top.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
       ]}
       accessibility={[
         'Renders a named region (Announcement) with a keyboard-operable dismiss button.',

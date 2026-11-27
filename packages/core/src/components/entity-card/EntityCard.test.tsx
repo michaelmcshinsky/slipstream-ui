@@ -53,6 +53,14 @@ describe('EntityCard', () => {
     expect(screen.getByRole('link', { name: 'North Park' })).toHaveAttribute('data-router-link');
   });
 
+  it('passes destinations via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>{children}</a>
+    );
+    render(<EntityCard name="North Park" entityType="Private equity" href="/members/north-park" linkComponent={RouterLink} linkHrefProp="to" />);
+    expect(screen.getByRole('link', { name: 'North Park' })).toHaveAttribute('data-router-to', '/members/north-park');
+  });
+
   it('falls back to initials and exposes the ProfileCard alias', () => {
     render(<ProfileCard name="North Park" entityType="Private equity" />);
     expect(screen.getByText('NP')).toBeInTheDocument();

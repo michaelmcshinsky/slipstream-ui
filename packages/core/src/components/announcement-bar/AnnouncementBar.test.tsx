@@ -27,6 +27,24 @@ describe('AnnouncementBar', () => {
     expect(container.firstElementChild).toHaveClass('bg-primary');
   });
 
+  it('passes the destination via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(
+      <AnnouncementBar
+        message="Notice"
+        href="/launch"
+        actionLabel="Read more"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Read more' })).toHaveAttribute('data-router-to', '/launch');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<AnnouncementBar message="Notice" />);
     expect(await axe(container)).toHaveNoViolations();

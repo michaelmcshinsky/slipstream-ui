@@ -27,6 +27,7 @@ Deal lists repeat the same card across trends, search and saved views. DealCard 
 | cimAvailable | `boolean` | — | no | Show the CIM badge. |
 | href | `string` | — | no | Optional deal detail link. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | saved | `boolean` | `false` | no | Save toggle state. |
 | onSave | `() => void` | — | no | Save toggle handler. |
 | saveLabel | `string` | `Save` | no | Save button label. |

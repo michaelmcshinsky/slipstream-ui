@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../button/Button';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 /** Object form of `action`: EmptyState renders the button/link for you. */
 export type EmptyStateAction = {
@@ -11,7 +12,7 @@ export type EmptyStateAction = {
   variant?: ButtonProps['variant'];
 };
 
-export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
+export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & LinkLikeProps & {
   /** Icon or illustration shown above the title. */
   icon?: React.ReactNode;
   title: string;
@@ -34,10 +35,6 @@ export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {
    * default dashed outline. Default 'plain'.
    */
   tone?: 'plain' | 'panel';
-  /** Custom link element for action hrefs (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to `linkComponent`. */
-  linkHrefProp?: 'href' | 'to';
 };
 
 function isActionObject(value: unknown): value is EmptyStateAction {
@@ -59,7 +56,7 @@ function renderAction(
   const { label, onClick, href, variant } = action;
   if (href) {
     const LinkEl = linkComponent ?? 'a';
-    const destination = linkHrefProp === 'to' ? { to: href } : { href };
+    const destination = linkDestination(href, linkHrefProp);
     return (
       <Button variant={variant} asChild>
         <LinkEl {...destination}>{label}</LinkEl>

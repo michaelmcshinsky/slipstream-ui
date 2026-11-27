@@ -22,6 +22,7 @@ export default function Page() {
         { name: 'columns', type: '2 | 3', defaultValue: '2', description: 'Desktop column count.' },
         { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Row alignment.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
       ]}
       accessibility={[
         'Renders a list with one label and value per contact row.',

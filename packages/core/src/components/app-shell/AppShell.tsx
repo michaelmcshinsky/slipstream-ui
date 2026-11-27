@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 import { Drawer } from '../drawer/Drawer';
 
 export type SidebarItem = {
@@ -21,7 +22,7 @@ export type SidebarSection = {
   items: SidebarItem[];
 };
 
-export type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
+export type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & LinkLikeProps & {
   sections: SidebarSection[];
   /** Brand/mark rendered at the top. */
   heading?: React.ReactNode;
@@ -29,8 +30,6 @@ export type SidebarProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> &
   footer?: React.ReactNode;
   /** Current route — items with a matching href get aria-current="page". */
   activeHref?: string;
-  /** Custom link element for routers (react-router `Link`, Next `Link`). */
-  linkComponent?: React.ElementType;
   /** Accessible name of the nav landmark. Default 'Primary'. */
   label?: string;
   /** Show the collapse/expand control (icon-only rail when collapsed). */
@@ -69,6 +68,7 @@ export function Sidebar({
   footer,
   activeHref,
   linkComponent,
+  linkHrefProp = 'href',
   label = 'Primary',
   collapsible = false,
   defaultCollapsed = false,
@@ -133,7 +133,7 @@ export function Sidebar({
         return (
           <li key={item.href}>
             <Link
-              href={item.href}
+              {...linkDestination(item.href, linkHrefProp)}
               aria-current={active ? 'page' : undefined}
               title={collapsed ? item.label : undefined}
               className={cn(itemClass, active ? activeClass : idleClass, collapsed && 'justify-center px-0')}

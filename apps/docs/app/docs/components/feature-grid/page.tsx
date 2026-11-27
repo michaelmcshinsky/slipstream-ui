@@ -23,6 +23,7 @@ export default function Page() {
         { name: 'variant', type: "'card' | 'plain'", defaultValue: "'card'", description: 'Card surface or a plain stack.' },
         { name: 'align', type: "'left' | 'center'", defaultValue: "'left'", description: 'Content alignment.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
       ]}
       accessibility={[
         'Renders ul/li so the group and item count are announced.',

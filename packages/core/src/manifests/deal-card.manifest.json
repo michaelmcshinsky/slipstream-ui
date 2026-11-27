@@ -78,6 +78,17 @@
       "description": "Custom link element for routers."
     },
     {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router).",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
       "name": "saved",
       "type": "boolean",
       "required": false,
