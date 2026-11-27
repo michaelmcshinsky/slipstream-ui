@@ -18,7 +18,7 @@ export default function Page() {
       description="Single- or multi-select segmented control for view and filter switches."
       npmPackages="@slipstream-ui/core"
       propsRows={[
-        { name: 'options', type: 'SegmentedOption[]', defaultValue: 'required', description: 'Segments to render: value, label, optional icon, disabled, and href for link rendering.' },
+        { name: 'options', type: 'SegmentedOption[]', defaultValue: 'required', description: 'Segments to render: value, label, optional icon, hint, disabled, and href for link rendering.' },
         { name: 'value', type: 'string | string[]', description: 'Controlled selection. Use string[] when multiple.' },
         { name: 'defaultValue', type: 'string | string[]', description: 'Initial selection when uncontrolled.' },
         { name: 'onValueChange', type: '(value: string | string[]) => void', description: 'Fires with the next selection.' },

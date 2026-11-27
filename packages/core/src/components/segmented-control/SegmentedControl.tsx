@@ -8,6 +8,12 @@ export type SegmentedOption = {
   label: React.ReactNode;
   /** Optional leading icon. */
   icon?: React.ReactNode;
+  /**
+   * Optional trailing note (e.g. "no Pro-Am ladder"). Rendered as a small
+   * muted marker after the label and exposed to assistive tech via
+   * `aria-description`, so it does not change the accessible name.
+   */
+  hint?: string;
   disabled?: boolean;
   /**
    * Destination URL. When set the segment renders as a link instead of a
@@ -207,6 +213,11 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
             <>
               {option.icon && <span className="shrink-0 [&_svg]:size-4">{option.icon}</span>}
               <span className="truncate">{option.label}</span>
+              {option.hint && (
+                <span aria-hidden="true" className="shrink-0 text-[10px] font-normal text-muted-foreground/70">
+                  {option.hint}
+                </span>
+              )}
             </>
           );
 
@@ -217,6 +228,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
                   key={option.value}
                   aria-current={active ? 'page' : undefined}
                   aria-disabled={option.disabled || undefined}
+                  aria-description={option.hint}
                   className={cn(segmentClass, option.disabled && 'opacity-50')}
                 >
                   {segmentContent}
@@ -227,6 +239,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
               <LinkEl
                 key={option.value}
                 {...destination(option.href)}
+                aria-description={option.hint}
                 className={segmentClass}
               >
                 {segmentContent}
@@ -245,6 +258,7 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
               aria-checked={multiple || linkMode ? undefined : active}
               aria-pressed={multiple ? active : undefined}
               aria-current={linkMode && active ? 'page' : undefined}
+              aria-description={option.hint}
               disabled={option.disabled}
               tabIndex={focusable ? 0 : -1}
               onClick={() => select(option)}

@@ -29,6 +29,23 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'Investors' })).toHaveAttribute('aria-checked', 'false');
   });
 
+  it('renders option hints as aria-hidden markers with aria-description', () => {
+    render(
+      <SegmentedControl
+        aria-label="Discipline"
+        options={[
+          { value: 'amateur', label: 'Amateur' },
+          { value: 'proam', label: 'Pro-Am', hint: 'no Pro-Am ladder published' },
+        ]}
+      />
+    );
+    const proam = screen.getByRole('radio', { name: 'Pro-Am' });
+    expect(proam).toHaveAttribute('aria-description', 'no Pro-Am ladder published');
+    expect(proam.querySelector('[aria-hidden="true"]')).toHaveTextContent(
+      'no Pro-Am ladder published'
+    );
+  });
+
   it('applies full width at every viewport when fullWidth is true', () => {
     render(
       <SegmentedControl
