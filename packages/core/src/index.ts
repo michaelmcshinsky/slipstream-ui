@@ -58,6 +58,7 @@ export * from './components/metric-card';
 export * from './components/password-input';
 export * from './components/auth-layout';
 export * from './components/filter-bar';
+export * from './components/list-toolbar';
 export * from './components/date-picker';
 export * from './components/date-picker-popover';
 export * from './components/time-picker';

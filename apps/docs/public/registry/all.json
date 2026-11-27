@@ -4,9 +4,9 @@
   "manifestVersion": 1,
   "version": "0.11.8",
   "releaseDate": "2026-11-27",
-  "count": 114,
+  "count": 115,
   "counts": {
-    "core": 97,
+    "core": 98,
     "ai": 17
   },
   "install": "npx shadcn@latest add https://slipstreamui.com/registry/<id>.json",
@@ -579,6 +579,15 @@
       "description": "Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.",
       "docs": "https://slipstreamui.com/docs/components/list",
       "registry": "/registry/list.json"
+    },
+    {
+      "id": "list-toolbar",
+      "name": "ListToolbar",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "description": "Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.",
+      "docs": "https://slipstreamui.com/docs/components/list-toolbar",
+      "registry": "/registry/list-toolbar.json"
     },
     {
       "id": "load-more",

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://slipstreamui.com/schemas/manifest-v1.json",
+  "id": "list-toolbar",
+  "name": "list-toolbar",
+  "tier": "atom",
+  "description": "Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.",
+  "designIntent": "Every directory rebuilds the same row above its results: \"42 events · Page 2 of 5\" on the left, a grid/list SegmentedControl and a sort Select on the right. ListToolbar fixes that layout so the summary stays consistent and screen readers hear count changes.",
+  "props": [
+    {
+      "name": "count",
+      "type": "number",
+      "required": false,
+      "description": "Number of matching results; renders \"{count} {countLabel}\"."
+    },
+    {
+      "name": "countLabel",
+      "type": "string",
+      "required": false,
+      "defaultValue": "results",
+      "description": "Noun for the result count."
+    },
+    {
+      "name": "position",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Page or range position, e.g. \"Page 2 of 5\" or \"Showing 21–40 of 137\"."
+    },
+    {
+      "name": "note",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Muted note after the position, e.g. \"Sorted by date, soonest first\"."
+    },
+    {
+      "name": "align",
+      "type": "'between' | 'start' | 'center' | 'end'",
+      "required": false,
+      "defaultValue": "between",
+      "description": "Distribution of summary and controls.",
+      "enum": [
+        "between",
+        "start",
+        "center",
+        "end"
+      ]
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Controls rendered at the far end: SegmentedControl view switch, sort Select."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Directory result bar",
+      "code": "<ListToolbar\n  count={events.length}\n  countLabel=\"events\"\n  position={\"Page \" + page + \" of \" + pages}\n  note=\"Sorted by date, soonest first\"\n>\n  <SegmentedControl\n    options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]}\n    value={view}\n    onValueChange={setView}\n  />\n  <Select label=\"Sort\" options={sortOptions} value={sort} onValueChange={setSort} />\n</ListToolbar>",
+      "description": "Count and position on the left; view switch and sort on the right."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't put filter inputs in the bar",
+      "explanation": "ListToolbar summarizes results; search fields and filter selects belong in FilterBar above it. Children is for the view switch and sort control only.",
+      "example": "// Avoid\n<ListToolbar><Input placeholder=\"Search…\" /><Select … /></ListToolbar>\n\n// Prefer\n<FilterBar searchValue={q} onSearchChange={setQ}><Select … /></FilterBar>\n<ListToolbar count={n}><SegmentedControl … /><Select … /></ListToolbar>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Live result count",
+      "implementation": "The summary line is aria-live=polite so filtering announces the new count",
+      "userRequirements": "Keep count updates meaningful; avoid announcing on every keystroke if the list filters live"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Count label",
+      "guidelines": [
+        "Name the collection being counted",
+        "Use singular nouns for count=1 if the host needs it"
+      ],
+      "goodExamples": [
+        "events",
+        "studios"
+      ],
+      "badExamples": [
+        "items",
+        "results"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "SegmentedControl",
+      "relationship": "Link-mode SegmentedControl is the canonical grid/list view switch",
+      "example": "<ListToolbar …><SegmentedControl options={views} value={view} onValueChange={setView} /></ListToolbar>"
+    },
+    {
+      "component": "Select",
+      "relationship": "Sort control renders in children",
+      "example": "<ListToolbar …><Select label=\"Sort\" … /></ListToolbar>"
+    },
+    {
+      "component": "FilterBar",
+      "relationship": "FilterBar owns the input row above; ListToolbar owns the result summary below it",
+      "example": "<FilterBar … />\n<ListToolbar … />\n{results}"
+    }
+  ],
+  "relatedComponents": [
+    "FilterBar",
+    "SegmentedControl",
+    "Select",
+    "Pagination",
+    "EmptyState"
+  ],
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.11.8",
+  "sourceDir": "list-toolbar",
+  "exportName": "ListToolbar",
+  "componentId": "list-toolbar",
+  "schemaVersion": 1,
+  "manifestVersion": 1,
+  "packageVersion": "0.11.8",
+  "docs": "https://slipstreamui.com/docs/components/list-toolbar",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/slipstream/list-toolbar/ListToolbar.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type ListToolbarProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Number of matching results; renders \"{count} {countLabel}\". */\n  count?: number;\n  /** Noun for the result count. Default \"results\". */\n  countLabel?: string;\n  /** Page/range position text, e.g. \"Page 2 of 5\" or \"Showing 21–40 of 137\". */\n  position?: React.ReactNode;\n  /** Muted note at the end of the summary line, e.g. \"Sorted by date, soonest first\". */\n  note?: React.ReactNode;\n  /** Controls rendered at the far end: SegmentedControl view switch, sort Select. */\n  children?: React.ReactNode;\n  /** Distribution of the bar. Default 'between' (summary left, controls right). */\n  align?: 'between' | 'start' | 'center' | 'end';\n};\n\nconst alignClasses = {\n  between: 'justify-between',\n  start: 'justify-start',\n  center: 'justify-center',\n  end: 'justify-end',\n} as const;\n\n/**\n * Slim result bar for filtered lists and directories: result count, optional\n * page position and a \"sorted by\" note on the left; a view switch (e.g.\n * SegmentedControl in link mode) and sort control on the right. Pair with\n * FilterBar for the input row above and Pagination below.\n */\nexport function ListToolbar({\n  count,\n  countLabel = 'results',\n  position,\n  note,\n  align = 'between',\n  className,\n  children,\n  ...props\n}: ListToolbarProps) {\n  const hasSummary = count !== undefined || position !== undefined || note !== undefined;\n  return (\n    <div\n      className={cn('flex flex-wrap items-center gap-x-4 gap-y-2 text-sm', alignClasses[align], className)}\n      {...props}\n    >\n      {hasSummary && (\n        <p className=\"flex flex-wrap items-baseline gap-x-2 text-muted-foreground\" aria-live=\"polite\">\n          {count !== undefined && (\n            <span className=\"font-medium text-foreground\">\n              {count} {countLabel}\n            </span>\n          )}\n          {position && <span>{position}</span>}\n          {note && <span className=\"text-xs\">{note}</span>}\n        </p>\n      )}\n      {children && <div className=\"flex flex-wrap items-center gap-2\">{children}</div>}\n    </div>\n  );\n}\n\nListToolbar.displayName = 'ListToolbar';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/list-toolbar/index.ts",
+      "content": "export * from './ListToolbar';\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "components/slipstream/manifests/list-toolbar.manifest.json",
+      "content": "{\n  \"id\": \"list-toolbar\",\n  \"name\": \"ListToolbar\",\n  \"tier\": \"atom\",\n  \"description\": \"Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.\",\n  \"designIntent\": \"Every directory rebuilds the same row above its results: \\\"42 events · Page 2 of 5\\\" on the left, a grid/list SegmentedControl and a sort Select on the right. ListToolbar fixes that layout so the summary stays consistent and screen readers hear count changes.\",\n  \"props\": [\n    {\n      \"name\": \"count\",\n      \"type\": \"number\",\n      \"required\": false,\n      \"description\": \"Number of matching results; renders \\\"{count} {countLabel}\\\".\"\n    },\n    {\n      \"name\": \"countLabel\",\n      \"type\": \"string\",\n      \"required\": false,\n      \"defaultValue\": \"results\",\n      \"description\": \"Noun for the result count.\"\n    },\n    {\n      \"name\": \"position\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Page or range position, e.g. \\\"Page 2 of 5\\\" or \\\"Showing 21–40 of 137\\\".\"\n    },\n    {\n      \"name\": \"note\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Muted note after the position, e.g. \\\"Sorted by date, soonest first\\\".\"\n    },\n    {\n      \"name\": \"align\",\n      \"type\": \"'between' | 'start' | 'center' | 'end'\",\n      \"required\": false,\n      \"defaultValue\": \"between\",\n      \"description\": \"Distribution of summary and controls.\",\n      \"enum\": [\n        \"between\",\n        \"start\",\n        \"center\",\n        \"end\"\n      ]\n    },\n    {\n      \"name\": \"children\",\n      \"type\": \"ReactNode\",\n      \"required\": false,\n      \"description\": \"Controls rendered at the far end: SegmentedControl view switch, sort Select.\"\n    }\n  ],\n  \"examples\": [\n    {\n      \"title\": \"Directory result bar\",\n      \"code\": \"<ListToolbar\\n  count={events.length}\\n  countLabel=\\\"events\\\"\\n  position={\\\"Page \\\" + page + \\\" of \\\" + pages}\\n  note=\\\"Sorted by date, soonest first\\\"\\n>\\n  <SegmentedControl\\n    options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]}\\n    value={view}\\n    onValueChange={setView}\\n  />\\n  <Select label=\\\"Sort\\\" options={sortOptions} value={sort} onValueChange={setSort} />\\n</ListToolbar>\",\n      \"description\": \"Count and position on the left; view switch and sort on the right.\"\n    }\n  ],\n  \"antiPatterns\": [\n    {\n      \"title\": \"Don't put filter inputs in the bar\",\n      \"explanation\": \"ListToolbar summarizes results; search fields and filter selects belong in FilterBar above it. Children is for the view switch and sort control only.\",\n      \"example\": \"// Avoid\\n<ListToolbar><Input placeholder=\\\"Search…\\\" /><Select … /></ListToolbar>\\n\\n// Prefer\\n<FilterBar searchValue={q} onSearchChange={setQ}><Select … /></FilterBar>\\n<ListToolbar count={n}><SegmentedControl … /><Select … /></ListToolbar>\"\n    }\n  ],\n  \"accessibility\": [\n    {\n      \"feature\": \"Live result count\",\n      \"implementation\": \"The summary line is aria-live=polite so filtering announces the new count\",\n      \"userRequirements\": \"Keep count updates meaningful; avoid announcing on every keystroke if the list filters live\"\n    }\n  ],\n  \"contentGuidelines\": [\n    {\n      \"contentType\": \"Count label\",\n      \"guidelines\": [\n        \"Name the collection being counted\",\n        \"Use singular nouns for count=1 if the host needs it\"\n      ],\n      \"goodExamples\": [\n        \"events\",\n        \"studios\"\n      ],\n      \"badExamples\": [\n        \"items\",\n        \"results\"\n      ]\n    }\n  ],\n  \"compositionRules\": [\n    {\n      \"component\": \"SegmentedControl\",\n      \"relationship\": \"Link-mode SegmentedControl is the canonical grid/list view switch\",\n      \"example\": \"<ListToolbar …><SegmentedControl options={views} value={view} onValueChange={setView} /></ListToolbar>\"\n    },\n    {\n      \"component\": \"Select\",\n      \"relationship\": \"Sort control renders in children\",\n      \"example\": \"<ListToolbar …><Select label=\\\"Sort\\\" … /></ListToolbar>\"\n    },\n    {\n      \"component\": \"FilterBar\",\n      \"relationship\": \"FilterBar owns the input row above; ListToolbar owns the result summary below it\",\n      \"example\": \"<FilterBar … />\\n<ListToolbar … />\\n{results}\"\n    }\n  ],\n  \"relatedComponents\": [\n    \"FilterBar\",\n    \"SegmentedControl\",\n    \"Select\",\n    \"Pagination\",\n    \"EmptyState\"\n  ],\n  \"package\": \"@slipstream-ui/core\",\n  \"importPath\": \"@slipstream-ui/core\",\n  \"version\": \"0.11.8\",\n  \"sourceDir\": \"list-toolbar\",\n  \"exportName\": \"ListToolbar\"\n}\n",
+      "type": "registry:item"
+    }
+  ]
+}
