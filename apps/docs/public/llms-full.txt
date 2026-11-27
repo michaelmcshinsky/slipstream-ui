@@ -6816,7 +6816,7 @@ Filters such as All / Investors / Advisors are often built with Tabs, which wron
 
 | Prop | Type | Default | Required | Description |
 |---|---|---|---|---|
-| options | `SegmentedOption[]` | — | yes | Segments to render: value, label, optional icon, disabled, and href. An option with href renders as a link (view-switch navigation that survives refresh and works without JavaScript); the active segment becomes a non-link aria-current="page" marker. |
+| options | `SegmentedOption[]` | — | yes | Segments to render: value, label, optional icon, hint, disabled, and href. An option with href renders as a link (view-switch navigation that survives refresh and works without JavaScript); the active segment becomes a non-link aria-current="page" marker. |
 | value | `string | string[]` | — | no | Controlled selection. Use string[] when multiple. |
 | defaultValue | `string | string[]` | — | no | Initial selection when uncontrolled. |
 | onValueChange | `(value: string | string[]) => void` | — | no | Fires with the next selection. |
