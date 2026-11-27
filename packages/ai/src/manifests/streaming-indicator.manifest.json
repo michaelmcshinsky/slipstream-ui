@@ -71,7 +71,7 @@
   ],
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.11.7",
+  "version": "0.11.8",
   "sourceDir": "streaming",
   "exportName": "StreamingIndicator"
 }

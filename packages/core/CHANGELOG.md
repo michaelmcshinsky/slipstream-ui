@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.11.8
+
+### Patch Changes
+
+- [#210](https://github.com/michaelmcshinsky/slipstream-ui/pull/210) [`37403bf`](https://github.com/michaelmcshinsky/slipstream-ui/commit/37403bfe1f13c27ca56f4483f4c9362d3bbc121a) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `as` (`'h1' | 'h2'`, default `'h1'`) to `PageHeader` for section-level and embedded headers, and a `contact` ReactNode slot to `SiteFooter` under the tagline for address/email/phone blocks.
+
 ## 0.11.7
 
 ### Patch Changes
