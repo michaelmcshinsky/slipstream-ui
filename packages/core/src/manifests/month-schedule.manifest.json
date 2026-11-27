@@ -1,0 +1,217 @@
+{
+  "id": "month-schedule",
+  "name": "MonthSchedule",
+  "tier": "organism",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.11.9",
+  "sourceDir": "month-schedule",
+  "exportName": "MonthSchedule",
+  "description": "Month grid that shows dated events inside each day, with a type legend and a small-screen agenda — the schedule counterpart to Calendar's date picker.",
+  "designIntent": "Directories need to show events inside days, not just pick one. MonthSchedule reuses Calendar's date utilities (ISO keys, calendarWeeks, explicit today) so server-rendered pages stay deterministic, and collapses to an agenda list below a breakpoint where day cells get too cramped.",
+  "props": [
+    {
+      "name": "events",
+      "type": "T[]",
+      "required": true,
+      "description": "Events to place inside days; each is dated via getDate."
+    },
+    {
+      "name": "getDate",
+      "type": "(event: T) => string",
+      "required": true,
+      "description": "ISO date key (YYYY-MM-DD) for an event."
+    },
+    {
+      "name": "getLabel",
+      "type": "(event: T) => string",
+      "required": true,
+      "description": "Short label shown on the day chip and in the agenda."
+    },
+    {
+      "name": "getType",
+      "type": "(event: T) => string",
+      "required": false,
+      "description": "Optional type key used for chip color and legend matching."
+    },
+    {
+      "name": "getHref",
+      "type": "(event: T) => string",
+      "required": false,
+      "description": "Optional destination per event."
+    },
+    {
+      "name": "month",
+      "type": "string",
+      "required": false,
+      "description": "Controlled month as YYYY-MM; falls back to defaultMonth, then today."
+    },
+    {
+      "name": "defaultMonth",
+      "type": "string",
+      "required": false,
+      "description": "Uncontrolled initial month (YYYY-MM)."
+    },
+    {
+      "name": "onMonthChange",
+      "type": "(month: string) => void",
+      "required": false,
+      "description": "Called with the new YYYY-MM when paging."
+    },
+    {
+      "name": "today",
+      "type": "string",
+      "required": false,
+      "description": "Override \"today\" for deterministic server rendering and tests."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "defaultValue": "en-US",
+      "description": "BCP-47 locale for month, weekday and agenda labels."
+    },
+    {
+      "name": "weekStartsOn",
+      "type": "0 | 1",
+      "required": false,
+      "defaultValue": "0",
+      "description": "0 starts the week on Sunday, 1 on Monday."
+    },
+    {
+      "name": "maxPerDay",
+      "type": "number",
+      "required": false,
+      "defaultValue": "3",
+      "description": "Maximum event chips per day before collapsing into \"+N more\"."
+    },
+    {
+      "name": "legend",
+      "type": "MonthScheduleLegendItem[]",
+      "required": false,
+      "description": "Type key → label entries rendered as a legend; also fixes chip tones deterministically."
+    },
+    {
+      "name": "agendaBreakpoint",
+      "type": "'sm' | 'md'",
+      "required": false,
+      "defaultValue": "md",
+      "description": "Below this breakpoint an agenda list replaces the day grid.",
+      "enum": [
+        "sm",
+        "md"
+      ]
+    },
+    {
+      "name": "linkComponent",
+      "type": "React.ElementType",
+      "required": false,
+      "description": "Custom link element for event hrefs (Next Link, react-router)."
+    },
+    {
+      "name": "linkHrefProp",
+      "type": "'href' | 'to'",
+      "required": false,
+      "defaultValue": "href",
+      "description": "Prop name used to pass the destination to linkComponent.",
+      "enum": [
+        "href",
+        "to"
+      ]
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Classes merged onto the root container."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name for the month grid; defaults to the month label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Competition calendar",
+      "code": "<MonthSchedule\n  events={competitions}\n  getDate={(c) => c.startDate}\n  getLabel={(c) => c.name}\n  getType={(c) => c.kind}\n  getHref={(c) => '/competitions/' + c.slug}\n  legend={[\n    { type: 'competition', label: 'Competition' },\n    { type: 'workshop', label: 'Workshop' },\n  ]}\n  today={todayKey}\n/>",
+      "description": "Month grid with typed event chips; tapping an event navigates to its detail page."
+    },
+    {
+      "title": "Controlled month with URL state",
+      "code": "const [month, setMonth] = useState(searchParams.get('month') ?? '2026-03');\n\n<MonthSchedule\n  month={month}\n  onMonthChange={(m) => router.replace('?month=' + m)}\n  events={events}\n  getDate={(e) => e.date}\n  getLabel={(e) => e.title}\n/>",
+      "description": "Keep the visible month in the URL so the schedule is shareable and back-button safe."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't use it to pick a date",
+      "explanation": "MonthSchedule shows events inside days; it has no selection model. Use Calendar or DatePicker when the user must choose a day.",
+      "example": "// Avoid\n<MonthSchedule events={[]} getDate={…} getLabel={…} onSelect={…} />\n\n// Prefer\n<Calendar value={date} onValueChange={setDate} />"
+    },
+    {
+      "title": "Don't compute today on the server",
+      "explanation": "Without an explicit today prop the component reads the client clock; pass today from a deterministic source for SSR and tests.",
+      "example": "<MonthSchedule today={props.today} … />"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Grid semantics",
+      "implementation": "Day cells use role=grid/gridcell/row with column headers; today gets aria-current=date",
+      "userRequirements": "The grid conveys month structure to screen readers"
+    },
+    {
+      "feature": "Small-screen agenda",
+      "implementation": "Below agendaBreakpoint the grid is replaced by a labelled list of days and events, which is easier to scan than cramped cells",
+      "userRequirements": "Both representations stay in the DOM; CSS picks one per viewport"
+    },
+    {
+      "feature": "Live month label",
+      "implementation": "The month name sits in an aria-live=polite region so paging is announced",
+      "userRequirements": "Keyboard and screen-reader users hear month changes"
+    }
+  ],
+  "contentGuidelines": [
+    {
+      "contentType": "Event labels",
+      "guidelines": [
+        "Keep getLabel short — chips truncate; put detail in the destination page",
+        "Legend labels describe the type, not the event"
+      ],
+      "goodExamples": [
+        "Fall Classic",
+        "Competition"
+      ],
+      "badExamples": [
+        "Fall Classic 2026 — two-day ballroom competition with six heats",
+        "Stuff"
+      ]
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "Calendar",
+      "relationship": "Sibling components sharing the same date utilities; Calendar picks a day, MonthSchedule shows events in days",
+      "example": "<Calendar value={date} onValueChange={setDate} />\n<MonthSchedule events={events} getDate={getDate} getLabel={getLabel} />"
+    },
+    {
+      "component": "Badge",
+      "relationship": "Day chips and the legend render as sm Badges with deterministic outline tones per type",
+      "example": "legend={[{ type: 'social', label: 'Social' }]}"
+    },
+    {
+      "component": "ListToolbar",
+      "relationship": "Pair with ListToolbar and Pagination when the schedule is one view of a filterable directory",
+      "example": "<ListToolbar count={events.length} />\n<MonthSchedule … />"
+    }
+  ],
+  "relatedComponents": [
+    "Calendar",
+    "DatePicker",
+    "Badge",
+    "ListToolbar",
+    "MediaCard"
+  ]
+}

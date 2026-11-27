@@ -224,6 +224,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/filter-panel', label: 'FilterPanel' },
           { href: '/docs/components/applied-filters', label: 'AppliedFilters' },
           { href: '/docs/components/timeline', label: 'Timeline' },
+          { href: '/docs/components/month-schedule', label: 'MonthSchedule' },
           { href: '/docs/components/table', label: 'Table' },
           { href: '/docs/components/data-table', label: 'DataTable' },
           { href: '/docs/components/table-card', label: 'TableCard' },

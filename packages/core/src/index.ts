@@ -36,6 +36,7 @@ export * from './components/link-tabs';
 export * from './components/theme-toggle';
 export * from './components/tooltip';
 export * from './components/calendar';
+export * from './components/month-schedule';
 export * from './components/card';
 export * from './components/confirm-dialog';
 export * from './components/table-of-contents';

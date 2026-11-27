@@ -788,6 +788,17 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "manifest": "/llm/components/metric-card.md"
     },
     {
+      "id": "month-schedule",
+      "name": "MonthSchedule",
+      "package": "@slipstream-ui/core",
+      "sourceDir": "month-schedule",
+      "axe": true,
+      "interaction": false,
+      "notes": 3,
+      "docs": "/docs/components/month-schedule",
+      "manifest": "/llm/components/month-schedule.md"
+    },
+    {
       "id": "multi-select",
       "name": "MultiSelect",
       "package": "@slipstream-ui/core",
@@ -1284,10 +1295,10 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     }
   ],
   "summary": {
-    "total": 116,
-    "withAxe": 116,
+    "total": 117,
+    "withAxe": 117,
     "withInteraction": 45,
-    "withNotes": 116,
-    "totalNotes": 251
+    "withNotes": 117,
+    "totalNotes": 254
   }
 };
