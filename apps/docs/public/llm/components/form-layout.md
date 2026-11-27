@@ -6,7 +6,7 @@ Groups form fields with even, tokenized spacing: vertical stack, horizontal row,
 > Import: `import { FormLayout } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/form-layout
 > Registry: https://slipstreamui.com/registry/form-layout.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.7
+> Tier: molecule · Package: @slipstream-ui/core@0.11.8
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
