@@ -4,8 +4,8 @@
   "releaseDate": "2026-11-27",
   "schemaVersion": 1,
   "manifestVersion": 1,
-  "nodeCount": 114,
-  "edgeCount": 418,
+  "nodeCount": 115,
+  "edgeCount": 426,
   "docs": "https://slipstreamui.com/docs/ai-manifests",
   "nodes": [
     {
@@ -448,6 +448,13 @@
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "docs": "https://slipstreamui.com/docs/components/list"
+    },
+    {
+      "id": "list-toolbar",
+      "name": "ListToolbar",
+      "package": "@slipstream-ui/core",
+      "tier": "atom",
+      "docs": "https://slipstreamui.com/docs/components/list-toolbar"
     },
     {
       "id": "load-more",
@@ -2021,6 +2028,46 @@
     {
       "from": "link",
       "to": "card",
+      "type": "related"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "empty-state",
+      "type": "related"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "filter-bar",
+      "type": "composition"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "filter-bar",
+      "type": "related"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "pagination",
+      "type": "related"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "segmented-control",
+      "type": "composition"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "segmented-control",
+      "type": "related"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "select",
+      "type": "composition"
+    },
+    {
+      "from": "list-toolbar",
+      "to": "select",
       "type": "related"
     },
     {

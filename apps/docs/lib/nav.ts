@@ -218,6 +218,7 @@ export const NAV_SECTIONS: NavSection[] = [
           { href: '/docs/components/empty-state', label: 'EmptyState' },
           { href: '/docs/components/metric-card', label: 'MetricCard' },
           { href: '/docs/components/filter-bar', label: 'FilterBar' },
+          { href: '/docs/components/list-toolbar', label: 'ListToolbar' },
           { href: '/docs/components/filter-chips', label: 'FilterChips' },
           { href: '/docs/components/filter-panel', label: 'FilterPanel' },
           { href: '/docs/components/applied-filters', label: 'AppliedFilters' },

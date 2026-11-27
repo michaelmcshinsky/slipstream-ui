@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
 > Version: 0.11.8 (2026-11-27) · manifest schema v1 · manifest v1
-> 114 components: 97 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 115 components: 98 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
-The AI-first React component library. 114 components, each shipping a
+The AI-first React component library. 115 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -16,7 +16,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 - Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 97
+## Core components (@slipstream-ui/core) — 98
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -73,6 +73,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [Link](https://slipstreamui.com/llm/components/link.md) — Inline link primitive with default/muted/underline/arrow/external variants, asChild router support and safe external handling.
 - [LinkTabs](https://slipstreamui.com/llm/components/link-tabs.md) — Route-driven navigation tabs that render real links and mark the current path with aria-current="page".
 - [List / ListItem](https://slipstreamui.com/llm/components/list.md) — Semantic list (ul/li) for rows of related items: settings, results, nav — with leading/trailing slots, selection, and pressable rows.
+- [ListToolbar](https://slipstreamui.com/llm/components/list-toolbar.md) — Slim result bar for filtered lists: count, page position, sort note, and slots for a view switch and sort control.
 - [LoadMore](https://slipstreamui.com/llm/components/load-more.md) — Load-more control with pending and end-of-list states.
 - [LogoCloud](https://slipstreamui.com/llm/components/logo-cloud.md) — Trust strip for member, customer or partner logos with captions, columns and optional links.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
