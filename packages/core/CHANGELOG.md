@@ -1,5 +1,17 @@
 # @slipstream-ui/core
 
+## 0.12.0
+
+### Minor Changes
+
+- [#230](https://github.com/michaelmcshinsky/slipstream-ui/pull/230) [`39b2c4a`](https://github.com/michaelmcshinsky/slipstream-ui/commit/39b2c4a213f943038954f46eb19dcd3e61030f99) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - New ConsentBanner component plus a headless `useConsent` hook: per-purpose consent preferences persisted in localStorage with expiry, cross-instance and cross-tab sync. Render `<ConsentBanner onAccept onDecline onManage>` while `!consent.decided` to replace hand-rolled cookie banners.
+
+### Patch Changes
+
+- [#226](https://github.com/michaelmcshinsky/slipstream-ui/pull/226) [`6efc5db`](https://github.com/michaelmcshinsky/slipstream-ui/commit/6efc5db9e7eb57624eb23795e6aade45d7f706c2) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Unify router-link props: every component that renders a destination now accepts `linkComponent` + `linkHrefProp` via the shared `LinkLikeProps` type. `linkHrefProp` was added to ArticleCard, DealCard, TombstoneCard, ContactStrip, AnnouncementBar, FeatureGrid, Sidebar (AppShell) and EntityCard.
+
+- [#228](https://github.com/michaelmcshinsky/slipstream-ui/pull/228) [`2f90cac`](https://github.com/michaelmcshinsky/slipstream-ui/commit/2f90cac27939c5c8aad4ac48dbd9e0f4b40cee13) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - SiteHeader gains a `topBar` ReactNode slot: a slim utility strip (locale switch, feed link, submit link) rendered above the brand row in a container matching the nav metrics.
+
 ## 0.11.10
 
 ### Patch Changes

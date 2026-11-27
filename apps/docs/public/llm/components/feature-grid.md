@@ -6,7 +6,7 @@ Grid of feature or benefit cards with an icon, title, copy and optional link.
 > Import: `import { FeatureGrid } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/feature-grid
 > Registry: https://slipstreamui.com/registry/feature-grid.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.10
+> Tier: organism · Package: @slipstream-ui/core@0.12.0
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

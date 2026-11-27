@@ -141,5 +141,5 @@
   "exportName": "Confirmation",
   "package": "@slipstream-ui/ai",
   "importPath": "@slipstream-ui/ai",
-  "version": "0.11.10"
+  "version": "0.12.0"
 }
