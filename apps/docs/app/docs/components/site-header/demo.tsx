@@ -12,6 +12,12 @@ export default function Demo() {
           <div className="w-full overflow-hidden rounded-xl border border-border">
             <SiteHeader
               brand={<span className="text-base font-bold">Example</span>}
+              topBar={
+                <>
+                  <span>English</span>
+                  <a href="/submit" className="hover:text-foreground">Submit an event</a>
+                </>
+              }
               items={[
                 { href: '/docs', label: 'Docs' },
                 { href: '/pricing', label: 'Pricing' },
@@ -60,6 +66,7 @@ type SiteNavItem =
 
 type SiteHeaderProps = {
   brand: React.ReactNode;
+  topBar?: React.ReactNode;
   items: SiteNavItem[];
   activeHref?: string;
   match?: 'prefix' | 'exact';
