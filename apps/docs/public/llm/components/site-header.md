@@ -30,6 +30,9 @@ Marketing sites repeat brand/nav/actions/mobile-menu wiring with custom active m
 | mobileNavLabel | `string` | `Mobile` | no | Accessible name for the mobile navigation landmark. |
 | sticky | `boolean` | `true` | no | Pin the bar to the top. |
 | mobileLabel | `string` | `Menu` | no | Title of the mobile navigation drawer. |
+| mobileMenuOpenLabel | `string` | `Open menu` | no | Accessible name for the mobile menu trigger when closed. |
+| mobileMenuCloseLabel | `string` | `Close menu` | no | Accessible name for the mobile menu trigger when open. |
+| mobileDrawerCloseLabel | `string` | `Close drawer` | no | Accessible name for the mobile drawer close button. |
 | showMobileTrigger | `boolean` | `true` | no | Render the built-in mobile trigger and drawer. Set false when the host owns mobile navigation. |
 | desktopBreakpoint | `'md' | 'lg'` | `md` | no | Breakpoint where the horizontal navigation appears. |
 | navClassName | `string` | — | no | Extra classes for the inner nav row. |
