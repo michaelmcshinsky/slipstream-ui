@@ -84,6 +84,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: '/docs/guides/testing', label: 'Testing', labelKey: 'nav.items.testing' },
       { href: '/docs/guides/react-hook-form', label: 'React Hook Form', labelKey: 'nav.items.reactHookForm' },
       { href: '/docs/guides/migrating-from-shadcn', label: 'Migrating from shadcn', labelKey: 'nav.items.migratingFromShadcn' },
+      { href: '/docs/recipes', label: 'Recipes' },
     ],
   },
   {
