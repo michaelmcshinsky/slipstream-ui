@@ -1,13 +1,13 @@
 # Slipstream UI — LLM Documentation Index
 
 > Version: 0.11.9 (2026-11-27) · manifest schema v1 · manifest v1
-> 116 components: 99 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 117 components: 100 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
 > Install: `npx @slipstream-ui/cli@latest init`
 
-The AI-first React component library. 116 components, each shipping a
+The AI-first React component library. 117 components, each shipping a
 machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as markdown.
 
 - Library docs: https://slipstreamui.com/docs
@@ -16,7 +16,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - shadcn-compatible install: `npx shadcn@latest add https://slipstreamui.com/registry/<id>.json`
 - Changelog: https://slipstreamui.com/changelog
 
-## Core components (@slipstream-ui/core) — 99
+## Core components (@slipstream-ui/core) — 100
 
 - [Accordion](https://slipstreamui.com/llm/components/accordion.md) — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - [Alert](https://slipstreamui.com/llm/components/alert.md) — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -79,6 +79,7 @@ machine-readable COMPONENT_MANIFEST; this directory mirrors those manifests as m
 - [MediaCard](https://slipstreamui.com/llm/components/media-card.md) — Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.
 - [Menu](https://slipstreamui.com/llm/components/menu.md) — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - [MetricCard](https://slipstreamui.com/llm/components/metric-card.md) — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- [MonthSchedule](https://slipstreamui.com/llm/components/month-schedule.md) — Month grid that shows dated events inside each day, with a type legend and a small-screen agenda — the schedule counterpart to Calendar's date picker.
 - [MultiSelect](https://slipstreamui.com/llm/components/multi-select.md) — Searchable multi-select filter with visible removable chips and a checkbox panel.
 - [Newsletter](https://slipstreamui.com/llm/components/newsletter.md) — Email capture block with inline or stacked layout, pending state, success and failure feedback.
 - [PageHeader](https://slipstreamui.com/llm/components/page-header.md) — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.

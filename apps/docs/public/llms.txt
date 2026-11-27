@@ -5,7 +5,7 @@
 
 <!-- generated:release:start -->
 > Version: 0.11.9 (2026-11-27) · manifest schema v1 · manifest v1
-> 116 components: 99 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
+> 117 components: 100 in `@slipstream-ui/core` and 17 in `@slipstream-ui/ai`
 > Canonical docs: https://slipstreamui.com/docs · Registry: https://slipstreamui.com/registry/all.json · MCP: https://slipstreamui.com/docs/mcp
 > Relationship graph: https://slipstreamui.com/registry/graph.json
 > Recommendation recipes: https://slipstreamui.com/registry/recommendations.json
@@ -55,7 +55,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 <!-- generated:articles:end -->
 
 <!-- generated:core:start -->
-## Core components (@slipstream-ui/core) — 99
+## Core components (@slipstream-ui/core) — 100
 
 - Accordion — Collapsible content sections with ARIA accordion semantics and keyboard navigation
 - Alert — Inline alert for status messages with semantic variants (destructive, success, warning, info)
@@ -118,6 +118,7 @@ pnpm add @slipstream-ui/core @slipstream-ui/ai
 - MediaCard — Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.
 - Menu — Dropdown menu with keyboard navigation, typeahead, and ARIA menu semantics
 - MetricCard — KPI tile: label, value, directional delta (arrow + color) and supporting hint.
+- MonthSchedule — Month grid that shows dated events inside each day, with a type legend and a small-screen agenda — the schedule counterpart to Calendar's date picker.
 - MultiSelect — Searchable multi-select filter with visible removable chips and a checkbox panel.
 - Newsletter — Email capture block with inline or stacked layout, pending state, success and failure feedback.
 - PageHeader — Standard page heading: optional breadcrumbs, level-1 title, description, right-aligned actions and a sub-row slot.

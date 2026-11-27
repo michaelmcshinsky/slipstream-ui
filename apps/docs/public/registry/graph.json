@@ -4,8 +4,8 @@
   "releaseDate": "2026-11-27",
   "schemaVersion": 1,
   "manifestVersion": 1,
-  "nodeCount": 116,
-  "edgeCount": 434,
+  "nodeCount": 117,
+  "edgeCount": 442,
   "docs": "https://slipstreamui.com/docs/ai-manifests",
   "nodes": [
     {
@@ -504,6 +504,13 @@
       "package": "@slipstream-ui/core",
       "tier": "molecule",
       "docs": "https://slipstreamui.com/docs/components/metric-card"
+    },
+    {
+      "id": "month-schedule",
+      "name": "MonthSchedule",
+      "package": "@slipstream-ui/core",
+      "tier": "organism",
+      "docs": "https://slipstreamui.com/docs/components/month-schedule"
     },
     {
       "id": "multi-select",
@@ -2220,6 +2227,46 @@
     {
       "from": "metric-card",
       "to": "progress",
+      "type": "related"
+    },
+    {
+      "from": "month-schedule",
+      "to": "badge",
+      "type": "composition"
+    },
+    {
+      "from": "month-schedule",
+      "to": "badge",
+      "type": "related"
+    },
+    {
+      "from": "month-schedule",
+      "to": "calendar",
+      "type": "composition"
+    },
+    {
+      "from": "month-schedule",
+      "to": "calendar",
+      "type": "related"
+    },
+    {
+      "from": "month-schedule",
+      "to": "date-picker",
+      "type": "related"
+    },
+    {
+      "from": "month-schedule",
+      "to": "list-toolbar",
+      "type": "composition"
+    },
+    {
+      "from": "month-schedule",
+      "to": "list-toolbar",
+      "type": "related"
+    },
+    {
+      "from": "month-schedule",
+      "to": "media-card",
       "type": "related"
     },
     {
