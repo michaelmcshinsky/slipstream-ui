@@ -6,7 +6,7 @@ Streaming-optimized markdown renderer for AI responses with GFM support, streami
 > Import: `import { Response } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/response
 > Registry: https://slipstreamui.com/registry/response.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.11.4
+> Tier: molecule · Package: @slipstream-ui/ai@0.11.5
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
