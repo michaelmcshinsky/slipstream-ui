@@ -6,7 +6,7 @@ Custom listbox select for rich options: descriptions, icons, groups, multi-selec
 > Import: `import { SelectMenu } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/select-menu
 > Registry: https://slipstreamui.com/registry/select-menu.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.7
+> Tier: molecule · Package: @slipstream-ui/core@0.11.8
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
