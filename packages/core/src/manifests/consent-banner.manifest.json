@@ -1,0 +1,130 @@
+{
+  "id": "consent-banner",
+  "name": "ConsentBanner",
+  "tier": "molecule",
+  "package": "@slipstream-ui/core",
+  "importPath": "@slipstream-ui/core",
+  "version": "0.11.10",
+  "sourceDir": "consent-banner",
+  "exportName": "ConsentBanner",
+  "description": "Styled cookie/consent banner: fixed bottom bar with accept, decline and an optional manage-preferences action. Pair it with the headless useConsent hook so the decision persists per-purpose in localStorage.",
+  "designIntent": "Every consumer app reinvents the same cookie banner and consent store. ConsentBanner owns the presentation (fixed bar, safe-area padding, labelled region, AA buttons); useConsent owns the headless state (per-purpose preferences, expiry, cross-tab sync) so neither side is coupled to the other.",
+  "props": [
+    {
+      "name": "onAccept",
+      "type": "() => void",
+      "required": true,
+      "description": "Called when the visitor accepts; typically consent.setAll(true)."
+    },
+    {
+      "name": "onDecline",
+      "type": "() => void",
+      "required": true,
+      "description": "Called when the visitor declines; typically consent.setAll(false)."
+    },
+    {
+      "name": "onManage",
+      "type": "() => void",
+      "required": false,
+      "description": "Optional manage-preferences action for granular consent dialogs."
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Banner heading; omit for a single-line notice."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Body copy; put privacy-policy links here."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "defaultValue": "'Cookie consent'",
+      "description": "Accessible name for the banner region."
+    },
+    {
+      "name": "acceptLabel",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "'Accept'",
+      "description": "Accept button label."
+    },
+    {
+      "name": "declineLabel",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "'Decline'",
+      "description": "Decline button label."
+    },
+    {
+      "name": "manageLabel",
+      "type": "ReactNode",
+      "required": false,
+      "defaultValue": "'Manage'",
+      "description": "Manage-preferences button label."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Accept/decline with useConsent",
+      "code": "const consent = useConsent({ purposes: ['analytics'] });\n\n{!consent.decided && (\n  <ConsentBanner\n    title=\"We use cookies\"\n    onAccept={() => consent.setAll(true)}\n    onDecline={() => consent.setAll(false)}\n    onManage={() => openPreferences()}\n  >\n    We use cookies for analytics.{' '}\n    <a href=\"/privacy\">Privacy policy</a>\n  </ConsentBanner>\n)}",
+      "description": "The canonical wiring: render while undecided, persist through the hook."
+    },
+    {
+      "title": "Gate analytics on a purpose",
+      "code": "const consent = useConsent({ purposes: ['analytics'] });\n\nuseEffect(() => {\n  if (consent.preferences?.analytics) loadAnalytics();\n}, [consent.preferences]);",
+      "description": "Read the same hook elsewhere to gate trackers; instances stay in sync."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "title": "Don't render before the decision is known",
+      "explanation": "Render the banner only while consent.decided is false, and read preferences (not decided) to gate trackers — a denied purpose and an undecided visitor are different states.",
+      "example": "// Avoid\n{consent.decided && <Tracker />}\n// Prefer\n{consent.preferences?.analytics && <Tracker />}"
+    },
+    {
+      "title": "Don't block the page",
+      "explanation": "ConsentBanner is non-modal by design; a modal consent wall hurts conversion and accessibility. Use Dialog only if your policy genuinely requires it.",
+      "example": "// Avoid\n<Dialog open={!consent.decided}>...</Dialog>"
+    }
+  ],
+  "accessibility": [
+    {
+      "feature": "Named region",
+      "implementation": "Renders role=region with aria-label (default 'Cookie consent')",
+      "userRequirements": "Localize label, acceptLabel, declineLabel and manageLabel for non-English audiences"
+    },
+    {
+      "feature": "Keyboard and focus",
+      "implementation": "All actions are native Buttons with visible focus rings; tab order is manage → decline → accept",
+      "userRequirements": "Keep accept and decline equally prominent — no dark patterns"
+    },
+    {
+      "feature": "Safe-area aware",
+      "implementation": "Bottom padding includes env(safe-area-inset-bottom) for notched devices",
+      "userRequirements": "None"
+    }
+  ],
+  "compositionRules": [
+    {
+      "component": "useConsent",
+      "relationship": "Headless hook exported from @slipstream-ui/core; wire onAccept/onDecline/onManage to setAll/set/clear",
+      "example": "const consent = useConsent({ purposes: ['analytics', 'marketing'] });"
+    },
+    {
+      "component": "SiteFooter",
+      "relationship": "Re-open the banner or preferences dialog from a footer 'Cookie settings' link via consent.clear()",
+      "example": "<SiteFooter contact={<button onClick={consent.clear}>Cookie settings</button>} />"
+    }
+  ],
+  "relatedComponents": [
+    "Alert",
+    "Dialog",
+    "Button"
+  ]
+}

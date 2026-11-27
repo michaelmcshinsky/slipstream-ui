@@ -293,6 +293,17 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
       "manifest": "/llm/components/confirm-dialog.md"
     },
     {
+      "id": "consent-banner",
+      "name": "ConsentBanner",
+      "package": "@slipstream-ui/core",
+      "sourceDir": "consent-banner",
+      "axe": true,
+      "interaction": false,
+      "notes": 3,
+      "docs": "/docs/components/consent-banner",
+      "manifest": "/llm/components/consent-banner.md"
+    },
+    {
       "id": "contact-strip",
       "name": "ContactStrip",
       "package": "@slipstream-ui/core",
@@ -1295,10 +1306,10 @@ export const ACCESSIBILITY_SCORECARD: { rows: AccessibilityRow[]; summary: Acces
     }
   ],
   "summary": {
-    "total": 117,
-    "withAxe": 117,
+    "total": 118,
+    "withAxe": 118,
     "withInteraction": 45,
-    "withNotes": 117,
-    "totalNotes": 254
+    "withNotes": 118,
+    "totalNotes": 257
   }
 };

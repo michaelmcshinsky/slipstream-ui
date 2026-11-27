@@ -4,8 +4,8 @@
   "releaseDate": "2026-11-27",
   "schemaVersion": 1,
   "manifestVersion": 1,
-  "nodeCount": 117,
-  "edgeCount": 442,
+  "nodeCount": 118,
+  "edgeCount": 446,
   "docs": "https://slipstreamui.com/docs/ai-manifests",
   "nodes": [
     {
@@ -189,6 +189,13 @@
       "package": "@slipstream-ui/ai",
       "tier": "molecule",
       "docs": "https://slipstreamui.com/docs/components/confirmation"
+    },
+    {
+      "id": "consent-banner",
+      "name": "ConsentBanner",
+      "package": "@slipstream-ui/core",
+      "tier": "molecule",
+      "docs": "https://slipstreamui.com/docs/components/consent-banner"
     },
     {
       "id": "contact-strip",
@@ -1213,6 +1220,26 @@
       "from": "confirm-dialog",
       "to": "dialog",
       "type": "related"
+    },
+    {
+      "from": "consent-banner",
+      "to": "alert",
+      "type": "related"
+    },
+    {
+      "from": "consent-banner",
+      "to": "button",
+      "type": "related"
+    },
+    {
+      "from": "consent-banner",
+      "to": "dialog",
+      "type": "related"
+    },
+    {
+      "from": "consent-banner",
+      "to": "site-footer",
+      "type": "composition"
     },
     {
       "from": "contact-strip",
