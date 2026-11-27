@@ -37,8 +37,13 @@ export type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, '
   multiple?: boolean;
   /** Control density. Default 'md'. */
   size?: 'sm' | 'md' | 'lg';
-  /** Stretch segments to fill the container width. */
-  fullWidth?: boolean;
+  /**
+   * Stretch segments to fill the container width. `true` fills at every
+   * viewport; a breakpoint string ('sm' | 'md' | 'lg' | 'xl' | '2xl') fills
+   * only *below* that breakpoint and hugs content at and above it — the
+   * responsive pattern for "full-width on mobile, compact on desktop".
+   */
+  fullWidth?: boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   /** Custom link element for routers (Next Link, react-router Link). */
   linkComponent?: React.ElementType;
   /** Prop used to pass the destination to `linkComponent`. */
@@ -49,6 +54,14 @@ const sizeClasses = {
   sm: 'h-8 px-2.5 text-xs',
   md: 'h-9 px-3 text-sm',
   lg: 'h-10 px-4 text-sm',
+} as const;
+
+const fullWidthBreakpoints = {
+  sm: 'max-sm',
+  md: 'max-md',
+  lg: 'max-lg',
+  xl: 'max-xl',
+  '2xl': 'max-2xl',
 } as const;
 
 /**
@@ -99,6 +112,9 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
       : typeof current === 'string'
         ? current
         : '';
+
+    const fullWidthBelow =
+      typeof fullWidth === 'string' ? fullWidthBreakpoints[fullWidth] : null;
 
     const linkMode = options.some((option) => option.href !== undefined);
     const LinkEl = linkComponent ?? 'a';
@@ -170,7 +186,8 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
         aria-label={ariaLabel}
         className={cn(
           'inline-flex items-center gap-1 rounded-lg border border-border bg-muted p-1',
-          fullWidth && 'flex w-full',
+          fullWidth === true && 'flex w-full',
+          fullWidthBelow && `${fullWidthBelow}:flex ${fullWidthBelow}:w-full`,
           className
         )}
         {...props}
@@ -186,7 +203,8 @@ export const SegmentedControl = React.forwardRef<HTMLDivElement, SegmentedContro
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
             'disabled:pointer-events-none disabled:opacity-50',
             sizeClasses[size],
-            fullWidth && 'flex-1',
+            fullWidth === true && 'flex-1',
+            fullWidthBelow && `${fullWidthBelow}:flex-1`,
             active
               ? 'bg-background text-foreground shadow-sm'
               : 'text-muted-foreground hover:text-foreground'

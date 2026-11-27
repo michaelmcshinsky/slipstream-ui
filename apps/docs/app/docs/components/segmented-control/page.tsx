@@ -24,7 +24,7 @@ export default function Page() {
         { name: 'onValueChange', type: '(value: string | string[]) => void', description: 'Fires with the next selection.' },
         { name: 'multiple', type: 'boolean', defaultValue: 'false', description: 'Allow more than one segment to be active.' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'Control density.' },
-        { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Stretch segments to fill the container width.' },
+        { name: 'fullWidth', type: "boolean | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", defaultValue: 'false', description: 'Stretch segments to fill the container width; a breakpoint string fills only below that breakpoint.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers; used by options that set href.' },
         { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop used to pass the destination to linkComponent.' },
       ]}
