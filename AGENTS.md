@@ -93,7 +93,7 @@ Note: app package names are unscoped (`slipstream-ui-docs`, `slipstream-app`), s
 - Component pages pair `page.tsx` + `demo.tsx`; keep them in sync with the manifest
 - Articles live in `apps/docs/content/articles/*.md` with metadata in `articles.json`; the `/articles` routes, sitemap, footer link, search entries and llms.txt list are generated from that pair. Keep the metadata title identical to the markdown H1 (a unit test enforces it).
 - Site config (contact email/address) lives in `apps/docs/lib/site.ts`
-- Analytics is consent-gated: GA4 (`GA_MEASUREMENT_ID` in `lib/analytics.ts`, overridable per environment with `NEXT_PUBLIC_GA_MEASUREMENT_ID`), or a Plausible-style script via `NEXT_PUBLIC_ANALYTICS_SRC`; never load before consent
+- Analytics is consent-gated: GA4 (`GA_MEASUREMENT_ID` in `lib/analytics.ts`, overridable per environment with `NEXT_PUBLIC_GA_MEASUREMENT_ID`), or a Plausible-style script via `NEXT_PUBLIC_ANALYTICS_SRC`; a Cloudflare Web Analytics beacon (`CF_WEB_ANALYTICS_TOKEN`, `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN` override) can load alongside either; never load before consent
 - Search-engine verification: Bing (`msvalidate.01` meta in `app/layout.tsx` plus `app/BingSiteAuth.xml`); IndexNow key at `public/<key>.txt`, and the docs deploy submits the sitemap to IndexNow (`pnpm submit:indexnow`)
 
 ## MCP server

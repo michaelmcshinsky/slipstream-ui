@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { CONSENT_EVENT, readConsent, type ConsentPreferences } from '@/lib/site';
-import { GA_SCRIPT_SRC, GA_MEASUREMENT_ID, installGtag, updateConsentMode } from '@/lib/analytics';
+import { CF_WEB_ANALYTICS_TOKEN, GA_SCRIPT_SRC, GA_MEASUREMENT_ID, installGtag, updateConsentMode } from '@/lib/analytics';
 
 /**
  * Consent-gated analytics loader.
@@ -45,16 +45,14 @@ export function Analytics() {
       updateConsentMode(consent);
 
       // Cloudflare Web Analytics beacon (cookieless RUM/Core Web Vitals). It
-      // loads in addition to the primary vendor when
-      // NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN is set, and shares the analytics
+      // loads in addition to the primary vendor, and shares the analytics
       // consent gate and removal path.
-      const cfToken = process.env.NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN;
-      if (cfToken && !document.querySelector('script[data-cf-beacon]')) {
+      if (!document.querySelector('script[data-cf-beacon]')) {
         const beacon = document.createElement('script');
         beacon.defer = true;
         beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
         beacon.dataset.slipstreamAnalytics = 'true';
-        beacon.dataset.cfBeacon = JSON.stringify({ token: cfToken });
+        beacon.dataset.cfBeacon = JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN });
         document.head.appendChild(beacon);
       }
 

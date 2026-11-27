@@ -82,6 +82,17 @@ export const GA_MEASUREMENT_ID =
 export const GA_SCRIPT_SRC = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
 
 /**
+ * Cloudflare Web Analytics site token for slipstreamui.com.
+ *
+ * Like the GA measurement ID, the token is public by design - it is served in
+ * the beacon's `data-cf-beacon` attribute on every consenting page view.
+ * `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN` can point a preview or fork at a
+ * different site. Nothing loads until the analytics purpose is consented.
+ */
+export const CF_WEB_ANALYTICS_TOKEN =
+  process.env.NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN?.trim() || 'fd12443df6fb42faa24a855e8784c0be';
+
+/**
  * Installs the `gtag` shim and starts a GA4 session on the configured property.
  *
  * Call only after consent, and only once per page load: gtag.js drains
