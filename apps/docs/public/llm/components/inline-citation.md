@@ -6,7 +6,7 @@ Perplexity-style inline citation chip that reveals the source title and snippet 
 > Import: `import { InlineCitation } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/inline-citation
 > Registry: https://slipstreamui.com/registry/inline-citation.json
-> Tier: atom · Package: @slipstream-ui/ai@0.11.6
+> Tier: atom · Package: @slipstream-ui/ai@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

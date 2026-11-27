@@ -322,7 +322,7 @@
   ],
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.6",
+  "version": "0.11.7",
   "sourceDir": "data-table",
   "exportName": "DataTable"
 }

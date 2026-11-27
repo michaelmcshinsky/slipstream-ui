@@ -6,7 +6,7 @@ A multi-line text input styled to match Input, wrapping the native textarea
 > Import: `import { Textarea } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/textarea
 > Registry: https://slipstreamui.com/registry/textarea.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.6
+> Tier: atom · Package: @slipstream-ui/core@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

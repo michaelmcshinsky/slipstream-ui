@@ -6,7 +6,7 @@ An accessible form label that associates with its control
 > Import: `import { Label } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/label
 > Registry: https://slipstreamui.com/registry/label.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.6
+> Tier: atom · Package: @slipstream-ui/core@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

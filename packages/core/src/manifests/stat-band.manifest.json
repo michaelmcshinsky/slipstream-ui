@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.6",
+  "version": "0.11.7",
   "sourceDir": "stat-band",
   "exportName": "StatBand",
   "description": "Semantic description list of headline stats with labels, optional hints and column presets.",

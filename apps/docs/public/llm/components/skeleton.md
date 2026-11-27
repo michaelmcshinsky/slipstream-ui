@@ -6,7 +6,7 @@ A loading placeholder that mirrors the shape of upcoming content
 > Import: `import { Skeleton } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/skeleton
 > Registry: https://slipstreamui.com/registry/skeleton.json
-> Tier: atom · Package: @slipstream-ui/core@0.11.6
+> Tier: atom · Package: @slipstream-ui/core@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

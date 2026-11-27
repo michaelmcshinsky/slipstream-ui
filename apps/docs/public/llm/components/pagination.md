@@ -6,7 +6,7 @@ Numeric pagination with prev/next and boundary jumps; accepts page/pageCount or 
 > Import: `import { Pagination } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/pagination
 > Registry: https://slipstreamui.com/registry/pagination.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.6
+> Tier: molecule · Package: @slipstream-ui/core@0.11.7
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
