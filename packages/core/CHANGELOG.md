@@ -1,5 +1,19 @@
 # @slipstream-ui/core
 
+## 0.11.9
+
+### Patch Changes
+
+- [#213](https://github.com/michaelmcshinsky/slipstream-ui/pull/213) [`70ec84c`](https://github.com/michaelmcshinsky/slipstream-ui/commit/70ec84cf77c665ba03ba652ce59ac519e9945112) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `xs` size to `Button` (`h-8 px-2.5 text-xs`) for dense toolbars, table rows and compact headers where `sm` (`h-9`) is still too tall.
+
+- [#218](https://github.com/michaelmcshinsky/slipstream-ui/pull/218) [`07645cf`](https://github.com/michaelmcshinsky/slipstream-ui/commit/07645cf6d2f13a979daa6b6a283a9f3c83400172) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `DataTable` gains `cardLayout`: a responsive fallback that renders each row as a definition-list card (column headers become field labels) below a breakpoint — `true` switches below `md` (768px), or pass `'sm' | 'md' | 'lg' | 'xl' | '2xl'` to choose. Both layouts render and swap via CSS only, so sorting, selection, pagination, and row callbacks behave identically in each; the table is `display:none` below the breakpoint so assistive tech sees one layout at a time.
+
+- [#215](https://github.com/michaelmcshinsky/slipstream-ui/pull/215) [`f605629`](https://github.com/michaelmcshinsky/slipstream-ui/commit/f605629d850bb0d3f3ee805f0b376b180445e722) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `ListToolbar`: a slim result bar for filtered lists and directories with a result count, optional page position and "sorted by" note on the left, and slots for a `SegmentedControl` view switch and sort control on the right. The summary line is `aria-live="polite"`.
+
+- [#214](https://github.com/michaelmcshinsky/slipstream-ui/pull/214) [`726396e`](https://github.com/michaelmcshinsky/slipstream-ui/commit/726396e10906cbb7a6cf1039302f9c426acc55ed) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `SegmentedControl` `fullWidth` now accepts a breakpoint (`'sm' | 'md' | 'lg' | 'xl' | '2xl'`) in addition to `boolean`: the string form fills the container below that breakpoint and hugs content at and above it, covering the responsive "full-width on mobile, compact on desktop" case without a wrapper element.
+
+- [#216](https://github.com/michaelmcshinsky/slipstream-ui/pull/216) [`20cd611`](https://github.com/michaelmcshinsky/slipstream-ui/commit/20cd611931a574444124249a8bb854d7eba8c789) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - `SegmentedOption` gains an optional `hint` string: rendered as a small muted marker after the label and exposed via `aria-description`, so supplementary notes (e.g. "no Pro-Am ladder published") stay visible without changing the segment's accessible name.
+
 ## 0.11.8
 
 ### Patch Changes

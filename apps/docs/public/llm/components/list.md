@@ -6,7 +6,7 @@ Semantic list (ul/li) for rows of related items: settings, results, nav — with
 > Import: `import { List } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/list
 > Registry: https://slipstreamui.com/registry/list.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.8
+> Tier: molecule · Package: @slipstream-ui/core@0.11.9
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

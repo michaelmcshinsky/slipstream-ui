@@ -6,7 +6,7 @@ Multi-step flow indicator: ordered list, aria-current step, text state for compl
 > Import: `import { Stepper } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/stepper
 > Registry: https://slipstreamui.com/registry/stepper.json
-> Tier: molecule · Package: @slipstream-ui/core@0.11.8
+> Tier: molecule · Package: @slipstream-ui/core@0.11.9
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
