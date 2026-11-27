@@ -6,7 +6,7 @@ Month grid that shows dated events inside each day, with a type legend and a sma
 > Import: `import { MonthSchedule } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/month-schedule
 > Registry: https://slipstreamui.com/registry/month-schedule.json
-> Tier: organism · Package: @slipstream-ui/core@0.11.9
+> Tier: organism · Package: @slipstream-ui/core@0.11.10
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

@@ -1,5 +1,13 @@
 # @slipstream-ui/core
 
+## 0.11.10
+
+### Patch Changes
+
+- [#222](https://github.com/michaelmcshinsky/slipstream-ui/pull/222) [`3d362a7`](https://github.com/michaelmcshinsky/slipstream-ui/commit/3d362a7c7a4db2a1eebd71b20a857d0038e421b1) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `MediaCard` — media card for event, article and listing grids with a CoverImage cover, metadata line, status chips and a whole-card link.
+
+- [#224](https://github.com/michaelmcshinsky/slipstream-ui/pull/224) [`9df3271`](https://github.com/michaelmcshinsky/slipstream-ui/commit/9df32718445e5fa37306ae5f9b5e1a0ca4bc5967) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Add `MonthSchedule` — a month grid that renders dated events inside each day, with a type legend, "+N more" overflow, and an agenda list below a breakpoint.
+
 ## 0.11.9
 
 ### Patch Changes
