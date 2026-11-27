@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 import { Drawer } from '../drawer/Drawer';
 
 /** A single destination in the header or inside a mega panel. */
@@ -34,7 +35,7 @@ export type SiteNavItem =
       columns: SiteNavColumn[];
     };
 
-export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & {
+export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Brand slot - logo/lockup or wordmark. Wrapped in a link to "/". */
   brand: React.ReactNode;
   /** Primary navigation items. */
@@ -50,14 +51,6 @@ export type SiteHeaderProps = React.HTMLAttributes<HTMLElement> & {
   actions?: React.ReactNode;
   /** Actions rendered inside the mobile drawer; defaults to `actions`. */
   mobileActions?: React.ReactNode;
-  /** Custom link element for routers (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /**
-   * Prop used to pass the destination to `linkComponent`.
-   * `href` (default) covers anchors and Next.js Link; `to` covers
-   * react-router and other routers that use a `to` prop.
-   */
-  linkHrefProp?: 'href' | 'to';
   /** Accessible name for the brand link (default "Home"). */
   brandLabel?: string;
   /** Accessible name for the desktop navigation landmark (default "Main"). */
@@ -150,8 +143,7 @@ export function SiteHeader({
   const menuId = `${generatedId}-menu`;
   const Link = linkComponent ?? 'a';
 
-  const destination = (href: string) =>
-    linkHrefProp === 'to' ? { to: href } : { href };
+  const destination = (href: string) => linkDestination(href, linkHrefProp);
 
   // Escape and an outside pointer close the desktop panel. Focus movement
   // inside the item is handled by onBlur so tabbing through stays open.

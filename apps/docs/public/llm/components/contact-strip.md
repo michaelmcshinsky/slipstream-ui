@@ -21,6 +21,7 @@ Marketing footers and contact sections repeat phone, email and address rows. Con
 | columns | `2 | 3` | `2` | no | Desktop column count. |
 | align | `'left' | 'center'` | `left` | no | Row alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 

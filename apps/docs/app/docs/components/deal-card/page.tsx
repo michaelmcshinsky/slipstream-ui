@@ -28,6 +28,7 @@ export default function Page() {
         { name: 'cimAvailable', type: 'boolean', description: 'Show the CIM badge.' },
         { name: 'href', type: 'string', description: 'Optional detail link.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
         { name: 'saved', type: 'boolean', defaultValue: 'false', description: 'Save toggle state.' },
         { name: 'onSave', type: '() => void', description: 'Save toggle handler.' },
         { name: 'saveLabel', type: 'string', defaultValue: "'Save'", description: 'Save button label.' },

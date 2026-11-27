@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 type LinkTabsVariant = 'default' | 'underline' | 'rounded';
 type LinkTabsSize = 'sm' | 'md' | 'lg';
@@ -20,18 +21,11 @@ export type LinkTabsItem = {
   disabled?: boolean;
 };
 
-export type LinkTabsProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
+export type LinkTabsProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & LinkLikeProps & {
   /** Tabs in display order. */
   items: LinkTabsItem[];
   /** Current pathname, used to mark the active tab. */
   activeHref?: string;
-  /** Router link element (Inertia Link, Next Link, react-router Link). Defaults to `<a>`. */
-  linkComponent?: React.ElementType;
-  /**
-   * Prop used to pass the destination to `linkComponent`. `href` covers
-   * anchors and Next.js Link; `to` covers react-router and similar routers.
-   */
-  linkHrefProp?: 'href' | 'to';
   /** Visual style. */
   variant?: LinkTabsVariant;
   /** Control density. */
@@ -134,7 +128,7 @@ export const LinkTabs = React.forwardRef<HTMLElement, LinkTabsProps>(function Li
         return (
           <Link
             key={item.href}
-            {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
+            {...linkDestination(item.href, linkHrefProp)}
             aria-current={active ? 'page' : undefined}
             data-active={active ? 'true' : 'false'}
             className={itemVariants({ variant, size })}

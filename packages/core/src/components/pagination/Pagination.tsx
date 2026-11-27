@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type PaginationIcons = {
   /** Glyph/slot for the jump-to-first button. */
@@ -14,7 +15,7 @@ export type PaginationIcons = {
   last?: React.ReactNode;
 };
 
-export type PaginationProps = React.HTMLAttributes<HTMLElement> & {
+export type PaginationProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Current page number (1-based). Alias: currentPage. */
   page?: number;
   /** Total number of pages. Alias: totalPages (or derived from total/pageSize). */
@@ -40,10 +41,6 @@ export type PaginationProps = React.HTMLAttributes<HTMLElement> & {
    * the React Server Component boundary.
    */
   pageHrefs?: Record<number, string>;
-  /** Custom link element for routers (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to `linkComponent`. */
-  linkHrefProp?: 'href' | 'to';
   /** How many page buttons to show around the current page (default 1). */
   siblings?: number;
   /** Show the jump-to-first/last buttons (default false). */
@@ -136,7 +133,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
 
     const linkMode = pageHrefs !== undefined;
     const LinkEl = linkComponent ?? 'a';
-    const destination = (href: string) => (linkHrefProp === 'to' ? { to: href } : { href });
+    const destination = (href: string) => linkDestination(href, linkHrefProp);
     const hrefFor = (target: number) => pageHrefs?.[target];
 
     /** One step control (first/prev/next/last) in either mode. */

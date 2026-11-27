@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
-export type AnnouncementBarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
+export type AnnouncementBarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & LinkLikeProps & {
   /** Message shown in the bar. */
   message: React.ReactNode;
   /** Optional destination for the action. */
@@ -18,8 +19,6 @@ export type AnnouncementBarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'c
   tone?: 'muted' | 'brand' | 'inverse';
   /** Pin the bar to the top of the viewport. */
   sticky?: boolean;
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
 };
 
 const toneClasses = {
@@ -43,6 +42,7 @@ export const AnnouncementBar = React.forwardRef<HTMLDivElement, AnnouncementBarP
       tone = 'muted',
       sticky = false,
       linkComponent,
+      linkHrefProp = 'href',
       className,
       ...props
     },
@@ -75,7 +75,7 @@ export const AnnouncementBar = React.forwardRef<HTMLDivElement, AnnouncementBarP
           <p className="min-w-0 text-center">{message}</p>
           {href && actionLabel && (
             <Link
-              href={href}
+              {...linkDestination(href, linkHrefProp)}
               className="shrink-0 font-semibold underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current"
             >
               {actionLabel}

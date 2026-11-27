@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 import { Badge } from '../badge/Badge';
 import { Button } from '../button/Button';
 import { Card, CardContent, CardFooter, CardHeader } from '../card/Card';
@@ -11,7 +12,7 @@ export type DealMetric = {
 
 export type DealStatus = 'available' | 'under-nda' | 'closed' | 'draft';
 
-export type DealCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
+export type DealCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & LinkLikeProps & {
   /** Deal headline. */
   title: string;
   /** Sector or industry label. */
@@ -30,8 +31,6 @@ export type DealCardProps = Omit<React.HTMLAttributes<HTMLElement>, 'title'> & {
   cimAvailable?: boolean;
   /** Optional deal detail link. */
   href?: string;
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
   /** Save toggle state. */
   saved?: boolean;
   onSave?: () => void;
@@ -66,6 +65,7 @@ export const DealCard = React.forwardRef<HTMLElement, DealCardProps>(function De
     cimAvailable,
     href,
     linkComponent,
+    linkHrefProp = 'href',
     saved = false,
     onSave,
     saveLabel = 'Save',
@@ -88,7 +88,7 @@ export const DealCard = React.forwardRef<HTMLElement, DealCardProps>(function De
         </div>
         <h3 className="text-lg font-semibold leading-snug tracking-tight">
           {href ? (
-            <Link href={href} className="rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <Link {...linkDestination(href, linkHrefProp)} className="rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               {title}
             </Link>
           ) : (

@@ -25,6 +25,7 @@ export default function Page() {
         { name: 'media', type: 'ReactNode', description: 'Image, illustration or video poster.' },
         { name: 'meta', type: 'ReactNode', description: 'Date, read time, author or other metadata.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
         { name: 'variant', type: "'default' | 'compact'", defaultValue: "'default'", description: 'Standard or compact card.' },
       ]}
       accessibility={[

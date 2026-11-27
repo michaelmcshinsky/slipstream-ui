@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 import { Avatar, AvatarFallback } from '../avatar/Avatar';
 import { Badge } from '../badge/Badge';
 import { Card, CardContent, CardFooter, CardHeader } from '../card/Card';
@@ -9,7 +10,7 @@ export type EntityStat = {
   value: string;
 };
 
-export type EntityCardProps = React.HTMLAttributes<HTMLElement> & {
+export type EntityCardProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Firm or member name. */
   name: string;
   /** Firm type, role or member category. */
@@ -33,8 +34,6 @@ export type EntityCardProps = React.HTMLAttributes<HTMLElement> & {
    * the overlay; the redundant footer "View profile" link is suppressed.
    */
   cardHref?: string;
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
   /** Extra footer actions. */
   actions?: React.ReactNode;
 };
@@ -65,6 +64,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
     href,
     cardHref,
     linkComponent,
+    linkHrefProp = 'href',
     actions,
     className,
     ...props
@@ -89,7 +89,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
           <h3 className="truncate text-base font-semibold tracking-tight">
             {nameHref ? (
               <Link
-                href={nameHref}
+                {...linkDestination(nameHref, linkHrefProp)}
                 className={cn(
                   'rounded-sm hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                   stretched && 'after:absolute after:inset-0 after:content-[""]'
@@ -131,7 +131,7 @@ export const EntityCard = React.forwardRef<HTMLElement, EntityCardProps>(functio
         <CardFooter className={cn('flex flex-wrap items-center gap-2 border-t border-border px-5 py-3', stretched && 'relative z-10')}>
           {href && !stretched && (
             <Link
-              href={href}
+              {...linkDestination(href, linkHrefProp)}
               className="text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               View profile

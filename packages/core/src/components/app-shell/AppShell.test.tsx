@@ -40,6 +40,16 @@ describe('Sidebar', () => {
     expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('data-router');
   });
 
+  it('passes destinations via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(<Sidebar sections={sections} linkComponent={RouterLink} linkHrefProp="to" />);
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('data-router-to', '/dashboard');
+  });
+
   it('honours an explicit active flag', () => {
     render(
       <Sidebar

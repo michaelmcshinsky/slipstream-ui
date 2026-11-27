@@ -28,6 +28,7 @@ export default function Page() {
         { name: 'items[].active', type: 'boolean', description: 'Force the active state, overriding the activeHref comparison (SidebarItem).' },
         { name: 'activeHref', type: 'string', description: 'Current route: matching items get aria-current="page" (Sidebar).' },
         { name: 'linkComponent', type: 'React.ElementType', defaultValue: "'a'", description: 'Router link component (react-router Link, Next Link) (Sidebar).' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
         { name: 'heading / footer', type: 'ReactNode', description: 'Brand slot at the top and utility slot at the bottom (Sidebar).' },
       ]}
       accessibility={[

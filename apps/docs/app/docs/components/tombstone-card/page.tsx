@@ -25,6 +25,7 @@ export default function Page() {
         { name: 'href', type: 'string', description: 'Optional detail destination.' },
         { name: 'actionLabel', type: 'string', defaultValue: "'View details'", description: 'Link label.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
       ]}
       accessibility={[
         'The unavailable state is a text badge, not color alone.',

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type BottomNavItem = {
   /** Destination URL for the tab. */
@@ -16,13 +17,9 @@ export type BottomNavItem = {
   disabled?: boolean;
 };
 
-export type BottomNavProps = React.HTMLAttributes<HTMLElement> & {
+export type BottomNavProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Tabs in order. Keep to 3-5 so every target stays thumb-reachable. */
   items: BottomNavItem[];
-  /** Router link component (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to `linkComponent`. */
-  linkHrefProp?: 'href' | 'to';
   /** Landmark label. Default "Primary". */
   label?: string;
   /** Pin the bar to the bottom edge with safe-area padding (default true). */
@@ -51,7 +48,7 @@ export function BottomNav({
   ...props
 }: BottomNavProps) {
   const LinkEl = linkComponent ?? 'a';
-  const destination = (href: string) => (linkHrefProp === 'to' ? { to: href } : { href });
+  const destination = (href: string) => linkDestination(href, linkHrefProp);
 
   return (
     <nav

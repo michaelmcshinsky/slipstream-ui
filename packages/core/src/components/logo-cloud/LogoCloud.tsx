@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type LogoItem = {
   /** Accessible name announced for the logo. */
@@ -10,7 +11,7 @@ export type LogoItem = {
   href?: string;
 };
 
-export type LogoCloudProps = React.HTMLAttributes<HTMLDivElement> & {
+export type LogoCloudProps = React.HTMLAttributes<HTMLDivElement> & LinkLikeProps & {
   /** Logos to display. */
   items: LogoItem[];
   /** Caption above the strip. */
@@ -23,10 +24,6 @@ export type LogoCloudProps = React.HTMLAttributes<HTMLDivElement> & {
   size?: 'sm' | 'md' | 'lg';
   /** Caption and grid alignment. Default 'center'. */
   align?: 'left' | 'center';
-  /** Custom link element for routers. */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to linkComponent ('to' for react-router). */
-  linkHrefProp?: 'href' | 'to';
 };
 
 const columnClasses: Record<NonNullable<LogoCloudProps['columns']>, string> = {
@@ -96,7 +93,7 @@ export const LogoCloud = React.forwardRef<HTMLDivElement, LogoCloudProps>(functi
             <li key={item.name} className={cn('min-w-0', align === 'center' ? 'justify-self-center' : 'justify-self-start')}>
               {item.href ? (
                 <Link
-                  {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
+                  {...linkDestination(item.href, linkHrefProp)}
                   className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   {content}

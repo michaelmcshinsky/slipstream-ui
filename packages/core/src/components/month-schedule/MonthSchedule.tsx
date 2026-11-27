@@ -13,6 +13,7 @@ import {
 } from '../../utils/date';
 import { Badge } from '../badge/Badge';
 import { Button } from '../button';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type MonthScheduleLegendItem = {
   /** Type key returned by getType. */
@@ -21,7 +22,7 @@ export type MonthScheduleLegendItem = {
   label: string;
 };
 
-export type MonthScheduleProps<T> = {
+export type MonthScheduleProps<T> = LinkLikeProps & {
   /** Events to place inside days; each is dated via getDate. */
   events: T[];
   /** ISO date key (YYYY-MM-DD) for an event. */
@@ -53,10 +54,6 @@ export type MonthScheduleProps<T> = {
    * 'sm' swaps under 640px, 'md' under 768px.
    */
   agendaBreakpoint?: 'sm' | 'md';
-  /** Custom link element for event hrefs (Next Link, react-router). */
-  linkComponent?: React.ElementType;
-  /** Prop used to pass the destination to linkComponent ('href' or 'to'). */
-  linkHrefProp?: 'href' | 'to';
   'aria-label'?: string;
   className?: string;
 };
@@ -177,7 +174,7 @@ export function MonthSchedule<T>({
       </Badge>
     );
     if (!href) return <span key={key}>{chip}</span>;
-    const destination = linkHrefProp === 'to' ? { to: href } : { href };
+    const destination = linkDestination(href, linkHrefProp);
     return (
       <Link
         key={key}
@@ -297,7 +294,7 @@ export function MonthSchedule<T>({
                     <li key={`${key}-${index}-${label}`}>
                       {href ? (
                         <Link
-                          {...(linkHrefProp === 'to' ? { to: href } : { href })}
+                          {...linkDestination(href, linkHrefProp)}
                           className="block max-w-full rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         >
                           {row}

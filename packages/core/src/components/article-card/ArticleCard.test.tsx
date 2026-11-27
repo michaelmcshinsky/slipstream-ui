@@ -32,6 +32,16 @@ describe('ArticleCard', () => {
     expect(screen.getByRole('link', { name: 'Post' })).toHaveAttribute('data-router', 'true');
   });
 
+  it('passes the destination via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...props }: { to: string; children: ReactNode }) => (
+      <a href={to} data-router-to={to} {...props}>
+        {children}
+      </a>
+    );
+    render(<ArticleCard href="/post" title="Post" linkComponent={RouterLink} linkHrefProp="to" />);
+    expect(screen.getByRole('link', { name: 'Post' })).toHaveAttribute('data-router-to', '/post');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<ArticleCard href="/post" title="Post" description="Copy" />);
     expect(await axe(container)).toHaveNoViolations();

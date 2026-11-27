@@ -19,6 +19,23 @@ describe('TombstoneCard', () => {
     expect(screen.getByRole('link', { name: 'View details' })).toHaveAttribute('href', '/deals/archived');
   });
 
+  it('passes the destination via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(
+      <TombstoneCard
+        title="Unavailable"
+        href="/deals/1"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    expect(screen.getByRole('link', { name: 'View details' })).toHaveAttribute('data-router-to', '/deals/1');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<TombstoneCard title="Unavailable" reason="No longer available." />);
     expect(await axe(container)).toHaveNoViolations();

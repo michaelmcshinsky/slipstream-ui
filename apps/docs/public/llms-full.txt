@@ -326,6 +326,7 @@ Launches, content hubs and network notices need a thin bar above the header. Ann
 | tone | `'muted' | 'brand' | 'inverse'` | `muted` | no | Surface treatment. |
 | sticky | `boolean` | `false` | no | Pin the bar to the top of the viewport. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 
@@ -390,6 +391,7 @@ Every dashboard hand-rolls the same shell: rail, header, scroll owner, and a mob
 | footer | `ReactNode` | — | no | Bottom area of the rail (Sidebar). |
 | activeHref | `string` | — | no | Current route; matching items get aria-current=page (Sidebar). |
 | linkComponent | `React.ElementType` | `a` | no | Router link component (react-router Link, Next Link) (Sidebar). |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | label | `string` | `Primary` | no | Accessible name of the nav landmark (Sidebar). |
 | children | `SidebarItem[]` | — | no | Nested items — renders a collapsible group with aria-expanded (SidebarItem). |
 | collapsible | `boolean` | `false` | no | Shows the collapse/expand control (Sidebar). |
@@ -552,6 +554,7 @@ Content hubs repeat the same article tile. ArticleCard owns the image aspect, ti
 | media | `ReactNode` | — | no | Image, illustration or video poster. |
 | meta | `ReactNode` | — | no | Date, read time, author or other metadata. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | variant | `'default' | 'compact'` | `default` | no | Standard card or a denser compact card. |
 
 ## Examples
@@ -2103,6 +2106,7 @@ Marketing footers and contact sections repeat phone, email and address rows. Con
 | columns | `2 | 3` | `2` | no | Desktop column count. |
 | align | `'left' | 'center'` | `left` | no | Row alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 
@@ -2846,6 +2850,7 @@ Deal lists repeat the same card across trends, search and saved views. DealCard 
 | cimAvailable | `boolean` | — | no | Show the CIM badge. |
 | href | `string` | — | no | Optional deal detail link. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | saved | `boolean` | `false` | no | Save toggle state. |
 | onSave | `() => void` | — | no | Save toggle handler. |
 | saveLabel | `string` | `Save` | no | Save button label. |
@@ -3249,6 +3254,7 @@ Directory and profile lists repeat the same firm card. EntityCard keeps the iden
 | href | `string` | — | no | Profile destination. |
 | cardHref | `string` | — | no | Makes the whole card a single link (stretched-link pattern): the name link's overlay covers the card for one target, one hover state and one focus ring. Suppresses the footer 'View profile' link; actions stay clickable above the overlay. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 | actions | `ReactNode` | — | no | Extra footer actions. |
 
 ## Examples
@@ -3315,6 +3321,7 @@ Marketing pages repeat three- and six-card feature groups. FeatureGrid standardi
 | variant | `'card' | 'plain'` | `card` | no | Card surface or a plain stack. |
 | align | `'left' | 'center'` | `left` | no | Content alignment. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 
@@ -8833,6 +8840,7 @@ Removing unavailable items silently breaks saved links and user expectations. To
 | href | `string` | — | no | Optional detail destination. |
 | actionLabel | `string` | `View details` | no | Link label. |
 | linkComponent | `React.ElementType` | — | no | Custom link element for routers. |
+| linkHrefProp | `'href' | 'to'` | `href` | no | Prop name used to pass the destination to linkComponent ('href' for anchors and most routers, 'to' for react-router). |
 
 ## Examples
 

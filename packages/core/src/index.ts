@@ -2,6 +2,7 @@ export * from './types/manifest';
 export * from './utils/cn';
 export * from './utils/gap';
 export * from './utils/presence';
+export type { LinkLikeProps } from './utils/link';
 export * from './components/app-shell';
 export * from './components/button';
 export * from './components/button-group';

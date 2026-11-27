@@ -47,6 +47,25 @@ describe('DealCard', () => {
     expect(onRequestAccess).toHaveBeenCalled();
   });
 
+  it('passes the destination via linkHrefProp for routers that use "to"', () => {
+    const RouterLink = ({ to, children, ...rest }: { to: string; children: React.ReactNode }) => (
+      <a href={to} data-router-to={to} {...rest}>
+        {children}
+      </a>
+    );
+    render(
+      <DealCard
+        title="Deal"
+        sector="Technology"
+        metrics={metrics}
+        href="/deals/1"
+        linkComponent={RouterLink}
+        linkHrefProp="to"
+      />
+    );
+    expect(screen.getByRole('link', { name: 'Deal' })).toHaveAttribute('data-router-to', '/deals/1');
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = render(<DealCard title="Deal" sector="Technology" metrics={metrics} />);
     expect(await axe(container)).toHaveNoViolations();

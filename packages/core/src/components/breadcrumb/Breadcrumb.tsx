@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '../../utils/cn';
+import { linkDestination, type LinkLikeProps } from '../../utils/link';
 
 export type BreadcrumbItem = {
   /** Display label. */
@@ -8,7 +9,7 @@ export type BreadcrumbItem = {
   href?: string;
 };
 
-export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
+export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & LinkLikeProps & {
   /** Ordered list of breadcrumb items; the last item is the current page. */
   items: BreadcrumbItem[];
   /** Accessible name of the navigation landmark. Default 'Breadcrumb'. */
@@ -21,13 +22,6 @@ export type BreadcrumbProps = React.HTMLAttributes<HTMLElement> & {
    * (e.g. via a router, state machine, or analytics wrapper).
    */
   onItemClick?: (item: BreadcrumbItem, index: number) => void;
-  /** Custom link element for routers (Next Link, react-router Link). */
-  linkComponent?: React.ElementType;
-  /**
-   * Prop used to pass the destination to `linkComponent`. `href` covers
-   * anchors and Next.js Link; `to` covers react-router and similar routers.
-   */
-  linkHrefProp?: 'href' | 'to';
   /** Truncate the current page label and expose the full text as a title. */
   truncateCurrent?: boolean;
 };
@@ -59,7 +53,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               )}
               {item.href && !isLast ? (
                 <LinkEl
-                  {...(linkHrefProp === 'to' ? { to: item.href } : { href: item.href })}
+                  {...linkDestination(item.href, linkHrefProp)}
                   className="transition-colors hover:text-foreground"
                   onClick={
                     onItemClick

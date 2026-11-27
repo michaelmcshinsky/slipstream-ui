@@ -28,6 +28,7 @@ export default function Page() {
         { name: 'href', type: 'string', description: 'Profile destination.' },
         { name: 'cardHref', type: 'string', description: 'Whole-card stretched link; suppresses the footer link.' },
         { name: 'linkComponent', type: 'React.ElementType', description: 'Custom link element for routers.' },
+        { name: 'linkHrefProp', type: "'href' | 'to'", defaultValue: "'href'", description: 'Prop name used to pass the destination to linkComponent.' },
         { name: 'actions', type: 'ReactNode', description: 'Extra footer actions.' },
       ]}
       accessibility={[
