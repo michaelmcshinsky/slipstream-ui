@@ -9,9 +9,18 @@ export type Release = {
 
 export const RELEASES = [
   {
-    version: '0.12.0',
+    version: '0.12.1',
     date: 'November 28, 2026',
     tag: 'current',
+    highlights: [
+      'SiteHeader mega panels: the margin gap between trigger and panel is now a padding bridge, so the pointer can travel into the panel without the menu closing; two-column panels widen to 38rem (capped at the viewport) and clamp inside the viewport on open',
+      'Versioned packages: core/ai 0.12.1 (patch); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
+    version: '0.12.0',
+    date: 'November 28, 2026',
+    tag: 'previous',
     highlights: [
       'ConsentBanner + useConsent: headless per-purpose consent hook (localStorage, 180-day expiry, cross-tab sync) paired with a styled fixed-bottom banner — replaces hand-rolled cookie banners; component count is now 118',
       'SiteHeader gains a topBar slot: a slim utility strip above the brand row for locale switches, feed links and submit links',
