@@ -170,6 +170,33 @@ describe('SiteHeader mega menu', () => {
     expect(screen.getByText('Every genre in Utah')).toBeInTheDocument();
   });
 
+  it('keeps a hover bridge between the trigger and the panel', async () => {
+    const user = userEvent.setup();
+    render(<SiteHeader brand={<span>Acme</span>} items={megaItems} />);
+    const trigger = screen.getByRole('button', { name: /Dancers/ });
+    await user.hover(trigger);
+    const panelId = trigger.getAttribute('aria-controls');
+    const wrapper = document.getElementById(panelId!);
+    // The padding (not margin) bridge keeps the pointer inside the nav item
+    // while it crosses the gap; the visual panel is the wrapper's child.
+    expect(wrapper).toHaveClass('pt-2');
+    expect(wrapper?.firstElementChild).toHaveClass('rounded-lg');
+    expect(wrapper?.firstElementChild).toHaveClass('border');
+  });
+
+  it('clamps the open panel inside the viewport', async () => {
+    const user = userEvent.setup();
+    render(<SiteHeader brand={<span>Acme</span>} items={megaItems} />);
+    const trigger = screen.getByRole('button', { name: /Dancers/ });
+    await user.hover(trigger);
+    const wrapper = document.getElementById(trigger.getAttribute('aria-controls')!);
+    // jsdom reports zero rects, so the clamp lands on the left gutter; the
+    // point is that an inline position is applied instead of a fixed anchor.
+    expect(wrapper).toHaveStyle({ left: '8px' });
+    expect(wrapper?.firstElementChild).toHaveClass('w-[38rem]');
+    expect(wrapper?.firstElementChild).toHaveClass('max-w-[calc(100vw-2rem)]');
+  });
+
   it('closes on Escape and on an outside pointer', async () => {
     const user = userEvent.setup();
     render(
