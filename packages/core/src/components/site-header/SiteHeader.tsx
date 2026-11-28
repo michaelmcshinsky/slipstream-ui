@@ -218,6 +218,34 @@ export function SiteHeader({
   const hasColumns = (item: SiteNavItem): item is SiteNavItem & { columns: SiteNavColumn[] } =>
     Array.isArray(item.columns) && item.columns.length > 0;
 
+  /*
+   * Panels are wider than their triggers, so a fixed left-0 anchor pushes
+   * edge menus off-screen. On open we measure the panel and clamp its left
+   * edge into the viewport; the inline style wins over the left-0 class.
+   * Layout effect keeps the correction ahead of paint.
+   */
+  const alignPanel = React.useCallback((panel: HTMLElement) => {
+    const item = panel.parentElement;
+    if (!item) return;
+    const itemRect = item.getBoundingClientRect();
+    const width = panel.offsetWidth;
+    const gutter = 8;
+    const centered = itemRect.left + itemRect.width / 2 - width / 2;
+    const left = Math.max(gutter, Math.min(centered, window.innerWidth - gutter - width));
+    panel.style.left = `${left - itemRect.left}px`;
+    panel.style.right = 'auto';
+  }, []);
+
+  const useIsoLayoutEffect =
+    typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+
+  useIsoLayoutEffect(() => {
+    if (!openMenu) return;
+    const panelId = `${generatedId}-panel-${openMenu.replace(/\s+/g, '-').toLowerCase()}`;
+    const panel = document.getElementById(panelId);
+    if (panel) alignPanel(panel);
+  }, [openMenu, generatedId, alignPanel]);
+
   return (
     <>
       <header
@@ -302,31 +330,42 @@ export function SiteHeader({
                       {item.label}
                       <Caret />
                     </button>
+                    {/*
+                     * The pt-2 bridge keeps the pointer inside the <li> while
+                     * it travels from the trigger into the panel - a margin
+                     * gap would fire onMouseLeave and slam the menu shut.
+                     */}
                     <div
                       id={panelId}
                       hidden={!open}
-                      className={cn(
-                        'absolute left-0 top-full z-50 mt-2 grid gap-6 rounded-lg border border-border bg-popover p-5 shadow-lg',
-                        item.columns.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
-                        'min-w-[22rem]'
-                      )}
+                      className="absolute left-0 top-full z-50 pt-2"
                     >
-                      {item.columns.map((column, index) => (
-                        <div key={column.heading ?? index} className="min-w-40">
-                          {column.heading && (
-                            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                              {column.heading}
-                            </p>
-                          )}
-                          <ul className="flex flex-col gap-0.5">
-                            {column.items.map((link) => (
-                              <li key={`${column.heading ?? index}-${link.href}-${link.label}`}>
-                                {navLink(link, 'panel')}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                      <div
+                        className={cn(
+                          'grid gap-6 rounded-lg border border-border bg-popover p-5 shadow-lg',
+                          item.columns.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+                          item.columns.length > 1
+                            ? 'w-[38rem] max-w-[calc(100vw-2rem)]'
+                            : 'w-[22rem] max-w-[calc(100vw-2rem)]'
+                        )}
+                      >
+                        {item.columns.map((column, index) => (
+                          <div key={column.heading ?? index} className="min-w-40">
+                            {column.heading && (
+                              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                                {column.heading}
+                              </p>
+                            )}
+                            <ul className="flex flex-col gap-0.5">
+                              {column.items.map((link) => (
+                                <li key={`${column.heading ?? index}-${link.href}-${link.label}`}>
+                                  {navLink(link, 'panel')}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </li>
                 );
