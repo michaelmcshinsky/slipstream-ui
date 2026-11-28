@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.12.1
+
+### Patch Changes
+
+- [#235](https://github.com/michaelmcshinsky/slipstream-ui/pull/235) [`4e22af7`](https://github.com/michaelmcshinsky/slipstream-ui/commit/4e22af7d59c1b598b025ca0ae151e1039252e38e) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - SiteHeader mega panels: replace the margin gap with a padding bridge so the pointer can travel from the trigger into the panel without the menu closing, widen two-column panels to 38rem (capped at the viewport), and measure-and-clamp each panel's horizontal position on open so wide menus cannot overflow on smaller desktop widths.
+
 ## 0.12.0
 
 ### Minor Changes

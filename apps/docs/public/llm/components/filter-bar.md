@@ -6,7 +6,7 @@ List-page filter strip: search field, filter controls, reset affordance and trai
 > Import: `import { FilterBar } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/filter-bar
 > Registry: https://slipstreamui.com/registry/filter-bar.json
-> Tier: molecule · Package: @slipstream-ui/core@0.12.0
+> Tier: molecule · Package: @slipstream-ui/core@0.12.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

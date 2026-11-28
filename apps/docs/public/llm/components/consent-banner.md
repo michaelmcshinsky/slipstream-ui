@@ -6,7 +6,7 @@ Styled cookie/consent banner: fixed bottom bar with accept, decline and an optio
 > Import: `import { ConsentBanner } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/consent-banner
 > Registry: https://slipstreamui.com/registry/consent-banner.json
-> Tier: molecule · Package: @slipstream-ui/core@0.12.0
+> Tier: molecule · Package: @slipstream-ui/core@0.12.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

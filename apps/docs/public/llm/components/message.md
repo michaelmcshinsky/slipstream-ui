@@ -6,7 +6,7 @@ A chat message component that displays messages from users, assistants, or syste
 > Import: `import { Message } from '@slipstream-ui/ai'`
 > Docs: https://slipstreamui.com/docs/components/message
 > Registry: https://slipstreamui.com/registry/message.json
-> Tier: molecule · Package: @slipstream-ui/ai@0.12.0
+> Tier: molecule · Package: @slipstream-ui/ai@0.12.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent
