@@ -1,7 +1,7 @@
 {
   "name": "slipstream-ui",
   "version": "0.12.0",
-  "releaseDate": "2026-11-27",
+  "releaseDate": "2026-11-28",
   "schemaVersion": 1,
   "manifestVersion": 1,
   "generatedFrom": "packages/mcp-server/src/tools/recipes.ts",
