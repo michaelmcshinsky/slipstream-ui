@@ -4,7 +4,7 @@
   "tier": "molecule",
   "package": "@slipstream-ui/core",
   "importPath": "@slipstream-ui/core",
-  "version": "0.11.10",
+  "version": "0.12.0",
   "sourceDir": "media-card",
   "exportName": "MediaCard",
   "description": "Media card for event, article and listing grids: CoverImage cover, title, description, metadata, status chips and a footer, with an optional whole-card link.",
