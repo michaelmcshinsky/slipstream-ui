@@ -9,9 +9,20 @@ export type Release = {
 
 export const RELEASES = [
   {
+    version: '0.12.0',
+    date: 'November 28, 2026',
+    tag: 'current',
+    highlights: [
+      'ConsentBanner + useConsent: headless per-purpose consent hook (localStorage, 180-day expiry, cross-tab sync) paired with a styled fixed-bottom banner — replaces hand-rolled cookie banners; component count is now 118',
+      'SiteHeader gains a topBar slot: a slim utility strip above the brand row for locale switches, feed links and submit links',
+      'LinkLikeProps: every destination-rendering component now accepts linkComponent + linkHrefProp consistently; linkHrefProp added to ArticleCard, DealCard, TombstoneCard, ContactStrip, AnnouncementBar, FeatureGrid, Sidebar and EntityCard',
+      'Versioned packages: core/ai 0.12.0 (minor); themes 0.10.0, cli 0.3.1, registry 0.2.2, mcp-server and i18n 0.5.0 unchanged',
+    ],
+  },
+  {
     version: '0.11.10',
     date: 'November 27, 2026',
-    tag: 'current',
+    tag: 'previous',
     highlights: [
       'MediaCard: generic media/listing card — CoverImage cover, meta line, status chips, footer slot, optional row layout, and a whole-card href with linkComponent/linkHrefProp for routers',
       'MonthSchedule<T>: month grid that shows dated events inside day cells — generic accessors (getDate/getLabel/getType/getHref), typed legend-driven Badge tones, maxPerDay overflow, mobile agenda below a breakpoint, and controlled or uncontrolled month paging',
