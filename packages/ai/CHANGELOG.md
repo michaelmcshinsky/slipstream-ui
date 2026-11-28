@@ -1,5 +1,12 @@
 # @slipstream-ui/ai
 
+## 0.12.1
+
+### Patch Changes
+
+- Updated dependencies [[`07bec15`](https://github.com/michaelmcshinsky/slipstream-ui/commit/07bec15d42b4e8415d4cf8a889a79a914787bfd5)]:
+  - @slipstream-ui/core@0.12.1
+
 ## 0.12.0
 
 ### Patch Changes

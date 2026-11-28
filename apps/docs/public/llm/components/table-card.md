@@ -6,7 +6,7 @@ Table shell with title/description, header actions, optional toolbar, edge-to-ed
 > Import: `import { TableCard } from '@slipstream-ui/core'`
 > Docs: https://slipstreamui.com/docs/components/table-card
 > Registry: https://slipstreamui.com/registry/table-card.json
-> Tier: molecule · Package: @slipstream-ui/core@0.12.0
+> Tier: molecule · Package: @slipstream-ui/core@0.12.1
 > Manifest schema: v1 · manifest: v1
 
 ## Design intent

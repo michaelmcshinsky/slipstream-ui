@@ -1,5 +1,11 @@
 # @slipstream-ui/core
 
+## 0.12.1
+
+### Patch Changes
+
+- [#231](https://github.com/michaelmcshinsky/slipstream-ui/pull/231) [`07bec15`](https://github.com/michaelmcshinsky/slipstream-ui/commit/07bec15d42b4e8415d4cf8a889a79a914787bfd5) Thanks [@michaelmcshinsky](https://github.com/michaelmcshinsky)! - Republish after the 0.12.0 npm publish silently did not land for core (ai@0.12.0 published fine). No code changes.
+
 ## 0.12.0
 
 ### Minor Changes
